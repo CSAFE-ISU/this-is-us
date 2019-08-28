@@ -1,0 +1,3 @@
+# Handwriting
+
+We describe our methods for going about the handwriting project here.

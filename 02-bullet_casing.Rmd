@@ -1,4 +1,70 @@
-# Bullet and Casings
+# Project CC: Bullets and Cartridge Cases {#bullets}
+
+For both bullets and cartridge cases we are dealing with several inter-related aspects, that we want to address independently. 
+
+Those are:
+
+1. data collection
+2. computational tools
+3. similarity scores
+
+    1. for bullet lands: 
+
+        a. crosscut identification
+        b. groove location
+        c. curvature removal
+        d. alignment of signatures
+        e. feature extraction
+        f. matching with trained Random Forest
+
+    2. for breech faces
+
+4. analysis of results
+5. communication of results and methods
+
+
+## Data Collection
+
+## Computational Tools
+
+## Similarity Scores
+
+### Bullet Lands
+
+#### Approaches to identify groove locations
+
+<p class="new">
+This is a new paragraph
+</p>
+
+
+### Cartridge Cases
+
+## Analysis of Results
+
+## Communication of Results and Methods
+## People involved
+
+### Faculty
+
+- Heike Hofmann
+- Susan VanderPlas
+
+### Graduate Students
+
+- Ganesh Krishnan
+- Kiegan Rice 
+- Nate Garton
+- Charlotte Roigers
+- Joe Zemmels
+- Yawei Ge
+
+
+### Undergraduates
+
+- Talen Fisher (fix3p)
+- Andrew Maloney
+- Mya Fisher, Allison Mark, Connor Hergenreter, Carley McConnell, Anyesha Ray (scanner)
 
 
 

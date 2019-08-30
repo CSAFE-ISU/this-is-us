@@ -27,6 +27,21 @@ Those are:
 
 ## Computational Tools
 
+### x3ptools
+
+`x3ptools` is an R package for working with files in x3p format. x3p is an ISO standard for describing 3d topographic surface measurements. 
+`x3ptools` is available on CRAN, i.e. can be installed with the command `install.packages("x3ptools")`. The development version is available from github. Installation instructions and basic usage can be found at https://heike.github.io/x3ptools/
+
+
+### bulletxtrctr
+
+`bulletxtrctr` is a developmental R package available from github (see https://heike.github.io/bulletxtrctr/) that allows an assessment of similarity scores using the data extraction pipeline described in @hare. 
+
+### grooveFinder
+
+`grooveFinder` is a developmental R package providing different methods for identifying the location of grooves in scans of bullets.
+Installation instructions and some basic usage can be found at https://heike.github.io/grooveFinder/
+
 ## Similarity Scores
 
 ### Bullet Lands

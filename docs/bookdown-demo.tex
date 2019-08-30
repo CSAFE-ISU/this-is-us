@@ -124,7 +124,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-08-28}
+    \date{2019-08-29}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -237,6 +237,10 @@ You can write citations, too. For example, we are using the \textbf{bookdown} pa
 \hypertarget{bullets}{%
 \chapter{Project CC: Bullets and Cartridge Cases}\label{bullets}}
 
+For both bullets and cartridge cases we are dealing with several inter-related aspects, that we want to address independently.
+
+Those are:
+
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
@@ -245,40 +249,62 @@ You can write citations, too. For example, we are using the \textbf{bookdown} pa
   computational tools
 \item
   similarity scores
-\item
-  for bullet lands:
 
   \begin{enumerate}
   \def\labelenumii{\arabic{enumii}.}
-  \tightlist
   \item
-    crosscut identification
+    for bullet lands:
+
+    \begin{enumerate}
+    \def\labelenumiii{\alph{enumiii}.}
+    \tightlist
+    \item
+      crosscut identification
+    \item
+      groove location
+    \item
+      curvature removal
+    \item
+      alignment of signatures
+    \item
+      feature extraction
+    \item
+      matching with trained Random Forest
+    \end{enumerate}
   \item
-    groove location
-  \item
-    curvature removal
-  \item
-    alignment of signatures
-  \item
-    feature extraction
-  \item
-    matching with trained Random Forest
+    for breech faces
   \end{enumerate}
-\end{enumerate}
-
-\begin{verbatim}
-2. for breech faces
-\end{verbatim}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\tightlist
 \item
   analysis of results
 \item
-  communication of results
+  communication of results and methods
 \end{enumerate}
+
+\hypertarget{data-collection}{%
+\section{Data Collection}\label{data-collection}}
+
+\hypertarget{computational-tools}{%
+\section{Computational Tools}\label{computational-tools}}
+
+\hypertarget{similarity-scores}{%
+\section{Similarity Scores}\label{similarity-scores}}
+
+\hypertarget{bullet-lands}{%
+\subsection{Bullet Lands}\label{bullet-lands}}
+
+\hypertarget{approaches-to-identify-groove-locations}{%
+\subsubsection{Approaches to identify groove locations}\label{approaches-to-identify-groove-locations}}
+
+This is a new paragraph
+
+\hypertarget{cartridge-cases}{%
+\subsection{Cartridge Cases}\label{cartridge-cases}}
+
+\hypertarget{analysis-of-results}{%
+\section{Analysis of Results}\label{analysis-of-results}}
+
+\hypertarget{communication-of-results-and-methods}{%
+\section{Communication of Results and Methods}\label{communication-of-results-and-methods}}
 
 \hypertarget{people-involved}{%
 \section{People involved}\label{people-involved}}
@@ -326,8 +352,6 @@ You can write citations, too. For example, we are using the \textbf{bookdown} pa
   Mya Fisher, Allison Mark, Connor Hergenreter, Carley McConnell, Anyesha Ray (scanner)
 \end{itemize}
 
-This is a new paragraph
-
 \hypertarget{handwriting}{%
 \chapter{Handwriting}\label{handwriting}}
 
@@ -338,6 +362,12 @@ We describe our methods for going about the handwriting project here.
 
 \hypertarget{shoes}{%
 \chapter{Shoes}\label{shoes}}
+
+\hypertarget{theoretical-foundations}{%
+\chapter{Theoretical foundations}\label{theoretical-foundations}}
+
+\hypertarget{outreach-activities}{%
+\chapter{Outreach activities}\label{outreach-activities}}
 
 \bibliography{book.bib,packages.bib}
 

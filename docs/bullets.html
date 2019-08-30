@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2019-08-29" />
+<meta name="date" content="2019-08-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -132,7 +132,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
 <li class="chapter" data-level="3" data-path="bullets.html"><a href="bullets.html"><i class="fa fa-check"></i><b>3</b> Project CC: Bullets and Cartridge Cases</a><ul>
 <li class="chapter" data-level="3.1" data-path="bullets.html"><a href="bullets.html#data-collection"><i class="fa fa-check"></i><b>3.1</b> Data Collection</a></li>
-<li class="chapter" data-level="3.2" data-path="bullets.html"><a href="bullets.html#computational-tools"><i class="fa fa-check"></i><b>3.2</b> Computational Tools</a></li>
+<li class="chapter" data-level="3.2" data-path="bullets.html"><a href="bullets.html#computational-tools"><i class="fa fa-check"></i><b>3.2</b> Computational Tools</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="bullets.html"><a href="bullets.html#x3ptools"><i class="fa fa-check"></i><b>3.2.1</b> x3ptools</a></li>
+<li class="chapter" data-level="3.2.2" data-path="bullets.html"><a href="bullets.html#bulletxtrctr"><i class="fa fa-check"></i><b>3.2.2</b> bulletxtrctr</a></li>
+<li class="chapter" data-level="3.2.3" data-path="bullets.html"><a href="bullets.html#groovefinder"><i class="fa fa-check"></i><b>3.2.3</b> grooveFinder</a></li>
+</ul></li>
 <li class="chapter" data-level="3.3" data-path="bullets.html"><a href="bullets.html#similarity-scores"><i class="fa fa-check"></i><b>3.3</b> Similarity Scores</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="bullets.html"><a href="bullets.html#bullet-lands"><i class="fa fa-check"></i><b>3.3.1</b> Bullet Lands</a></li>
 <li class="chapter" data-level="3.3.2" data-path="bullets.html"><a href="bullets.html#cartridge-cases"><i class="fa fa-check"></i><b>3.3.2</b> Cartridge Cases</a></li>
@@ -199,6 +203,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="computational-tools" class="section level2">
 <h2><span class="header-section-number">3.2</span> Computational Tools</h2>
+<div id="x3ptools" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> x3ptools</h3>
+<p><code>x3ptools</code> is an R package for working with files in x3p format. x3p is an ISO standard for describing 3d topographic surface measurements.
+<code>x3ptools</code> is available on CRAN, i.e. can be installed with the command <code>install.packages("x3ptools")</code>. The development version is available from github. Installation instructions and basic usage can be found at <a href="https://heike.github.io/x3ptools/" class="uri">https://heike.github.io/x3ptools/</a></p>
+</div>
+<div id="bulletxtrctr" class="section level3">
+<h3><span class="header-section-number">3.2.2</span> bulletxtrctr</h3>
+<p><code>bulletxtrctr</code> is a developmental R package available from github (see <a href="https://heike.github.io/bulletxtrctr/" class="uri">https://heike.github.io/bulletxtrctr/</a>) that allows an assessment of similarity scores using the data extraction pipeline described in <span class="citation">Hare, Hofmann, and Carriquiry (<a href="#ref-hare">2017</a>)</span>.</p>
+</div>
+<div id="groovefinder" class="section level3">
+<h3><span class="header-section-number">3.2.3</span> grooveFinder</h3>
+<p><code>grooveFinder</code> is a developmental R package providing different methods for identifying the location of grooves in scans of bullets.
+Installation instructions and some basic usage can be found at <a href="https://heike.github.io/grooveFinder/" class="uri">https://heike.github.io/grooveFinder/</a></p>
+</div>
 </div>
 <div id="similarity-scores" class="section level2">
 <h2><span class="header-section-number">3.3</span> Similarity Scores</h2>
@@ -252,6 +270,12 @@ This is a new paragraph
 </div>
 </div>
 </div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-hare">
+<p>Hare, Eric, Heike Hofmann, and Alicia Carriquiry. 2017. “Automatic Matching of Bullet Land Impressions.” <em>Ann. Appl. Stat.</em> 11 (4): 2332–56. <a href="https://doi.org/10.1214/17-AOAS1080">https://doi.org/10.1214/17-AOAS1080</a>.</p>
+</div>
+</div>
             </section>
 
           </div>
@@ -303,20 +327,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

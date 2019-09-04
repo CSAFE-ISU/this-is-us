@@ -1,5 +1,10 @@
 # Project CC: Bullets and Cartridge Cases {#bullets}
 
+```{r setup, echo=FALSE}
+library(knitr)
+opts_chunk$set(echo=FALSE)
+```
+
 For both bullets and cartridge cases we are dealing with several inter-related aspects, that we want to address independently. 
 
 Those are:
@@ -25,6 +30,65 @@ Those are:
 
 ## Data Collection
 
+### LAPD
+
+All bullets are collected by Srinivasan Rathinam, LAPD. 
+
+#### Main study
+4 bullets per barrel for  626  Beretta 92 F/FS firearms , ammunition used are 9 mm Luger Winchester 115 grain with a Copper surface.
+
+scans are on Raven
+
+<p class="new">evaluation: Yawei is going to work through all 626 barrels of knowns to assess similarity scores</p>
+
+```{r, fig.cap="Results from assessing scans of barrel FAU 1 similarity.", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/results-FAU-1.png"))
+```
+
+```{r, fig.cap="Results from assessing scans of barrel FAU 2 similarity.", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c( "images/yawei/results-FAU-2.png"))
+```
+
+#### follow-up study 
+
+4 bullets per barrel for  96 of the original 626 Beretta firearms using different ammunition
+
+<p class = "new">bullets are being scanned</p>
+
+### Hamby Sets
+
+Scans for Hamby Sets 10, 36, 44, and 224
+
+Scans for 3 replicates of clones for Hamby 224
+
+### Houston Tests
+
+contact: Melissa Nally, Houston FSI
+
+pre-study: 3 kits with 25 bullets each 
+
+study: 4 kits with X bullets each
+
+
+### Houston Persistence
+
+contact: Melissa Nally, Houston FSI
+
+8 barrels with 40 fired bullets each
+
+### St Louis persistence
+
+contact: Steve Kramer, St Louis PD
+
+2 barrels with 192 fired bullets each (2 bullets collected every 25 shots)
+
+
+### DFSC Cartridge cases
+
+Breech face data for knowns are scanned and available on a private github repository
+
+evaluation
+
 ## Computational Tools
 
 ### x3ptools
@@ -48,9 +112,6 @@ Installation instructions and some basic usage can be found at https://heike.git
 
 #### Approaches to identify groove locations
 
-<p class="new">
-This is a new paragraph
-</p>
 
 
 ### Cartridge Cases

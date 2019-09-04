@@ -124,7 +124,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-08-29}
+    \date{2019-09-04}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -283,8 +283,101 @@ Those are:
 \hypertarget{data-collection}{%
 \section{Data Collection}\label{data-collection}}
 
+\hypertarget{lapd}{%
+\subsection{LAPD}\label{lapd}}
+
+All bullets are collected by Srinivasan Rathinam, LAPD.
+
+\hypertarget{main-study}{%
+\subsubsection{Main study}\label{main-study}}
+
+4 bullets per barrel for 626 Beretta 92 F/FS firearms , ammunition used are 9 mm Luger Winchester 115 grain with a Copper surface.
+
+scans are on Raven
+
+evaluation: Yawei is going to work through all 626 barrels of knowns to assess similarity scores
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/yawei/results-FAU-1} 
+
+}
+
+\caption{Results from assessing scans of barrel FAU 1 similarity.}\label{fig:unnamed-chunk-3}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/yawei/results-FAU-2} 
+
+}
+
+\caption{Results from assessing scans of barrel FAU 2 similarity.}\label{fig:unnamed-chunk-4}
+\end{figure}
+
+\hypertarget{follow-up-study}{%
+\subsubsection{follow-up study}\label{follow-up-study}}
+
+4 bullets per barrel for 96 of the original 626 Beretta firearms using different ammunition
+
+bullets are being scanned
+
+\hypertarget{hamby-sets}{%
+\subsection{Hamby Sets}\label{hamby-sets}}
+
+Scans for Hamby Sets 10, 36, 44, and 224
+
+Scans for 3 replicates of clones for Hamby 224
+
+\hypertarget{houston-tests}{%
+\subsection{Houston Tests}\label{houston-tests}}
+
+contact: Melissa Nally, Houston FSI
+
+pre-study: 3 kits with 25 bullets each
+
+study: 4 kits with X bullets each
+
+\hypertarget{houston-persistence}{%
+\subsection{Houston Persistence}\label{houston-persistence}}
+
+contact: Melissa Nally, Houston FSI
+
+8 barrels with 40 fired bullets each
+
+\hypertarget{st-louis-persistence}{%
+\subsection{St Louis persistence}\label{st-louis-persistence}}
+
+contact: Steve Kramer, St Louis PD
+
+2 barrels with 192 fired bullets each (2 bullets collected every 25 shots)
+
+\hypertarget{dfsc-cartridge-cases}{%
+\subsection{DFSC Cartridge cases}\label{dfsc-cartridge-cases}}
+
+Breech face data for knowns are scanned and available on a private github repository
+
+evaluation
+
 \hypertarget{computational-tools}{%
 \section{Computational Tools}\label{computational-tools}}
+
+\hypertarget{x3ptools}{%
+\subsection{x3ptools}\label{x3ptools}}
+
+\texttt{x3ptools} is an R package for working with files in x3p format. x3p is an ISO standard for describing 3d topographic surface measurements.
+\texttt{x3ptools} is available on CRAN, i.e.~can be installed with the command \texttt{install.packages("x3ptools")}. The development version is available from github. Installation instructions and basic usage can be found at \url{https://heike.github.io/x3ptools/}
+
+\hypertarget{bulletxtrctr}{%
+\subsection{bulletxtrctr}\label{bulletxtrctr}}
+
+\texttt{bulletxtrctr} is a developmental R package available from github (see \url{https://heike.github.io/bulletxtrctr/}) that allows an assessment of similarity scores using the data extraction pipeline described in \citet{hare}.
+
+\hypertarget{groovefinder}{%
+\subsection{grooveFinder}\label{groovefinder}}
+
+\texttt{grooveFinder} is a developmental R package providing different methods for identifying the location of grooves in scans of bullets.
+Installation instructions and some basic usage can be found at \url{https://heike.github.io/grooveFinder/}
 
 \hypertarget{similarity-scores}{%
 \section{Similarity Scores}\label{similarity-scores}}
@@ -294,8 +387,6 @@ Those are:
 
 \hypertarget{approaches-to-identify-groove-locations}{%
 \subsubsection{Approaches to identify groove locations}\label{approaches-to-identify-groove-locations}}
-
-This is a new paragraph
 
 \hypertarget{cartridge-cases}{%
 \subsection{Cartridge Cases}\label{cartridge-cases}}

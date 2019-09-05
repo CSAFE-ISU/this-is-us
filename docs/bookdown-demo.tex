@@ -124,7 +124,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-09-04}
+    \date{2019-09-05}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -293,7 +293,7 @@ All bullets are collected by Srinivasan Rathinam, LAPD.
 
 4 bullets per barrel for 626 Beretta 92 F/FS firearms , ammunition used are 9 mm Luger Winchester 115 grain with a Copper surface.
 
-scans are on Raven
+scans are on Raven.
 
 evaluation: Yawei is going to work through all 626 barrels of knowns to assess similarity scores
 
@@ -334,9 +334,28 @@ Scans for 3 replicates of clones for Hamby 224
 
 contact: Melissa Nally, Houston FSI
 
-pre-study: 3 kits with 25 bullets each
+\hypertarget{pre-study}{%
+\subsubsection{Pre-study}\label{pre-study}}
 
-study: 4 kits with X bullets each
+3 kits with 23 bullets each
+
+\begin{figure}
+
+{\centering \includegraphics[width=58.11in]{images/heike/houston-pre-set3} 
+
+}
+
+\caption{Bullet-to-bullet similarity scores for questioned bullets (y-axis) compared to all other bullets of the test set (x-axis).}\label{fig:unnamed-chunk-5}
+\end{figure}
+
+evaluation included in submission to JFI
+
+\hypertarget{study}{%
+\subsubsection{Study}\label{study}}
+
+4 kits with 20 bullets each
+
+scans done, evaluation finished, some scans of doubtful quality
 
 \hypertarget{houston-persistence}{%
 \subsection{Houston Persistence}\label{houston-persistence}}
@@ -371,7 +390,7 @@ evaluation
 \hypertarget{bulletxtrctr}{%
 \subsection{bulletxtrctr}\label{bulletxtrctr}}
 
-\texttt{bulletxtrctr} is a developmental R package available from github (see \url{https://heike.github.io/bulletxtrctr/}) that allows an assessment of similarity scores using the data extraction pipeline described in \citet{hare}.
+\texttt{bulletxtrctr} is a developmental R package available from github (see \url{https://heike.github.io/bulletxtrctr/}) that allows an assessment of similarity scores using the data extraction pipeline described in \citet{aoas}.
 
 \hypertarget{groovefinder}{%
 \subsection{grooveFinder}\label{groovefinder}}
@@ -396,6 +415,75 @@ Installation instructions and some basic usage can be found at \url{https://heik
 
 \hypertarget{communication-of-results-and-methods}{%
 \section{Communication of Results and Methods}\label{communication-of-results-and-methods}}
+
+\hypertarget{congruent-matching-cells-cmc-algorithm-for-comparing-cartridge-case-breech-faces}{%
+\subsection{Congruent Matching Cells (CMC) algorithm for comparing cartridge case breech faces}\label{congruent-matching-cells-cmc-algorithm-for-comparing-cartridge-case-breech-faces}}
+
+Joe 9/5/19 Update: Dealing with missing values in the x3p scans continues to be an issue. The Fast Fourier Transform method for calculating cross-correlation can't handle missing data in an image, so we've attempted a few ``fixes'' that haven't necessarily turned out as well as expected. One idea we had was to replace the NA values in a cell with the average pixel value. However, this is artificially introducing a signal where before there was none. This can (and demonstrably has) led to inflated/incorrect correlations between cells that shouldn't have much at all in common. Unfortunately, this may be the only solution if we still wish to adhere to the CMC algorithm as described in Song et al.~(2015). One improvement that I've implemented is to ``crop out'' the rows and columns of an image that only contain NAs. This at least means that we've weakened the strength of the artificial signal relative to the breechface's signal.
+
+Below is a series of images that illustrate how we might compare a cell in one image to a region of another image.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/joeZ/im1_im2_cellComparison} 
+
+}
+
+\caption{Comparing a cell in image 1 to a larger region in image 2. We wish to find the translations of the image 1 cell that yield the highest correlation within the image 2 region.}\label{fig:unnamed-chunk-6}
+\end{figure}
+
+For the sake of an example, let's focus on the blue outlined cell in image 1. Our goal is to use the image 1 cell to ``search'' a corresponding larger region in image 2 for the horizontal/vertical translations needed to produce the highest correlation. Below is a zoomed-in version of the blue outlined image 1 cell on the left and the larger image 2 region (approximately: I made the gridded image above by-hand outside of R while the images below are from R). The image 1 cell may look larger than the image 2 region, but we can see from the axes that the image 2 region is indeed larger. Any white pixels in the two images are NA values that need to be dealt with in some way before we can use FFTs to calculate the cross-correlation.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/joeZ/im1_split} \includegraphics[width=0.5\linewidth]{images/joeZ/im2_split} 
+
+}
+
+\caption{(Left) A cell from image 1. (Right) A region from image 2 centered in the same location as the image 1 cell, yet quadruple the area.}\label{fig:unnamed-chunk-7}
+\end{figure}
+
+As already discussed above, one ``solution'' is to replace the NA values with the average pixel value of each image. However, to avoid creating a stronger artificial signal than necessary, we can crop-out the NA rows and columns from the two images above. Below is the cropped version of the two images. The cropping doesn't produce signficantly different images in this case, but you could imagine other examples in which a cell has captured only small amount of breechface in the corner. Such examples are fairly common and cropping signficantly changes the resulting correlation values.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/joeZ/im1_splitFilteredCropped} \includegraphics[width=0.5\linewidth]{images/joeZ/im2_splitFilteredCropped} 
+
+}
+
+\caption{The same images as above after cropping NA rows/columns.}\label{fig:unnamed-chunk-8}
+\end{figure}
+
+The last step before calculating correlation for these cells is to replace the remaining NAs with the average pixel value. This is shown below.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/joeZ/im1_splitShifted} \includegraphics[width=0.5\linewidth]{images/joeZ/im2_splitShifted} 
+
+}
+
+\caption{The NA-cropped images with remaining NAs replaced with the image's average pixel values.}\label{fig:unnamed-chunk-9}
+\end{figure}
+
+The cross-correlation is then calculated between these two images via a standard fast fourier transform process (see \href{http://mathworld.wolfram.com/Cross-CorrelationTheorem.html}{Cross-Correlation Theorem}). The benefit of using such a process is that (as the name suggests) it's faster than calculating the raw correlation between the two images. Also, the translations that produce the highest correlation between the image 1 cell and the image 2 region fall out of the calculation for free.
+
+This pre-processing/cross-correlation calculation procedure is repeated for every cell in image 1 that contains breech face. Because it is not valid to assume that the two images are rotationally aligned by default, we perform the same procedure repeatedly while rotating image 2. Currently, we perform a ``rough'' grid search of \(\theta \in [-177.5,180]\) by increments of \(2.5^{\circ}\). Theoretically, the final results tell us how we need to horizontally/vertically translate and rotate the two images to be correctly aligned.
+
+\hypertarget{congruent-matching-tori-a-promising-solution-to-the-missing-value-problem}{%
+\subsubsection{Congruent Matching Tori: a promising solution to the missing value problem}\label{congruent-matching-tori-a-promising-solution-to-the-missing-value-problem}}
+
+As discussed above, dealing with missing values is provign to be a pain. The good news is that the currently-implemented CMC as described above yields results very similar to those published in Song et al.~(2015) that originally describes that CMC algorithm. While our results seem to agree with currently published results, it would be nice if we could avoid needing to artifically replace missing values. We can do so if, rather than breaking up the circular breech face scans into disjoint squares, we break up the breech face into donut-shaped regions containing only breech face. Below is an example of such a toroidal region.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/joeZ/im1_original} \includegraphics[width=0.5\linewidth]{images/joeZ/im1_toroidalRegion} 
+
+}
+
+\caption{(Left) The original breech face scan image. (Right) A donut-shaped region cut out of the original image.}\label{fig:unnamed-chunk-10}
+\end{figure}
+
+By comparing such regions instead of the square cells, we would presumably only need to fill in a few missing value ``holes'' in the breech face scan rather than completely replacing a non-existent signal with an artificial one. In the near-future, I hope to finish up the pre-processing needed for this Congruent Matching Tori method by performing a polar transformation on these images to make them into strips that can easily be compared via an FFT.
 
 \hypertarget{people-involved}{%
 \section{People involved}\label{people-involved}}
@@ -546,6 +634,67 @@ Ideas:
 
 \hypertarget{theoretical-foundations}{%
 \chapter{Theoretical foundations}\label{theoretical-foundations}}
+
+\hypertarget{nates-updates-952019}{%
+\section{Nate's Updates 9/5/2019}\label{nates-updates-952019}}
+
+\begin{itemize}
+\tightlist
+\item
+  Currently in Virginia
+\item
+  RA for this semester (year?) is under Danica
+\item
+  \textbf{Central Goals}:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    continue work started by Danica and Peter Vergeer on the analysis of likelihood ratios
+  \item
+    study the differences between specific source (SS) and common source (CS) likelihood ratios (LRs) in an information theoretic way
+  \item
+    does the CS or SS LR have more ``information''?
+  \item
+    can be the CS or SS hypotheses (prosecution or defense) be formally compared in terms of being easier to ``prove'' or ``disprove''?
+  \end{itemize}
+\item
+  \textbf{Basic Setup}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(H_p\), \(H_d\) are CS prosecution and defense hypotheses upon which we will place priors\\
+  \item
+    \(A\) and \(B\) are discrete r.v.'s representing two ``sources'' of evidence
+
+    \begin{itemize}
+    \tightlist
+    \item
+      distributions for \(A\) and \(B\) defined conditionally based on the hypothesis
+    \item
+      SS hypothesis is represented by the conditional random variable \(H_p|A\)
+    \end{itemize}
+  \item
+    \(X\) is data coming from \(A\), \(Y\) is data coming from \(B\)
+  \item
+    compare information contained in \((X,Y)\) about \(H_p\) and \(H_p|A\)
+
+    \begin{itemize}
+    \tightlist
+    \item
+      this is what I'm working on now
+    \item
+      important quantities:
+
+      \begin{itemize}
+      \tightlist
+      \item
+        Kullback-Leibler divergences, entropy, mutual information
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
 
 \hypertarget{outreach-activities}{%
 \chapter{Outreach activities}\label{outreach-activities}}

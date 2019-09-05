@@ -157,6 +157,9 @@ So either somethin is wrong with `get_mask_hough` or something is funky with the
 - Compare Hough results with manual identification using score calculations from Kiegan. 
 
 - Write up results in Hough Groove Paper (It's coming I promise)
+  - Create graphical images to explain line selection method
+  - Include 2-d and 3-d visualizations of Hough groove area identifications
+  - Include crosscut visualization and comparison in results
 
 ### Congruent Matching Cells (CMC) algorithm for comparing cartridge case breech faces
 

@@ -1,2 +1,25 @@
-# Shoes
+# Shoes {#shoes}
+
+## Longitudinal Shoe Study {#longitudinal}
+
+### Original Study Description
+
+### Database Paper
+
+<div class="new">
+- Methods and data description handed off to Alicia for editing
+- Working on processing data in useful ways
+    - Film and Powder steps:
+    
+    - Next up: EverOs
+- Thinking about metrics to characterize wear
+    - average pixel intensity (of cleaned image)?
+    - length of border/edges detected?
+</div>
+
+## Passive Shoe Recognition {#connor}
+
+## Maximum Clique Matching {#soyoung}
+
+## Cocoa Powder Citizen Science {#cocoa}
 

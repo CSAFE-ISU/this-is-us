@@ -70,7 +70,7 @@ contact: Melissa Nally, Houston FSI
 3 kits with 23 bullets each 
 
 ```{r, fig.cap="Bullet-to-bullet similarity scores for questioned bullets (y-axis) compared to all other bullets of the test set (x-axis).",  fig.keep="hold", fig.align='center'}
-include_graphics(c( "images/heike/houston-pre-set3.png"))
+include_graphics(c( "images/bullets/houston-pre-set3.png"))
 ```
 
 <p class="new">evaluation included in submission to JFI</p>

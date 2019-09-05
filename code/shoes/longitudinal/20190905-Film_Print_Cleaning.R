@@ -147,3 +147,12 @@ png("Film_Demo_Cleaned_Thresh.png", width = 300*9, height = 300*2, units = "px")
 par(mfrow = c(1, 9)) 
 purrr::map(img_steps$cleaned_thresh, plot)
 dev.off()
+
+
+png(file.path(img_dir, "Film_Demo_Cleaned_Balance_Compare.png"), width = 300*9, height = 300*2, units = "px")
+par(mfrow = c(1, 9)) 
+purrr::map2(img_steps$clean_balance, img_steps$cleaned_thresh, function(x, y) {
+  print(sum(normalize(x) != normalize(y)))
+  plot(rgbImage(x, 1 + 0*x, y))
+})
+dev.off()

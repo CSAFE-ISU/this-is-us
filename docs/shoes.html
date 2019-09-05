@@ -194,25 +194,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 6</span> Shoes</h1>
 <div id="longitudinal" class="section level2">
 <h2><span class="header-section-number">6.1</span> Longitudinal Shoe Study</h2>
+<p><a href="https://github.com/CSAFE-ISU/Longitudinal_Shoe_Study">Github repository</a></p>
 <div id="original-study-description" class="section level3">
 <h3><span class="header-section-number">6.1.1</span> Original Study Description</h3>
 </div>
 <div id="database-paper" class="section level3">
 <h3><span class="header-section-number">6.1.2</span> Database Paper</h3>
-<div class="new">
+<p><a href="https://github.com/CSAFE-ISU/Longitudinal_Shoe_Study/tree/master/Paper">Paper subdirectory of Github repository</a></p>
+<div id="methods-and-data-description" class="section level4">
+<h4><span class="header-section-number">6.1.2.1</span> Methods and Data Description</h4>
+<p class="new">
+Methods and data description handed off to Alicia for editing
+</p>
+</div>
+<div id="data-analysis-tools" class="section level4">
+<h4><span class="header-section-number">6.1.2.2</span> Data Analysis Tools</h4>
+<p class="new">
 <ul>
-<li>Methods and data description handed off to Alicia for editing</li>
-<li>Working on processing data in useful ways
-<ul>
-<li><p>Film and Powder steps:</p></li>
-<li>Next up: EverOs</li>
-</ul></li>
-<li>Thinking about metrics to characterize wear
-<ul>
-<li>average pixel intensity (of cleaned image)?</li>
-<li>length of border/edges detected?</li>
-</ul></li>
+<li>Working with the <code>EBImage</code> package - very fast processing of images</li>
 </ul>
+</p>
+<div class="new">
+<h5 id="film-and-powder-images"><span class="header-section-number">6.1.2.2</span> Film and Powder Images</h5>
+<p><img src="images/shoes/longitudinal/Film_Demo_Orig.png" width = "100%"/></p>
+<p>Analysis Steps:</p>
+<ol style="list-style-type: decimal">
+<li>Create threshold mask
+<ol style="list-style-type: lower-alpha">
+<li><p>Invert the image<br />
+<img src="images/shoes/longitudinal/Film_Demo_Inv.png" width = "100%"/></p></li>
+<li><p>Blur image (circular/gaussian blur, diameter 5)<br />
+<img src="images/shoes/longitudinal/Film_Demo_Filter_Init.png" width = "100%"/></p></li>
+<li><p>Threshold image (adaptive threshold, 10 x 10 region, keep anything with an average higher than .90 from the mean)<br />
+<img src="images/shoes/longitudinal/Film_Demo_Thresh_init.png" width = "100%"/></p></li>
+<li><p>Expand mask<br />
+(default parameters rad1 = 5, rad2 = 91, proportion, expand_rad = 50)<br />
+<img src="images/shoes/longitudinal/Film_Demo_Mask.png" width = "100%"/></p>
+<ol style="list-style-type: decimal">
+<li>erode mask image (circle, diameter rad1)</li>
+<li>dilate mask image (circle, diameter rad2)</li>
+<li>label disjoint regions of the image</li>
+<li>prune small image regions (area &lt; proportion parameter)</li>
+<li>set background color</li>
+<li>create dataframe of useful (non-background) pixels</li>
+<li>fill in holes and concave regions in mask, then expand by expand_rad vertically and horizontally (similar to “convex hull”, but faster and with additional expansion)</li>
+</ol></li>
+</ol></li>
+<li><p>Mask image to remove extra variability unrelated to the shoe<br />
+<img src="images/shoes/longitudinal/Film_Demo_Cleaned.png" width = "100%"/></p></li>
+<li><p>Threshold masked image?<br />
+<img src="images/shoes/longitudinal/Film_Demo_Cleaned_Thresh.png" width = "100%"/></p></li>
+</ol>
+</div>
+<div class="new">
+<h5 id="wear-characterization"><span class="header-section-number">6.1.2.2</span> Wear Characterization</h5>
+<p>Ideas:
+- average intensity of cleaned image
+- length of border/edges detected</p>
+</div>
 </div>
 </div>
 </div>

@@ -457,36 +457,83 @@ We describe our methods for going about the handwriting project here.
 \hypertarget{longitudinal}{%
 \section{Longitudinal Shoe Study}\label{longitudinal}}
 
+\href{https://github.com/CSAFE-ISU/Longitudinal_Shoe_Study}{Github repository}
+
 \hypertarget{original-study-description}{%
 \subsection{Original Study Description}\label{original-study-description}}
 
 \hypertarget{database-paper}{%
 \subsection{Database Paper}\label{database-paper}}
 
+\href{https://github.com/CSAFE-ISU/Longitudinal_Shoe_Study/tree/master/Paper}{Paper subdirectory of Github repository}
+
+\hypertarget{methods-and-data-description}{%
+\subsubsection{Methods and Data Description}\label{methods-and-data-description}}
+
+Methods and data description handed off to Alicia for editing
+
+\hypertarget{data-analysis-tools}{%
+\subsubsection{Data Analysis Tools}\label{data-analysis-tools}}
+
 \begin{itemize}
 \tightlist
 \item
-  Methods and data description handed off to Alicia for editing
-\item
-  Working on processing data in useful ways
-
-  \begin{itemize}
-  \item
-    Film and Powder steps:
-  \item
-    Next up: EverOs
-  \end{itemize}
-\item
-  Thinking about metrics to characterize wear
-
-  \begin{itemize}
-  \tightlist
-  \item
-    average pixel intensity (of cleaned image)?
-  \item
-    length of border/edges detected?
-  \end{itemize}
+  Working with the \texttt{EBImage} package - very fast processing of images
 \end{itemize}
+
+\hypertarget{film-and-powder-images}{%
+\paragraph{Film and Powder Images}\label{film-and-powder-images}}
+
+Analysis Steps:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Create threshold mask
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \item
+    Invert the image\\
+  \item
+    Blur image (circular/gaussian blur, diameter 5)\\
+  \item
+    Threshold image (adaptive threshold, 10 x 10 region, keep anything with an average higher than .90 from the mean)\\
+  \item
+    Expand mask\\
+    (default parameters rad1 = 5, rad2 = 91, proportion, expand\_rad = 50)\\
+
+    \begin{enumerate}
+    \def\labelenumiii{\arabic{enumiii}.}
+    \tightlist
+    \item
+      erode mask image (circle, diameter rad1)
+    \item
+      dilate mask image (circle, diameter rad2)
+    \item
+      label disjoint regions of the image
+    \item
+      prune small image regions (area \textless{} proportion parameter)
+    \item
+      set background color
+    \item
+      create dataframe of useful (non-background) pixels
+    \item
+      fill in holes and concave regions in mask, then expand by expand\_rad vertically and horizontally (similar to ``convex hull'', but faster and with additional expansion)
+    \end{enumerate}
+  \end{enumerate}
+\item
+  Mask image to remove extra variability unrelated to the shoe\\
+\item
+  Threshold masked image?\\
+\end{enumerate}
+
+\hypertarget{wear-characterization}{%
+\paragraph{Wear Characterization}\label{wear-characterization}}
+
+Ideas:
+- average intensity of cleaned image
+- length of border/edges detected
 
 \hypertarget{connor}{%
 \section{Passive Shoe Recognition}\label{connor}}

@@ -150,7 +150,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="bullets.html"><a href="bullets.html#analysis-of-results"><i class="fa fa-check"></i><b>3.4</b> Analysis of Results</a></li>
 <li class="chapter" data-level="3.5" data-path="bullets.html"><a href="bullets.html#communication-of-results-and-methods"><i class="fa fa-check"></i><b>3.5</b> Communication of Results and Methods</a><ul>
-<li class="chapter" data-level="3.5.1" data-path="bullets.html"><a href="bullets.html#congruent-matching-cells-cmc-algorithm-for-comparing-cartridge-case-breech-faces"><i class="fa fa-check"></i><b>3.5.1</b> Congruent Matching Cells (CMC) algorithm for comparing cartridge case breech faces</a></li>
+<li class="chapter" data-level="3.5.1" data-path="bullets.html"><a href="bullets.html#hough-transform-method-for-identifying-grooves"><i class="fa fa-check"></i><b>3.5.1</b> Hough Transform Method for Identifying Grooves</a></li>
+<li class="chapter" data-level="3.5.2" data-path="bullets.html"><a href="bullets.html#congruent-matching-cells-cmc-algorithm-for-comparing-cartridge-case-breech-faces"><i class="fa fa-check"></i><b>3.5.2</b> Congruent Matching Cells (CMC) algorithm for comparing cartridge case breech faces</a></li>
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="bullets.html"><a href="bullets.html#people-involved"><i class="fa fa-check"></i><b>3.6</b> People involved</a><ul>
 <li class="chapter" data-level="3.6.1" data-path="bullets.html"><a href="bullets.html#faculty"><i class="fa fa-check"></i><b>3.6.1</b> Faculty</a></li>
@@ -162,11 +163,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5" data-path="glass.html"><a href="glass.html"><i class="fa fa-check"></i><b>5</b> Glass</a></li>
 <li class="chapter" data-level="6" data-path="shoes.html"><a href="shoes.html"><i class="fa fa-check"></i><b>6</b> Shoes</a><ul>
 <li class="chapter" data-level="6.1" data-path="shoes.html"><a href="shoes.html#longitudinal"><i class="fa fa-check"></i><b>6.1</b> Longitudinal Shoe Study</a><ul>
-<li class="chapter" data-level="6.1.1" data-path="shoes.html"><a href="shoes.html#original-study-description"><i class="fa fa-check"></i><b>6.1.1</b> Original Study Description</a></li>
-<li class="chapter" data-level="6.1.2" data-path="shoes.html"><a href="shoes.html#database-paper"><i class="fa fa-check"></i><b>6.1.2</b> Database Paper</a></li>
+<li class="chapter" data-level="6.1.1" data-path="shoes.html"><a href="shoes.html#paper-describing-the-database"><i class="fa fa-check"></i><b>6.1.1</b> Paper describing the database</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="shoes.html"><a href="shoes.html#connor"><i class="fa fa-check"></i><b>6.2</b> Passive Shoe Recognition</a></li>
-<li class="chapter" data-level="6.3" data-path="shoes.html"><a href="shoes.html#soyoung"><i class="fa fa-check"></i><b>6.3</b> Maximum Clique Matching</a></li>
+<li class="chapter" data-level="6.3" data-path="shoes.html"><a href="shoes.html#maxclique"><i class="fa fa-check"></i><b>6.3</b> Maximum Clique Matching</a></li>
 <li class="chapter" data-level="6.4" data-path="shoes.html"><a href="shoes.html#cocoa"><i class="fa fa-check"></i><b>6.4</b> Cocoa Powder Citizen Science</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html"><i class="fa fa-check"></i><b>7</b> Theoretical foundations</a><ul>
@@ -199,70 +199,113 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="longitudinal" class="section level2">
 <h2><span class="header-section-number">6.1</span> Longitudinal Shoe Study</h2>
 <p><a href="https://github.com/CSAFE-ISU/Longitudinal_Shoe_Study">Github repository</a></p>
-<div id="original-study-description" class="section level3">
-<h3><span class="header-section-number">6.1.1</span> Original Study Description</h3>
-</div>
-<div id="database-paper" class="section level3">
-<h3><span class="header-section-number">6.1.2</span> Database Paper</h3>
+<div id="paper-describing-the-database" class="section level3">
+<h3><span class="header-section-number">6.1.1</span> Paper describing the database</h3>
 <p><a href="https://github.com/CSAFE-ISU/Longitudinal_Shoe_Study/tree/master/Paper">Paper subdirectory of Github repository</a></p>
-<div id="methods-and-data-description" class="section level4">
-<h4><span class="header-section-number">6.1.2.1</span> Methods and Data Description</h4>
+<p>Goal:</p>
+<ul>
+<li>Describe experiment</li>
+<li>Describe database function</li>
+<li>Publicize data for analysis by others in the community</li>
+</ul>
+<div id="lss-paper-methods" class="section level4 unnumbered">
+<h4>Methods and Data Description</h4>
 <p class="new">
 Methods and data description handed off to Alicia for editing
 </p>
 </div>
-<div id="data-analysis-tools" class="section level4">
-<h4><span class="header-section-number">6.1.2.2</span> Data Analysis Tools</h4>
-<p class="new">
+<div id="lss-paper-analysis" class="section level4 unnumbered">
+<h4>Data Analysis Tools</h4>
+<div class="new">
 <ul>
 <li>Working with the <code>EBImage</code> package - very fast processing of images</li>
 </ul>
-</p>
+</div>
 <div class="new">
-<h5 id="film-and-powder-images"><span class="header-section-number">6.1.2.2</span> Film and Powder Images</h5>
+<h5 id="lss-paper-analysis-film" class="unnumbered">Film and Powder Images</h5>
 <p><img src="images/shoes/longitudinal/Film_Demo_Orig.png" width = "100%"/></p>
 <p>Analysis Steps:</p>
 <ol style="list-style-type: decimal">
 <li>Create threshold mask
 <ol style="list-style-type: lower-alpha">
-<li><p>Invert the image<br />
-<img src="images/shoes/longitudinal/Film_Demo_Inv.png" width = "100%"/></p></li>
-<li><p>Blur image (circular/gaussian blur, diameter 5)<br />
-<img src="images/shoes/longitudinal/Film_Demo_Filter_Init.png" width = "100%"/></p></li>
-<li><p>Threshold image (adaptive threshold, 10 x 10 region, keep anything with an average higher than .90 from the mean)<br />
-<img src="images/shoes/longitudinal/Film_Demo_Thresh_init.png" width = "100%"/></p></li>
-<li><p>Expand mask<br />
-(default parameters rad1 = 5, rad2 = 91, proportion, expand_rad = 50)<br />
-<img src="images/shoes/longitudinal/Film_Demo_Mask.png" width = "100%"/></p>
+<li>Blur image (circular/gaussian blur, diameter 15)<br />
+<img src="images/shoes/longitudinal/Film_Demo_Blur_Init.png" width = "100%"/></li>
+<li>Invert the image<br />
+<img src="images/shoes/longitudinal/Film_Demo_Inv.png" width = "100%"/></li>
+<li>Threshold image (adaptive threshold, 10 x 10 region, keep anything with an average higher than 0.025 from the mean)<br />
+<img src="images/shoes/longitudinal/Film_Demo_Thresh_Init.png" width = "100%"/></li>
+<li>Create mask<br />
+Default parameters selected by visually screening several shoes:<br />
+<img src="images/shoes/longitudinal/Film_Demo_Parameter_Selection.png" width = "100%"/><br />
+(default parameters rad1 = 5, rad2 = 151, proportion = 1.5*area of rad2 in px/area of image in px)<br />
+<img src="images/shoes/longitudinal/Film_Demo_Mask.png" width = "100%"/>
 <ol style="list-style-type: decimal">
 <li>erode mask image (circle, diameter rad1)</li>
 <li>dilate mask image (circle, diameter rad2)</li>
 <li>label disjoint regions of the image</li>
 <li>prune small image regions (area &lt; proportion parameter)</li>
+</ol></li>
+<li>Fill in mask holes<br />
+<img src="images/shoes/longitudinal/Film_Demo_Hull.png" width = "100%"/></li>
+<li>Expand mask to capture entire shoe region
+<img src="images/shoes/longitudinal/Film_Demo_Mask_Expand.png" width = "100%"/>
+<ol style="list-style-type: decimal">
 <li>set background color</li>
 <li>create dataframe of useful (non-background) pixels</li>
-<li>fill in holes and concave regions in mask, then expand by expand_rad vertically and horizontally (similar to “convex hull”, but faster and with additional expansion)</li>
+<li>fill in holes and concave regions in mask, then expand by expand_rad vertically and horizontally (similar to “convex hull”, but with additional expansion radius)</li>
 </ol></li>
 </ol></li>
 <li><p>Mask image to remove extra variability unrelated to the shoe<br />
 <img src="images/shoes/longitudinal/Film_Demo_Cleaned.png" width = "100%"/></p></li>
 <li><p>Threshold masked image?<br />
+Con: Lose grey information; Pro: fully remove background<br />
 <img src="images/shoes/longitudinal/Film_Demo_Cleaned_Thresh.png" width = "100%"/></p></li>
+<li><p>Compromise: Keep grey pixels from thresholded, masked image (e.g. use 3. as a mask), then renormalize<br />
+<img src="images/shoes/longitudinal/Film_Demo_Cleaned_Balance.png" width = "100%"/></p></li>
 </ol>
-</div>
-<div class="new">
-<h5 id="wear-characterization"><span class="header-section-number">6.1.2.2</span> Wear Characterization</h5>
-<p>Ideas:
-- average intensity of cleaned image
-- length of border/edges detected</p>
+<h5 id="lss-paper-analysis-wear" class="unnumbered">Wear Characterization</h5>
+<p>Ideas:</p>
+<ul>
+<li>average intensity of cleaned image</li>
+<li>length of border/edges detected</li>
+</ul>
 </div>
 </div>
 </div>
 </div>
 <div id="connor" class="section level2">
 <h2><span class="header-section-number">6.2</span> Passive Shoe Recognition</h2>
+<div class="new">
+<p>CoNNOR: Convolutional Neural Network for Outsole Recognition</p>
+<ul>
+<li>Label images of shoes according to geometric classification scheme</li>
+<li>Use convolutional base of pretrained CNN VGG16 and train a new classifier on labeled features</li>
+</ul>
+<p><a href="https://github.com/MirandaTilton/ISU_CC">Github repository for CC on CoNNOR</a></p>
+<p><a href="https://github.com/srvanderplas/CoNNORFSI">Github repository for paper submitted to Forensic Science International</a></p>
+<p>Exploring new directions:</p>
+<ul>
+<li>Truncate convolutional base and train random forest on features
+<ul>
+<li>Could replace fully connected layers of neural net as classifier</li>
+<li>Importance score can filter/reduce the number of features</li>
+<li><em>Currently training on HPC, 3 days in</em></li>
+</ul></li>
+<li>Fully convolutional networks (FCNs)
+<ul>
+<li>Unsupervised segmentation to assess current classification scheme</li>
+<li>Handle whole shoe image of any size (instead of only 256x256 pixel images)</li>
+</ul></li>
+</ul>
+<p>References for CNNs and FCNs</p>
+<p><a href="https://stats.stackexchange.com/questions/266075/patch-wise-training-and-fully-convolutional-training-in-fully-convolutional-neur">Stack Exchange post explaining patchwise training</a></p>
+<p><a href="https://ieeexplore.ieee.org/abstract/document/6338939">“Learning Hierarchical Features for Scene Labeling”</a>: describes an application of multi-scale CNNs and image pyramids</p>
+<p><a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.56.8646">“Pyramid methods in image processing”</a>: classic paper from 1984 explaining pyramid methods</p>
+<p><a href="https://people.eecs.berkeley.edu/~jonlong/long_shelhamer_fcn.pdf">“Fully Convolutional Networks for Semantic Segmentation”</a></p>
+<p><a href="https://arxiv.org/pdf/1711.08506.pdf">“W-Net: A Deep Model for Fully Unsupervised Image Segmentation”</a></p>
 </div>
-<div id="soyoung" class="section level2">
+</div>
+<div id="maxclique" class="section level2">
 <h2><span class="header-section-number">6.3</span> Maximum Clique Matching</h2>
 </div>
 <div id="cocoa" class="section level2">

@@ -66,7 +66,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -158,7 +158,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="handwriting.html"><a href="handwriting.html"><i class="fa fa-check"></i><b>4</b> Handwriting</a></li>
 <li class="chapter" data-level="5" data-path="glass.html"><a href="glass.html"><i class="fa fa-check"></i><b>5</b> Glass</a></li>
-<li class="chapter" data-level="6" data-path="shoes.html"><a href="shoes.html"><i class="fa fa-check"></i><b>6</b> Shoes</a></li>
+<li class="chapter" data-level="6" data-path="shoes.html"><a href="shoes.html"><i class="fa fa-check"></i><b>6</b> Shoes</a><ul>
+<li class="chapter" data-level="6.1" data-path="shoes.html"><a href="shoes.html#longitudinal"><i class="fa fa-check"></i><b>6.1</b> Longitudinal Shoe Study</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="shoes.html"><a href="shoes.html#original-study-description"><i class="fa fa-check"></i><b>6.1.1</b> Original Study Description</a></li>
+<li class="chapter" data-level="6.1.2" data-path="shoes.html"><a href="shoes.html#database-paper"><i class="fa fa-check"></i><b>6.1.2</b> Database Paper</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="shoes.html"><a href="shoes.html#connor"><i class="fa fa-check"></i><b>6.2</b> Passive Shoe Recognition</a></li>
+<li class="chapter" data-level="6.3" data-path="shoes.html"><a href="shoes.html#soyoung"><i class="fa fa-check"></i><b>6.3</b> Maximum Clique Matching</a></li>
+<li class="chapter" data-level="6.4" data-path="shoes.html"><a href="shoes.html#cocoa"><i class="fa fa-check"></i><b>6.4</b> Cocoa Powder Citizen Science</a></li>
+</ul></li>
 <li class="chapter" data-level="7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html"><i class="fa fa-check"></i><b>7</b> Theoretical foundations</a></li>
 <li class="chapter" data-level="8" data-path="outreach-activities.html"><a href="outreach-activities.html"><i class="fa fa-check"></i><b>8</b> Outreach activities</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -184,7 +192,79 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="shoes" class="section level1">
 <h1><span class="header-section-number">Chapter 6</span> Shoes</h1>
+<div id="longitudinal" class="section level2">
+<h2><span class="header-section-number">6.1</span> Longitudinal Shoe Study</h2>
+<p><a href="https://github.com/CSAFE-ISU/Longitudinal_Shoe_Study">Github repository</a></p>
+<div id="original-study-description" class="section level3">
+<h3><span class="header-section-number">6.1.1</span> Original Study Description</h3>
+</div>
+<div id="database-paper" class="section level3">
+<h3><span class="header-section-number">6.1.2</span> Database Paper</h3>
+<p><a href="https://github.com/CSAFE-ISU/Longitudinal_Shoe_Study/tree/master/Paper">Paper subdirectory of Github repository</a></p>
+<div id="methods-and-data-description" class="section level4">
+<h4><span class="header-section-number">6.1.2.1</span> Methods and Data Description</h4>
+<p class="new">
+Methods and data description handed off to Alicia for editing
+</p>
+</div>
+<div id="data-analysis-tools" class="section level4">
+<h4><span class="header-section-number">6.1.2.2</span> Data Analysis Tools</h4>
+<p class="new">
+<ul>
+<li>Working with the <code>EBImage</code> package - very fast processing of images</li>
+</ul>
+</p>
+<div class="new">
+<h5 id="film-and-powder-images"><span class="header-section-number">6.1.2.2</span> Film and Powder Images</h5>
+<p><img src="images/shoes/longitudinal/Film_Demo_Orig.png" width = "100%"/></p>
+<p>Analysis Steps:</p>
+<ol style="list-style-type: decimal">
+<li>Create threshold mask
+<ol style="list-style-type: lower-alpha">
+<li><p>Invert the image<br />
+<img src="images/shoes/longitudinal/Film_Demo_Inv.png" width = "100%"/></p></li>
+<li><p>Blur image (circular/gaussian blur, diameter 5)<br />
+<img src="images/shoes/longitudinal/Film_Demo_Filter_Init.png" width = "100%"/></p></li>
+<li><p>Threshold image (adaptive threshold, 10 x 10 region, keep anything with an average higher than .90 from the mean)<br />
+<img src="images/shoes/longitudinal/Film_Demo_Thresh_init.png" width = "100%"/></p></li>
+<li><p>Expand mask<br />
+(default parameters rad1 = 5, rad2 = 91, proportion, expand_rad = 50)<br />
+<img src="images/shoes/longitudinal/Film_Demo_Mask.png" width = "100%"/></p>
+<ol style="list-style-type: decimal">
+<li>erode mask image (circle, diameter rad1)</li>
+<li>dilate mask image (circle, diameter rad2)</li>
+<li>label disjoint regions of the image</li>
+<li>prune small image regions (area &lt; proportion parameter)</li>
+<li>set background color</li>
+<li>create dataframe of useful (non-background) pixels</li>
+<li>fill in holes and concave regions in mask, then expand by expand_rad vertically and horizontally (similar to “convex hull”, but faster and with additional expansion)</li>
+</ol></li>
+</ol></li>
+<li><p>Mask image to remove extra variability unrelated to the shoe<br />
+<img src="images/shoes/longitudinal/Film_Demo_Cleaned.png" width = "100%"/></p></li>
+<li><p>Threshold masked image?<br />
+<img src="images/shoes/longitudinal/Film_Demo_Cleaned_Thresh.png" width = "100%"/></p></li>
+</ol>
+</div>
+<div class="new">
+<h5 id="wear-characterization"><span class="header-section-number">6.1.2.2</span> Wear Characterization</h5>
+<p>Ideas:
+- average intensity of cleaned image
+- length of border/edges detected</p>
+</div>
+</div>
+</div>
+</div>
+<div id="connor" class="section level2">
+<h2><span class="header-section-number">6.2</span> Passive Shoe Recognition</h2>
+</div>
+<div id="soyoung" class="section level2">
+<h2><span class="header-section-number">6.3</span> Maximum Clique Matching</h2>
+</div>
+<div id="cocoa" class="section level2">
+<h2><span class="header-section-number">6.4</span> Cocoa Powder Citizen Science</h2>
 
+</div>
 </div>
             </section>
 

@@ -37,7 +37,7 @@ All bullets are collected by Srinivasan Rathinam, LAPD.
 #### Main study
 4 bullets per barrel for  626  Beretta 92 F/FS firearms , ammunition used are 9 mm Luger Winchester 115 grain with a Copper surface.
 
-scans are on Raven
+scans are on Raven.
 
 <p class="new">evaluation: Yawei is going to work through all 626 barrels of knowns to assess similarity scores</p>
 

@@ -12,6 +12,6 @@ pre {
 pre code {
   white-space: inherit;
 }
-p.new {
+.new {
   color: #ffa500;
 }

@@ -149,10 +149,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.2" data-path="bullets.html"><a href="bullets.html#cartridge-cases"><i class="fa fa-check"></i><b>3.3.2</b> Cartridge Cases</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="bullets.html"><a href="bullets.html#analysis-of-results"><i class="fa fa-check"></i><b>3.4</b> Analysis of Results</a></li>
-<li class="chapter" data-level="3.5" data-path="bullets.html"><a href="bullets.html#communication-of-results-and-methods"><i class="fa fa-check"></i><b>3.5</b> Communication of Results and Methods</a><ul>
-<li class="chapter" data-level="3.5.1" data-path="bullets.html"><a href="bullets.html#hough-transform-method-for-identifying-grooves"><i class="fa fa-check"></i><b>3.5.1</b> Hough Transform Method for Identifying Grooves</a></li>
-<li class="chapter" data-level="3.5.2" data-path="bullets.html"><a href="bullets.html#congruent-matching-cells-cmc-algorithm-for-comparing-cartridge-case-breech-faces"><i class="fa fa-check"></i><b>3.5.2</b> Congruent Matching Cells (CMC) algorithm for comparing cartridge case breech faces</a></li>
-</ul></li>
+<li class="chapter" data-level="3.5" data-path="bullets.html"><a href="bullets.html#communication-of-results-and-methods"><i class="fa fa-check"></i><b>3.5</b> Communication of Results and Methods</a></li>
 <li class="chapter" data-level="3.6" data-path="bullets.html"><a href="bullets.html#people-involved"><i class="fa fa-check"></i><b>3.6</b> People involved</a><ul>
 <li class="chapter" data-level="3.6.1" data-path="bullets.html"><a href="bullets.html#faculty"><i class="fa fa-check"></i><b>3.6.1</b> Faculty</a></li>
 <li class="chapter" data-level="3.6.2" data-path="bullets.html"><a href="bullets.html#graduate-students"><i class="fa fa-check"></i><b>3.6.2</b> Graduate Students</a></li>
@@ -318,19 +315,8 @@ Installation instructions and some basic usage can be found at <a href="https://
 <h3><span class="header-section-number">3.3.1</span> Bullet Lands</h3>
 <div id="approaches-to-identify-groove-locations" class="section level4">
 <h4><span class="header-section-number">3.3.1.1</span> Approaches to identify groove locations</h4>
-</div>
-</div>
-<div id="cartridge-cases" class="section level3">
-<h3><span class="header-section-number">3.3.2</span> Cartridge Cases</h3>
-</div>
-</div>
-<div id="analysis-of-results" class="section level2">
-<h2><span class="header-section-number">3.4</span> Analysis of Results</h2>
-</div>
-<div id="communication-of-results-and-methods" class="section level2">
-<h2><span class="header-section-number">3.5</span> Communication of Results and Methods</h2>
-<div id="hough-transform-method-for-identifying-grooves" class="section level3">
-<h3><span class="header-section-number">3.5.1</span> Hough Transform Method for Identifying Grooves</h3>
+<div id="hough-transform-method-for-identifying-grooves" class="section level5">
+<h5><span class="header-section-number">3.3.1.1.1</span> Hough Transform Method for Identifying Grooves</h5>
 <p>Charlotte 9/5/19 Update:</p>
 <p>Will fill in with more detail later</p>
 <p><strong>Current Goals</strong>:
@@ -359,8 +345,12 @@ Figure 3.5: 3-dimensional visualization of example bullet br411 with .999 streng
 </ul></li>
 </ul>
 </div>
-<div id="congruent-matching-cells-cmc-algorithm-for-comparing-cartridge-case-breech-faces" class="section level3">
-<h3><span class="header-section-number">3.5.2</span> Congruent Matching Cells (CMC) algorithm for comparing cartridge case breech faces</h3>
+</div>
+</div>
+<div id="cartridge-cases" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> Cartridge Cases</h3>
+<div id="congruent-matching-cells-cmc-algorithm-for-comparing-cartridge-case-breech-faces" class="section level4">
+<h4><span class="header-section-number">3.3.2.1</span> Congruent Matching Cells (CMC) algorithm for comparing cartridge case breech faces</h4>
 <p>Joe 9/5/19 Update: Dealing with missing values in the x3p scans continues to be an issue. The Fast Fourier Transform method for calculating cross-correlation can’t handle missing data in an image, so we’ve attempted a few “fixes” that haven’t necessarily turned out as well as expected. One idea we had was to replace the NA values in a cell with the average pixel value. However, this is artificially introducing a signal where before there was none. This can (and demonstrably has) led to inflated/incorrect correlations between cells that shouldn’t have much at all in common. Unfortunately, this may be the only solution if we still wish to adhere to the CMC algorithm as described in Song et al. (2015). One improvement that I’ve implemented is to “crop out” the rows and columns of an image that only contain NAs. This at least means that we’ve weakened the strength of the artificial signal relative to the breechface’s signal.</p>
 <p>Below is a series of images that illustrate how we might compare a cell in one image to a region of another image.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-8"></span>
@@ -392,8 +382,9 @@ Figure 3.9: The NA-cropped images with remaining NAs replaced with the image’s
 </div>
 <p>The cross-correlation is then calculated between these two images via a standard fast fourier transform process (see <a href="http://mathworld.wolfram.com/Cross-CorrelationTheorem.html">Cross-Correlation Theorem</a>). The benefit of using such a process is that (as the name suggests) it’s faster than calculating the raw correlation between the two images. Also, the translations that produce the highest correlation between the image 1 cell and the image 2 region fall out of the calculation for free.</p>
 <p>This pre-processing/cross-correlation calculation procedure is repeated for every cell in image 1 that contains breech face. Because it is not valid to assume that the two images are rotationally aligned by default, we perform the same procedure repeatedly while rotating image 2. Currently, we perform a “rough” grid search of <span class="math inline">\(\theta \in [-177.5,180]\)</span> by increments of <span class="math inline">\(2.5^{\circ}\)</span>. Theoretically, the final results tell us how we need to horizontally/vertically translate and rotate the two images to be correctly aligned.</p>
+</div>
 <div id="congruent-matching-tori-a-promising-solution-to-the-missing-value-problem" class="section level4">
-<h4><span class="header-section-number">3.5.2.1</span> Congruent Matching Tori: a promising solution to the missing value problem</h4>
+<h4><span class="header-section-number">3.3.2.2</span> Congruent Matching Tori: a promising solution to the missing value problem</h4>
 <p>As discussed above, dealing with missing values is provign to be a pain. The good news is that the currently-implemented CMC as described above yields results very similar to those published in Song et al. (2015) that originally describes that CMC algorithm. While our results seem to agree with currently published results, it would be nice if we could avoid needing to artifically replace missing values. We can do so if, rather than breaking up the circular breech face scans into disjoint squares, we break up the breech face into donut-shaped regions containing only breech face. Below is an example of such a toroidal region.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-12"></span>
 <img src="images/joeZ/im1_original.png" alt="(Left) The original breech face scan image. (Right) A donut-shaped region cut out of the original image." width="50%" /><img src="images/joeZ/im1_toroidalRegion.png" alt="(Left) The original breech face scan image. (Right) A donut-shaped region cut out of the original image." width="50%" />
@@ -404,6 +395,12 @@ Figure 3.10: (Left) The original breech face scan image. (Right) A donut-shaped 
 <p>By comparing such regions instead of the square cells, we would presumably only need to fill in a few missing value “holes” in the breech face scan rather than completely replacing a non-existent signal with an artificial one. In the near-future, I hope to finish up the pre-processing needed for this Congruent Matching Tori method by performing a polar transformation on these images to make them into strips that can easily be compared via an FFT.</p>
 </div>
 </div>
+</div>
+<div id="analysis-of-results" class="section level2">
+<h2><span class="header-section-number">3.4</span> Analysis of Results</h2>
+</div>
+<div id="communication-of-results-and-methods" class="section level2">
+<h2><span class="header-section-number">3.5</span> Communication of Results and Methods</h2>
 </div>
 <div id="people-involved" class="section level2">
 <h2><span class="header-section-number">3.6</span> People involved</h2>

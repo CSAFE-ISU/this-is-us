@@ -124,15 +124,7 @@ Installation instructions and some basic usage can be found at https://heike.git
 
 #### Approaches to identify groove locations
 
-
-
-### Cartridge Cases
-
-## Analysis of Results
-
-## Communication of Results and Methods
-
-### Hough Transform Method for Identifying Grooves
+##### Hough Transform Method for Identifying Grooves
 
 Charlotte 9/5/19 Update:
 
@@ -161,7 +153,11 @@ So either somethin is wrong with `get_mask_hough` or something is funky with the
   - Include 2-d and 3-d visualizations of Hough groove area identifications
   - Include crosscut visualization and comparison in results
 
-### Congruent Matching Cells (CMC) algorithm for comparing cartridge case breech faces
+
+
+### Cartridge Cases
+
+#### Congruent Matching Cells (CMC) algorithm for comparing cartridge case breech faces
 
 Joe 9/5/19 Update: Dealing with missing values in the x3p scans continues to be an issue. The Fast Fourier Transform method for calculating cross-correlation can't handle missing data in an image, so we've attempted a few "fixes" that haven't necessarily turned out as well as expected. One idea we had was to replace the NA values in a cell with the average pixel value. However, this is artificially introducing a signal where before there was none. This can (and demonstrably has) led to inflated/incorrect correlations between cells that shouldn't have much at all in common. Unfortunately, this may be the only solution if we still wish to adhere to the CMC algorithm as described in Song et al. (2015). One improvement that I've implemented is to "crop out" the rows and columns of an image that only contain NAs. This at least means that we've weakened the strength of the artificial signal relative to the breechface's signal.
 
@@ -202,6 +198,13 @@ knitr::include_graphics(c("images/joeZ/im1_original.png","images/joeZ/im1_toroid
 ```
 
 By comparing such regions instead of the square cells, we would presumably only need to fill in a few missing value "holes" in the breech face scan rather than completely replacing a non-existent signal with an artificial one. In the near-future, I hope to finish up the pre-processing needed for this Congruent Matching Tori method by performing a polar transformation on these images to make them into strips that can easily be compared via an FFT.
+
+
+## Analysis of Results
+
+## Communication of Results and Methods
+
+
 
 ## People involved
 

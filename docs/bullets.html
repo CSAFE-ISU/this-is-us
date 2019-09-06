@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Project CC: Bullets and Cartridge Cases | This is us: making CSAFE stronger each week</title>
   <meta name="description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Project CC: Bullets and Cartridge Cases | This is us: making CSAFE stronger each week" />
   <meta property="og:type" content="book" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="intro.html"/>
-<link rel="next" href="handwriting.html"/>
+<link rel="prev" href="intro.html">
+<link rel="next" href="handwriting.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -237,7 +237,7 @@ bullets are being scanned
 <h4><span class="header-section-number">3.1.3.1</span> Pre-study</h4>
 <p>3 kits with 23 bullets each</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-3"></span>
-<img src="images/heike/houston-pre-set3.png" alt="Bullet-to-bullet similarity scores for questioned bullets (y-axis) compared to all other bullets of the test set (x-axis)."  />
+<img src="images/heike/houston-pre-set3.png" alt="Bullet-to-bullet similarity scores for questioned bullets (y-axis) compared to all other bullets of the test set (x-axis)." width="2092" />
 <p class="caption">
 Figure 3.3: Bullet-to-bullet similarity scores for questioned bullets (y-axis) compared to all other bullets of the test set (x-axis).
 </p>
@@ -323,7 +323,10 @@ Figure 3.5: 3-dimensional visualization of example bullet br411 with .999 streng
 <ul>
 <li><p>Also need to think of including a sort of rounding component where lines with slopes that are practically infinite can be viewed as a vertical line</p></li>
 <li><p>Compare Hough results with manual identification using score calculations from Kiegan.</p></li>
-<li><p>Write up results in Hough Groove Paper (It’s coming I promise)</p></li>
+<li>Write up results in Hough Groove Paper (It’s coming I promise)</li>
+<li>Create graphical images to explain line selection method</li>
+<li>Include 2-d and 3-d visualizations of Hough groove area identifications</li>
+<li><p>Include crosscut visualization and comparison in results</p></li>
 </ul>
 </div>
 <div id="congruent-matching-cells-cmc-algorithm-for-comparing-cartridge-case-breech-faces" class="section level3">
@@ -467,9 +470,8 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

@@ -341,7 +341,7 @@ contact: Melissa Nally, Houston FSI
 
 \begin{figure}
 
-{\centering \includegraphics[width=58.11in]{images/heike/houston-pre-set3} 
+{\centering \includegraphics[width=58.11in]{images/bullets/houston-pre-set3} 
 
 }
 
@@ -407,17 +407,60 @@ Installation instructions and some basic usage can be found at \url{https://heik
 \hypertarget{approaches-to-identify-groove-locations}{%
 \subsubsection{Approaches to identify groove locations}\label{approaches-to-identify-groove-locations}}
 
+\hypertarget{hough-transform-method-for-identifying-grooves}{%
+\paragraph{Hough Transform Method for Identifying Grooves}\label{hough-transform-method-for-identifying-grooves}}
+
+Charlotte 9/5/19 Update:
+
+Will fill in with more detail later
+
+\textbf{Current Goals}:
+- Iron-out issues with consistency of units with \texttt{get\_hough\_grooves}. I believe there are some issues translating from the 2-d visualization to the 3-d visualization that might have to do with inconsistent unit inputs? For Example
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/charlotte/br411_2d} 
+
+}
+
+\caption{2-dimensional visualization of example bullet br411 with .999 strength threshold}\label{fig:unnamed-chunk-6}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/charlotte/br411_3d} 
+
+}
+
+\caption{3-dimensional visualization of example bullet br411 with .999 strength threshold}\label{fig:unnamed-chunk-7}
+\end{figure}
+
+So either somethin is wrong with \texttt{get\_mask\_hough} or something is funky with the units.
+
+\begin{itemize}
+\item
+  Also need to think of including a sort of rounding component where lines with slopes that are practically infinite can be viewed as a vertical line
+\item
+  Compare Hough results with manual identification using score calculations from Kiegan.
+\item
+  Write up results in Hough Groove Paper (It's coming I promise)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Create graphical images to explain line selection method
+  \item
+    Include 2-d and 3-d visualizations of Hough groove area identifications
+  \item
+    Include crosscut visualization and comparison in results
+  \end{itemize}
+\end{itemize}
+
 \hypertarget{cartridge-cases}{%
 \subsection{Cartridge Cases}\label{cartridge-cases}}
 
-\hypertarget{analysis-of-results}{%
-\section{Analysis of Results}\label{analysis-of-results}}
-
-\hypertarget{communication-of-results-and-methods}{%
-\section{Communication of Results and Methods}\label{communication-of-results-and-methods}}
-
 \hypertarget{congruent-matching-cells-cmc-algorithm-for-comparing-cartridge-case-breech-faces}{%
-\subsection{Congruent Matching Cells (CMC) algorithm for comparing cartridge case breech faces}\label{congruent-matching-cells-cmc-algorithm-for-comparing-cartridge-case-breech-faces}}
+\subsubsection{Congruent Matching Cells (CMC) algorithm for comparing cartridge case breech faces}\label{congruent-matching-cells-cmc-algorithm-for-comparing-cartridge-case-breech-faces}}
 
 Joe 9/5/19 Update: Dealing with missing values in the x3p scans continues to be an issue. The Fast Fourier Transform method for calculating cross-correlation can't handle missing data in an image, so we've attempted a few ``fixes'' that haven't necessarily turned out as well as expected. One idea we had was to replace the NA values in a cell with the average pixel value. However, this is artificially introducing a signal where before there was none. This can (and demonstrably has) led to inflated/incorrect correlations between cells that shouldn't have much at all in common. Unfortunately, this may be the only solution if we still wish to adhere to the CMC algorithm as described in Song et al.~(2015). One improvement that I've implemented is to ``crop out'' the rows and columns of an image that only contain NAs. This at least means that we've weakened the strength of the artificial signal relative to the breechface's signal.
 
@@ -429,7 +472,7 @@ Below is a series of images that illustrate how we might compare a cell in one i
 
 }
 
-\caption{Comparing a cell in image 1 to a larger region in image 2. We wish to find the translations of the image 1 cell that yield the highest correlation within the image 2 region.}\label{fig:unnamed-chunk-6}
+\caption{Comparing a cell in image 1 to a larger region in image 2. We wish to find the translations of the image 1 cell that yield the highest correlation within the image 2 region.}\label{fig:unnamed-chunk-8}
 \end{figure}
 
 For the sake of an example, let's focus on the blue outlined cell in image 1. Our goal is to use the image 1 cell to ``search'' a corresponding larger region in image 2 for the horizontal/vertical translations needed to produce the highest correlation. Below is a zoomed-in version of the blue outlined image 1 cell on the left and the larger image 2 region (approximately: I made the gridded image above by-hand outside of R while the images below are from R). The image 1 cell may look larger than the image 2 region, but we can see from the axes that the image 2 region is indeed larger. Any white pixels in the two images are NA values that need to be dealt with in some way before we can use FFTs to calculate the cross-correlation.
@@ -440,7 +483,7 @@ For the sake of an example, let's focus on the blue outlined cell in image 1. Ou
 
 }
 
-\caption{(Left) A cell from image 1. (Right) A region from image 2 centered in the same location as the image 1 cell, yet quadruple the area.}\label{fig:unnamed-chunk-7}
+\caption{(Left) A cell from image 1. (Right) A region from image 2 centered in the same location as the image 1 cell, yet quadruple the area.}\label{fig:unnamed-chunk-9}
 \end{figure}
 
 As already discussed above, one ``solution'' is to replace the NA values with the average pixel value of each image. However, to avoid creating a stronger artificial signal than necessary, we can crop-out the NA rows and columns from the two images above. Below is the cropped version of the two images. The cropping doesn't produce signficantly different images in this case, but you could imagine other examples in which a cell has captured only small amount of breechface in the corner. Such examples are fairly common and cropping signficantly changes the resulting correlation values.
@@ -451,7 +494,7 @@ As already discussed above, one ``solution'' is to replace the NA values with th
 
 }
 
-\caption{The same images as above after cropping NA rows/columns.}\label{fig:unnamed-chunk-8}
+\caption{The same images as above after cropping NA rows/columns.}\label{fig:unnamed-chunk-10}
 \end{figure}
 
 The last step before calculating correlation for these cells is to replace the remaining NAs with the average pixel value. This is shown below.
@@ -462,7 +505,7 @@ The last step before calculating correlation for these cells is to replace the r
 
 }
 
-\caption{The NA-cropped images with remaining NAs replaced with the image's average pixel values.}\label{fig:unnamed-chunk-9}
+\caption{The NA-cropped images with remaining NAs replaced with the image's average pixel values.}\label{fig:unnamed-chunk-11}
 \end{figure}
 
 The cross-correlation is then calculated between these two images via a standard fast fourier transform process (see \href{http://mathworld.wolfram.com/Cross-CorrelationTheorem.html}{Cross-Correlation Theorem}). The benefit of using such a process is that (as the name suggests) it's faster than calculating the raw correlation between the two images. Also, the translations that produce the highest correlation between the image 1 cell and the image 2 region fall out of the calculation for free.
@@ -480,10 +523,16 @@ As discussed above, dealing with missing values is provign to be a pain. The goo
 
 }
 
-\caption{(Left) The original breech face scan image. (Right) A donut-shaped region cut out of the original image.}\label{fig:unnamed-chunk-10}
+\caption{(Left) The original breech face scan image. (Right) A donut-shaped region cut out of the original image.}\label{fig:unnamed-chunk-12}
 \end{figure}
 
 By comparing such regions instead of the square cells, we would presumably only need to fill in a few missing value ``holes'' in the breech face scan rather than completely replacing a non-existent signal with an artificial one. In the near-future, I hope to finish up the pre-processing needed for this Congruent Matching Tori method by performing a polar transformation on these images to make them into strips that can easily be compared via an FFT.
+
+\hypertarget{analysis-of-results}{%
+\section{Analysis of Results}\label{analysis-of-results}}
+
+\hypertarget{communication-of-results-and-methods}{%
+\section{Communication of Results and Methods}\label{communication-of-results-and-methods}}
 
 \hypertarget{people-involved}{%
 \section{People involved}\label{people-involved}}
@@ -547,21 +596,32 @@ We describe our methods for going about the handwriting project here.
 
 \href{https://github.com/CSAFE-ISU/Longitudinal_Shoe_Study}{Github repository}
 
-\hypertarget{original-study-description}{%
-\subsection{Original Study Description}\label{original-study-description}}
-
-\hypertarget{database-paper}{%
-\subsection{Database Paper}\label{database-paper}}
+\hypertarget{paper-describing-the-database}{%
+\subsection{Paper describing the database}\label{paper-describing-the-database}}
 
 \href{https://github.com/CSAFE-ISU/Longitudinal_Shoe_Study/tree/master/Paper}{Paper subdirectory of Github repository}
 
-\hypertarget{methods-and-data-description}{%
-\subsubsection{Methods and Data Description}\label{methods-and-data-description}}
+Goal:
+
+\begin{itemize}
+\tightlist
+\item
+  Describe experiment
+\item
+  Describe database function
+\item
+  Publicize data for analysis by others in the community
+\end{itemize}
+
+\hypertarget{lss-paper-methods}{%
+\subsubsection*{Methods and Data Description}\label{lss-paper-methods}}
+\addcontentsline{toc}{subsubsection}{Methods and Data Description}
 
 Methods and data description handed off to Alicia for editing
 
-\hypertarget{data-analysis-tools}{%
-\subsubsection{Data Analysis Tools}\label{data-analysis-tools}}
+\hypertarget{lss-paper-analysis}{%
+\subsubsection*{Data Analysis Tools}\label{lss-paper-analysis}}
+\addcontentsline{toc}{subsubsection}{Data Analysis Tools}
 
 \begin{itemize}
 \tightlist
@@ -569,8 +629,9 @@ Methods and data description handed off to Alicia for editing
   Working with the \texttt{EBImage} package - very fast processing of images
 \end{itemize}
 
-\hypertarget{film-and-powder-images}{%
-\paragraph{Film and Powder Images}\label{film-and-powder-images}}
+\hypertarget{lss-paper-analysis-film}{%
+\paragraph{Film and Powder Images}\label{lss-paper-analysis-film}}
+\addcontentsline{toc}{paragraph}{Film and Powder Images}
 
 Analysis Steps:
 
@@ -581,15 +642,18 @@ Analysis Steps:
 
   \begin{enumerate}
   \def\labelenumii{\alph{enumii}.}
+  \tightlist
+  \item
+    Blur image (circular/gaussian blur, diameter 15)\\
   \item
     Invert the image\\
   \item
-    Blur image (circular/gaussian blur, diameter 5)\\
+    Threshold image (adaptive threshold, 10 x 10 region, keep anything with an average higher than 0.025 from the mean)\\
   \item
-    Threshold image (adaptive threshold, 10 x 10 region, keep anything with an average higher than .90 from the mean)\\
-  \item
-    Expand mask\\
-    (default parameters rad1 = 5, rad2 = 91, proportion, expand\_rad = 50)\\
+    Create mask\\
+    Default parameters selected by visually screening several shoes:\\
+    ~\\
+    (default parameters rad1 = 5, rad2 = 151, proportion = 1.5*area of rad2 in px/area of image in px)\\
 
     \begin{enumerate}
     \def\labelenumiii{\arabic{enumiii}.}
@@ -602,32 +666,105 @@ Analysis Steps:
       label disjoint regions of the image
     \item
       prune small image regions (area \textless{} proportion parameter)
+    \end{enumerate}
+  \item
+    Fill in mask holes\\
+  \item
+    Expand mask to capture entire shoe region
+
+    \begin{enumerate}
+    \def\labelenumiii{\arabic{enumiii}.}
+    \tightlist
     \item
       set background color
     \item
       create dataframe of useful (non-background) pixels
     \item
-      fill in holes and concave regions in mask, then expand by expand\_rad vertically and horizontally (similar to ``convex hull'', but faster and with additional expansion)
+      fill in holes and concave regions in mask, then expand by expand\_rad vertically and horizontally (similar to ``convex hull'', but with additional expansion radius)
     \end{enumerate}
   \end{enumerate}
 \item
   Mask image to remove extra variability unrelated to the shoe\\
 \item
   Threshold masked image?\\
+  Con: Lose grey information; Pro: fully remove background\\
+\item
+  Compromise: Keep grey pixels from thresholded, masked image (e.g.~use 3. as a mask), then renormalize\\
 \end{enumerate}
 
-\hypertarget{wear-characterization}{%
-\paragraph{Wear Characterization}\label{wear-characterization}}
+\hypertarget{lss-paper-analysis-wear}{%
+\paragraph{Wear Characterization}\label{lss-paper-analysis-wear}}
+\addcontentsline{toc}{paragraph}{Wear Characterization}
 
 Ideas:
-- average intensity of cleaned image
-- length of border/edges detected
+
+\begin{itemize}
+\tightlist
+\item
+  average intensity of cleaned image
+\item
+  length of border/edges detected
+\end{itemize}
 
 \hypertarget{connor}{%
 \section{Passive Shoe Recognition}\label{connor}}
 
-\hypertarget{soyoung}{%
-\section{Maximum Clique Matching}\label{soyoung}}
+CoNNOR: Convolutional Neural Network for Outsole Recognition
+
+\begin{itemize}
+\tightlist
+\item
+  Label images of shoes according to geometric classification scheme
+\item
+  Use convolutional base of pretrained CNN VGG16 and train a new classifier on labeled features
+\end{itemize}
+
+\href{https://github.com/MirandaTilton/ISU_CC}{Github repository for CC on CoNNOR}
+
+\href{https://github.com/srvanderplas/CoNNORFSI}{Github repository for paper submitted to Forensic Science International}
+
+Exploring new directions:
+
+\begin{itemize}
+\tightlist
+\item
+  Truncate convolutional base and train random forest on features
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Could replace fully connected layers of neural net as classifier
+  \item
+    Importance score can filter/reduce the number of features
+  \item
+    \emph{Currently training on HPC, 3 days in}
+  \end{itemize}
+\item
+  Fully convolutional networks (FCNs)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Unsupervised segmentation to assess current classification scheme
+  \item
+    Handle whole shoe image of any size (instead of only 256x256 pixel images)
+  \end{itemize}
+\end{itemize}
+
+References for CNNs and FCNs
+
+\href{https://stats.stackexchange.com/questions/266075/patch-wise-training-and-fully-convolutional-training-in-fully-convolutional-neur}{Stack Exchange post explaining patchwise training}
+
+\href{https://ieeexplore.ieee.org/abstract/document/6338939}{``Learning Hierarchical Features for Scene Labeling''}: describes an application of multi-scale CNNs and image pyramids
+
+\href{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.56.8646}{``Pyramid methods in image processing''}: classic paper from 1984 explaining pyramid methods
+
+\href{https://people.eecs.berkeley.edu/~jonlong/long_shelhamer_fcn.pdf}{``Fully Convolutional Networks for Semantic Segmentation''}
+
+\href{https://arxiv.org/pdf/1711.08506.pdf}{``W-Net: A Deep Model for Fully Unsupervised Image Segmentation''}
+
+\hypertarget{maxclique}{%
+\section{Maximum Clique Matching}\label{maxclique}}
 
 \hypertarget{cocoa}{%
 \section{Cocoa Powder Citizen Science}\label{cocoa}}

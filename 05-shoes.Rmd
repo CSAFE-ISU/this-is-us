@@ -80,12 +80,16 @@ Ideas:
 <div class = "new">
 
 CoNNOR: Convolutional Neural Network for Outsole Recognition
+
   - Label images of shoes according to geometric classification scheme
   - Use convolutional base of pretrained CNN VGG16 and train a new classifier on labeled features
 
 [Github repository for CC on CoNNOR](https://github.com/MirandaTilton/ISU_CC)
 
+[Github repository for paper submitted to Forensic Science International](https://github.com/srvanderplas/CoNNORFSI)
+
 Exploring new directions:
+
   - Truncate convolutional base and train random forest on features
     - Could replace fully connected layers of neural net as classifier
     - Importance score can filter/reduce the number of features
@@ -95,6 +99,7 @@ Exploring new directions:
     - Handle whole shoe image of any size (instead of only 256x256 pixel images)
     
 References for CNNs and FCNs
+
 [Stack Exchange post explaining patchwise training](https://stats.stackexchange.com/questions/266075/patch-wise-training-and-fully-convolutional-training-in-fully-convolutional-neur)
 
 ["Learning Hierarchical Features for Scene Labeling"](https://ieeexplore.ieee.org/abstract/document/6338939): describes an application of multi-scale CNNs and image pyramids

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>References | This is us: making CSAFE stronger each week</title>
   <meta name="description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
 
   <meta property="og:title" content="References | This is us: making CSAFE stronger each week" />
   <meta property="og:type" content="book" />
@@ -24,14 +24,14 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2019-09-05" />
+<meta name="date" content="2019-09-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="outreach-activities.html"/>
+<link rel="prev" href="outreach-activities.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -55,6 +55,7 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -66,7 +67,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -196,7 +197,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="refs" class="references">
 <div>
-<p>Hare, Eric, Heike Hofmann, and Alicia Carriquiry. 2016. “Automatic Matching of Bullet Lands.” <em>ArXiv E-Prints</em>, January. <a href="http://arxiv.org/abs/1601.05788">http://arxiv.org/abs/1601.05788</a>.</p>
+<p>Hare, Eric, Heike Hofmann, and Alicia Carriquiry. 2016. “Automatic Matching of Bullet Lands.” <em>ArXiv E-Prints</em>, January.</p>
 </div>
 <div>
 <p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.</p>
@@ -264,9 +265,8 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

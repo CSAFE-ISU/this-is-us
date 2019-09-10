@@ -2,3 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
+docs-local
+_bookdown_files/
+.DS_Store

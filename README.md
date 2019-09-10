@@ -6,7 +6,7 @@ in order to avoid the most egregious problems with the repository, we are going 
 
 2. A lot of our troubles with pulling and merging the repo resulted from conflicts in the `docs` folder. `docs` is used to render the websites for the repo. We don't all have to render and re-render the book (a lot of issues came from different line endings between operating systems). Solution: we will have a local rendering of the book, so you can have a look at it, but we will only update websites just before show-and-tell. 
 Run the command
-`usethis::use_git_ignore(ignores=c("docs-local", "_bookdown_files/"))`
+`usethis::use_git_ignore(ignores=c(".gitignore", "docs-local", "_bookdown_files/"))`
 to make sure that git ignores your local book build. 
 
 

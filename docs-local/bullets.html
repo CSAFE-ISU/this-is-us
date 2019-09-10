@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Project CC: Bullets and Cartridge Cases | This is us: making CSAFE stronger each week</title>
+  <meta name="description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Project CC: Bullets and Cartridge Cases | This is us: making CSAFE stronger each week" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Project CC: Bullets and Cartridge Cases | This is us: making CSAFE stronger each week" />
+  
+  <meta name="twitter:description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="CSAFE" />
+
+
+<meta name="date" content="2019-09-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="intro.html">
+<link rel="next" href="handwriting.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">This is us</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="bullets.html"><a href="bullets.html"><i class="fa fa-check"></i><b>3</b> Project CC: Bullets and Cartridge Cases</a><ul>
+<li class="chapter" data-level="3.1" data-path="bullets.html"><a href="bullets.html#data-collection"><i class="fa fa-check"></i><b>3.1</b> Data Collection</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="bullets.html"><a href="bullets.html#lapd"><i class="fa fa-check"></i><b>3.1.1</b> LAPD</a></li>
+<li class="chapter" data-level="3.1.2" data-path="bullets.html"><a href="bullets.html#hamby-sets"><i class="fa fa-check"></i><b>3.1.2</b> Hamby Sets</a></li>
+<li class="chapter" data-level="3.1.3" data-path="bullets.html"><a href="bullets.html#houston-tests"><i class="fa fa-check"></i><b>3.1.3</b> Houston Tests</a></li>
+<li class="chapter" data-level="3.1.4" data-path="bullets.html"><a href="bullets.html#houston-persistence"><i class="fa fa-check"></i><b>3.1.4</b> Houston Persistence</a></li>
+<li class="chapter" data-level="3.1.5" data-path="bullets.html"><a href="bullets.html#st-louis-persistence"><i class="fa fa-check"></i><b>3.1.5</b> St Louis persistence</a></li>
+<li class="chapter" data-level="3.1.6" data-path="bullets.html"><a href="bullets.html#dfsc-cartridge-cases"><i class="fa fa-check"></i><b>3.1.6</b> DFSC Cartridge cases</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="bullets.html"><a href="bullets.html#computational-tools"><i class="fa fa-check"></i><b>3.2</b> Computational Tools</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="bullets.html"><a href="bullets.html#x3ptools"><i class="fa fa-check"></i><b>3.2.1</b> x3ptools</a></li>
+<li class="chapter" data-level="3.2.2" data-path="bullets.html"><a href="bullets.html#bulletxtrctr"><i class="fa fa-check"></i><b>3.2.2</b> bulletxtrctr</a></li>
+<li class="chapter" data-level="3.2.3" data-path="bullets.html"><a href="bullets.html#groovefinder"><i class="fa fa-check"></i><b>3.2.3</b> grooveFinder</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="bullets.html"><a href="bullets.html#similarity-scores"><i class="fa fa-check"></i><b>3.3</b> Similarity Scores</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="bullets.html"><a href="bullets.html#bullet-lands"><i class="fa fa-check"></i><b>3.3.1</b> Bullet Lands</a></li>
+<li class="chapter" data-level="3.3.2" data-path="bullets.html"><a href="bullets.html#cartridge-cases"><i class="fa fa-check"></i><b>3.3.2</b> Cartridge Cases</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="bullets.html"><a href="bullets.html#analysis-of-results"><i class="fa fa-check"></i><b>3.4</b> Analysis of Results</a></li>
+<li class="chapter" data-level="3.5" data-path="bullets.html"><a href="bullets.html#communication-of-results-and-methods"><i class="fa fa-check"></i><b>3.5</b> Communication of Results and Methods</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="bullets.html"><a href="bullets.html#conference-presentations"><i class="fa fa-check"></i><b>3.5.1</b> Conference Presentations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="bullets.html"><a href="bullets.html#people-involved"><i class="fa fa-check"></i><b>3.6</b> People involved</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="bullets.html"><a href="bullets.html#faculty"><i class="fa fa-check"></i><b>3.6.1</b> Faculty</a></li>
+<li class="chapter" data-level="3.6.2" data-path="bullets.html"><a href="bullets.html#graduate-students"><i class="fa fa-check"></i><b>3.6.2</b> Graduate Students</a></li>
+<li class="chapter" data-level="3.6.3" data-path="bullets.html"><a href="bullets.html#undergraduates"><i class="fa fa-check"></i><b>3.6.3</b> Undergraduates</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="handwriting.html"><a href="handwriting.html"><i class="fa fa-check"></i><b>4</b> Handwriting</a></li>
+<li class="chapter" data-level="5" data-path="glass.html"><a href="glass.html"><i class="fa fa-check"></i><b>5</b> Glass</a></li>
+<li class="chapter" data-level="6" data-path="shoes.html"><a href="shoes.html"><i class="fa fa-check"></i><b>6</b> Shoes</a><ul>
+<li class="chapter" data-level="6.1" data-path="shoes.html"><a href="shoes.html#longitudinal"><i class="fa fa-check"></i><b>6.1</b> Longitudinal Shoe Study</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="shoes.html"><a href="shoes.html#paper-describing-the-database"><i class="fa fa-check"></i><b>6.1.1</b> Paper describing the database</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="shoes.html"><a href="shoes.html#connor"><i class="fa fa-check"></i><b>6.2</b> Passive Shoe Recognition</a></li>
+<li class="chapter" data-level="6.3" data-path="shoes.html"><a href="shoes.html#maxclique"><i class="fa fa-check"></i><b>6.3</b> Maximum Clique Matching</a></li>
+<li class="chapter" data-level="6.4" data-path="shoes.html"><a href="shoes.html#cocoa"><i class="fa fa-check"></i><b>6.4</b> Cocoa Powder Citizen Science</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html"><i class="fa fa-check"></i><b>7</b> Theoretical foundations</a><ul>
+<li class="chapter" data-level="7.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#nates-updates-952019"><i class="fa fa-check"></i><b>7.1</b> Nate’s Updates 9/5/2019</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="outreach-activities.html"><a href="outreach-activities.html"><i class="fa fa-check"></i><b>8</b> Outreach activities</a><ul>
+<li class="chapter" data-level="8.1" data-path="outreach-activities.html"><a href="outreach-activities.html#book-on-forensic-science-and-statistics"><i class="fa fa-check"></i><b>8.1</b> Book on Forensic Science and Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">This is us: making CSAFE stronger each week</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="bullets" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Project CC: Bullets and Cartridge Cases</h1>
+<p>For both bullets and cartridge cases we are dealing with several inter-related aspects, that we want to address independently.</p>
+<p>Those are:</p>
+<ol style="list-style-type: decimal">
+<li>data collection</li>
+<li>computational tools</li>
+<li><p>similarity scores</p>
+<ol style="list-style-type: decimal">
+<li><p>for bullet lands:</p>
+<ol style="list-style-type: lower-alpha">
+<li>crosscut identification</li>
+<li>groove location</li>
+<li>curvature removal</li>
+<li>alignment of signatures</li>
+<li>feature extraction</li>
+<li>matching with trained Random Forest</li>
+</ol></li>
+<li><p>for breech faces</p></li>
+</ol></li>
+<li>analysis of results</li>
+<li><p>communication of results and methods</p></li>
+</ol>
+<div id="data-collection" class="section level2">
+<h2><span class="header-section-number">3.1</span> Data Collection</h2>
+<div id="lapd" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> LAPD</h3>
+<p>All bullets are collected by Srinivasan Rathinam, LAPD.</p>
+<div id="main-study" class="section level4">
+<h4><span class="header-section-number">3.1.1.1</span> Main study</h4>
+<p>4 bullets per barrel for 626 Beretta 92 F/FS firearms , ammunition used are 9 mm Luger Winchester 115 grain with a Copper surface.</p>
+<p>scans are on Raven.</p>
+<p class="new">
+evaluation: Yawei is going to work through all 626 barrels of knowns to assess similarity scores
+</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-3"></span>
+<img src="images/yawei/results-FAU-1.png" alt="Results from assessing scans of barrel FAU 1 similarity." width="50%" />
+<p class="caption">
+Figure 3.1: Results from assessing scans of barrel FAU 1 similarity.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-4"></span>
+<img src="images/yawei/results-FAU-2.png" alt="Results from assessing scans of barrel FAU 2 similarity." width="50%" />
+<p class="caption">
+Figure 3.2: Results from assessing scans of barrel FAU 2 similarity.
+</p>
+</div>
+</div>
+<div id="follow-up-study" class="section level4">
+<h4><span class="header-section-number">3.1.1.2</span> follow-up study</h4>
+<p>4 bullets per barrel for 96 of the original 626 Beretta firearms using different ammunition</p>
+<p class="new">
+bullets are being scanned
+</p>
+</div>
+</div>
+<div id="hamby-sets" class="section level3">
+<h3><span class="header-section-number">3.1.2</span> Hamby Sets</h3>
+<p>Scans for Hamby Sets 10, 36, 44, and 224</p>
+<p>Scans for 3 replicates of clones for Hamby 224</p>
+</div>
+<div id="houston-tests" class="section level3">
+<h3><span class="header-section-number">3.1.3</span> Houston Tests</h3>
+<p>contact: Melissa Nally, Houston FSI</p>
+<div id="pre-study" class="section level4">
+<h4><span class="header-section-number">3.1.3.1</span> Pre-study</h4>
+<p>3 kits with 23 bullets each</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-5"></span>
+<img src="images/bullets/houston-pre-set3.png" alt="Bullet-to-bullet similarity scores for questioned bullets (y-axis) compared to all other bullets of the test set (x-axis)." width="2092" />
+<p class="caption">
+Figure 3.3: Bullet-to-bullet similarity scores for questioned bullets (y-axis) compared to all other bullets of the test set (x-axis).
+</p>
+</div>
+<p class="new">
+evaluation included in submission to JFI
+</p>
+</div>
+<div id="study" class="section level4">
+<h4><span class="header-section-number">3.1.3.2</span> Study</h4>
+<p>4 kits with 20 bullets each</p>
+<p class="new">
+scans done, evaluation finished, some scans of doubtful quality
+</p>
+</div>
+</div>
+<div id="houston-persistence" class="section level3">
+<h3><span class="header-section-number">3.1.4</span> Houston Persistence</h3>
+<p>contact: Melissa Nally, Houston FSI</p>
+<p>8 barrels with 40 fired bullets each</p>
+</div>
+<div id="st-louis-persistence" class="section level3">
+<h3><span class="header-section-number">3.1.5</span> St Louis persistence</h3>
+<p>contact: Steve Kramer, St Louis PD</p>
+<p>2 barrels with 192 fired bullets each (2 bullets collected every 25 shots)</p>
+</div>
+<div id="dfsc-cartridge-cases" class="section level3">
+<h3><span class="header-section-number">3.1.6</span> DFSC Cartridge cases</h3>
+<p>Breech face data for knowns are scanned and available on a private github repository</p>
+<p>evaluation</p>
+</div>
+</div>
+<div id="computational-tools" class="section level2">
+<h2><span class="header-section-number">3.2</span> Computational Tools</h2>
+<div id="x3ptools" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> x3ptools</h3>
+<p><code>x3ptools</code> is an R package for working with files in x3p format. x3p is an ISO standard for describing 3d topographic surface measurements.
+<code>x3ptools</code> is available on CRAN, i.e. can be installed with the command <code>install.packages(&quot;x3ptools&quot;)</code>. The development version is available from github. Installation instructions and basic usage can be found at <a href="https://heike.github.io/x3ptools/" class="uri">https://heike.github.io/x3ptools/</a></p>
+</div>
+<div id="bulletxtrctr" class="section level3">
+<h3><span class="header-section-number">3.2.2</span> bulletxtrctr</h3>
+<p><code>bulletxtrctr</code> is a developmental R package available from github (see <a href="https://heike.github.io/bulletxtrctr/" class="uri">https://heike.github.io/bulletxtrctr/</a>) that allows an assessment of similarity scores using the data extraction pipeline described in <span class="citation">Hare, Hofmann, and Carriquiry (<a href="#ref-aoas">2016</a>)</span>.</p>
+</div>
+<div id="groovefinder" class="section level3">
+<h3><span class="header-section-number">3.2.3</span> grooveFinder</h3>
+<p><code>grooveFinder</code> is a developmental R package providing different methods for identifying the location of grooves in scans of bullets.
+Installation instructions and some basic usage can be found at <a href="https://heike.github.io/grooveFinder/" class="uri">https://heike.github.io/grooveFinder/</a></p>
+</div>
+</div>
+<div id="similarity-scores" class="section level2">
+<h2><span class="header-section-number">3.3</span> Similarity Scores</h2>
+<div id="bullet-lands" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> Bullet Lands</h3>
+<div id="approaches-to-identify-groove-locations" class="section level4">
+<h4><span class="header-section-number">3.3.1.1</span> Approaches to identify groove locations</h4>
+<div id="hough-transform-method-for-identifying-grooves" class="section level5">
+<h5><span class="header-section-number">3.3.1.1.1</span> Hough Transform Method for Identifying Grooves</h5>
+<p>Charlotte 9/5/19 Update:</p>
+<p>Will fill in with more detail later</p>
+<p><strong>Current Goals</strong>:
+- Iron-out issues with consistency of units with <code>get_hough_grooves</code>. I believe there are some issues translating from the 2-d visualization to the 3-d visualization that might have to do with inconsistent unit inputs? For Example</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-6"></span>
+<img src="images/charlotte/br411_2d.jpeg" alt="2-dimensional visualization of example bullet br411 with .999 strength threshold" width="50%" />
+<p class="caption">
+Figure 3.4: 2-dimensional visualization of example bullet br411 with .999 strength threshold
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-7"></span>
+<img src="images/charlotte/br411_3d.png" alt="3-dimensional visualization of example bullet br411 with .999 strength threshold" width="50%" />
+<p class="caption">
+Figure 3.5: 3-dimensional visualization of example bullet br411 with .999 strength threshold
+</p>
+</div>
+<p>So either somethin is wrong with <code>get_mask_hough</code> or something is funky with the units.</p>
+<ul>
+<li><p>Also need to think of including a sort of rounding component where lines with slopes that are practically infinite can be viewed as a vertical line</p></li>
+<li><p>Compare Hough results with manual identification using score calculations from Kiegan.</p></li>
+<li>Write up results in Hough Groove Paper (It’s coming I promise)
+<ul>
+<li>Create graphical images to explain line selection method</li>
+<li>Include 2-d and 3-d visualizations of Hough groove area identifications</li>
+<li>Include crosscut visualization and comparison in results</li>
+</ul></li>
+</ul>
+</div>
+<div id="lasso-method" class="section level5">
+<h5><span class="header-section-number">3.3.1.1.2</span> LASSO Method</h5>
+<p class="new">
+A paper is in preparation for submission to Forensic Science International describing this method (<code>get_grooves_lassofull</code> in <code>grooveFinder</code>), as well as the Bayesian changepoint method (<code>get_grooves_bcp</code>).
+</p>
+</div>
+<div id="robust-loess-method" class="section level5">
+<h5><span class="header-section-number">3.3.1.1.3</span> Robust LOESS Method</h5>
+<p class="new">
+A paper submitted to the Journal of Forensic Science is waiting for peer review response to the first round of revisions.
+</p>
+</div>
+</div>
+</div>
+<div id="cartridge-cases" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> Cartridge Cases</h3>
+<div id="congruent-matching-cells-cmc-algorithm-for-comparing-cartridge-case-breech-face-impressions" class="section level4">
+<h4><span class="header-section-number">3.3.2.1</span> Congruent Matching Cells (CMC) algorithm for comparing cartridge case breech face impressions</h4>
+<p>Joe 9/5/19 Update: Dealing with missing values in the x3p scans continues to be an issue. The Fast Fourier Transform method for calculating cross-correlation can’t handle missing data in an image, so we’ve attempted a few “fixes” that haven’t necessarily turned out as well as expected. One idea we had was to replace the NA values in a cell with the average pixel value. However, this is artificially introducing a signal where before there was none. This can (and demonstrably has) led to inflated/incorrect correlations between cells that shouldn’t have much at all in common. Unfortunately, this may be the only solution if we still wish to adhere to the CMC algorithm as described in Song et al. (2015). One improvement that I’ve implemented is to “crop out” the rows and columns of an image that only contain NAs. This at least means that we’ve weakened the strength of the artificial signal relative to the breechface’s signal.</p>
+<p>Below is a series of images that illustrate how we might compare a cell in one image to a region of another image.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-8"></span>
+<img src="images/cartridge_cases/im1_im2_cellComparison.png" alt="Comparing a cell in image 1 to a larger region in image 2. We wish to find the translations of the image 1 cell that yield the highest correlation within the image 2 region." width="50%" />
+<p class="caption">
+Figure 3.6: Comparing a cell in image 1 to a larger region in image 2. We wish to find the translations of the image 1 cell that yield the highest correlation within the image 2 region.
+</p>
+</div>
+<p>For the sake of an example, let’s focus on the blue outlined cell in image 1. Our goal is to use the image 1 cell to “search” a corresponding larger region in image 2 for the horizontal/vertical translations needed to produce the highest correlation. Below is a zoomed-in version of the blue outlined image 1 cell on the left and the larger image 2 region (approximately: I made the gridded image above by-hand outside of R while the images below are from R). The image 1 cell may look larger than the image 2 region, but we can see from the axes that the image 2 region is indeed larger. Any white pixels in the two images are NA values that need to be dealt with in some way before we can use FFTs to calculate the cross-correlation.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-9"></span>
+<img src="images/cartridge_cases/im1_split.png" alt="(Left) A cell from image 1. (Right) A region from image 2 centered in the same location as the image 1 cell, yet quadruple the area." width="50%" /><img src="images/cartridge_cases/im2_split.png" alt="(Left) A cell from image 1. (Right) A region from image 2 centered in the same location as the image 1 cell, yet quadruple the area." width="50%" />
+<p class="caption">
+Figure 3.7: (Left) A cell from image 1. (Right) A region from image 2 centered in the same location as the image 1 cell, yet quadruple the area.
+</p>
+</div>
+<p>As already discussed above, one “solution” is to replace the NA values with the average pixel value of each image. However, to avoid creating a stronger artificial signal than necessary, we can crop-out the NA rows and columns from the two images above. Below is the cropped version of the two images. The cropping doesn’t produce signficantly different images in this case, but you could imagine other examples in which a cell has captured only small amount of breechface in the corner. Such examples are fairly common and cropping signficantly changes the resulting correlation values.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-10"></span>
+<img src="images/cartridge_cases/im1_splitFilteredCropped.png" alt="The same images as above after cropping NA rows/columns." width="50%" /><img src="images/cartridge_cases/im2_splitFilteredCropped.png" alt="The same images as above after cropping NA rows/columns." width="50%" />
+<p class="caption">
+Figure 3.8: The same images as above after cropping NA rows/columns.
+</p>
+</div>
+<p>The last step before calculating correlation for these cells is to replace the remaining NAs with the average pixel value. This is shown below.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-11"></span>
+<img src="images/cartridge_cases/im1_splitShifted.png" alt="The NA-cropped images with remaining NAs replaced with the image's average pixel values." width="50%" /><img src="images/cartridge_cases/im2_splitShifted.png" alt="The NA-cropped images with remaining NAs replaced with the image's average pixel values." width="50%" />
+<p class="caption">
+Figure 3.9: The NA-cropped images with remaining NAs replaced with the image’s average pixel values.
+</p>
+</div>
+<p>The cross-correlation is then calculated between these two images via a standard fast fourier transform process (see <a href="http://mathworld.wolfram.com/Cross-CorrelationTheorem.html">Cross-Correlation Theorem</a>). The benefit of using such a process is that (as the name suggests) it’s faster than calculating the raw correlation between the two images. Also, the translations that produce the highest correlation between the image 1 cell and the image 2 region fall out of the calculation for free.</p>
+<p>This pre-processing/cross-correlation calculation procedure is repeated for every cell in image 1 that contains breech face impression. Because it is not valid to assume that the two images are rotationally aligned by default, we perform the same procedure repeatedly while rotating image 2. Currently, we perform a “rough” grid search of <span class="math inline">\(\theta \in [-177.5,180]\)</span> by increments of <span class="math inline">\(2.5^{\circ}\)</span>. Theoretically, the final results tell us how we need to horizontally/vertically translate and rotate the two images to be correctly aligned.</p>
+</div>
+<div id="congruent-matching-tori-a-promising-solution-to-the-missing-value-problem" class="section level4">
+<h4><span class="header-section-number">3.3.2.2</span> Congruent Matching Tori: a promising solution to the missing value problem</h4>
+<p>As discussed above, dealing with missing values is provign to be a pain. The good news is that the currently-implemented CMC as described above yields results very similar to those published in Song et al. (2015) that originally describes that CMC algorithm. While our results seem to agree with currently published results, it would be nice if we could avoid needing to artifically replace missing values. We can do so if, rather than breaking up the circular breech face impression scans into disjoint squares, we break up the breech face impression into donut-shaped regions containing only breech face impression. Below is an example of such a toroidal region.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-12"></span>
+<img src="images/cartridge_cases/im1_original.png" alt="(Left) The original breech face impression scan image. (Right) A donut-shaped region cut out of the original image." width="50%" /><img src="images/cartridge_cases/im1_toroidalRegion.png" alt="(Left) The original breech face impression scan image. (Right) A donut-shaped region cut out of the original image." width="50%" />
+<p class="caption">
+Figure 3.10: (Left) The original breech face impression scan image. (Right) A donut-shaped region cut out of the original image.
+</p>
+</div>
+<p>By comparing such regions instead of the square cells, we would presumably only need to fill in a few missing value “holes” in the breech face impression scan rather than completely replacing a non-existent signal with an artificial one. In the near-future, I hope to finish up the pre-processing needed for this Congruent Matching Tori method by performing a polar transformation on these images to make them into strips that can easily be compared via an FFT.</p>
+</div>
+</div>
+</div>
+<div id="analysis-of-results" class="section level2">
+<h2><span class="header-section-number">3.4</span> Analysis of Results</h2>
+</div>
+<div id="communication-of-results-and-methods" class="section level2">
+<h2><span class="header-section-number">3.5</span> Communication of Results and Methods</h2>
+<div id="conference-presentations" class="section level3">
+<h3><span class="header-section-number">3.5.1</span> Conference Presentations</h3>
+<div id="american-academy-of-forensic-sciences" class="section level4">
+<h4><span class="header-section-number">3.5.1.1</span> American Academy of Forensic Sciences</h4>
+<ul>
+<li><p class="new">
+“Validation Study on Automated Groove Detection Methods in 3D Bullet Land Scans”
+</p>
+<ul>
+<li>February 2019<br />
+</li>
+<li>Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann</li>
+<li>Presentation given by Kiegan Rice</li>
+</ul></li>
+</ul>
+</div>
+<div id="association-of-firearms-and-toolmark-examiners-annual-training-seminar" class="section level4">
+<h4><span class="header-section-number">3.5.1.2</span> Association of Firearms and Toolmark Examiners Annual Training Seminar</h4>
+<ul>
+<li>Heike’s talk</li>
+<li><p class="new">
+“Reproducibility of Automated Bullet Matching Scores Using High-Resolution 3D LEA Scans”
+</p>
+<ul>
+<li>May 2019</li>
+<li>Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann</li>
+<li>Presentation given by Kiegan Rice</li>
+</ul></li>
+</ul>
+</div>
+<div id="joint-statistical-meetings" class="section level4">
+<h4><span class="header-section-number">3.5.1.3</span> Joint Statistical Meetings</h4>
+<ul>
+<li><p class="new">
+“Repeatability and reproducibility of automated bullet comparisons using high-resolution 3D scans”
+</p>
+<ul>
+<li>July 2019</li>
+<li>Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann</li>
+<li>Poster presented by Kiegan Rice</li>
+</ul></li>
+</ul>
+</div>
+<div id="miscellaneous" class="section level4">
+<h4><span class="header-section-number">3.5.1.4</span> Miscellaneous</h4>
+<ul>
+<li><p class="new">
+10th International Workshop on Statistics and Simulation in Salzburg, Austria, September 2019
+</p>
+<ul>
+<li>“Reproducibility of High-Resolution 3D Bullet Scans and Automated Bullet Matching Scores”
+<ul>
+<li>Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann</li>
+<li>Poster presented by Kiegan Rice, won 2nd Springer Poster Award<br />
+</li>
+</ul></li>
+<li>“Case Study Validations of Automatic Bullet Matching”
+<ul>
+<li>Authors: Heike Hofmann, Susan VanderPlas</li>
+<li>Presentation given by Alicia Carriquiry</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="people-involved" class="section level2">
+<h2><span class="header-section-number">3.6</span> People involved</h2>
+<div id="faculty" class="section level3">
+<h3><span class="header-section-number">3.6.1</span> Faculty</h3>
+<ul>
+<li>Heike Hofmann</li>
+<li>Susan VanderPlas</li>
+</ul>
+</div>
+<div id="graduate-students" class="section level3">
+<h3><span class="header-section-number">3.6.2</span> Graduate Students</h3>
+<ul>
+<li>Ganesh Krishnan</li>
+<li>Kiegan Rice</li>
+<li>Nate Garton</li>
+<li>Charlotte Roigers</li>
+<li>Joe Zemmels</li>
+<li>Yawei Ge</li>
+</ul>
+</div>
+<div id="undergraduates" class="section level3">
+<h3><span class="header-section-number">3.6.3</span> Undergraduates</h3>
+<ul>
+<li>Talen Fisher (fix3p)</li>
+<li>Andrew Maloney</li>
+<li>Mya Fisher, Allison Mark, Connor Hergenreter, Carley McConnell, Anyesha Ray (scanner)</li>
+</ul>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-aoas">
+<p>Hare, Eric, Heike Hofmann, and Alicia Carriquiry. 2016. “Automatic Matching of Bullet Lands.” <em>ArXiv E-Prints</em>, January.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="handwriting.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-bullet_casing.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

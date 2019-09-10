@@ -1,1 +1,24 @@
 # Outreach activities
+
+<p class="new">CSAFE has several ongoing outreach projects.</p>  
+
+## Book on Forensic Science and Statistics  
+
+Project members: 
+
+- Kiegan Rice  
+- Alicia Carriquiry  
+- Hal Stern (UCI)
+
+
+General book outline: 
+
+- Chapter 1: Introduction  
+- Chapter 2: Analysis of Forensic Evidence  
+    - Drafted. In the editing stage.
+- Chapter 3: The Path to the Witness Stand  
+    - <p class="new">Drafted. In the editing stage.</p>
+- Chapter 4: Communicating Evidence in the Courtroom  
+    - Not drafted. In the writing stage.
+- Chapter 5: Conclusions 
+

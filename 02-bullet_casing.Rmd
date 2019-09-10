@@ -153,7 +153,13 @@ So either somethin is wrong with `get_mask_hough` or something is funky with the
   - Include 2-d and 3-d visualizations of Hough groove area identifications
   - Include crosscut visualization and comparison in results
 
+##### LASSO Method  
 
+<p class="new">A paper is in preparation for submission to Forensic Science International describing this method (`get_grooves_lassofull` in `grooveFinder`), as well as the Bayesian changepoint method (`get_grooves_bcp`). </p>  
+
+##### Robust LOESS Method  
+
+<p class="new">A paper submitted to the Journal of Forensic Science is waiting for peer review response to the first round of revisions.</p> 
 
 ### Cartridge Cases
 
@@ -202,7 +208,42 @@ By comparing such regions instead of the square cells, we would presumably only 
 
 ## Analysis of Results
 
-## Communication of Results and Methods
+## Communication of Results and Methods  
+
+### Conference Presentations  
+
+#### American Academy of Forensic Sciences  
+
+- <p class="new">"Validation Study on Automated Groove Detection Methods in 3D Bullet Land Scans"</p>
+    - February 2019  
+    - Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann
+    - Presentation given by Kiegan Rice
+
+#### Association of Firearms and Toolmark Examiners Annual Training Seminar  
+
+- Heike's talk 
+- <p class="new"> "Reproducibility of Automated Bullet Matching Scores Using High-Resolution 3D LEA Scans" </p> 
+    - May 2019
+    - Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann 
+    - Presentation given by Kiegan Rice  
+    
+    
+#### Joint Statistical Meetings  
+
+- <p class="new"> "Repeatability and reproducibility of automated bullet comparisons using high-resolution 3D scans" </p>
+    - July 2019 
+    - Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann
+    - Poster presented by Kiegan Rice  
+
+#### Miscellaneous  
+
+- <p class="new">10th International Workshop on Statistics and Simulation in Salzburg, Austria, September 2019</p>
+    - "Reproducibility of High-Resolution 3D Bullet Scans and Automated Bullet Matching Scores"   
+         - Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann
+         - Poster presented by Kiegan Rice, won 2nd Springer Poster Award  
+    - "Case Study Validations of Automatic Bullet Matching"
+         - Authors: Heike Hofmann, Susan VanderPlas
+         - Presentation given by Alicia Carriquiry
 
 
 

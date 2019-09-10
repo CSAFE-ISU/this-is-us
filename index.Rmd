@@ -8,7 +8,7 @@ documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
-github-repo: rstudio/bookdown-demo
+github-repo: csafe-isu/this-is-us
 description: "This is our new approach of showing our  progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook."
 ---
 

@@ -138,4 +138,14 @@ References for CNNs and FCNs
 
 ## Cocoa Powder Citizen Science {#cocoa}
 
+## 3d Shoe Recognition 
+
+The set up
+
+
+What we have tried 
+
+What we are doing now 
+
+
 

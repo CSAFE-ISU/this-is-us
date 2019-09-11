@@ -146,6 +146,11 @@ The set up
 What we have tried 
 
 What we are doing now 
-
-
+  - Transforming the mesh objects to points aligned by the center of mass to overlay them detecting difference. 
+<img src="images/shoes/3dshoes/AlignShoeTest.png" width="100%"/>
+  - Problems 
+    - Isnt aligning properly as you can see 
+  - Next
+    - angle transformations 
+    
 

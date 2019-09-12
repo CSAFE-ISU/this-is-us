@@ -88,7 +88,7 @@ Next step: templating!
 Basic framework: 
 
 <details><summary>Create a template for each size and model combination</summary>
-(using GIMP - if I could automate this, I wouldn't need the template `r emo::ji("roll_eyes")`
+(using GIMP - if I could automate this, I wouldn't need the template)
 <img src="images/shoes/longitudinal/Templates_Equal_Size.png" width = "100%"/></details>
 
 <details><summary>Intelligently brute force angle and position of template    
@@ -101,7 +101,7 @@ Goal: Maximize the number of black pixels in the image within the template regio
 2. Blur, normalize, invert, and threshold the image    
 <img src="images/shoes/longitudinal/Templates_Setup.png" width = "100%"/>
 
-3. Naively align the "centers" of the two images (avg of white pixel row/cols). To make this calculation comparable, do some very crude dilation/erosion (that may or may not generalize that well `r emo::ji("sob")`) to fill in the image a bit.    
+3. Naively align the "centers" of the two images (avg of white pixel row/cols). To make this calculation comparable, do some very crude dilation/erosion (that may or may not generalize that well) to fill in the image a bit.    
 <img src="images/shoes/longitudinal/Templates_Naive_Centering.png" width = "100%"/>    
 Then make the aligned center the actual center of the image via padding. (This is the 1st time we have modified the actual image beyond thresholding and color changes).
 

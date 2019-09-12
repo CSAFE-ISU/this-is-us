@@ -124,7 +124,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-09-06}
+    \date{2019-09-12}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -315,6 +315,39 @@ evaluation: Yawei is going to work through all 626 barrels of knowns to assess s
 \caption{Results from assessing scans of barrel FAU 2 similarity.}\label{fig:unnamed-chunk-4}
 \end{figure}
 
+Why some of the cases failed? (181/626 = 30\%)
+
+\texttt{x3p\_crosscut\_optimize()} failed to find the positions to get cross cut for some lands.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/yawei/lapd-FAU-3-Bullet-A-land-6} 
+
+}
+
+\caption{Land scan for barrel FAU 3 bullet A land 6.}\label{fig:unnamed-chunk-5}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/yawei/lapd-FAU-4-Bullet-C-land-5} 
+
+}
+
+\caption{Land scan for barrel FAU 4 bullet C land 5.}\label{fig:unnamed-chunk-6}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/yawei/lapd-FAU-5-Bullet-B-land-5} 
+
+}
+
+\caption{Land scan for barrel FAU 5 bullet B land 5.}\label{fig:unnamed-chunk-7}
+\end{figure}
+
+Manual indentification of grooves now\ldots{}
+
 \hypertarget{follow-up-study}{%
 \subsubsection{follow-up study}\label{follow-up-study}}
 
@@ -345,7 +378,7 @@ contact: Melissa Nally, Houston FSI
 
 }
 
-\caption{Bullet-to-bullet similarity scores for questioned bullets (y-axis) compared to all other bullets of the test set (x-axis).}\label{fig:unnamed-chunk-5}
+\caption{Bullet-to-bullet similarity scores for questioned bullets (y-axis) compared to all other bullets of the test set (x-axis).}\label{fig:unnamed-chunk-8}
 \end{figure}
 
 evaluation included in submission to JFI
@@ -419,20 +452,20 @@ Will fill in with more detail later
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.5\linewidth]{images/charlotte/br411_2d} 
+{\centering \includegraphics[width=0.5\linewidth]{images/bullets/Hough_project/br411_2d} 
 
 }
 
-\caption{2-dimensional visualization of example bullet br411 with .999 strength threshold}\label{fig:unnamed-chunk-6}
+\caption{2-dimensional visualization of example bullet br411 with .999 strength threshold}\label{fig:unnamed-chunk-9}
 \end{figure}
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.5\linewidth]{images/charlotte/br411_3d} 
+{\centering \includegraphics[width=0.5\linewidth]{images/bullets/Hough_project/br411_3d} 
 
 }
 
-\caption{3-dimensional visualization of example bullet br411 with .999 strength threshold}\label{fig:unnamed-chunk-7}
+\caption{3-dimensional visualization of example bullet br411 with .999 strength threshold}\label{fig:unnamed-chunk-10}
 \end{figure}
 
 So either somethin is wrong with \texttt{get\_mask\_hough} or something is funky with the units.
@@ -456,6 +489,16 @@ So either somethin is wrong with \texttt{get\_mask\_hough} or something is funky
   \end{itemize}
 \end{itemize}
 
+\hypertarget{lasso-method}{%
+\paragraph{LASSO Method}\label{lasso-method}}
+
+A paper is in preparation for submission to Forensic Science International describing this method (\texttt{get\_grooves\_lassofull} in \texttt{grooveFinder}), as well as the Bayesian changepoint method (\texttt{get\_grooves\_bcp}).
+
+\hypertarget{robust-loess-method}{%
+\paragraph{Robust LOESS Method}\label{robust-loess-method}}
+
+A paper submitted to the Journal of Forensic Science is waiting for peer review response to the first round of revisions.
+
 \hypertarget{cartridge-cases}{%
 \subsection{Cartridge Cases}\label{cartridge-cases}}
 
@@ -472,7 +515,7 @@ Below is a series of images that illustrate how we might compare a cell in one i
 
 }
 
-\caption{Comparing a cell in image 1 to a larger region in image 2. We wish to find the translations of the image 1 cell that yield the highest correlation within the image 2 region.}\label{fig:unnamed-chunk-8}
+\caption{Comparing a cell in image 1 to a larger region in image 2. We wish to find the translations of the image 1 cell that yield the highest correlation within the image 2 region.}\label{fig:unnamed-chunk-11}
 \end{figure}
 
 For the sake of an example, let's focus on the blue outlined cell in image 1. Our goal is to use the image 1 cell to ``search'' a corresponding larger region in image 2 for the horizontal/vertical translations needed to produce the highest correlation. Below is a zoomed-in version of the blue outlined image 1 cell on the left and the larger image 2 region (approximately: I made the gridded image above by-hand outside of R while the images below are from R). The image 1 cell may look larger than the image 2 region, but we can see from the axes that the image 2 region is indeed larger. Any white pixels in the two images are NA values that need to be dealt with in some way before we can use FFTs to calculate the cross-correlation.
@@ -483,7 +526,7 @@ For the sake of an example, let's focus on the blue outlined cell in image 1. Ou
 
 }
 
-\caption{(Left) A cell from image 1. (Right) A region from image 2 centered in the same location as the image 1 cell, yet quadruple the area.}\label{fig:unnamed-chunk-9}
+\caption{(Left) A cell from image 1. (Right) A region from image 2 centered in the same location as the image 1 cell, yet quadruple the area.}\label{fig:unnamed-chunk-12}
 \end{figure}
 
 As already discussed above, one ``solution'' is to replace the NA values with the average pixel value of each image. However, to avoid creating a stronger artificial signal than necessary, we can crop-out the NA rows and columns from the two images above. Below is the cropped version of the two images. The cropping doesn't produce signficantly different images in this case, but you could imagine other examples in which a cell has captured only small amount of breechface in the corner. Such examples are fairly common and cropping signficantly changes the resulting correlation values.
@@ -494,7 +537,7 @@ As already discussed above, one ``solution'' is to replace the NA values with th
 
 }
 
-\caption{The same images as above after cropping NA rows/columns.}\label{fig:unnamed-chunk-10}
+\caption{The same images as above after cropping NA rows/columns.}\label{fig:unnamed-chunk-13}
 \end{figure}
 
 The last step before calculating correlation for these cells is to replace the remaining NAs with the average pixel value. This is shown below.
@@ -505,7 +548,7 @@ The last step before calculating correlation for these cells is to replace the r
 
 }
 
-\caption{The NA-cropped images with remaining NAs replaced with the image's average pixel values.}\label{fig:unnamed-chunk-11}
+\caption{The NA-cropped images with remaining NAs replaced with the image's average pixel values.}\label{fig:unnamed-chunk-14}
 \end{figure}
 
 The cross-correlation is then calculated between these two images via a standard fast fourier transform process (see \href{http://mathworld.wolfram.com/Cross-CorrelationTheorem.html}{Cross-Correlation Theorem}). The benefit of using such a process is that (as the name suggests) it's faster than calculating the raw correlation between the two images. Also, the translations that produce the highest correlation between the image 1 cell and the image 2 region fall out of the calculation for free.
@@ -523,16 +566,184 @@ As discussed above, dealing with missing values is provign to be a pain. The goo
 
 }
 
-\caption{(Left) The original breech face impression scan image. (Right) A donut-shaped region cut out of the original image.}\label{fig:unnamed-chunk-12}
+\caption{(Left) The original breech face impression scan image. (Right) A donut-shaped region cut out of the original image.}\label{fig:unnamed-chunk-15}
 \end{figure}
 
 By comparing such regions instead of the square cells, we would presumably only need to fill in a few missing value ``holes'' in the breech face impression scan rather than completely replacing a non-existent signal with an artificial one. In the near-future, I hope to finish up the pre-processing needed for this Congruent Matching Tori method by performing a polar transformation on these images to make them into strips that can easily be compared via an FFT.
+
+Joe 9/12/19 Update: Before carving out toroidal regions from the two images we wish to compare, a fair amount of pre-processing needs to be completed. For example, the scans we work with begin with a considerable amount of auxiliary information, for example the firing pin impression, that we don't want to use in our comparisons. This isn't to say that firing pin impressions aren't useful to determine a match between two cartridge cases. In fact there is quite a lot of published research on how to compare two firing pin impressions. Rather, it is common practice to compare breech face impressions and firing pin impressions separately since it is difficult to scan both simultaneously. Thus, there are regions of a breech face impression scan that we want to remove so that the breech face impressions are more easily comparable. Below is an example of two breech face impression scans before processing.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/cartridge_cases/im1_fullScan} \includegraphics[width=0.5\linewidth]{images/cartridge_cases/im2_fullScan} 
+
+}
+
+\caption{Two cartridge case scans before pre-processing.}\label{fig:unnamed-chunk-16}
+\end{figure}
+
+There are a variety of techniques to segment an image into various parts. In image processing, common techniques are the Canny edge detector, which identifies edges of shapes in an image using image gradient techniques, and the Hough Transform, which can detect a variety of geometrical shapes in an image. The Hough Transform is what is used to segment the cartridge case images used in the previous section. However, we've found that the use of a Hough Transform doesn't extract the ``breech face signal'' from an image as other techniques. Namely, the breech face can be effectively extracted using the RANSAC (Random sample consensus) method that iteratively fits a plane to a set of data until it settles upon a consensus-based ``bulk'' of the data. In the case of these cartridge case scans, the bulk of the data should predominantely be distributed around the mode height value. That is, the breech face impression. Once we've fit this plane to the breech face impression, we can extract the residuals of the fit to better accentuate the markings left in the cartridge case base by a firearm's breech face. Below is an example of the residuals left after fitting a RANSAC plane to two cartridge case scans above. In the example below, we grab any residuals less than 20 microns in magnitude.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/cartridge_cases/im1_ransacResiduals} \includegraphics[width=0.5\linewidth]{images/cartridge_cases/im2_ransacResiduals} 
+
+}
+
+\caption{Residual values of a RANSAC plane fit to the two cartridge case scans shown above.}\label{fig:unnamed-chunk-17}
+\end{figure}
+
+Although these two images are of two different cartridge cases, you can hopefully see that one looks very much like a rotated version of the other. These two cartridge case scans are in fact fired from the same gun (known matches), so it's a good thing that they look so similar. We've now removed quite a bit of the unwanted regions of the original scans. However, there are still some areas of the image (e.g., the faint circular region of pixels in the center of the breech face scan) that just so happened to be close to the fitted plane and thus were brought along in the residual extraction. There are a few ways that we can clean up these last few areas. One is to use two Hough Transforms to detect the inner and outer circles of the breech face impression and filter out any pixels outside of the region between these two circles. The biggest issue with using a Hough Transform is that it must be given the radius of the circle that it is to search for in the image as an argument. That is, we need to know the radius of the breech face impression that we haven't yet identified in order to identify the breech face impression. Instead, we can dilate/erode (or vice-versa) the pixels in the image to remove the remaining ``speckle'' in the image. Below is an example of of the breech face impressions cleaned via a dilation/erosion procedure.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/cartridge_cases/im1_maskFiltered} \includegraphics[width=0.5\linewidth]{images/cartridge_cases/im2_maskFiltered} 
+
+}
+
+\caption{The selected breech face impressions based on dilation and erosion.}\label{fig:unnamed-chunk-18}
+\end{figure}
+
+The final step in the pre-processing is to align the two images in some consistent fashion. Luckily, the firing pin impression ring that's left after performing the above dilation/erosion provides us with some idea of how to align the breech face impressions. The location of the firing ring impression in the breech face impression provides us with an indicator of where the cartridge case was located relative to the firing pin when it was sitting in the barrel. So aligning two cartridge cases so that their firing pin impression rings align will ensure that, at the very least, the breech face impression left on the cartridge case is horizontally/vertically aligned if not rotationally aligned.
+
+\hypertarget{modified-chumbley-non-random}{%
+\subsection{Modified Chumbley non-random}\label{modified-chumbley-non-random}}
+
+\hypertarget{land-to-land-scores}{%
+\subsubsection{Land-to-land scores}\label{land-to-land-scores}}
+
+\hypertarget{bullet-to-bullet-scores}{%
+\subsubsection{Bullet-to-bullet scores}\label{bullet-to-bullet-scores}}
+
+Ganesh: In this method we extend the modified chumbley non-random method from land-to-land scoring to bullet-to-bullet scoring.
 
 \hypertarget{analysis-of-results}{%
 \section{Analysis of Results}\label{analysis-of-results}}
 
 \hypertarget{communication-of-results-and-methods}{%
 \section{Communication of Results and Methods}\label{communication-of-results-and-methods}}
+
+The results are communicated through an interactive user interface. The first part of this interface lets you add all the bullets, barrels and lands for which the random forest and other scores are to be computed. A preliminary diagnostic of the orientations and dimensions of the lands tell us, if we can proceed safely to extraction of markings and then to cross-comparisons.
+
+After this step, we can apply any sampling or interpolation needed on the land images, all these operations can be batched to the entire set of comparisons under consideration. Then we can make transformations like rotation, transpose etc on a sample image, visualize the results, and since we are dealing with conforming orientation and dimensions of lands present in the entire set, we can batch the transformations.
+
+We extract markings, locate grooves, align signatures, and generate cross-comparison results. Each step is notified in UI and all steps are logged.
+
+The scores and results are then communicated through an interactive visualization. We first interact at the top most level where we have bullet-to-bullet scores for all the cross-comparisons presented in a grid. We can select one comparison at a time which would generate a second level of grid visualization that shows the land-to-land scores for all 36 comparisons within a bullet. Interacting with this visualization, we can now pull up score tables, profiles, location of grooves, aligned signatures and raw images.
+
+The framework of interactions, allows for validation of classification recommended by the RF model as well as gives an opportunity to critically asses, identify the cause and diagnose any problems encountered in the bullet matching pipeline.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/bullets/gan-app2_consolidated} 
+
+}
+
+\caption{An instance of the interactive visualizations for communicating results}\label{fig:unnamed-chunk-19}
+\end{figure}
+
+\hypertarget{conference-presentations}{%
+\subsection{Conference Presentations}\label{conference-presentations}}
+
+\hypertarget{american-academy-of-forensic-sciences}{%
+\subsubsection{American Academy of Forensic Sciences}\label{american-academy-of-forensic-sciences}}
+
+\begin{itemize}
+\item
+  ``Validation Study on Automated Groove Detection Methods in 3D Bullet Land Scans''
+
+  \begin{itemize}
+  \tightlist
+  \item
+    February 2019\\
+  \item
+    Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann
+  \item
+    Presentation given by Kiegan Rice
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{association-of-firearms-and-toolmark-examiners-annual-training-seminar}{%
+\subsubsection{Association of Firearms and Toolmark Examiners Annual Training Seminar}\label{association-of-firearms-and-toolmark-examiners-annual-training-seminar}}
+
+\begin{itemize}
+\item
+  Heike's talk
+\item
+  ``Reproducibility of Automated Bullet Matching Scores Using High-Resolution 3D LEA Scans''
+
+  \begin{itemize}
+  \tightlist
+  \item
+    May 2019
+  \item
+    Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann
+  \item
+    Presentation given by Kiegan Rice
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{joint-statistical-meetings}{%
+\subsubsection{Joint Statistical Meetings}\label{joint-statistical-meetings}}
+
+\begin{itemize}
+\item
+  "A non-parametric test for matching bullet striations: extending the chumbley score for bullet-to-bullet matching
+
+  \begin{itemize}
+  \tightlist
+  \item
+    July 2019
+  \item
+    Authors:Ganesh Krishnan, Heike Hofmann
+  \item
+    Talk given by Ganesh Krishnan
+  \end{itemize}
+\item
+  ``Repeatability and reproducibility of automated bullet comparisons using high-resolution 3D scans''
+
+  \begin{itemize}
+  \tightlist
+  \item
+    July 2019
+  \item
+    Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann
+  \item
+    Poster presented by Kiegan Rice
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{miscellaneous}{%
+\subsubsection{Miscellaneous}\label{miscellaneous}}
+
+\begin{itemize}
+\item
+  10th International Workshop on Statistics and Simulation in Salzburg, Austria, September 2019
+
+  \begin{itemize}
+  \tightlist
+  \item
+    ``Reproducibility of High-Resolution 3D Bullet Scans and Automated Bullet Matching Scores''
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann
+    \item
+      Poster presented by Kiegan Rice, won 2nd Springer Poster Award\\
+    \end{itemize}
+  \item
+    ``Case Study Validations of Automatic Bullet Matching''
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Authors: Heike Hofmann, Susan VanderPlas
+    \item
+      Presentation given by Alicia Carriquiry
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
 
 \hypertarget{people-involved}{%
 \section{People involved}\label{people-involved}}
@@ -633,7 +844,7 @@ Methods and data description handed off to Alicia for editing
 \paragraph{Film and Powder Images}\label{lss-paper-analysis-film}}
 \addcontentsline{toc}{paragraph}{Film and Powder Images}
 
-Analysis Steps:
+Analysis Summary: Create a mask via thresholding, clean it up, fill in mask holes, creating a shoe ``region'' mask. Apply this mask to the image, replacing any pixels outside the mask with the median background pixel. Additional thresholding and normalization can be applied if a binary image is more desireable.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -651,9 +862,8 @@ Analysis Steps:
     Threshold image (adaptive threshold, 10 x 10 region, keep anything with an average higher than 0.025 from the mean)\\
   \item
     Create mask\\
-    Default parameters selected by visually screening several shoes:\\
-    ~\\
-    (default parameters rad1 = 5, rad2 = 151, proportion = 1.5*area of rad2 in px/area of image in px)\\
+    Default parameters selected by visually screening several shoes:
+    (default parameters rad1 = 5, rad2 = {91}, proportion = 1.5*area of rad2 in px/area of image in px)\\
 
     \begin{enumerate}
     \def\labelenumiii{\arabic{enumiii}.}
@@ -692,6 +902,50 @@ Analysis Steps:
   Compromise: Keep grey pixels from thresholded, masked image (e.g.~use 3. as a mask), then renormalize\\
 \end{enumerate}
 
+I've added the functions from last week to the \texttt{ShoeScrubR} package, which will hopefully contain methods for handling all of the different 2D shoe data from the longitudinal study.
+
+Using that package, I tried the method out on a sequence of shoes over time to see what methods might best show wear. Each column shows a single left shoe over four timepoints. The shoes are the first 9 shoeIDs (e.g.~1 - 9).
+
+Original
+
+Cleaned\\
+
+Cleaned and Thresholded
+
+Even with the cleaning methods\ldots{} there is a lot of extra noise.
+
+Next step: templating!
+
+Basic framework:
+
+Create a template for each size and model combination
+(using GIMP - if I could automate this, I wouldn't need the template 🙄
+
+Intelligently brute force angle and position of template\\
+Goal: Maximize the number of black pixels in the image within the template region
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Start with an image and a template mask
+\item
+  Blur, normalize, invert, and threshold the image\\
+\item
+  Naively align the ``centers'' of the two images (avg of white pixel row/cols). To make this calculation comparable, do some very crude dilation/erosion (that may or may not generalize that well 😭) to fill in the image a bit.\\
+  ~\\
+  Then make the aligned center the actual center of the image via padding. (This is the 1st time we have modified the actual image beyond thresholding and color changes).
+\item
+  Create a new mask to sample the image (and the mask) radially.\\
+  ~\\
+  Create multiple radial masks, each offset slightly; optimize over the intersection (\# pixels or average pixel intensity) to get a coarse alignment angle.
+\item
+  Brute force for finer alignment.
+\item
+  Remove anything not in the mask region.
+\end{enumerate}
+
+Modified from \citep{kimGrayscaleTemplateMatchingInvariant2007}
+
 \hypertarget{lss-paper-analysis-wear}{%
 \paragraph{Wear Characterization}\label{lss-paper-analysis-wear}}
 \addcontentsline{toc}{paragraph}{Wear Characterization}
@@ -709,7 +963,9 @@ Ideas:
 \hypertarget{connor}{%
 \section{Passive Shoe Recognition}\label{connor}}
 
-CoNNOR: Convolutional Neural Network for Outsole Recognition
+\#\#\#CoNNOR: Convolutional Neural Network for Outsole Recognition\#\#
+
+\textbf{Project Overview}
 
 \begin{itemize}
 \tightlist
@@ -717,13 +973,15 @@ CoNNOR: Convolutional Neural Network for Outsole Recognition
   Label images of shoes according to geometric classification scheme
 \item
   Use convolutional base of pretrained CNN VGG16 and train a new classifier on labeled features
+\item
+  Eventually, acquire real data passively and use CoNNOR to assess feature similarities and frequencies
 \end{itemize}
 
-\href{https://github.com/MirandaTilton/ISU_CC}{Github repository for CC on CoNNOR}
+\href{https://lib.dr.iastate.edu/creativecomponents/264/}{Link to submitted Creative Component on CoNNOR}
 
 \href{https://github.com/srvanderplas/CoNNORFSI}{Github repository for paper submitted to Forensic Science International}
 
-Exploring new directions:
+\textbf{Exploring new directions:}
 
 \begin{itemize}
 \tightlist
@@ -737,7 +995,23 @@ Exploring new directions:
   \item
     Importance score can filter/reduce the number of features
   \item
-    \emph{Currently training on HPC, 3 days in}
+    \emph{Block 4 random forest training terminated after one week :( }
+  \item
+    \emph{Block 5 currently training for two different random forest packages (randomForest and ranger)}
+  \item
+    \emph{If new models take more than 1-2 weeks, will look into subsampling techniques.}
+  \end{itemize}
+\item
+  \emph{Spatial integration}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \emph{Model is currently set up to take in 256x256 pixels}
+  \item
+    \emph{Try taking in full shoe using a sliding window of size 256x256}
+  \item
+    \emph{View class predictions spatially}
   \end{itemize}
 \item
   Fully convolutional networks (FCNs)
@@ -751,7 +1025,7 @@ Exploring new directions:
   \end{itemize}
 \end{itemize}
 
-References for CNNs and FCNs
+\textbf{References for CNNs and FCNs}
 
 \href{https://stats.stackexchange.com/questions/266075/patch-wise-training-and-fully-convolutional-training-in-fully-convolutional-neur}{Stack Exchange post explaining patchwise training}
 
@@ -767,7 +1041,41 @@ References for CNNs and FCNs
 \section{Maximum Clique Matching}\label{maxclique}}
 
 \hypertarget{cocoa}{%
-\section{Cocoa Powder Citizen Science}\label{cocoa}}
+\section{Project Tread (formerly Cocoa Powder Citizen Science)}\label{cocoa}}
+
+Project Tread, modified from \href{https://www.dundee.ac.uk/leverhulme/citizenscience/details/sole-searching.php}{Leverhulme Institute's Sole Searching}, is a developing CSAFE project with the goals of engaging community participation in forensic research and acquiring shoe print data that may be useful in future analyses.
+
+In progress:
+
+\begin{itemize}
+\tightlist
+\item
+  Review \href{https://forensicstats.org/project-tread/}{procedures} and IRB documents written by James
+\item
+  Perhaps modify procedures, then bribe some friends into helping me test them :)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Test for length, clarity, ease, etc.
+  \end{itemize}
+\item
+  Be involved in set up of data collection site (through CSSM)
+\end{itemize}
+
+\hypertarget{d-shoe-recognition}{%
+\section{3d Shoe Recognition}\label{d-shoe-recognition}}
+
+The set up
+
+What we have tried
+
+What we are doing now
+- Transforming the mesh objects to points aligned by the center of mass to overlay them detecting difference.
+- Problems
+- Isnt aligning properly as you can see
+- Next
+- angle transformations
 
 \hypertarget{theoretical-foundations}{%
 \chapter{Theoretical foundations}\label{theoretical-foundations}}
@@ -833,8 +1141,97 @@ References for CNNs and FCNs
   \end{itemize}
 \end{itemize}
 
+\hypertarget{nates-updates-9122019}{%
+\section{Nate's Updates 9/12/2019}\label{nates-updates-9122019}}
+
+\begin{itemize}
+\tightlist
+\item
+  Assume \(p(X,Y,A,B,H) = p(X,Y|A,B)p(B|A,H)p(A|H)p(H)\)
+\item
+  Entropy: \(E(X) = \int -p(x)\log p(x) dx\)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    ``average amount of information gained through observation of \(X = x\) "
+
+    \begin{itemize}
+    \tightlist
+    \item
+      low entropy \(\implies\) better able to predict outcome
+    \item
+      \(\mathcal{E}(H|X,Y) \geq \mathcal{E}(H|X,Y,A)\)
+
+      \begin{itemize}
+      \tightlist
+      \item
+        Common source (posterior) entropy is greater than specific source
+      \end{itemize}
+    \end{itemize}
+  \item
+    Mutual Information: \(\mathcal{I}(X;Y) = \mathcal{E}(X) - \mathcal{E}(X|Y)\)
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \(\mathcal{I}(X;Y) = KL(p(X,Y)||p(X),p(Y)) \geq 0\)
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
 \hypertarget{outreach-activities}{%
 \chapter{Outreach activities}\label{outreach-activities}}
+
+CSAFE has several ongoing outreach projects.
+
+\hypertarget{book-on-forensic-science-and-statistics}{%
+\section{Book on Forensic Science and Statistics}\label{book-on-forensic-science-and-statistics}}
+
+Project members:
+
+\begin{itemize}
+\tightlist
+\item
+  Kiegan Rice\\
+\item
+  Alicia Carriquiry\\
+\item
+  Hal Stern (UCI)
+\end{itemize}
+
+General book outline:
+
+\begin{itemize}
+\tightlist
+\item
+  Chapter 1: Introduction\\
+\item
+  Chapter 2: Analysis of Forensic Evidence
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Drafted. In the editing stage.
+  \end{itemize}
+\item
+  Chapter 3: The Path to the Witness Stand
+
+  \begin{itemize}
+  \item
+    Drafted. In the editing stage.
+  \end{itemize}
+\item
+  Chapter 4: Communicating Evidence in the Courtroom
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Not drafted. In the writing stage.
+  \end{itemize}
+\item
+  Chapter 5: Conclusions
+\end{itemize}
 
 \bibliography{book.bib,packages.bib}
 

@@ -20,3 +20,13 @@
       - important quantities:
           - Kullback-Leibler divergences, entropy, mutual information
   
+## Nate's Updates 9/12/2019
+- Assume $p(X,Y,A,B,H) = p(X,Y|A,B)p(B|A,H)p(A|H)p(H)$
+- Entropy: $E(X) = \int -p(x)\log p(x) dx$
+    - ``average amount of information gained through observation of $X = x$ "
+        - low entropy $\implies$ better able to predict outcome
+        - $\mathcal{H}(H|X,Y) \geq \mathcal{H}(H|X,Y,A)$
+            - Common source (posterior) entropy is greater than (average) specific source
+    - Mutual Information: $\mathcal{I}(X;Y) = \mathcal{H}(X) - \mathcal{H}(X|Y)$
+        - $\mathcal{I}(X;Y) = KL(p(X,Y)||p(X),p(Y)) \geq 0$ 
+        

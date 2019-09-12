@@ -22,11 +22,10 @@ Methods and data description handed off to Alicia for editing
 
 ##### Film and Powder Images {-#lss-paper-analysis-film}
 
-<img src="images/shoes/longitudinal/Film_Demo_Orig.png" width = "100%"/>
-
-Analysis Steps:
 <details>
-<summary>Summary: Create a mask via thresholding, clean it up, fill in mask holes, creating a shoe "region" mask</summary>
+<summary>Analysis Summary: Create a mask via thresholding, clean it up, fill in mask holes, creating a shoe "region" mask. Apply this mask to the image, replacing any pixels outside the mask with the median background pixel. Additional thresholding and normalization can be applied if a binary image is more desireable. </summary>
+
+<img src="images/shoes/longitudinal/Film_Demo_Orig.png" width = "100%"/>
 
 1. Create threshold mask
     a. Blur image (circular/gaussian blur, diameter 15)    
@@ -72,20 +71,57 @@ I've added the functions from last week to the `ShoeScrubR` package, which will 
 
 Using that package, I tried the method out on a sequence of shoes over time to see what methods might best show wear. Each column shows a single left shoe over four timepoints. The shoes are the first 9 shoeIDs (e.g. 1 - 9).  
 
-- Original     
+<details><summary>Original</summary>
 <img src="images/shoes/longitudinal/Film_First9_Original.png" width="100%"/>
-- Cleaned     
-<img src="images/shoes/longitudinal/Film_First9_Cleaned.png" width="100%"/>
-- Cleaned and Thresholded    
-<img src="images/shoes/longitudinal/Film_First9_Cleaned_Thresholded.png" width="100%"/>
+</details>
+<details><summary>Cleaned</summary>     
+<img src="images/shoes/longitudinal/Film_First9_Cleaned.png" width="100%"/></details>
+<details><summary>Cleaned and Thresholded</summary> 
+<img src="images/shoes/longitudinal/Film_First9_Cleaned_Thresholded.png" width="100%"/></details>
 
 Even with the cleaning methods... there is a lot of extra noise. 
+</div>
 
+<div class = "new">
 Next step: templating!
 
-- Create a template for each size and model combination
-- Maximize black pixels within the template region
-- Brute force angle and position of template
+Basic framework: 
+
+<details><summary>Create a template for each size and model combination</summary>
+(using GIMP - if I could automate this, I wouldn't need the template `r emo::ji("roll_eyes")`
+<img src="images/shoes/longitudinal/Templates_Equal_Size.png" width = "100%"/></details>
+
+<details><summary>Intelligently brute force angle and position of template    
+Goal: Maximize the number of black pixels in the image within the template region
+</summary>
+
+
+1. Start with an image and a template mask
+
+2. Blur, normalize, invert, and threshold the image    
+<img src="images/shoes/longitudinal/Templates_Setup.png" width = "100%"/>
+
+3. Naively align the "centers" of the two images (avg of white pixel row/cols). To make this calculation comparable, do some very crude dilation/erosion (that may or may not generalize that well `r emo::ji("sob")`) to fill in the image a bit.    
+<img src="images/shoes/longitudinal/Templates_Naive_Centering.png" width = "100%"/>    
+Then make the aligned center the actual center of the image via padding. (This is the 1st time we have modified the actual image beyond thresholding and color changes).
+
+4. Create a new mask to sample the image (and the mask) radially.     
+<img src="images/shoes/longitudinal/Templates_Radial_Mask_Single.png" width = "30%"/>    
+Create multiple radial masks, each offset slightly; optimize over the intersection (# pixels or average pixel intensity) to get a coarse alignment angle.
+<img src="images/shoes/longitudinal/Templates_Radial_Mask_Multiple.png" width = "100%"/>   
+
+5. Brute force for finer alignment.
+
+6. Remove anything not in the mask region.
+
+
+```{r film-template-code-demo, eval = F, include = F}
+source("code/shoes/longitudinal/20190912-Templates_Intro_Radial_Alignment.R")
+```
+
+Modified from [@kimGrayscaleTemplateMatchingInvariant2007]
+</details>
+
 
 </div>
 
@@ -98,28 +134,41 @@ Ideas:
 
 ## Passive Shoe Recognition {#connor}
 
-<div class = "new">
+###CoNNOR: Convolutional Neural Network for Outsole Recognition##
 
-CoNNOR: Convolutional Neural Network for Outsole Recognition
+**Project Overview**
 
   - Label images of shoes according to geometric classification scheme
   - Use convolutional base of pretrained CNN VGG16 and train a new classifier on labeled features
+  - Eventually, acquire real data passively and use CoNNOR to assess feature similarities and frequencies
 
-[Github repository for CC on CoNNOR](https://github.com/MirandaTilton/ISU_CC)
+[Link to submitted Creative Component on CoNNOR](https://lib.dr.iastate.edu/creativecomponents/264/)
 
 [Github repository for paper submitted to Forensic Science International](https://github.com/srvanderplas/CoNNORFSI)
 
-Exploring new directions:
+**Exploring new directions:**
 
-  - Truncate convolutional base and train random forest on features
+<div class = "new">
+
+- Truncate convolutional base and train random forest on features
     - Could replace fully connected layers of neural net as classifier
-    - Importance score can filter/reduce the number of features
-    - *Currently training on HPC, 3 days in*
-  - Fully convolutional networks (FCNs)
+    - Importance score can filter/reduce the number of features 
+    - *Block 4 random forest training terminated after one week :( *
+    - *Block 5 currently training for two different random forest packages (randomForest and ranger)*
+    - *If new models take more than 1-2 weeks, will look into subsampling techniques.*
+  
+- *Spatial integration*
+    - *Model is currently set up to take in 256x256 pixels*
+    - *Try taking in full shoe using a sliding window of size 256x256*
+    - *View class predictions spatially*
+  
+- Fully convolutional networks (FCNs)
     - Unsupervised segmentation to assess current classification scheme
     - Handle whole shoe image of any size (instead of only 256x256 pixel images)
     
-References for CNNs and FCNs
+</div>
+    
+**References for CNNs and FCNs**
 
 [Stack Exchange post explaining patchwise training](https://stats.stackexchange.com/questions/266075/patch-wise-training-and-fully-convolutional-training-in-fully-convolutional-neur)
 
@@ -131,12 +180,23 @@ References for CNNs and FCNs
 
 ["W-Net: A Deep Model for Fully Unsupervised Image Segmentation"](https://arxiv.org/pdf/1711.08506.pdf)
 
-</div>
-
 
 ## Maximum Clique Matching {#maxclique}
 
-## Cocoa Powder Citizen Science {#cocoa}
+## Project Tread (formerly Cocoa Powder Citizen Science) {#cocoa}
+
+<div class = "new">
+
+Project Tread, modified from [Leverhulme Institute's Sole Searching](https://www.dundee.ac.uk/leverhulme/citizenscience/details/sole-searching.php), is a developing CSAFE project with the goals of engaging community participation in forensic research and acquiring shoe print data that may be useful in future analyses.
+
+In progress:
+
+- Review [procedures](https://forensicstats.org/project-tread/) and IRB documents written by James
+- Perhaps modify procedures, then bribe some friends into helping me test them :)
+    - Test for length, clarity, ease, etc.
+- Be involved in set up of data collection site (through CSSM)
+
+</div>
 
 ## 3d Shoe Recognition 
 

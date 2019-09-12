@@ -49,6 +49,25 @@ include_graphics(c("images/yawei/results-FAU-1.png"))
 include_graphics(c( "images/yawei/results-FAU-2.png"))
 ```
 
+Why some of the cases failed? (181/626 = 30%)
+
+`x3p_crosscut_optimize()` failed to find the positions to get cross cut for some lands.
+
+```{r, fig.cap="Land scan for barrel FAU 3 bullet A land 6.", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/lapd-FAU-3-Bullet-A-land-6.PNG"))
+```
+
+```{r, fig.cap="Land scan for barrel FAU 4 bullet C land 5.", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/lapd-FAU-4-Bullet-C-land-5.PNG"))
+```
+
+```{r, fig.cap="Land scan for barrel FAU 5 bullet B land 5.", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/lapd-FAU-5-Bullet-B-land-5.PNG"))
+```
+
+Manual indentification of grooves now...
+
+
 #### follow-up study 
 
 4 bullets per barrel for  96 of the original 626 Beretta firearms using different ammunition
@@ -135,11 +154,11 @@ Will fill in with more detail later
 
 
 ```{r, fig.cap="2-dimensional visualization of example bullet br411 with .999 strength threshold", out.width="50%", fig.keep="hold", fig.align='center'}
-knitr::include_graphics("images/charlotte/br411_2d.jpeg")
+knitr::include_graphics("images/bullets/Hough_project/br411_2d.jpeg")
 ```
 
 ```{r, fig.cap="3-dimensional visualization of example bullet br411 with .999 strength threshold", out.width="50%", fig.keep="hold", fig.align='center'}
-knitr::include_graphics("images/charlotte/br411_3d.png")
+knitr::include_graphics("images/bullets/Hough_project/br411_3d.png")
 ```
 
 So either somethin is wrong with `get_mask_hough` or something is funky with the units.
@@ -152,6 +171,51 @@ So either somethin is wrong with `get_mask_hough` or something is funky with the
   - Create graphical images to explain line selection method
   - Include 2-d and 3-d visualizations of Hough groove area identifications
   - Include crosscut visualization and comparison in results
+  
+
+Charlotte update 09/12/19: 
+This week I have been working on obtaining some results for the Phoenix set on Sunny.
+As a minor update the unit issues in `get_mask_hough()` are resolved ( I think). Below
+is an example of a nice image that has been generated using masks.
+
+```{r, fig.cap=" Phoenix Gun1 A-9 B1 Land 4 generated at strength threshold of 0.99, initially did not generate estimates at the 0.999 or 0.995 level", fig.keep="hold",fig.align = "center"}
+knitr::include_graphics("images/bullets/Hough_project/mask_phoenix_nice.png")
+```
+
+
+However the mask is only as good as the Hough estimates that supports it as shown here (less nice).
+
+```{r, fig.cap=" Phoenix Gun1 F-6 B2 Land 5 generated at strength threshold of 0.9, initially did not generate estimates at the 0.999 or 0.995, or 0.99 level", fig.keep="hold",fig.align = "center"}
+knitr::include_graphics("images/bullets/Hough_project/mask_phonix_lessnice.png")
+```
+
+
+Hough crosscut predictions for the Phoenix dataset are now uploaded to the bulletQuality Github in the"results" folder and contains Hough groove estimates at the following five strength levels: 0.999, 0.995, 0.99, 0.95, 0.9. The source and the crosscut estimate are also included in the dataset.
+
+
+Here are some preliminary results of using Kiegan's area of misidentification method
+(thanks Kiegan!) on Hough groove estimates at the strength threshold of 0.999
+in comparison to the BCP and Lasso method.
+
+
+```{r, fig.cap="Left-hand groove area of misidentification log-transformed scores for BCP, Lasso, and Hough", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/preliminary_phoenix_score_results_left.png")
+```
+
+```{r, fig.cap="Right-hand groove area of misidentification log-transformed scores for BCP, Lasso, and Hough", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/images/bullets/Hough_project/preliminary_phoenix_score_results_right.png")
+```
+
+
+These scoresare log transformed to show better separation but it's very clear that for the
+left groove both Lasso and BCP are out performing the Hough method in correctly identifying grooves. For the righthand side, scores tend to be more similar however once again,
+the Lasso method seems to bo the best job since it has a larger density of low scores
+and minimizes high score misidenfitications.
+
+For improvement before next week, I will investigate why there are 47 missing Hough
+predictions resulting in a score of 0 in these results and change the parameters in the
+`get_grooves_hough()` function to try and generate estimates for some of those missing values.
+
 
 ##### LASSO Method  
 
@@ -226,9 +290,36 @@ knitr::include_graphics(c("images/cartridge_cases/im1_maskFiltered.png","images/
 
 The final step in the pre-processing is to align the two images in some consistent fashion. Luckily, the firing pin impression ring that's left after performing the above dilation/erosion provides us with some idea of how to align the breech face impressions. The location of the firing ring impression in the breech face impression provides us with an indicator of where the cartridge case was located relative to the firing pin when it was sitting in the barrel. So aligning two cartridge cases so that their firing pin impression rings align will ensure that, at the very least, the breech face impression left on the cartridge case is horizontally/vertically aligned if not rotationally aligned.
 
+```{r, fig.cap="An example of a side-view of a cartridge case and associated kernel density estimation.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/rowSum_kdeComparison.png"))
+```
+
+### Modified Chumbley non-random
+
+#### Land-to-land scores
+
+#### Bullet-to-bullet scores
+
+Ganesh: In this method we extend the modified chumbley non-random method from land-to-land scoring to bullet-to-bullet scoring.
+
 ## Analysis of Results
 
 ## Communication of Results and Methods  
+
+The results are communicated through an interactive user interface. The first part of this interface lets you add all the bullets, barrels and lands for which the random forest and other scores are to be computed. A preliminary diagnostic of the orientations and dimensions of the lands tell us, if we can proceed safely to extraction of markings and then to  cross-comparisons.
+
+After this step, we can apply any sampling or interpolation needed on the land images, all these operations can be batched to the entire set of comparisons under consideration. Then we can make transformations like rotation, transpose etc on a sample image, visualize the results, and since we are dealing with conforming orientation and dimensions of lands present in the entire set, we can batch the transformations.
+
+We extract markings, locate grooves, align signatures, and generate cross-comparison results. Each step is notified in UI and all steps are logged. 
+
+The scores and results are then communicated through an interactive visualization. We first interact at the top most level where we have bullet-to-bullet scores for all the cross-comparisons presented in a grid. We can select one comparison at a time which would generate a second level of grid visualization that shows the land-to-land scores for all 36 comparisons within a bullet. Interacting with this visualization, we can now pull up score tables, profiles, location of grooves, aligned signatures and raw images.
+
+The framework of interactions, allows for validation of classification recommended by the RF model as well as gives an opportunity to critically asses, identify the cause and diagnose any problems encountered in the bullet matching pipeline.
+
+```{r, fig.cap="An instance of the interactive visualizations for communicating results", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/bullets/gan-app2_consolidated.png")
+```
+
 
 ### Conference Presentations  
 
@@ -249,6 +340,13 @@ The final step in the pre-processing is to align the two images in some consiste
     
     
 #### Joint Statistical Meetings  
+
+- <p class="new"> "A non-parametric test for matching bullet striations: extending the chumbley score for bullet-to-bullet matching </p>
+    - July 2019 
+    - Authors:Ganesh Krishnan, Heike Hofmann
+    - Talk given by Ganesh Krishnan
+
+
 
 - <p class="new"> "Repeatability and reproducibility of automated bullet comparisons using high-resolution 3D scans" </p>
     - July 2019 

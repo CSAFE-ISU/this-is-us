@@ -72,20 +72,40 @@ I've added the functions from last week to the `ShoeScrubR` package, which will 
 
 Using that package, I tried the method out on a sequence of shoes over time to see what methods might best show wear. Each column shows a single left shoe over four timepoints. The shoes are the first 9 shoeIDs (e.g. 1 - 9).  
 
-- Original     
+- <details><summary>Original</summary>
 <img src="images/shoes/longitudinal/Film_First9_Original.png" width="100%"/>
-- Cleaned     
-<img src="images/shoes/longitudinal/Film_First9_Cleaned.png" width="100%"/>
-- Cleaned and Thresholded    
-<img src="images/shoes/longitudinal/Film_First9_Cleaned_Thresholded.png" width="100%"/>
+</details>
+- <details><summary>Cleaned</summary>     
+<img src="images/shoes/longitudinal/Film_First9_Cleaned.png" width="100%"/></details>
+- <details><summary>Cleaned and Thresholded</summary> 
+<img src="images/shoes/longitudinal/Film_First9_Cleaned_Thresholded.png" width="100%"/></details>
 
 Even with the cleaning methods... there is a lot of extra noise. 
 
 Next step: templating!
 
-- Create a template for each size and model combination
-- Maximize black pixels within the template region
-- Brute force angle and position of template
+Basic framework: 
+
+- <details><summary>Create a template for each size and model combination</summary>
+(using GIMP - if I could automate this, I wouldn't need the template `r emo::ji("roll_eyes")`
+<img src="images/shoes/longitudinal/Templates_Equal_Size.png" width = "100%"/></details>
+- Goal: Maximize the number of black pixels in the image within the template region
+- <details><summary>Intelligently brute force angle and position of template</summary>
+Modified from @kimGrayscaleTemplateMatchingInvariant2007
+
+1. Start with an image and a template mask
+
+2. Blur, normalize, invert, and threshold the image    
+<img src="images/shoes/longitudinal/Templates_Setup.png" width = "50%"/>
+
+3. Naively align the "centers" of the two images (avg of white pixel row/cols). To make this calculation comparable, do some very crude dilation/erosion (that may or may not generalize that well `r emo::ji("crying")`) to fill in the image a bit.    
+<img src="images/shoes/longitudinal/Templates_Naive_Centering.png" width = "50%"/>    
+Then make the aligned center the actual center of the image via padding. This is the 1st time we have modified the actual image.
+
+
+
+</details>
+
 
 </div>
 

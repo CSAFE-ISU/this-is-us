@@ -154,11 +154,11 @@ Will fill in with more detail later
 
 
 ```{r, fig.cap="2-dimensional visualization of example bullet br411 with .999 strength threshold", out.width="50%", fig.keep="hold", fig.align='center'}
-knitr::include_graphics("images/charlotte/br411_2d.jpeg")
+knitr::include_graphics("images/bullets/Hough_project/br411_2d.jpeg")
 ```
 
 ```{r, fig.cap="3-dimensional visualization of example bullet br411 with .999 strength threshold", out.width="50%", fig.keep="hold", fig.align='center'}
-knitr::include_graphics("images/charlotte/br411_3d.png")
+knitr::include_graphics("images/bullets/Hough_project/br411_3d.png")
 ```
 
 So either somethin is wrong with `get_mask_hough` or something is funky with the units.

@@ -112,6 +112,9 @@ Create multiple radial masks, each offset slightly; optimize over the intersecti
 6. Remove anything not in the mask region.
 
 
+```{r film-template-code-demo, eval = F, include = F}
+source("code/shoes/longitudinal/20190912-Templates_Intro_Radial_Alignment.R")
+```
 
 </details>
 

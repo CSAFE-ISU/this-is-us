@@ -203,7 +203,7 @@ knitr::include_graphics("images/bullets/Hough_project/preliminary_phoenix_score_
 ```
 
 ```{r, fig.cap="Right-hand groove area of misidentification log-transformed scores for BCP, Lasso, and Hough", out.width="50%", fig.keep="hold", fig.align='center'}
-knitr::include_graphics("images/bullets/Hough_project/images/bullets/Hough_project/preliminary_phoenix_score_results_right.png")
+knitr::include_graphics("images/bullets/Hough_project/preliminary_phoenix_score_results_right.png")
 ```
 
 

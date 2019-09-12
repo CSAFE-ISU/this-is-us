@@ -26,7 +26,7 @@ Methods and data description handed off to Alicia for editing
 
 Analysis Steps:
 <details>
-<summary>Summary: Create a mask via thresholding, clean it up, fill in mask holes, creating a shoe "region" mask</summary>
+<summary>Summary: Create a mask via thresholding, clean it up, fill in mask holes, creating a shoe "region" mask. Apply this mask to the image, replacing any pixels outside the mask with the median background pixel. Additional thresholding and normalization can be applied if a binary image is more desireable. </summary>
 
 1. Create threshold mask
     a. Blur image (circular/gaussian blur, diameter 15)    
@@ -96,11 +96,20 @@ Modified from @kimGrayscaleTemplateMatchingInvariant2007
 1. Start with an image and a template mask
 
 2. Blur, normalize, invert, and threshold the image    
-<img src="images/shoes/longitudinal/Templates_Setup.png" width = "50%"/>
+<img src="images/shoes/longitudinal/Templates_Setup.png" width = "100%"/>
 
 3. Naively align the "centers" of the two images (avg of white pixel row/cols). To make this calculation comparable, do some very crude dilation/erosion (that may or may not generalize that well `r emo::ji("sob")`) to fill in the image a bit.    
-<img src="images/shoes/longitudinal/Templates_Naive_Centering.png" width = "50%"/>    
-Then make the aligned center the actual center of the image via padding. This is the 1st time we have modified the actual image.
+<img src="images/shoes/longitudinal/Templates_Naive_Centering.png" width = "100%"/>    
+Then make the aligned center the actual center of the image via padding. (This is the 1st time we have modified the actual image beyond thresholding and color changes).
+
+4. Create a new mask to sample the image (and the mask) radially.     
+<img src="images/shoes/longitudinal/Templates_Radial_Mask_Single.png" width = "30%"/>    
+Create multiple radial masks, each offset slightly; optimize over the intersection (# pixels or average pixel intensity) to get a coarse alignment angle.
+<img src="images/shoes/longitudinal/Templates_Radial_Mask_Multiple.png" width = "100%"/>   
+
+5. Brute force for finer alignment.
+
+6. Remove anything not in the mask region.
 
 
 

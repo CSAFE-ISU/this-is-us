@@ -17,7 +17,7 @@ par(mfrow = c(2, 8))
 templates %>%
   arrange(Shoe, Size, Foot) %>%
   magrittr::extract2("img") %>%
-  purrr::map(auto_resize_img, final_dims = c(1600, 2600)) %>%
+  purrr::map(ShoeScrubR:::auto_resize_img, final_dims = c(1600, 2600)) %>%
   purrr::map(plot)
 dev.off()
 
@@ -34,7 +34,7 @@ inv_img <- img %>%
   magrittr::subtract(1, .)
 thresh_img <- inv_img > .15
 
-orig_mask <- shoe_mask("Nike", 8, "R", ppi = 300) %>% auto_resize_img(dim(img))
+orig_mask <- shoe_mask("Nike", 8, "R", ppi = 300) %>% ShoeScrubR:::auto_resize_img(final_dims = dim(img))
 
 png(filename = file.path(img_output_dir, "Templates_Setup.png"),
     width = 300*4, height = 300*2, units = "px")
@@ -74,18 +74,31 @@ plot(rgbImage(green = 1 - orig_mask, blue = 1 - centered_mask, red = 1 - centere
 plot(rgbImage(green = 1 - thresh_img, blue = 1 - centered_mask, red = 1 - centered_mask))
 dev.off()
 
-dist_bottom_right <- dim(thresh_img) - abs(img_center)
-dist_top_left <- abs(img_center)
+padded_img <- ShoeScrubR:::pad_to_center(thresh_img, img_center)
+padded_mask <- ShoeScrubR:::pad_to_center(centered_mask, img_center)
 
-padded_img <- pad_to_center(thresh_img, img_center)
-padded_mask <- pad_to_center(centered_mask)
 # Angle alignment
 
-radial_mask(dim(img)) %>% plot()
+radial_mask_init <- ShoeScrubR:::radial_mask(dim(padded_img), slopes = seq(-90, 90, 10), px = 1) %>%
+  dilate(makeBrush(31, "disc"))
+
+radial_masks <- purrr::map(
+  c(-6, -2, 0, 2, 6), 
+  ~ShoeScrubR:::radial_mask(dim(padded_img), 
+                            slopes = seq(-90, 90, 10) + ., 
+                            px = 1) %>%
+    dilate(makeBrush(31, "disc")))
 
 
-# Compute radial samples
-mdim <- dim(mask)
-mcenter <- round(mdim/2)
-max_radius <- round(sqrt(sum((mdim - mcenter)^2)))
-slopes <- unique(seq(-90, 90, theta_res) %% 180)
+png(filename = file.path(img_output_dir, "Templates_Radial_Mask_Single.png"),
+    width = 300*1, height = 300*2, units = "px")
+purrr::map(radial_masks[3], ~plot(rgbImage(red = ., green = padded_img, blue = padded_mask)))
+dev.off()
+
+
+png(filename = file.path(img_output_dir, "Templates_Radial_Mask_Multiple.png"),
+    width = 300*5, height = 300*2, units = "px")
+par(mfrow = c(1, 5))
+purrr::map(radial_masks, ~plot(rgbImage(red = ., green = padded_img, blue = padded_mask)))
+dev.off()
+

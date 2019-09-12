@@ -98,7 +98,7 @@ Modified from @kimGrayscaleTemplateMatchingInvariant2007
 2. Blur, normalize, invert, and threshold the image    
 <img src="images/shoes/longitudinal/Templates_Setup.png" width = "50%"/>
 
-3. Naively align the "centers" of the two images (avg of white pixel row/cols). To make this calculation comparable, do some very crude dilation/erosion (that may or may not generalize that well `r emo::ji("crying")`) to fill in the image a bit.    
+3. Naively align the "centers" of the two images (avg of white pixel row/cols). To make this calculation comparable, do some very crude dilation/erosion (that may or may not generalize that well `r emo::ji("sob")`) to fill in the image a bit.    
 <img src="images/shoes/longitudinal/Templates_Naive_Centering.png" width = "50%"/>    
 Then make the aligned center the actual center of the image via padding. This is the 1st time we have modified the actual image.
 

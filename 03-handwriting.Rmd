@@ -1,3 +1,27 @@
-# Handwriting
+# Project G: Handwriting (& Signatures)
 
-We describe our methods for going about the handwriting project here.
+<p class="new"> The handwriting project has three major focuses:  <p>
+
+  1. data collection
+  2. computational tools
+  3. closed-set writer modeling
+  4. communication of results
+
+## Data Collection
+<p class="new"> Data collection is underway with the most recent update at:  <p>
+
+  - 44 participants complete through session #3
+  - 52 participants complete through session #2
+  - 10 participants complete through session #1
+  
+## Computational Tools
+<p class="new"> The <i> handwriter R package<i> is our major computational tool for the project. Currently we are making efforts to integrate the glyph cluster template into the package. <p> 
+
+## Closed-Set Writer Modeling
+<p class="new"> The following will be the jumping off point for purposes of this book with respect to modelling and discussion of results.<p>
+
+![Poster given at the 10th International Workshop on Simulation and Statistics](images/handwriting/amy/Crawford_SIMSTAT_2019.png)
+
+
+## Communication of Results   
+List of conferences and papers.

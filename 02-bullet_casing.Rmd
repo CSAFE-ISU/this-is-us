@@ -171,6 +171,51 @@ So either somethin is wrong with `get_mask_hough` or something is funky with the
   - Create graphical images to explain line selection method
   - Include 2-d and 3-d visualizations of Hough groove area identifications
   - Include crosscut visualization and comparison in results
+  
+
+Charlotte update 09/12/19: 
+This week I have been working on obtaining some results for the Phoenix set on Sunny.
+As a minor update the unit issues in `get_mask_hough()` are resolved ( I think). Below
+is an example of a nice image that has been generated using masks.
+
+```{r, fig.cap=" Phoenix Gun1 A-9 B1 Land 4 generated at strength threshold of 0.99, initially did not generate estimates at the 0.999 or 0.995 level", fig.keep="hold",fig.align = "center"}
+knitr::include_graphics("images/bullets/Hough_project/mask_phoenix_nice.png")
+```
+
+
+However the mask is only as good as the Hough estimates that supports it as shown here (less nice).
+
+```{r, fig.cap=" Phoenix Gun1 F-6 B2 Land 5 generated at strength threshold of 0.9, initially did not generate estimates at the 0.999 or 0.995, or 0.99 level", fig.keep="hold",fig.align = "center"}
+knitr::include_graphics("images/bullets/Hough_project/mask_phonix_lessnice.png")
+```
+
+
+Hough crosscut predictions for the Phoenix dataset are now uploaded to the bulletQuality Github in the"results" folder and contains Hough groove estimates at the following five strength levels: 0.999, 0.995, 0.99, 0.95, 0.9. The source and the crosscut estimate are also included in the dataset.
+
+
+Here are some preliminary results of using Kiegan's area of misidentification method
+(thanks Kiegan!) on Hough groove estimates at the strength threshold of 0.999
+in comparison to the BCP and Lasso method.
+
+
+```{r, fig.cap="Left-hand groove area of misidentification log-transformed scores for BCP, Lasso, and Hough", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/preliminary_phoenix_score_results_left.png")
+```
+
+```{r, fig.cap="Right-hand groove area of misidentification log-transformed scores for BCP, Lasso, and Hough", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/images/bullets/Hough_project/preliminary_phoenix_score_results_right.png")
+```
+
+
+These scoresare log transformed to show better separation but it's very clear that for the
+left groove both Lasso and BCP are out performing the Hough method in correctly identifying grooves. For the righthand side, scores tend to be more similar however once again,
+the Lasso method seems to bo the best job since it has a larger density of low scores
+and minimizes high score misidenfitications.
+
+For improvement before next week, I will investigate why there are 47 missing Hough
+predictions resulting in a score of 0 in these results and change the parameters in the
+`get_grooves_hough()` function to try and generate estimates for some of those missing values.
+
 
 ##### LASSO Method  
 

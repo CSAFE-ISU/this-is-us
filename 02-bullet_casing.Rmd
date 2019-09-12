@@ -249,6 +249,21 @@ The final step in the pre-processing is to align the two images in some consiste
 
 ## Communication of Results and Methods  
 
+The results are communicated through an interactive user interface. The first part of this interface lets you add all the bullets, barrels and lands for which the random forest and other scores are to be computed. A preliminary diagnostic of the orientations and dimensions of the lands tell us, if we can proceed safely to extraction of markings and cross-comparisons.
+
+After this step, we can apply any sampling or interpolation needed on the land images, all these operations can be batched to the entire set of comparisons under consideration. Then we can make transformations like rotation, transpose etc on a sample image, visualize the results, and since we are dealing with conforming orientation and dimensions of lands present in the entire set, we can batch the transformations.
+
+We extract markings, locate grooves, align signatures, and generate cross-comparison results. Each step is notified in UI and all steps are logged. 
+
+The scores and results are then communicated through an interactive visualization. We first interact at the top most level where we have bullet-to-bullet scores for all the cross-comparisons presented in a grid. We can select one comparison at a time which would generate a second level of grid visualization that shows the land-to-land scores for all 36 comparisons within a bullet. Interacting with this visualization, we can now pull up score tables, profiles, location of grooves, aligned signatures and raw images.
+
+The framework of interactions, allows for validation of classification recommended by the RF model as well as gives an opportunity to critically asses, identify the cause and diagnose any problems encountered in the bullet matching pipeline.
+
+```{r, fig.cap="An instance of the interactive visualizations for communicating results", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/bullets/gan-app2_consolidated.png")
+```
+
+
 ### Conference Presentations  
 
 #### American Academy of Forensic Sciences  
@@ -272,7 +287,7 @@ The final step in the pre-processing is to align the two images in some consiste
 - <p class="new"> "A non-parametric test for matching bullet striations: extending the chumbley score for bullet-to-bullet matching </p>
     - July 2019 
     - Authors:Ganesh Krishnan, Heike Hofmann
-    - Talk by Ganesh Krishnan
+    - Talk given by Ganesh Krishnan
 
 
 

@@ -269,6 +269,13 @@ The final step in the pre-processing is to align the two images in some consiste
     
 #### Joint Statistical Meetings  
 
+- <p class="new"> "A non-parametric test for matching bullet striations: extending the chumbley score for bullet-to-bullet matching </p>
+    - July 2019 
+    - Authors:Ganesh Krishnan, Heike Hofmann
+    - Talk by Ganesh Krishnan
+
+
+
 - <p class="new"> "Repeatability and reproducibility of automated bullet comparisons using high-resolution 3D scans" </p>
     - July 2019 
     - Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann

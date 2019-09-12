@@ -74,8 +74,11 @@ plot(rgbImage(green = 1 - orig_mask, blue = 1 - centered_mask, red = 1 - centere
 plot(rgbImage(green = 1 - thresh_img, blue = 1 - centered_mask, red = 1 - centered_mask))
 dev.off()
 
-pmax(abs(img_center) * 2, dim(thresh_img))
+dist_bottom_right <- dim(thresh_img) - abs(img_center)
+dist_top_left <- abs(img_center)
 
+padded_img <- pad_to_center(thresh_img, img_center)
+padded_mask <- pad_to_center(centered_mask)
 # Angle alignment
 
 radial_mask(dim(img)) %>% plot()

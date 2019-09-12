@@ -22,11 +22,10 @@ Methods and data description handed off to Alicia for editing
 
 ##### Film and Powder Images {-#lss-paper-analysis-film}
 
-<img src="images/shoes/longitudinal/Film_Demo_Orig.png" width = "100%"/>
-
-Analysis Steps:
 <details>
-<summary>Summary: Create a mask via thresholding, clean it up, fill in mask holes, creating a shoe "region" mask. Apply this mask to the image, replacing any pixels outside the mask with the median background pixel. Additional thresholding and normalization can be applied if a binary image is more desireable. </summary>
+<summary>Analysis Summary: Create a mask via thresholding, clean it up, fill in mask holes, creating a shoe "region" mask. Apply this mask to the image, replacing any pixels outside the mask with the median background pixel. Additional thresholding and normalization can be applied if a binary image is more desireable. </summary>
+
+<img src="images/shoes/longitudinal/Film_Demo_Orig.png" width = "100%"/>
 
 1. Create threshold mask
     a. Blur image (circular/gaussian blur, diameter 15)    
@@ -72,26 +71,30 @@ I've added the functions from last week to the `ShoeScrubR` package, which will 
 
 Using that package, I tried the method out on a sequence of shoes over time to see what methods might best show wear. Each column shows a single left shoe over four timepoints. The shoes are the first 9 shoeIDs (e.g. 1 - 9).  
 
-- <details><summary>Original</summary>
+<details><summary>Original</summary>
 <img src="images/shoes/longitudinal/Film_First9_Original.png" width="100%"/>
 </details>
-- <details><summary>Cleaned</summary>     
+<details><summary>Cleaned</summary>     
 <img src="images/shoes/longitudinal/Film_First9_Cleaned.png" width="100%"/></details>
-- <details><summary>Cleaned and Thresholded</summary> 
+<details><summary>Cleaned and Thresholded</summary> 
 <img src="images/shoes/longitudinal/Film_First9_Cleaned_Thresholded.png" width="100%"/></details>
 
 Even with the cleaning methods... there is a lot of extra noise. 
+</div>
 
+<div class = "new">
 Next step: templating!
 
 Basic framework: 
 
-- <details><summary>Create a template for each size and model combination</summary>
+<details><summary>Create a template for each size and model combination</summary>
 (using GIMP - if I could automate this, I wouldn't need the template `r emo::ji("roll_eyes")`
 <img src="images/shoes/longitudinal/Templates_Equal_Size.png" width = "100%"/></details>
-- Goal: Maximize the number of black pixels in the image within the template region
-- <details><summary>Intelligently brute force angle and position of template</summary>
-Modified from @kimGrayscaleTemplateMatchingInvariant2007
+
+<details><summary>Intelligently brute force angle and position of template    
+Goal: Maximize the number of black pixels in the image within the template region
+</summary>
+
 
 1. Start with an image and a template mask
 
@@ -116,6 +119,7 @@ Create multiple radial masks, each offset slightly; optimize over the intersecti
 source("code/shoes/longitudinal/20190912-Templates_Intro_Radial_Alignment.R")
 ```
 
+Modified from [@kimGrayscaleTemplateMatchingInvariant2007]
 </details>
 
 

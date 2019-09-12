@@ -489,6 +489,64 @@ So either somethin is wrong with \texttt{get\_mask\_hough} or something is funky
   \end{itemize}
 \end{itemize}
 
+Charlotte update 09/12/19:
+This week I have been working on obtaining some results for the Phoenix set on Sunny.
+As a minor update the unit issues in \texttt{get\_mask\_hough()} are resolved ( I think). Below
+is an example of a nice image that has been generated using masks.
+
+\begin{figure}
+
+{\centering \includegraphics[width=21.53in]{images/bullets/Hough_project/mask_phoenix_nice} 
+
+}
+
+\caption{ Phoenix Gun1 A-9 B1 Land 4 generated at strength threshold of 0.99, initially did not generate estimates at the 0.999 or 0.995 level}\label{fig:unnamed-chunk-11}
+\end{figure}
+
+However the mask is only as good as the Hough estimates that supports it as shown here (less nice).
+
+\begin{figure}
+
+{\centering \includegraphics[width=17.03in]{images/bullets/Hough_project/mask_phonix_lessnice} 
+
+}
+
+\caption{ Phoenix Gun1 F-6 B2 Land 5 generated at strength threshold of 0.9, initially did not generate estimates at the 0.999 or 0.995, or 0.99 level}\label{fig:unnamed-chunk-12}
+\end{figure}
+
+Hough crosscut predictions for the Phoenix dataset are now uploaded to the bulletQuality Github in the``results'' folder and contains Hough groove estimates at the following five strength levels: 0.999, 0.995, 0.99, 0.95, 0.9. The source and the crosscut estimate are also included in the dataset.
+
+Here are some preliminary results of using Kiegan's area of misidentification method
+(thanks Kiegan!) on Hough groove estimates at the strength threshold of 0.999
+in comparison to the BCP and Lasso method.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/bullets/Hough_project/preliminary_phoenix_score_results_left} 
+
+}
+
+\caption{Left-hand groove area of misidentification log-transformed scores for BCP, Lasso, and Hough}\label{fig:unnamed-chunk-13}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/bullets/Hough_project/preliminary_phoenix_score_results_right} 
+
+}
+
+\caption{Right-hand groove area of misidentification log-transformed scores for BCP, Lasso, and Hough}\label{fig:unnamed-chunk-14}
+\end{figure}
+
+These scoresare log transformed to show better separation but it's very clear that for the
+left groove both Lasso and BCP are out performing the Hough method in correctly identifying grooves. For the righthand side, scores tend to be more similar however once again,
+the Lasso method seems to bo the best job since it has a larger density of low scores
+and minimizes high score misidenfitications.
+
+For improvement before next week, I will investigate why there are 47 missing Hough
+predictions resulting in a score of 0 in these results and change the parameters in the
+\texttt{get\_grooves\_hough()} function to try and generate estimates for some of those missing values.
+
 \hypertarget{lasso-method}{%
 \paragraph{LASSO Method}\label{lasso-method}}
 
@@ -515,7 +573,7 @@ Below is a series of images that illustrate how we might compare a cell in one i
 
 }
 
-\caption{Comparing a cell in image 1 to a larger region in image 2. We wish to find the translations of the image 1 cell that yield the highest correlation within the image 2 region.}\label{fig:unnamed-chunk-11}
+\caption{Comparing a cell in image 1 to a larger region in image 2. We wish to find the translations of the image 1 cell that yield the highest correlation within the image 2 region.}\label{fig:unnamed-chunk-15}
 \end{figure}
 
 For the sake of an example, let's focus on the blue outlined cell in image 1. Our goal is to use the image 1 cell to ``search'' a corresponding larger region in image 2 for the horizontal/vertical translations needed to produce the highest correlation. Below is a zoomed-in version of the blue outlined image 1 cell on the left and the larger image 2 region (approximately: I made the gridded image above by-hand outside of R while the images below are from R). The image 1 cell may look larger than the image 2 region, but we can see from the axes that the image 2 region is indeed larger. Any white pixels in the two images are NA values that need to be dealt with in some way before we can use FFTs to calculate the cross-correlation.
@@ -526,7 +584,7 @@ For the sake of an example, let's focus on the blue outlined cell in image 1. Ou
 
 }
 
-\caption{(Left) A cell from image 1. (Right) A region from image 2 centered in the same location as the image 1 cell, yet quadruple the area.}\label{fig:unnamed-chunk-12}
+\caption{(Left) A cell from image 1. (Right) A region from image 2 centered in the same location as the image 1 cell, yet quadruple the area.}\label{fig:unnamed-chunk-16}
 \end{figure}
 
 As already discussed above, one ``solution'' is to replace the NA values with the average pixel value of each image. However, to avoid creating a stronger artificial signal than necessary, we can crop-out the NA rows and columns from the two images above. Below is the cropped version of the two images. The cropping doesn't produce signficantly different images in this case, but you could imagine other examples in which a cell has captured only small amount of breechface in the corner. Such examples are fairly common and cropping signficantly changes the resulting correlation values.
@@ -537,7 +595,7 @@ As already discussed above, one ``solution'' is to replace the NA values with th
 
 }
 
-\caption{The same images as above after cropping NA rows/columns.}\label{fig:unnamed-chunk-13}
+\caption{The same images as above after cropping NA rows/columns.}\label{fig:unnamed-chunk-17}
 \end{figure}
 
 The last step before calculating correlation for these cells is to replace the remaining NAs with the average pixel value. This is shown below.
@@ -548,7 +606,7 @@ The last step before calculating correlation for these cells is to replace the r
 
 }
 
-\caption{The NA-cropped images with remaining NAs replaced with the image's average pixel values.}\label{fig:unnamed-chunk-14}
+\caption{The NA-cropped images with remaining NAs replaced with the image's average pixel values.}\label{fig:unnamed-chunk-18}
 \end{figure}
 
 The cross-correlation is then calculated between these two images via a standard fast fourier transform process (see \href{http://mathworld.wolfram.com/Cross-CorrelationTheorem.html}{Cross-Correlation Theorem}). The benefit of using such a process is that (as the name suggests) it's faster than calculating the raw correlation between the two images. Also, the translations that produce the highest correlation between the image 1 cell and the image 2 region fall out of the calculation for free.
@@ -566,7 +624,7 @@ As discussed above, dealing with missing values is provign to be a pain. The goo
 
 }
 
-\caption{(Left) The original breech face impression scan image. (Right) A donut-shaped region cut out of the original image.}\label{fig:unnamed-chunk-15}
+\caption{(Left) The original breech face impression scan image. (Right) A donut-shaped region cut out of the original image.}\label{fig:unnamed-chunk-19}
 \end{figure}
 
 By comparing such regions instead of the square cells, we would presumably only need to fill in a few missing value ``holes'' in the breech face impression scan rather than completely replacing a non-existent signal with an artificial one. In the near-future, I hope to finish up the pre-processing needed for this Congruent Matching Tori method by performing a polar transformation on these images to make them into strips that can easily be compared via an FFT.
@@ -579,7 +637,7 @@ Joe 9/12/19 Update: Before carving out toroidal regions from the two images we w
 
 }
 
-\caption{Two cartridge case scans before pre-processing.}\label{fig:unnamed-chunk-16}
+\caption{Two cartridge case scans before pre-processing.}\label{fig:unnamed-chunk-20}
 \end{figure}
 
 There are a variety of techniques to segment an image into various parts. In image processing, common techniques are the Canny edge detector, which identifies edges of shapes in an image using image gradient techniques, and the Hough Transform, which can detect a variety of geometrical shapes in an image. The Hough Transform is what is used to segment the cartridge case images used in the previous section. However, we've found that the use of a Hough Transform doesn't extract the ``breech face signal'' from an image as other techniques. Namely, the breech face can be effectively extracted using the RANSAC (Random sample consensus) method that iteratively fits a plane to a set of data until it settles upon a consensus-based ``bulk'' of the data. In the case of these cartridge case scans, the bulk of the data should predominantely be distributed around the mode height value. That is, the breech face impression. Once we've fit this plane to the breech face impression, we can extract the residuals of the fit to better accentuate the markings left in the cartridge case base by a firearm's breech face. Below is an example of the residuals left after fitting a RANSAC plane to two cartridge case scans above. In the example below, we grab any residuals less than 20 microns in magnitude.
@@ -590,7 +648,7 @@ There are a variety of techniques to segment an image into various parts. In ima
 
 }
 
-\caption{Residual values of a RANSAC plane fit to the two cartridge case scans shown above.}\label{fig:unnamed-chunk-17}
+\caption{Residual values of a RANSAC plane fit to the two cartridge case scans shown above.}\label{fig:unnamed-chunk-21}
 \end{figure}
 
 Although these two images are of two different cartridge cases, you can hopefully see that one looks very much like a rotated version of the other. These two cartridge case scans are in fact fired from the same gun (known matches), so it's a good thing that they look so similar. We've now removed quite a bit of the unwanted regions of the original scans. However, there are still some areas of the image (e.g., the faint circular region of pixels in the center of the breech face scan) that just so happened to be close to the fitted plane and thus were brought along in the residual extraction. There are a few ways that we can clean up these last few areas. One is to use two Hough Transforms to detect the inner and outer circles of the breech face impression and filter out any pixels outside of the region between these two circles. The biggest issue with using a Hough Transform is that it must be given the radius of the circle that it is to search for in the image as an argument. That is, we need to know the radius of the breech face impression that we haven't yet identified in order to identify the breech face impression. Instead, we can dilate/erode (or vice-versa) the pixels in the image to remove the remaining ``speckle'' in the image. Below is an example of of the breech face impressions cleaned via a dilation/erosion procedure.
@@ -601,10 +659,19 @@ Although these two images are of two different cartridge cases, you can hopefull
 
 }
 
-\caption{The selected breech face impressions based on dilation and erosion.}\label{fig:unnamed-chunk-18}
+\caption{The selected breech face impressions based on dilation and erosion.}\label{fig:unnamed-chunk-22}
 \end{figure}
 
 The final step in the pre-processing is to align the two images in some consistent fashion. Luckily, the firing pin impression ring that's left after performing the above dilation/erosion provides us with some idea of how to align the breech face impressions. The location of the firing ring impression in the breech face impression provides us with an indicator of where the cartridge case was located relative to the firing pin when it was sitting in the barrel. So aligning two cartridge cases so that their firing pin impression rings align will ensure that, at the very least, the breech face impression left on the cartridge case is horizontally/vertically aligned if not rotationally aligned.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/cartridge_cases/rowSum_kdeComparison} 
+
+}
+
+\caption{An example of a side-view of a cartridge case and associated kernel density estimation.}\label{fig:unnamed-chunk-23}
+\end{figure}
 
 \hypertarget{modified-chumbley-non-random}{%
 \subsection{Modified Chumbley non-random}\label{modified-chumbley-non-random}}
@@ -639,7 +706,7 @@ The framework of interactions, allows for validation of classification recommend
 
 }
 
-\caption{An instance of the interactive visualizations for communicating results}\label{fig:unnamed-chunk-19}
+\caption{An instance of the interactive visualizations for communicating results}\label{fig:unnamed-chunk-24}
 \end{figure}
 
 \hypertarget{conference-presentations}{%
@@ -791,10 +858,61 @@ The framework of interactions, allows for validation of classification recommend
   Mya Fisher, Allison Mark, Connor Hergenreter, Carley McConnell, Anyesha Ray (scanner)
 \end{itemize}
 
-\hypertarget{handwriting}{%
-\chapter{Handwriting}\label{handwriting}}
+\hypertarget{project-g-handwriting-signatures}{%
+\chapter{Project G: Handwriting (\& Signatures)}\label{project-g-handwriting-signatures}}
 
-We describe our methods for going about the handwriting project here.
+The handwriting project has three major focuses:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  data collection
+\item
+  computational tools
+\item
+  closed-set writer modeling
+\item
+  communication of results
+\end{enumerate}
+
+\hypertarget{data-collection-1}{%
+\section{Data Collection}\label{data-collection-1}}
+
+Data collection is underway with the most recent update at:
+
+\begin{itemize}
+\tightlist
+\item
+  44 participants complete through session \#3
+\item
+  52 participants complete through session \#2
+\item
+  10 participants complete through session \#1
+\end{itemize}
+
+Anyesha was officially added to the IRB yesterday!! Her and Marc will be running the study this semester. I am training her in on the Shiny App this afternoon.
+
+\hypertarget{computational-tools-1}{%
+\section{Computational Tools}\label{computational-tools-1}}
+
+The handwriter R package is our major computational tool for the project. Currently we are making efforts to integrate the glyph cluster template into the package.
+
+\hypertarget{closed-set-writer-modeling}{%
+\section{Closed-Set Writer Modeling}\label{closed-set-writer-modeling}}
+
+The following will be the jumping off point for purposes of this book with respect to modelling and discussion of results.
+
+\begin{figure}
+\centering
+\includegraphics{images/handwriting/amy/Crawford_SIMSTAT_2019.png}
+\caption{Poster given at the 10th International Workshop on Simulation and Statistics}
+\end{figure}
+
+\hypertarget{communication-of-results}{%
+\section{Communication of Results}\label{communication-of-results}}
+
+List of conferences and papers.
 
 \hypertarget{glass}{%
 \chapter{Glass}\label{glass}}
@@ -1161,16 +1279,16 @@ What we are doing now
     \item
       low entropy \(\implies\) better able to predict outcome
     \item
-      \(\mathcal{E}(H|X,Y) \geq \mathcal{E}(H|X,Y,A)\)
+      \(\mathcal{H}(H|X,Y) \geq \mathcal{H}(H|X,Y,A)\)
 
       \begin{itemize}
       \tightlist
       \item
-        Common source (posterior) entropy is greater than specific source
+        Common source (posterior) entropy is greater than (average) specific source
       \end{itemize}
     \end{itemize}
   \item
-    Mutual Information: \(\mathcal{I}(X;Y) = \mathcal{E}(X) - \mathcal{E}(X|Y)\)
+    Mutual Information: \(\mathcal{I}(X;Y) = \mathcal{H}(X) - \mathcal{H}(X|Y)\)
 
     \begin{itemize}
     \tightlist

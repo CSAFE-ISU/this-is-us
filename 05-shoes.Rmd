@@ -98,28 +98,41 @@ Ideas:
 
 ## Passive Shoe Recognition {#connor}
 
-<div class = "new">
+###CoNNOR: Convolutional Neural Network for Outsole Recognition##
 
-CoNNOR: Convolutional Neural Network for Outsole Recognition
+**Project Overview**
 
   - Label images of shoes according to geometric classification scheme
   - Use convolutional base of pretrained CNN VGG16 and train a new classifier on labeled features
+  - Eventually, acquire real data passively and use CoNNOR to assess feature similarities and frequencies
 
-[Github repository for CC on CoNNOR](https://github.com/MirandaTilton/ISU_CC)
+[Link to submitted Creative Component on CoNNOR](https://lib.dr.iastate.edu/creativecomponents/264/)
 
 [Github repository for paper submitted to Forensic Science International](https://github.com/srvanderplas/CoNNORFSI)
 
-Exploring new directions:
+**Exploring new directions:**
 
-  - Truncate convolutional base and train random forest on features
+<div class = "new">
+
+- Truncate convolutional base and train random forest on features
     - Could replace fully connected layers of neural net as classifier
-    - Importance score can filter/reduce the number of features
-    - *Currently training on HPC, 3 days in*
-  - Fully convolutional networks (FCNs)
+    - Importance score can filter/reduce the number of features 
+    - *Block 4 random forest training terminated after one week :( *
+    - *Block 5 currently training for two different random forest packages (randomForest and ranger)*
+    - *If new models take more than 1-2 weeks, will look into subsampling techniques.*
+  
+- *Spatial integration*
+    - *Model is currently set up to take in 256x256 pixels*
+    - *Try taking in full shoe using a sliding window of size 256x256*
+    - *View class predictions spatially*
+  
+- Fully convolutional networks (FCNs)
     - Unsupervised segmentation to assess current classification scheme
     - Handle whole shoe image of any size (instead of only 256x256 pixel images)
     
-References for CNNs and FCNs
+</div>
+    
+**References for CNNs and FCNs**
 
 [Stack Exchange post explaining patchwise training](https://stats.stackexchange.com/questions/266075/patch-wise-training-and-fully-convolutional-training-in-fully-convolutional-neur)
 
@@ -131,12 +144,23 @@ References for CNNs and FCNs
 
 ["W-Net: A Deep Model for Fully Unsupervised Image Segmentation"](https://arxiv.org/pdf/1711.08506.pdf)
 
-</div>
-
 
 ## Maximum Clique Matching {#maxclique}
 
-## Cocoa Powder Citizen Science {#cocoa}
+## Project Tread (formerly Cocoa Powder Citizen Science) {#cocoa}
+
+<div class = "new">
+
+Project Tread, modified from [Leverhulme Institute's Sole Searching](https://www.dundee.ac.uk/leverhulme/citizenscience/details/sole-searching.php), is a developing CSAFE project with the goals of engaging community participation in forensic research and acquiring shoe print data that may be useful in future analyses.
+
+In progress:
+
+- Review [procedures](https://forensicstats.org/project-tread/) and IRB documents written by James
+- Perhaps modify procedures, then bribe some friends into helping me test them :)
+    - Test for length, clarity, ease, etc.
+- Be involved in set up of data collection site (through CSSM)
+
+</div>
 
 ## 3d Shoe Recognition 
 

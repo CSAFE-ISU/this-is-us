@@ -160,7 +160,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.6.3" data-path="bullets.html"><a href="bullets.html#undergraduates"><i class="fa fa-check"></i><b>3.6.3</b> Undergraduates</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="handwriting.html"><a href="handwriting.html"><i class="fa fa-check"></i><b>4</b> Handwriting</a></li>
+<li class="chapter" data-level="4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html"><i class="fa fa-check"></i><b>4</b> Project G: Handwriting (&amp; Signatures)</a><ul>
+<li class="chapter" data-level="4.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#data-collection-1"><i class="fa fa-check"></i><b>4.1</b> Data Collection</a></li>
+<li class="chapter" data-level="4.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#computational-tools-1"><i class="fa fa-check"></i><b>4.2</b> Computational Tools</a></li>
+<li class="chapter" data-level="4.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#closed-set-writer-modeling"><i class="fa fa-check"></i><b>4.3</b> Closed-Set Writer Modeling</a></li>
+<li class="chapter" data-level="4.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#communication-of-results"><i class="fa fa-check"></i><b>4.4</b> Communication of Results</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="glass.html"><a href="glass.html"><i class="fa fa-check"></i><b>5</b> Glass</a></li>
 <li class="chapter" data-level="6" data-path="shoes.html"><a href="shoes.html"><i class="fa fa-check"></i><b>6</b> Shoes</a><ul>
 <li class="chapter" data-level="6.1" data-path="shoes.html"><a href="shoes.html#longitudinal"><i class="fa fa-check"></i><b>6.1</b> Longitudinal Shoe Study</a><ul>
@@ -243,12 +248,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>``average amount of information gained through observation of <span class="math inline">\(X = x\)</span> &quot;
 <ul>
 <li>low entropy <span class="math inline">\(\implies\)</span> better able to predict outcome</li>
-<li><span class="math inline">\(\mathcal{E}(H|X,Y) \geq \mathcal{E}(H|X,Y,A)\)</span>
+<li><span class="math inline">\(\mathcal{H}(H|X,Y) \geq \mathcal{H}(H|X,Y,A)\)</span>
 <ul>
-<li>Common source (posterior) entropy is greater than specific source</li>
+<li>Common source (posterior) entropy is greater than (average) specific source</li>
 </ul></li>
 </ul></li>
-<li>Mutual Information: <span class="math inline">\(\mathcal{I}(X;Y) = \mathcal{E}(X) - \mathcal{E}(X|Y)\)</span>
+<li>Mutual Information: <span class="math inline">\(\mathcal{I}(X;Y) = \mathcal{H}(X) - \mathcal{H}(X|Y)\)</span>
 <ul>
 <li><span class="math inline">\(\mathcal{I}(X;Y) = KL(p(X,Y)||p(X),p(Y)) \geq 0\)</span></li>
 </ul></li>

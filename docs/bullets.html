@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="intro.html">
-<link rel="next" href="handwriting.html">
+<link rel="next" href="project-g-handwriting-signatures.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -160,7 +160,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.6.3" data-path="bullets.html"><a href="bullets.html#undergraduates"><i class="fa fa-check"></i><b>3.6.3</b> Undergraduates</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="handwriting.html"><a href="handwriting.html"><i class="fa fa-check"></i><b>4</b> Handwriting</a></li>
+<li class="chapter" data-level="4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html"><i class="fa fa-check"></i><b>4</b> Project G: Handwriting (&amp; Signatures)</a><ul>
+<li class="chapter" data-level="4.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#data-collection-1"><i class="fa fa-check"></i><b>4.1</b> Data Collection</a></li>
+<li class="chapter" data-level="4.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#computational-tools-1"><i class="fa fa-check"></i><b>4.2</b> Computational Tools</a></li>
+<li class="chapter" data-level="4.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#closed-set-writer-modeling"><i class="fa fa-check"></i><b>4.3</b> Closed-Set Writer Modeling</a></li>
+<li class="chapter" data-level="4.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#communication-of-results"><i class="fa fa-check"></i><b>4.4</b> Communication of Results</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="glass.html"><a href="glass.html"><i class="fa fa-check"></i><b>5</b> Glass</a></li>
 <li class="chapter" data-level="6" data-path="shoes.html"><a href="shoes.html"><i class="fa fa-check"></i><b>6</b> Shoes</a><ul>
 <li class="chapter" data-level="6.1" data-path="shoes.html"><a href="shoes.html#longitudinal"><i class="fa fa-check"></i><b>6.1</b> Longitudinal Shoe Study</a><ul>
@@ -373,6 +378,46 @@ Figure 3.8: 3-dimensional visualization of example bullet br411 with .999 streng
 <li>Include crosscut visualization and comparison in results</li>
 </ul></li>
 </ul>
+<p>Charlotte update 09/12/19:
+This week I have been working on obtaining some results for the Phoenix set on Sunny.
+As a minor update the unit issues in <code>get_mask_hough()</code> are resolved ( I think). Below
+is an example of a nice image that has been generated using masks.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-11"></span>
+<img src="images/bullets/Hough_project/mask_phoenix_nice.png" alt=" Phoenix Gun1 A-9 B1 Land 4 generated at strength threshold of 0.99, initially did not generate estimates at the 0.999 or 0.995 level" width="775" />
+<p class="caption">
+Figure 3.9:  Phoenix Gun1 A-9 B1 Land 4 generated at strength threshold of 0.99, initially did not generate estimates at the 0.999 or 0.995 level
+</p>
+</div>
+<p>However the mask is only as good as the Hough estimates that supports it as shown here (less nice).</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-12"></span>
+<img src="images/bullets/Hough_project/mask_phonix_lessnice.png" alt=" Phoenix Gun1 F-6 B2 Land 5 generated at strength threshold of 0.9, initially did not generate estimates at the 0.999 or 0.995, or 0.99 level" width="613" />
+<p class="caption">
+Figure 3.10:  Phoenix Gun1 F-6 B2 Land 5 generated at strength threshold of 0.9, initially did not generate estimates at the 0.999 or 0.995, or 0.99 level
+</p>
+</div>
+<p>Hough crosscut predictions for the Phoenix dataset are now uploaded to the bulletQuality Github in the“results” folder and contains Hough groove estimates at the following five strength levels: 0.999, 0.995, 0.99, 0.95, 0.9. The source and the crosscut estimate are also included in the dataset.</p>
+<p>Here are some preliminary results of using Kiegan’s area of misidentification method
+(thanks Kiegan!) on Hough groove estimates at the strength threshold of 0.999
+in comparison to the BCP and Lasso method.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-13"></span>
+<img src="images/bullets/Hough_project/preliminary_phoenix_score_results_left.png" alt="Left-hand groove area of misidentification log-transformed scores for BCP, Lasso, and Hough" width="50%" />
+<p class="caption">
+Figure 3.11: Left-hand groove area of misidentification log-transformed scores for BCP, Lasso, and Hough
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-14"></span>
+<img src="images/bullets/Hough_project/preliminary_phoenix_score_results_right.png" alt="Right-hand groove area of misidentification log-transformed scores for BCP, Lasso, and Hough" width="50%" />
+<p class="caption">
+Figure 3.12: Right-hand groove area of misidentification log-transformed scores for BCP, Lasso, and Hough
+</p>
+</div>
+<p>These scoresare log transformed to show better separation but it’s very clear that for the
+left groove both Lasso and BCP are out performing the Hough method in correctly identifying grooves. For the righthand side, scores tend to be more similar however once again,
+the Lasso method seems to bo the best job since it has a larger density of low scores
+and minimizes high score misidenfitications.</p>
+<p>For improvement before next week, I will investigate why there are 47 missing Hough
+predictions resulting in a score of 0 in these results and change the parameters in the
+<code>get_grooves_hough()</code> function to try and generate estimates for some of those missing values.</p>
 </div>
 <div id="lasso-method" class="section level5">
 <h5><span class="header-section-number">3.3.1.1.2</span> LASSO Method</h5>
@@ -394,31 +439,31 @@ A paper submitted to the Journal of Forensic Science is waiting for peer review 
 <h4><span class="header-section-number">3.3.2.1</span> Congruent Matching Cells (CMC) algorithm for comparing cartridge case breech face impressions</h4>
 <p>Joe 9/5/19 Update: Dealing with missing values in the x3p scans continues to be an issue. The Fast Fourier Transform method for calculating cross-correlation can’t handle missing data in an image, so we’ve attempted a few “fixes” that haven’t necessarily turned out as well as expected. One idea we had was to replace the NA values in a cell with the average pixel value. However, this is artificially introducing a signal where before there was none. This can (and demonstrably has) led to inflated/incorrect correlations between cells that shouldn’t have much at all in common. Unfortunately, this may be the only solution if we still wish to adhere to the CMC algorithm as described in Song et al. (2015). One improvement that I’ve implemented is to “crop out” the rows and columns of an image that only contain NAs. This at least means that we’ve weakened the strength of the artificial signal relative to the breechface’s signal.</p>
 <p>Below is a series of images that illustrate how we might compare a cell in one image to a region of another image.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-11"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-15"></span>
 <img src="images/cartridge_cases/im1_im2_cellComparison.png" alt="Comparing a cell in image 1 to a larger region in image 2. We wish to find the translations of the image 1 cell that yield the highest correlation within the image 2 region." width="50%" />
 <p class="caption">
-Figure 3.9: Comparing a cell in image 1 to a larger region in image 2. We wish to find the translations of the image 1 cell that yield the highest correlation within the image 2 region.
+Figure 3.13: Comparing a cell in image 1 to a larger region in image 2. We wish to find the translations of the image 1 cell that yield the highest correlation within the image 2 region.
 </p>
 </div>
 <p>For the sake of an example, let’s focus on the blue outlined cell in image 1. Our goal is to use the image 1 cell to “search” a corresponding larger region in image 2 for the horizontal/vertical translations needed to produce the highest correlation. Below is a zoomed-in version of the blue outlined image 1 cell on the left and the larger image 2 region (approximately: I made the gridded image above by-hand outside of R while the images below are from R). The image 1 cell may look larger than the image 2 region, but we can see from the axes that the image 2 region is indeed larger. Any white pixels in the two images are NA values that need to be dealt with in some way before we can use FFTs to calculate the cross-correlation.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-12"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-16"></span>
 <img src="images/cartridge_cases/im1_split.png" alt="(Left) A cell from image 1. (Right) A region from image 2 centered in the same location as the image 1 cell, yet quadruple the area." width="50%" /><img src="images/cartridge_cases/im2_split.png" alt="(Left) A cell from image 1. (Right) A region from image 2 centered in the same location as the image 1 cell, yet quadruple the area." width="50%" />
 <p class="caption">
-Figure 3.10: (Left) A cell from image 1. (Right) A region from image 2 centered in the same location as the image 1 cell, yet quadruple the area.
+Figure 3.14: (Left) A cell from image 1. (Right) A region from image 2 centered in the same location as the image 1 cell, yet quadruple the area.
 </p>
 </div>
 <p>As already discussed above, one “solution” is to replace the NA values with the average pixel value of each image. However, to avoid creating a stronger artificial signal than necessary, we can crop-out the NA rows and columns from the two images above. Below is the cropped version of the two images. The cropping doesn’t produce signficantly different images in this case, but you could imagine other examples in which a cell has captured only small amount of breechface in the corner. Such examples are fairly common and cropping signficantly changes the resulting correlation values.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-13"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-17"></span>
 <img src="images/cartridge_cases/im1_splitFilteredCropped.png" alt="The same images as above after cropping NA rows/columns." width="50%" /><img src="images/cartridge_cases/im2_splitFilteredCropped.png" alt="The same images as above after cropping NA rows/columns." width="50%" />
 <p class="caption">
-Figure 3.11: The same images as above after cropping NA rows/columns.
+Figure 3.15: The same images as above after cropping NA rows/columns.
 </p>
 </div>
 <p>The last step before calculating correlation for these cells is to replace the remaining NAs with the average pixel value. This is shown below.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-14"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-18"></span>
 <img src="images/cartridge_cases/im1_splitShifted.png" alt="The NA-cropped images with remaining NAs replaced with the image's average pixel values." width="50%" /><img src="images/cartridge_cases/im2_splitShifted.png" alt="The NA-cropped images with remaining NAs replaced with the image's average pixel values." width="50%" />
 <p class="caption">
-Figure 3.12: The NA-cropped images with remaining NAs replaced with the image’s average pixel values.
+Figure 3.16: The NA-cropped images with remaining NAs replaced with the image’s average pixel values.
 </p>
 </div>
 <p>The cross-correlation is then calculated between these two images via a standard fast fourier transform process (see <a href="http://mathworld.wolfram.com/Cross-CorrelationTheorem.html">Cross-Correlation Theorem</a>). The benefit of using such a process is that (as the name suggests) it’s faster than calculating the raw correlation between the two images. Also, the translations that produce the highest correlation between the image 1 cell and the image 2 region fall out of the calculation for free.</p>
@@ -427,35 +472,41 @@ Figure 3.12: The NA-cropped images with remaining NAs replaced with the image’
 <div id="congruent-matching-tori-a-promising-solution-to-the-missing-value-problem" class="section level4">
 <h4><span class="header-section-number">3.3.2.2</span> Congruent Matching Tori: a promising solution to the missing value problem</h4>
 <p>As discussed above, dealing with missing values is provign to be a pain. The good news is that the currently-implemented CMC as described above yields results very similar to those published in Song et al. (2015) that originally describes that CMC algorithm. While our results seem to agree with currently published results, it would be nice if we could avoid needing to artifically replace missing values. We can do so if, rather than breaking up the circular breech face impression scans into disjoint squares, we break up the breech face impression into donut-shaped regions containing only breech face impression. Below is an example of such a toroidal region.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-15"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-19"></span>
 <img src="images/cartridge_cases/im1_original.png" alt="(Left) The original breech face impression scan image. (Right) A donut-shaped region cut out of the original image." width="50%" /><img src="images/cartridge_cases/im1_toroidalRegion.png" alt="(Left) The original breech face impression scan image. (Right) A donut-shaped region cut out of the original image." width="50%" />
 <p class="caption">
-Figure 3.13: (Left) The original breech face impression scan image. (Right) A donut-shaped region cut out of the original image.
+Figure 3.17: (Left) The original breech face impression scan image. (Right) A donut-shaped region cut out of the original image.
 </p>
 </div>
 <p>By comparing such regions instead of the square cells, we would presumably only need to fill in a few missing value “holes” in the breech face impression scan rather than completely replacing a non-existent signal with an artificial one. In the near-future, I hope to finish up the pre-processing needed for this Congruent Matching Tori method by performing a polar transformation on these images to make them into strips that can easily be compared via an FFT.</p>
 <p>Joe 9/12/19 Update: Before carving out toroidal regions from the two images we wish to compare, a fair amount of pre-processing needs to be completed. For example, the scans we work with begin with a considerable amount of auxiliary information, for example the firing pin impression, that we don’t want to use in our comparisons. This isn’t to say that firing pin impressions aren’t useful to determine a match between two cartridge cases. In fact there is quite a lot of published research on how to compare two firing pin impressions. Rather, it is common practice to compare breech face impressions and firing pin impressions separately since it is difficult to scan both simultaneously. Thus, there are regions of a breech face impression scan that we want to remove so that the breech face impressions are more easily comparable. Below is an example of two breech face impression scans before processing.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-16"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-20"></span>
 <img src="images/cartridge_cases/im1_fullScan.png" alt="Two cartridge case scans before pre-processing." width="50%" /><img src="images/cartridge_cases/im2_fullScan.png" alt="Two cartridge case scans before pre-processing." width="50%" />
 <p class="caption">
-Figure 3.14: Two cartridge case scans before pre-processing.
+Figure 3.18: Two cartridge case scans before pre-processing.
 </p>
 </div>
 <p>There are a variety of techniques to segment an image into various parts. In image processing, common techniques are the Canny edge detector, which identifies edges of shapes in an image using image gradient techniques, and the Hough Transform, which can detect a variety of geometrical shapes in an image. The Hough Transform is what is used to segment the cartridge case images used in the previous section. However, we’ve found that the use of a Hough Transform doesn’t extract the “breech face signal” from an image as other techniques. Namely, the breech face can be effectively extracted using the RANSAC (Random sample consensus) method that iteratively fits a plane to a set of data until it settles upon a consensus-based “bulk” of the data. In the case of these cartridge case scans, the bulk of the data should predominantely be distributed around the mode height value. That is, the breech face impression. Once we’ve fit this plane to the breech face impression, we can extract the residuals of the fit to better accentuate the markings left in the cartridge case base by a firearm’s breech face. Below is an example of the residuals left after fitting a RANSAC plane to two cartridge case scans above. In the example below, we grab any residuals less than 20 microns in magnitude.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-17"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-21"></span>
 <img src="images/cartridge_cases/im1_ransacResiduals.png" alt="Residual values of a RANSAC plane fit to the two cartridge case scans shown above." width="50%" /><img src="images/cartridge_cases/im2_ransacResiduals.png" alt="Residual values of a RANSAC plane fit to the two cartridge case scans shown above." width="50%" />
 <p class="caption">
-Figure 3.15: Residual values of a RANSAC plane fit to the two cartridge case scans shown above.
+Figure 3.19: Residual values of a RANSAC plane fit to the two cartridge case scans shown above.
 </p>
 </div>
 <p>Although these two images are of two different cartridge cases, you can hopefully see that one looks very much like a rotated version of the other. These two cartridge case scans are in fact fired from the same gun (known matches), so it’s a good thing that they look so similar. We’ve now removed quite a bit of the unwanted regions of the original scans. However, there are still some areas of the image (e.g., the faint circular region of pixels in the center of the breech face scan) that just so happened to be close to the fitted plane and thus were brought along in the residual extraction. There are a few ways that we can clean up these last few areas. One is to use two Hough Transforms to detect the inner and outer circles of the breech face impression and filter out any pixels outside of the region between these two circles. The biggest issue with using a Hough Transform is that it must be given the radius of the circle that it is to search for in the image as an argument. That is, we need to know the radius of the breech face impression that we haven’t yet identified in order to identify the breech face impression. Instead, we can dilate/erode (or vice-versa) the pixels in the image to remove the remaining “speckle” in the image. Below is an example of of the breech face impressions cleaned via a dilation/erosion procedure.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-18"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-22"></span>
 <img src="images/cartridge_cases/im1_maskFiltered.png" alt="The selected breech face impressions based on dilation and erosion." width="50%" /><img src="images/cartridge_cases/im2_maskFiltered.png" alt="The selected breech face impressions based on dilation and erosion." width="50%" />
 <p class="caption">
-Figure 3.16: The selected breech face impressions based on dilation and erosion.
+Figure 3.20: The selected breech face impressions based on dilation and erosion.
 </p>
 </div>
 <p>The final step in the pre-processing is to align the two images in some consistent fashion. Luckily, the firing pin impression ring that’s left after performing the above dilation/erosion provides us with some idea of how to align the breech face impressions. The location of the firing ring impression in the breech face impression provides us with an indicator of where the cartridge case was located relative to the firing pin when it was sitting in the barrel. So aligning two cartridge cases so that their firing pin impression rings align will ensure that, at the very least, the breech face impression left on the cartridge case is horizontally/vertically aligned if not rotationally aligned.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-23"></span>
+<img src="images/cartridge_cases/rowSum_kdeComparison.png" alt="An example of a side-view of a cartridge case and associated kernel density estimation." width="50%" />
+<p class="caption">
+Figure 3.21: An example of a side-view of a cartridge case and associated kernel density estimation.
+</p>
+</div>
 </div>
 </div>
 <div id="modified-chumbley-non-random" class="section level3">
@@ -479,10 +530,10 @@ Figure 3.16: The selected breech face impressions based on dilation and erosion.
 <p>We extract markings, locate grooves, align signatures, and generate cross-comparison results. Each step is notified in UI and all steps are logged.</p>
 <p>The scores and results are then communicated through an interactive visualization. We first interact at the top most level where we have bullet-to-bullet scores for all the cross-comparisons presented in a grid. We can select one comparison at a time which would generate a second level of grid visualization that shows the land-to-land scores for all 36 comparisons within a bullet. Interacting with this visualization, we can now pull up score tables, profiles, location of grooves, aligned signatures and raw images.</p>
 <p>The framework of interactions, allows for validation of classification recommended by the RF model as well as gives an opportunity to critically asses, identify the cause and diagnose any problems encountered in the bullet matching pipeline.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-19"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-24"></span>
 <img src="images/bullets/gan-app2_consolidated.png" alt="An instance of the interactive visualizations for communicating results" width="50%" />
 <p class="caption">
-Figure 3.17: An instance of the interactive visualizations for communicating results
+Figure 3.22: An instance of the interactive visualizations for communicating results
 </p>
 </div>
 <div id="conference-presentations" class="section level3">
@@ -602,7 +653,7 @@ Figure 3.17: An instance of the interactive visualizations for communicating res
         </div>
       </div>
 <a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="handwriting.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="project-g-handwriting-signatures.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

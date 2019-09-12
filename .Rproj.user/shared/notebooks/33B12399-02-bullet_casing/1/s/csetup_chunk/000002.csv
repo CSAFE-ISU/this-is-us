@@ -1,0 +1,2 @@
+"0","library(knitr)"
+"0","opts_chunk$set(echo=FALSE)"

@@ -52,25 +52,29 @@ exaggerated_img <- thresh_img %>%
 
 img_center <- exaggerated_img %>%
   image_to_df() %>%
-  summarize(row = round(mean(row)), col = round(mean(col)))
+  summarize(row = round(mean(row)), col = round(mean(col))) %>%
+  unlist()
 
 mask_center <- image_to_df(orig_mask)  %>%
-  summarize(row = round(mean(row)), col = round(mean(col)))
+  summarize(row = round(mean(row)), col = round(mean(col))) %>%
+  unlist()
 
 t_dist <- mask_center - img_center
-centered_mask <- translate(orig_mask, -as.numeric(unlist(t_dist)), bg.col = 0)
+centered_mask <- translate(orig_mask, -t_dist, bg.col = 0)
 
 
 png(filename = file.path(img_output_dir, "Templates_Naive_Centering.png"),
     width = 300*4, height = 300*2, units = "px")
 par(mfrow = c(1, 4))
 plot(rgbImage(green = exaggerated_img, blue = thresh_img, red = thresh_img))
-points(-img_center$row, img_center$col, col = "green", cex = 1.5, type = "p", pch = 16)
+points(-img_center[["row"]], img_center[["col"]], col = "blue", cex = 1.5, type = "p", pch = 16)
 plot(orig_mask)
-points(-mask_center$row, mask_center$col, col = "red", cex = 1.5, type = "p", pch = 16)
+points(-mask_center[["row"]], mask_center[["col"]], col = "red", cex = 1.5, type = "p", pch = 16)
 plot(rgbImage(green = 1 - orig_mask, blue = 1 - centered_mask, red = 1 - centered_mask))
 plot(rgbImage(green = 1 - thresh_img, blue = 1 - centered_mask, red = 1 - centered_mask))
 dev.off()
+
+pmax(abs(img_center) * 2, dim(thresh_img))
 
 # Angle alignment
 

@@ -224,10 +224,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div id="lss-paper-analysis-film" class="section level5 unnumbered">
 <h5>Film and Powder Images</h5>
-<p><img src="images/shoes/longitudinal/Film_Demo_Orig.png" width = "100%"/></p>
-Analysis Steps:
 <details>
-<p><summary>Summary: Create a mask via thresholding, clean it up, fill in mask holes, creating a shoe “region” mask. Apply this mask to the image, replacing any pixels outside the mask with the median background pixel. Additional thresholding and normalization can be applied if a binary image is more desireable. </summary></p>
+<p><summary>Analysis Summary: Create a mask via thresholding, clean it up, fill in mask holes, creating a shoe “region” mask. Apply this mask to the image, replacing any pixels outside the mask with the median background pixel. Additional thresholding and normalization can be applied if a binary image is more desireable. </summary></p>
+<p><img src="images/shoes/longitudinal/Film_Demo_Orig.png" width = "100%"/></p>
 <ol style="list-style-type: decimal">
 <li>Create threshold mask
 <ol style="list-style-type: lower-alpha">
@@ -270,34 +269,32 @@ Con: Lose grey information; Pro: fully remove background<br />
 <div class="new">
 <p>I’ve added the functions from last week to the <code>ShoeScrubR</code> package, which will hopefully contain methods for handling all of the different 2D shoe data from the longitudinal study.</p>
 <p>Using that package, I tried the method out on a sequence of shoes over time to see what methods might best show wear. Each column shows a single left shoe over four timepoints. The shoes are the first 9 shoeIDs (e.g. 1 - 9).</p>
-<ul>
-<li><details>
+<details>
 <summary>Original</summary>
 <img src="images/shoes/longitudinal/Film_First9_Original.png" width="100%"/>
-</details></li>
-<li><details>
+</details>
+<details>
 <summary>Cleaned</summary><br />
 <img src="images/shoes/longitudinal/Film_First9_Cleaned.png" width="100%"/>
-</details></li>
-<li><details>
+</details>
+<details>
 <summary>Cleaned and Thresholded</summary>
 <img src="images/shoes/longitudinal/Film_First9_Cleaned_Thresholded.png" width="100%"/>
-</details></li>
-</ul>
+</details>
 <p>Even with the cleaning methods… there is a lot of extra noise.</p>
+</div>
+<div class="new">
 <p>Next step: templating!</p>
 <p>Basic framework:</p>
-<ul>
-<li><details>
+<details>
 <summary>Create a template for each size and model combination</summary>
 (using GIMP - if I could automate this, I wouldn’t need the template 🙄
 <img src="images/shoes/longitudinal/Templates_Equal_Size.png" width = "100%"/>
-</details></li>
-<li>Goal: Maximize the number of black pixels in the image within the template region</li>
-<li><details>
-<summary>Intelligently brute force angle and position of template</summary>
-Modified from <span class="citation">Kim and Araújo (<a href="#ref-kimGrayscaleTemplateMatchingInvariant2007">2007</a>)</span></li>
-</ul>
+</details>
+<details>
+<p><summary>Intelligently brute force angle and position of template<br />
+Goal: Maximize the number of black pixels in the image within the template region
+</summary></p>
 <ol style="list-style-type: decimal">
 <li><p>Start with an image and a template mask</p></li>
 <li><p>Blur, normalize, invert, and threshold the image<br />
@@ -312,6 +309,7 @@ Create multiple radial masks, each offset slightly; optimize over the intersecti
 <li><p>Brute force for finer alignment.</p></li>
 <li><p>Remove anything not in the mask region.</p></li>
 </ol>
+Modified from <span class="citation">(Kim and Araújo <a href="#ref-kimGrayscaleTemplateMatchingInvariant2007">2007</a>)</span>
 </details>
 </div>
 </div>

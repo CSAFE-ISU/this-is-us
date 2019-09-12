@@ -844,9 +844,7 @@ Methods and data description handed off to Alicia for editing
 \paragraph{Film and Powder Images}\label{lss-paper-analysis-film}}
 \addcontentsline{toc}{paragraph}{Film and Powder Images}
 
-Analysis Steps:
-
-Summary: Create a mask via thresholding, clean it up, fill in mask holes, creating a shoe ``region'' mask. Apply this mask to the image, replacing any pixels outside the mask with the median background pixel. Additional thresholding and normalization can be applied if a binary image is more desireable.
+Analysis Summary: Create a mask via thresholding, clean it up, fill in mask holes, creating a shoe ``region'' mask. Apply this mask to the image, replacing any pixels outside the mask with the median background pixel. Additional thresholding and normalization can be applied if a binary image is more desireable.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -908,14 +906,11 @@ I've added the functions from last week to the \texttt{ShoeScrubR} package, whic
 
 Using that package, I tried the method out on a sequence of shoes over time to see what methods might best show wear. Each column shows a single left shoe over four timepoints. The shoes are the first 9 shoeIDs (e.g.~1 - 9).
 
-\begin{itemize}
-\item
-  Original
-\item
-  Cleaned\\
-\item
-  Cleaned and Thresholded
-\end{itemize}
+Original
+
+Cleaned\\
+
+Cleaned and Thresholded
 
 Even with the cleaning methods\ldots{} there is a lot of extra noise.
 
@@ -923,16 +918,11 @@ Next step: templating!
 
 Basic framework:
 
-\begin{itemize}
-\item
-  Create a template for each size and model combination
-  (using GIMP - if I could automate this, I wouldn't need the template 🙄
-\item
-  Goal: Maximize the number of black pixels in the image within the template region
-\item
-  Intelligently brute force angle and position of template
-  Modified from \citet{kimGrayscaleTemplateMatchingInvariant2007}
-\end{itemize}
+Create a template for each size and model combination
+(using GIMP - if I could automate this, I wouldn't need the template 🙄
+
+Intelligently brute force angle and position of template\\
+Goal: Maximize the number of black pixels in the image within the template region
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -953,6 +943,8 @@ Basic framework:
 \item
   Remove anything not in the mask region.
 \end{enumerate}
+
+Modified from \citep{kimGrayscaleTemplateMatchingInvariant2007}
 
 \hypertarget{lss-paper-analysis-wear}{%
 \paragraph{Wear Characterization}\label{lss-paper-analysis-wear}}

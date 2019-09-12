@@ -1,14 +1,0 @@
-[0m[0K]0;:/c/Users/Joe/Desktop/CSAFE/this-is-us[?25l
-[0;32mJoe@DESKTOP-U7ERF0H [0;35m [0;33m~/Desktop/CSAFE/this-is-us[0;36m (master)[0m[0K
-$[0K[3G[?25h[?25l$ g[0K[?25hi[0Kt[0K[7G[?25l$ git f[0K[?25he[0Kt[0Kc[0Kh[0K[13G[?25l$ git fetch o[0K[?25hr[0Ki[0Kg[0Ki[0Kn[0K[?25l
-[0K[?25h[?25l
-[0;32mJoe@DESKTOP-U7ERF0H [0;35m [0;33m~/Desktop/CSAFE/this-is-us[0;36m (master)[0m[0K
-$[0K[3G[?25h[?25l$ g[0K[?25hi[0Kt[0K[7G[?25l$ git f[0K[?25h[?25l$ git[0K[7G[?25h[?25l$ git D[0K[?25hD[0K[?25l$ git D[0K[?25h[?25l$ git[0K[7G[?25h[6G[?25l$ gi[0K[?25h[?25l$ g[0K[?25h[?25l$[0K[3G[?25h[?25l$ git reset --hard origin/master[0K[?25h[?25l
-[0K[?25hHEAD is now at 09670b1 website[0K[?25l
-[0K[?25h[?25l
-[0;32mJoe@DESKTOP-U7ERF0H [0;35m [0;33m~/Desktop/CSAFE/this-is-us[0;36m (master)[0m[0K
-$[0K[3G[?25h[?25l$ g[0K[?25hi[0Kt[0K[7G[?25l$ git p[0K[?25hu[0K[?25ll[0K[9G[?25h[10G[?25l$ git pull[0K[?25h[?25l
-[0K[?25hfatal: unable to access 'https://github.com/CSAFE-ISU/this-is-us.git/': Could not resolve host: github.com[0K[?25l
-[0K[?25h[?25l
-[0;32mJoe@DESKTOP-U7ERF0H [0;35m [0;33m~/Desktop/CSAFE/this-is-us[0;36m (master)[0m[0K
-$[0K[3G[?25h

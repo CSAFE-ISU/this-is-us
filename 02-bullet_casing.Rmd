@@ -49,6 +49,25 @@ include_graphics(c("images/yawei/results-FAU-1.png"))
 include_graphics(c( "images/yawei/results-FAU-2.png"))
 ```
 
+Why some of the cases failed? (181/626 = 30%)
+
+`x3p_crosscut_optimize()` failed to find the positions to get cross cut for some lands.
+
+```{r, fig.cap="Land scan for barrel FAU 3 bullet A land 6.", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/lapd-FAU-3-Bullet-A-land-6.PNG"))
+```
+
+```{r, fig.cap="Land scan for barrel FAU 4 bullet C land 5.", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/lapd-FAU-4-Bullet-C-land-5.PNG"))
+```
+
+```{r, fig.cap="Land scan for barrel FAU 5 bullet B land 5.", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/lapd-FAU-5-Bullet-B-land-5.PNG"))
+```
+
+Manual indentification of grooves now...
+
+
 #### follow-up study 
 
 4 bullets per barrel for  96 of the original 626 Beretta firearms using different ammunition

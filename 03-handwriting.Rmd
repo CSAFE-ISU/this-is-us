@@ -13,6 +13,8 @@
   - 44 participants complete through session #3
   - 52 participants complete through session #2
   - 10 participants complete through session #1
+
+<p class="new"> Anyesha was officially added to the IRB yesterday!! Her and Marc will be running the study this semester. I am training her in on the Shiny App this afternoon. <p>
   
 ## Computational Tools
 <p class="new"> The <i> handwriter R package<i> is our major computational tool for the project. Currently we are making efforts to integrate the glyph cluster template into the package. <p> 

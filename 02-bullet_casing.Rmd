@@ -219,11 +219,45 @@ predictions resulting in a score of 0 in these results and change the parameters
 
 ##### LASSO Method  
 
-<p class="new">A paper is in preparation for submission to Forensic Science International describing this method (`get_grooves_lassofull` in `grooveFinder`), as well as the Bayesian changepoint method (`get_grooves_bcp`). </p>  
+A paper is in preparation for submission to Forensic Science International describing this method (`get_grooves_lassofull` in `grooveFinder`), as well as the Bayesian changepoint method (`get_grooves_bcp`).  
 
 ##### Robust LOESS Method  
 
-<p class="new">A paper submitted to the Journal of Forensic Science is waiting for peer review response to the first round of revisions.</p> 
+A paper submitted to the Journal of Forensic Science is waiting for peer review response to the first round of revisions.  
+  
+
+#### Bullet Land Comparisons Pipeline
+
+<p class="new"> Most data analysis processes can be thought of as a data analysis "pipeline". This process can involve data collection, decisions about data cleaning, data transformation or reduction, and feature engineering. For example, consider the general process below: </p>
+
+<img src="images/bullets/pipeline/pipeline_small.png" width = "80%"/>  
+
+<p class="new"> In the case of the bullet project, we have a pipeline which starts with having two physical bullet LEAs and ends with a quantitative result, a random forest similarity score. Our pipeline could be described (roughly) as something like this: </p>
+
+<img src="images/bullets/pipeline/pipeline_small_bullets.png" width = "80%"/>  
+
+<p class="new"> To make this a little easier to see, we can look at how a 3D scan is processed into a 2D signature: </p>  
+
+<img src="images/bullets/pipeline/process_vertical_png.png" width = "60%"/>
+
+<p class="new"> Now, something important to consider is whether each of these "data decisions" has an impact on the quantitative result (here, a similarity score between two LEA signatures). Consider a simple set of decisions we could make in our bullet pipeline: </p>  
+
+<img src="images/bullets/pipeline/pipeline_extended_updated.png" width = "80%"/>  
+
+<p class="new"> If we have a pair of signatures, we could theoretically end up with 16 different similarity scores depending on the decisions we make at each point. That is also assuming that both signatures were processed in the same way at each point. </p>  
+
+<p class="new"> This year, I'll be studying our bullet land "pipeline" here at CSAFE, as well as pipelines that are a little different than ours (e.g., @chu_jfs). There are a few major goals I am working towards: </p>
+
+1. Quantifying the uncertainty of our RF similarity scores based on data decisions  
+2. Comparing reproducibility/robustness of differing bullet analysis approaches  
+     - @aoas vs. @chu_jfs, for example
+     - Crosscuts: method 1 vs. alternate? Crosscut parameter tuning? 
+     - Groove methods  
+     - Original RF vs. updated/retrained/re-engineering 
+3. Reproducibility/robustness of different approaches when we consider data COLLECTION.  
+
+<p class="new"> Goal 3 is a major part of this pipeline process which I have been working on since the spring! We designed and collected a bullet scanning variability study with 5 of our bullet scanners on 2 machines. </p>  
+
 
 ### Cartridge Cases
 
@@ -302,7 +336,7 @@ knitr::include_graphics(c("images/cartridge_cases/rowSum_kdeComparison.png"))
 
 Ganesh: In this method we extend the modified chumbley non-random method from land-to-land scoring to bullet-to-bullet scoring.
 
-## Analysis of Results
+## Analysis of Results  
 
 ## Communication of Results and Methods  
 
@@ -325,7 +359,7 @@ knitr::include_graphics("images/bullets/gan-app2_consolidated.png")
 
 #### American Academy of Forensic Sciences  
 
-- <p class="new">"Validation Study on Automated Groove Detection Methods in 3D Bullet Land Scans"</p>
+- "Validation Study on Automated Groove Detection Methods in 3D Bullet Land Scans"
     - February 2019  
     - Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann
     - Presentation given by Kiegan Rice
@@ -333,7 +367,7 @@ knitr::include_graphics("images/bullets/gan-app2_consolidated.png")
 #### Association of Firearms and Toolmark Examiners Annual Training Seminar  
 
 - Heike's talk 
-- <p class="new"> "Reproducibility of Automated Bullet Matching Scores Using High-Resolution 3D LEA Scans" </p> 
+- "Reproducibility of Automated Bullet Matching Scores Using High-Resolution 3D LEA Scans"
     - May 2019
     - Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann 
     - Presentation given by Kiegan Rice  
@@ -341,21 +375,21 @@ knitr::include_graphics("images/bullets/gan-app2_consolidated.png")
     
 #### Joint Statistical Meetings  
 
-- <p class="new"> "A non-parametric test for matching bullet striations: extending the chumbley score for bullet-to-bullet matching </p>
+- "A non-parametric test for matching bullet striations: extending the chumbley score for bullet-to-bullet matching"
     - July 2019 
     - Authors:Ganesh Krishnan, Heike Hofmann
     - Talk given by Ganesh Krishnan
 
 
 
-- <p class="new"> "Repeatability and reproducibility of automated bullet comparisons using high-resolution 3D scans" </p>
+- "Repeatability and reproducibility of automated bullet comparisons using high-resolution 3D scans" 
     - July 2019 
     - Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann
     - Poster presented by Kiegan Rice  
 
 #### Miscellaneous  
 
-- <p class="new">10th International Workshop on Statistics and Simulation in Salzburg, Austria, September 2019</p>
+- 10th International Workshop on Statistics and Simulation in Salzburg, Austria, September 2019
     - "Reproducibility of High-Resolution 3D Bullet Scans and Automated Bullet Matching Scores"   
          - Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann
          - Poster presented by Kiegan Rice, won 2nd Springer Poster Award  
@@ -377,7 +411,7 @@ knitr::include_graphics("images/bullets/gan-app2_consolidated.png")
 - Ganesh Krishnan
 - Kiegan Rice 
 - Nate Garton
-- Charlotte Roigers
+- Charlotte Roiger 
 - Joe Zemmels
 - Yawei Ge
 

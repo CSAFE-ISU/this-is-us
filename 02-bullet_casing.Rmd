@@ -256,7 +256,22 @@ A paper submitted to the Journal of Forensic Science is waiting for peer review 
      - Original RF vs. updated/retrained/re-engineering 
 3. Reproducibility/robustness of different approaches when we consider data COLLECTION.  
 
-<p class="new"> Goal 3 is a major part of this pipeline process which I have been working on since the spring! We designed and collected a bullet scanning variability study with 5 of our bullet scanners on 2 machines. </p>  
+<p class="new"> Goal 3 is a major part of this pipeline process which I have been working on since the spring! We designed and collected a bullet scanning variability study of 9 bullets. I'm working on formally modeling the variability at the signature level, taking two major approaches: </p>  
+
+1. Subsampling and assuming independence; 
+2. Directly modeling out the mean structure
+     - Ignoring peak/valley dependence
+     - Using time series/spatial dependence modeling
+     - Using a Bayesian shrinkage prior (w/help from Amy!)
+     
+
+<p class="new"> Results for Method 1, the subsampling, looks something like this: </p>  
+
+
+<img src="images/bullets/pipeline/subsampled_variability_results_orange_l1.png" width = "80%"/>
+
+I will be updating with more on the "direct" modeling in my next Spotlight! 
+
 
 
 ### Cartridge Cases

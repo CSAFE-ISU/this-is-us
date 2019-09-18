@@ -82,7 +82,6 @@ Using that package, I tried the method out on a sequence of shoes over time to s
 Even with the cleaning methods... there is a lot of extra noise. 
 </div>
 
-<div class = "new">
 Next step: templating!
 
 Basic framework: 
@@ -105,13 +104,18 @@ Goal: Maximize the number of black pixels in the image within the template regio
 <img src="images/shoes/longitudinal/Templates_Naive_Centering.png" width = "100%"/>    
 Then make the aligned center the actual center of the image via padding. (This is the 1st time we have modified the actual image beyond thresholding and color changes).
 
+<div class = "new">
 4. ~~Create a new mask to sample the image (and the mask) radially. ~~ This doesn't work when the object isn't a solid entity :(    
+    
 New Option: Use image pyramids and brute-force alignment, starting off with an estimated rotation angle of $\theta$ from principal components    
 <img src="images/shoes/longitudinal/ImagePyramids.png" width = "100%"/>    
-<img src="images/shoes/longitudinal/MaskPyramids.png" width = "100%"/>
+<img src="images/shoes/longitudinal/MaskPyramids.png" width = "100%"/>    
+<img src="images/shoes/longitudinal/ShiftPyramids.png" width = "100%"/>
 
-5. Brute force for finer alignment.
+5. Brute force full-size image to get finer alignment.
 
+
+</div>
 6. Remove anything not in the mask region.
 
 ```{r film-template-code-demo, eval = F, include = F}
@@ -120,8 +124,6 @@ source("code/shoes/longitudinal/20190912-Templates_Intro_Radial_Alignment.R")
 
 </details>
 
-
-</div>
 
 ##### Wear Characterization {-#lss-paper-analysis-wear}
 Ideas:
@@ -134,10 +136,11 @@ Ideas:
 
 ### NIJ Grant
 
+<div class="new">
 Grant scope: Build the shoe scanner, develop an automatic recognition algorithm for geometric design elements, test the scanner in locations around Ames.
 
 Status: Funded! Next challenge: Figuring out how to transfer it to UNL.
-
+</div>
 ### CoNNOR: Convolutional Neural Network for Outsole Recognition##
 
 **Project Overview**

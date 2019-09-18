@@ -1,6 +1,6 @@
 # Outreach activities
 
-<p class="new">CSAFE has several ongoing outreach projects.</p>  
+CSAFE has several ongoing outreach projects.  
 
 ## Book on Forensic Science and Statistics  
 
@@ -17,7 +17,7 @@ General book outline:
 - Chapter 2: Analysis of Forensic Evidence  
     - Drafted. In the editing stage.
 - Chapter 3: The Path to the Witness Stand  
-    - <p class="new">Drafted. In the editing stage.</p>
+    - Drafted. In the editing stage. 
 - Chapter 4: Communicating Evidence in the Courtroom  
     - Not drafted. In the writing stage.
 - Chapter 5: Conclusions 

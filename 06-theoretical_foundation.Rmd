@@ -34,6 +34,7 @@ Proof that Mutual Information is always positive:
 \end{align*}
   
 ### Common Source vs Specific Source LR
+The "common source" problem is to determine whether two pieces of evidence, both with unknown origin, have the same origin. One might be interested in this problem if two crimes were suspected to be linked, but no suspect has yet been identified. Alternatively, the "specific source" problem is to determine whether a fragment of evidence coming from an unknown source, such as evidence at a crime scene, has the same origin as a fragment of evidence of known origin, such as evidence collected directly from a suspect.
 
 **Basic Setup**
 
@@ -71,5 +72,44 @@ Answering the second question requires proving that
 \end{align*}
 
 
+## Score-based Likelihood Ratios are not Fundamentally "Incoherent"
+Concern has been raised in the literature on LRs about a desirable property supposedly inherently absent from specific-source SLRs. The property, dubbed "coherence", intuitively says that given two mutually exhaustive hypotheses, $H_A$ and $H_B$, the likelihood ratio used to compare hypothesis A to hypothesis B should be the reciprocal of that used to compare hypothesis B to hypothesis A. I will argue that the claims about the inherent incoherency of SLRs is a result of thinking about SLRs too narrowly. Specifically, I will show that the arguments as to why SLRs are incoherent arise through the inappropriate comparison of SLRs based on different score functions. When one appropriately considers a single score function, incoherency is impossible. 
 
-        
+### Coherence
+Denote by $E \in \mathbb{R}^{n}$ the vector of random variables describing _all_ of the observed evidence or data which will be used to evaluate the relative likelihood of the two hypotheses. Define by $LR_{i,j} \equiv \frac{p(E|H_i)}{p(E|H_j)}$ the likelihood ratio of hypothesis $i$ to hypothesis $j$. The coherency principal is satisfied if 
+
+\[ LR_{i,j} = \frac{1}{LR_{j,i}} \].
+
+Likelihood ratios are fundamentally coherent, but what about score-based likelihood ratios? Denote by $s: \mathbb{R}^n \rightarrow \mathbb{R}^{q}$ a score function mapping the original data to Euclidean space of dimension $q$ (typically $q = 1$). Similar to LRs, denote by $SLR_{i,j} \equiv \frac{p(s(E)|H_i)}{p(s(E)|H_j)}$ the score-based likelihood ratio comparing hypothesis $i$ to hypothesis $j$. Clearly, in this general context SLRs are also coherent.
+
+### Problems with arguments showing SLRs are incoherent
+Let us examine the arguments presented in [REFS] to the incoherence of SLRs. These arguments stem from an example where there are two known sources of evidence say, source $A$ and source $B$, each producing data $e_A$ and $e_B$, respectively. Furthermore, assume that we have a third piece of evidence of unknown origin, $e_u$, which must have come from either $A$ or $B$. We then wish to evaluate the support of the data for $H_A$ or $H_B$ defined as follows 
+
+\begin{array}{cc}
+H_A: & e_u \text{ was generated from source } A \\
+H_B: & e_u \text{ was generated from source } B.
+\end{array}
+
+In this case, we have $LR_{A,B} = \frac{p(e_A, e_B, e_u|H_A)}{p(e_A, e_B, e_u|H_B)}$. We make use of _all_ available data in the formulation of the numerator and denominator densities. Under the assumptions that each fragment of evidence is independent under both hypothesis $A$ and $B$ as well as that $p(e_A,e_B|H_A) = p(e_A,e_B|H_B)$, the LR reduces to $LR_{A,B} = \frac{p(e_u|H_A)}{p(e_u|H_B)}$. The second assumption is generally acceptable as the source of $e_u$ ought to have no impact on the distribution of the evidence with known source.
+
+[REFS] then consider possible SLRs for this example. However, they make an assumption that the score is explicitly a function only of two fragments of evidence. That is, assuming the dimension of $e_i$, $dim(e_i) = k$, is constant for $i = A,B,u$, their score maps $s:\mathbb{R}^k \times \mathbb{R}^k \rightarrow \mathbb{R}$. An common example of such a score is Euclidean distance, i.e. $s(x,y) = \left[ \sum_{i = 1}^{k}(x_i - y_i)^2 \right]^{1/2}$. Such a score makes perfect sense in a typical specific-source problem context in which only two fragments of evidence are considered: one from the known source and one from the unknown source. 
+
+However, when one desires to create an SLR based on this score in this particular example, it is tempting to suggest that the natural SLR is $SLR_{A,B} = \frac{p(s(e_A,e_u)|H_A)}{p(s(e_A,e_u)|H_B)}$. Yet, the natural SLR if the hypotheses were reversed is $SLR_{B,A} = \frac{p(s(e_B,e_u)|H_B)}{p(s(e_B,e_u)|H_A)}$. Neither of these SLRs is the reciprocal of the other, and so the specific source SLR appears to be "incoherent". 
+
+This approach, however, should raise a red flag immediately. Why, in the full LR case, do we require that (simplifying model assumptions aside) the numerator and denominator densities be functions of all available data, but the score is not? Furthermore, if we consider these SLRs in the more general context of scores depending on all available data, we see that, in fact, what [REFS] define to be $SLR_{A,B}$ and $SLR_{B,A}$ turn out to be two different SLRs depending on two different scores. 
+
+For clarity, we will use $s(\cdot)$ to denote scores which are explicitly functions of _all_ observed data, and we will use $\delta (\cdot)$ to denote score functions which are only a function of two fragments of evidence/data. Specifically, the score in $SLR_{A,B}$ is $s_1(e_u,e_A,e_B) = \delta(e_u,e_A)$ and the score in $SLR_{B,A}$ is $s_2(e_u,e_A,e_B) = \delta(e_u,e_B)$. While the functional form of the score in the two SLRs _appears_ to be the same, clearly $s_1(e_u,e_A,e_B) \neq s_2(e_u,e_A,e_B)$. Thus, the two SLRs are simply two distinct quantities whose relationship needn't be expected to be related anymore than if one had decided to use two different function forms of $\delta(\cdot,\cdot)$ in the two separate SLRs. 
+
+One might ask how to reasonably construct an SLR which utilizes a score other than a similarity metric for two fragments of evidence. One such example in this case would be $s(e_u, e_A, e_B) = \frac{\delta(e_u,e_A)}{\delta(e_u,e_B)}$. Intuitively, under $H_A$, the numerator should be larger than the denominator, while under $H_B$, the opposite should be true. 
+
+### Example of a coherent SLR in the two source problem
+Suppose that our hypotheses are defined such that 
+
+\begin{array}{cc}
+H_A: & e_u \sim N(\mu_A, \sigma^2), e_A \sim N(\mu_A, \sigma^2), e_B \sim N(\mu_B, \sigma^2) \\
+H_B: & e_u \sim N(\mu_B, \sigma^2), e_A \sim N(\mu_A, \sigma^2), e_B \sim N(\mu_B, \sigma^2),
+\end{array}
+
+where $e_u$, $e_A$, $e_B$ are mutual independent under both $H_A$ and $H_B$. 
+
+It is true that the LR depends only on the evidence of the unknown source _in this specific scenario_, but that is a consequence of modeling assumptions and not of LR paradigmatic principals. 

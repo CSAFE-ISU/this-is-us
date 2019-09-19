@@ -217,8 +217,6 @@ Bottom line: CNN features are NOT interpretable, which makes them VERY hard to d
 
 ## Project Tread (formerly Cocoa Powder Citizen Science) {#cocoa}
 
-<div class = "new">
-
 Project Tread, modified from [Leverhulme Institute's Sole Searching](https://www.dundee.ac.uk/leverhulme/citizenscience/details/sole-searching.php), is a developing CSAFE project with the goals of engaging community participation in forensic research and acquiring shoe print data that may be useful in future analyses.
 
 In progress:
@@ -227,6 +225,23 @@ In progress:
 - Perhaps modify procedures, then bribe some friends into helping me test them :)
     - Test for length, clarity, ease, etc.
 - Be involved in set up of data collection site (through CSSM)
+
+<div class = "new">
+
+#### Comparing the procedures
+
+
+| Procedure           | Leverhulme      | CSAFE              |
+|---------------------|-----------------|--------------------|
+| 'Before' Pictures   | 4 per shoe      | 15 per shoe        |
+| Paper               | Letter (larger) | Tape printer paper |
+|                     |                 |                    |
+| Actions             | Run, jump, walk | Step, hop          |
+| Replicates          | 6 per shoe      | 9 per shoe         |
+| 'After' Pictures    | 1 pic per print | 3 pics per print   |
+|                     |                 |                    |
+| Total number prints | 18 per shoe     | 18 per shoe        |
+| Total number images | 18 per shoe     | 54 per shoe        |
 
 </div>
 

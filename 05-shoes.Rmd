@@ -232,9 +232,9 @@ Previously, features such as edge, corner, SURF were extracted to match shoeprin
   - ORB(Oriented FAST and Rotated BRIEF)- corners
 
 
-<img src="images/soyoung/nike_kaze_orb_surf.png" width="100%"/>
+<img src="images/shoes/Features/nike_kaze_orb_surf.png" width="100%"/>
 
-<img src="images/soyoung/adidas_kaze_orb_surf.png" width="100%"/>
+<img src="images/shoes/Features/adidas_kaze_orb_surf.png" width="100%"/>
 
 
 

@@ -67,7 +67,15 @@ The following will be the jumping off point for purposes of this book with respe
 Presenting/corresponding author is in bold.
 
 ### Papers
-
+- "A Clustering Method for Graphical Handwriting Components and Statistical Writership Analysis"
+    - Authors: Nick Berry, Amy Crawford
+    - Submitted to The Annals of Applied Statistics in September 2019.
+    
+- "Handwriting 2"
+    - Authors: Amy Crawford, Alicia Carriquiry, and Danica Ommen
+    - In preparation for submission to PNAS
+   
+   
 
 ### Talks
 - "TITLE"
@@ -78,57 +86,57 @@ Presenting/corresponding author is in bold.
  
 - "TITLE"
     - July 2019
-    - Authors:
+    - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry Danica Ommen
     - Joint Statistical Meetings (JSM) in Denver, CO.
     - Talk, 15 minutes.
     
 - "TITLE"
     - July 2019
-    - Authors:
+    - Authors: <strong>Alicia Carriquiry</strong>, Amy Crawford, Nick Berry, Danica Ommen
     - Lima, Peru.
     - Talk
     
 - "TITLE"
     - February 2019
-    - Authors:
+    - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry, Danica Ommen
     - American Academy of Forensic Sciences (AAFS) Annual Meeting in Baltimore, MD.
     - Talk, 20 minutes
     
 - "TITLE"
     - August 2018
-    - Authors: <strong> </strong>
+    - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry, Danica Ommen
     - American Society of Questioned Document Examiners (ASQDE) Annual Meeting in Park City, UT.
     - Talk, 20 minutes.
     
 - "TITLE"
     - July 2018
-    - Authors:
+    - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry, Danica Ommen
     - Joint Statistical Meetings (JSM) in Vancouver, BC, Canada.
     - Talk, 15 minutes.
     
 - "TITLE"
     - May 2018
-    - Authors:
+    - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry
     - American Bar Association, 9th Annual Prescription for Criminal Justice Forensics Program in New York, NY.
     - Talk, 15 minutes.
 
 ### Posters
 - "TITLE"
     - August 2019
-    - Authors:
+    - Authors: <strong>Amy Crawford</strong>, Alicia Carriquiry, Danica Ommen
     - 10th International Workshop on Statistics and Simulation in Salzburg, Austria
     - 1st Springer Poster Award
     
 - "TITLE"
     - February 2018
-    - Authors:
+    - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry
     - American Academy of Forensic Sciences in Seattle, WA
     - YFSF Best Poster Award
     
     
 - "TITLE"
     - May 2018 and 2019
-    - Authors:
+    - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry, Danica Ommen
     - CSAFE Annual All-Hands Meetin in Ames, IA
     
 

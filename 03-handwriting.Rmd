@@ -1,25 +1,63 @@
 # Project G: Handwriting (& Signatures)
+```{r setup, echo=FALSE}
+library(knitr)
+opts_chunk$set(echo=FALSE)
+```
 
-<p class="new"> The handwriting project has three major focuses:  <p>
+The handwriting project has four major focuses:
 
   1. data collection
   2. computational tools
-  3. closed-set writer modeling
+  3. statistical analysis
+      a. glyph clustering
+      b. closed set modeling for writer identification
   4. communication of results
 
 ## Data Collection
-<p class="new"> Data collection is underway with the most recent update at:  <p>
+We are conducting a large data collection study to gather handwriting samples from a variety of participants across the world (most in the Midwest). Each participant provides handwriting samples at three sessions. Session packets are prepared, mailed to participants, completed, and mailed back. Once recieved, we scan all surveys and writing samples. Scans are loaded, cropped, and saved using a Shiny app. The app also facilitates survey data entry, saving that participant data to lines in an excel spreadsheet.
 
-  - 44 participants complete through session #3
-  - 52 participants complete through session #2
-  - 10 participants complete through session #1
 
-<p class="new"> Anyesha was officially added to the IRB yesterday!! Her and Marc will be running the study this semester. I am training her in on the Shiny App this afternoon. <p>
+Data collection is underway with the most recent update (9/1) at 106 participants enrolled:
+
+  - 44 complete through session #3
+  - 52 complete through session #2
+  - 10 complete through session #1
+
+As of September 2019, Marc and Anyesha are the primary contacts for the study.
+
   
 ## Computational Tools
-<p class="new"> The <i> handwriter R package<i> is our major computational tool for the project. Currently we are making efforts to integrate the glyph cluster template into the package. <p> 
+`handwriter` is a developmental R package hosted at https://github.com/CSAFE-ISU/handwriter. It is our major computational tool for the project. The package takes in scanned handwritten documents and the following are performed. 
 
-## Closed-Set Writer Modeling
+1. <strong> Binarize.</strong> Turn the image to pure black and white.
+2. <strong> Skeletonize. </strong> Reduce writing to a 1 pixel wide skeleton.
+3. <strong> Break. </strong> Connected writing is decomposed into small manageable pieces called <strong> glyphs </strong>. Glyphs are graphical structures with nodes and edges that often, but not always, correspond to Roman letters, and are the smallest unit of observation we consider for statistcal modelling.
+4. <strong> Measure. </strong> A variety of measurements are taken on each glyph.
+
+```{r, fig.cap="Connected text processed by `handwriter`. The grey background is the original pen stroke. Colored lines represent the single pixel skeleton with color changes marking glyph decomposition. Red dots mark endpoints and intersections of each glyph.", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c( "images/handwriting/amy/handwriter_csafe.png"))
+```
+
+
+For an input document, functions in the package give back a list of glyphs with path and node location information, adjacency grouping assignment, slope (pictured below), and centroid locations, among other things.
+
+```{r, fig.cap="A visual of the ``slope'' calculation for two glyphs.", out.width="90%", fig.keep="hold", fig.align='center'}
+include_graphics(c( "images/handwriting/amy/handwriter_slopecalc.png"))
+```
+
+<p class="new"> We are currently working to incorporate the cluster grouping assignments into the package. This will be complete pending creation of a template.<p>
+
+## Statistical Analysis
+### Clustering
+Background to be added here.
+<p class="new"> Paper submitted!<p>
+<p class="new"> ...<p>
+
+```{r, fig.cap="", out.width="80%", fig.keep="hold", fig.align='center'}
+include_graphics(c( "images/handwriting/amy/clusterpaper_header.png"))
+```
+
+### Closed set modelling
 <p class="new"> The following will be the jumping off point for purposes of this book with respect to modelling and discussion of results.<p>
 
 ![Poster given at the 10th International Workshop on Simulation and Statistics](images/handwriting/amy/Crawford_SIMSTAT_2019.png)

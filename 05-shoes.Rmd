@@ -220,4 +220,22 @@ What we are doing now
   - Next
     - angle transformations 
     
+    
+## Shoe outsole matching using image descriptors
+
+Previously, features such as edge, corner, SURF were extracted to match shoeprints. The goal of this project is to find other image descriptors as image features for shoe print matching. 
+
+**Image descriptors**
+
+  - SURF(Speeded Up Robust Features)- blobs
+  - KAZE - blobs
+  - ORB(Oriented FAST and Rotated BRIEF)- corners
+
+
+<img src="images/soyoung/nike_kaze_orb_surf.png" width="100%"/>
+
+<img src="images/soyoung/adidas_kaze_orb_surf.png" width="100%"/>
+
+
+
 

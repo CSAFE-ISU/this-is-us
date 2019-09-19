@@ -1,5 +1,5 @@
 # Project G: Handwriting (& Signatures)
-```{r setup, echo=FALSE}
+```{r handwritingsetup, echo=FALSE}
 library(knitr)
 opts_chunk$set(echo=FALSE)
 ```
@@ -58,10 +58,95 @@ include_graphics(c( "images/handwriting/amy/clusterpaper_header.png"))
 ```
 
 ### Closed set modelling
-<p class="new"> The following will be the jumping off point for purposes of this book with respect to modelling and discussion of results.<p>
+The following will be the jumping off point for purposes of this book with respect to modelling and discussion of results.
 
 ![Poster given at the 10th International Workshop on Simulation and Statistics](images/handwriting/amy/Crawford_SIMSTAT_2019.png)
 
 
-## Communication of Results   
-List of conferences and papers.
+## Communication of Results  
+Presenting/corresponding author is in bold.
+
+### Papers
+
+
+### Talks
+- "TITLE"
+    - August 2019
+    - Authors: <strong>Amy Crawford</strong>, Alicia Carriquiry, Danica Ommen
+    - American Society of Questioned Document Examiners (ASQDE) Annual Meeting in Cary, NC.
+    - Talk, 80 minutes.
+ 
+- "TITLE"
+    - July 2019
+    - Authors:
+    - Joint Statistical Meetings (JSM) in Denver, CO.
+    - Talk, 15 minutes.
+    
+- "TITLE"
+    - July 2019
+    - Authors:
+    - Lima, Peru.
+    - Talk
+    
+- "TITLE"
+    - February 2019
+    - Authors:
+    - American Academy of Forensic Sciences (AAFS) Annual Meeting in Baltimore, MD.
+    - Talk, 20 minutes
+    
+- "TITLE"
+    - August 2018
+    - Authors: <strong> </strong>
+    - American Society of Questioned Document Examiners (ASQDE) Annual Meeting in Park City, UT.
+    - Talk, 20 minutes.
+    
+- "TITLE"
+    - July 2018
+    - Authors:
+    - Joint Statistical Meetings (JSM) in Vancouver, BC, Canada.
+    - Talk, 15 minutes.
+    
+- "TITLE"
+    - May 2018
+    - Authors:
+    - American Bar Association, 9th Annual Prescription for Criminal Justice Forensics Program in New York, NY.
+    - Talk, 15 minutes.
+
+### Posters
+- "TITLE"
+    - August 2019
+    - Authors:
+    - 10th International Workshop on Statistics and Simulation in Salzburg, Austria
+    - 1st Springer Poster Award
+    
+- "TITLE"
+    - February 2018
+    - Authors:
+    - American Academy of Forensic Sciences in Seattle, WA
+    - YFSF Best Poster Award
+    
+    
+- "TITLE"
+    - May 2018 and 2019
+    - Authors:
+    - CSAFE Annual All-Hands Meetin in Ames, IA
+    
+
+## People involved
+
+### Faculty
+
+- Alicia Carriquiry
+- Danica Ommen
+- Hal Stern (UCI, Project G PI)
+
+### Graduate Students
+
+- Amy Crawford
+
+### Undergraduates
+
+- Anyesha Rey (data collection)
+
+
+

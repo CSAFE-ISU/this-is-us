@@ -217,6 +217,21 @@ predictions resulting in a score of 0 in these results and change the parameters
 `get_grooves_hough()` function to try and generate estimates for some of those missing values.
 
 
+Charlotte update 09/19/2019:
+
+This week we are trying to think of a new way for selecting Hough lines for bullet estimates. The previous method for selecting Hough lines was to find lines with x-intercepts at the top and bottom of the lands closest to the lower and upper one sixth of the bullet lands. However this process was highly dependent on score thresholding from the Hough transform which is frustrating when running a large number of bullets since if the right score threshold was not achieved, no result would be produced. So right now I'm working on a way of selecting Hough lines from the normalized Hough scores.
+
+To obtain a normalized Hough score I take the x-intercepts of each estimated Hough line generate and find the distance between the x-intercept at the top and the bottom of the land. This should give me the max possible score for each Hough line, rather than calculating based on theta. Then I take the Hough score and divide by this maximum to normalize scores between 0 and 1. Right now I am working on visualizing some of these results but my code is buggy because I'm getting negative values when I try to visualize the process using masks when I shouldn't. Here is an example of a bullet land using the old and new method. Really similar results although it would appear that the new resut places the Hough transform lines further in to interior of the land than the old results. So that's promising?
+
+```{r, fig.cap="Phoenix Gun 1-A9 Bullet 3 Land 1 visualized using current Hough process message", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/phoenix_current_hough_land1.png")
+```
+
+```{r, fig.cap="Phoenix Gun 1-A9 Bullet 3 Land 1 visualized using new Hough process message", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/phoenix_new_hough_land1.png")
+```
+
+
 ##### LASSO Method  
 
 A paper is in preparation for submission to Forensic Science International describing this method (`get_grooves_lassofull` in `grooveFinder`), as well as the Bayesian changepoint method (`get_grooves_bcp`).  
@@ -347,7 +362,11 @@ We can see below an example of the non-NA pixel row sums plotted against the row
 knitr::include_graphics(c("images/cartridge_cases/nonNA_rowSums.png"))
 ```
 
-However, because firing pin impression circles have somewhat perforated edges, performing one pass through the image may not yield a particularly accurate estimate. As such, we can repeat the process of finding the distance between local maxima for both the row and column non-NA pixel counts. We can also rotate the image by a few degrees and perform the same process. I am currently rotating the image 0, 15, 30, 45, 60, and 75 degrees and calculating row and column diameter estimates per rotation. Obviously we can apply whatever aggregation function we desire to these estimates to determine a final estimate. 
+However, because firing pin impression circles have somewhat perforated edges, performing one pass through the image may not yield a particularly accurate estimate. As such, we can repeat the process of finding the distance between local maxima for both the row and column non-NA pixel counts. We can also rotate the image by a few degrees and perform the same process. I am currently rotating the image 0, 15, 30, 45, 60, and 75 degrees and calculating row and column diameter estimates per rotation. Obviously we can apply whatever aggregation function we desire to these estimates to determine a final estimate. Below we see what the Hough Transform selects as the breech face for 4 different radii values. In particular, for circles of radius 210, 213, 216, and 219.
+
+```{r, fig.cap="Hough Transform selected circles (red) of radius (1) 210, (2) 213, (3) 216, and (4) 219.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/houghTransformGridSearch.png"))
+```
 
 ### Modified Chumbley non-random
 

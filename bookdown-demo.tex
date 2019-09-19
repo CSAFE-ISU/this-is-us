@@ -124,7 +124,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-09-18}
+    \date{2019-09-19}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -547,6 +547,30 @@ For improvement before next week, I will investigate why there are 47 missing Ho
 predictions resulting in a score of 0 in these results and change the parameters in the
 \texttt{get\_grooves\_hough()} function to try and generate estimates for some of those missing values.
 
+Charlotte update 09/19/2019:
+
+This week we are trying to think of a new way for selecting Hough lines for bullet estimates. The previous method for selecting Hough lines was to find lines with x-intercepts at the top and bottom of the lands closest to the lower and upper one sixth of the bullet lands. However this process was highly dependent on score thresholding from the Hough transform which is frustrating when running a large number of bullets since if the right score threshold was not achieved, no result would be produced. So right now I'm working on a way of selecting Hough lines from the normalized Hough scores.
+
+To obtain a normalized Hough score I take the x-intercepts of each estimated Hough line generate and find the distance between the x-intercept at the top and the bottom of the land. This should give me the max possible score for each Hough line, rather than calculating based on theta. Then I take the Hough score and divide by this maximum to normalize scores between 0 and 1. Right now I am working on visualizing some of these results but my code is buggy because I'm getting negative values when I try to visualize the process using masks when I shouldn't. Here is an example of a bullet land using the old and new method. Really similar results although it would appear that the new resut places the Hough transform lines further in to interior of the land than the old results. So that's promising?
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/bullets/Hough_project/phoenix_current_hough_land1} 
+
+}
+
+\caption{Phoenix Gun 1-A9 Bullet 3 Land 1 visualized using current Hough process message}\label{fig:unnamed-chunk-15}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/bullets/Hough_project/phoenix_new_hough_land1} 
+
+}
+
+\caption{Phoenix Gun 1-A9 Bullet 3 Land 1 visualized using new Hough process message}\label{fig:unnamed-chunk-16}
+\end{figure}
+
 \hypertarget{lasso-method}{%
 \paragraph{LASSO Method}\label{lasso-method}}
 
@@ -583,7 +607,7 @@ This year, I'll be studying our bullet land ``pipeline'' here at CSAFE, as well 
   \begin{itemize}
   \tightlist
   \item
-    \citet{aoas} vs.~\citet{chu_jfs}, for example
+    \citet{aoas} vs. \citet{chu_jfs}, for example
   \item
     Crosscuts: method 1 vs.~alternate? Crosscut parameter tuning?
   \item
@@ -626,7 +650,7 @@ I will be updating with more on the ``direct'' modeling in my next Spotlight!
 \hypertarget{congruent-matching-cells-cmc-algorithm-for-comparing-cartridge-case-breech-face-impressions}{%
 \subsubsection{Congruent Matching Cells (CMC) algorithm for comparing cartridge case breech face impressions}\label{congruent-matching-cells-cmc-algorithm-for-comparing-cartridge-case-breech-face-impressions}}
 
-Joe 9/5/19 Update: Dealing with missing values in the x3p scans continues to be an issue. The Fast Fourier Transform method for calculating cross-correlation can't handle missing data in an image, so we've attempted a few ``fixes'' that haven't necessarily turned out as well as expected. One idea we had was to replace the NA values in a cell with the average pixel value. However, this is artificially introducing a signal where before there was none. This can (and demonstrably has) led to inflated/incorrect correlations between cells that shouldn't have much at all in common. Unfortunately, this may be the only solution if we still wish to adhere to the CMC algorithm as described in Song et al.~(2015). One improvement that I've implemented is to ``crop out'' the rows and columns of an image that only contain NAs. This at least means that we've weakened the strength of the artificial signal relative to the breechface's signal.
+Joe 9/5/19 Update: Dealing with missing values in the x3p scans continues to be an issue. The Fast Fourier Transform method for calculating cross-correlation can't handle missing data in an image, so we've attempted a few ``fixes'' that haven't necessarily turned out as well as expected. One idea we had was to replace the NA values in a cell with the average pixel value. However, this is artificially introducing a signal where before there was none. This can (and demonstrably has) led to inflated/incorrect correlations between cells that shouldn't have much at all in common. Unfortunately, this may be the only solution if we still wish to adhere to the CMC algorithm as described in Song et al. (2015). One improvement that I've implemented is to ``crop out'' the rows and columns of an image that only contain NAs. This at least means that we've weakened the strength of the artificial signal relative to the breechface's signal.
 
 Below is a series of images that illustrate how we might compare a cell in one image to a region of another image.
 
@@ -636,7 +660,7 @@ Below is a series of images that illustrate how we might compare a cell in one i
 
 }
 
-\caption{Comparing a cell in image 1 to a larger region in image 2. We wish to find the translations of the image 1 cell that yield the highest correlation within the image 2 region.}\label{fig:unnamed-chunk-15}
+\caption{Comparing a cell in image 1 to a larger region in image 2. We wish to find the translations of the image 1 cell that yield the highest correlation within the image 2 region.}\label{fig:unnamed-chunk-17}
 \end{figure}
 
 For the sake of an example, let's focus on the blue outlined cell in image 1. Our goal is to use the image 1 cell to ``search'' a corresponding larger region in image 2 for the horizontal/vertical translations needed to produce the highest correlation. Below is a zoomed-in version of the blue outlined image 1 cell on the left and the larger image 2 region (approximately: I made the gridded image above by-hand outside of R while the images below are from R). The image 1 cell may look larger than the image 2 region, but we can see from the axes that the image 2 region is indeed larger. Any white pixels in the two images are NA values that need to be dealt with in some way before we can use FFTs to calculate the cross-correlation.
@@ -647,7 +671,7 @@ For the sake of an example, let's focus on the blue outlined cell in image 1. Ou
 
 }
 
-\caption{(Left) A cell from image 1. (Right) A region from image 2 centered in the same location as the image 1 cell, yet quadruple the area.}\label{fig:unnamed-chunk-16}
+\caption{(Left) A cell from image 1. (Right) A region from image 2 centered in the same location as the image 1 cell, yet quadruple the area.}\label{fig:unnamed-chunk-18}
 \end{figure}
 
 As already discussed above, one ``solution'' is to replace the NA values with the average pixel value of each image. However, to avoid creating a stronger artificial signal than necessary, we can crop-out the NA rows and columns from the two images above. Below is the cropped version of the two images. The cropping doesn't produce signficantly different images in this case, but you could imagine other examples in which a cell has captured only small amount of breechface in the corner. Such examples are fairly common and cropping signficantly changes the resulting correlation values.
@@ -658,7 +682,7 @@ As already discussed above, one ``solution'' is to replace the NA values with th
 
 }
 
-\caption{The same images as above after cropping NA rows/columns.}\label{fig:unnamed-chunk-17}
+\caption{The same images as above after cropping NA rows/columns.}\label{fig:unnamed-chunk-19}
 \end{figure}
 
 The last step before calculating correlation for these cells is to replace the remaining NAs with the average pixel value. This is shown below.
@@ -669,7 +693,7 @@ The last step before calculating correlation for these cells is to replace the r
 
 }
 
-\caption{The NA-cropped images with remaining NAs replaced with the image's average pixel values.}\label{fig:unnamed-chunk-18}
+\caption{The NA-cropped images with remaining NAs replaced with the image's average pixel values.}\label{fig:unnamed-chunk-20}
 \end{figure}
 
 The cross-correlation is then calculated between these two images via a standard fast fourier transform process (see \href{http://mathworld.wolfram.com/Cross-CorrelationTheorem.html}{Cross-Correlation Theorem}). The benefit of using such a process is that (as the name suggests) it's faster than calculating the raw correlation between the two images. Also, the translations that produce the highest correlation between the image 1 cell and the image 2 region fall out of the calculation for free.
@@ -679,7 +703,7 @@ This pre-processing/cross-correlation calculation procedure is repeated for ever
 \hypertarget{congruent-matching-tori-a-promising-solution-to-the-missing-value-problem}{%
 \subsubsection{Congruent Matching Tori: a promising solution to the missing value problem}\label{congruent-matching-tori-a-promising-solution-to-the-missing-value-problem}}
 
-As discussed above, dealing with missing values is provign to be a pain. The good news is that the currently-implemented CMC as described above yields results very similar to those published in Song et al.~(2015) that originally describes that CMC algorithm. While our results seem to agree with currently published results, it would be nice if we could avoid needing to artifically replace missing values. We can do so if, rather than breaking up the circular breech face impression scans into disjoint squares, we break up the breech face impression into donut-shaped regions containing only breech face impression. Below is an example of such a toroidal region.
+As discussed above, dealing with missing values is provign to be a pain. The good news is that the currently-implemented CMC as described above yields results very similar to those published in Song et al. (2015) that originally describes that CMC algorithm. While our results seem to agree with currently published results, it would be nice if we could avoid needing to artifically replace missing values. We can do so if, rather than breaking up the circular breech face impression scans into disjoint squares, we break up the breech face impression into donut-shaped regions containing only breech face impression. Below is an example of such a toroidal region.
 
 \begin{figure}
 
@@ -687,7 +711,7 @@ As discussed above, dealing with missing values is provign to be a pain. The goo
 
 }
 
-\caption{(Left) The original breech face impression scan image. (Right) A donut-shaped region cut out of the original image.}\label{fig:unnamed-chunk-19}
+\caption{(Left) The original breech face impression scan image. (Right) A donut-shaped region cut out of the original image.}\label{fig:unnamed-chunk-21}
 \end{figure}
 
 By comparing such regions instead of the square cells, we would presumably only need to fill in a few missing value ``holes'' in the breech face impression scan rather than completely replacing a non-existent signal with an artificial one. In the near-future, I hope to finish up the pre-processing needed for this Congruent Matching Tori method by performing a polar transformation on these images to make them into strips that can easily be compared via an FFT.
@@ -700,7 +724,7 @@ Joe 9/12/19 Update: Before carving out toroidal regions from the two images we w
 
 }
 
-\caption{Two cartridge case scans before pre-processing.}\label{fig:unnamed-chunk-20}
+\caption{Two cartridge case scans before pre-processing.}\label{fig:unnamed-chunk-22}
 \end{figure}
 
 There are a variety of techniques to segment an image into various parts. In image processing, common techniques are the Canny edge detector, which identifies edges of shapes in an image using image gradient techniques, and the Hough Transform, which can detect a variety of geometrical shapes in an image. The Hough Transform is what is used to segment the cartridge case images used in the previous section. However, we've found that the use of a Hough Transform doesn't extract the ``breech face signal'' from an image as other techniques. Namely, the breech face can be effectively extracted using the RANSAC (Random sample consensus) method that iteratively fits a plane to a set of data until it settles upon a consensus-based ``bulk'' of the data. In the case of these cartridge case scans, the bulk of the data should predominantely be distributed around the mode height value. That is, the breech face impression. Once we've fit this plane to the breech face impression, we can extract the residuals of the fit to better accentuate the markings left in the cartridge case base by a firearm's breech face. Below is an example of the residuals left after fitting a RANSAC plane to two cartridge case scans above. In the example below, we grab any residuals less than 20 microns in magnitude.
@@ -711,7 +735,7 @@ There are a variety of techniques to segment an image into various parts. In ima
 
 }
 
-\caption{Residual values of a RANSAC plane fit to the two cartridge case scans shown above.}\label{fig:unnamed-chunk-21}
+\caption{Residual values of a RANSAC plane fit to the two cartridge case scans shown above.}\label{fig:unnamed-chunk-23}
 \end{figure}
 
 Although these two images are of two different cartridge cases, you can hopefully see that one looks very much like a rotated version of the other. These two cartridge case scans are in fact fired from the same gun (known matches), so it's a good thing that they look so similar. We've now removed quite a bit of the unwanted regions of the original scans. However, there are still some areas of the image (e.g., the faint circular region of pixels in the center of the breech face scan) that just so happened to be close to the fitted plane and thus were brought along in the residual extraction. There are a few ways that we can clean up these last few areas. One is to use two Hough Transforms to detect the inner and outer circles of the breech face impression and filter out any pixels outside of the region between these two circles. The biggest issue with using a Hough Transform is that it must be given the radius of the circle that it is to search for in the image as an argument. That is, we need to know the radius of the breech face impression that we haven't yet identified in order to identify the breech face impression. Instead, we can dilate/erode (or vice-versa) the pixels in the image to remove the remaining ``speckle'' in the image. Below is an example of of the breech face impressions cleaned via a dilation/erosion procedure.
@@ -722,12 +746,14 @@ Although these two images are of two different cartridge cases, you can hopefull
 
 }
 
-\caption{The selected breech face impressions based on dilation and erosion.}\label{fig:unnamed-chunk-22}
+\caption{The selected breech face impressions based on dilation and erosion.}\label{fig:unnamed-chunk-24}
 \end{figure}
 
 The final step in the pre-processing is to align the two images in some consistent fashion. Luckily, the firing pin impression ring that's left after performing the above dilation/erosion provides us with some idea of how to align the breech face impressions. The location of the firing ring impression in the breech face impression provides us with an indicator of where the cartridge case was located relative to the firing pin when it was sitting in the barrel. So aligning two cartridge cases so that their firing pin impression rings align will ensure that, at the very least, the breech face impression left on the cartridge case is horizontally/vertically aligned if not rotationally aligned.
 
-Joe 9/18/19 Update: To automatically detect the radius of a given breech face impression, we can count the number of non-NA pixels in each row. If we were to imagine scanning down an image and counting the number of non-NA pixels in each row, then this count would obviously start to increase the moment we hit the top of the breech face impression. Because the breech face impressions are circular, the count would continue to increase the further down the image we scan. That is, until we hit the firing pin impression circle. At this point, because the firing pin impression circle consists of NAs, we would expect the non-NA pixel count to dip. This increasing followed by decreasing behavior in the non-NA pixel count constitutes a local maximum. We can use this local maximum of the non-NA pixel count to identify the beginning of the firing pin impression circle. Similarly, we would expect the non-NA pixel count to reach another local maximum once we hit the end of the firing pin impression circle. It's then a simple subtraction of the two row indices containing these local maxima to determine an estimate for the radius of the firing pin impression circle. We can see below an example of the non-NA pixel row sums plotted against the row indices (starting from the top of the image and moving down). You can hopefully see that the raw row sums are rather ``noisy''. As such, we can pass a moving average smoother over the row sum values so that the local maxima are easier to identify. This may not be the most robust way to determine the local maxima. I hope to investigate the use of b-splines fit over the row sum values to see if these would be more effective at finding local maxima
+Joe 9/18/19 Update: To automatically detect the radius of a given breech face impression, we can count the number of non-NA pixels in each row. If we were to imagine scanning down an image and counting the number of non-NA pixels in each row, then this count would obviously start to increase the moment we hit the top of the breech face impression. Because the breech face impressions are circular, the count would continue to increase the further down the image we scan. That is, until we hit the firing pin impression circle. At this point, because the firing pin impression circle consists of NAs, we would expect the non-NA pixel count to dip. This increasing followed by decreasing behavior in the non-NA pixel count constitutes a local maximum. We can use this local maximum of the non-NA pixel count to identify the beginning of the firing pin impression circle. Similarly, we would expect the non-NA pixel count to reach another local maximum once we hit the end of the firing pin impression circle. It's then a simple subtraction of the two row indices containing these local maxima to determine an estimate for the diameter of the firing pin impression circle.
+
+We can see below an example of the non-NA pixel row sums plotted against the row indices (starting from the top of the image and moving down). You can hopefully see that the raw row sums are rather ``noisy''. As such, we can pass a moving average smoother over the row sum values so that the local maxima are easier to identify. This may not be the most robust way to determine the local maxima. I hope to investigate the use of b-splines fit over the row sum values to see if these would be more effective at finding local maxima
 
 \begin{figure}
 
@@ -735,10 +761,19 @@ Joe 9/18/19 Update: To automatically detect the radius of a given breech face im
 
 }
 
-\caption{Non-NA pixel row counts and moving average-smoothed row count values plotted against row index.}\label{fig:unnamed-chunk-23}
+\caption{Non-NA pixel row counts and moving average-smoothed row count values plotted against row index.}\label{fig:unnamed-chunk-25}
 \end{figure}
 
-However, because the firing pin impression circle has somewhat of a perforated edge, performing one pass through the image may not yield a particularly accurate estimate. As such,
+However, because firing pin impression circles have somewhat perforated edges, performing one pass through the image may not yield a particularly accurate estimate. As such, we can repeat the process of finding the distance between local maxima for both the row and column non-NA pixel counts. We can also rotate the image by a few degrees and perform the same process. I am currently rotating the image 0, 15, 30, 45, 60, and 75 degrees and calculating row and column diameter estimates per rotation. Obviously we can apply whatever aggregation function we desire to these estimates to determine a final estimate. Below we see what the Hough Transform selects as the breech face for 4 different radii values. In particular, for circles of radius 210, 213, 216, and 219.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/cartridge_cases/houghTransformGridSearch} 
+
+}
+
+\caption{Hough Transform selected circles (red) of radius (1) 210, (2) 213, (3) 216, and (4) 219.}\label{fig:unnamed-chunk-26}
+\end{figure}
 
 \hypertarget{modified-chumbley-non-random}{%
 \subsection{Modified Chumbley non-random}\label{modified-chumbley-non-random}}
@@ -773,7 +808,7 @@ The framework of interactions, allows for validation of classification recommend
 
 }
 
-\caption{An instance of the interactive visualizations for communicating results}\label{fig:unnamed-chunk-24}
+\caption{An instance of the interactive visualizations for communicating results}\label{fig:unnamed-chunk-27}
 \end{figure}
 
 \hypertarget{conference-presentations}{%
@@ -932,7 +967,7 @@ The framework of interactions, allows for validation of classification recommend
 \hypertarget{project-g-handwriting-signatures}{%
 \chapter{Project G: Handwriting (\& Signatures)}\label{project-g-handwriting-signatures}}
 
-The handwriting project has three major focuses:
+The handwriting project has four major focuses:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -942,7 +977,16 @@ The handwriting project has three major focuses:
 \item
   computational tools
 \item
-  closed-set writer modeling
+  statistical analysis
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \tightlist
+  \item
+    glyph clustering
+  \item
+    closed set modeling for writer identification
+  \end{enumerate}
 \item
   communication of results
 \end{enumerate}
@@ -950,27 +994,84 @@ The handwriting project has three major focuses:
 \hypertarget{data-collection-1}{%
 \section{Data Collection}\label{data-collection-1}}
 
-Data collection is underway with the most recent update at:
+We are conducting a large data collection study to gather handwriting samples from a variety of participants across the world (most in the Midwest). Each participant provides handwriting samples at three sessions. Session packets are prepared, mailed to participants, completed, and mailed back. Once recieved, we scan all surveys and writing samples. Scans are loaded, cropped, and saved using a Shiny app. The app also facilitates survey data entry, saving that participant data to lines in an excel spreadsheet.
+
+Data collection is underway with the most recent update (9/1) at 106 participants enrolled:
 
 \begin{itemize}
 \tightlist
 \item
-  44 participants complete through session \#3
+  44 complete through session \#3
 \item
-  52 participants complete through session \#2
+  52 complete through session \#2
 \item
-  10 participants complete through session \#1
+  10 complete through session \#1
 \end{itemize}
 
-Anyesha was officially added to the IRB yesterday!! Her and Marc will be running the study this semester. I am training her in on the Shiny App this afternoon.
+As of September 2019, Marc and Anyesha are the primary contacts for the study.
 
 \hypertarget{computational-tools-1}{%
 \section{Computational Tools}\label{computational-tools-1}}
 
-The handwriter R package is our major computational tool for the project. Currently we are making efforts to integrate the glyph cluster template into the package.
+\texttt{handwriter} is a developmental R package hosted at \url{https://github.com/CSAFE-ISU/handwriter}. It is our major computational tool for the project. The package takes in scanned handwritten documents and the following are performed.
 
-\hypertarget{closed-set-writer-modeling}{%
-\section{Closed-Set Writer Modeling}\label{closed-set-writer-modeling}}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+   Binarize. Turn the image to pure black and white.
+\item
+   Skeletonize. Reduce writing to a 1 pixel wide skeleton.
+\item
+   Break. Connected writing is decomposed into small manageable pieces called glyphs . Glyphs are graphical structures with nodes and edges that often, but not always, correspond to Roman letters, and are the smallest unit of observation we consider for statistcal modelling.
+\item
+   Measure. A variety of measurements are taken on each glyph.
+\end{enumerate}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/handwriting/amy/handwriter_csafe} 
+
+}
+
+\caption{Connected text processed by `handwriter`. The grey background is the original pen stroke. Colored lines represent the single pixel skeleton with color changes marking glyph decomposition. Red dots mark endpoints and intersections of each glyph.}\label{fig:unnamed-chunk-28}
+\end{figure}
+
+For an input document, functions in the package give back a list of glyphs with path and node location information, adjacency grouping assignment, slope (pictured below), and centroid locations, among other things.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{images/handwriting/amy/handwriter_slopecalc} 
+
+}
+
+\caption{A visual of the ``slope'' calculation for two glyphs.}\label{fig:unnamed-chunk-29}
+\end{figure}
+
+We are currently working to incorporate the cluster grouping assignments into the package. This will be complete pending creation of a template.
+
+\hypertarget{statistical-analysis}{%
+\section{Statistical Analysis}\label{statistical-analysis}}
+
+\hypertarget{clustering}{%
+\subsection{Clustering}\label{clustering}}
+
+Background to be added here.
+
+Paper submitted!
+
+\ldots{}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{images/handwriting/amy/clusterpaper_header} 
+
+}
+
+\end{figure}
+
+\hypertarget{closed-set-modelling}{%
+\subsection{Closed set modelling}\label{closed-set-modelling}}
 
 The following will be the jumping off point for purposes of this book with respect to modelling and discussion of results.
 
@@ -983,7 +1084,220 @@ The following will be the jumping off point for purposes of this book with respe
 \hypertarget{communication-of-results}{%
 \section{Communication of Results}\label{communication-of-results}}
 
-List of conferences and papers.
+Presenting/corresponding author is in bold.
+
+\hypertarget{papers}{%
+\subsection{Papers}\label{papers}}
+
+\begin{itemize}
+\tightlist
+\item
+  ``A Clustering Method for Graphical Handwriting Components and Statistical Writership Analysis''
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Authors: Nick Berry, Amy Crawford
+  \item
+    Submitted to The Annals of Applied Statistics in September 2019.
+  \end{itemize}
+\item
+  ``Handwriting 2''
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Authors: Amy Crawford, Alicia Carriquiry, and Danica Ommen
+  \item
+    In preparation for submission to PNAS
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{talks}{%
+\subsection{Talks}\label{talks}}
+
+\begin{itemize}
+\tightlist
+\item
+  ``TITLE''
+
+  \begin{itemize}
+  \tightlist
+  \item
+    August 2019
+  \item
+    Authors: Amy Crawford, Alicia Carriquiry, Danica Ommen
+  \item
+    American Society of Questioned Document Examiners (ASQDE) Annual Meeting in Cary, NC.
+  \item
+    Talk, 80 minutes.
+  \end{itemize}
+\item
+  ``TITLE''
+
+  \begin{itemize}
+  \tightlist
+  \item
+    July 2019
+  \item
+    Authors: Amy Crawford, Nick Berry, Alicia Carriquiry Danica Ommen
+  \item
+    Joint Statistical Meetings (JSM) in Denver, CO.
+  \item
+    Talk, 15 minutes.
+  \end{itemize}
+\item
+  ``TITLE''
+
+  \begin{itemize}
+  \tightlist
+  \item
+    July 2019
+  \item
+    Authors: Alicia Carriquiry, Amy Crawford, Nick Berry, Danica Ommen
+  \item
+    Lima, Peru.
+  \item
+    Talk
+  \end{itemize}
+\item
+  ``TITLE''
+
+  \begin{itemize}
+  \tightlist
+  \item
+    February 2019
+  \item
+    Authors: Amy Crawford, Nick Berry, Alicia Carriquiry, Danica Ommen
+  \item
+    American Academy of Forensic Sciences (AAFS) Annual Meeting in Baltimore, MD.
+  \item
+    Talk, 20 minutes
+  \end{itemize}
+\item
+  ``TITLE''
+
+  \begin{itemize}
+  \tightlist
+  \item
+    August 2018
+  \item
+    Authors: Amy Crawford, Nick Berry, Alicia Carriquiry, Danica Ommen
+  \item
+    American Society of Questioned Document Examiners (ASQDE) Annual Meeting in Park City, UT.
+  \item
+    Talk, 20 minutes.
+  \end{itemize}
+\item
+  ``TITLE''
+
+  \begin{itemize}
+  \tightlist
+  \item
+    July 2018
+  \item
+    Authors: Amy Crawford, Nick Berry, Alicia Carriquiry, Danica Ommen
+  \item
+    Joint Statistical Meetings (JSM) in Vancouver, BC, Canada.
+  \item
+    Talk, 15 minutes.
+  \end{itemize}
+\item
+  ``TITLE''
+
+  \begin{itemize}
+  \tightlist
+  \item
+    May 2018
+  \item
+    Authors: Amy Crawford, Nick Berry, Alicia Carriquiry
+  \item
+    American Bar Association, 9th Annual Prescription for Criminal Justice Forensics Program in New York, NY.
+  \item
+    Talk, 15 minutes.
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{posters}{%
+\subsection{Posters}\label{posters}}
+
+\begin{itemize}
+\tightlist
+\item
+  ``TITLE''
+
+  \begin{itemize}
+  \tightlist
+  \item
+    August 2019
+  \item
+    Authors: Amy Crawford, Alicia Carriquiry, Danica Ommen
+  \item
+    10th International Workshop on Statistics and Simulation in Salzburg, Austria
+  \item
+    1st Springer Poster Award
+  \end{itemize}
+\item
+  ``TITLE''
+
+  \begin{itemize}
+  \tightlist
+  \item
+    February 2018
+  \item
+    Authors: Amy Crawford, Nick Berry, Alicia Carriquiry
+  \item
+    American Academy of Forensic Sciences in Seattle, WA
+  \item
+    YFSF Best Poster Award
+  \end{itemize}
+\item
+  ``TITLE''
+
+  \begin{itemize}
+  \tightlist
+  \item
+    May 2018 and 2019
+  \item
+    Authors: Amy Crawford, Nick Berry, Alicia Carriquiry, Danica Ommen
+  \item
+    CSAFE Annual All-Hands Meetin in Ames, IA
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{people-involved-1}{%
+\section{People involved}\label{people-involved-1}}
+
+\hypertarget{faculty-1}{%
+\subsection{Faculty}\label{faculty-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  Alicia Carriquiry
+\item
+  Danica Ommen
+\item
+  Hal Stern (UCI, Project G PI)
+\end{itemize}
+
+\hypertarget{graduate-students-1}{%
+\subsection{Graduate Students}\label{graduate-students-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  Amy Crawford
+\end{itemize}
+
+\hypertarget{undergraduates-1}{%
+\subsection{Undergraduates}\label{undergraduates-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  Anyesha Rey (data collection)
+\end{itemize}
 
 \hypertarget{glass}{%
 \chapter{Glass}\label{glass}}
@@ -1252,6 +1566,42 @@ Status: Funded! Next challenge: Figuring out how to transfer it to UNL.
 
 \href{https://arxiv.org/pdf/1711.08506.pdf}{``W-Net: A Deep Model for Fully Unsupervised Image Segmentation''}
 
+\hypertarget{spatial-integration}{%
+\subsection{Spatial integration}\label{spatial-integration}}
+
+The overhead costs of going fully convolutional are high; CNN papers are opaque, and many supervised techniques require fully labeled data for semantic segmentation (i.e., label every pixel). Moreover, complex models (for both supervised and unsupervised tequniques) are often only available in Python, and there are a large number of GitHub repositories of mixed quality and reliability. Filtering for quality, understanding code structures, and implementing them on HPC are all enormous tasks on their own.
+
+In the meantime, it is much easier (relatively speaking) to use our existing framework of 256x256 square pixel images, for which we have generated thousands of labeled images and have already trained and improved domain-specific models. Currently, I have code working to automatically crop image borders, chop the image into 256x256 pixels (padding the image when appropriate) and correct the contrast on the individual images.
+
+\\
+
+I hoped to have some cool visualizations to show today. Unfortunately, model predictions are behaving very strangely, and I haven't been able to figure out why\ldots{} All classes are predicting to zero, except quadrilaterals.
+
+Possible issues:
+
+\begin{itemize}
+\item
+  The specific shoe is behaving strangely
+
+  The issue persists for multiple shoes
+\item
+  Using a different package to read in the image changes the extracted features
+
+  The issue persists when I try using the original image reading function
+\item
+  Contrast correction changes predictions
+
+  The issue exists for images both with and without contrast correction
+\item
+  Model trained incorrectly
+
+  The \href{https://bigfoot.csafe.iastate.edu:442/tiltonm/NNPreview/}{Shiny app} shows predictions on the test set are behaving as expected
+\item
+  Bigfoot is angry?
+\end{itemize}
+
+Bottom line: CNN features are NOT interpretable, which makes them VERY hard to debug.
+
 \hypertarget{maxclique}{%
 \section{Maximum Clique Matching}\label{maxclique}}
 
@@ -1278,6 +1628,26 @@ In progress:
   Be involved in set up of data collection site (through CSSM)
 \end{itemize}
 
+\hypertarget{comparing-the-procedures}{%
+\subsubsection{Comparing the procedures}\label{comparing-the-procedures}}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Procedure & Leverhulme & CSAFE\tabularnewline
+\midrule
+\endhead
+`Before' Pictures & 4 per shoe & 15 per shoe\tabularnewline
+Paper & Letter (larger) & Tape printer paper\tabularnewline
+& &\tabularnewline
+Actions & Run, jump, walk & Step, hop\tabularnewline
+Replicates & 6 per shoe & 9 per shoe\tabularnewline
+`After' Pictures & 1 pic per print & 3 pics per print\tabularnewline
+& &\tabularnewline
+Total number prints & 18 per shoe & 18 per shoe\tabularnewline
+Total number images & 18 per shoe & 54 per shoe\tabularnewline
+\bottomrule
+\end{longtable}
+
 \hypertarget{d-shoe-recognition}{%
 \section{3d Shoe Recognition}\label{d-shoe-recognition}}
 
@@ -1291,6 +1661,23 @@ What we are doing now
 - Isnt aligning properly as you can see
 - Next
 - angle transformations
+
+\hypertarget{shoe-outsole-matching-using-image-descriptors}{%
+\section{Shoe outsole matching using image descriptors}\label{shoe-outsole-matching-using-image-descriptors}}
+
+Previously, features such as edge, corner, SURF were extracted to match shoeprints. The goal of this project is to find other image descriptors as image features for shoe print matching.
+
+\textbf{Image descriptors}
+
+\begin{itemize}
+\tightlist
+\item
+  SURF(Speeded Up Robust Features)- blobs
+\item
+  KAZE - blobs
+\item
+  ORB(Oriented FAST and Rotated BRIEF)- corners
+\end{itemize}
 
 \hypertarget{theoretical-foundations}{%
 \chapter{Theoretical foundations}\label{theoretical-foundations}}
@@ -1344,6 +1731,8 @@ Proof that Mutual Information is always positive:
 
 \hypertarget{common-source-vs-specific-source-lr}{%
 \subsection{Common Source vs Specific Source LR}\label{common-source-vs-specific-source-lr}}
+
+The ``common source'' problem is to determine whether two pieces of evidence, both with unknown origin, have the same origin. One might be interested in this problem if two crimes were suspected to be linked, but no suspect has yet been identified. Alternatively, the ``specific source'' problem is to determine whether a fragment of evidence coming from an unknown source, such as evidence at a crime scene, has the same origin as a fragment of evidence of known origin, such as evidence collected directly from a suspect.
 
 \textbf{Basic Setup}
 
@@ -1405,6 +1794,58 @@ Answering the second question requires proving that
 &= - \int{p(h,a|x,y)p(x,y) \log \frac{p(h,a|x,y)}{p(a|x,y)p(h|x,y)} d(h,x,y,a)} \\
 &= \mathbb{E}_{(X,Y)} \left[ KL(P_{(H,A)|(X,Y)}||P_{H|(X,Y)} \times P_{A|(X,Y)}) \right] \geq 0
 \end{align*}
+
+\hypertarget{score-based-likelihood-ratios-are-not-fundamentally-incoherent}{%
+\section{Score-based Likelihood Ratios are not Fundamentally ``Incoherent''}\label{score-based-likelihood-ratios-are-not-fundamentally-incoherent}}
+
+Concern has been raised in the literature on LRs about a desirable property supposedly inherently absent from specific-source SLRs. The property, dubbed ``coherence'', intuitively says that given two mutually exhaustive hypotheses, \(H_A\) and \(H_B\), the likelihood ratio used to compare hypothesis A to hypothesis B should be the reciprocal of that used to compare hypothesis B to hypothesis A. I will argue that the claims about the inherent incoherency of SLRs is a result of thinking about SLRs too narrowly. Specifically, I will show that the arguments as to why SLRs are incoherent arise through the inappropriate comparison of SLRs based on different score functions. When one appropriately considers a single score function, incoherency is impossible.
+
+\hypertarget{coherence}{%
+\subsection{Coherence}\label{coherence}}
+
+Denote by \(E \in \mathbb{R}^{n}\) the vector of random variables describing \emph{all} of the observed evidence or data which will be used to evaluate the relative likelihood of the two hypotheses. Define by \(LR_{i,j} \equiv \frac{p(E|H_i)}{p(E|H_j)}\) the likelihood ratio of hypothesis \(i\) to hypothesis \(j\). The coherency principal is satisfied if
+
+\[ LR_{i,j} = \frac{1}{LR_{j,i}} \].
+
+Likelihood ratios are fundamentally coherent, but what about score-based likelihood ratios? Denote by \(s: \mathbb{R}^n \rightarrow \mathbb{R}^{q}\) a score function mapping the original data to Euclidean space of dimension \(q\) (typically \(q = 1\)). Similar to LRs, denote by \(SLR_{i,j} \equiv \frac{p(s(E)|H_i)}{p(s(E)|H_j)}\) the score-based likelihood ratio comparing hypothesis \(i\) to hypothesis \(j\). Clearly, in this general context SLRs are also coherent.
+
+\hypertarget{problems-with-arguments-showing-slrs-are-incoherent}{%
+\subsection{Problems with arguments showing SLRs are incoherent}\label{problems-with-arguments-showing-slrs-are-incoherent}}
+
+Let us examine the arguments presented in {[}REFS{]} to the incoherence of SLRs. These arguments stem from an example where there are two known sources of evidence say, source \(A\) and source \(B\), each producing data \(e_A\) and \(e_B\), respectively. Furthermore, assume that we have a third piece of evidence of unknown origin, \(e_u\), which must have come from either \(A\) or \(B\). We then wish to evaluate the support of the data for \(H_A\) or \(H_B\) defined as follows
+
+\textbackslash{}begin\{array\}\{cc\}
+H\_A: \& e\_u \text{ was generated from source } A \textbackslash{}
+H\_B: \& e\_u \text{ was generated from source } B.
+\textbackslash{}end\{array\}
+
+In this case, we have \(LR_{A,B} = \frac{p(e_A, e_B, e_u|H_A)}{p(e_A, e_B, e_u|H_B)}\). We make use of \emph{all} available data in the formulation of the numerator and denominator densities. Under the assumptions that each fragment of evidence is independent under both hypothesis \(A\) and \(B\) as well as that \(p(e_A,e_B|H_A) = p(e_A,e_B|H_B)\), the LR reduces to \(LR_{A,B} = \frac{p(e_u|H_A)}{p(e_u|H_B)}\). The second assumption is generally acceptable as the source of \(e_u\) ought to have no impact on the distribution of the evidence with known source.
+
+{[}REFS{]} then consider possible SLRs for this example. However, they make an assumption that the score is explicitly a function only of two fragments of evidence. That is, assuming the dimension of \(e_i\), \(dim(e_i) = k\), is constant for \(i = A,B,u\), their score maps \(s:\mathbb{R}^k \times \mathbb{R}^k \rightarrow \mathbb{R}\). An common example of such a score is Euclidean distance, i.e. \(s(x,y) = \left[ \sum_{i = 1}^{k}(x_i - y_i)^2 \right]^{1/2}\). Such a score makes perfect sense in a typical specific-source problem context in which only two fragments of evidence are considered: one from the known source and one from the unknown source.
+
+However, when one desires to create an SLR based on this score in this particular example, it is tempting to suggest that the natural SLR is \(SLR_{A,B} = \frac{p(s(e_A,e_u)|H_A)}{p(s(e_A,e_u)|H_B)}\). Yet, the natural SLR if the hypotheses were reversed is \(SLR_{B,A} = \frac{p(s(e_B,e_u)|H_B)}{p(s(e_B,e_u)|H_A)}\). Neither of these SLRs is the reciprocal of the other, and so the specific source SLR appears to be ``incoherent''.
+
+This approach, however, should raise a red flag immediately. Why, in the full LR case, do we require that (simplifying model assumptions aside) the numerator and denominator densities be functions of all available data, but the score is not? Furthermore, if we consider these SLRs in the more general context of scores depending on all available data, we see that, in fact, what {[}REFS{]} define to be \(SLR_{A,B}\) and \(SLR_{B,A}\) turn out to be two different SLRs depending on two different scores.
+
+For clarity, we will use \(s(\cdot)\) to denote scores which are explicitly functions of \emph{all} observed data, and we will use \(\delta (\cdot)\) to denote score functions which are only a function of two fragments of evidence/data. Specifically, the score in \(SLR_{A,B}\) is \(s_1(e_u,e_A,e_B) = \delta(e_u,e_A)\) and the score in \(SLR_{B,A}\) is \(s_2(e_u,e_A,e_B) = \delta(e_u,e_B)\). While the functional form of the score in the two SLRs \emph{appears} to be the same, clearly \(s_1(e_u,e_A,e_B) \neq s_2(e_u,e_A,e_B)\). Thus, the two SLRs are simply two distinct quantities whose relationship needn't be expected to be related anymore than if one had decided to use two different function forms of \(\delta(\cdot,\cdot)\) in the two separate SLRs.
+
+One might ask how to reasonably construct an SLR which utilizes a score other than a similarity metric for two fragments of evidence. One such example in this case would be \(s(e_u, e_A, e_B) = \frac{\delta(e_u,e_A)}{\delta(e_u,e_B)}\). Intuitively, under \(H_A\), the numerator should be larger than the denominator, while under \(H_B\), the opposite should be true.
+
+\hypertarget{example-of-a-coherent-slr-in-the-two-source-problem}{%
+\subsection{Example of a coherent SLR in the two source problem}\label{example-of-a-coherent-slr-in-the-two-source-problem}}
+
+Suppose that our hypotheses are defined such that
+
+\[
+\begin{array}{cc}
+H_A: & e_u \sim N(\mu_A, \sigma^2), e_A \sim N(\mu_A, \sigma^2), e_B \sim N(\mu_B, \sigma^2) \\
+H_B: & e_u \sim N(\mu_B, \sigma^2), e_A \sim N(\mu_A, \sigma^2), e_B \sim N(\mu_B, \sigma^2),
+\end{array}
+\]
+
+where \(e_u\), \(e_A\), \(e_B\) are mutual independent under both \(H_A\) and \(H_B\).
+
+It is true that the LR depends only on the evidence of the unknown source \emph{in this specific scenario}, but that is a consequence of modeling assumptions and not of LR paradigmatic principals.
 
 \hypertarget{outreach-activities}{%
 \chapter{Outreach activities}\label{outreach-activities}}

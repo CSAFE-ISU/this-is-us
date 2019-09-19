@@ -217,6 +217,21 @@ predictions resulting in a score of 0 in these results and change the parameters
 `get_grooves_hough()` function to try and generate estimates for some of those missing values.
 
 
+Charlotte update 09/19/2019:
+
+This week we are trying to think of a new way for selecting Hough lines for bullet estimates. The previous method for selecting Hough lines was to find lines with x-intercepts at the top and bottom of the lands closest to the lower and upper one sixth of the bullet lands. However this process was highly dependent on score thresholding from the Hough transform which is frustrating when running a large number of bullets since if the right score threshold was not achieved, no result would be produced. So right now I'm working on a way of selecting Hough lines from the normalized Hough scores.
+
+To obtain a normalized Hough score I take the x-intercepts of each estimated Hough line generate and find the distance between the x-intercept at the top and the bottom of the land. This should give me the max possible score for each Hough line, rather than calculating based on theta. Then I take the Hough score and divide by this maximum to normalize scores between 0 and 1. Right now I am working on visualizing some of these results but my code is buggy because I'm getting negative values when I try to visualize the process using masks when I shouldn't. Here is an example of a bullet land using the old and new method. Really similar results although it would appear that the new resut places the Hough transform lines further out from the interior of the groove than the old results. 
+
+```{r, fig.cap="Phoenix Gun 1-A9 Bullet 1 Land 4 visualized using current Hough process message", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/phoenix_current_hough_land4.png")
+```
+
+```{r, fig.cap="Phoenix Gun 1-A9 Bullet 1 Land 4 visualized using new Hough process message", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/phoenix_new_hough_land4.png")
+```
+
+
 ##### LASSO Method  
 
 A paper is in preparation for submission to Forensic Science International describing this method (`get_grooves_lassofull` in `grooveFinder`), as well as the Bayesian changepoint method (`get_grooves_bcp`).  

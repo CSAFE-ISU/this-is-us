@@ -64,80 +64,78 @@ The following will be the jumping off point for purposes of this book with respe
 
 
 ## Communication of Results  
-Presenting/corresponding author is in bold.
+Presenting author is in bold.
 
 ### Papers
 - "A Clustering Method for Graphical Handwriting Components and Statistical Writership Analysis"
     - Authors: Nick Berry, Amy Crawford
     - Submitted to The Annals of Applied Statistics in September 2019.
     
-- "Handwriting 2"
+- "Handwriting Paper 2"
     - Authors: Amy Crawford, Alicia Carriquiry, and Danica Ommen
     - In preparation for submission to PNAS
    
    
 
 ### Talks
-- "TITLE"
+- "Statistical Analysis of Handwriting for Writer Identification"
     - August 2019
-    - Authors: <strong>Amy Crawford</strong>, Alicia Carriquiry, Danica Ommen
+    - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry, Danica Ommen
     - American Society of Questioned Document Examiners (ASQDE) Annual Meeting in Cary, NC.
-    - Talk, 80 minutes.
  
-- "TITLE"
+- "A Bayesian Hierarchical Mixture Model with Applications in Forensic Handwriting Analysis"
     - July 2019
     - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry Danica Ommen
     - Joint Statistical Meetings (JSM) in Denver, CO.
-    - Talk, 15 minutes.
     
-- "TITLE"
+- "Forensic Analysis of Handwriting"
     - July 2019
     - Authors: <strong>Alicia Carriquiry</strong>, Amy Crawford, Nick Berry, Danica Ommen
-    - Lima, Peru.
-    - Talk
+    - VI Latin American Meeting on Bayesian Statistics (VI COBAL), Lima, Peru.
     
-- "TITLE"
+- "Exploratory Analysis of Handwriting Features: Investigating Numeric Measurements of Writing"
     - February 2019
     - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry, Danica Ommen
     - American Academy of Forensic Sciences (AAFS) Annual Meeting in Baltimore, MD.
-    - Talk, 20 minutes
     
-- "TITLE"
+- "Toward a Statistical and Algorithmic Approach to Forensic Handwriting Comparison"
     - August 2018
-    - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry, Danica Ommen
+    - Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry
     - American Society of Questioned Document Examiners (ASQDE) Annual Meeting in Park City, UT.
-    - Talk, 20 minutes.
     
-- "TITLE"
+- "A Bayesian Approach to Forensic Handwriting Evidence"
     - July 2018
-    - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry, Danica Ommen
+        - Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry
     - Joint Statistical Meetings (JSM) in Vancouver, BC, Canada.
-    - Talk, 15 minutes.
     
-- "TITLE"
+- "Bringing Statistical Foundations to Forensic Handwriting Analysis"
     - May 2018
-    - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry
+    - Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry
     - American Bar Association, 9th Annual Prescription for Criminal Justice Forensics Program in New York, NY.
-    - Talk, 15 minutes.
 
 ### Posters
-- "TITLE"
+- "A Bayesian Hierarchical Model for Forensic Writer Identification"
     - August 2019
     - Authors: <strong>Amy Crawford</strong>, Alicia Carriquiry, Danica Ommen
     - 10th International Workshop on Statistics and Simulation in Salzburg, Austria
     - 1st Springer Poster Award
     
-- "TITLE"
+- "Statistical Analysis of Letter Importance for Document Examination"
     - February 2018
-    - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry
+    - Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry
     - American Academy of Forensic Sciences in Seattle, WA
     - YFSF Best Poster Award
     
     
-- "TITLE"
-    - May 2018 and 2019
+- "Statistical Analysis of Handwriting"
+    - May 2019
+    - Authors: <strong>Amy Crawford</strong> and Nick Berry
+    - CSAFE Annual All-Hands Meeting in Ames, IA
+    
+- (Presented AAFS Poster for a Second Time)
+    - May 2018
     - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry, Danica Ommen
-    - CSAFE Annual All-Hands Meetin in Ames, IA
+    - CSAFE Annual All-Hands Meeting in Ames, IA
     
 
 ## People involved

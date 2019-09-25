@@ -20,110 +20,57 @@ Methods and data description handed off to Alicia for editing
 #### Data Analysis Tools {-#lss-paper-analysis}
 - Working with the `EBImage` package - very fast processing of images
 
+##### `ShoeScrubR` package {-#lss-data-cleaning}
+All analysis methods for the Longitudinal data are contained in the [`ShoeScrubR` package](https://github.com/srvanderplas/ShoeScrubR). 
+
+<div class = "new">
+The `ShoeScrubR` package also includes logging of all image-in image-out operations using attributes - each time a transformation is performed, the transformation and the parameters are appended to the running operations log. This should make it possible to track the provenance of an object through the set of transformations (and potentially un-do them in some cases).
+</div>
+
 ##### Film and Powder Images {-#lss-paper-analysis-film}
 
-<details>
-<summary>Analysis Summary: Create a mask via thresholding, clean it up, fill in mask holes, creating a shoe "region" mask. Apply this mask to the image, replacing any pixels outside the mask with the median background pixel. Additional thresholding and normalization can be applied if a binary image is more desireable. </summary>
-
-<img src="images/shoes/longitudinal/Film_Demo_Orig.png" width = "100%"/>
-
-1. Create threshold mask
-    a. Blur image (circular/gaussian blur, diameter 15)    
-    <img src="images/shoes/longitudinal/Film_Demo_Blur_Init.png" width = "100%"/>
-    b. Invert the image    
-    <img src="images/shoes/longitudinal/Film_Demo_Inv.png" width = "100%"/>
-    c. Threshold image (adaptive threshold, 10 x 10 region, keep anything with an average higher than 0.025 from the mean)    
-    <img src="images/shoes/longitudinal/Film_Demo_Thresh_Init.png" width = "100%"/>
-    d. Create mask    
-        Default parameters selected by visually screening several shoes:
-        <img src="images/shoes/longitudinal/Film_Demo_Parameter_Selection.png" width = "100%"/>
-        (default parameters rad1 = 5, rad2 = <span class="new">91</span>, proportion = 1.5*area of rad2 in px/area of image in px)    
-    <img src="images/shoes/longitudinal/Film_Demo_Mask.png" width = "100%"/>
-        1. erode mask image (circle, diameter rad1)
-        2. dilate mask image (circle, diameter rad2)
-        3. label disjoint regions of the image
-        4. prune small image regions (area < proportion parameter)
-    e. Fill in mask holes     
-    <img src="images/shoes/longitudinal/Film_Demo_Hull.png" width = "100%"/>
-    f. Expand mask to capture entire shoe region
-    <img src="images/shoes/longitudinal/Film_Demo_Mask_Expand.png" width = "100%"/>
-        1. set background color
-        2. create dataframe of useful (non-background) pixels
-        3. fill in holes and concave regions in mask, then expand by expand_rad vertically and horizontally (similar to "convex hull", but with additional expansion radius)
-        
-2. Mask image to remove extra variability unrelated to the shoe    
-<img src="images/shoes/longitudinal/Film_Demo_Cleaned.png" width = "100%"/>
-
-3. Threshold masked image?    
-Con: Lose grey information; Pro: fully remove background    
-<img src="images/shoes/longitudinal/Film_Demo_Cleaned_Thresh.png" width = "100%"/>
-
-4. Compromise: Keep grey pixels from thresholded, masked image (e.g. use 3. as a mask), then renormalize    
-<img src="images/shoes/longitudinal/Film_Demo_Cleaned_Balance.png" width = "100%"/>
-
-```{r film-clean-code-demo, eval = F, include = F}
-source("code/shoes/longitudinal/20190905-Film_Print_Cleaning.R")
-```
-</details>
-
 <div class = "new">
-I've added the functions from last week to the `ShoeScrubR` package, which will hopefully contain methods for handling all of the different 2D shoe data from the longitudinal study.
+The images are challenging to do basic statistical analysis on because the shoe print is made up of tiny particles (e.g. it is not a solid object), and there are areas of smudged particles outside the image (fingerprints, etc.) that can be hard to automatically remove. In addition, the film backing has subtle variations in color. 
 
-Using that package, I tried the method out on a sequence of shoes over time to see what methods might best show wear. Each column shows a single left shoe over four timepoints. The shoes are the first 9 shoeIDs (e.g. 1 - 9).  
+The prints are not rotationally aligned, that is, they are taken at a variety of angles (usually $\pm 15^\circ$ from vertical) which vary due to individual differences in walking style, the orientation of the film, and changes in experimental protocol. 
 
-<details><summary>Original</summary>
-<img src="images/shoes/longitudinal/Film_First9_Original.png" width="100%"/>
+Experimental protocol changes included resolution changes for the scans over time: the resolution of the last set of images is about 2 times higher than the resolution of the first 3 check-ins worth of images. Thus, parameters need to be automatically selected based on the resolution of the image.  (Still to do)
+
+The initial use of templates to clean up the image requires addressing the alignment of the print and the template. As this experiment contains 8 total shoe model and size combinations, it is possible to create a template for each shoe model and use that template to isolate the region of the image which contains a set of features most likely to be a shoe (rather than random noise). 
+
+Solving the template problem by aligning the mask and template yields an additional benefit: the resulting cleaned up image is roughly aligned relative to the template and, presumably, to other images. 
+
+<details>
+<summary>Rough Alignment of Template Mask and Image: Clean images, do a rough alignment between the image and the corresponding shoe mask (per model and size).  </summary>
+
+1. Rotationally align image and mask using principal components on the non-background pixels in the image
+
+2. Gross align the center of mass of the non-background pixels in the image and mask
+
+    - Use a "mask-ified" version of the shoe print that encloses most of the shoe region in a single region
+    - Default to trimming the actual print by 5% on each dimension to minimize the effect of page borders and creases
+    
+3. Pad the image and mask so that the centers are aligned and the image and mask are the same size
+
+4. Set any pixels outside the mask to background
+
+Before:    
+<img src="images/shoes/longitudinal/PCA_Rotate_and_Center_Shift_Before.png" width = "100%"/>
+
+After:    
+<img src="images/shoes/longitudinal/PCA_Rotate_and_Center_Shift_After.png" width = "100%"/>
+
+These steps are wrapped into the `rough_align` function in the `ShoeScrubR` package. 
+
 </details>
-<details><summary>Cleaned</summary>     
-<img src="images/shoes/longitudinal/Film_First9_Cleaned.png" width="100%"/></details>
-<details><summary>Cleaned and Thresholded</summary> 
-<img src="images/shoes/longitudinal/Film_First9_Cleaned_Thresholded.png" width="100%"/></details>
 
-Even with the cleaning methods... there is a lot of extra noise. 
-</div>
-
-Next step: templating!
-
-Basic framework: 
-
-<details><summary>Create a template for each size and model combination</summary>
-(using GIMP - if I could automate this, I wouldn't need the template)
-<img src="images/shoes/longitudinal/Templates_Equal_Size.png" width = "100%"/></details>
-
-<details><summary>Intelligently brute force angle and position of template    
-Goal: Maximize the number of black pixels in the image within the template region
+<details>
+<summary> Fine Alignment of Template Mask and Image: Brute-Force, but with image pyramids to reduce computing time.
 </summary>
 
-
-1. Start with an image and a template mask
-
-2. Blur, normalize, invert, and threshold the image    
-<img src="images/shoes/longitudinal/Templates_Setup.png" width = "100%"/>
-
-3. Naively align the "centers" of the two images (avg of white pixel row/cols). To make this calculation comparable, do some very crude dilation/erosion (that may or may not generalize that well) to fill in the image a bit.    
-<img src="images/shoes/longitudinal/Templates_Naive_Centering.png" width = "100%"/>    
-Then make the aligned center the actual center of the image via padding. (This is the 1st time we have modified the actual image beyond thresholding and color changes).
-
-<div class = "new">
-4. ~~Create a new mask to sample the image (and the mask) radially. ~~ This doesn't work when the object isn't a solid entity :(    
-    
-New Option: Use image pyramids and brute-force alignment, starting off with an estimated rotation angle of $\theta$ from principal components    
-<img src="images/shoes/longitudinal/ImagePyramids.png" width = "100%"/>    
-<img src="images/shoes/longitudinal/MaskPyramids.png" width = "100%"/>    
-<img src="images/shoes/longitudinal/ShiftPyramids.png" width = "100%"/>
-
-5. Brute force full-size image to get finer alignment.
-
+Todo...
 
 </div>
-6. Remove anything not in the mask region.
-
-```{r film-template-code-demo, eval = F, include = F}
-source("code/shoes/longitudinal/20190912-Templates_Intro_Radial_Alignment.R")
-```
-
-</details>
-
 
 ##### Wear Characterization {-#lss-paper-analysis-wear}
 Ideas:
@@ -136,11 +83,8 @@ Ideas:
 
 ### NIJ Grant
 
-<div class="new">
 Grant scope: Build the shoe scanner, develop an automatic recognition algorithm for geometric design elements, test the scanner in locations around Ames.
 
-Status: Funded! Next challenge: Figuring out how to transfer it to UNL.
-</div>
 ### CoNNOR: Convolutional Neural Network for Outsole Recognition##
 
 **Project Overview**

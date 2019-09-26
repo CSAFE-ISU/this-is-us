@@ -122,10 +122,12 @@ One might ask how to reasonably construct an SLR which utilizes a (univariate) s
 ### Example of a coherent SLR in the two source problem
 Suppose that our hypotheses are defined such that 
 
-$$\begin{array}{cc}
+\[
+\begin{array}{cc}
 H_A: & e_u \sim N(\mu_A, \sigma^2), e_A \sim N(\mu_A, \sigma^2), e_B \sim N(\mu_B, \sigma^2) \\
 H_B: & e_u \sim N(\mu_B, \sigma^2), e_A \sim N(\mu_A, \sigma^2), e_B \sim N(\mu_B, \sigma^2),
-\end{array}$$
+\end{array}
+\]
 
 where $e_u$, $e_A$, $e_B$ are mutual independent under both $H_A$ and $H_B$. 
 

@@ -1,2 +1,13 @@
-# Glass
+# Glass: Chemical compositions
 
+**Evaluation and comparison of methods for forensic glass source conclusions, Soyoung Park and Sam Tyner**
+
+  - Get reviews back from *Forensic Science International* 
+  - Most of comments from Reviewer1 are minor on format or forensic background
+  - Reviewer2 said *I very much enjoyed reading your paper and congratulate you on a really nice piece of work*
+  
+What we plan to do,
+
+  - Revise the maunuscript as comments by reviewers ASAP
+  - Will get more data 
+  - Write a paper describing data in *Data in Brief* 

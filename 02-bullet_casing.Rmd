@@ -268,6 +268,54 @@ knitr::include_graphics("images/bullets/Hough_project/phoenix_current_hough_land
 knitr::include_graphics("images/bullets/Hough_project/phoenix_new_hough_land1.png")
 ```
 
+Charlotte Update 09/26/2019:
+
+Fixing the normalization of the scores for Hough grooves. Instead of dividing by the 
+geometric distance between the top and bottom intercepts of the bullet image. Now
+we only consider Hough lines that actually go through both the top and bottom of the land,
+therefore we can normalize each score by dividing the original hough score by the height
+of the image and multiplied by the cosine of theta which accounts for the difference
+in length of lines with differing angles. As far as selecting normalized scores from
+every score possible I found that there is really no visual difference between selecting
+the highest normalized Hough score and the other top five. 
+
+```{r, fig.cap="Phoenix Gun 1-A9 Land 4 visualized using new Hough process index one", out.width="50%", fig.keep="hold", fig.align='center'}
+  knitr::include_graphics("images/bullets/Hough_project/mask_phoenix_index_one.png")
+```
+
+```{r, fig.cap="Phoenix Gun 1-A9 Land 4 visualized using new Hough process index ten", out.width="50%", fig.keep="hold", fig.align='center'}
+  knitr::include_graphics("images/bullets/Hough_project/mask_phoenix_index_ten.png")
+```
+
+```{r, fig.cap="Phoenix Gun 1-A9 Land 4 visualized using new Hough process index twenty", out.width="50%", fig.keep="hold", fig.align='center'}
+  knitr::include_graphics("images/bullets/Hough_project/mask_phoenix_index_twenty.png")
+```
+
+
+So for now we will continue to select the highest normalized Hough score to use as our bullet land estimates. After fixing the parameterization of the Hough scores and how we normalize Hough scores,
+the 3-dimensional images appear to have improved! Which is great news since no thresholding was necessary. 
+
+
+```{r, fig.cap="Hamby Bullet 1 Land 1 visualized using new Hough process", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/mask_hamby_demo_nice.png")
+```
+
+
+Still we run into the problem that our masks are only as good as our estimates,
+however even this terrible bullet land appears to have grooves identified somewhat well.
+
+```{r, fig.cap="Hamby Bullet 1 Land 4 visualized using new Hough process", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/mask_hamby_demo_lessnice.png")
+```
+
+A comparison between the two methods finds that generally the new Hough process out-competes
+the old one on nearly every bullet land in the Hamby 252 demo set.
+
+
+```{r, fig.cap="Crosscut Results Hamby 252 Demo Set Comparison between old and new methods'}
+knitr::include_graphics("images/bullets/Hough_project/Hamby_demo_crosscuts.png")
+```
+
 
 ##### LASSO Method  
 

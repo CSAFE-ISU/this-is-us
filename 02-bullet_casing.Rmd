@@ -296,7 +296,7 @@ So for now we will continue to select the highest normalized Hough score to use 
 the 3-dimensional images appear to have improved! Which is great news since no thresholding was necessary. 
 
 
-```{r, fig.cap="Hamby Bullet 1 Land 1 visualized using new Hough process", out.width="50%", fig.keep="hold", fig.align='center'}
+```{r, fig.cap= "Hamby Bullet 1 Land 1 visualized using new Hough process", out.width="50%", fig.keep="hold", fig.align='center'}
 knitr::include_graphics("images/bullets/Hough_project/mask_hamby_demo_nice.png")
 ```
 
@@ -304,7 +304,7 @@ knitr::include_graphics("images/bullets/Hough_project/mask_hamby_demo_nice.png")
 Still we run into the problem that our masks are only as good as our estimates,
 however even this terrible bullet land appears to have grooves identified somewhat well.
 
-```{r, fig.cap="Hamby Bullet 1 Land 4 visualized using new Hough process", out.width="50%", fig.keep="hold", fig.align='center'}
+```{r, fig.cap= "Hamby Bullet 1 Land 4 visualized using new Hough process", out.width="50%", fig.keep="hold", fig.align='center'}
 knitr::include_graphics("images/bullets/Hough_project/mask_hamby_demo_lessnice.png")
 ```
 
@@ -312,7 +312,7 @@ A comparison between the two methods finds that generally the new Hough process 
 the old one on nearly every bullet land in the Hamby 252 demo set.
 
 
-```{r, fig.cap="Crosscut Results Hamby 252 Demo Set Comparison between old and new methods'}
+```{r, fig.cap= "Crosscut Results Hamby 252 Demo Set Comparison between old and new methods", out.width="50%", fig.keep="hold", fig.align='center'}
 knitr::include_graphics("images/bullets/Hough_project/Hamby_demo_crosscuts.png")
 ```
 

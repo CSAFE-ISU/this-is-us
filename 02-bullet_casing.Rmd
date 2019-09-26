@@ -83,6 +83,14 @@ include_graphics(c("images/yawei/knm-km.PNG"))
 
 Is the SAM(sequence average maximum) a good choice? Need to do a permutation test.
 
+```{r, fig.cap="SAM permutation result", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/sam_1.PNG"))
+```
+
+```{r, fig.cap="SAM permutation result among maxmum", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/sam_max_1.PNG"))
+```
+
 Possible dependence structure in land-land comparasions:
 
 Fact first: 

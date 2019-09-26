@@ -191,7 +191,10 @@ In progress:
 
 ## 3d Shoe Recognition 
 
-The set up
+-LESSON LEARNED..... PUSH OFTEN 
+
+The set up: 
+
 
 
 What we have tried 

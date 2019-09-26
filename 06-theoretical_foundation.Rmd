@@ -8,6 +8,7 @@
 - continue work started by Danica and Peter Vergeer on the analysis of likelihood ratios
 - study the differences between specific source (SS) and common source (CS) likelihood ratios (LRs) in an information theoretic way
 - does the CS or SS LR have more "information"?
+- does the data (or the score) have more "information" about the SS or the CS hypothesis?
 - can be the CS or SS hypotheses (prosecution or defense) be formally compared in terms of being easier to "prove" or "disprove"?
 
   
@@ -41,9 +42,9 @@ The "common source" problem is to determine whether two pieces of evidence, both
 - $H \in \{ H_p, H_d \}$ as the random variable associated with the CS hypothesis. 
 - $A$ and $B$ are discrete r.v.'s representing two "sources" of evidence
 - distributions for $A$ and $B$ defined conditionally based on the hypothesis
-- SS hypothesis is represented by the conditional random variable $H_p|A$
+- SS hypothesis is represented by the conditional random variable $H|A$
 - $X$ is data coming from $A$, $Y$ is data coming from $B$
-- compare information contained in $(X,Y)$ about $H_p$ and $H_p|A$
+- compare information contained in $(X,Y)$ about $H$ and $H|A$
 - join density can be written as $p(X,Y,A,B,H) = p(X,Y|A,B)p(B|A,H)p(A|H)p(H)$
 
 **Is there more information in a CS or SS LR?**

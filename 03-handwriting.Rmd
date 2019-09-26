@@ -64,80 +64,77 @@ The following will be the jumping off point for purposes of this book with respe
 
 
 ## Communication of Results  
-Presenting/corresponding author is in bold.
+Presenting author is in bold.
 
 ### Papers
-- "A Clustering Method for Graphical Handwriting Components and Statistical Writership Analysis"
+- <strong>"A Clustering Method for Graphical Handwriting Components and Statistical Writership Analysis"</strong>
     - Authors: Nick Berry, Amy Crawford
     - Submitted to The Annals of Applied Statistics in September 2019.
     
-- "Handwriting 2"
+- <strong>"Bayesian Hierarchical Modeling for Forensic Handwriting Analysis"</strong>
     - Authors: Amy Crawford, Alicia Carriquiry, and Danica Ommen
     - In preparation for submission to PNAS
    
    
 
 ### Talks
-- "TITLE"
+- <strong>"Statistical Analysis of Handwriting for Writer Identification"</strong>
     - August 2019
-    - Authors: <strong>Amy Crawford</strong>, Alicia Carriquiry, Danica Ommen
+    - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry, Danica Ommen
     - American Society of Questioned Document Examiners (ASQDE) Annual Meeting in Cary, NC.
-    - Talk, 80 minutes.
  
-- "TITLE"
+- <strong>"A Bayesian Hierarchical Mixture Model with Applications in Forensic Handwriting Analysis"</strong>
     - July 2019
     - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry Danica Ommen
     - Joint Statistical Meetings (JSM) in Denver, CO.
-    - Talk, 15 minutes.
     
-- "TITLE"
+- <strong>"Forensic Analysis of Handwriting"</strong>
     - July 2019
     - Authors: <strong>Alicia Carriquiry</strong>, Amy Crawford, Nick Berry, Danica Ommen
-    - Lima, Peru.
-    - Talk
+    - VI Latin American Meeting on Bayesian Statistics (VI COBAL), Lima, Peru.
     
-- "TITLE"
+- <strong>"Exploratory Analysis of Handwriting Features: Investigating Numeric Measurements of Writing"</strong>
     - February 2019
     - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry, Danica Ommen
     - American Academy of Forensic Sciences (AAFS) Annual Meeting in Baltimore, MD.
-    - Talk, 20 minutes
     
-- "TITLE"
+- <strong>"Toward a Statistical and Algorithmic Approach to Forensic Handwriting Comparison"</strong>
     - August 2018
-    - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry, Danica Ommen
+    - Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry
     - American Society of Questioned Document Examiners (ASQDE) Annual Meeting in Park City, UT.
-    - Talk, 20 minutes.
     
-- "TITLE"
+- <strong>"A Bayesian Approach to Forensic Handwriting Evidence"</strong>
     - July 2018
-    - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry, Danica Ommen
+        - Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry
     - Joint Statistical Meetings (JSM) in Vancouver, BC, Canada.
-    - Talk, 15 minutes.
     
-- "TITLE"
+- <strong>"Bringing Statistical Foundations to Forensic Handwriting Analysis"</strong>
     - May 2018
-    - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry
+    - Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry
     - American Bar Association, 9th Annual Prescription for Criminal Justice Forensics Program in New York, NY.
-    - Talk, 15 minutes.
 
 ### Posters
-- "TITLE"
+- <strong>"A Bayesian Hierarchical Model for Forensic Writer Identification"</strong>
     - August 2019
     - Authors: <strong>Amy Crawford</strong>, Alicia Carriquiry, Danica Ommen
     - 10th International Workshop on Statistics and Simulation in Salzburg, Austria
-    - 1st Springer Poster Award
+    - <i>1st Springer Poster Award</i>
     
-- "TITLE"
+- <strong>"Statistical Analysis of Handwriting"</strong>
+    - May 2019
+    - Authors: <strong>Amy Crawford</strong> and Nick Berry
+    - CSAFE Annual All-Hands Meeting in Ames, IA
+
+- <strong>"Statistical Analysis of Letter Importance for Document Examination"</strong>
     - February 2018
-    - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry
+    - Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry
     - American Academy of Forensic Sciences in Seattle, WA
-    - YFSF Best Poster Award
+    - <i>YFSF Best Poster Award</i>
     
-    
-- "TITLE"
-    - May 2018 and 2019
+- <strong>(Presented AAFS 2018 Poster for a Second Time)</strong>
+    - May 2018
     - Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry, Danica Ommen
-    - CSAFE Annual All-Hands Meetin in Ames, IA
+    - CSAFE Annual All-Hands Meeting in Ames, IA
     
 
 ## People involved
@@ -145,8 +142,8 @@ Presenting/corresponding author is in bold.
 ### Faculty
 
 - Alicia Carriquiry
-- Danica Ommen
 - Hal Stern (UCI, Project G PI)
+- Danica Ommen
 
 ### Graduate Students
 
@@ -155,6 +152,7 @@ Presenting/corresponding author is in bold.
 ### Undergraduates
 
 - Anyesha Rey (data collection)
+- <p class="new">James Taylor (feature extraction)<p>
 
 
 

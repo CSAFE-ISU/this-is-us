@@ -243,25 +243,25 @@ A paper submitted to the Journal of Forensic Science is waiting for peer review 
 
 #### Bullet Land Comparisons Pipeline
 
-<p class="new"> Most data analysis processes can be thought of as a data analysis "pipeline". This process can involve data collection, decisions about data cleaning, data transformation or reduction, and feature engineering. For example, consider the general process below: </p>
+Most data analysis processes can be thought of as a data analysis "pipeline". This process can involve data collection, decisions about data cleaning, data transformation or reduction, and feature engineering. For example, consider the general process below:
 
 <img src="images/bullets/pipeline/pipeline_small.png" width = "80%"/>  
 
-<p class="new"> In the case of the bullet project, we have a pipeline which starts with having two physical bullet LEAs and ends with a quantitative result, a random forest similarity score. Our pipeline could be described (roughly) as something like this: </p>
+In the case of the bullet project, we have a pipeline which starts with having two physical bullet LEAs and ends with a quantitative result, a random forest similarity score. Our pipeline could be described (roughly) as something like this:
 
 <img src="images/bullets/pipeline/pipeline_small_bullets.png" width = "80%"/>  
 
-<p class="new"> To make this a little easier to see, we can look at how a 3D scan is processed into a 2D signature: </p>  
+To make this a little easier to see, we can look at how a 3D scan is processed into a 2D signature:  
 
 <img src="images/bullets/pipeline/process_vertical_png.png" width = "60%"/>
 
-<p class="new"> Now, something important to consider is whether each of these "data decisions" has an impact on the quantitative result (here, a similarity score between two LEA signatures). Consider a simple set of decisions we could make in our bullet pipeline: </p>  
+Now, something important to consider is whether each of these "data decisions" has an impact on the quantitative result (here, a similarity score between two LEA signatures). Consider a simple set of decisions we could make in our bullet pipeline:  
 
 <img src="images/bullets/pipeline/pipeline_extended_updated.png" width = "80%"/>  
 
-<p class="new"> If we have a pair of signatures, we could theoretically end up with 16 different similarity scores depending on the decisions we make at each point. That is also assuming that both signatures were processed in the same way at each point. </p>  
+If we have a pair of signatures, we could theoretically end up with 16 different similarity scores depending on the decisions we make at each point. That is also assuming that both signatures were processed in the same way at each point.   
 
-<p class="new"> This year, I'll be studying our bullet land "pipeline" here at CSAFE, as well as pipelines that are a little different than ours (e.g., @chu_jfs). There are a few major goals I am working towards: </p>
+This year, I'll be studying our bullet land "pipeline" here at CSAFE, as well as pipelines that are a little different than ours (e.g., @chu_jfs). There are a few major goals I am working towards: 
 
 1. Quantifying the uncertainty of our RF similarity scores based on data decisions  
 2. Comparing reproducibility/robustness of differing bullet analysis approaches  
@@ -271,7 +271,7 @@ A paper submitted to the Journal of Forensic Science is waiting for peer review 
      - Original RF vs. updated/retrained/re-engineering 
 3. Reproducibility/robustness of different approaches when we consider data COLLECTION.  
 
-<p class="new"> Goal 3 is a major part of this pipeline process which I have been working on since the spring! We designed and collected a bullet scanning variability study of 9 bullets. I'm working on formally modeling the variability at the signature level, taking two major approaches: </p>  
+Goal 3 is a major part of this pipeline process which I have been working on since the spring! We designed and collected a bullet scanning variability study of 9 bullets. I'm working on formally modeling the variability at the signature level, taking two major approaches:   
 
 1. Subsampling and assuming independence; 
 2. Directly modeling out the mean structure
@@ -280,12 +280,14 @@ A paper submitted to the Journal of Forensic Science is waiting for peer review 
      - Using a Bayesian shrinkage prior (w/help from Amy!)
      
 
-<p class="new"> Results for Method 1, the subsampling, looks something like this: </p>  
+Results for Method 1, the subsampling, looks something like this:   
 
 
 <img src="images/bullets/pipeline/subsampled_variability_results_orange_l1.png" width = "80%"/>
 
 I will be updating with more on the "direct" modeling in my next Spotlight! 
+
+<p class="new">From Kiegan: I am in Michigan this week! As a quick update, I am working on some background reading and planning for how to most effectively set up our pipeline experiments. The code in `bulletxtrctr` is already really well set up as a data "pipeline", so now we are conceptualizing the best way to wrap the pipeline and keep track of what decisions are made along the way.</p>
 
 
 

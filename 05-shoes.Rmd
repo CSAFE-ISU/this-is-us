@@ -220,6 +220,10 @@ Previously, features such as edge, corner, SURF were extracted to match shoeprin
 
 <img src="images/shoes/Features/adidas_kaze_orb_surf.png" width="100%"/>
 
+**Image matching**
 
-
+  - CSAFE data - Nike size of 10.5 and Adidas size of 10 will be used to construct mated and non-mated matching
+  - Features will be combination of strong 100 points of KAZE, ORB, SURF. 
+  
+<img src="images/shoes/Features/shoe1_comb_features.png" width="100%"/>
 

@@ -142,19 +142,16 @@ In the meantime, it is much easier (relatively speaking) to use our existing fra
 <img src="images/shoes/neuralnets/chop.PNG" width = "100%"/>    
 <img src="images/shoes/neuralnets/contrastcorrect.PNG" width = "100%"/>  
 
-I hoped to have some cool visualizations to show today. Unfortunately, model predictions are behaving very strangely, and I haven't been able to figure out why... All classes are predicting to zero, except quadrilaterals.
+I hoped to have some cool visualizations to show today. Unfortunately, <del>model predictions are behaving very strangely</del> trained models won't currently load in my session. I have definitely angered bigfoot.
 
-<img src="images/shoes/neuralnets/quad_predictions.PNG" width = "50%"/>  
+Goal:
 
-Possible issues:
+- Cut up the shoe into 256x256 square pixel images
+- Predict on each image (one prediction per class per sub-image)
+- Repeat for multiple types of cuts (e.g., starting at different offset values, zooming in or out before cutting)
+- Smooth out predictions and visualize them overlaid on the original image
+- Evaluate model predictions
 
-- <del>The specific shoe is behaving strangely</del> The issue persists for multiple shoes
-- <del>Using a different package to read in the image changes the extracted features</del> The issue persists when I try using the original image reading function
-- <del>Contrast correction changes predictions</del> The issue exists for images both with and without contrast correction
-- <del>Model trained incorrectly</del> The [Shiny app](https://bigfoot.csafe.iastate.edu:442/tiltonm/NNPreview/) shows predictions on the test set are behaving as expected
-- Bigfoot is angry?
-
-Bottom line: CNN features are NOT interpretable, which makes them VERY hard to debug.
 
 
 ## Maximum Clique Matching {#maxclique}

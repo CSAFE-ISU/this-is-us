@@ -370,9 +370,16 @@ Results for Method 1, the subsampling, looks something like this:
 
 <img src="images/bullets/pipeline/subsampled_variability_results_orange_l1.png" width = "80%"/>
 
-I will be updating with more on the "direct" modeling in my next Spotlight! 
+The code in `bulletxtrctr` is already really well set up as a data "pipeline", so now we are conceptualizing the best way to wrap the pipeline and keep track of what decisions are made along the way. 
 
-<p class="new">From Kiegan: I am in Michigan this week! As a quick update, I am working on some background reading and planning for how to most effectively set up our pipeline experiments. The code in `bulletxtrctr` is already really well set up as a data "pipeline", so now we are conceptualizing the best way to wrap the pipeline and keep track of what decisions are made along the way.</p>
+<p class="new">We are using few resources to conceptualize and plan the pipeline work, including: </p> 
+
+1. `tidymodels`, a part of the `tidyverse` focused on design matrices and reproducibility of modeling
+2. `drake`, an R package by Will Landau which helps cache information and keep track of steps in a pipeline  
+     - We are investigating how well this scales to ``big data".  
+3. Some pipeline/plumbing papers by Hadley Wickham, Heike Hofmann, Dianne Cook, and others  
+     - These focus on interactive graphics and updating data/plotting objects with interactivity  
+4. All of the existing tools in the "bulletverse"; `x3ptools`, `bulletxtrctr`, `grooveFinder`, etc.
 
 
 

@@ -131,26 +131,25 @@ Grant scope: Build the shoe scanner, develop an automatic recognition algorithm 
 
 ### Spatial integration
 
-<div class = "new">
-
 The overhead costs of going fully convolutional are high; CNN papers are opaque, and many supervised techniques require fully labeled data for semantic segmentation (i.e., label every pixel). Moreover, complex models (for both supervised and unsupervised tequniques) are often only available in Python, and there are a large number of GitHub repositories of mixed quality and reliability. Filtering for quality, understanding code structures, and implementing them on HPC are all enormous tasks on their own.
 
 In the meantime, it is much easier (relatively speaking) to use our existing framework of 256x256 square pixel images, for which we have generated thousands of labeled images and have already trained and improved domain-specific models. Currently, I have code working to automatically crop image borders, chop the image into 256x256 pixels (padding the image when appropriate) and correct the contrast on the individual images.
 
+<div class = "new">
+
+**Pad the left and top of the image with a pre-specified offset, then chop the image into 256x256 pixel pieces**  
+<img src="images/shoes/neuralnets/chop.PNG" width = "100%"/>
+
+**Equalize the contrast channel for each piece of the image**
+<img src="images/shoes/neuralnets/equalize.PNG" width = "100%"/> 
+
+**Use the trained model to predict each piece of the image for each class**
+<img src="images/shoes/neuralnets/predict.PNG" width = "100%"/> 
+
+**Repeat the above process for different cuts of the original image, and aggregate predictions**
+<img src="images/shoes/neuralnets/predict_multiple_offsets.PNG" width = "100%"/>
+
 </div>
-
-<img src="images/shoes/neuralnets/chop.PNG" width = "100%"/>    
-<img src="images/shoes/neuralnets/contrastcorrect.PNG" width = "100%"/>  
-
-I hoped to have some cool visualizations to show today. Unfortunately, <del>model predictions are behaving very strangely</del> trained models won't currently load in my session. I have definitely angered bigfoot.
-
-Goal:
-
-- Cut up the shoe into 256x256 square pixel images
-- Predict on each image (one prediction per class per sub-image)
-- Repeat for multiple types of cuts (e.g., starting at different offset values, zooming in or out before cutting)
-- Smooth out predictions and visualize them overlaid on the original image
-- Evaluate model predictions
 
 
 

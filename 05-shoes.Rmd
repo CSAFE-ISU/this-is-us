@@ -250,15 +250,15 @@ Previously, features such as edge, corner, SURF were extracted to match shoeprin
 
 
 
-Example graphs of mates :
+**Example graphs of mates**:
 
 <img src="images/shoes/Features/image_KM1.png" width="100%"/>
 
-Example graphs of non-mates :
+**Example graphs of non-mates**:
 
 <img src="images/shoes/Features/image_KNM1.png" width="100%"/>
 
-Example matching table using SURF 500 :
+**Example matching table using SURF 500**:
 
 Class | Clique size | Rotation angle | % Overlap | Median distance of OP|
 ------|-------------|----------------|-----------|----------------------|
@@ -268,14 +268,14 @@ Non-mates|    9     |       6.43     |   0.1208  |        1.39          |
 
 
 
-Density plots:
+**Density plots**:
 
 <img src="images/shoes/Features/surf_density.png" width="100%"/>
 
 <img src="images/shoes/Features/training_POC_FMTC.png" width="100%"/>
 
 
-ROC curves on test comparisons:
+**ROC curves on test comparisons**:
 
 <img src="images/shoes/Features/ROC_surf.png" width="100%"/>
 
@@ -284,19 +284,19 @@ ROC curves on test comparisons:
   
 ### Matching on degraded and partial images  
   
-Example of degraded images:
+**Example of degraded images**:
 
 <img src="images/shoes/Features/deg_full_ex.jpg" width="100%"/>
 
 
-ROC curves on test comparisons:
+**ROC curves on test comparisons**:
 <img src="images/shoes/Features/SURF_ROC_deg.png" width="100%"/>
 
 
 
 
 
-What we plan to do:
+**What we plan to do**:
 
   - Get ROC curves using KASE, ORB, combination of them
   - Do the same comparisons on degraded and partial impressions
@@ -305,24 +305,25 @@ What we plan to do:
   
 ## Impact of weight to outsole scans from EverOS 2D scanner 
 
-Analysis setup:
+**Analysis setup**:
 
    - Shoes: 5 pairs of Nike Winflow 4, size 10.5 (Brand-new shoes)
-   - Person: Person 1 (weight aa lb)and person 2 (bb lb)
+   - Participants: Person 1 (weight aa lb)and person 2 (bb lb)
    - Weights: 2 weight vests (20 lbs and 12 lbs)
-   - Weight variations: W1(A), W2(P1 with one vest), W3(P1 with two vests), W4(B), W5(P2 with one vest), W6(P2 with two vests)
+   - Weight variations: W1(P1), W2(P1 with one vest), W3(P1 with two vests), W4(P2), W5(P2 with one vest), W6(P2 with two vests)
    - W1 $=$ 155.2 lb, **W2 $=$ 173.8 lb**, W3 $=$ 187.6 lb, **W4 $=$ 178 lb**, W5 $=$ 197.4 lb, W6 $=$ 211 lb
   
   
   
-Result1:
+**Result1**:
+
   - Shoe is fixed to left side of shoe1.
   
 <img src="images/shoes/Features/density_person_effect.png" width="100%"/>
 
 
 
-Result2:
+**Result2**:
 
   - Purple, green: comparison between repeated replicates from the same shoe, W2-W2, W4-W4.
   - Comparison between weights W2 and W4: weights are almost the same. 

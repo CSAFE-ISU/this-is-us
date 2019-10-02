@@ -307,11 +307,11 @@ What we plan to do:
 
 Analysis setup:
 
-   -Shoes: 5 pairs of Nike Winflow 4, size 10.5 (Brand-new shoes)
-   -Person: Person 1 (weight aa lb)and person 2 (bb lb)
-   -Weights: 2 weight vests (20 lbs and 12 lbs)
-   -Weight variations: W1(A), W2(P1 with one vest), W3(P1 with two vests), W4(B), W5(P2 with one vest), W6(P2 with two vests)
-   -W1 $=$ 155.2 lb, **W2 $=$ 173.8 lb**, W3 $=$ 187.6 lb, **W4 $=$ 178 lb**, W5 $=$ 197.4 lb, W6 $=$ 211 lb
+   - Shoes: 5 pairs of Nike Winflow 4, size 10.5 (Brand-new shoes)
+   - Person: Person 1 (weight aa lb)and person 2 (bb lb)
+   - Weights: 2 weight vests (20 lbs and 12 lbs)
+   - Weight variations: W1(A), W2(P1 with one vest), W3(P1 with two vests), W4(B), W5(P2 with one vest), W6(P2 with two vests)
+   - W1 $=$ 155.2 lb, **W2 $=$ 173.8 lb**, W3 $=$ 187.6 lb, **W4 $=$ 178 lb**, W5 $=$ 197.4 lb, W6 $=$ 211 lb
   
   
   

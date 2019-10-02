@@ -238,6 +238,7 @@ Previously, features such as edge, corner, SURF were extracted to match shoeprin
 
 
 **Performance evaluation using**
+
   - **SURF 500**
   - KAZE 500
   - ORB 500
@@ -305,6 +306,7 @@ What we plan to do:
 ## Impact of weight to outsole scans from EverOS 2D scanner 
 
 Analysis setup:
+
    -Shoes: 5 pairs of Nike Winflow 4, size 10.5 (Brand-new shoes)
    -Person: Person 1 (weight aa lb)and person 2 (bb lb)
    -Weights: 2 weight vests (20 lbs and 12 lbs)
@@ -321,6 +323,7 @@ Result1:
 
 
 Result2:
+
   - Purple, green: comparison between repeated replicates from the same shoe, W2-W2, W4-W4.
   - Comparison between weights W2 and W4: weights are almost the same. 
   - Yellow: comparison when shoe is fixed to shoe1-L.

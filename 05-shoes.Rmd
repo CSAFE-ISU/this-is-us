@@ -131,30 +131,26 @@ Grant scope: Build the shoe scanner, develop an automatic recognition algorithm 
 
 ### Spatial integration
 
-<div class = "new">
-
 The overhead costs of going fully convolutional are high; CNN papers are opaque, and many supervised techniques require fully labeled data for semantic segmentation (i.e., label every pixel). Moreover, complex models (for both supervised and unsupervised tequniques) are often only available in Python, and there are a large number of GitHub repositories of mixed quality and reliability. Filtering for quality, understanding code structures, and implementing them on HPC are all enormous tasks on their own.
 
 In the meantime, it is much easier (relatively speaking) to use our existing framework of 256x256 square pixel images, for which we have generated thousands of labeled images and have already trained and improved domain-specific models. Currently, I have code working to automatically crop image borders, chop the image into 256x256 pixels (padding the image when appropriate) and correct the contrast on the individual images.
 
+<div class = "new">
+
+**Pad the left and top of the image with a pre-specified offset, then chop the image into 256x256 pixel pieces**  
+<img src="images/shoes/neuralnets/chop.PNG" width = "100%"/>
+
+**Equalize the contrast channel for each piece of the image**
+<img src="images/shoes/neuralnets/equalize.PNG" width = "100%"/> 
+
+**Use the trained model to predict each piece of the image for each class**
+<img src="images/shoes/neuralnets/predict.PNG" width = "100%"/> 
+
+**Repeat the above process for different cuts of the original image, and aggregate predictions**
+<img src="images/shoes/neuralnets/predict_multiple_offsets.PNG" width = "100%"/>
+
 </div>
 
-<img src="images/shoes/neuralnets/chop.PNG" width = "100%"/>    
-<img src="images/shoes/neuralnets/contrastcorrect.PNG" width = "100%"/>  
-
-I hoped to have some cool visualizations to show today. Unfortunately, model predictions are behaving very strangely, and I haven't been able to figure out why... All classes are predicting to zero, except quadrilaterals.
-
-<img src="images/shoes/neuralnets/quad_predictions.PNG" width = "50%"/>  
-
-Possible issues:
-
-- <del>The specific shoe is behaving strangely</del> The issue persists for multiple shoes
-- <del>Using a different package to read in the image changes the extracted features</del> The issue persists when I try using the original image reading function
-- <del>Contrast correction changes predictions</del> The issue exists for images both with and without contrast correction
-- <del>Model trained incorrectly</del> The [Shiny app](https://bigfoot.csafe.iastate.edu:442/tiltonm/NNPreview/) shows predictions on the test set are behaving as expected
-- Bigfoot is angry?
-
-Bottom line: CNN features are NOT interpretable, which makes them VERY hard to debug.
 
 
 ## Maximum Clique Matching {#maxclique}

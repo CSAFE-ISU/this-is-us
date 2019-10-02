@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Theoretical foundations
 
 ## Common Source vs Specific Source Comparison via Information Theory
@@ -85,17 +90,12 @@ We can try and understand the value of $\mathbb{H}_{2}(H|X,Y) - \mathbb{H}_{2}(H
 **Is there more information in the data about the CS or SS hypothesis?**
 Under the second scenario, we can study this question by looking at 
 
-\begin{align*}
-\mathbb{I}(H_{x};\delta) - \mathbb{I}(H;\delta) 
-&= \begin{multlined}[t] \mathbb{H}(H|A) - \mathbb{H}(H|\delta, A) - \\
-\left[ \mathbb{H}(H) - \mathbb{H}(H|\delta) \right] 
-\end{multlined} \\
-&= \begin{multlined}[t] 
- \mathbb{H}(H|A) - \mathbb{H}(H) - \\
-\left[ \mathbb{H}(H|\delta, A) - \mathbb{H}(H|\delta) \right]
-\end{multlined} \\
-&= \mathbb{I}(H;A|\delta) - \mathbb{I}(H;A) 
-\end{align*}
+<!-- \begin{align*} -->
+<!-- \mathbb{I}(H_{x};\delta) - \mathbb{I}(H;\delta) &= \begin{multlined}[t] \mathbb{H}(H|A) - \mathbb{H}(H|\delta, A) - \\ -->
+<!-- \left[ \mathbb{H}(H) - \mathbb{H}(H|\delta) \right] \end{multlined} \\ &= \begin{multlined}[t] \mathbb{H}(H|A) - \mathbb{H}(H) - \\  -->
+<!-- \left[ \mathbb{H}(H|\delta, A) - \mathbb{H}(H|\delta) \right] \end{multlined} \\ -->
+<!-- &= \mathbb{I}(H;A|\delta) - \mathbb{I}(H;A)  -->
+<!-- \end{align*} -->
 
 ### Other notions of information
 - Information in $Y$ about $X$:

@@ -187,13 +187,14 @@ In progress:
 
 ## 3d Shoe Recognition 
 
--LESSON LEARNED..... PUSH OFTEN 
-
 The set up: 
 
+Then we want to look at the change overtime a specific shoe, so we need to grab the shoe scans over time. Using the function *shoe_grab* to grab the scans of a given shoe ID, specify the id number of a shoe you want to look at, (Make sure you have access to the data, follow the steps on the README for more information. For more information on the shoe data, see **Longituidinal_Shoe_Study**), and turns the given shoe into mesh objects to do further analysis. 
 
 
-What we have tried 
+What we have tried: 
+
+At first we wanted to try to simplify the mesh object to just the basic shape in order have simplicity when aligning, however the problem was realized that we are using a prediction to allign rather than the shoe, 
 
 What we are doing now 
   - Transforming the mesh objects to points aligned by the center of mass to overlay them detecting difference. 

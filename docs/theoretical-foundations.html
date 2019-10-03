@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2019-09-26" />
+<meta name="date" content="2019-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,6 +55,7 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -164,7 +165,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#computational-tools-1"><i class="fa fa-check"></i><b>4.2</b> Computational Tools</a></li>
 <li class="chapter" data-level="4.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#statistical-analysis"><i class="fa fa-check"></i><b>4.3</b> Statistical Analysis</a><ul>
 <li class="chapter" data-level="4.3.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#clustering"><i class="fa fa-check"></i><b>4.3.1</b> Clustering</a></li>
-<li class="chapter" data-level="4.3.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#closed-set-modelling"><i class="fa fa-check"></i><b>4.3.2</b> Closed set modelling</a></li>
+<li class="chapter" data-level="4.3.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#closed-set-modeling"><i class="fa fa-check"></i><b>4.3.2</b> Closed set modeling</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#communication-of-results"><i class="fa fa-check"></i><b>4.4</b> Communication of Results</a><ul>
 <li class="chapter" data-level="4.4.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#papers"><i class="fa fa-check"></i><b>4.4.1</b> Papers</a></li>
@@ -190,7 +191,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3" data-path="shoes.html"><a href="shoes.html#maxclique"><i class="fa fa-check"></i><b>6.3</b> Maximum Clique Matching</a></li>
 <li class="chapter" data-level="6.4" data-path="shoes.html"><a href="shoes.html#cocoa"><i class="fa fa-check"></i><b>6.4</b> Project Tread (formerly Cocoa Powder Citizen Science)</a></li>
 <li class="chapter" data-level="6.5" data-path="shoes.html"><a href="shoes.html#d-shoe-recognition"><i class="fa fa-check"></i><b>6.5</b> 3d Shoe Recognition</a></li>
-<li class="chapter" data-level="6.6" data-path="shoes.html"><a href="shoes.html#shoe-outsole-matching-using-image-descriptors"><i class="fa fa-check"></i><b>6.6</b> Shoe outsole matching using image descriptors</a></li>
+<li class="chapter" data-level="6.6" data-path="shoes.html"><a href="shoes.html#shoe-outsole-matching-using-image-descriptors"><i class="fa fa-check"></i><b>6.6</b> Shoe outsole matching using image descriptors</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="shoes.html"><a href="shoes.html#features"><i class="fa fa-check"></i><b>6.6.1</b> Features</a></li>
+<li class="chapter" data-level="6.6.2" data-path="shoes.html"><a href="shoes.html#matching-on-clean-and-full-images"><i class="fa fa-check"></i><b>6.6.2</b> Matching on clean and full images</a></li>
+<li class="chapter" data-level="6.6.3" data-path="shoes.html"><a href="shoes.html#matching-on-degraded-and-partial-images"><i class="fa fa-check"></i><b>6.6.3</b> Matching on degraded and partial images</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="shoes.html"><a href="shoes.html#impact-of-weight-to-outsole-scans-from-everos-2d-scanner"><i class="fa fa-check"></i><b>6.7</b> Impact of weight to outsole scans from EverOS 2D scanner</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html"><i class="fa fa-check"></i><b>7</b> Theoretical foundations</a><ul>
 <li class="chapter" data-level="7.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#common-source-vs-specific-source-comparison-via-information-theory"><i class="fa fa-check"></i><b>7.1</b> Common Source vs Specific Source Comparison via Information Theory</a><ul>
@@ -231,132 +237,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="theoretical-foundations" class="section level1">
 <h1><span class="header-section-number">Chapter 7</span> Theoretical foundations</h1>
+<p>Placeholder</p>
 <div id="common-source-vs-specific-source-comparison-via-information-theory" class="section level2">
 <h2><span class="header-section-number">7.1</span> Common Source vs Specific Source Comparison via Information Theory</h2>
 <div id="introduction" class="section level3">
 <h3><span class="header-section-number">7.1.1</span> Introduction</h3>
-<p><strong>Central Goals</strong></p>
-<ul>
-<li>continue work started by Danica and Peter Vergeer on the analysis of likelihood ratios</li>
-<li>study the differences between specific source (SS) and common source (CS) likelihood ratios (LRs) in an information theoretic way</li>
-<li>does the CS or SS LR have more “information”?</li>
-<li>does the data (or the score) have more “information” about the SS or the CS hypothesis?</li>
-<li>can be the CS or SS hypotheses (prosecution or defense) be formally compared in terms of being easier to “prove” or “disprove”?</li>
-</ul>
-<p><strong>General Notation</strong>
-Let <span class="math inline">\(X \in \mathbb{R}^{q_x}\)</span> and <span class="math inline">\(Y \in \mathbb{R}^{q_y}\)</span> be two random vectors with joint distribution <span class="math inline">\(P\)</span> and corresponding density <span class="math inline">\(p\)</span>.</p>
-<ul>
-<li>: <span class="math inline">\(\mathbb{H}(X) = -\int{p(x) \log p(x) dx}\)</span></li>
-<li>: <span class="math inline">\(\mathbb{H}(X|Y) = \mathbb{E}_{Y}\left[-\int{p(x|y) \log p(x|y) dx}\right]\)</span></li>
-<li>: <span class="math inline">\(\mathbb{H}_{2}(X|Y) = -\int{p(x|y) \log p(x|y) dx}\)</span></li>
-<li>: <span class="math inline">\(\mathbb{I}(X;Y) = \mathbb{H}(X) - \mathbb{H}(X|Y)\)</span></li>
-</ul>
-<p>Proof that Mutual Information is always positive:</p>
-<p><span class="math display">\[\begin{align*}
-\mathbb{I}(X;Y) &amp;= \mathbb{H}(X) - \mathbb{H}(X|Y) \\
-&amp;= -\int{p(x) \log p(x) dx} + \int{\int{p(x|y)p(y) \log p(x|y) dx} dy} \\
-&amp;= -\int{\int{p(x,y) \log p(x) dx}dy} + \int{\int{p(x,y) \log p(x|y) dx} dy} \\
-&amp;= -\int{\int{p(x,y) \log p(x) dx}dy} + \int{\int{p(x,y) \log \frac{p(x,y)}{p(y)} dx} dy} \\
-&amp;= \int{\int{p(x,y) \log \frac{p(x,y)}{p(x)p(y)} dx}dy} \\
-&amp;= KL(P||P_{X} \times P_{Y}) \\
-&amp;\geq 0
-\end{align*}\]</span></p>
 </div>
 <div id="common-source-vs-specific-source-lr" class="section level3">
 <h3><span class="header-section-number">7.1.2</span> Common Source vs Specific Source LR</h3>
-<p>The “common source” problem is to determine whether two pieces of evidence, both with unknown origin, have the same origin. One might be interested in this problem if two crimes were suspected to be linked, but no suspect has yet been identified. Alternatively, the “specific source” problem is to determine whether a fragment of evidence coming from an unknown source, such as evidence at a crime scene, has the same origin as a fragment of evidence of known origin, such as evidence collected directly from a suspect.</p>
-<p><strong>Basic Setup</strong></p>
-<ul>
-<li><span class="math inline">\(H \in \{ H_p, H_d \}\)</span> as the random variable associated with the CS hypothesis.</li>
-<li><span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are discrete r.v.’s representing two “sources” of evidence</li>
-<li>distributions for <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> defined conditionally based on the hypothesis</li>
-<li>SS hypothesis is represented by the conditional random variable <span class="math inline">\(H|A\)</span></li>
-<li><span class="math inline">\(X\)</span> is data coming from <span class="math inline">\(A\)</span>, <span class="math inline">\(Y\)</span> is data coming from <span class="math inline">\(B\)</span></li>
-<li>compare information contained in <span class="math inline">\((X,Y)\)</span> about <span class="math inline">\(H\)</span> and <span class="math inline">\(H|A\)</span></li>
-<li>join density can be written as <span class="math inline">\(p(X,Y,A,B,H) = p(X,Y|A,B)p(B|A,H)p(A|H)p(H)\)</span></li>
-</ul>
-<p><strong>Is there more information in a CS or SS LR?</strong></p>
-<p>Let us examine this question in two different ways.</p>
-<ol style="list-style-type: decimal">
-<li>Is the posterior entropy (given <span class="math inline">\((X,Y)\)</span>) in the common source hypothesis smaller than that of the specific source hypothesis?
-<ul>
-<li>In other words, would observing the specific value of <span class="math inline">\(A\)</span> as well as the data make you <em>more</em> certain about <span class="math inline">\(H\)</span> than just observing the data?</li>
-</ul></li>
-<li>Is the posterior entropy (given <span class="math inline">\((X,Y)\)</span>) in the common source hypothesis smaller than the average (over possible values for <span class="math inline">\((X,Y,A)\)</span>) posterior entropy of the specific source hypothesis?
-<ul>
-<li>In other words, do you expect that, on average, observing the value of <span class="math inline">\(A\)</span> as well as the data make you <em>more</em> certain about <span class="math inline">\(H\)</span> than just observing the data?</li>
-</ul></li>
-</ol>
-<p>Answering the first question/interpretation, to me, requires proving that</p>
-<p><span class="math display">\[ \mathbb{H}_{2}(H|X,Y) - \mathbb{H}_{2}(H|X,Y, A) \geq 0 \]</span>.</p>
-<p>Answering the second question requires proving that</p>
-<p><span class="math display">\[ \mathbb{H}(H|X,Y) - \mathbb{H}(H|X,Y, A) \geq 0 \]</span>.</p>
-<p>Luckily, the second question is true due to the fact that</p>
-<p><span class="math display">\[\begin{align*}
-\mathbb{H}(H|X,Y) - \mathbb{H}(H|X,Y,A) &amp;= \mathbb{E}_{(X,Y)} \left[ - \int{p(h,a|x,y) \log p(h|x,y) d(h,a)} + \int{p(h,a|x,y) \log p(h|x,y,a) d(h,a)} \right] \\
-&amp;= - \int{p(h,a|x,y)p(x,y) \log \frac{p(h,a|x,y)}{p(a|x,y)p(h|x,y)} d(h,x,y,a)} \\
-&amp;= \mathbb{E}_{(X,Y)} \left[ KL(P_{(H,A)|(X,Y)}||P_{H|(X,Y)} \times P_{A|(X,Y)}) \right] \geq 0
-\end{align*}\]</span></p>
-<p>Whether or not <span class="math inline">\(\mathbb{H}_{2}(H|X,Y) - \mathbb{H}_{2}(H|X,Y, A) \geq 0\)</span> is not obvious. We have that</p>
-<p><span class="math display">\[\begin{align*}
-\mathbb{H}_{2}(H|X,Y) - \mathbb{H}_{2}(H|X,Y, A) &amp;= \int{-p(h|x,y)\log p(h|x,y) dh} - \int{-p(h|x,y,a) \log p(h|x,y,a) dh} \\
-&amp;=  \frac{p(a)}{p(a|x,y)}\int{-p(h|x,y,a)\log p(h|x,y) dh} + \int{p(h|x,y,a) \log p(h|x,y,a) dh}\\ 
-&amp;???
-\end{align*}\]</span></p>
-<p>We can try and understand the value of <span class="math inline">\(\mathbb{H}_{2}(H|X,Y) - \mathbb{H}_{2}(H|X,Y, A)\)</span> in terms of <span class="math inline">\(\frac{p(a)}{p(a|x,y)}\)</span>. For example, if <span class="math inline">\(\frac{p(a)}{p(a|x,y)} \geq 1\)</span>, then <span class="math inline">\(\mathbb{H}_{2}(H|X,Y) - \mathbb{H}_{2}(H|X,Y, A) \geq 0\)</span>. If <span class="math inline">\(\frac{p(a)}{p(a|x,y)} \leq 1\)</span>, then it is hard to say much about the value of <span class="math inline">\(\mathbb{H}_{2}(H|X,Y) - \mathbb{H}_{2}(H|X,Y, A)\)</span>.</p>
 </div>
 <div id="other-notions-of-information" class="section level3">
 <h3><span class="header-section-number">7.1.3</span> Other notions of information</h3>
-<ul>
-<li>Information in <span class="math inline">\(Y\)</span> about <span class="math inline">\(X\)</span>:
-<ul>
-<li><span class="math inline">\(\int{p(x|y) \log \frac{p(x|y)}{p(x)} dx}\)</span></li>
-<li>nonnegative</li>
-<li>Equal to zero when <span class="math inline">\(X \perp Y\)</span></li>
-<li>needn’t integrate over <span class="math inline">\(Y\)</span> (?)</li>
-<li>as opposed to entropy, information in a random variable requires another random variable to be “predicted”… this is fine in our situation as we have a natural candidate: <span class="math inline">\(H_p\)</span> or <span class="math inline">\(H_d\)</span></li>
-</ul></li>
-</ul>
 </div>
 </div>
 <div id="score-based-likelihood-ratios-are-not-fundamentally-incoherent" class="section level2">
 <h2><span class="header-section-number">7.2</span> Score-based Likelihood Ratios are not Fundamentally “Incoherent”</h2>
-<p>Concern has been raised in the literature on LRs about a desirable property supposedly inherently absent from specific-source SLRs. The property, dubbed “coherence”, intuitively says that given two mutually exhaustive hypotheses, <span class="math inline">\(H_A\)</span> and <span class="math inline">\(H_B\)</span>, the likelihood ratio used to compare hypothesis A to hypothesis B should be the reciprocal of that used to compare hypothesis B to hypothesis A. I will argue that the claims about the inherent incoherency of SLRs is a result of thinking about SLRs too narrowly. Specifically, I will show that the arguments as to why SLRs are incoherent arise through the inappropriate comparison of SLRs based on different score functions. When one appropriately considers a single score function, incoherency is impossible.</p>
 <div id="coherence" class="section level3">
 <h3><span class="header-section-number">7.2.1</span> Coherence</h3>
-<p>Denote by <span class="math inline">\(E \in \mathbb{R}^{n}\)</span> the vector of random variables describing <em>all</em> of the observed evidence or data which will be used to evaluate the relative likelihood of the two hypotheses. Define by <span class="math inline">\(LR_{i,j} \equiv \frac{p(E|H_i)}{p(E|H_j)}\)</span> the likelihood ratio of hypothesis <span class="math inline">\(i\)</span> to hypothesis <span class="math inline">\(j\)</span>. The coherency principal is satisfied if</p>
-<p><span class="math display">\[ LR_{i,j} = \frac{1}{LR_{j,i}} \]</span>.</p>
-<p>Likelihood ratios are fundamentally coherent, but what about score-based likelihood ratios? Denote by <span class="math inline">\(s: \mathbb{R}^n \rightarrow \mathbb{R}^{q}\)</span> a score function mapping the original data to Euclidean space of dimension <span class="math inline">\(q\)</span> (typically <span class="math inline">\(q = 1\)</span>). Similar to LRs, denote by <span class="math inline">\(SLR_{i,j} \equiv \frac{p(s(E)|H_i)}{p(s(E)|H_j)}\)</span> the score-based likelihood ratio comparing hypothesis <span class="math inline">\(i\)</span> to hypothesis <span class="math inline">\(j\)</span>. Clearly, in this general context SLRs are also coherent.</p>
 </div>
 <div id="problems-with-arguments-showing-slrs-are-incoherent" class="section level3">
 <h3><span class="header-section-number">7.2.2</span> Problems with arguments showing SLRs are incoherent</h3>
-<p>Let us examine the arguments presented in [REFS] to the incoherence of SLRs. These arguments stem from an example where there are two known sources of evidence say, source <span class="math inline">\(A\)</span> and source <span class="math inline">\(B\)</span>, each producing data <span class="math inline">\(e_A\)</span> and <span class="math inline">\(e_B\)</span>, respectively. Furthermore, assume that we have a third piece of evidence of unknown origin, <span class="math inline">\(e_u\)</span>, which must have come from either <span class="math inline">\(A\)</span> or <span class="math inline">\(B\)</span>. We then wish to evaluate the support of the data for <span class="math inline">\(H_A\)</span> or <span class="math inline">\(H_B\)</span> defined as follows</p>
-<p><span class="math display">\[\begin{array}{cc}
-H_A: &amp; e_u \text{ was generated from source } A \\
-H_B: &amp; e_u \text{ was generated from source } B.
-\end{array}\]</span></p>
-<p>In this case, we have <span class="math inline">\(LR_{A,B} = \frac{p(e_A, e_B, e_u|H_A)}{p(e_A, e_B, e_u|H_B)}\)</span>. We make use of <em>all</em> available data in the formulation of the numerator and denominator densities. Under the assumptions that each fragment of evidence is independent under both hypothesis <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> as well as that <span class="math inline">\(p(e_A,e_B|H_A) = p(e_A,e_B|H_B)\)</span>, the LR reduces to <span class="math inline">\(LR_{A,B} = \frac{p(e_u|H_A)}{p(e_u|H_B)}\)</span>. The second assumption is generally acceptable as the source of <span class="math inline">\(e_u\)</span> ought to have no impact on the distribution of the evidence with known source.</p>
-<p>[REFS] then consider possible SLRs for this example. However, they make an assumption that the score is explicitly a function only of two fragments of evidence. That is, assuming the dimension of <span class="math inline">\(e_i\)</span>, <span class="math inline">\(dim(e_i) = k\)</span>, is constant for <span class="math inline">\(i = A,B,u\)</span>, their score maps <span class="math inline">\(s:\mathbb{R}^k \times \mathbb{R}^k \rightarrow \mathbb{R}\)</span>. An common example of such a score is Euclidean distance, i.e. <span class="math inline">\(s(x,y) = \left[ \sum_{i = 1}^{k}(x_i - y_i)^2 \right]^{1/2}\)</span>. Such a score makes perfect sense in a typical specific-source problem context in which only two fragments of evidence are considered: one from the known source and one from the unknown source.</p>
-<p>However, when one desires to create an SLR based on this score in this particular example, it is tempting to suggest that the natural SLR is <span class="math inline">\(SLR_{A,B} = \frac{p(s(e_A,e_u)|H_A)}{p(s(e_A,e_u)|H_B)}\)</span>. Yet, the natural SLR if the hypotheses were reversed is <span class="math inline">\(SLR_{B,A} = \frac{p(s(e_B,e_u)|H_B)}{p(s(e_B,e_u)|H_A)}\)</span>. Neither of these SLRs is the reciprocal of the other, and so the specific source SLR appears to be “incoherent”.</p>
-<p>This approach, however, should raise a red flag immediately. Why, in the full LR case, do we require that (simplifying model assumptions aside) the numerator and denominator densities be functions of all available data, but the score is not? Furthermore, if we consider these SLRs in the more general context of scores depending on all available data, we see that, in fact, what [REFS] define to be <span class="math inline">\(SLR_{A,B}\)</span> and <span class="math inline">\(SLR_{B,A}\)</span> turn out to be two different SLRs depending on two different scores.</p>
-<p>For clarity, we will use <span class="math inline">\(s(\cdot)\)</span> to denote scores which are explicitly functions of <em>all</em> observed data, and we will use <span class="math inline">\(\delta (\cdot)\)</span> to denote score functions which are only a function of two fragments of evidence/data. Specifically, the score in <span class="math inline">\(SLR_{A,B}\)</span> is <span class="math inline">\(s_1(e_u,e_A,e_B) = \delta(e_u,e_A)\)</span> and the score in <span class="math inline">\(SLR_{B,A}\)</span> is <span class="math inline">\(s_2(e_u,e_A,e_B) = \delta(e_u,e_B)\)</span>. While the functional form of the score in the two SLRs <em>appears</em> to be the same, clearly <span class="math inline">\(s_1(e_u,e_A,e_B) \neq s_2(e_u,e_A,e_B)\)</span>. Thus, the two SLRs are simply two distinct quantities whose relationship needn’t be expected to be related anymore than if one had decided to use two different function forms of <span class="math inline">\(\delta(\cdot,\cdot)\)</span> in the two separate SLRs.</p>
-<p>One might ask how to reasonably construct an SLR which utilizes a (univariate) score other than a similarity metric for two fragments of evidence. One such example in this case would be <span class="math inline">\(s(e_u, e_A, e_B) = \frac{\delta(e_u,e_A)}{\delta(e_u,e_B)}\)</span>. Intuitively, under <span class="math inline">\(H_A\)</span>, the numerator should be larger than the denominator, while under <span class="math inline">\(H_B\)</span>, the opposite should be true.</p>
 </div>
 <div id="example-of-a-coherent-slr-in-the-two-source-problem" class="section level3">
 <h3><span class="header-section-number">7.2.3</span> Example of a coherent SLR in the two source problem</h3>
-<p>Suppose that our hypotheses are defined such that</p>
-<p><span class="math display">\[
-\begin{array}{cc}
-H_A: &amp; e_u \sim N(\mu_A, \sigma^2), e_A \sim N(\mu_A, \sigma^2), e_B \sim N(\mu_B, \sigma^2) \\
-H_B: &amp; e_u \sim N(\mu_B, \sigma^2), e_A \sim N(\mu_A, \sigma^2), e_B \sim N(\mu_B, \sigma^2),
-\end{array}
-\]</span></p>
-<p>where <span class="math inline">\(e_u\)</span>, <span class="math inline">\(e_A\)</span>, <span class="math inline">\(e_B\)</span> are mutual independent under both <span class="math inline">\(H_A\)</span> and <span class="math inline">\(H_B\)</span>.</p>
 </div>
 <div id="other-possible-viewpoints" class="section level3">
 <h3><span class="header-section-number">7.2.4</span> Other Possible Viewpoints?</h3>
-<p>I have assumed in the previous section that the order of consideration of hypotheses should not affect the ordering of the data vector <span class="math inline">\(E = (e_u,e_A,e_B)\)</span> or of the ordering of these arguments to the score function. This seems reasonable, but perhaps [REFS] would argue that considering <span class="math inline">\(H_A\)</span> first, <span class="math inline">\(E = (e_u, e_A, e_B)\)</span> and <span class="math inline">\(s(E) = s(e_u, e_A, e_B)\)</span>, but considering <span class="math inline">\(H_B\)</span> first, <span class="math inline">\(E = (e_u, e_B, e_A)\)</span> and <span class="math inline">\(s(E) = s(e_u, e_B, e_A)\)</span>. In this case, <span class="math inline">\(SLR_{A,B} \neq \frac{1}{SLR_{B,A}}\)</span> because we switch the order of arguments to the score from one SLR to the other. Note that, however, if we relax the independence assumptions of independence under either <span class="math inline">\(H_A\)</span> or <span class="math inline">\(H_B\)</span>, then even the LR becomes “incoherent” because <span class="math inline">\(\frac{p(e_u, e_A, e_B|H_A)}{p(e_u, e_A, e_B|H_B)} \neq \frac{p(e_u, e_B, e_A|H_A)}{p(e_u, e_B, e_A|H_B)}\)</span> in general.</p>
-<p>It is true that the LR depends only on the evidence of the unknown source <em>in this specific scenario</em>, but that is a consequence of modeling assumptions and not of LR paradigmatic principals.</p>
 
 </div>
 </div>

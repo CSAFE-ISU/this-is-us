@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2019-09-26" />
+<meta name="date" content="2019-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,6 +55,7 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -164,7 +165,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#computational-tools-1"><i class="fa fa-check"></i><b>4.2</b> Computational Tools</a></li>
 <li class="chapter" data-level="4.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#statistical-analysis"><i class="fa fa-check"></i><b>4.3</b> Statistical Analysis</a><ul>
 <li class="chapter" data-level="4.3.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#clustering"><i class="fa fa-check"></i><b>4.3.1</b> Clustering</a></li>
-<li class="chapter" data-level="4.3.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#closed-set-modelling"><i class="fa fa-check"></i><b>4.3.2</b> Closed set modelling</a></li>
+<li class="chapter" data-level="4.3.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#closed-set-modeling"><i class="fa fa-check"></i><b>4.3.2</b> Closed set modeling</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#communication-of-results"><i class="fa fa-check"></i><b>4.4</b> Communication of Results</a><ul>
 <li class="chapter" data-level="4.4.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#papers"><i class="fa fa-check"></i><b>4.4.1</b> Papers</a></li>
@@ -190,7 +191,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3" data-path="shoes.html"><a href="shoes.html#maxclique"><i class="fa fa-check"></i><b>6.3</b> Maximum Clique Matching</a></li>
 <li class="chapter" data-level="6.4" data-path="shoes.html"><a href="shoes.html#cocoa"><i class="fa fa-check"></i><b>6.4</b> Project Tread (formerly Cocoa Powder Citizen Science)</a></li>
 <li class="chapter" data-level="6.5" data-path="shoes.html"><a href="shoes.html#d-shoe-recognition"><i class="fa fa-check"></i><b>6.5</b> 3d Shoe Recognition</a></li>
-<li class="chapter" data-level="6.6" data-path="shoes.html"><a href="shoes.html#shoe-outsole-matching-using-image-descriptors"><i class="fa fa-check"></i><b>6.6</b> Shoe outsole matching using image descriptors</a></li>
+<li class="chapter" data-level="6.6" data-path="shoes.html"><a href="shoes.html#shoe-outsole-matching-using-image-descriptors"><i class="fa fa-check"></i><b>6.6</b> Shoe outsole matching using image descriptors</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="shoes.html"><a href="shoes.html#features"><i class="fa fa-check"></i><b>6.6.1</b> Features</a></li>
+<li class="chapter" data-level="6.6.2" data-path="shoes.html"><a href="shoes.html#matching-on-clean-and-full-images"><i class="fa fa-check"></i><b>6.6.2</b> Matching on clean and full images</a></li>
+<li class="chapter" data-level="6.6.3" data-path="shoes.html"><a href="shoes.html#matching-on-degraded-and-partial-images"><i class="fa fa-check"></i><b>6.6.3</b> Matching on degraded and partial images</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="shoes.html"><a href="shoes.html#impact-of-weight-to-outsole-scans-from-everos-2d-scanner"><i class="fa fa-check"></i><b>6.7</b> Impact of weight to outsole scans from EverOS 2D scanner</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html"><i class="fa fa-check"></i><b>7</b> Theoretical foundations</a><ul>
 <li class="chapter" data-level="7.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#common-source-vs-specific-source-comparison-via-information-theory"><i class="fa fa-check"></i><b>7.1</b> Common Source vs Specific Source Comparison via Information Theory</a><ul>
@@ -232,17 +238,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">This is us: making CSAFE stronger each week</h1>
 <p class="author"><em>CSAFE</em></p>
-<p class="date"><em>2019-09-26</em></p>
+<p class="date"><em>2019-10-03</em></p>
 </div>
 <div id="prerequisites" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> Prerequisites</h1>
-<p>This is a <em>sample</em> book written in <strong>Markdown</strong>. You can use anything that Pandoc’s Markdown supports, e.g., a math equation <span class="math inline">\(a^2 + b^2 = c^2\)</span>.</p>
-<p>The <strong>bookdown</strong> package can be installed from CRAN or Github:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;bookdown&quot;</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co"># or the development version</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># devtools::install_github(&quot;rstudio/bookdown&quot;)</span></a></code></pre></div>
-<p>Remember each Rmd file contains one and only one chapter, and a chapter is defined by the first-level heading <code>#</code>.</p>
-<p>To compile this example to PDF, you need XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <a href="https://yihui.name/tinytex/" class="uri">https://yihui.name/tinytex/</a>.</p>
+<p>Placeholder</p>
 
 </div>
             </section>

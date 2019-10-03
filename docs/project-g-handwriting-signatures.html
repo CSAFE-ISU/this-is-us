@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2019-09-26" />
+<meta name="date" content="2019-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,6 +55,7 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -164,7 +165,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#computational-tools-1"><i class="fa fa-check"></i><b>4.2</b> Computational Tools</a></li>
 <li class="chapter" data-level="4.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#statistical-analysis"><i class="fa fa-check"></i><b>4.3</b> Statistical Analysis</a><ul>
 <li class="chapter" data-level="4.3.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#clustering"><i class="fa fa-check"></i><b>4.3.1</b> Clustering</a></li>
-<li class="chapter" data-level="4.3.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#closed-set-modelling"><i class="fa fa-check"></i><b>4.3.2</b> Closed set modelling</a></li>
+<li class="chapter" data-level="4.3.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#closed-set-modeling"><i class="fa fa-check"></i><b>4.3.2</b> Closed set modeling</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#communication-of-results"><i class="fa fa-check"></i><b>4.4</b> Communication of Results</a><ul>
 <li class="chapter" data-level="4.4.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#papers"><i class="fa fa-check"></i><b>4.4.1</b> Papers</a></li>
@@ -190,7 +191,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3" data-path="shoes.html"><a href="shoes.html#maxclique"><i class="fa fa-check"></i><b>6.3</b> Maximum Clique Matching</a></li>
 <li class="chapter" data-level="6.4" data-path="shoes.html"><a href="shoes.html#cocoa"><i class="fa fa-check"></i><b>6.4</b> Project Tread (formerly Cocoa Powder Citizen Science)</a></li>
 <li class="chapter" data-level="6.5" data-path="shoes.html"><a href="shoes.html#d-shoe-recognition"><i class="fa fa-check"></i><b>6.5</b> 3d Shoe Recognition</a></li>
-<li class="chapter" data-level="6.6" data-path="shoes.html"><a href="shoes.html#shoe-outsole-matching-using-image-descriptors"><i class="fa fa-check"></i><b>6.6</b> Shoe outsole matching using image descriptors</a></li>
+<li class="chapter" data-level="6.6" data-path="shoes.html"><a href="shoes.html#shoe-outsole-matching-using-image-descriptors"><i class="fa fa-check"></i><b>6.6</b> Shoe outsole matching using image descriptors</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="shoes.html"><a href="shoes.html#features"><i class="fa fa-check"></i><b>6.6.1</b> Features</a></li>
+<li class="chapter" data-level="6.6.2" data-path="shoes.html"><a href="shoes.html#matching-on-clean-and-full-images"><i class="fa fa-check"></i><b>6.6.2</b> Matching on clean and full images</a></li>
+<li class="chapter" data-level="6.6.3" data-path="shoes.html"><a href="shoes.html#matching-on-degraded-and-partial-images"><i class="fa fa-check"></i><b>6.6.3</b> Matching on degraded and partial images</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="shoes.html"><a href="shoes.html#impact-of-weight-to-outsole-scans-from-everos-2d-scanner"><i class="fa fa-check"></i><b>6.7</b> Impact of weight to outsole scans from EverOS 2D scanner</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html"><i class="fa fa-check"></i><b>7</b> Theoretical foundations</a><ul>
 <li class="chapter" data-level="7.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#common-source-vs-specific-source-comparison-via-information-theory"><i class="fa fa-check"></i><b>7.1</b> Common Source vs Specific Source Comparison via Information Theory</a><ul>
@@ -231,199 +237,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="project-g-handwriting-signatures" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Project G: Handwriting (&amp; Signatures)</h1>
-<p>The handwriting project has four major focuses:</p>
-<ol style="list-style-type: decimal">
-<li>data collection</li>
-<li>computational tools</li>
-<li>statistical analysis
-<ol style="list-style-type: lower-alpha">
-<li>glyph clustering</li>
-<li>closed set modeling for writer identification</li>
-</ol></li>
-<li>communication of results</li>
-</ol>
+<p>Placeholder</p>
 <div id="data-collection-1" class="section level2">
 <h2><span class="header-section-number">4.1</span> Data Collection</h2>
-<p>We are conducting a large data collection study to gather handwriting samples from a variety of participants across the world (most in the Midwest). Each participant provides handwriting samples at three sessions. Session packets are prepared, mailed to participants, completed, and mailed back. Once recieved, we scan all surveys and writing samples. Scans are loaded, cropped, and saved using a Shiny app. The app also facilitates survey data entry, saving that participant data to lines in an excel spreadsheet.</p>
-<p>Data collection is underway with the most recent update (9/1) at 106 participants enrolled:</p>
-<ul>
-<li>44 complete through session #3</li>
-<li>52 complete through session #2</li>
-<li>10 complete through session #1</li>
-</ul>
-<p>As of September 2019, Marc and Anyesha are the primary contacts for the study.</p>
 </div>
 <div id="computational-tools-1" class="section level2">
 <h2><span class="header-section-number">4.2</span> Computational Tools</h2>
-<p><code>handwriter</code> is a developmental R package hosted at <a href="https://github.com/CSAFE-ISU/handwriter" class="uri">https://github.com/CSAFE-ISU/handwriter</a>. It is our major computational tool for the project. The package takes in scanned handwritten documents and the following are performed.</p>
-<ol style="list-style-type: decimal">
-<li><strong> Binarize.</strong> Turn the image to pure black and white.</li>
-<li><strong> Skeletonize. </strong> Reduce writing to a 1 pixel wide skeleton.</li>
-<li><strong> Break. </strong> Connected writing is decomposed into small manageable pieces called <strong> glyphs </strong>. Glyphs are graphical structures with nodes and edges that often, but not always, correspond to Roman letters, and are the smallest unit of observation we consider for statistcal modelling.</li>
-<li><strong> Measure. </strong> A variety of measurements are taken on each glyph.</li>
-</ol>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-42"></span>
-<img src="images/handwriting/amy/handwriter_csafe.png" alt="Connected text processed by `handwriter`. The grey background is the original pen stroke. Colored lines represent the single pixel skeleton with color changes marking glyph decomposition. Red dots mark endpoints and intersections of each glyph." width="50%" />
-<p class="caption">
-Figure 4.1: Connected text processed by <code>handwriter</code>. The grey background is the original pen stroke. Colored lines represent the single pixel skeleton with color changes marking glyph decomposition. Red dots mark endpoints and intersections of each glyph.
-</p>
-</div>
-<p>For an input document, functions in the package give back a list of glyphs with path and node location information, adjacency grouping assignment, slope (pictured below), and centroid locations, among other things.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-43"></span>
-<img src="images/handwriting/amy/handwriter_slopecalc.png" alt="A visual of the ``slope'' calculation for two glyphs." width="90%" />
-<p class="caption">
-Figure 4.2: A visual of the ``slope’’ calculation for two glyphs.
-</p>
-</div>
-<p class="new">
-We are currently working to incorporate the cluster grouping assignments into the package. This will be complete pending creation of a template.
-<p>
 </div>
 <div id="statistical-analysis" class="section level2">
 <h2><span class="header-section-number">4.3</span> Statistical Analysis</h2>
 <div id="clustering" class="section level3">
 <h3><span class="header-section-number">4.3.1</span> Clustering</h3>
-Background to be added here.
-<p class="new">
-Paper submitted!
-<p>
-<p class="new">
-…
-<p>
-<p><img src="images/handwriting/amy/clusterpaper_header.png" width="80%" style="display: block; margin: auto;" /></p>
+<div id="glyph-distance-measure" class="section level4 unnumbered">
+<h4>Glyph Distance Measure</h4>
 </div>
-<div id="closed-set-modelling" class="section level3">
-<h3><span class="header-section-number">4.3.2</span> Closed set modelling</h3>
-<p>The following will be the jumping off point for purposes of this book with respect to modelling and discussion of results.</p>
-<div class="figure">
-<img src="images/handwriting/amy/Crawford_SIMSTAT_2019.png" alt="Poster given at the 10th International Workshop on Simulation and Statistics" />
-<p class="caption">Poster given at the 10th International Workshop on Simulation and Statistics</p>
+<div id="measure-of-glyph-centers" class="section level4 unnumbered">
+<h4>Measure of glyph centers</h4>
+</div>
+<div id="k-means-algorithm-for-glyphs" class="section level4 unnumbered">
+<h4><span class="math inline">\(K-\)</span>means Algorithm for Glyphs</h4>
+</div>
+<div id="outliers" class="section level4">
+<h4><span class="header-section-number">4.3.1.1</span> Outliers</h4>
+</div>
+</div>
+<div id="closed-set-modeling" class="section level3">
+<h3><span class="header-section-number">4.3.2</span> Closed set modeling</h3>
+<div id="model-1-straw-man" class="section level4 unnumbered">
+<h4>Model #1, Straw Man</h4>
+</div>
+<div id="model-2-mixture" class="section level4 unnumbered">
+<h4>Model #2, Mixture</h4>
+</div>
+<div id="model-3-normal-slopes.-work-in-progress." class="section level4 unnumbered">
+<h4>Model #3, Normal Slopes. Work in progress.</h4>
+</div>
+<div id="modeling-summary" class="section level4 unnumbered">
+<h4>Modeling Summary</h4>
 </div>
 </div>
 </div>
 <div id="communication-of-results" class="section level2">
 <h2><span class="header-section-number">4.4</span> Communication of Results</h2>
-<p>Presenting author is in bold.</p>
 <div id="papers" class="section level3">
 <h3><span class="header-section-number">4.4.1</span> Papers</h3>
-<ul>
-<li><strong>“A Clustering Method for Graphical Handwriting Components and Statistical Writership Analysis”</strong>
-<ul>
-<li>Authors: Nick Berry, Amy Crawford</li>
-<li>Submitted to The Annals of Applied Statistics in September 2019.</li>
-</ul></li>
-<li><strong>“Bayesian Hierarchical Modeling for Forensic Handwriting Analysis”</strong>
-<ul>
-<li>Authors: Amy Crawford, Alicia Carriquiry, and Danica Ommen</li>
-<li>In preparation for submission to PNAS</li>
-</ul></li>
-</ul>
 </div>
 <div id="talks" class="section level3">
 <h3><span class="header-section-number">4.4.2</span> Talks</h3>
-<ul>
-<li><strong>“Statistical Analysis of Handwriting for Writer Identification”</strong>
-<ul>
-<li>August 2019</li>
-<li>Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry, Danica Ommen</li>
-<li>American Society of Questioned Document Examiners (ASQDE) Annual Meeting in Cary, NC.</li>
-</ul></li>
-<li><strong>“A Bayesian Hierarchical Mixture Model with Applications in Forensic Handwriting Analysis”</strong>
-<ul>
-<li>July 2019</li>
-<li>Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry Danica Ommen</li>
-<li>Joint Statistical Meetings (JSM) in Denver, CO.</li>
-</ul></li>
-<li><strong>“Forensic Analysis of Handwriting”</strong>
-<ul>
-<li>July 2019</li>
-<li>Authors: <strong>Alicia Carriquiry</strong>, Amy Crawford, Nick Berry, Danica Ommen</li>
-<li>VI Latin American Meeting on Bayesian Statistics (VI COBAL), Lima, Peru.</li>
-</ul></li>
-<li><strong>“Exploratory Analysis of Handwriting Features: Investigating Numeric Measurements of Writing”</strong>
-<ul>
-<li>February 2019</li>
-<li>Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry, Danica Ommen</li>
-<li>American Academy of Forensic Sciences (AAFS) Annual Meeting in Baltimore, MD.</li>
-</ul></li>
-<li><strong>“Toward a Statistical and Algorithmic Approach to Forensic Handwriting Comparison”</strong>
-<ul>
-<li>August 2018</li>
-<li>Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry</li>
-<li>American Society of Questioned Document Examiners (ASQDE) Annual Meeting in Park City, UT.</li>
-</ul></li>
-<li><strong>“A Bayesian Approach to Forensic Handwriting Evidence”</strong>
-<ul>
-<li>July 2018
-<ul>
-<li>Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry</li>
-</ul></li>
-<li>Joint Statistical Meetings (JSM) in Vancouver, BC, Canada.</li>
-</ul></li>
-<li><strong>“Bringing Statistical Foundations to Forensic Handwriting Analysis”</strong>
-<ul>
-<li>May 2018</li>
-<li>Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry</li>
-<li>American Bar Association, 9th Annual Prescription for Criminal Justice Forensics Program in New York, NY.</li>
-</ul></li>
-</ul>
 </div>
 <div id="posters" class="section level3">
 <h3><span class="header-section-number">4.4.3</span> Posters</h3>
-<ul>
-<li><strong>“A Bayesian Hierarchical Model for Forensic Writer Identification”</strong>
-<ul>
-<li>August 2019</li>
-<li>Authors: <strong>Amy Crawford</strong>, Alicia Carriquiry, Danica Ommen</li>
-<li>10th International Workshop on Statistics and Simulation in Salzburg, Austria</li>
-<li><i>1st Springer Poster Award</i></li>
-</ul></li>
-<li><strong>“Statistical Analysis of Handwriting”</strong>
-<ul>
-<li>May 2019</li>
-<li>Authors: <strong>Amy Crawford</strong> and Nick Berry</li>
-<li>CSAFE Annual All-Hands Meeting in Ames, IA</li>
-</ul></li>
-<li><strong>“Statistical Analysis of Letter Importance for Document Examination”</strong>
-<ul>
-<li>February 2018</li>
-<li>Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry</li>
-<li>American Academy of Forensic Sciences in Seattle, WA</li>
-<li><i>YFSF Best Poster Award</i></li>
-</ul></li>
-<li><strong>(Presented AAFS 2018 Poster for a Second Time)</strong>
-<ul>
-<li>May 2018</li>
-<li>Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry, Danica Ommen</li>
-<li>CSAFE Annual All-Hands Meeting in Ames, IA</li>
-</ul></li>
-</ul>
 </div>
 </div>
 <div id="people-involved-1" class="section level2">
 <h2><span class="header-section-number">4.5</span> People involved</h2>
 <div id="faculty-1" class="section level3">
 <h3><span class="header-section-number">4.5.1</span> Faculty</h3>
-<ul>
-<li>Alicia Carriquiry</li>
-<li>Hal Stern (UCI, Project G PI)</li>
-<li>Danica Ommen</li>
-</ul>
 </div>
 <div id="graduate-students-1" class="section level3">
 <h3><span class="header-section-number">4.5.2</span> Graduate Students</h3>
-<ul>
-<li>Amy Crawford</li>
-</ul>
 </div>
 <div id="undergraduates-1" class="section level3">
 <h3><span class="header-section-number">4.5.3</span> Undergraduates</h3>
-<ul>
-<li>Anyesha Rey (data collection)</li>
-<li><p class="new">
-James Taylor (feature extraction)
-<p></li>
-</ul>
 
 </div>
 </div>

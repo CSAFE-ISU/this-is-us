@@ -23,18 +23,15 @@ Methods and data description handed off to Alicia for editing
 ##### `ShoeScrubR` package {-#lss-data-cleaning}
 All analysis methods for the Longitudinal data are contained in the [`ShoeScrubR` package](https://github.com/srvanderplas/ShoeScrubR). 
 
-<div class = "new">
 The `ShoeScrubR` package also includes logging of all image-in image-out operations using attributes - each time a transformation is performed, the transformation and the parameters are appended to the running operations log. This should make it possible to track the provenance of an object through the set of transformations (and potentially un-do them in some cases).
-</div>
 
 ##### Film and Powder Images {-#lss-paper-analysis-film}
 
-<div class = "new">
 The images are challenging to do basic statistical analysis on because the shoe print is made up of tiny particles (e.g. it is not a solid object), and there are areas of smudged particles outside the image (fingerprints, etc.) that can be hard to automatically remove. In addition, the film backing has subtle variations in color. 
 
 The prints are not rotationally aligned, that is, they are taken at a variety of angles (usually $\pm 15^\circ$ from vertical) which vary due to individual differences in walking style, the orientation of the film, and changes in experimental protocol. 
 
-Experimental protocol changes included resolution changes for the scans over time: the resolution of the last set of images is about 2 times higher than the resolution of the first 3 check-ins worth of images. Thus, parameters need to be automatically selected based on the resolution of the image.  (Still to do)
+Experimental protocol changes included resolution changes for the scans over time: the resolution of the last set of images is about 2 times higher than the resolution of the first 3 check-ins worth of images. Thus, parameters need to be automatically selected based on the resolution of the image. 
 
 The initial use of templates to clean up the image requires addressing the alignment of the print and the template. As this experiment contains 8 total shoe model and size combinations, it is possible to create a template for each shoe model and use that template to isolate the region of the image which contains a set of features most likely to be a shoe (rather than random noise). 
 
@@ -63,7 +60,52 @@ After:
 These steps are wrapped into the `rough_align` function in the `ShoeScrubR` package. 
 
 </details>
+<div class="new">
+<details><summary>Cleaning the image and exaggerating into a mask</summary>
+In several of the methods applied to this data, it has been useful to have an exaggerated version of the image to function as a mask - this exaggerated image has a center of mass similar to the actual mask, for instance. 
 
+Creating this mask requires parameter tuning (done the old way); a new method was developed in order to reduce the number of parameters which depended on image resolution and other similar items. 
+
+In the old method, there were several parameters necessary - gaussian blur diameter for image cleaning, threshold for binarization, gaussian blur diameter for mask creation, threshold for image cleaning, diameter for opening the mask, diameter for closing the mask. 
+
+The new steps are as follows: 
+
+1. Use the EM algorithm to cluster the intensities of the points into three normally distributed categories: signal, intermediate, and background. The normality assumption is highly questionable, but the method works pretty well. Use the calculated pdf values for each point to construct a likelihood ratio of P(signal)/P(intermediate + background). Binarize based on the value of this likelihood ratio - if it's over 10, the pixel is signal.    
+    - Each shoe is shown in three separate images, corresponding to the pdf value for each point based on the EM algorithm clustering distribution fitted values. White pixels are highly likely to belong to the group in question - signal, intermediate, and noise.     
+    <img src="images/shoes/longitudinal/EM_pixsets.png" width = "80%"/>    
+    - Binarized versions of each shoe    
+    <img src="images/shoes/longitudinal/EM_LR10_pixset.png" width = "100%"/>
+
+2. The binarized image from the EM algorithm is cleaned slightly using parameters that should be robust to different ppi images (diameters < 10 pixels) - this gets rid of speckling induced by the EM segmentation.    
+    - Initial cleaning - dilation and erosion at very small pixel values    
+    <img src="images/shoes/longitudinal/EM_LR10_clean.png" width = "100%"/>
+    - Labeling disjoint regions (different colors indicate different regions)
+    <img src="images/shoes/longitudinal/EM_LR10_label.png" width = "100%"/>
+    - Removing any blobs which are in the 50px square corner region and which do not involve more than 10% of the image.    
+    <img src="images/shoes/longitudinal/EM_LR10_corner_clean.png" width = "100%"/>    
+At this point we can use the mask to clean the image:    
+<img src="images/shoes/longitudinal/EM_LR10_clean_img.png" width = "100%"/>
+
+3. The binarized image is exaggerated using parameters which are dependant on the size of the image. In general, size $s$ here is the square root of the number of pixels in the image, that is, the side length of the image if it were square.
+    - A gaussian blur is applied to the image (diameter $s$/50)    
+    <img src="images/shoes/longitudinal/EM_LR10_blur_img.png" width = "100%"/>
+    - Any pixel intensity less than the median is determined to be shoe    
+    <img src="images/shoes/longitudinal/EM_LR10_blur_thresh.png" width = "100%"/>
+    - All disjoint regions are labeled    
+    <img src="images/shoes/longitudinal/EM_LR10_blur_label.png" width = "100%"/>
+    - The largest region is selected as the best mask for the shoe
+    <img src="images/shoes/longitudinal/EM_LR10_exag_mask.png" width = "100%"/>
+    - Some cleaning is done to this mask - any holes are filled in and then it is opened by a diameter of approximately $s$/5 (must be odd)    
+    <img src="images/shoes/longitudinal/EM_LR10_mask_final.png" width = "100%"/>
+
+At this point we can use the mask to get a "clean" image:    
+<img src="images/shoes/longitudinal/EM_LR10_image_mask_final.png" width = "100%"/>
+
+And proceed with the alignment as normal: 
+
+<img src="images/shoes/longitudinal/EM_LR10_alignment.png" width = "100%"/>
+</details>
+</div>
 <details>
 <summary> Fine Alignment of Template Mask and Image: Brute-Force, but with image pyramids to reduce computing time.
 </summary>
@@ -203,12 +245,14 @@ Recommendations:
 
 The set up: 
 
+Note: With these alignment processes we are assuming that the shoe size does not change with wear and that we are not aligning across pairs of shoes. 
+
 Then we want to look at the change overtime a specific shoe, so we need to grab the shoe scans over time. Using the function *shoe_grab* to grab the scans of a given shoe ID, specify the id number of a shoe you want to look at, (Make sure you have access to the data, follow the steps on the README for more information. For more information on the shoe data, see **Longituidinal_Shoe_Study**), and turns the given shoe into mesh objects to do further analysis. 
 
 
 What we have tried: 
 
-At first we wanted to try to simplify the mesh object to just the basic shape in order have simplicity when aligning, however the problem was realized that we are using a prediction to allign rather than the shoe, 
+At first we wanted to try to simplify the mesh object to just the basic shape in order have simplicity when aligning. The idea of allignment is to take the most basic features, allign them, then by adding complexity of the soul, further allign the two different shoes. The idea is that we want to take a lower detail scan of shoe, allign it, then by adding complexity we can further allign the shoes. However the problem was realized that we are using a prediction to allign rather than the shoe, which ran into some quick problems. 
 
 What we are doing now 
   - Transforming the mesh objects to points aligned by the center of mass to overlay them detecting difference. 

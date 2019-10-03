@@ -20,7 +20,7 @@ shoe_info <- read_csv("~/Projects/CSAFE/2018_Longitudinal_Shoe_Project/Clean_Dat
   filter(ShoeID %in% str_sub(basename(imglist), 1, 3)) %>%
   select(ShoeID, Brand, Size) %>%
   mutate(Size = str_remove(Size, "[ MW]") %>% parse_number()) %>%
-  crossing(tibble(Mask_foot = c("R", "L"), Shoe_foot = c("L", "R"), ppi = c(200, 300))) %>%
+  crossing(tibble(Mask_foot = c("R", "L"), Shoe_foot = c("L", "R")), ppi = c(200, 300)) %>%
   mutate(mask = purrr::pmap(list(Brand, Size, Mask_foot, ppi = ppi), shoe_mask))
 
 scan_info <- tibble(
@@ -29,7 +29,7 @@ scan_info <- tibble(
   Shoe_foot = str_extract(basename(file), "\\d{6}[RL]") %>% str_remove_all("\\d"),
   date = str_extract(basename(file), "\\d{8}") %>% parse_date(format = "%Y%m%d")
 ) %>%
-  left_join(select(shoe_info, ShoeID, Brand, Size, Shoe_foot)) %>%
+  left_join(unique(select(shoe_info, ShoeID, Brand, Size, Shoe_foot))) %>%
   group_by(Shoe_foot, Brand) %>%
   sample_n(2) %>%
   ungroup() %>%

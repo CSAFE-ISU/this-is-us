@@ -189,12 +189,14 @@ In progress:
 
 The set up: 
 
+Note: With these alignment processes we are assuming that the shoe size does not change with wear and that we are not aligning across pairs of shoes. 
+
 Then we want to look at the change overtime a specific shoe, so we need to grab the shoe scans over time. Using the function *shoe_grab* to grab the scans of a given shoe ID, specify the id number of a shoe you want to look at, (Make sure you have access to the data, follow the steps on the README for more information. For more information on the shoe data, see **Longituidinal_Shoe_Study**), and turns the given shoe into mesh objects to do further analysis. 
 
 
 What we have tried: 
 
-At first we wanted to try to simplify the mesh object to just the basic shape in order have simplicity when aligning, however the problem was realized that we are using a prediction to allign rather than the shoe, 
+At first we wanted to try to simplify the mesh object to just the basic shape in order have simplicity when aligning. The idea of allignment is to take the most basic features, allign them, then by adding complexity of the soul, further allign the two different shoes. The idea is that we want to take a lower detail scan of shoe, allign it, then by adding complexity we can further allign the shoes. However the problem was realized that we are using a prediction to allign rather than the shoe, which ran into some quick problems. 
 
 What we are doing now 
   - Transforming the mesh objects to points aligned by the center of mass to overlay them detecting difference. 

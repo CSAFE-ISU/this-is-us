@@ -149,6 +149,9 @@ In the meantime, it is much easier (relatively speaking) to use our existing fra
 **Repeat the above process for different cuts of the original image, and aggregate predictions**
 <img src="images/shoes/neuralnets/predict_multiple_offsets.PNG" width = "100%"/>
 
+**Updated visualization of aggregated predictions**
+<img src="images/shoes/neuralnets/predict_rect.PNG" width = "100%"/>
+
 </div>
 
 
@@ -166,23 +169,34 @@ In progress:
     - Test for length, clarity, ease, etc.
 - Be involved in set up of data collection site (through CSSM)
 
-<div class = "new">
+
 
 #### Comparing the procedures
 
+<div class = "new">
 
-| Procedure           | Leverhulme      | CSAFE              |
-|---------------------|-----------------|--------------------|
-| 'Before' Pictures   | 4 per shoe      | 15 per shoe        |
-| Paper               | Letter (larger) | Tape printer paper |
-|                     |                 |                    |
-| Actions             | Run, jump, walk | Step, hop          |
-| Replicates          | 6 per shoe      | 9 per shoe         |
-| 'After' Pictures    | 1 pic per print | 3 pics per print   |
-|                     |                 |                    |
-| Total number prints | 18 per shoe     | 18 per shoe        |
-| Total number images | 18 per shoe     | 54 per shoe        |
+| Procedure           | Leverhulme      | CSAFE (initial)    | CSAFE (proposed)
+|---------------------|-----------------|--------------------|------------------|
+| 'Before' Pictures   | 4 per shoe      | 15 per shoe        | 5 per shoe       |
+| Paper               | Letter (larger) | Tape 8.5 x 11      | Tape 8.5 x 11    |
+|                     |                 |                    |                  |
+| Actions             | Run, jump, walk | Step, hop          | Step, hop        |
+| Replicates          | 6 per shoe      | 9 per shoe         | 6 per shoe       |
+| 'After' Pictures    | 1 pic per print | 3 pics per print   | 1 pic per print  |
+|                     |                 |                    |                  |
+| Total number prints | 18 per shoe     | 18 per shoe        | 12 per shoe      |
+| Total number images | 18 per shoe     | 54 per shoe        | 12 per shoe      |
 
+
+Recommendations:
+
+- Ask for one high-quality image of each shoe angle ('before') and print ('after'), instead of three replicate images of each
+    - If Project Tread submission website is set up like current CSSM system (which takes community submissions for environmental images), intermediate quality control can help filter out bad images
+- Only ask for one shoe, and make second shoe optional
+    - Analysis ramifications?
+- Ask for 6 replicates per shoe, like Leverhulme
+    - Analysis ramifications?
+    
 </div>
 
 ## 3d Shoe Recognition 

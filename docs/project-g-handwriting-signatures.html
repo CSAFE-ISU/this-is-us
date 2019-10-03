@@ -55,6 +55,7 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -236,492 +237,71 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="project-g-handwriting-signatures" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Project G: Handwriting (&amp; Signatures)</h1>
-<p>The handwriting project has four major focuses:</p>
-<ol style="list-style-type: decimal">
-<li>data collection</li>
-<li>computational tools</li>
-<li>statistical analysis
-<ol style="list-style-type: lower-alpha">
-<li>glyph clustering</li>
-<li>closed set modeling for writer identification</li>
-</ol></li>
-<li>communication of results</li>
-</ol>
+<p>Placeholder</p>
 <div id="data-collection-1" class="section level2">
 <h2><span class="header-section-number">4.1</span> Data Collection</h2>
-<p>We are conducting a large data collection study to gather handwriting samples from a variety of participants across the world (most in the Midwest). Each participant provides handwriting samples at three sessions. Session packets are prepared, mailed to participants, completed, and mailed back. Once recieved, we scan all surveys and writing samples. Scans are loaded, cropped, and saved using a Shiny app. The app also facilitates survey data entry, saving that participant data to lines in an excel spreadsheet.</p>
-<p>Data collection is underway with the most recent update (9/1) at 106 participants enrolled:</p>
-<ul>
-<li>44 complete through session #3</li>
-<li>52 complete through session #2</li>
-<li>10 complete through session #1</li>
-</ul>
-<p>As of September 2019, Marc and Anyesha are the primary contacts for the study.</p>
 </div>
 <div id="computational-tools-1" class="section level2">
 <h2><span class="header-section-number">4.2</span> Computational Tools</h2>
-<p><code>handwriter</code> is a developmental R package hosted at <a href="https://github.com/CSAFE-ISU/handwriter" class="uri">https://github.com/CSAFE-ISU/handwriter</a>. It is our major computational tool for the project. The package takes in scanned handwritten documents and the following are performed.</p>
-<ol style="list-style-type: decimal">
-<li><strong> Binarize.</strong> Turn the image to pure black and white.</li>
-<li><strong> Skeletonize. </strong> Reduce writing to a 1 pixel wide skeleton.</li>
-<li><strong> Break. </strong> Connected writing is decomposed into small manageable pieces called <strong> glyphs </strong>. Glyphs are graphical structures with nodes and edges that often, but not always, correspond to Roman letters, and are the smallest unit of observation we consider for statistcal modelling.</li>
-<li><strong> Measure. </strong> A variety of measurements are taken on each glyph.</li>
-</ol>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-45"></span>
-<img src="images/handwriting/amy/handwriter_csafe.png" alt="Connected text processed by `handwriter`. The grey background is the original pen stroke. Colored lines represent the single pixel skeleton with color changes marking glyph decomposition. Red dots mark endpoints and intersections of each glyph." width="50%" />
-<p class="caption">
-Figure 4.1: Connected text processed by <code>handwriter</code>. The grey background is the original pen stroke. Colored lines represent the single pixel skeleton with color changes marking glyph decomposition. Red dots mark endpoints and intersections of each glyph.
-</p>
-</div>
-<p>For an input document, functions in the package give back a list of glyphs with path and node location information, adjacency grouping assignment, slope (pictured below), and centroid locations, among other things.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-46"></span>
-<img src="images/handwriting/amy/handwriter_slopecalc.png" alt="A visual of the ``slope'' calculation for two glyphs." width="90%" />
-<p class="caption">
-Figure 4.2: A visual of the ``slope’’ calculation for two glyphs.
-</p>
-</div>
-We are currently working to incorporate the cluster grouping assignments into the package. This will be complete pending creation of a template.
-<p class="new">
-Code is running on the <code>csafe-01</code> server for template creation.
-<p>
 </div>
 <div id="statistical-analysis" class="section level2">
 <h2><span class="header-section-number">4.3</span> Statistical Analysis</h2>
 <div id="clustering" class="section level3">
 <h3><span class="header-section-number">4.3.1</span> Clustering</h3>
-<p>Paper submitted (September 2019)!</p>
-<p><img src="images/handwriting/amy/clusterpaper_header.png" width="70%" style="display: block; margin: auto;" /></p>
-<hr />
-<p>Rather than impose rigid grouping rules (the previously used ‘’adjacency grouping’’) we consider a more robust, dynamic <span class="math inline">\(K-\)</span>means type clustering method that is focused on major glyph structural components.</p>
-<p>Clustering algorithms require:</p>
-<ul>
-<li><strong> A distance measure.</strong> For us, a way to measure the discrepancy between glyphs.</li>
-<li><strong> A measure of center.</strong> A glyph-like structure that is the exemplar representation of a group of glyphs.</li>
-</ul>
 <div id="glyph-distance-measure" class="section level4 unnumbered">
 <h4>Glyph Distance Measure</h4>
-<p>We begin by defining edge to edge distances. Edge to edge distances are subsequently combined for an overall glyph to glyph distance.</p>
-<p><strong>Edge to edge distances:</strong></p>
-Consider the following single edge glyphs, <span class="math inline">\(e_1\)</span> and <span class="math inline">\(e_2\)</span>. Make <span class="math inline">\(3\)</span> edits to <span class="math inline">\(e_1\)</span> to match <span class="math inline">\(e_2\)</span>. The combined magnitude of each edit make the edge distance.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-48"></span>
-<img src="images/handwriting/amy/DistMeasurePlot1.png" alt="Two edges that are also glyphs, $e_1$ and $e_2$." width="60%" />
-<p class="caption">
-Figure 4.3: Two edges that are also glyphs, <span class="math inline">\(e_1\)</span> and <span class="math inline">\(e_2\)</span>.
-</p>
-</div>
-<ol style="list-style-type: decimal">
-<li><strong> Shift</strong>. Anchor to the nearest endpoint by shifting.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-49"></span>
-<img src="images/handwriting/amy/DistMeasurePlot2.png" alt="Shift = 1.4." width="25%" />
-<p class="caption">
-Figure 4.4: Shift = 1.4.
-</p>
-</div></li>
-<li><strong> Stretch</strong>. Make the endpoints the same distance apart.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-50"></span>
-<img src="images/handwriting/amy/DistMeasurePlot3.png" alt="Stretch = 9.9." width="25%" />
-<p class="caption">
-Figure 4.5: Stretch = 9.9.
-</p>
-</div></li>
-<li><strong> Shape</strong>. Bend and twist the edge using <span class="math inline">\(7\)</span> shape points. Shape points are ‘’matched’’ and the distance between them is averaged to obtain the shape contribution to the distance measure.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-51"></span>
-<img src="images/handwriting/amy/DistMeasurePlot4.png" alt="Shape Components." width="25%" />
-<p class="caption">
-Figure 4.6: Shape Components.
-</p>
-</div></li>
-</ol>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-52"></span>
-<img src="images/handwriting/amy/DistMeasurePlot5.png" alt="Shape = 8.4." width="100%" />
-<p class="caption">
-Figure 4.7: Shape = 8.4.
-</p>
-</div>
-<p>Combine the three measurements for a final edge to edge distance. D<span class="math inline">\((e_1, e_2) = 1.4 + 9.9 + 8.4 = 19.7\)</span>.</p>
-<p>For multi-edge glyphs get pairwise edge distances. Minimize total glyph distance using linear programming to match edges (sudoku). Down-weight edge distance contributions based on edge lengths. There are nuances associated with all of this. We must handle glyphs with differing number of edges, and consider the direction in which edges are compared (endpoint labels are arbitrary). All of this is addressed in detail in the paper.</p>
 </div>
 <div id="measure-of-glyph-centers" class="section level4 unnumbered">
 <h4>Measure of glyph centers</h4>
-Take the weighted average of endpoints, <span class="math inline">\(7\)</span> shape points, and edge length.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-53"></span>
-<img src="images/handwriting/amy/Meanplot1.png" alt="Weighted mean between two glyphs. p = weight on blue." width="60%" />
-<p class="caption">
-Figure 4.8: Weighted mean between two glyphs. p = weight on blue.
-</p>
-</div>
-<p>The mean of a set can be iteratively calculated by properly weighting each newly introduced glyph. For stability, the <span class="math inline">\(K-\)</span>means algorithm finds the glyph nearest the mean and uses that  as measure of cluster center.</p>
 </div>
 <div id="k-means-algorithm-for-glyphs" class="section level4 unnumbered">
 <h4><span class="math inline">\(K-\)</span>means Algorithm for Glyphs</h4>
-<p>Implement a standard <span class="math inline">\(K-\)</span>means<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> with handling of outlier observations.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
-<p>Begin with fixed <span class="math inline">\(K\)</span> and a set of exemplars. Iterate between the following steps until cluster assignments do not change:</p>
-<ol style="list-style-type: decimal">
-<li>Assign each glyph to the exemplar it is nearest to, with respect to the glyph distance measure.<br />
-</li>
-<li>Calculate each cluster mean as defined. Find the exemplar nearest the cluster mean and use it as the new cluster center.</li>
-</ol>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-54"></span>
-<img src="images/handwriting/amy/Cluster40.png" alt="One of $K=40$ Clusters. Exemplar &amp; cluster members (left). Cluster mean (right)." width="40%" />
-<p class="caption">
-Figure 4.9: One of <span class="math inline">\(K=40\)</span> Clusters. Exemplar &amp; cluster members (left). Cluster mean (right).
-</p>
-</div>
-<p>Use one document from each training writer to cluster and obtain a template. Make cluster assignments for the remaining documents by finding the template exemplar each glyph is nearest to. Below is an example of data that arises from the clustering method.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-55"></span>
-<img src="images/handwriting/amy/Clusterdata.png" alt="Data arising from the cluster grouping method. Cluster #'s ordered by most to least populated." width="60%" />
-<p class="caption">
-Figure 4.10: Data arising from the cluster grouping method. Cluster #’s ordered by most to least populated.
-</p>
-</div>
 </div>
 <div id="outliers" class="section level4">
 <h4><span class="header-section-number">4.3.1.1</span> Outliers</h4>
-<p>During clustering, outliers are considered glyphs that are at least <span class="math inline">\(T_o\)</span> distance units from cluster exemplars. The algorithm sets a ceiling <span class="math inline">\(n_o\)</span> on the allowable number of outliers. Initially, we were going to ignore the outliers, but now they are considered the <span class="math inline">\(K+1\)</span>th cluster and contribute information about writer.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-56"></span>
-<img src="images/handwriting/amy/HW_Outliers.png" alt="Cluster of outliers." width="80%" />
-<p class="caption">
-Figure 4.11: Cluster of outliers.
-</p>
-</div>
 </div>
 </div>
 <div id="closed-set-modeling" class="section level3">
 <h3><span class="header-section-number">4.3.2</span> Closed set modeling</h3>
-<p>The following will be the jumping off point for purposes of this book chapter with respect to modeling and discussion of results.</p>
-<div class="figure">
-<img src="images/handwriting/amy/Crawford_SIMSTAT_2019.png" alt="Poster given at the 10th International Workshop on Simulation and Statistics" />
-<p class="caption">Poster given at the 10th International Workshop on Simulation and Statistics</p>
-</div>
 <div id="model-1-straw-man" class="section level4 unnumbered">
 <h4>Model #1, Straw Man</h4>
-<p>Let,</p>
-<ul>
-<li><span class="math inline">\(\boldsymbol{Y}_{w(d)} = \{Y_{w(d),1}, \dots, Y_{w(d),K}\}\)</span> be the number of glyphs assigned to each cluster for document within writer, <span class="math inline">\(w(d),\)</span> and</li>
-<li><span class="math inline">\(\boldsymbol{\pi}_w = \{\pi_{w,1}, \dots, \pi_{w,K} \}\)</span> be the rate at which a writer emits glyphs to each cluster.</li>
-<li>Here, <span class="math inline">\(K = 41\)</span>, <span class="math inline">\(d = 1,2,...,5\)</span>, <span class="math inline">\(w = 1,...,27\)</span>.</li>
-</ul>
-<p>Then a hierarchical model for the data is
-<span class="math display">\[\begin{array}{rl}
-     \mathbf{Y}_{w(d)}\: &amp;\stackrel{ind}{\sim} \:Multinomial(\boldsymbol\pi_{w}), \\
-\boldsymbol{\pi}_w \:&amp;\stackrel{ind}{\sim}\: Dirichlet(\boldsymbol{\alpha}),\\
-\alpha_{1}, \dots, \alpha_{K}\: &amp;\stackrel{iid}{\sim}\: Gamma(2, \:0.25).  \label{model_line3}
-\end{array}\]</span></p>
-<p><strong> Posterior Predictive Analysis </strong></p>
-<p>For a holdout document of unknown source, <span class="math inline">\(w^*\)</span>,</p>
-<ul>
-<li>Extract glyphs with  and assign groups,
-<ul>
-<li><span class="math inline">\(\boldsymbol{Y}^*_{w^*}=\{Y_{w^*,1}, ... Y_{w^*,K}\}\)</span></li>
-</ul></li>
-<li>Assess the posterior probability of writership under each known writer <span class="math inline">\(\boldsymbol\pi_{w}\)</span> vectors.
-<ul>
-<li>i.e. <span class="math inline">\(p(w^* = w^\prime|\boldsymbol{Y^*}, \boldsymbol{Y})\)</span> for each writer <span class="math inline">\(w^\prime\)</span> in the training data.</li>
-</ul></li>
-</ul>
-<p>The posterior probability that the questioned document <span class="math inline">\(\boldsymbol{Y}^*_{w^*}\)</span> belongs to writer <span class="math inline">\(w^\prime\)</span> with respect to the closed set is,
-<span class="math display">\[\begin{array}{rl}
-    p(w^* = w^\prime|\boldsymbol{Y}^*, \boldsymbol{Y}) 
-     &amp; \propto p(\boldsymbol{Y}^*| w^* = w^\prime, \boldsymbol{Y}) p(w^*=w^\prime | \boldsymbol{Y})\nonumber\\
-     &amp; \propto p(\boldsymbol{Y}^*| w^* = w^\prime, \boldsymbol{Y})   \nonumber\\
-    &amp; = \int p(\boldsymbol{Y}^*|   \boldsymbol{\pi}_{w^\prime}) p(\boldsymbol{\pi}_{w^\prime}| \boldsymbol{Y}) d \boldsymbol{\pi}_{w^\prime}\nonumber\\ 
-    &amp; \approx \frac{1}{M} \sum_{m=1}^M p(\boldsymbol{Y}^*|   \boldsymbol{\pi}^{(m)}_{w^\prime}) , \mbox{ where }  \boldsymbol{\pi}^{(m)}_{w^\prime} \sim p(\boldsymbol{\pi}_{w^\prime}|\boldsymbol{Y})  \nonumber 
-\end{array}\]</span></p>
-<p>for MCMC iterations <span class="math inline">\(m = 1, \dots, M\)</span>. Then, for a given iteration <span class="math inline">\(m\)</span>,</p>
-<p><span class="math display">\[
-p(\boldsymbol{Y}^*|   \boldsymbol{\pi}^{(m)}_{w^\prime}) =    p_{w^\prime}^{(m)} =  \frac{Mult(\boldsymbol{Y}^*; \boldsymbol{\pi}_{w^\prime}^{(m)})}{\sum_{w_i = 1}^{27}Mult(\boldsymbol{Y}^*; \boldsymbol{\pi}_{w_i}^{(m)}) }. \nonumber
-\]</span>
-Calculate the quantitity for each known writer <span class="math inline">\(w^\prime = w_1, \dots, w_{27}\)</span> in training set to get
-<span class="math display">\[
-\boldsymbol{p}^{(m)} = \{p_{w_1}^{(m)}, ..., p_{w_{27}}^{(m)}\},
-\]</span>
-and compute summaries over the MCMC draws,
-<span class="math display">\[
-\boldsymbol{\bar{p}} = \{\bar{p}_{w_1},...,\bar{p}_{w_{27}}\}.
-\]</span></p>
-<p><strong> Results </strong></p>
-<p>There is one holdout document for each writer. The <span class="math inline">\(\boldsymbol{\bar{p}}\)</span> vector as given above is shown graphically for each holdout document (the rows).</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-57"></span>
-<img src="images/handwriting/amy/CVL_w27_h4_cluster40_basemodel_grid.png" alt="Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.2013" width="60%" />
-<p class="caption">
-Figure 4.12: Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.2013
-</p>
-</div>
-<p><strong> Evaluating Over-/Under-dispersion (Writer Variability Index) </strong><br />
-With a count data model it is important to investigate the presence of over- and under-dispersion. An index of intra-writer variability with respect to a model.</p>
-<ul>
-<li>Multivariate Generalized Dispersion Index (GDI) of Kokonendji and Puig<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>.</li>
-<li>Relative Dispersion Index (RDI) = <span class="math inline">\(\frac{\mbox{writer data GDI}}{\mbox{model simulated GDI}}.\)</span></li>
-<li>High RDI <span class="math inline">\(\implies\)</span> data over-dispersion and high sample to sample variability.</li>
-</ul>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-58"></span>
-<img src="images/handwriting/amy/RDI_table.png" alt="RDIs for the 27 CVL writers under Model #1." width="60%" />
-<p class="caption">
-Figure 4.13: RDIs for the 27 CVL writers under Model #1.
-</p>
-</div>
-<p>High RDI <span class="math inline">\(\implies\)</span> data over-dispersion &amp; high sample to sample variability (in the sense of glyph cluster membership rates).</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-59"></span>
-<img src="images/handwriting/amy/writer12samples.png" alt="Handwriting Samples from Writer #12. Notice the repeated patterns in letters 'a', 'e', 'f', 'g', 'h', 't', etc. across samples." width="70%" />
-<p class="caption">
-Figure 4.14: Handwriting Samples from Writer #12. Notice the repeated patterns in letters ‘a’, ‘e’, ‘f’, ‘g’, ‘h’, ‘t’, etc. across samples.
-</p>
-</div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-60"></span>
-<img src="images/handwriting/amy/writer23samples.png" alt="Handwriting Samples from Writer #23. Note the red 'h's, green 'll's, purple terminal 'y's, and blue 'loo's" width="80%" />
-<p class="caption">
-Figure 4.15: Handwriting Samples from Writer #23. Note the red ’h’s, green ’ll’s, purple terminal ’y’s, and blue ’loo’s
-</p>
-</div>
 </div>
 <div id="model-2-mixture" class="section level4 unnumbered">
 <h4>Model #2, Mixture</h4>
-<p><span class="math display">\[\begin{array}{rl}
-     \mathbf{Y}_{w(d)} | \boldsymbol\pi_{w}, w\: &amp;\stackrel{ind}{\sim} \:Multinomial(\boldsymbol\pi_{w}), \\
-\boldsymbol{\pi}_w|\boldsymbol{\alpha},\boldsymbol{\beta}, \rho_w  \:&amp;\stackrel{ind}{\sim}\:Dirichlet(\rho_w \: \boldsymbol{\alpha}+ (1-\rho_w)  \: \boldsymbol{\beta}), \\
-\alpha_{k}, \: \beta_{k} \: &amp;\stackrel{iid}{\sim}\: Gamma(2, \: 0.25),  \\
-\rho_w\: &amp; \stackrel{iid}{\sim}\: Beta(1,1)
-\end{array}\]</span></p>
-<p><strong> Label Switchin Issues. </strong></p>
-<p>Investigating post-processing methods to handle identifiability issues with this model. The MCMC routine is stuck in one of two modes (which saves us, here). Making the usual inferences about <span class="math inline">\(\rho, \alpha,\)</span> and <span class="math inline">\(\beta\)</span> is not appropriate if the label switching problem is not addressed.</p>
-<p><strong> Results </strong></p>
-The mixing component gives insights into writing style.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-61"></span>
-<img src="images/handwriting/amy/mixprior_rhosamps2.png" alt="Average $
-ho_w$ value for each writer." width="70%" />
-<p class="caption">
-Figure 4.16: Average $
-ho_w$ value for each writer.
-</p>
-</div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-62"></span>
-<img src="images/handwriting/amy/writingsamples_style.png" alt="Writing samples in a variety of styles based on the mixing parameter. From top to bottom, writer #'s 21, 4, 29, 20, 18." width="60%" />
-<p class="caption">
-Figure 4.17: Writing samples in a variety of styles based on the mixing parameter. From top to bottom, writer #’s 21, 4, 29, 20, 18.
-</p>
-</div>
-Evaluate the posterior probability of writership for each of the holdout documents.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-63"></span>
-<img src="images/handwriting/amy/CVL_w27_h4_cluster40_mixparam_grid.png" alt="Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.2078" width="60%" />
-<p class="caption">
-Figure 4.18: Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.2078
-</p>
-</div>
 </div>
 <div id="model-3-normal-slopes.-work-in-progress." class="section level4 unnumbered">
 <h4>Model #3, Normal Slopes. Work in progress.</h4>
-<p>Adding slope measurements into the model.</p>
-<p>Let,</p>
-<ul>
-<li><span class="math inline">\(\boldsymbol{Y}_{w(d)} = \{Y_{w(d),1}, \dots, Y_{w(d),K}\}\)</span> be the number of glyphs assigned to each group for document within writer, <span class="math inline">\(w(d),\)</span></li>
-<li><span class="math inline">\(\boldsymbol{\bar{S}}_{w(d)} = \{\bar{S}_{w(d),1}, \dots, \bar{S}_{w(d),K}\}\)</span>, be the average slope in each group for document <span class="math inline">\(w(d)\)</span>
-<ul>
-<li><span class="math inline">\(G_{w(d),j}\)</span> be the <span class="math inline">\(j^{th}\)</span> glyph in document <span class="math inline">\(w(d)\)</span>,</li>
-<li><span class="math inline">\(g_{w(d), j} = 1, \dots, 41\)</span> be the available cluster assignments for the <span class="math inline">\(j^{th}\)</span> glyph in the document,</li>
-<li><span class="math inline">\(S_{w(d),j}\)</span> be the slope of the <span class="math inline">\(j^{th}\)</span> glyph in the document.</li>
-</ul></li>
-<li>Here, <span class="math inline">\(K = 41\)</span>, <span class="math inline">\(d = 1,2,...,5\)</span>, <span class="math inline">\(w = 1,...,27\)</span>, <span class="math inline">\(j= 1, \dots,\mathrm{J}_{w(d)}.\)</span></li>
-</ul>
-<p><span class="math display">\[
-\bar{S}_{w(d),k}= \frac{1}{Y_{w(d),k}} \sum_{j \ni  \mathrm{I}[g_j = k]}S_{w(d),j} \quad \&amp; \quad Y_{w(d),k} = \sum_{j = 1}^{\mathrm{J}_{w(d)}} \mathrm{I}[g_j = k]
-\]</span></p>
-<p>Then a hierarchical model for the data is</p>
-<p><span class="math display">\[\begin{array}{rl}
-     \mathbf{Y}_{w(d)} | \boldsymbol\pi_{w}, w\: &amp;\stackrel{ind}{\sim} \:Multinomial(\boldsymbol\pi_{w}), \\
-\boldsymbol{\pi}_w|\boldsymbol{\alpha} \:&amp;\stackrel{ind}{\sim}\:Dirichlet(\boldsymbol{\alpha}), \\
-\alpha_k\: &amp;\stackrel{iid}{\sim}\: Gamma(a = 2, \: b= 0.25),  \\
-\bar{S}_{w(d),k} | Y_{w(d),k}, w, \mu_{w, k}, \sigma^2_{k}  \: &amp; \stackrel{iid}{\sim}\: N \left(\mu_{w, k}, \frac{\sigma^2_{k}}{Y_{w(d),k}}\right) \\
-\mu_{w, k} | \mu_{k} \: &amp; \stackrel{iid}{\sim}\:  N(\mu_{k}, 3) \\
-\mu_{k} \: &amp; \stackrel{iid}{\sim}\:  N(0, 3) \\
-1/\sigma^2_{k}\: &amp; \stackrel{iid}{\sim}\:  Gamma(0.5, 0.1)
-\end{array}\]</span></p>
-<p>Consider a new document with cluster fill counts <span class="math inline">\(\boldsymbol{Y}^*\)</span> and average slope measurements <span class="math inline">\(\boldsymbol{\bar{S}}^*\)</span> from unknown writer <span class="math inline">\(w^*\)</span>.</p>
-<p><strong> Posterior Predictive Analysis </strong></p>
-<p>Posterior probability that the questioned document belongs to writer <span class="math inline">\(w^\prime\)</span> with respect to the closed set is:
-\begin{array}{rl}
-&amp;p(w^* = w<sup>|</sup>* ^<em>, ) \
-&amp;p(^</em> | w^* = w^, ) \
-&amp; _{m=1}^{M} Mult(^*; _{w<sup>}</sup>{(m)}) 
-\end{array}
-for MCMC samples <span class="math inline">\(m = 1, \dots, M\)</span>.</p>
-<p><strong> Results </strong></p>
-Evaluate the posterior probability of writership for each of the holdout documents.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-64"></span>
-<img src="images/handwriting/amy/CVL_w27_h4_cluster40_normslopemean_grid.png" alt="Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.0883." width="60%" />
-<p class="caption">
-Figure 4.19: Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.0883.
-</p>
-</div>
 </div>
 <div id="modeling-summary" class="section level4 unnumbered">
 <h4>Modeling Summary</h4>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Model</th>
-<th align="left">Data</th>
-<th align="right">LogLoss</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">#1</td>
-<td align="left">Adjacency Grouping (not presented)</td>
-<td align="right">0.5413</td>
-</tr>
-<tr class="even">
-<td align="left">#1</td>
-<td align="left">Cluster Grouping</td>
-<td align="right">0.2013</td>
-</tr>
-<tr class="odd">
-<td align="left">#2</td>
-<td align="left">Cluster Grouping</td>
-<td align="right">0.2078</td>
-</tr>
-<tr class="even">
-<td align="left">#3</td>
-<td align="left">Cluster Grouping &amp; Glyph Slopes</td>
-<td align="right">0.0883</td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 </div>
 <div id="communication-of-results" class="section level2">
 <h2><span class="header-section-number">4.4</span> Communication of Results</h2>
-<p>Presenting author is in bold.</p>
 <div id="papers" class="section level3">
 <h3><span class="header-section-number">4.4.1</span> Papers</h3>
-<ul>
-<li><strong>“A Clustering Method for Graphical Handwriting Components and Statistical Writership Analysis”</strong>
-<ul>
-<li>Authors: Nick Berry, Amy Crawford</li>
-<li>Submitted to The Annals of Applied Statistics in September 2019.</li>
-</ul></li>
-<li><strong>“Bayesian Hierarchical Modeling for Forensic Handwriting Analysis”</strong>
-<ul>
-<li>Authors: Amy Crawford, Alicia Carriquiry, and Danica Ommen</li>
-<li>In preparation for submission to PNAS</li>
-</ul></li>
-</ul>
 </div>
 <div id="talks" class="section level3">
 <h3><span class="header-section-number">4.4.2</span> Talks</h3>
-<ul>
-<li><strong>“Statistical Analysis of Handwriting for Writer Identification”</strong>
-<ul>
-<li>August 2019</li>
-<li>Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry, Danica Ommen</li>
-<li>American Society of Questioned Document Examiners (ASQDE) Annual Meeting in Cary, NC.</li>
-</ul></li>
-<li><strong>“A Bayesian Hierarchical Mixture Model with Applications in Forensic Handwriting Analysis”</strong>
-<ul>
-<li>July 2019</li>
-<li>Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry Danica Ommen</li>
-<li>Joint Statistical Meetings (JSM) in Denver, CO.</li>
-</ul></li>
-<li><strong>“Forensic Analysis of Handwriting”</strong>
-<ul>
-<li>July 2019</li>
-<li>Authors: <strong>Alicia Carriquiry</strong>, Amy Crawford, Nick Berry, Danica Ommen</li>
-<li>VI Latin American Meeting on Bayesian Statistics (VI COBAL), Lima, Peru.</li>
-</ul></li>
-<li><strong>“Exploratory Analysis of Handwriting Features: Investigating Numeric Measurements of Writing”</strong>
-<ul>
-<li>February 2019</li>
-<li>Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry, Danica Ommen</li>
-<li>American Academy of Forensic Sciences (AAFS) Annual Meeting in Baltimore, MD.</li>
-</ul></li>
-<li><strong>“Toward a Statistical and Algorithmic Approach to Forensic Handwriting Comparison”</strong>
-<ul>
-<li>August 2018</li>
-<li>Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry</li>
-<li>American Society of Questioned Document Examiners (ASQDE) Annual Meeting in Park City, UT.</li>
-</ul></li>
-<li><strong>“A Bayesian Approach to Forensic Handwriting Evidence”</strong>
-<ul>
-<li>July 2018
-<ul>
-<li>Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry</li>
-</ul></li>
-<li>Joint Statistical Meetings (JSM) in Vancouver, BC, Canada.</li>
-</ul></li>
-<li><strong>“Bringing Statistical Foundations to Forensic Handwriting Analysis”</strong>
-<ul>
-<li>May 2018</li>
-<li>Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry</li>
-<li>American Bar Association, 9th Annual Prescription for Criminal Justice Forensics Program in New York, NY.</li>
-</ul></li>
-</ul>
 </div>
 <div id="posters" class="section level3">
 <h3><span class="header-section-number">4.4.3</span> Posters</h3>
-<ul>
-<li><strong>“A Bayesian Hierarchical Model for Forensic Writer Identification”</strong>
-<ul>
-<li>August 2019</li>
-<li>Authors: <strong>Amy Crawford</strong>, Alicia Carriquiry, Danica Ommen</li>
-<li>10th International Workshop on Statistics and Simulation in Salzburg, Austria</li>
-<li><i>1st Springer Poster Award</i></li>
-</ul></li>
-<li><strong>“Statistical Analysis of Handwriting”</strong>
-<ul>
-<li>May 2019</li>
-<li>Authors: <strong>Amy Crawford</strong> and Nick Berry</li>
-<li>CSAFE Annual All-Hands Meeting in Ames, IA</li>
-</ul></li>
-<li><strong>“Statistical Analysis of Letter Importance for Document Examination”</strong>
-<ul>
-<li>February 2018</li>
-<li>Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry</li>
-<li>American Academy of Forensic Sciences in Seattle, WA</li>
-<li><i>YFSF Best Poster Award</i></li>
-</ul></li>
-<li><strong>(Presented AAFS 2018 Poster for a Second Time)</strong>
-<ul>
-<li>May 2018</li>
-<li>Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry</li>
-<li>CSAFE Annual All-Hands Meeting in Ames, IA</li>
-</ul></li>
-</ul>
 </div>
 </div>
 <div id="people-involved-1" class="section level2">
 <h2><span class="header-section-number">4.5</span> People involved</h2>
 <div id="faculty-1" class="section level3">
 <h3><span class="header-section-number">4.5.1</span> Faculty</h3>
-<ul>
-<li>Alicia Carriquiry</li>
-<li>Hal Stern (UCI, Project G PI)</li>
-<li>Danica Ommen</li>
-</ul>
 </div>
 <div id="graduate-students-1" class="section level3">
 <h3><span class="header-section-number">4.5.2</span> Graduate Students</h3>
-<ul>
-<li>Amy Crawford</li>
-</ul>
 </div>
 <div id="undergraduates-1" class="section level3">
 <h3><span class="header-section-number">4.5.3</span> Undergraduates</h3>
-<ul>
-<li>Anyesha Rey (data collection)</li>
-<li>James Taylor (feature extraction)</li>
-</ul>
 
 </div>
 </div>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p>Forgy, E. (1965). Cluster Analysis of Multivariate Data: Efficiency vs. Interpretability of Classifications. Biometrics, 21:768–780.<a href="project-g-handwriting-signatures.html#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>Lloyd, S. (1982). Least Squares Quantization in PCM. IEEE Trans. on Information Theory, 28(2):129–137.<a href="project-g-handwriting-signatures.html#fnref2" class="footnote-back">↩</a></p></li>
-<li id="fn3"><p>Gan, G. and Ng, M. K.-P. (2017). K-means clustering with outlier removal. Pattern Recog. Letters, 90:8–14.<a href="project-g-handwriting-signatures.html#fnref3" class="footnote-back">↩</a></p></li>
-<li id="fn4"><p>Kokonendji, C. C. and Puig, P. (2018). Fisher Dispersion Index for Multivariate Count Distributions. Journal of Multivariate Analysis, v165 p180-193.<a href="project-g-handwriting-signatures.html#fnref4" class="footnote-back">↩</a></p></li>
-</ol>
 </div>
             </section>
 

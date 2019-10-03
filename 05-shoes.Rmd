@@ -131,30 +131,26 @@ Grant scope: Build the shoe scanner, develop an automatic recognition algorithm 
 
 ### Spatial integration
 
-<div class = "new">
-
 The overhead costs of going fully convolutional are high; CNN papers are opaque, and many supervised techniques require fully labeled data for semantic segmentation (i.e., label every pixel). Moreover, complex models (for both supervised and unsupervised tequniques) are often only available in Python, and there are a large number of GitHub repositories of mixed quality and reliability. Filtering for quality, understanding code structures, and implementing them on HPC are all enormous tasks on their own.
 
 In the meantime, it is much easier (relatively speaking) to use our existing framework of 256x256 square pixel images, for which we have generated thousands of labeled images and have already trained and improved domain-specific models. Currently, I have code working to automatically crop image borders, chop the image into 256x256 pixels (padding the image when appropriate) and correct the contrast on the individual images.
 
+<div class = "new">
+
+**Pad the left and top of the image with a pre-specified offset, then chop the image into 256x256 pixel pieces**  
+<img src="images/shoes/neuralnets/chop.PNG" width = "100%"/>
+
+**Equalize the contrast channel for each piece of the image**
+<img src="images/shoes/neuralnets/equalize.PNG" width = "100%"/> 
+
+**Use the trained model to predict each piece of the image for each class**
+<img src="images/shoes/neuralnets/predict.PNG" width = "100%"/> 
+
+**Repeat the above process for different cuts of the original image, and aggregate predictions**
+<img src="images/shoes/neuralnets/predict_multiple_offsets.PNG" width = "100%"/>
+
 </div>
 
-<img src="images/shoes/neuralnets/chop.PNG" width = "100%"/>    
-<img src="images/shoes/neuralnets/contrastcorrect.PNG" width = "100%"/>  
-
-I hoped to have some cool visualizations to show today. Unfortunately, model predictions are behaving very strangely, and I haven't been able to figure out why... All classes are predicting to zero, except quadrilaterals.
-
-<img src="images/shoes/neuralnets/quad_predictions.PNG" width = "50%"/>  
-
-Possible issues:
-
-- <del>The specific shoe is behaving strangely</del> The issue persists for multiple shoes
-- <del>Using a different package to read in the image changes the extracted features</del> The issue persists when I try using the original image reading function
-- <del>Contrast correction changes predictions</del> The issue exists for images both with and without contrast correction
-- <del>Model trained incorrectly</del> The [Shiny app](https://bigfoot.csafe.iastate.edu:442/tiltonm/NNPreview/) shows predictions on the test set are behaving as expected
-- Bigfoot is angry?
-
-Bottom line: CNN features are NOT interpretable, which makes them VERY hard to debug.
 
 
 ## Maximum Clique Matching {#maxclique}
@@ -191,7 +187,10 @@ In progress:
 
 ## 3d Shoe Recognition 
 
-The set up
+-LESSON LEARNED..... PUSH OFTEN 
+
+The set up: 
+
 
 
 What we have tried 
@@ -207,6 +206,7 @@ What we are doing now
     
 ## Shoe outsole matching using image descriptors
 
+### Features
 Previously, features such as edge, corner, SURF were extracted to match shoeprints. The goal of this project is to find other image descriptors as image features for shoe print matching. 
 
 **Image descriptors**
@@ -220,6 +220,118 @@ Previously, features such as edge, corner, SURF were extracted to match shoeprin
 
 <img src="images/shoes/Features/adidas_kaze_orb_surf.png" width="100%"/>
 
+**Image matching**
+
+  - CSAFE data - Nike size of 10.5 and Adidas size of 10 will be used to construct mated and non-mated matching
+  - Features will be combination of strong 100 points of KAZE, ORB, SURF. 
+  
+<img src="images/shoes/Features/shoe1_comb_features.png" width="100%"/>
+
+### Matching on clean and full images
+
+<img src="images/shoes/Features/ex_original_KM_KNM.jpg" width="100%"/>
+
+- Mates : Image (1) and (2)
+- Non-mates : Image (1) and (3), Image (2) and (3) 
+
+
+
+
+**Performance evaluation using**
+
+  - **SURF 500**
+  - KAZE 500
+  - ORB 500
+  - SURF 100 + KAZE 100 + ORB 100
+  - SURF 200 + KAZE 200 + ORB 200
+  - POC (Phase-only correlation)
+  - FMTC (Fourier Mellon transformation correlation)
+  
+
+
+
+**Example graphs of mates**:
+
+<img src="images/shoes/Features/image_KM1.png" width="100%"/>
+
+**Example graphs of non-mates**:
+
+<img src="images/shoes/Features/image_KNM1.png" width="100%"/>
+
+**Example matching table using SURF 500**:
+
+Class | Clique size | Rotation angle | % Overlap | Median distance of OP|
+------|-------------|----------------|-----------|----------------------|
+Mates |   18        |       2.11     |   0.5646  |        0.78          |
+Non-mates|    9     |       6.43     |   0.1208  |        1.39          |
+
+
+
+
+**Density plots**:
+
+<img src="images/shoes/Features/surf_density.png" width="100%"/>
+
+<img src="images/shoes/Features/training_POC_FMTC.png" width="100%"/>
+
+
+**ROC curves on test comparisons**:
+
+<img src="images/shoes/Features/ROC_surf.png" width="100%"/>
+
+
+
+  
+### Matching on degraded and partial images  
+  
+**Example of degraded images**:
+
+<img src="images/shoes/Features/deg_full_ex.jpg" width="100%"/>
+
+
+**ROC curves on test comparisons**:
+<img src="images/shoes/Features/SURF_ROC_deg.png" width="100%"/>
+
+
+
+
+
+**What we plan to do**:
+
+  - Get ROC curves using KASE, ORB, combination of them
+  - Do the same comparisons on degraded and partial impressions
+  - Submit the paper
+  
+  
+## Impact of weight to outsole scans from EverOS 2D scanner 
+
+**Analysis setup**:
+
+   - Shoes: 5 pairs of Nike Winflow 4, size 10.5 (Brand-new shoes)
+   - Participants: Person 1 (weight aa lb)and person 2 (bb lb)
+   - Weights: 2 weight vests (20 lbs and 12 lbs)
+   - Weight variations: W1(P1), W2(P1 with one vest), W3(P1 with two vests), W4(P2), W5(P2 with one vest), W6(P2 with two vests)
+   - W1 $=$ 155.2 lb, **W2 $=$ 173.8 lb**, W3 $=$ 187.6 lb, **W4 $=$ 178 lb**, W5 $=$ 197.4 lb, W6 $=$ 211 lb
+  
+  
+  
+**Result1**:
+
+  - Shoe is fixed to left side of shoe1.
+  
+<img src="images/shoes/Features/density_person_effect.png" width="100%"/>
+
+
+
+**Result2**:
+
+  - Purple, green: comparison between repeated replicates from the same shoe, W2-W2, W4-W4.
+  - Comparison between weights W2 and W4: weights are almost the same. 
+  - Yellow: comparison when shoe is fixed to shoe1-L.
+  - Red: comparison between shoe1 – shoe2-5. 
+  - Shoes are never used.
+
+<img src="images/shoes/Features/density_w2_w4.png" width="100%"/>
 
 
 

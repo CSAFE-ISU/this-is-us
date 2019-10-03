@@ -65,8 +65,45 @@ include_graphics(c("images/yawei/lapd-FAU-4-Bullet-C-land-5.PNG"))
 include_graphics(c("images/yawei/lapd-FAU-5-Bullet-B-land-5.PNG"))
 ```
 
-Manual indentification of grooves now...
+Assess the land-land comparasion and bullet-bullet comparasion
 
+For bullet-bullet comparasion: we use the "sequence average maximum"(SAM), i.e. average ccf of "lines" of land-land comparasions, as the bullet similarity score(currently).
+
+By making use of 92 manually generated comparasion data, we try to produce the KM(known-matches) and KNM(known-non-matches) plot.
+
+For the known mathches, we have totally 626 x 6 = 3756 for the LAPD data, excluding the comparasions for same bullet.
+
+For the known non-matches, we don't have the data in hand. We need to generate the data in a way. We have totally 626 x 625/2 x 16 = 313000 known non-matches. We can only generate a sample from the data.
+
+We sampled 100 bullet-bullet known non-matches from our 92 cases.
+
+```{r, fig.cap="KM and KNM", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-km.PNG"))
+```
+
+Is the SAM(sequence average maximum) a good choice? Need to do a permutation test.
+
+```{r, fig.cap="SAM permutation result", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/sam_1.PNG"))
+```
+
+```{r, fig.cap="SAM permutation result among maxmum", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/sam_max_1.PNG"))
+```
+
+Possible dependence structure in land-land comparasions:
+
+Fact first: 
+
+1. Six lands on the bullet engraved by different parts of the barrel? So they are essentially different?
+
+2. Any additional similarity among different lands on a same bullet? or more generally, lands from the same barrel?
+
+```{r, fig.cap="Inside gun barrel from google: johan-swanepoel", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/gun-barrel-from-inside-johan-swanepoel.jpg"))
+```
+
+Any suggestions? Method and literature?
 
 #### follow-up study 
 
@@ -231,6 +268,54 @@ knitr::include_graphics("images/bullets/Hough_project/phoenix_current_hough_land
 knitr::include_graphics("images/bullets/Hough_project/phoenix_new_hough_land1.png")
 ```
 
+Charlotte Update 09/26/2019:
+
+Fixing the normalization of the scores for Hough grooves. Instead of dividing by the 
+geometric distance between the top and bottom intercepts of the bullet image. Now
+we only consider Hough lines that actually go through both the top and bottom of the land,
+therefore we can normalize each score by dividing the original hough score by the height
+of the image and multiplied by the cosine of theta which accounts for the difference
+in length of lines with differing angles. As far as selecting normalized scores from
+every score possible I found that there is really no visual difference between selecting
+the highest normalized Hough score and the other top five. 
+
+```{r, fig.cap="Phoenix Gun 1-A9 Land 4 visualized using new Hough process index one", out.width="50%", fig.keep="hold", fig.align='center'}
+  knitr::include_graphics("images/bullets/Hough_project/mask_phoenix_index_one.png")
+```
+
+```{r, fig.cap="Phoenix Gun 1-A9 Land 4 visualized using new Hough process index ten", out.width="50%", fig.keep="hold", fig.align='center'}
+  knitr::include_graphics("images/bullets/Hough_project/mask_phoenix_index_ten.png")
+```
+
+```{r, fig.cap="Phoenix Gun 1-A9 Land 4 visualized using new Hough process index twenty", out.width="50%", fig.keep="hold", fig.align='center'}
+  knitr::include_graphics("images/bullets/Hough_project/mask_phoenix_index_twenty.png")
+```
+
+
+So for now we will continue to select the highest normalized Hough score to use as our bullet land estimates. After fixing the parameterization of the Hough scores and how we normalize Hough scores,
+the 3-dimensional images appear to have improved! Which is great news since no thresholding was necessary. 
+
+
+```{r, fig.cap= "Hamby Bullet 1 Land 1 visualized using new Hough process", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/mask_hamby_demo_nice.png")
+```
+
+
+Still we run into the problem that our masks are only as good as our estimates,
+however even this terrible bullet land appears to have grooves identified somewhat well.
+
+```{r, fig.cap= "Hamby Bullet 1 Land 4 visualized using new Hough process", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/mask_hamby_demo_lessnice.png")
+```
+
+A comparison between the two methods finds that generally the new Hough process out-competes
+the old one on nearly every bullet land in the Hamby 252 demo set.
+
+
+```{r, fig.cap= "Crosscut Results Hamby 252 Demo Set Comparison between old and new methods", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/Hamby_demo_crosscuts.png")
+```
+
 
 ##### LASSO Method  
 
@@ -285,9 +370,16 @@ Results for Method 1, the subsampling, looks something like this:
 
 <img src="images/bullets/pipeline/subsampled_variability_results_orange_l1.png" width = "80%"/>
 
-I will be updating with more on the "direct" modeling in my next Spotlight! 
+The code in `bulletxtrctr` is already really well set up as a data "pipeline", so now we are conceptualizing the best way to wrap the pipeline and keep track of what decisions are made along the way. 
 
-<p class="new">From Kiegan: I am in Michigan this week! As a quick update, I am working on some background reading and planning for how to most effectively set up our pipeline experiments. The code in `bulletxtrctr` is already really well set up as a data "pipeline", so now we are conceptualizing the best way to wrap the pipeline and keep track of what decisions are made along the way.</p>
+<p class="new">We are using few resources to conceptualize and plan the pipeline work, including: </p> 
+
+1. `tidymodels`, a part of the `tidyverse` focused on design matrices and reproducibility of modeling
+2. `drake`, an R package by Will Landau which helps cache information and keep track of steps in a pipeline  
+     - We are investigating how well this scales to ``big data".  
+3. Some pipeline/plumbing papers by Hadley Wickham, Heike Hofmann, Dianne Cook, and others  
+     - These focus on interactive graphics and updating data/plotting objects with interactivity  
+4. All of the existing tools in the "bulletverse"; `x3ptools`, `bulletxtrctr`, `grooveFinder`, etc.
 
 
 
@@ -425,7 +517,7 @@ knitr::include_graphics(c("images/cartridge_cases/watershedFinalFiltered.png"))
 
 <details>
 <summary>
-Joe 10/2/18 Update: Determined a fairly computationally intensive yet (seemingly) effective way to find the firing pin impression circle in an image using a grid search of possible radius values. I will now start putting together a package for easy access. I'm not yet sure what to call the package, so any ideas are welcomed
+Joe 10/3/18 Update: Determined a fairly computationally intensive yet (seemingly) effective way to find the firing pin impression circle in an image using a grid search of possible radius values. I will now start putting together a package for easy access. I'm not yet sure what to call the package, so any ideas are welcomed
 </summary>
 
 We can find a rough estimate for the firing pin radius estimate using a variety of methods. The one that I've found to be fairly consistent in the few examples I've worked with (detailed in the in the 9/18/19 update) is by counting the number of non-NA pixels in each row/column of the image and identifying the distance between the two largest local maxima in this non-NA count sequence. We can pass a grid of radius values centered on this estimate to a Hough Transform and determine which radius picks out the firing pin impression circle most effectively. The difficulty is in how we quantify "effective" using the output of the Hough Transform. Below you can see the original image including the "minutiae" within the firing pin impression circle that we hope to filter out. You can also see the result of filtering out the firing pin impression circle based on the original radius estimate (210 pixels) obtained from the "local maxima" method.
@@ -441,7 +533,7 @@ As already discussed, we can test a variety of radius values around the 210 esti
 knitr::include_graphics("images/cartridge_cases/houghTransformFilter.gif")
 ```
 
-Using the output of the Hough Transform-selected circles shown above we would like to determine an optimal radius with which to filter out the firing pin impression circle. I explored a few ways of quantifying how "effective" a given radius is at filtering out the firing pin impression minutiae while simulataneously retaining as much of the breech face impression surface as possible. For example, it seemed logical to me to count the number of non-NA pixels we would be throwing out if we filtered based on a particular radius value. As you can see from the gif above, larger radii end up chewing into the breech face impression surface while smaller radii appear to sort of bounce around inside of the firing pin impression circle. We may be able to look at the count of filtered non-NA pixel values for each radius and determine a threshold in which the circles become large enough to start chewing into the breech face impression. Unfortunately, that is not the case. You can see from the plot below on the left that the number of filtered non-NA pixels increased fairly steadily. There isn't an obvious location along the curve signalling when the circles are getting to be too large (the differences between successive count is also shown). Since that metric didn't end up being fruitful, I had to explore alternatives. One alternative that isn't obvious from just visualizing which pixels are filtered by each radius is called the "Hough score" which essentially quantifies how confident the Hough Transform is that it indeed found the circle that it was told to find in the image. The plot on the right below shows the top Hough scores for each radius value. We can see that there is some variability depending on the radius value. However, there are a range of radius values starting at 210 in which the Hough Transform is consistently rather confident in its circle detection. In fact, we can see from the gif above that radius values between 201 and 206 indeed do a good job of filtering out the firing pin impression circle. Currently, I am basing my final firing pin radius estimate on the radius value in the middle of the longest-running sequence of high-confidence radius values. In both example breech face impressions that I've been working with (same type, fired from the same firearm), this final estimate ended up being 203. This is obviously promising, but I would like to spend time to verify that my current method is generalizable to other cartridge case scans.
+Using the output of the Hough Transform-selected circles shown above we would like to determine an optimal radius with which to filter out the firing pin impression circle. I explored a few ways of quantifying how "effective" a given radius is at filtering out the firing pin impression minutiae while simulataneously retaining as much of the breech face impression surface as possible. For example, it seemed logical to me to count the number of non-NA pixels we would be throwing out if we filtered based on a particular radius value. As you can see from the gif above, larger radii end up chewing into the breech face impression surface while smaller radii appear to sort of bounce around inside of the firing pin impression circle. We may be able to look at the count of filtered non-NA pixel values for each radius and determine a threshold in which the circles become large enough to start chewing into the breech face impression. Unfortunately, that is not the case. You can see from the plot below on the left that the number of filtered non-NA pixels increased fairly steadily. There isn't an obvious location along the curve signalling when the circles are getting to be too large (the differences between successive counts are also shown). Since that metric didn't end up being fruitful, I had to explore alternatives. One alternative that isn't obvious from just visualizing which pixels are filtered by each radius is called the "Hough score" which essentially quantifies how confident the Hough Transform is that it indeed found the circle that it was told to find in the image. The plot on the right below shows the top Hough scores for each radius value. We can see that there is some variability depending on the radius value. However, there are a range of radius values starting at 210 in which the Hough Transform is consistently rather confident in its circle detection. In fact, we can see from the gif above that radius values between 201 and 206 indeed do a good job of filtering out the firing pin impression circle. Currently, I am basing my final firing pin radius estimate on the radius value in the middle of the longest-running sequence of high-confidence radius values. In both example breech face impressions that I've been working with (same type, fired from the same firearm), this final estimate ended up being 203. This is obviously promising, but I would like to spend time to verify that my current method is generalizable to other cartridge case scans.
 
 ```{r, fig.cap="(Left) The number of non-NA pixels filtered out by the Hough Transform-selected circles for different radius values. (Right) The Hough score curve used to determine the firing pin radius estimate.", fig.keep="hold", fig.align='center',fig.show='hold'}
 knitr::include_graphics(c("images/cartridge_cases/nonNA_filteredPixelCounts.png",
@@ -449,13 +541,15 @@ knitr::include_graphics(c("images/cartridge_cases/nonNA_filteredPixelCounts.png"
 ```
 </details>
 
-### Modified Chumbley non-random
-
+### Modified Chumbley non-random test
 #### Land-to-land scores
+The moified Chumbley non-random algorithm is a statistical non-paramaetric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segement to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 
+
+The modified chumbley method [@gkhh] can work with two markings at a time. Therefore the method can be used for comparing signatures from one land to signature from another land. The land-to-land comparison was performed for Hamby 44 dataset from [@nist] and CSAFE [@gkhh] and associated error rates were computed for these comparisons.
 
 #### Bullet-to-bullet scores
 
-Ganesh: In this method we extend the modified chumbley non-random method from land-to-land scoring to bullet-to-bullet scoring.
+In this method we extend the modified chumbley non-random method from land-to-land scoring to bullet-to-bullet scoring. In order to do this, first 6 ordered pairs of lands between the two bullets are chosen for comparison. The modified chumbley method is used on these 6 pairwise comparisons. This results in the same-shift and different-shift comparisons from each of the 6 comparisons. We do not need a land-to-land pairwise U-statistics and classification in this method. Instead all the same-shift and different-shift correlations are now aggregated from the 6 comparisons and a new non-parametric U test is used on the aggregated sets. This gives a test statistic at the bullet level and consequently we can compute p-values. This is used with different nominal significance levels to identify bullet level error rates.
 
 ## Analysis of Results  
 

@@ -319,6 +319,11 @@ knitr::include_graphics("images/bullets/Hough_project/Hamby_demo_crosscuts.png")
 ```
 
 
+Charlotte Update 10/3/2019:
+
+the get_grooves_hough function has changed since last week, it previously slopes were calculated in x which is numerically less stable than a slope in y so for example when we were using the old slopes we had the possibility of dividing by zero which is not good. Changing to the new slope helps eliminate that likelihood. Other than that I am working on writing a grooveFinder vignette. I will be discussing every step of the Hough algorithm at length then demonstrating the function itself on the Hamby44 demo set.
+
+
 ##### LASSO Method  
 
 A paper is in preparation for submission to Forensic Science International describing this method (`get_grooves_lassofull` in `grooveFinder`), as well as the Bayesian changepoint method (`get_grooves_bcp`).  

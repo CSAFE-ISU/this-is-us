@@ -487,9 +487,10 @@ At this point we can use the mask to get a “clean” image:<br />
 </div>
 <div id="d-shoe-recognition" class="section level2">
 <h2><span class="header-section-number">6.5</span> 3d Shoe Recognition</h2>
-<p>-LESSON LEARNED….. PUSH OFTEN</p>
 <p>The set up:</p>
-<p>What we have tried</p>
+<p>Then we want to look at the change overtime a specific shoe, so we need to grab the shoe scans over time. Using the function <em>shoe_grab</em> to grab the scans of a given shoe ID, specify the id number of a shoe you want to look at, (Make sure you have access to the data, follow the steps on the README for more information. For more information on the shoe data, see <strong>Longituidinal_Shoe_Study</strong>), and turns the given shoe into mesh objects to do further analysis.</p>
+<p>What we have tried:</p>
+<p>At first we wanted to try to simplify the mesh object to just the basic shape in order have simplicity when aligning, however the problem was realized that we are using a prediction to allign rather than the shoe,</p>
 <p>What we are doing now
 - Transforming the mesh objects to points aligned by the center of mass to overlay them detecting difference.
 <img src="images/shoes/3dshoes/AlignShoeTest.png" width="100%"/>

@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2019-09-26" />
+<meta name="date" content="2019-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -164,7 +164,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#computational-tools-1"><i class="fa fa-check"></i><b>4.2</b> Computational Tools</a></li>
 <li class="chapter" data-level="4.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#statistical-analysis"><i class="fa fa-check"></i><b>4.3</b> Statistical Analysis</a><ul>
 <li class="chapter" data-level="4.3.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#clustering"><i class="fa fa-check"></i><b>4.3.1</b> Clustering</a></li>
-<li class="chapter" data-level="4.3.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#closed-set-modelling"><i class="fa fa-check"></i><b>4.3.2</b> Closed set modelling</a></li>
+<li class="chapter" data-level="4.3.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#closed-set-modeling"><i class="fa fa-check"></i><b>4.3.2</b> Closed set modeling</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#communication-of-results"><i class="fa fa-check"></i><b>4.4</b> Communication of Results</a><ul>
 <li class="chapter" data-level="4.4.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#papers"><i class="fa fa-check"></i><b>4.4.1</b> Papers</a></li>
@@ -190,7 +190,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3" data-path="shoes.html"><a href="shoes.html#maxclique"><i class="fa fa-check"></i><b>6.3</b> Maximum Clique Matching</a></li>
 <li class="chapter" data-level="6.4" data-path="shoes.html"><a href="shoes.html#cocoa"><i class="fa fa-check"></i><b>6.4</b> Project Tread (formerly Cocoa Powder Citizen Science)</a></li>
 <li class="chapter" data-level="6.5" data-path="shoes.html"><a href="shoes.html#d-shoe-recognition"><i class="fa fa-check"></i><b>6.5</b> 3d Shoe Recognition</a></li>
-<li class="chapter" data-level="6.6" data-path="shoes.html"><a href="shoes.html#shoe-outsole-matching-using-image-descriptors"><i class="fa fa-check"></i><b>6.6</b> Shoe outsole matching using image descriptors</a></li>
+<li class="chapter" data-level="6.6" data-path="shoes.html"><a href="shoes.html#shoe-outsole-matching-using-image-descriptors"><i class="fa fa-check"></i><b>6.6</b> Shoe outsole matching using image descriptors</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="shoes.html"><a href="shoes.html#features"><i class="fa fa-check"></i><b>6.6.1</b> Features</a></li>
+<li class="chapter" data-level="6.6.2" data-path="shoes.html"><a href="shoes.html#matching-on-clean-and-full-images"><i class="fa fa-check"></i><b>6.6.2</b> Matching on clean and full images</a></li>
+<li class="chapter" data-level="6.6.3" data-path="shoes.html"><a href="shoes.html#matching-on-degraded-and-partial-images"><i class="fa fa-check"></i><b>6.6.3</b> Matching on degraded and partial images</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="shoes.html"><a href="shoes.html#impact-of-weight-to-outsole-scans-from-everos-2d-scanner"><i class="fa fa-check"></i><b>6.7</b> Impact of weight to outsole scans from EverOS 2D scanner</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html"><i class="fa fa-check"></i><b>7</b> Theoretical foundations</a><ul>
 <li class="chapter" data-level="7.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#common-source-vs-specific-source-comparison-via-information-theory"><i class="fa fa-check"></i><b>7.1</b> Common Source vs Specific Source Comparison via Information Theory</a><ul>
@@ -333,7 +338,8 @@ Figure 3.8: SAM permutation result among maxmum
 Figure 3.9: Inside gun barrel from google: johan-swanepoel
 </p>
 </div>
-<p>Any suggestions? Method and literature?</p>
+<p>Assume beta distributions for the ccf for both known mathces and known non-matches. For the real known match cases, we consider a mixture distribution of two beta distribution.</p>
+<p>I’m working on those concepts mixture model, mixture distribution, beta-mixture model, mixture beta regression. And try to fit the model by R packages: mixtools, flexmix, betareg. I’m trying to find a way using the above mentioned methods and packages.</p>
 </div>
 <div id="follow-up-study" class="section level4">
 <h4><span class="header-section-number">3.1.1.2</span> follow-up study</h4>
@@ -546,6 +552,8 @@ the old one on nearly every bullet land in the Hamby 252 demo set.</p>
 Figure 3.24: Crosscut Results Hamby 252 Demo Set Comparison between old and new methods
 </p>
 </div>
+<p>Charlotte Update 10/3/2019:</p>
+<p>the get_grooves_hough function has changed since last week, it previously slopes were calculated in x which is numerically less stable than a slope in y so for example when we were using the old slopes we had the possibility of dividing by zero which is not good. Changing to the new slope helps eliminate that likelihood. Other than that I am working on writing a grooveFinder vignette. I will be discussing every step of the Hough algorithm at length then demonstrating the function itself on the Hamby44 demo set.</p>
 </div>
 <div id="lasso-method" class="section level5">
 <h5><span class="header-section-number">3.3.1.1.2</span> LASSO Method</h5>
@@ -593,10 +601,24 @@ Figure 3.24: Crosscut Results Hamby 252 Demo Set Comparison between old and new 
 </ol>
 <p>Results for Method 1, the subsampling, looks something like this:</p>
 <p><img src="images/bullets/pipeline/subsampled_variability_results_orange_l1.png" width = "80%"/></p>
-<p>I will be updating with more on the “direct” modeling in my next Spotlight!</p>
+<p>The code in <code>bulletxtrctr</code> is already really well set up as a data “pipeline”, so now we are conceptualizing the best way to wrap the pipeline and keep track of what decisions are made along the way.</p>
 <p class="new">
-From Kiegan: I am in Michigan this week! As a quick update, I am working on some background reading and planning for how to most effectively set up our pipeline experiments. The code in <code>bulletxtrctr</code> is already really well set up as a data “pipeline”, so now we are conceptualizing the best way to wrap the pipeline and keep track of what decisions are made along the way.
+We are using few resources to conceptualize and plan the pipeline work, including:
 </p>
+<ol style="list-style-type: decimal">
+<li><code>tidymodels</code>, a part of the <code>tidyverse</code> focused on design matrices and reproducibility of modeling</li>
+<li><code>drake</code>, an R package by Will Landau which helps cache information and keep track of steps in a pipeline
+<ul>
+<li>We are investigating how well this scales to ``big data&quot;.<br />
+</li>
+</ul></li>
+<li>Some pipeline/plumbing papers by Hadley Wickham, Heike Hofmann, Dianne Cook, and others
+<ul>
+<li>These focus on interactive graphics and updating data/plotting objects with interactivity<br />
+</li>
+</ul></li>
+<li>All of the existing tools in the “bulletverse”; <code>x3ptools</code>, <code>bulletxtrctr</code>, <code>grooveFinder</code>, etc.</li>
+</ol>
 </div>
 </div>
 <div id="cartridge-cases" class="section level3">
@@ -735,6 +757,32 @@ Figure 3.38: Final filtered image.
 </p>
 </div>
 </details>
+<details>
+<p><summary>
+Joe 10/3/18 Update: Determined a fairly computationally intensive yet (seemingly) effective way to find the firing pin impression circle in an image using a grid search of possible radius values. I will now start putting together a package for easy access. I’m not yet sure what to call the package, so any ideas are welcomed
+</summary></p>
+<p>We can find a rough estimate for the firing pin radius estimate using a variety of methods. The one that I’ve found to be fairly consistent in the few examples I’ve worked with (detailed in the in the 9/18/19 update) is by counting the number of non-NA pixels in each row/column of the image and identifying the distance between the two largest local maxima in this non-NA count sequence. We can pass a grid of radius values centered on this estimate to a Hough Transform and determine which radius picks out the firing pin impression circle most effectively. The difficulty is in how we quantify “effective” using the output of the Hough Transform. Below you can see the original image including the “minutiae” within the firing pin impression circle that we hope to filter out. You can also see the result of filtering out the firing pin impression circle based on the original radius estimate (210 pixels) obtained from the “local maxima” method.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-41"></span>
+<img src="images/cartridge_cases/breechFaceIndicator.png" alt="(Left) Original breech face impression image. (Right) The breech face impression image after filtering based on a Hough Transform-selected circle of radius 210 pixels." width="350" /><img src="images/cartridge_cases/firingPinImpressionFiltered_radius210.png" alt="(Left) Original breech face impression image. (Right) The breech face impression image after filtering based on a Hough Transform-selected circle of radius 210 pixels." width="350" />
+<p class="caption">
+Figure 3.39: (Left) Original breech face impression image. (Right) The breech face impression image after filtering based on a Hough Transform-selected circle of radius 210 pixels.
+</p>
+</div>
+<p>As already discussed, we can test a variety of radius values around the 210 estimate to determine which is best. Below is a gif animating the result of filtering based on a Hough Transform for radius values ranging from 190 to 230. Although a radius of 210 does a decent job of filtering out the minutiae, a slightly smaller radius may be preferred as larger circles tend to cut into the breech face impression. We obviously want to retain as much of the breech face impression as possible for our later analysis.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-42"></span>
+<img src="images/cartridge_cases/houghTransformFilter.gif" alt="Gif showing the result of filtering based on Hough Transform circles of various radii. "  />
+<p class="caption">
+Figure 3.40: Gif showing the result of filtering based on Hough Transform circles of various radii.
+</p>
+</div>
+<p>Using the output of the Hough Transform-selected circles shown above we would like to determine an optimal radius with which to filter out the firing pin impression circle. I explored a few ways of quantifying how “effective” a given radius is at filtering out the firing pin impression minutiae while simulataneously retaining as much of the breech face impression surface as possible. For example, it seemed logical to me to count the number of non-NA pixels we would be throwing out if we filtered based on a particular radius value. As you can see from the gif above, larger radii end up chewing into the breech face impression surface while smaller radii appear to sort of bounce around inside of the firing pin impression circle. We may be able to look at the count of filtered non-NA pixel values for each radius and determine a threshold in which the circles become large enough to start chewing into the breech face impression. Unfortunately, that is not the case. You can see from the plot below on the left that the number of filtered non-NA pixels increased fairly steadily. There isn’t an obvious location along the curve signalling when the circles are getting to be too large (the differences between successive counts are also shown). Since that metric didn’t end up being fruitful, I had to explore alternatives. One alternative that isn’t obvious from just visualizing which pixels are filtered by each radius is called the “Hough score” which essentially quantifies how confident the Hough Transform is that it indeed found the circle that it was told to find in the image. The plot on the right below shows the top Hough scores for each radius value. We can see that there is some variability depending on the radius value. However, there are a range of radius values starting at 210 in which the Hough Transform is consistently rather confident in its circle detection. In fact, we can see from the gif above that radius values between 201 and 206 indeed do a good job of filtering out the firing pin impression circle. Currently, I am basing my final firing pin radius estimate on the radius value in the middle of the longest-running sequence of high-confidence radius values. In both example breech face impressions that I’ve been working with (same type, fired from the same firearm), this final estimate ended up being 203. This is obviously promising, but I would like to spend time to verify that my current method is generalizable to other cartridge case scans.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-43"></span>
+<img src="images/cartridge_cases/nonNA_filteredPixelCounts.png" alt="(Left) The number of non-NA pixels filtered out by the Hough Transform-selected circles for different radius values. (Right) The Hough score curve used to determine the firing pin radius estimate." width="324" /><img src="images/cartridge_cases/houghScorePlot.png" alt="(Left) The number of non-NA pixels filtered out by the Hough Transform-selected circles for different radius values. (Right) The Hough score curve used to determine the firing pin radius estimate." width="324" />
+<p class="caption">
+Figure 3.41: (Left) The number of non-NA pixels filtered out by the Hough Transform-selected circles for different radius values. (Right) The Hough score curve used to determine the firing pin radius estimate.
+</p>
+</div>
+</details>
 </div>
 </div>
 <div id="modified-chumbley-non-random-test" class="section level3">
@@ -760,10 +808,10 @@ Figure 3.38: Final filtered image.
 <p>We extract markings, locate grooves, align signatures, and generate cross-comparison results. Each step is notified in UI and all steps are logged.</p>
 <p>The scores and results are then communicated through an interactive visualization. We first interact at the top most level where we have bullet-to-bullet scores for all the cross-comparisons presented in a grid. We can select one comparison at a time which would generate a second level of grid visualization that shows the land-to-land scores for all 36 comparisons within a bullet. Interacting with this visualization, we can now pull up score tables, profiles, location of grooves, aligned signatures and raw images.</p>
 <p>The framework of interactions, allows for validation of classification recommended by the RF model as well as gives an opportunity to critically asses, identify the cause and diagnose any problems encountered in the bullet matching pipeline.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-41"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-44"></span>
 <img src="images/bullets/gan-app2_consolidated.png" alt="An instance of the interactive visualizations for communicating results" width="50%" />
 <p class="caption">
-Figure 3.39: An instance of the interactive visualizations for communicating results
+Figure 3.42: An instance of the interactive visualizations for communicating results
 </p>
 </div>
 <div id="conference-presentations" class="section level3">

@@ -423,6 +423,32 @@ knitr::include_graphics(c("images/cartridge_cases/watershedFinalFiltered.png"))
 
 </details>
 
+<details>
+<summary>
+Joe 10/2/18 Update: Determined a fairly computationally intensive yet (seemingly) effective way to find the firing pin impression circle in an image using a grid search of possible radius values. I will now start putting together a package for easy access. I'm not yet sure what to call the package, so any ideas are welcomed
+</summary>
+
+We can find a rough estimate for the firing pin radius estimate using a variety of methods. The one that I've found to be fairly consistent in the few examples I've worked with (detailed in the in the 9/18/19 update) is by counting the number of non-NA pixels in each row/column of the image and identifying the distance between the two largest local maxima in this non-NA count sequence. We can pass a grid of radius values centered on this estimate to a Hough Transform and determine which radius picks out the firing pin impression circle most effectively. The difficulty is in how we quantify "effective" using the output of the Hough Transform. Below you can see the original image including the "minutiae" within the firing pin impression circle that we hope to filter out. You can also see the result of filtering out the firing pin impression circle based on the original radius estimate (210 pixels) obtained from the "local maxima" method.
+
+```{r, fig.cap="(Left) Original breech face impression image. (Right) The breech face impression image after filtering based on a Hough Transform-selected circle of radius 210 pixels.", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/breechFaceIndicator.png",
+                          "images/cartridge_cases/firingPinImpressionFiltered_radius210.png"))
+```
+
+As already discussed, we can test a variety of radius values around the 210 estimate to determine which is best. Below is a gif animating the result of filtering based on a Hough Transform for radius values ranging from 190 to 230. Although a radius of 210 does a decent job of filtering out the minutiae, a slightly smaller radius may be preferred as larger circles tend to cut into the breech face impression. We obviously want to retain as much of the breech face impression as possible for our later analysis.
+
+```{r, fig.cap="Gif showing the result of filtering based on Hough Transform circles of various radii. ", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/houghTransformFilter.gif")
+```
+
+Using the output of the Hough Transform-selected circles shown above we would like to determine an optimal radius with which to filter out the firing pin impression circle. I explored a few ways of quantifying how "effective" a given radius is at filtering out the firing pin impression minutiae while simulataneously retaining as much of the breech face impression surface as possible. For example, it seemed logical to me to count the number of non-NA pixels we would be throwing out if we filtered based on a particular radius value. As you can see from the gif above, larger radii end up chewing into the breech face impression surface while smaller radii appear to sort of bounce around inside of the firing pin impression circle. We may be able to look at the count of filtered non-NA pixel values for each radius and determine a threshold in which the circles become large enough to start chewing into the breech face impression. Unfortunately, that is not the case. You can see from the plot below on the left that the number of filtered non-NA pixels increased fairly steadily. There isn't an obvious location along the curve signalling when the circles are getting to be too large (the differences between successive count is also shown). Since that metric didn't end up being fruitful, I had to explore alternatives. One alternative that isn't obvious from just visualizing which pixels are filtered by each radius is called the "Hough score" which essentially quantifies how confident the Hough Transform is that it indeed found the circle that it was told to find in the image. The plot on the right below shows the top Hough scores for each radius value. We can see that there is some variability depending on the radius value. However, there are a range of radius values starting at 210 in which the Hough Transform is consistently rather confident in its circle detection. In fact, we can see from the gif above that radius values between 201 and 206 indeed do a good job of filtering out the firing pin impression circle. Currently, I am basing my final firing pin radius estimate on the radius value in the middle of the longest-running sequence of high-confidence radius values. In both example breech face impressions that I've been working with (same type, fired from the same firearm), this final estimate ended up being 203. This is obviously promising, but I would like to spend time to verify that my current method is generalizable to other cartridge case scans.
+
+```{r, fig.cap="(Left) The number of non-NA pixels filtered out by the Hough Transform-selected circles for different radius values. (Right) The Hough score curve used to determine the firing pin radius estimate.", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/nonNA_filteredPixelCounts.png",
+                          "images/cartridge_cases/houghScorePlot.png"))
+```
+</details>
+
 ### Modified Chumbley non-random
 
 #### Land-to-land scores

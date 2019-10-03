@@ -23,9 +23,7 @@ Methods and data description handed off to Alicia for editing
 ##### `ShoeScrubR` package {-#lss-data-cleaning}
 All analysis methods for the Longitudinal data are contained in the [`ShoeScrubR` package](https://github.com/srvanderplas/ShoeScrubR). 
 
-<div class = "new">
 The `ShoeScrubR` package also includes logging of all image-in image-out operations using attributes - each time a transformation is performed, the transformation and the parameters are appended to the running operations log. This should make it possible to track the provenance of an object through the set of transformations (and potentially un-do them in some cases).
-</div>
 
 ##### Film and Powder Images {-#lss-paper-analysis-film}
 
@@ -82,15 +80,15 @@ The new steps are as follows:
     - Initial cleaning - dilation and erosion at very small pixel values    
     <img src="images/shoes/longitudinal/EM_LR10_clean.png" width = "100%"/>
     - Labeling disjoint regions (different colors indicate different regions)
-    <img src="images/shoes/longitudinal/EM_label.png" width = "100%"/>
+    <img src="images/shoes/longitudinal/EM_LR10_label.png" width = "100%"/>
     - Removing any blobs which are in the 50px square corner region and which do not involve more than 10% of the image.    
-    <img src="images/shoes/longitudinal/EM_corner_clean.png" width = "100%"/>    
+    <img src="images/shoes/longitudinal/EM_LR10_corner_clean.png" width = "100%"/>    
 At this point we can use the mask to clean the image:    
 <img src="images/shoes/longitudinal/EM_LR10_clean_img.png" width = "100%"/>
 
 3. The binarized image is exaggerated using parameters which are dependant on the size of the image. In general, size $s$ here is the square root of the number of pixels in the image, that is, the side length of the image if it were square.
     - A gaussian blur is applied to the image (diameter $s$/50)    
-    <img src="images/shoes/longitudinal/EM_LR10_blur.png" width = "100%"/>
+    <img src="images/shoes/longitudinal/EM_LR10_blur_img.png" width = "100%"/>
     - Any pixel intensity less than the median is determined to be shoe    
     <img src="images/shoes/longitudinal/EM_LR10_blur_thresh.png" width = "100%"/>
     - All disjoint regions are labeled    

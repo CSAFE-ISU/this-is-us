@@ -100,6 +100,10 @@ At this point we can use the mask to clean the image:
 
 At this point we can use the mask to get a "clean" image:    
 <img src="images/shoes/longitudinal/EM_LR10_image_mask_final.png" width = "100%"/>
+
+And proceed with the alignment as normal: 
+
+<img src="images/shoes/longitudinal/EM_LR10_alignment.png" width = "100%"/>
 </details>
 </div>
 <details>

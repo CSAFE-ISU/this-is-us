@@ -17,13 +17,15 @@ The handwriting project has four major focuses:
 We are conducting a large data collection study to gather handwriting samples from a variety of participants across the world (most in the Midwest). Each participant provides handwriting samples at three sessions. Session packets are prepared, mailed to participants, completed, and mailed back. Once recieved, we scan all surveys and writing samples. Scans are loaded, cropped, and saved using a Shiny app. The app also facilitates survey data entry, saving that participant data to lines in an excel spreadsheet.
 
 
-Data collection is underway with the most recent update (9/1) at 106 participants enrolled:
+<p class="new">Data collection is underway with the most recent update (10/3):<p>
 
-  - 44 complete through session #3
-  - 52 complete through session #2
-  - 10 complete through session #1
+  - 88 complete through session #3
+  - 11 complete through session #2
+  - 12 complete through session #1
 
 As of September 2019, Marc and Anyesha are the primary contacts for the study.
+
+<p class="new"> An article for [Data in Brief](https://www.journals.elsevier.com/data-in-brief) will be drafted this semester. Authors: Anyesha Rey, Amy Crawford, Alicia Carriquiry.<p>
 
   
 ## Computational Tools
@@ -143,9 +145,7 @@ include_graphics(c( "images/handwriting/amy/HW_Outliers.png"))
 
 
 ### Closed set modeling
-The following will be the jumping off point for purposes of this book chapter with respect to modeling and discussion of results.
 
-![Poster given at the 10th International Workshop on Simulation and Statistics](images/handwriting/amy/Crawford_SIMSTAT_2019.png)
 
 #### Model #1, Straw Man {-}
 Let,  
@@ -386,6 +386,7 @@ Presenting author is in bold.
     - Authors: <strong>Amy Crawford</strong>, Alicia Carriquiry, Danica Ommen
     - 10th International Workshop on Statistics and Simulation in Salzburg, Austria
     - <i>1st Springer Poster Award</i>
+    ![Poster given at the 10th International Workshop on Simulation and Statistics](images/handwriting/amy/Crawford_SIMSTAT_2019.png)
     
 - <strong>"Statistical Analysis of Handwriting"</strong>
     - May 2019

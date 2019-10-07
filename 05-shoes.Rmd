@@ -23,18 +23,15 @@ Methods and data description handed off to Alicia for editing
 ##### `ShoeScrubR` package {-#lss-data-cleaning}
 All analysis methods for the Longitudinal data are contained in the [`ShoeScrubR` package](https://github.com/srvanderplas/ShoeScrubR). 
 
-<div class = "new">
 The `ShoeScrubR` package also includes logging of all image-in image-out operations using attributes - each time a transformation is performed, the transformation and the parameters are appended to the running operations log. This should make it possible to track the provenance of an object through the set of transformations (and potentially un-do them in some cases).
-</div>
 
 ##### Film and Powder Images {-#lss-paper-analysis-film}
 
-<div class = "new">
 The images are challenging to do basic statistical analysis on because the shoe print is made up of tiny particles (e.g. it is not a solid object), and there are areas of smudged particles outside the image (fingerprints, etc.) that can be hard to automatically remove. In addition, the film backing has subtle variations in color. 
 
 The prints are not rotationally aligned, that is, they are taken at a variety of angles (usually $\pm 15^\circ$ from vertical) which vary due to individual differences in walking style, the orientation of the film, and changes in experimental protocol. 
 
-Experimental protocol changes included resolution changes for the scans over time: the resolution of the last set of images is about 2 times higher than the resolution of the first 3 check-ins worth of images. Thus, parameters need to be automatically selected based on the resolution of the image.  (Still to do)
+Experimental protocol changes included resolution changes for the scans over time: the resolution of the last set of images is about 2 times higher than the resolution of the first 3 check-ins worth of images. Thus, parameters need to be automatically selected based on the resolution of the image. 
 
 The initial use of templates to clean up the image requires addressing the alignment of the print and the template. As this experiment contains 8 total shoe model and size combinations, it is possible to create a template for each shoe model and use that template to isolate the region of the image which contains a set of features most likely to be a shoe (rather than random noise). 
 
@@ -63,7 +60,52 @@ After:
 These steps are wrapped into the `rough_align` function in the `ShoeScrubR` package. 
 
 </details>
+<div class="new">
+<details><summary>Cleaning the image and exaggerating into a mask</summary>
+In several of the methods applied to this data, it has been useful to have an exaggerated version of the image to function as a mask - this exaggerated image has a center of mass similar to the actual mask, for instance. 
 
+Creating this mask requires parameter tuning (done the old way); a new method was developed in order to reduce the number of parameters which depended on image resolution and other similar items. 
+
+In the old method, there were several parameters necessary - gaussian blur diameter for image cleaning, threshold for binarization, gaussian blur diameter for mask creation, threshold for image cleaning, diameter for opening the mask, diameter for closing the mask. 
+
+The new steps are as follows: 
+
+1. Use the EM algorithm to cluster the intensities of the points into three normally distributed categories: signal, intermediate, and background. The normality assumption is highly questionable, but the method works pretty well. Use the calculated pdf values for each point to construct a likelihood ratio of P(signal)/P(intermediate + background). Binarize based on the value of this likelihood ratio - if it's over 10, the pixel is signal.    
+    - Each shoe is shown in three separate images, corresponding to the pdf value for each point based on the EM algorithm clustering distribution fitted values. White pixels are highly likely to belong to the group in question - signal, intermediate, and noise.     
+    <img src="images/shoes/longitudinal/EM_pixsets.png" width = "80%"/>    
+    - Binarized versions of each shoe    
+    <img src="images/shoes/longitudinal/EM_LR10_pixset.png" width = "100%"/>
+
+2. The binarized image from the EM algorithm is cleaned slightly using parameters that should be robust to different ppi images (diameters < 10 pixels) - this gets rid of speckling induced by the EM segmentation.    
+    - Initial cleaning - dilation and erosion at very small pixel values    
+    <img src="images/shoes/longitudinal/EM_LR10_clean.png" width = "100%"/>
+    - Labeling disjoint regions (different colors indicate different regions)
+    <img src="images/shoes/longitudinal/EM_LR10_label.png" width = "100%"/>
+    - Removing any blobs which are in the 50px square corner region and which do not involve more than 10% of the image.    
+    <img src="images/shoes/longitudinal/EM_LR10_corner_clean.png" width = "100%"/>    
+At this point we can use the mask to clean the image:    
+<img src="images/shoes/longitudinal/EM_LR10_clean_img.png" width = "100%"/>
+
+3. The binarized image is exaggerated using parameters which are dependant on the size of the image. In general, size $s$ here is the square root of the number of pixels in the image, that is, the side length of the image if it were square.
+    - A gaussian blur is applied to the image (diameter $s$/50)    
+    <img src="images/shoes/longitudinal/EM_LR10_blur_img.png" width = "100%"/>
+    - Any pixel intensity less than the median is determined to be shoe    
+    <img src="images/shoes/longitudinal/EM_LR10_blur_thresh.png" width = "100%"/>
+    - All disjoint regions are labeled    
+    <img src="images/shoes/longitudinal/EM_LR10_blur_label.png" width = "100%"/>
+    - The largest region is selected as the best mask for the shoe
+    <img src="images/shoes/longitudinal/EM_LR10_exag_mask.png" width = "100%"/>
+    - Some cleaning is done to this mask - any holes are filled in and then it is opened by a diameter of approximately $s$/5 (must be odd)    
+    <img src="images/shoes/longitudinal/EM_LR10_mask_final.png" width = "100%"/>
+
+At this point we can use the mask to get a "clean" image:    
+<img src="images/shoes/longitudinal/EM_LR10_image_mask_final.png" width = "100%"/>
+
+And proceed with the alignment as normal: 
+
+<img src="images/shoes/longitudinal/EM_LR10_alignment.png" width = "100%"/>
+</details>
+</div>
 <details>
 <summary> Fine Alignment of Template Mask and Image: Brute-Force, but with image pyramids to reduce computing time.
 </summary>
@@ -149,6 +191,9 @@ In the meantime, it is much easier (relatively speaking) to use our existing fra
 **Repeat the above process for different cuts of the original image, and aggregate predictions**
 <img src="images/shoes/neuralnets/predict_multiple_offsets.PNG" width = "100%"/>
 
+**Updated visualization of aggregated predictions**
+<img src="images/shoes/neuralnets/predict_rect.PNG" width = "100%"/>
+
 </div>
 
 
@@ -166,34 +211,48 @@ In progress:
     - Test for length, clarity, ease, etc.
 - Be involved in set up of data collection site (through CSSM)
 
-<div class = "new">
+
 
 #### Comparing the procedures
 
+<div class = "new">
 
-| Procedure           | Leverhulme      | CSAFE              |
-|---------------------|-----------------|--------------------|
-| 'Before' Pictures   | 4 per shoe      | 15 per shoe        |
-| Paper               | Letter (larger) | Tape printer paper |
-|                     |                 |                    |
-| Actions             | Run, jump, walk | Step, hop          |
-| Replicates          | 6 per shoe      | 9 per shoe         |
-| 'After' Pictures    | 1 pic per print | 3 pics per print   |
-|                     |                 |                    |
-| Total number prints | 18 per shoe     | 18 per shoe        |
-| Total number images | 18 per shoe     | 54 per shoe        |
+| Procedure           | Leverhulme      | CSAFE (initial)    | CSAFE (proposed)
+|---------------------|-----------------|--------------------|------------------|
+| 'Before' Pictures   | 4 per shoe      | 15 per shoe        | 5 per shoe       |
+| Paper               | Letter (larger) | Tape 8.5 x 11      | Tape 8.5 x 11    |
+|                     |                 |                    |                  |
+| Actions             | Run, jump, walk | Step, hop          | Step, hop        |
+| Replicates          | 6 per shoe      | 9 per shoe         | 6 per shoe       |
+| 'After' Pictures    | 1 pic per print | 3 pics per print   | 1 pic per print  |
+|                     |                 |                    |                  |
+| Total number prints | 18 per shoe     | 18 per shoe        | 12 per shoe      |
+| Total number images | 18 per shoe     | 54 per shoe        | 12 per shoe      |
 
+
+Recommendations:
+
+- Ask for one high-quality image of each shoe angle ('before') and print ('after'), instead of three replicate images of each
+    - If Project Tread submission website is set up like current CSSM system (which takes community submissions for environmental images), intermediate quality control can help filter out bad images
+- Only ask for one shoe, and make second shoe optional
+    - Analysis ramifications?
+- Ask for 6 replicates per shoe, like Leverhulme
+    - Analysis ramifications?
+    
 </div>
 
 ## 3d Shoe Recognition 
 
--LESSON LEARNED..... PUSH OFTEN 
-
 The set up: 
 
+Note: With these alignment processes we are assuming that the shoe size does not change with wear and that we are not aligning across pairs of shoes. 
+
+Then we want to look at the change overtime a specific shoe, so we need to grab the shoe scans over time. Using the function *shoe_grab* to grab the scans of a given shoe ID, specify the id number of a shoe you want to look at, (Make sure you have access to the data, follow the steps on the README for more information. For more information on the shoe data, see **Longituidinal_Shoe_Study**), and turns the given shoe into mesh objects to do further analysis. 
 
 
-What we have tried 
+What we have tried: 
+
+At first we wanted to try to simplify the mesh object to just the basic shape in order have simplicity when aligning. The idea of allignment is to take the most basic features, allign them, then by adding complexity of the soul, further allign the two different shoes. The idea is that we want to take a lower detail scan of shoe, allign it, then by adding complexity we can further allign the shoes. However the problem was realized that we are using a prediction to allign rather than the shoe, which ran into some quick problems. 
 
 What we are doing now 
   - Transforming the mesh objects to points aligned by the center of mass to overlay them detecting difference. 
@@ -206,6 +265,7 @@ What we are doing now
     
 ## Shoe outsole matching using image descriptors
 
+### Features
 Previously, features such as edge, corner, SURF were extracted to match shoeprints. The goal of this project is to find other image descriptors as image features for shoe print matching. 
 
 **Image descriptors**
@@ -225,4 +285,112 @@ Previously, features such as edge, corner, SURF were extracted to match shoeprin
   - Features will be combination of strong 100 points of KAZE, ORB, SURF. 
   
 <img src="images/shoes/Features/shoe1_comb_features.png" width="100%"/>
+
+### Matching on clean and full images
+
+<img src="images/shoes/Features/ex_original_KM_KNM.jpg" width="100%"/>
+
+- Mates : Image (1) and (2)
+- Non-mates : Image (1) and (3), Image (2) and (3) 
+
+
+
+
+**Performance evaluation using**
+
+  - **SURF 500**
+  - KAZE 500
+  - ORB 500
+  - SURF 100 + KAZE 100 + ORB 100
+  - SURF 200 + KAZE 200 + ORB 200
+  - POC (Phase-only correlation)
+  - FMTC (Fourier Mellon transformation correlation)
+  
+
+
+
+**Example graphs of mates**:
+
+<img src="images/shoes/Features/image_KM1.png" width="100%"/>
+
+**Example graphs of non-mates**:
+
+<img src="images/shoes/Features/image_KNM1.png" width="100%"/>
+
+**Example matching table using SURF 500**:
+
+Class | Clique size | Rotation angle | % Overlap | Median distance of OP|
+------|-------------|----------------|-----------|----------------------|
+Mates |   18        |       2.11     |   0.5646  |        0.78          |
+Non-mates|    9     |       6.43     |   0.1208  |        1.39          |
+
+
+
+
+**Density plots**:
+
+<img src="images/shoes/Features/surf_density.png" width="100%"/>
+
+<img src="images/shoes/Features/training_POC_FMTC.png" width="100%"/>
+
+
+**ROC curves on test comparisons**:
+
+<img src="images/shoes/Features/ROC_surf.png" width="100%"/>
+
+
+
+  
+### Matching on degraded and partial images  
+  
+**Example of degraded images**:
+
+<img src="images/shoes/Features/deg_full_ex.jpg" width="100%"/>
+
+
+**ROC curves on test comparisons**:
+<img src="images/shoes/Features/SURF_ROC_deg.png" width="100%"/>
+
+
+
+
+
+**What we plan to do**:
+
+  - Get ROC curves using KASE, ORB, combination of them
+  - Do the same comparisons on degraded and partial impressions
+  - Submit the paper
+  
+  
+## Impact of weight to outsole scans from EverOS 2D scanner 
+
+**Analysis setup**:
+
+   - Shoes: 5 pairs of Nike Winflow 4, size 10.5 (Brand-new shoes)
+   - Participants: Person 1 (weight aa lb)and person 2 (bb lb)
+   - Weights: 2 weight vests (20 lbs and 12 lbs)
+   - Weight variations: W1(P1), W2(P1 with one vest), W3(P1 with two vests), W4(P2), W5(P2 with one vest), W6(P2 with two vests)
+   - W1 $=$ 155.2 lb, **W2 $=$ 173.8 lb**, W3 $=$ 187.6 lb, **W4 $=$ 178 lb**, W5 $=$ 197.4 lb, W6 $=$ 211 lb
+  
+  
+  
+**Result1**:
+
+  - Shoe is fixed to left side of shoe1.
+  
+<img src="images/shoes/Features/density_person_effect.png" width="100%"/>
+
+
+
+**Result2**:
+
+  - Purple, green: comparison between repeated replicates from the same shoe, W2-W2, W4-W4.
+  - Comparison between weights W2 and W4: weights are almost the same. 
+  - Yellow: comparison when shoe is fixed to shoe1-L.
+  - Red: comparison between shoe1 – shoe2-5. 
+  - Shoes are never used.
+
+<img src="images/shoes/Features/density_w2_w4.png" width="100%"/>
+
+
 

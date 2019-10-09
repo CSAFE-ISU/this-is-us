@@ -379,7 +379,7 @@ Results for Method 1, the subsampling, looks something like this:
 
 The code in `bulletxtrctr` is already really well set up as a data "pipeline", so now we are conceptualizing the best way to wrap the pipeline and keep track of what decisions are made along the way. 
 
-<p class="new">We are using few resources to conceptualize and plan the pipeline work, including: </p> 
+We are using few resources to conceptualize and plan the pipeline work, including:   
 
 1. `tidymodels`, a part of the `tidyverse` focused on design matrices and reproducibility of modeling
 2. `drake`, an R package by Will Landau which helps cache information and keep track of steps in a pipeline  

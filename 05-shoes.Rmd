@@ -195,7 +195,7 @@ The coordinates in bold have been scaled according to the size reduction, so tha
 
 The resulting aligned images are shown above; black pixels are areas where both images agree; pink and blue pixels represent areas found in one image but not the other. Some images which have many bubbles (air between the film and backing) or which contain blurred or double prints do not align accurately; this is really not avoidable with automatic alignment solutions. 
 
-The alignment process itself (without any image preprocessing) is extremely fast, about 1s per image pair, and seems to be similar even when image size is increased by a factor of 16. 
+The alignment process itself (without any image preprocessing) is extremely fast, about 1s per image pair, and seems to be similar even when image size is increased by a factor of 16. Due to the scaling process and necessary modification of the transformation matrix, the alignments may be off by 1-5 pixels in some cases. This might be handled by aligning a smaller subset of the image at full resolution. (TODO)
 
 </details>
 

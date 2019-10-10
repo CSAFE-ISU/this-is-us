@@ -42,10 +42,15 @@ Solving the template problem by aligning the mask and template yields an additio
 
 1. Rotationally align image and mask using principal components on the non-background pixels in the image
 
-2. Gross align the center of mass of the non-background pixels in the image and mask
-
-    - Use a "mask-ified" version of the shoe print that encloses most of the shoe region in a single region
-    - Default to trimming the actual print by 5% on each dimension to minimize the effect of page borders and creases
+2. Gross align the non-background pixels in the image and mask
+    - Use a "mask-ified" version of the shoe print that encloses most of the shoe region in a single region (see below for explanation)
+    - Default to trimming the actual print by 5% on each dimension to minimize the effect of page borders and creases 
+    
+    - <span class="new">Alignment method options:
+        - center of mass - this fails if a print does not account for the whole shoe
+        - center of narrowest width - ideally, this is approximately the arch of the shoe.    
+        This works better than center of mass in most cases, but occasionally computation fails because it relies on finding a local minimum near the center of the image; if the derivative calculation fails, the algorithm falls back to the center of narrowest width.
+        </span>
     
 3. Pad the image and mask so that the centers are aligned and the image and mask are the same size
 
@@ -58,9 +63,7 @@ After:
 <img src="images/shoes/longitudinal/PCA_Rotate_and_Center_Shift_After.png" width = "100%"/>
 
 These steps are wrapped into the `rough_align` function in the `ShoeScrubR` package. 
-
 </details>
-<div class="new">
 <details><summary>Cleaning the image and exaggerating into a mask</summary>
 In several of the methods applied to this data, it has been useful to have an exaggerated version of the image to function as a mask - this exaggerated image has a center of mass similar to the actual mask, for instance. 
 
@@ -86,7 +89,7 @@ The new steps are as follows:
 At this point we can use the mask to clean the image:    
 <img src="images/shoes/longitudinal/EM_LR10_clean_img.png" width = "100%"/>
 
-3. The binarized image is exaggerated using parameters which are dependant on the size of the image. In general, size $s$ here is the square root of the number of pixels in the image, that is, the side length of the image if it were square.
+3. The binarized image is exaggerated using parameters which depend only on the size of the image. In general, size $s$ here is the square root of the number of pixels in the image, that is, the side length of the image if it were square.
     - A gaussian blur is applied to the image (diameter $s$/50)    
     <img src="images/shoes/longitudinal/EM_LR10_blur_img.png" width = "100%"/>
     - Any pixel intensity less than the median is determined to be shoe    
@@ -105,14 +108,96 @@ And proceed with the alignment as normal:
 
 <img src="images/shoes/longitudinal/EM_LR10_alignment.png" width = "100%"/>
 </details>
-</div>
-<details>
-<summary> Fine Alignment of Template Mask and Image: Brute-Force, but with image pyramids to reduce computing time.
+
+Aligning each image to the template corresponding to the shoe model and size provides a good first step towards aligning the images to one another, but additional work is necessary in order to ensure that we can compare two images from the same shoe (or two images from different shoes). 
+Image-to-image alignment requires more work. 
+
+<details class = "new">
+<summary> Fine Alignment of two images using RNiftyReg
 </summary>
 
-Todo...
+The `RNiftyReg` package is intended for alignment of brain scans and other MRI data and uses a symmetric block-matching approach[@modatGlobalImageRegistration2014]. It only allows for registration of images up to 2048x2048, though, which means we will have to align images at a lower resolution and then modify the transformation matrix accordingly. One definite positive feature is that it allows for provision of a mask for both the source and target images so that only pixels within the mask are used for alignment. <!-- This means that we could be using the original images and just providing the mask to ensure alignment -->
 
-</div>
+_Affine transformations_ are a type of image transformation that encompasses translation, resizing, rotation, and skew operations. Affine transformations preserve collinearity and ratios of distances: parallel lines remain parallel after the transformation. A subset of affine transformations are so-called "rigid body" transformations, which only allow translation and rotation. 
+
+```{r, eval = F, echo = F, message = F, warning = F, fig.width = 8, fig.height = 2, out.width ="100%"}
+library(EBImage)
+library(tidyverse)
+img <- EBImage::readImage("https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Checkerboard_identity.svg/480px-Checkerboard_identity.svg.png", type = "png") %>%
+  EBImage::channel("luminance")
+
+png("images/shoes/longitudinal/affine_transformations.png", width = 800, height = 200, units = "px", pointsize = 24)
+par(mfrow = c(1, 4))
+plot(img)
+text(x = dim(img)[1]/2, y = dim(img)[2]/2, label = "Original Image", col = "red")
+affine(img, matrix(c(cos(pi/6), -sin(pi/6), sin(pi/6), cos(pi/6), 0, dim(img)[2]/2), nrow = 3, byrow = T), output.dim = rep(sqrt(sum(dim(img)^2)), 2), bg.col = 1) %>% plot()
+text(x = sqrt(sum(dim(img)^2))/2, y = sqrt(sum(dim(img)^2))/2, label = "30 deg rotation", col = "red")
+affine(img, matrix(c(2, 0, 0, 1, 0, 0), nrow = 3, byrow = T), output.dim = dim(img)*c(2, 1), bg.col = 1) %>% plot()
+text(x = 2*dim(img)[1]/2, y = dim(img)[2]/2, label = "Scaling", col = "red")
+affine(img, matrix(c(1, 0, .5, 1, 0, 0), nrow = 3, byrow = T), output.dim = dim(img)*c(1.5, 1), bg.col = 1) %>% plot()
+text(x = 1.5*dim(img)[1]/2, y = dim(img)[2]/2, label = "Shearing", col = "red")
+dev.off()
+```
+<img src="images/shoes/longitudinal/affine_transformations.png" width = "100%"/>
+
+RNiftyReg allows for linear (rigid-body, affine), and nonlinear transformations, but for the moment, we are only interested in rigid-body transformations - while the shoes may have some slight distortion due to the wearer and kinematics of walking, this is minor and should not interfere too greatly with a gross alignment. 
+
+RNiftyReg's `niftyreg.linear` function returns a 4x4 transformation matrix describing the composition of multiple image transformation operations. A 3x3 matrix is necessary for 3-dimensional image rotation, resizing, and skew operations; it is then augmented by a row of zeros on the bottom and a column ending with a 1 that describes the x, y, and z translation coordinates. In this way, a 4x4 matrix can represent the composition of all relevant image transformation operations in 3 dimensions. In two dimensions, many of the cells in this matrix are 0. 
+
+ | | | 
+--- | --- | --- | --- 
+1 | 2 | 3 | 4
+5 | 6 | 7 | 8
+9 | 10 | 11 | 12
+13 | 14 | 15 | 16
+
+Cells 1, 2, 5, 6 describe the [rotation operation](https://en.wikipedia.org/wiki/Rotation_matrix); the angle of rotation can be recovered using trigonometry. 
+
+Cells 4, 8 describe the translation operation, e.g. the row (4) and column(8) offset from one matrix to another. 
+
+For 2D rigid transformations, these are the only cells which matter. Cells 11 and 16 are 1, and 3, 7, 9, 10, 12, 13, 14, 15 are all 0 under these constraints. 
+
+In order to use `RNiftyReg` for registration of the original-size images, we have to scale cells 4 and 8, but the rest of the cells remain unscaled. 
+
+Note that `EBImage` uses what is essentially the transposed version of the matrix used by `RNiftyReg`, reduced to elements 1, 2, 5, 6, 4, 8 in a 3 row by 2 column matrix. 
+
+ | 
+-- | --
+1 | 5
+2 | 6
+4 | 8
+
+
+Starting with a set of 6 shoes observed at 3 timepoints each, with 2 different "modes" of print capture, we can align both prints taken on the same date for each shoe. 
+
+The original images: (1 and 2 are taken at the same time point, 3 and 4, etc. 1-6 are the same physical shoe over time and so on)
+
+<img src="images/shoes/longitudinal/Alignment_Orig_files.png" width = "100%"/>
+
+The images are first aligned to masks, which are used to clean the images to reduce noise.
+
+<img src="images/shoes/longitudinal/Alignment_Mask_Img_Align.png" width = "100%"/>
+
+Then reduced-size versions of each image pair are aligned, producing a transformation matrix: 
+
+|          |           |   |          |
+|---------:|----------:|--:|---------:|
+| 0.9999730| -0.0073485|  0|  **30.48815**|
+| 0.0073485|  0.9999730|  0| **-10.16105**|
+| 0.0000000|  0.0000000|  1|   0.00000|
+| 0.0000000|  0.0000000|  0|   1.00000|
+
+(this is one example)
+
+The coordinates in bold have been scaled according to the size reduction, so that they can be applied to the full-size images. 
+
+<img src="images/shoes/longitudinal/Alignment_Result.png" width = "100%"/>
+
+The resulting aligned images are shown above; black pixels are areas where both images agree; pink and blue pixels represent areas found in one image but not the other. Some images which have many bubbles (air between the film and backing) or which contain blurred or double prints do not align accurately; this is really not avoidable with automatic alignment solutions. 
+
+The alignment process itself (without any image preprocessing) is extremely fast, about 1s per image pair, and seems to be similar even when image size is increased by a factor of 16. Due to the scaling process and necessary modification of the transformation matrix, the alignments may be off by 1-5 pixels in some cases. This might be handled by aligning a smaller subset of the image at full resolution. (TODO)
+
+</details>
 
 ##### Wear Characterization {-#lss-paper-analysis-wear}
 Ideas:

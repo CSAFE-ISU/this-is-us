@@ -361,9 +361,22 @@ This year, I'll be studying our bullet land "pipeline" here at CSAFE, as well as
      - Crosscuts: method 1 vs. alternate? Crosscut parameter tuning? 
      - Groove methods  
      - Original RF vs. updated/retrained/re-engineering 
-3. Reproducibility/robustness of different approaches when we consider data COLLECTION.  
+3. Reproducibility/robustness of different approaches when we consider data COLLECTION.   
 
-Goal 3 is a major part of this pipeline process which I have been working on since the spring! We designed and collected a bullet scanning variability study of 9 bullets. I'm working on formally modeling the variability at the signature level, taking two major approaches:   
+The code in `bulletxtrctr` is already really well set up as a data "pipeline", so now we are conceptualizing the best way to wrap the pipeline and keep track of what decisions are made along the way. 
+
+<p class="new"> We are using few resources to conceptualize and plan the pipeline work, including: </p>  
+
+1. `tidymodels`, a part of the `tidyverse` focused on design matrices and reproducibility of modeling
+2. `drake`, an R package by Will Landau which helps cache information and keep track of steps in a pipeline  
+     - We are investigating how well this scales to ``big data".  
+     - <p class="new"> It does not scale well. </p>
+3. Some pipeline/plumbing papers by Hadley Wickham, Heike Hofmann, Dianne Cook, and others  
+     - These focus on interactive graphics and updating data/plotting objects with interactivity  
+4. All of the existing tools in the "bulletverse"; `x3ptools`, `bulletxtrctr`, `grooveFinder`, etc.
+
+
+Earlier this year, we designed and collected a bullet scanning variability study of 9 bullets. I'm working on formally modeling the variability at the signature level, taking two major approaches:   
 
 1. Subsampling and assuming independence; 
 2. Directly modeling out the mean structure
@@ -374,19 +387,22 @@ Goal 3 is a major part of this pipeline process which I have been working on sin
 
 Results for Method 1, the subsampling, looks something like this:   
 
+<img src="images/bullets/pipeline/subsampled_variability_results_orange_l1.png" width = "80%"/>  
 
-<img src="images/bullets/pipeline/subsampled_variability_results_orange_l1.png" width = "80%"/>
+<p class="new"> We are also investigating the variability of random forest scores, using pairs of signatures. The current process for taking a set of signatures and completing pairwise comparisons on each of them actually completes many comparisons twice, which has two impacts: </p>  
 
-The code in `bulletxtrctr` is already really well set up as a data "pipeline", so now we are conceptualizing the best way to wrap the pipeline and keep track of what decisions are made along the way. 
+1. It takes up more computational time and memory than we really need it to
+2. It has the potential to make our variance component estimates inaccurate - we double-count a bunch of comparisons!   
 
-<p class="new">We are using few resources to conceptualize and plan the pipeline work, including: </p> 
 
-1. `tidymodels`, a part of the `tidyverse` focused on design matrices and reproducibility of modeling
-2. `drake`, an R package by Will Landau which helps cache information and keep track of steps in a pipeline  
-     - We are investigating how well this scales to ``big data".  
-3. Some pipeline/plumbing papers by Hadley Wickham, Heike Hofmann, Dianne Cook, and others  
-     - These focus on interactive graphics and updating data/plotting objects with interactivity  
-4. All of the existing tools in the "bulletverse"; `x3ptools`, `bulletxtrctr`, `grooveFinder`, etc.
+
+Over the summer I made a function to "fix" this, to address the estimation problem in my variability study. The `bulletxtrctr` pipeline calls for using `expand.grid`. My new function compares pairs by creating a `pairing_id` variable and ensuring no `pairing_id` is duplicated. This is the resulting set of comparisons: 
+
+<img src="images/bullets/pipeline/comparison_grid_example.png" width = "80%"/>  
+
+The changes to our results are minor, but it is an important detail when modeling things.  
+
+I also have been working on finishing up "ground truth ID's" for the variability study, and editing my joint paper with Nate.  
 
 
 

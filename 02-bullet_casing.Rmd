@@ -107,6 +107,14 @@ Assume beta distributions for the ccf for both known mathces and known non-match
 
 I'm working on those concepts mixture model, mixture distribution, beta-mixture model, mixture beta regression. And try to fit the model by R packages: mixtools, flexmix, betareg. I'm trying to find a way using the above mentioned methods and packages.
 
+```{r, fig.cap="beta mixture fit seperately", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/betafit3.PNG"))
+```
+
+```{r, fig.cap="beta mixture fit including some prior information", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/betafift2.PNG"))
+```
+
 #### follow-up study 
 
 4 bullets per barrel for  96 of the original 626 Beretta firearms using different ammunition

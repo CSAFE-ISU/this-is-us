@@ -573,7 +573,7 @@ Now that the skeleton of the algorithm has, for the most part, been fleshed-out,
 
 <details>
 <summary>
-For the sake of an example, I have 5 known-match breech face impressions shown below. In the state shown, the scans have been pre-processed to the point that we can visualy see when a pair matches. Hopefully, the scans should look to you as if one is just a rotated version of the other.
+**For the sake of an example, I have 5 known-match breech face impressions shown below. In the state shown, the scans have been pre-processed to the point that we can visualy see when a pair matches. Hopefully, the scans should look to you as if one is just a rotated version of the other.**
 </summary>
 
 ```{r, fig.cap=" ",out.width="50%",fig.keep="hold", fig.align='center',fig.show='hold'}
@@ -615,7 +615,7 @@ knitr::include_graphics(c("images/cartridge_cases/finerGridHighestCorrRegistrati
 
 <details>
 <summary>
-Finally, we can pick the most popular rotation angle for each firearm pair and visually compare how well the two breech face impressions match up. This is done so below. We can see that the algorithm has indeed selected good rotation values for each pair.
+**Finally, we can pick the most popular rotation angle for each firearm pair and visually compare how well the two breech face impressions match up. This is done so below. We can see that the algorithm has indeed selected good rotation values for each pair.**
 </summary>
 ```{r, fig.cap=" ",out.width="50%",fig.keep="hold", fig.align='center',fig.show='hold'}
 knitr::include_graphics(c("images/cartridge_cases/fadul1_im1_afterRotation.png",

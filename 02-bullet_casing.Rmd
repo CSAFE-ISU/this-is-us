@@ -548,6 +548,79 @@ knitr::include_graphics(c("images/cartridge_cases/nonNA_filteredPixelCounts.png"
 ```
 </details>
 
+<details>
+<summary>
+Joe 10/10/18 Update: Discuss how the algorithm generalizes to different pairs of cartridge cases. Based on a sample of 5 known-match pairs, it appears that the algorithm does do a good job of deciding on a rotation value to make one breech face impression match up well with the other. 
+</summary>
+
+Now that the skeleton of the algorithm has, for the most part, been fleshed-out, we can finally start testing it on different pairs of breech face impressions.
+
+<details>
+<summary>
+For the sake of an example, I have 5 known-match breech face impressions shown below. In the state shown, the scans have been pre-processed to the point that we can visualy see when a pair matches. Hopefully, the scans should look to you as if one is just a rotated version of the other.
+</summary>
+
+```{r, fig.cap=" ",out.width="50%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/fadul1_im1_beforeRotation.png",
+                          "images/cartridge_cases/fadul1_im2_beforeRotation.png"))
+
+knitr::include_graphics(c("images/cartridge_cases/fadul2_im1_beforeRotation.png",
+                          "images/cartridge_cases/fadul2_im2_beforeRotation.png"))
+
+knitr::include_graphics(c("images/cartridge_cases/fadul3_im1_beforeRotation.png",
+                          "images/cartridge_cases/fadul3_im2_beforeRotation.png"))
+
+knitr::include_graphics(c("images/cartridge_cases/fadul4_im1_beforeRotation.png",
+                          "images/cartridge_cases/fadul4_im2_beforeRotation.png"))
+
+knitr::include_graphics(c("images/cartridge_cases/fadul5_im1_beforeRotation.png",
+                          "images/cartridge_cases/fadul5_im2_beforeRotation.png"))
+```
+</details>
+
+One iteration of the CMC algorithm was already discussed in-detail in the 9/5/19 Update above, so I won't go into detail about that here (I'm saving it for my Spotlight in November). Instead, we can see a gif that shows which cells from image A and image B we compare when calculating the cross-correlation. Recall that the image A cells are 100x100 and image B cells are 200x200, which is why the cells on the right appear to cover more of the breech face impression than the cells on the left.
+
+```{r, fig.cap="(Left) 100x100 cells from Image A. (Right) 200x200 cells from Image B.", out.width="50%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/im1_standardCells.gif",
+                          "images/cartridge_cases/im2_largerCells.gif"))
+```
+
+As we can clearly see from the 5 pairs above, we need to perform rotations to properly align one with the other. We perform the cross-correlation calculation for 43 different rotation angles (of image B) to determine which rotation angle yields the highest correlation ($\theta \in [-179.5,180]$ by $2.5^\circ$). However, because we have broken up our images into cells, each cell in image A gets to "vote" for the theta value for which it had the highest correlation with its paired cell in image B. Below, we see the distribution of such theta values (referred to as the "registration angle" in Tong et al. (2015)). The histogram shows that the many of the cells tend to vote for theta values in a relatively small range, which bodes well for us in determining the optimal rotation angle.
+
+```{r, fig.cap="Histogram of the registration angle of highest correlation for each of the 5 pairs of breech face impressions.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/highestCorrelationRegistrationAngleHistogram.png"))
+```
+
+Since we clearly have a region of popular theta values for each pair, we can perform a finer search around these theta values to arrive at a more precise estimate. The histogram for this finer grid search is shown below. According to Tong et al. (2015), the minimum number of cells that must agree upon a theta value (up to some margin) for two breech face impressions to be called a "match" is 6. We can clearly see from the histogram below that this criterion is met. There are other criteria that Tong et al. discuss including how far we need to shift each cell in image A to achieve the highest correlation with the neighboring cell in image B. Those criteria also seem to be met on the examples I've looked at.
+
+```{r, fig.cap="A finer grid search histogram of the registration angle of highest correlation for each of the 5 pairs of breech face impressions.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/finerGridHighestCorrRegistrationAngleHistogram.png"))
+```
+
+<details>
+<summary>
+Finally, we can pick the most popular rotation angle for each firearm pair and visually compare how well the two breech face impressions match up. This is done so below. We can see that the algorithm has indeed selected good rotation values for each pair.
+</summary>
+```{r, fig.cap=" ",out.width="50%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/fadul1_im1_afterRotation.png",
+                          "images/cartridge_cases/fadul1_im2_afterRotation.png"))
+
+knitr::include_graphics(c("images/cartridge_cases/fadul2_im1_afterRotation.png",
+                          "images/cartridge_cases/fadul2_im2_afterRotation.png"))
+
+knitr::include_graphics(c("images/cartridge_cases/fadul3_im1_afterRotation.png",
+                          "images/cartridge_cases/fadul3_im2_afterRotation.png"))
+
+knitr::include_graphics(c("images/cartridge_cases/fadul4_im1_afterRotation.png",
+                          "images/cartridge_cases/fadul4_im2_afterRotation.png"))
+
+knitr::include_graphics(c("images/cartridge_cases/fadul5_im1_afterRotation.png",
+                          "images/cartridge_cases/fadul5_im2_afterRotation.png"))
+```
+</details>
+
+</details>
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
 The moified Chumbley non-random algorithm is a statistical non-paramaetric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segement to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 

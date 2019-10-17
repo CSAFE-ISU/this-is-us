@@ -354,6 +354,15 @@ Now working on:
 - Finish visualization portion for the vignette
 - Expand testing for get_grooves_hough
 
+
+Charlotte Update 10/17/2019:
+
+- Finally finished up with the vignette, but need to finish one or two more explanation diagrams before first-pass is complete. Having trouble figuring out what the results section should really look like. 
+
+- Trying to re-run phoenix results with a different adjust parameter, having issues with the rstudio server -- anyone else?
+
+- Need to finish tests for get_grooves_hough. 
+
 ##### LASSO Method  
 
 A paper is in preparation for submission to Forensic Science International describing this method (`get_grooves_lassofull` in `grooveFinder`), as well as the Bayesian changepoint method (`get_grooves_bcp`).  

@@ -78,7 +78,7 @@ For the known non-matches, we don't have the data in hand. We need to generate t
 We sampled 100 bullet-bullet known non-matches from our 92 cases.
 
 ```{r, fig.cap="KM and KNM", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/knm-km.PNG"))
+include_graphics(c("images/yawei/knmkm.png"))
 ```
 
 Is the SAM(sequence average maximum) a good choice? Need to do a permutation test.
@@ -115,6 +115,13 @@ include_graphics(c("images/yawei/betafit3.PNG"))
 include_graphics(c("images/yawei/betafift2.PNG"))
 ```
 
+```{r, fig.cap="beta mixture fit for land-land KM", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/landp1.PNG"))
+```
+
+```{r, fig.cap="beta mixture fit for land-land KNM and KM comp1", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/landp2.PNG"))
+```
 #### follow-up study 
 
 4 bullets per barrel for  96 of the original 626 Beretta firearms using different ammunition

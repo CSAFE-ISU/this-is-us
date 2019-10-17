@@ -21,7 +21,7 @@ Methods and data description handed off to Alicia for editing
 - Working with the `EBImage` package - very fast processing of images
 
 ##### `ShoeScrubR` package {-#lss-data-cleaning}
-All analysis methods for the Longitudinal data are contained in the [`ShoeScrubR` package](https://github.com/srvanderplas/ShoeScrubR). 
+Cleaning methods for the Longitudinal data are contained in the [`ShoeScrubR` package](https://github.com/srvanderplas/ShoeScrubR). <span class="new">The package includes (as of 2019-10-17) a complete set of tests to guard against regressions (100% test coverage!) and uses continuous integration to ensure that the installation process is also monitored.</span>
 
 The `ShoeScrubR` package also includes logging of all image-in image-out operations using attributes - each time a transformation is performed, the transformation and the parameters are appended to the running operations log. This should make it possible to track the provenance of an object through the set of transformations (and potentially un-do them in some cases).
 
@@ -46,11 +46,11 @@ Solving the template problem by aligning the mask and template yields an additio
     - Use a "mask-ified" version of the shoe print that encloses most of the shoe region in a single region (see below for explanation)
     - Default to trimming the actual print by 5% on each dimension to minimize the effect of page borders and creases 
     
-    - <span class="new">Alignment method options:
+    - Alignment method options:
         - center of mass - this fails if a print does not account for the whole shoe
         - center of narrowest width - ideally, this is approximately the arch of the shoe.    
         This works better than center of mass in most cases, but occasionally computation fails because it relies on finding a local minimum near the center of the image; if the derivative calculation fails, the algorithm falls back to the center of narrowest width.
-        </span>
+
     
 3. Pad the image and mask so that the centers are aligned and the image and mask are the same size
 
@@ -112,7 +112,7 @@ And proceed with the alignment as normal:
 Aligning each image to the template corresponding to the shoe model and size provides a good first step towards aligning the images to one another, but additional work is necessary in order to ensure that we can compare two images from the same shoe (or two images from different shoes). 
 Image-to-image alignment requires more work. 
 
-<details class = "new">
+<details>
 <summary> Fine Alignment of two images using RNiftyReg
 </summary>
 
@@ -195,7 +195,7 @@ The coordinates in bold have been scaled according to the size reduction, so tha
 
 The resulting aligned images are shown above; black pixels are areas where both images agree; pink and blue pixels represent areas found in one image but not the other. Some images which have many bubbles (air between the film and backing) or which contain blurred or double prints do not align accurately; this is really not avoidable with automatic alignment solutions. 
 
-The alignment process itself (without any image preprocessing) is extremely fast, about 1s per image pair, and seems to be similar even when image size is increased by a factor of 16. 
+The alignment process itself (without any image preprocessing) is extremely fast, about 1s per image pair, and seems to be similar even when image size is increased by a factor of 16. Due to the scaling process and necessary modification of the transformation matrix, the alignments may be off by 1-5 pixels in some cases. This might be handled by aligning a smaller subset of the image at full resolution. (TODO)
 
 </details>
 
@@ -229,9 +229,7 @@ Grant scope: Build the shoe scanner, develop an automatic recognition algorithm 
 - Truncate convolutional base and train random forest on features
     - Could replace fully connected layers of neural net as classifier
     - Importance score can filter/reduce the number of features 
-    - *Block 4 random forest training terminated after one week :( *
-    - *Block 5 currently training for two different random forest packages (randomForest and ranger)*
-    - *If new models take more than 1-2 weeks, will look into subsampling techniques.*
+    - *Training the random forest requires too much memory for Bigfoot (CSAFE server), and still takes over two weeks on the HPC. We're setting this goal aside for now, but could try subsampling the features for a random forest in the future.*
   
 - *Spatial integration*
     - *Model is currently set up to take in 256x256 pixels*
@@ -260,7 +258,7 @@ Grant scope: Build the shoe scanner, develop an automatic recognition algorithm 
 
 The overhead costs of going fully convolutional are high; CNN papers are opaque, and many supervised techniques require fully labeled data for semantic segmentation (i.e., label every pixel). Moreover, complex models (for both supervised and unsupervised tequniques) are often only available in Python, and there are a large number of GitHub repositories of mixed quality and reliability. Filtering for quality, understanding code structures, and implementing them on HPC are all enormous tasks on their own.
 
-In the meantime, it is much easier (relatively speaking) to use our existing framework of 256x256 square pixel images, for which we have generated thousands of labeled images and have already trained and improved domain-specific models. Currently, I have code working to automatically crop image borders, chop the image into 256x256 pixels (padding the image when appropriate) and correct the contrast on the individual images.
+In the meantime, it is much easier (relatively speaking) to use our existing framework of 256x256 square pixel images, for which we have generated thousands of labeled images and have already trained and improved domain-specific models. Currently, I have code working to automatically crop image borders, chop the image into 256x256 pixels (padding the image when appropriate) and equalize the contrast on the individual images.
 
 <div class = "new">
 
@@ -274,10 +272,11 @@ In the meantime, it is much easier (relatively speaking) to use our existing fra
 <img src="images/shoes/neuralnets/predict.PNG" width = "100%"/> 
 
 **Repeat the above process for different cuts of the original image, and aggregate predictions**
-<img src="images/shoes/neuralnets/predict_multiple_offsets.PNG" width = "100%"/>
-
-**Updated visualization of aggregated predictions**
 <img src="images/shoes/neuralnets/predict_rect.PNG" width = "100%"/>
+
+**Shiny App**
+<img src="images/shoes/neuralnets/Shiny_ggHeatmaps.PNG" width = "100%"/>
+
 
 </div>
 
@@ -304,7 +303,10 @@ In progress:
 
 | Procedure           | Leverhulme      | CSAFE (initial)    | CSAFE (proposed)
 |---------------------|-----------------|--------------------|------------------|
-| 'Before' Pictures   | 4 per shoe      | 15 per shoe        | 5 per shoe       |
+| 'Before' Views      | 4 per shoe      | 5 per shoe         | 5 per shoe       |
+| 'Before' Pictures   | 1 per view      | 3 per view         | 1 per view       |
+| Total 'before' pics | 4 per shoe      | 15 per shoe        | 5 per shoe       |
+|                     |                 |                    |                  |
 | Paper               | Letter (larger) | Tape 8.5 x 11      | Tape 8.5 x 11    |
 |                     |                 |                    |                  |
 | Actions             | Run, jump, walk | Step, hop          | Step, hop        |
@@ -313,6 +315,8 @@ In progress:
 |                     |                 |                    |                  |
 | Total number prints | 18 per shoe     | 18 per shoe        | 12 per shoe      |
 | Total number images | 18 per shoe     | 54 per shoe        | 12 per shoe      |
+|                     |                 |                    |                  |
+| Requested # shoes   | Not specified   | Both shoes         | One, 2nd optional|
 
 
 Recommendations:
@@ -437,6 +441,8 @@ Non-mates|    9     |       6.43     |   0.1208  |        1.39          |
 <img src="images/shoes/Features/SURF_ROC_deg.png" width="100%"/>
 
 
+**ROC curves on test comparisons**:
+<img src="images/shoes/Features/ROC_features.png" width="100%"/>
 
 
 
@@ -446,6 +452,10 @@ Non-mates|    9     |       6.43     |   0.1208  |        1.39          |
   - Do the same comparisons on degraded and partial impressions
   - Submit the paper
   
+
+
+
+
   
 ## Impact of weight to outsole scans from EverOS 2D scanner 
 

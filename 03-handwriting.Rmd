@@ -52,7 +52,7 @@ We are currently working to incorporate the cluster grouping assignments into th
 ## Statistical Analysis
 ### Clustering
 
-
+ 
 Paper submitted (September 2019)!
 
 ```{r, fig.cap="", out.width="70%", fig.keep="hold", fig.align='center'}
@@ -197,15 +197,26 @@ $$
 \boldsymbol{\bar{p}} = \{\bar{p}_{w_1},...,\bar{p}_{w_{27}}\}.
 $$
 
+
 <strong> Results </strong>  
 
 
-There is one holdout document for each writer. The $\boldsymbol{\bar{p}}$ vector as given above is shown graphically for each holdout document (the rows).
+If we use a single holdout document for each writer (doc 4). The $\boldsymbol{\bar{p}}$ vector as given above is shown graphically for each holdout document (the rows).
 
 ```{r, fig.cap="Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.2013", out.width="60%", fig.keep="hold", fig.align='center'}
 include_graphics(c( "images/handwriting/amy/CVL_w27_h4_cluster40_basemodel_grid.png"))
 ```
 
+<br>
+
+<p class="new"> We can use a cross validation routine to estimate error. For each writer, shuffle the order of their body of documents. For the first fold we holdout the first document for testing, for the second fold we hold out the second document for testing, etc.. This yields 6 results analogous to that of the figure above. <p>
+
+
+```{r, fig.cap="Posterior predictive results for each fold of the CV routine outlined above. Log Loss is clearly not a great summary of performance.", out.width="100%", fig.keep="hold", fig.align='center'}
+include_graphics(c( "images/handwriting/amy/CVL_w27_CVfoldall_cluster40_basemodel_grid.png"))
+```
+
+<br>
 
 <strong> Evaluating Over-/Under-dispersion (Writer Variability Index) </strong>  
 With a count data model it is important to investigate the presence of over- and under-dispersion. An index of intra-writer variability with respect to a model.  
@@ -234,23 +245,47 @@ include_graphics(c( "images/handwriting/amy/writer23samples.png"))
 
 
 #### Model #2, Mixture{-}
+<p class = "new"> There seem to be greatly varying shapes in the relative frequency of cluster fill. We think maybe a more flexible Dirichlet distribution is warranted.<p>
+```{r, fig.cap="Average relative frequency of cluster fill for the 8 most common clusters. Notice writers 12/21 and 6/17/18.", out.width="80%", fig.keep="hold", fig.align='center'}
+include_graphics(c( "images/handwriting/amy/bucketfillshapes.png"))
+```
+
+Add flexibility to the original model by including a mixture component in the Dirichlet parameter space.
+
 $$\begin{array}{rl}
      \mathbf{Y}_{w(d)} | \boldsymbol\pi_{w}, w\: &\stackrel{ind}{\sim} \:Multinomial(\boldsymbol\pi_{w}), \\
 \boldsymbol{\pi}_w|\boldsymbol{\alpha},\boldsymbol{\beta}, \rho_w  \:&\stackrel{ind}{\sim}\:Dirichlet(\rho_w \: \boldsymbol{\alpha}+ (1-\rho_w)  \: \boldsymbol{\beta}), \\
-\alpha_{k}, \: \beta_{k} \: &\stackrel{iid}{\sim}\: Gamma(2, \: 0.25),  \\
+\alpha_{k}, \: \beta_{k} \: &\stackrel{iid}{\sim}\: Gamma(2, \: 0.25) \:\: \mbox{ for } k > 3,  \\
 \rho_w\: & \stackrel{iid}{\sim}\: Beta(1,1)
 \end{array}$$
 
 
 <strong> Label Switchin Issues. </strong>  
+The model is non-identifiabile. We need to either place constraints on the parameter space to exclude the possibility of a second mode apriori, or estimate the posterior in both modes and post-process for label reassignment after.
+<p class="new">This has been resolved (?) by placing constraints on the first three elements of $\alpha$ and $\beta$ with moderately informative priors. <p>
 
-Investigating post-processing methods to handle identifiability issues with this model. The MCMC routine is stuck in one of two modes (which saves us, here). Making the usual inferences about $\rho, \alpha,$ and $\beta$ is not appropriate if the label switching problem is not addressed.
+  - $\mathbf{\alpha_1 < \beta_1}$, $\quad$  $\alpha_1 \sim Gamma(2, 0.25) \:\: \& \:\: \beta_1 \sim Gamma(4, 0.25)$  
+        
+  - $\mathbf{\alpha_2 > \beta_2}$  , $\quad$  $\alpha_2 \sim Gamma(4, 0.25) \:\: \& \:\: \beta_2 \sim Gamma(1, 0.25)$  
+        
+  - $\mathbf{\alpha_3 > \beta_3}$ , $\quad$  $\alpha_3 \sim Gamma(4, 0.25) \:\: \& \:\: \beta_3 \sim Gamma(1, 0.25)$   
+        
+```{r, echo = FALSE, message = FALSE, warning=FALSE, fig.height=2.5, fig.width = 6.5, fig.align='center'}
+library(tidyverse)
+x = seq(0, 30, length.out = 1000)
+df = data.frame(x = x, 
+                gam4 = dgamma(x, shape = 4, rate = 0.25),
+                gam2 = dgamma(x, shape = 2, rate = 0.25),
+                gam1 = dgamma(x, shape = 1, rate = 0.25))
+
+df %>% gather(key = "GammaDist", value = "value", -x) %>%
+  ggplot() + geom_line(aes(x = x, y = value, color = GammaDist)) + theme_bw() +  scale_color_discrete(name = "Distribution", labels = c("Gamma(1, 0.25)", "Gamma(2, 0.25)", "Gamma(4, 0.25)"))
+```
 
 <strong> Results </strong>    
 
-
 The mixing component gives insights into writing style.
-```{r, fig.cap="Average $\rho_w$ value for each writer.", out.width="70%", fig.keep="hold", fig.align='center'}
+```{r, fig.cap="Average $ \rho_w $ value for each writer.", out.width="70%", fig.keep="hold", fig.align='center'}
 include_graphics(c( "images/handwriting/amy/mixprior_rhosamps2.png"))
 ```  
 
@@ -335,12 +370,16 @@ Presenting author is in bold.
 
 ### Papers
 - <strong>"A Clustering Method for Graphical Handwriting Components and Statistical Writership Analysis"</strong>
-    - Authors: Nick Berry, Amy Crawford
+    - Authors: Nick Berry and Amy Crawford
     - Submitted to The Annals of Applied Statistics in September 2019.
     
 - <strong>"Bayesian Hierarchical Modeling for Forensic Handwriting Analysis"</strong>
     - Authors: Amy Crawford, Alicia Carriquiry, and Danica Ommen
     - In preparation for submission to PNAS
+    
+- <strong>"A Database of Handwriting Samples for Applications in Forensic Statistics"</strong>
+    - Authors: Anyesha Rey, Amy Crawford, and Alicia Carriquiry
+    - In preparation for submission to Data in Brief
    
    
 
@@ -382,7 +421,7 @@ Presenting author is in bold.
 
 ### Posters
 - <strong>"A Bayesian Hierarchical Model for Forensic Writer Identification"</strong>
-    - August 2019
+    - September 2019
     - Authors: <strong>Amy Crawford</strong>, Alicia Carriquiry, Danica Ommen
     - 10th International Workshop on Statistics and Simulation in Salzburg, Austria
     - <i>1st Springer Poster Award</i>

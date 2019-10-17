@@ -78,7 +78,7 @@ For the known non-matches, we don't have the data in hand. We need to generate t
 We sampled 100 bullet-bullet known non-matches from our 92 cases.
 
 ```{r, fig.cap="KM and KNM", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/knm-km.PNG"))
+include_graphics(c("images/yawei/knmkm.png"))
 ```
 
 Is the SAM(sequence average maximum) a good choice? Need to do a permutation test.
@@ -107,6 +107,29 @@ Assume beta distributions for the ccf for both known mathces and known non-match
 
 I'm working on those concepts mixture model, mixture distribution, beta-mixture model, mixture beta regression. And try to fit the model by R packages: mixtools, flexmix, betareg. I'm trying to find a way using the above mentioned methods and packages.
 
+```{r, fig.cap="beta mixture fit seperately", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/betafit3.PNG"))
+```
+
+```{r, fig.cap="beta mixture fit including some prior information", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/betafift2.PNG"))
+```
+
+```{r, fig.cap="beta mixture fit for land-land KM", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/landp1.PNG"))
+```
+
+```{r, fig.cap="beta mixture fit for land-land KNM and KM comp1", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/landp2.PNG"))
+```
+
+```{r, fig.cap="log-likelihood ratio for KNM and KM", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-km-entire.PNG"))
+```
+
+```{r, fig.cap="log-likelihood ratio for KNM and KM_Comp2", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-km-comp2.PNG"))
+```
 #### follow-up study 
 
 4 bullets per barrel for  96 of the original 626 Beretta firearms using different ammunition
@@ -321,8 +344,15 @@ knitr::include_graphics("images/bullets/Hough_project/Hamby_demo_crosscuts.png")
 
 Charlotte Update 10/3/2019:
 
-the get_grooves_hough function has changed since last week, it previously slopes were calculated in x which is numerically less stable than a slope in y so for example when we were using the old slopes we had the possibility of dividing by zero which is not good. Changing to the new slope helps eliminate that likelihood. Other than that I am working on writing a grooveFinder vignette. I will be discussing every step of the Hough algorithm at length then demonstrating the function itself on the Hamby44 demo set.
+The get_grooves_hough function has changed since last week, it previously slopes were calculated in x which is numerically less stable than a slope in y so for example when we were using the old slopes we had the possibility of dividing by zero which is not good. Changing to the new slope helps eliminate that likelihood. Other than that I am working on writing a grooveFinder vignette. I will be discussing every step of the Hough algorithm at length then demonstrating the function itself on the Hamby44 demo set.
 
+Charlotte Update 10/3/2019:
+
+Finished up the application section of the Hough grooves vignette, need to fill in a few demonstration images that explane how we calculate normalized scores using geometry.
+
+Now working on:
+- Finish visualization portion for the vignette
+- Expand testing for get_grooves_hough
 
 ##### LASSO Method  
 
@@ -361,9 +391,22 @@ This year, I'll be studying our bullet land "pipeline" here at CSAFE, as well as
      - Crosscuts: method 1 vs. alternate? Crosscut parameter tuning? 
      - Groove methods  
      - Original RF vs. updated/retrained/re-engineering 
-3. Reproducibility/robustness of different approaches when we consider data COLLECTION.  
+3. Reproducibility/robustness of different approaches when we consider data COLLECTION.   
 
-Goal 3 is a major part of this pipeline process which I have been working on since the spring! We designed and collected a bullet scanning variability study of 9 bullets. I'm working on formally modeling the variability at the signature level, taking two major approaches:   
+The code in `bulletxtrctr` is already really well set up as a data "pipeline", so now we are conceptualizing the best way to wrap the pipeline and keep track of what decisions are made along the way. 
+
+We are using few resources to conceptualize and plan the pipeline work, including:  
+
+1. `tidymodels`, a part of the `tidyverse` focused on design matrices and reproducibility of modeling
+2. `drake`, an R package by Will Landau which helps cache information and keep track of steps in a pipeline  
+     - We are investigating how well this scales to ``big data".  
+     - <p class="new"> It does not scale well. </p>
+3. Some pipeline/plumbing papers by Hadley Wickham, Heike Hofmann, Dianne Cook, and others  
+     - These focus on interactive graphics and updating data/plotting objects with interactivity  
+4. All of the existing tools in the "bulletverse"; `x3ptools`, `bulletxtrctr`, `grooveFinder`, etc.
+
+
+Earlier this year, we designed and collected a bullet scanning variability study of 9 bullets. I'm working on formally modeling the variability at the signature level, taking two major approaches:   
 
 1. Subsampling and assuming independence; 
 2. Directly modeling out the mean structure
@@ -374,19 +417,27 @@ Goal 3 is a major part of this pipeline process which I have been working on sin
 
 Results for Method 1, the subsampling, looks something like this:   
 
+<img src="images/bullets/pipeline/subsampled_variability_results_orange_l1.png" width = "80%"/>  
 
-<img src="images/bullets/pipeline/subsampled_variability_results_orange_l1.png" width = "80%"/>
+We are also investigating the variability of random forest scores, using pairs of signatures. The current process for taking a set of signatures and completing pairwise comparisons on each of them actually completes many comparisons twice, which has two impacts:    
 
-The code in `bulletxtrctr` is already really well set up as a data "pipeline", so now we are conceptualizing the best way to wrap the pipeline and keep track of what decisions are made along the way. 
+1. It takes up more computational time and memory than we really need it to
+2. It has the potential to make our variance component estimates inaccurate - we double-count a bunch of comparisons!   
 
-<p class="new">We are using few resources to conceptualize and plan the pipeline work, including: </p> 
 
-1. `tidymodels`, a part of the `tidyverse` focused on design matrices and reproducibility of modeling
-2. `drake`, an R package by Will Landau which helps cache information and keep track of steps in a pipeline  
-     - We are investigating how well this scales to ``big data".  
-3. Some pipeline/plumbing papers by Hadley Wickham, Heike Hofmann, Dianne Cook, and others  
-     - These focus on interactive graphics and updating data/plotting objects with interactivity  
-4. All of the existing tools in the "bulletverse"; `x3ptools`, `bulletxtrctr`, `grooveFinder`, etc.
+
+Over the summer I made a function to "fix" this, to address the estimation problem in my variability study. The `bulletxtrctr` pipeline calls for using `expand.grid`. My new function compares pairs by creating a `pairing_id` variable and ensuring no `pairing_id` is duplicated. This is the resulting set of comparisons: 
+
+<img src="images/bullets/pipeline/comparison_grid_example.png" width = "80%"/>  
+
+The changes to our results are minor, but it is an important detail when modeling things.  
+
+<p class="new"> Two papers in progress! Groove ID paper #1 is waiting for reviewer scores, Groove ID paper #2 is waiting for advisor comments. </p>
+
+<p class="new"> We are adding more operators to our variability study! </p>
+
+<p class="new"> I have been working on book edits this week as well. :) </p>
+
 
 
 
@@ -546,6 +597,108 @@ Using the output of the Hough Transform-selected circles shown above we would li
 knitr::include_graphics(c("images/cartridge_cases/nonNA_filteredPixelCounts.png",
                           "images/cartridge_cases/houghScorePlot.png"))
 ```
+</details>
+
+<details>
+<summary>
+Joe 10/10/18 Update: Discuss how the algorithm generalizes to different pairs of cartridge cases. Based on a sample of 5 known-match pairs, it appears that the algorithm does do a good job of deciding on a rotation value to make one breech face impression match up well with the other. 
+</summary>
+
+Now that the skeleton of the algorithm has, for the most part, been fleshed-out, we can finally start testing it on different pairs of breech face impressions.
+
+<details>
+<summary>
+**For the sake of an example, I have 5 known-match breech face impressions shown below. In the state shown, the scans have been pre-processed to the point that we can visualy see when a pair matches. Hopefully, the scans should look to you as if one is just a rotated version of the other.**
+</summary>
+
+```{r, fig.cap=" ",out.width="50%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/fadul1_im1_beforeRotation.png",
+                          "images/cartridge_cases/fadul1_im2_beforeRotation.png"))
+
+knitr::include_graphics(c("images/cartridge_cases/fadul2_im1_beforeRotation.png",
+                          "images/cartridge_cases/fadul2_im2_beforeRotation.png"))
+
+knitr::include_graphics(c("images/cartridge_cases/fadul3_im1_beforeRotation.png",
+                          "images/cartridge_cases/fadul3_im2_beforeRotation.png"))
+
+knitr::include_graphics(c("images/cartridge_cases/fadul4_im1_beforeRotation.png",
+                          "images/cartridge_cases/fadul4_im2_beforeRotation.png"))
+
+knitr::include_graphics(c("images/cartridge_cases/fadul5_im1_beforeRotation.png",
+                          "images/cartridge_cases/fadul5_im2_beforeRotation.png"))
+```
+</details>
+
+One iteration of the CMC algorithm was already discussed in-detail in the 9/5/19 Update above, so I won't go into detail about that here (I'm saving it for my Spotlight in November). Instead, we can see a gif that shows which cells from image A and image B we compare when calculating the cross-correlation. Recall that the image A cells are 100x100 and image B cells are 200x200, which is why the cells on the right appear to cover more of the breech face impression than the cells on the left.
+
+```{r, fig.cap="(Left) 100x100 cells from Image A. (Right) 200x200 cells from Image B.", out.width="50%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/im1_standardCells.gif",
+                          "images/cartridge_cases/im2_largerCells.gif"))
+```
+
+As we can clearly see from the 5 pairs above, we need to perform rotations to properly align one with the other. We perform the cross-correlation calculation for 43 different rotation angles (of image B) to determine which rotation angle yields the highest correlation ($\theta \in [-179.5,180]$ by $2.5^\circ$). However, because we have broken up our images into cells, each cell in image A gets to "vote" for the theta value for which it had the highest correlation with its paired cell in image B. Below, we see the distribution of such theta values (referred to as the "registration angle" in Tong et al. (2015)). The histogram shows that the many of the cells tend to vote for theta values in a relatively small range, which bodes well for us in determining the optimal rotation angle.
+
+```{r, fig.cap="Histogram of the registration angle of highest correlation for each of the 5 pairs of breech face impressions.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/highestCorrelationRegistrationAngleHistogram.png"))
+```
+
+Since we clearly have a region of popular theta values for each pair, we can perform a finer search around these theta values to arrive at a more precise estimate. The histogram for this finer grid search is shown below. According to Tong et al. (2015), the minimum number of cells that must agree upon a theta value (up to some margin) for two breech face impressions to be called a "match" is 6. We can clearly see from the histogram below that this criterion is met. There are other criteria that Tong et al. discuss including how far we need to shift each cell in image A to achieve the highest correlation with the neighboring cell in image B. Those criteria also seem to be met on the examples I've looked at.
+
+```{r, fig.cap="A finer grid search histogram of the registration angle of highest correlation for each of the 5 pairs of breech face impressions.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/finerGridHighestCorrRegistrationAngleHistogram.png"))
+```
+
+<details>
+<summary>
+**Finally, we can pick the most popular rotation angle for each firearm pair and visually compare how well the two breech face impressions match up. This is done so below. We can see that the algorithm has indeed selected good rotation values for each pair.**
+</summary>
+```{r, fig.cap=" ",out.width="50%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/fadul1_im1_afterRotation.png",
+                          "images/cartridge_cases/fadul1_im2_afterRotation.png"))
+
+knitr::include_graphics(c("images/cartridge_cases/fadul2_im1_afterRotation.png",
+                          "images/cartridge_cases/fadul2_im2_afterRotation.png"))
+
+knitr::include_graphics(c("images/cartridge_cases/fadul3_im1_afterRotation.png",
+                          "images/cartridge_cases/fadul3_im2_afterRotation.png"))
+
+knitr::include_graphics(c("images/cartridge_cases/fadul4_im1_afterRotation.png",
+                          "images/cartridge_cases/fadul4_im2_afterRotation.png"))
+
+knitr::include_graphics(c("images/cartridge_cases/fadul5_im1_afterRotation.png",
+                          "images/cartridge_cases/fadul5_im2_afterRotation.png"))
+```
+</details>
+
+</details>
+
+<details>
+<summary>
+Joe 10/17/18 Update: Continued testing the CMC algorithm on more known match and known non-match pairs of cartridge cases. It's a time intensive process, but the current results show that the algorithm works for the majority of known match pairs and, most importantly, appear to be qualitatively similar to what is reported in Tong et al. (2015).
+</summary>
+
+I've continued to run the algorithm on a number of known match pairs of cartridge cases. Although the algorithm seems to work well for the majority of known match pairs, it isn't perfect at picking the correct rotation angle. I haven't yet determined the cause of when the algorithm fails to pick the correct rotation angle.
+
+```{r, fig.cap="A pair of known match cartridge cases that start off as rotationally mis-aligned.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/Fadul8-2_FadulX_beforeRotation.png"))
+```
+
+```{r, fig.cap="The same pair as above after being correctly aligned via the CMC algorithm.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/Fadul8-2_FadulX_afterRotation.png"))
+```
+
+Below is an example of a pair for which the algorithm does a poor job of choosing the correct rotation to align the two images.
+
+```{r, fig.cap="A pair of known match cartridge cases that start off as rotationally mis-aligned.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/FadulC_FadulM_beforeRotation.png"))
+```
+
+```{r, fig.cap="The same pair as above after being incorrectly aligned via the CMC algorithm.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/FadulC_FadulM_afterRotation.png"))
+```
+
+While running code, I've also been working on putting all of my working functions into a package. I should hopefully have something resembling a structured package by my spotlight in November.
+
 </details>
 
 ### Modified Chumbley non-random test

@@ -351,6 +351,11 @@ What we are doing now
   - Next
     - angle transformations 
     
+-PCA: 
+<img src="images/shoes/3dshoes/pca1.png" width="100%"/>
+<img src="images/shoes/3dshoes/pca2.png" width="100%"/>
+
+Better 
     
 ## Shoe outsole matching using image descriptors
 

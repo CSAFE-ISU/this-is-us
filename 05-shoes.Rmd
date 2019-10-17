@@ -441,6 +441,8 @@ Non-mates|    9     |       6.43     |   0.1208  |        1.39          |
 <img src="images/shoes/Features/SURF_ROC_deg.png" width="100%"/>
 
 
+**ROC curves on test comparisons**:
+<img src="images/shoes/Features/ROC_features.png" width="100%"/>
 
 
 
@@ -450,6 +452,10 @@ Non-mates|    9     |       6.43     |   0.1208  |        1.39          |
   - Do the same comparisons on degraded and partial impressions
   - Submit the paper
   
+
+
+
+
   
 ## Impact of weight to outsole scans from EverOS 2D scanner 
 

@@ -387,7 +387,7 @@ This year, I'll be studying our bullet land "pipeline" here at CSAFE, as well as
 
 The code in `bulletxtrctr` is already really well set up as a data "pipeline", so now we are conceptualizing the best way to wrap the pipeline and keep track of what decisions are made along the way. 
 
-<p class="new"> We are using few resources to conceptualize and plan the pipeline work, including: </p>  
+We are using few resources to conceptualize and plan the pipeline work, including:  
 
 1. `tidymodels`, a part of the `tidyverse` focused on design matrices and reproducibility of modeling
 2. `drake`, an R package by Will Landau which helps cache information and keep track of steps in a pipeline  
@@ -411,7 +411,7 @@ Results for Method 1, the subsampling, looks something like this:
 
 <img src="images/bullets/pipeline/subsampled_variability_results_orange_l1.png" width = "80%"/>  
 
-<p class="new"> We are also investigating the variability of random forest scores, using pairs of signatures. The current process for taking a set of signatures and completing pairwise comparisons on each of them actually completes many comparisons twice, which has two impacts: </p>  
+We are also investigating the variability of random forest scores, using pairs of signatures. The current process for taking a set of signatures and completing pairwise comparisons on each of them actually completes many comparisons twice, which has two impacts:    
 
 1. It takes up more computational time and memory than we really need it to
 2. It has the potential to make our variance component estimates inaccurate - we double-count a bunch of comparisons!   
@@ -424,7 +424,12 @@ Over the summer I made a function to "fix" this, to address the estimation probl
 
 The changes to our results are minor, but it is an important detail when modeling things.  
 
-I also have been working on finishing up "ground truth ID's" for the variability study, and editing my joint paper with Nate.  
+<p class="new"> Two papers in progress! Groove ID paper #1 is waiting for reviewer scores, Groove ID paper #2 is waiting for advisor comments. </p>
+
+<p class="new"> We are adding more operators to our variability study! </p>
+
+<p class="new"> I have been working on book edits this week as well. :) </p>
+
 
 
 

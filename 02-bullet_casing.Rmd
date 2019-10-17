@@ -637,6 +637,35 @@ knitr::include_graphics(c("images/cartridge_cases/fadul5_im1_afterRotation.png",
 
 </details>
 
+<details>
+<summary>
+Joe 10/17/18 Update: Continued testing the CMC algorithm on more known match and known non-match pairs of cartridge cases. It's a time intensive process, but the current results show that the algorithm works for the majority of known match pairs and, most importantly, appear to be qualitatively similar to what is reported in Tong et al. (2015).
+</summary>
+
+I've continued to run the algorithm on a number of known match pairs of cartridge cases. Although the algorithm seems to work well for the majority of known match pairs, it isn't perfect at picking the correct rotation angle. I haven't yet determined the cause of when the algorithm fails to pick the correct rotation angle.
+
+```{r, fig.cap="A pair of known match cartridge cases that start off as rotationally mis-aligned.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/Fadul8-2_FadulX_beforeRotation.png"))
+```
+
+```{r, fig.cap="The same pair as above after being correctly aligned via the CMC algorithm.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/Fadul8-2_FadulX_afterRotation.png"))
+```
+
+Below is an example of a pair for which the algorithm does a poor job of choosing the correct rotation to align the two images.
+
+```{r, fig.cap="A pair of known match cartridge cases that start off as rotationally mis-aligned.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/FadulC_FadulM_beforeRotation.png"))
+```
+
+```{r, fig.cap="The same pair as above after being incorrectly aligned via the CMC algorithm.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/FadulC_FadulM_afterRotation.png"))
+```
+
+While running code, I've also been working on putting all of my working functions into a package. I should hopefully have something resembling a structured package by my spotlight in November.
+
+</details>
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
 The moified Chumbley non-random algorithm is a statistical non-paramaetric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segement to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 

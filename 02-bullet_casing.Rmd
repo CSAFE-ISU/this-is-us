@@ -122,6 +122,14 @@ include_graphics(c("images/yawei/landp1.PNG"))
 ```{r, fig.cap="beta mixture fit for land-land KNM and KM comp1", out.width="50%", fig.keep="hold", fig.align='center'}
 include_graphics(c("images/yawei/landp2.PNG"))
 ```
+
+```{r, fig.cap="log-likelihood ratio for KNM and KM", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-km-entire.PNG"))
+```
+
+```{r, fig.cap="log-likelihood ratio for KNM and KM_Comp2", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-km-comp2.PNG"))
+```
 #### follow-up study 
 
 4 bullets per barrel for  96 of the original 626 Beretta firearms using different ammunition

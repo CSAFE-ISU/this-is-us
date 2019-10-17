@@ -21,7 +21,7 @@ Methods and data description handed off to Alicia for editing
 - Working with the `EBImage` package - very fast processing of images
 
 ##### `ShoeScrubR` package {-#lss-data-cleaning}
-All analysis methods for the Longitudinal data are contained in the [`ShoeScrubR` package](https://github.com/srvanderplas/ShoeScrubR). 
+Cleaning methods for the Longitudinal data are contained in the [`ShoeScrubR` package](https://github.com/srvanderplas/ShoeScrubR). <span class="new">The package includes (as of 2019-10-17) a complete set of tests to guard against regressions (100% test coverage!) and uses continuous integration to ensure that the installation process is also monitored.</span>
 
 The `ShoeScrubR` package also includes logging of all image-in image-out operations using attributes - each time a transformation is performed, the transformation and the parameters are appended to the running operations log. This should make it possible to track the provenance of an object through the set of transformations (and potentially un-do them in some cases).
 
@@ -46,11 +46,11 @@ Solving the template problem by aligning the mask and template yields an additio
     - Use a "mask-ified" version of the shoe print that encloses most of the shoe region in a single region (see below for explanation)
     - Default to trimming the actual print by 5% on each dimension to minimize the effect of page borders and creases 
     
-    - <span class="new">Alignment method options:
+    - Alignment method options:
         - center of mass - this fails if a print does not account for the whole shoe
         - center of narrowest width - ideally, this is approximately the arch of the shoe.    
         This works better than center of mass in most cases, but occasionally computation fails because it relies on finding a local minimum near the center of the image; if the derivative calculation fails, the algorithm falls back to the center of narrowest width.
-        </span>
+
     
 3. Pad the image and mask so that the centers are aligned and the image and mask are the same size
 
@@ -112,7 +112,7 @@ And proceed with the alignment as normal:
 Aligning each image to the template corresponding to the shoe model and size provides a good first step towards aligning the images to one another, but additional work is necessary in order to ensure that we can compare two images from the same shoe (or two images from different shoes). 
 Image-to-image alignment requires more work. 
 
-<details class = "new">
+<details>
 <summary> Fine Alignment of two images using RNiftyReg
 </summary>
 

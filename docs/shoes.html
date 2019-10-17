@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2019-10-10" />
+<meta name="date" content="2019-10-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -202,6 +202,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.1.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#introduction"><i class="fa fa-check"></i><b>7.1.1</b> Introduction</a></li>
 <li class="chapter" data-level="7.1.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#common-source-vs-specific-source-lr"><i class="fa fa-check"></i><b>7.1.2</b> Common Source vs Specific Source LR</a></li>
 <li class="chapter" data-level="7.1.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#other-notions-of-information"><i class="fa fa-check"></i><b>7.1.3</b> Other notions of information</a></li>
+<li class="chapter" data-level="7.1.4" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#information-theoretic-specific-source-score-sufficiency-metric"><i class="fa fa-check"></i><b>7.1.4</b> Information Theoretic Specific Source Score Sufficiency Metric</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#score-based-likelihood-ratios-are-not-fundamentally-incoherent"><i class="fa fa-check"></i><b>7.2</b> Score-based Likelihood Ratios are not Fundamentally “Incoherent”</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#coherence"><i class="fa fa-check"></i><b>7.2.1</b> Coherence</a></li>
@@ -261,7 +262,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div id="lss-data-cleaning" class="section level5 unnumbered">
 <h5><code>ShoeScrubR</code> package</h5>
-<p>All analysis methods for the Longitudinal data are contained in the <a href="https://github.com/srvanderplas/ShoeScrubR"><code>ShoeScrubR</code> package</a>.</p>
+<p>Cleaning methods for the Longitudinal data are contained in the <a href="https://github.com/srvanderplas/ShoeScrubR"><code>ShoeScrubR</code> package</a>. <span class="new">The package includes (as of 2019-10-17) a complete set of tests to guard against regressions (100% test coverage!) and uses continuous integration to ensure that the installation process is also monitored.</span></p>
 <p>The <code>ShoeScrubR</code> package also includes logging of all image-in image-out operations using attributes - each time a transformation is performed, the transformation and the parameters are appended to the running operations log. This should make it possible to track the provenance of an object through the set of transformations (and potentially un-do them in some cases).</p>
 </div>
 <div id="lss-paper-analysis-film" class="section level5 unnumbered">
@@ -279,12 +280,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Use a “mask-ified” version of the shoe print that encloses most of the shoe region in a single region (see below for explanation)</li>
 <li><p>Default to trimming the actual print by 5% on each dimension to minimize the effect of page borders and creases</p></li>
-<li><span class="new">Alignment method options:
+<li>Alignment method options:
 <ul>
 <li>center of mass - this fails if a print does not account for the whole shoe</li>
 <li>center of narrowest width - ideally, this is approximately the arch of the shoe.<br />
-This works better than center of mass in most cases, but occasionally computation fails because it relies on finding a local minimum near the center of the image; if the derivative calculation fails, the algorithm falls back to the center of narrowest width.
-</span></li>
+This works better than center of mass in most cases, but occasionally computation fails because it relies on finding a local minimum near the center of the image; if the derivative calculation fails, the algorithm falls back to the center of narrowest width.</li>
 </ul></li>
 </ul></li>
 <li><p>Pad the image and mask so that the centers are aligned and the image and mask are the same size</p></li>
@@ -343,7 +343,7 @@ At this point we can use the mask to clean the image:<br />
 </details>
 <p>Aligning each image to the template corresponding to the shoe model and size provides a good first step towards aligning the images to one another, but additional work is necessary in order to ensure that we can compare two images from the same shoe (or two images from different shoes).
 Image-to-image alignment requires more work.</p>
-<details class="new">
+<details>
 <p><summary> Fine Alignment of two images using RNiftyReg
 </summary></p>
 <p>The <code>RNiftyReg</code> package is intended for alignment of brain scans and other MRI data and uses a symmetric block-matching approach<span class="citation">(Modat et al. <a href="#ref-modatGlobalImageRegistration2014">2014</a>)</span>. It only allows for registration of images up to 2048x2048, though, which means we will have to align images at a lower resolution and then modify the transformation matrix accordingly. One definite positive feature is that it allows for provision of a mask for both the source and target images so that only pixels within the mask are used for alignment. <!-- This means that we could be using the original images and just providing the mask to ensure alignment --></p>
@@ -741,6 +741,8 @@ Image-to-image alignment requires more work.</p>
 <p><img src="images/shoes/Features/deg_full_ex.jpg" width="100%"/></p>
 <p><strong>ROC curves on test comparisons</strong>:
 <img src="images/shoes/Features/SURF_ROC_deg.png" width="100%"/></p>
+<p><strong>ROC curves on test comparisons</strong>:
+<img src="images/shoes/Features/ROC_features.png" width="100%"/></p>
 <p><strong>What we plan to do</strong>:</p>
 <ul>
 <li>Get ROC curves using KASE, ORB, combination of them</li>

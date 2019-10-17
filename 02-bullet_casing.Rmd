@@ -107,6 +107,14 @@ Assume beta distributions for the ccf for both known mathces and known non-match
 
 I'm working on those concepts mixture model, mixture distribution, beta-mixture model, mixture beta regression. And try to fit the model by R packages: mixtools, flexmix, betareg. I'm trying to find a way using the above mentioned methods and packages.
 
+```{r, fig.cap="beta mixture fit seperately", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/betafit3.PNG"))
+```
+
+```{r, fig.cap="beta mixture fit including some prior information", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/betafift2.PNG"))
+```
+
 #### follow-up study 
 
 4 bullets per barrel for  96 of the original 626 Beretta firearms using different ammunition
@@ -321,8 +329,15 @@ knitr::include_graphics("images/bullets/Hough_project/Hamby_demo_crosscuts.png")
 
 Charlotte Update 10/3/2019:
 
-the get_grooves_hough function has changed since last week, it previously slopes were calculated in x which is numerically less stable than a slope in y so for example when we were using the old slopes we had the possibility of dividing by zero which is not good. Changing to the new slope helps eliminate that likelihood. Other than that I am working on writing a grooveFinder vignette. I will be discussing every step of the Hough algorithm at length then demonstrating the function itself on the Hamby44 demo set.
+The get_grooves_hough function has changed since last week, it previously slopes were calculated in x which is numerically less stable than a slope in y so for example when we were using the old slopes we had the possibility of dividing by zero which is not good. Changing to the new slope helps eliminate that likelihood. Other than that I am working on writing a grooveFinder vignette. I will be discussing every step of the Hough algorithm at length then demonstrating the function itself on the Hamby44 demo set.
 
+Charlotte Update 10/3/2019:
+
+Finished up the application section of the Hough grooves vignette, need to fill in a few demonstration images that explane how we calculate normalized scores using geometry.
+
+Now working on:
+- Finish visualization portion for the vignette
+- Expand testing for get_grooves_hough
 
 ##### LASSO Method  
 

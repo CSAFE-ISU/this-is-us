@@ -21,7 +21,7 @@ Methods and data description handed off to Alicia for editing
 - Working with the `EBImage` package - very fast processing of images
 
 ##### `ShoeScrubR` package {-#lss-data-cleaning}
-Cleaning methods for the Longitudinal data are contained in the [`ShoeScrubR` package](https://github.com/srvanderplas/ShoeScrubR). <span class="new">The package includes (as of 2019-10-17) a complete set of tests to guard against regressions (100% test coverage!) and uses continuous integration to ensure that the installation process is also monitored.</span>
+Cleaning methods for the Longitudinal data are contained in the [`ShoeScrubR` package](https://github.com/srvanderplas/ShoeScrubR). The package includes (as of 2019-10-17) a complete set of tests to guard against regressions (100% test coverage!) and uses continuous integration to ensure that the installation process is also monitored.
 
 The `ShoeScrubR` package also includes logging of all image-in image-out operations using attributes - each time a transformation is performed, the transformation and the parameters are appended to the running operations log. This should make it possible to track the provenance of an object through the set of transformations (and potentially un-do them in some cases).
 
@@ -110,8 +110,6 @@ And proceed with the alignment as normal:
 </details>
 
 Aligning each image to the template corresponding to the shoe model and size provides a good first step towards aligning the images to one another, but additional work is necessary in order to ensure that we can compare two images from the same shoe (or two images from different shoes). 
-Image-to-image alignment requires more work. 
-
 <details>
 <summary> Fine Alignment of two images using RNiftyReg
 </summary>
@@ -197,6 +195,32 @@ The resulting aligned images are shown above; black pixels are areas where both 
 
 The alignment process itself (without any image preprocessing) is extremely fast, about 1s per image pair, and seems to be similar even when image size is increased by a factor of 16. Due to the scaling process and necessary modification of the transformation matrix, the alignments may be off by 1-5 pixels in some cases. This might be handled by aligning a smaller subset of the image at full resolution. (TODO)
 
+</details>
+
+<div class="new">
+Given how well RNiftyReg works, the next question is whether all of the preprocessing is even necessary. 
+
+In the image below, the first row is alignment with the full image, the second is alignment with a binarized version of the output image (so masked + thresholded), and the third is automatically cropped around the mask which is aligned to the image using the rough-align process. The third row maintains most of the information and produces better alignments than the other rows; thus, we can conclude that it's necessary to combine the preprocessing and rough alignment in order to get the best results from RNiftyReg.
+
+<img src="images/shoes/longitudinal/Combining_Prints_Consensus_Images.png" width="100%"/>
+
+</div>
+
+<div class="new"> 
+<details><summary>Combining information from multiple images</summary>
+
+With aligned images, we can then combine the information in each of the two prints taken at the same timepoint to get more reliable images. Because the methodology for acquiring the prints changed from timepoint to timepoint, the analysis of each type of print doesn't make sense - it is completely conflated with the observation date. However, the multiple prints aren't wasted, because while each print may be missing information, the combination of both of the prints (when properly aligned) provides a much more reliable assessment of the shoe (and the wear of that shoe at the proper timepoint). There are at least 3 options to combine these images (note that white = 1, black = 0):
+
+- Take the pixel-by-pixel minimum: this keeps all the noise from both images (but there's relatively little noise in the cropped images, so that may not matter too much). If images are misaligned, this results in a "double" print (or smeared print). This method is also sensitive to the lightness of the print - a complete print would still be ignored if the "dark" part of the print was lighter than the "light" part of the second print.     
+<img src="images/shoes/longitudinal/Combining_Prints_Consensus_min.png" width="100%"/>
+- Take the pixel-by-pixel maximum: this keeps only points which appear strongly in both images (losing a lot of data but also a lot of noise in the process)    
+<img src="images/shoes/longitudinal/Combining_Prints_Consensus_max.png" width="100%"/>
+- Take the pixel-by-pixel mean: This would result in lighter regions where one image has "gaps" but would reduce noise and make it clear where there is less sure information.
+<img src="images/shoes/longitudinal/Combining_Prints_Consensus_mean.png" width="100%"/>
+
+Of these options, the first seems like the best, but the last provides some idea of whether the alignment was decent to begin with.
+
+</div>
 </details>
 
 ##### Wear Characterization {-#lss-paper-analysis-wear}

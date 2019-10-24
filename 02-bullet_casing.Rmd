@@ -78,7 +78,7 @@ For the known non-matches, we don't have the data in hand. We need to generate t
 We sampled 100 bullet-bullet known non-matches from our 92 cases.
 
 ```{r, fig.cap="KM and KNM", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/knm-km.PNG"))
+include_graphics(c("images/yawei/knmkm.png"))
 ```
 
 Is the SAM(sequence average maximum) a good choice? Need to do a permutation test.
@@ -93,27 +93,71 @@ include_graphics(c("images/yawei/sam_max_1.PNG"))
 
 Possible dependence structure in land-land comparasions:
 
-Fact first: 
+Assume beta distributions for the ccf for both known mathces and known non-matches. For the real known match cases, we consider a mixture distribution of two/three beta distribution.
 
-1. Six lands on the bullet engraved by different parts of the barrel? So they are essentially different?
-
-2. Any additional similarity among different lands on a same bullet? or more generally, lands from the same barrel?
-
-```{r, fig.cap="Inside gun barrel from google: johan-swanepoel", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/gun-barrel-from-inside-johan-swanepoel.jpg"))
+```{r, fig.cap="KM three components for all data", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-three-alldata.png"))
 ```
 
-Assume beta distributions for the ccf for both known mathces and known non-matches. For the real known match cases, we consider a mixture distribution of two beta distribution.
-
-I'm working on those concepts mixture model, mixture distribution, beta-mixture model, mixture beta regression. And try to fit the model by R packages: mixtools, flexmix, betareg. I'm trying to find a way using the above mentioned methods and packages.
-
-```{r, fig.cap="beta mixture fit seperately", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/betafit3.PNG"))
+```{r, fig.cap="KNM two components for all data", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-two-alldata.png"))
 ```
 
-```{r, fig.cap="beta mixture fit including some prior information", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/betafift2.PNG"))
+```{r, fig.cap="common component", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/commoncomp.png"))
 ```
+
+Ten-fold-cross validation (no validation yet), check the model estimator sensibility
+
+```{r, fig.cap="KM ten-fold models for two components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-two.png"))
+```
+
+```{r, fig.cap="KM ten-fold models for three components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-three.png"))
+```
+
+```{r, fig.cap="KNM ten-fold models for one component", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-one.png"))
+```
+
+```{r, fig.cap="KNM ten-fold models for two components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-two.png"))
+```
+
+Increasing sample size: 1, 2, 6, 12, ... number of barrels
+
+```{r, fig.cap="KM increasing sample models for two components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-two-cum.png"))
+```
+
+```{r, fig.cap="KNM increasing sample models for one components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-one-cum.png"))
+```
+
+```{r, fig.cap="KM increasing sample for first component", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-c1-cum.png"))
+```
+
+More on the weight
+
+```{r, fig.cap="Prior weight on components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/priorboxplot.png"))
+```
+
+More on one barrel case
+
+```{r, fig.cap="KM one barrel model for the frist ten barrels", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/onebarrel.png"))
+```
+
+Some conclusions from current plots:
+
+1. Generally, the fits are stable in both ten-fold-cross validation and increasing sample cases
+2. In ten-fold model, group8 model behaves a little different from others when in three components case
+3. In increasing sample models, the one barrel model is not stable, but the one in our case is still a rarare case
+4. The three components model for KM is less stable than two components one especially in small sample cases
+5. Two components model for KNM is not stable in small sample case(in terms of weight)
 
 #### follow-up study 
 
@@ -191,10 +235,12 @@ Installation instructions and some basic usage can be found at https://heike.git
 #### Approaches to identify groove locations
 
 ##### Hough Transform Method for Identifying Grooves
+<details>
 
-Charlotte 9/5/19 Update:
+<summary>
+Charlotte 9/5/19 Update: State semester goals and iron out inconsistencies with 2-d and 3-d visualizations due to unit changes.
+</summary>
 
-Will fill in with more detail later
 
 **Current Goals**:
 - Iron-out issues with consistency of units with `get_hough_grooves`. I believe there are some issues translating from the 2-d visualization to the 3-d visualization that might have to do with inconsistent unit inputs? For Example
@@ -218,12 +264,17 @@ So either somethin is wrong with `get_mask_hough` or something is funky with the
   - Create graphical images to explain line selection method
   - Include 2-d and 3-d visualizations of Hough groove area identifications
   - Include crosscut visualization and comparison in results
-  
 
+</details>
+
+
+<details>
+<summary>
 Charlotte update 09/12/19: 
 This week I have been working on obtaining some results for the Phoenix set on Sunny.
 As a minor update the unit issues in `get_mask_hough()` are resolved ( I think). Below
 is an example of a nice image that has been generated using masks.
+</summary>
 
 ```{r, fig.cap=" Phoenix Gun1 A-9 B1 Land 4 generated at strength threshold of 0.99, initially did not generate estimates at the 0.999 or 0.995 level", fig.keep="hold",fig.align = "center"}
 knitr::include_graphics("images/bullets/Hough_project/mask_phoenix_nice.png")
@@ -263,10 +314,15 @@ For improvement before next week, I will investigate why there are 47 missing Ho
 predictions resulting in a score of 0 in these results and change the parameters in the
 `get_grooves_hough()` function to try and generate estimates for some of those missing values.
 
+</details>
 
+<details>
+
+<summary>
 Charlotte update 09/19/2019:
 
 This week we are trying to think of a new way for selecting Hough lines for bullet estimates. The previous method for selecting Hough lines was to find lines with x-intercepts at the top and bottom of the lands closest to the lower and upper one sixth of the bullet lands. However this process was highly dependent on score thresholding from the Hough transform which is frustrating when running a large number of bullets since if the right score threshold was not achieved, no result would be produced. So right now I'm working on a way of selecting Hough lines from the normalized Hough scores.
+</summary>
 
 To obtain a normalized Hough score I take the x-intercepts of each estimated Hough line generate and find the distance between the x-intercept at the top and the bottom of the land. This should give me the max possible score for each Hough line, rather than calculating based on theta. Then I take the Hough score and divide by this maximum to normalize scores between 0 and 1. Right now I am working on visualizing some of these results but my code is buggy because I'm getting negative values when I try to visualize the process using masks when I shouldn't. Here is an example of a bullet land using the old and new method. Really similar results although it would appear that the new resut places the Hough transform lines further in to interior of the land than the old results. So that's promising?
 
@@ -278,10 +334,17 @@ knitr::include_graphics("images/bullets/Hough_project/phoenix_current_hough_land
 knitr::include_graphics("images/bullets/Hough_project/phoenix_new_hough_land1.png")
 ```
 
+</details>
+
+<details>
+
+<summary>
 Charlotte Update 09/26/2019:
 
-Fixing the normalization of the scores for Hough grooves. Instead of dividing by the 
-geometric distance between the top and bottom intercepts of the bullet image. Now
+This week is focused on fixing the normalization of the scores for Hough grooves. So that the process can be automatic rather than rely on manual input for the score threshold.
+</summary>
+
+Instead of dividing by the geometric distance between the top and bottom intercepts of the bullet image. Now
 we only consider Hough lines that actually go through both the top and bottom of the land,
 therefore we can normalize each score by dividing the original hough score by the height
 of the image and multiplied by the cosine of theta which accounts for the difference
@@ -326,6 +389,7 @@ the old one on nearly every bullet land in the Hamby 252 demo set.
 knitr::include_graphics("images/bullets/Hough_project/Hamby_demo_crosscuts.png")
 ```
 
+</details>
 
 Charlotte Update 10/3/2019:
 
@@ -338,6 +402,114 @@ Finished up the application section of the Hough grooves vignette, need to fill 
 Now working on:
 - Finish visualization portion for the vignette
 - Expand testing for get_grooves_hough
+
+
+Charlotte Update 10/17/2019:
+
+- Finally finished up with the vignette, but need to finish one or two more explanation diagrams before first-pass is complete. Having trouble figuring out what the results section should really look like. 
+
+- Need to finish tests for get_grooves_hough. 
+
+<details>
+
+<summary>
+Charlotte Update 10/22/2019: For this weeks spotlight I will focus on motivating the reasoning behind the Hough project, a demonstration of mechanics or how the function actually works and maybe a few results.
+</summary>
+
+##### Project Motivation
+
+One of the main objectives of the bullet project is to develop algorithms that can match bullet lands based on a set of  features taken from a signature of a single bullet crosscut. In order to to extract these vital signatures we need to fit a robust loess to our crosscut data to remove the curvature inherent in each bullet land. However, there-in lies a problem. If the groove engraved areas are included in our fitting of the robust loess we observe boundary effects that negatively impact the accuracy of the extracted signature. 
+
+
+So a key goal in the bullet project is to be able to automatically identify the location of bullet grooves. Other projects in pursuit of this goal use a statistical approach to calculating the location of bullet grooves over a single crosscut. However, we are given an entire land scan in the form of an x3p file. By using low-level image algorithms like the Hough transform, we can almost make full utility of the x3p scan by estimating bullet grooves over the entire bullet land image instead of a single crosscut.
+
+##### Hough Transform Mechanics
+
+ Hough transforms are essentially a computer algorithm for detecting imperfect incidences of a known class of shapes in an image by finding aligned points. In our case, grooves are typically linear so we want the Hough transform to detect straight lines. Anyone who has looked at a bullet scan knows that the striae are also straight lines, so some image pre-processing is necessary for the algorithm to be able to distinguish between weaker appearing striae and the prominent groove features. Traditionally a gaussian blur and Canny Edge detection are performed to reduce the noise found in a gradient image. However, we have found that using Canny Edge detection is pretty much unnecessary for identifying grooves.
+
+```{r, fig.cap="Bullet land with Canny Edge detection", out.width = "80%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/bullets/Hough_project/canny-land.png"))
+
+```
+
+```{r, fig.cap="Same bullet land but only with gradient magnitude thresholding at the 99th percentile", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/strong-threshold.png")
+```
+
+Utilizing the cleaned up edges in our bullet image, the Hough transform cycles through every pixel of an image in an attempt to find aligned points on an edge. To do so, the Hough transform operates by transforming each point in a line into a different feature space. 
+
+```{r, fig.cap="Diagram of detecting aligned points by looking for intersections in the feature space. Source: 'How Hough Transform Works'- Thales Sehn Körting", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/feature-space.png")
+```
+
+Unfortunately, vertical lines have slopes in x that tend to infinity, which would make storing the results of the Hough transform impossible due to memory storage issues. So the Hough transform parameterizes lines in what is known as the Hessian Normal Form. 
+$$ \rho = x\ \cos(\theta) \ + \ y\ \sin(\theta)$$
+
+```{r, fig.cap="Hessian Normal Form of simple line over bullet image", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/hessian-example.png")
+```
+
+```{r, fig.cap="Gif of a Hough Transform Algorithm at work. Source: 'How Hough Transform Works' - Thales Sehn Körting", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/hough-detect.gif")
+
+```
+
+
+So the output of the Hough algorithm (in this package we utilize the `hough_lines` function from the `imager` package) is thus a set of $\rho$ and $\theta$ that define the detected lines but also a "score" which indicates the number of points that the algorithm detected for this particular edge estimation. This allows us to use thresholding and other means to select only the strongest candidates as groove estimates. Previous iterations of the `get_hough_grooves` function used a user-specified score thresholding level which made results highly variable dependent on the inputted score threshold. Now we use a normalized "score" to select the strongest line detected in the image. Once our lines for the left-hand and right-hand grooves are selected, we choose to output two functions that define our estimated grooves. To compute the parameters of our Hough line, we first find the location of where each line first intersects the bullet ("xtop") then we use our known "xtop" and our known "height" of the image to calculate "xbottom" using good ol' SOH CAH TOA. 
+
+```{r, fig.cap="Geometrically Calculating 'xbottom'", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/calc-xbottom.png")
+
+```
+
+The reason for calculating the top and bottom intersection points is so that we can derive a slope for our groove estimate in y. When we learned how to calculate slope in grade school, we were always taught to use "rise over run" which is slope in x. However when the lines are vertical, we are essentially dividing the height of our bullet land by 0 to obtain a slope. So it is numerically more stable to define the slope as $\frac{(\text{xtop - xbottom})}{\text{height}}$ so vertical lines simply have a slope of 0. 
+
+##### Implementation 
+
+As far as implementation goes, the function `get_grooves_hough` takes care of the edge detection, Hough algorithm, and line selection. Similar to other methods used for detecting lines, the `get_grooves_hough` function has an adjust parameter that allows the user to specify how far inward they want to "nudge" the groove estimates. The default for the Hough transform is set at 10, however this needs to be experimented with for a variety of different bullets to find appropriate adjust levels.
+
+```{r eval = F}
+library(x3ptools)
+library(ggplot2)
+library(grooveFinder)
+
+x3p <- br411 #built into x3ptools
+
+# Get grooves fit for left and right groove from x3p
+grooves <- get_grooves_hough(x3p_to_df(x3p), adjust = 20)
+
+# Find optimized crosscut location, this may take some time
+crosscut <- x3p %>% bulletxtrctr::x3p_crosscut_optimize()
+
+# obtain a three dimensional visualization of the groove estimates
+a <- get_mask_hough(x3p, grooves)
+x3ptools::image_x3p(a)
+
+```
+
+```{r, fig.cap="3d visualization of example bullet", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/br411_3d.png")
+
+```
+
+##### What's Next?
+
+Fiddling with adjusts and how it affects score. To find an optimal adjust for the Phoenix set, I calculate the default Hough groove estimates then find what the estimate would be for a series of adjusts. Naively I have defined a new parameter called "difference_left" and "difference_right" which is simply the difference between the manually identified groove location at an optimized crosscut and our Hough estimate at a particular adjust level. For now, I have defined any negative values to indicate that the Hough estimate is further from the center than the identified truth. So we want to minimize these negative difference to better get rid of boundary effects. 
+
+```{r, fig.cap="Difference between the left hand Hough estimate and the truth at various adjusts", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/adjust-boxplot-left.png")
+
+```
+
+```{r, fig.cap="Difference between the righ hand Hough estimate and the truth at various adjusts", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/adjust-boxplot-right.png")
+
+```
+
+
+
+</details>
+
 
 ##### LASSO Method  
 
@@ -380,7 +552,7 @@ This year, I'll be studying our bullet land "pipeline" here at CSAFE, as well as
 
 The code in `bulletxtrctr` is already really well set up as a data "pipeline", so now we are conceptualizing the best way to wrap the pipeline and keep track of what decisions are made along the way. 
 
-<p class="new"> We are using few resources to conceptualize and plan the pipeline work, including: </p>  
+We are using few resources to conceptualize and plan the pipeline work, including:  
 
 1. `tidymodels`, a part of the `tidyverse` focused on design matrices and reproducibility of modeling
 2. `drake`, an R package by Will Landau which helps cache information and keep track of steps in a pipeline  
@@ -404,7 +576,7 @@ Results for Method 1, the subsampling, looks something like this:
 
 <img src="images/bullets/pipeline/subsampled_variability_results_orange_l1.png" width = "80%"/>  
 
-<p class="new"> We are also investigating the variability of random forest scores, using pairs of signatures. The current process for taking a set of signatures and completing pairwise comparisons on each of them actually completes many comparisons twice, which has two impacts: </p>  
+We are also investigating the variability of random forest scores, using pairs of signatures. The current process for taking a set of signatures and completing pairwise comparisons on each of them actually completes many comparisons twice, which has two impacts:    
 
 1. It takes up more computational time and memory than we really need it to
 2. It has the potential to make our variance component estimates inaccurate - we double-count a bunch of comparisons!   
@@ -417,7 +589,16 @@ Over the summer I made a function to "fix" this, to address the estimation probl
 
 The changes to our results are minor, but it is an important detail when modeling things.  
 
-I also have been working on finishing up "ground truth ID's" for the variability study, and editing my joint paper with Nate.  
+<p class="new"> Two papers in progress! Groove ID paper #1 is waiting for reviewer scores, Groove ID paper #2 is waiting for advisor comments. </p>
+
+<p class="new"> Sometimes, data collection goes awry... </p>  
+
+<img src="images/bullets/pipeline/double_upload_A.png" width = "80%"/>  
+
+<p class="new"> I am in the process of documenting all the data issues and double-checking everything. We are adding more operators (and another set of bullets) to our variability study! </p>  
+
+<p class="new"> I am in a mad dash to get more book content to Alicia and then reviewers soon. </p>
+
 
 
 
@@ -649,6 +830,100 @@ knitr::include_graphics(c("images/cartridge_cases/fadul5_im1_afterRotation.png",
                           "images/cartridge_cases/fadul5_im2_afterRotation.png"))
 ```
 </details>
+
+</details>
+
+<details>
+<summary>
+Joe 10/17/18 Update: Continued testing the CMC algorithm on more known match and known non-match pairs of cartridge cases. It's a time intensive process, but the current results show that the algorithm works for the majority of known match pairs and, most importantly, appear to be qualitatively similar to what is reported in Tong et al. (2015).
+</summary>
+
+I've continued to run the algorithm on a number of known match pairs of cartridge cases. Although the algorithm seems to work well for the majority of known match pairs, it isn't perfect at picking the correct rotation angle. I haven't yet determined the cause of when the algorithm fails to pick the correct rotation angle.
+
+```{r, fig.cap="A pair of known match cartridge cases that start off as rotationally mis-aligned.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/Fadul8-2_FadulX_beforeRotation.png"))
+```
+
+```{r, fig.cap="The same pair as above after being correctly aligned via the CMC algorithm.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/Fadul8-2_FadulX_afterRotation.png"))
+```
+
+Below is an example of a pair for which the algorithm does a poor job of choosing the correct rotation to align the two images.
+
+```{r, fig.cap="A pair of known match cartridge cases that start off as rotationally mis-aligned.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/FadulC_FadulM_beforeRotation.png"))
+```
+
+```{r, fig.cap="The same pair as above after being incorrectly aligned via the CMC algorithm.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/FadulC_FadulM_afterRotation.png"))
+```
+
+While running code, I've also been working on putting all of my working functions into a package. I should hopefully have something resembling a structured package by my spotlight in November.
+
+</details>
+
+<details>
+<summary>
+Joe 10/24/18 Update: Finished computing (almost) all 780 possible known match and known non-match comparisons for the 40 cartridge case scans discussed in the Tong paper. It certainly appears that we have qualitatively similar results to what they provide. I am also working on writing up a vignette that discusses how to use the package.
+</summary>
+
+Our current goal is to demonstrate that the current form of the package produces "qualitatively similar" results to those presented by Tong et al. Unfortunately, we don't actually know which data they used to produce their results. We have a strong suspicion that they just used the first pair of cartridge cases encountered when downloading the study's data from the NBTRD website, so we're going to try to base our results comparison based on those.
+
+Below we can see the known match cartridge case pair in their raw format before pre-processing. In this state, it's difficult to make any comparisons between the two breech faces. The first step is to process these images to both remove as much of the non-breech face region of the image as possible and accentuate the breech face impression markings left on the cartridge case.
+
+```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/fadul1_pair_raw.png")
+```
+
+We can see the results of the pre-processing below. It will hopefully look to you as if one of the images is simply a rotated copy of the other. Our goal is to automatically detect what the correct rotation value is to properly align the two images.
+
+```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/fadul1_pair_processed.png")
+```
+
+In order to find the correct rotational value to align the two images, we divide the first image (fadul1-1) into a 7x7 grid of cells. For each cell in image 1, we select a similarly located, wider region in image 2 and calculate the cross-correlation between the image 1 cell and the larger image 2 region. Below is an image that illustrates this for a particular cell.
+
+```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/im1_im2_cellComparison.png")
+```
+
+Below is a gif showing an example of cell/region pairs for which the CCF is computed.
+
+```{r, fig.cap="(Left) 100x100 cells from Image 1. (Right) 200x200 cells from Image 2.", out.width="50%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/im1_standardCells.gif",
+                          "images/cartridge_cases/im2_largerCells.gif"))
+```
+
+Once we calculate the CCF for each cell/region pair, we rotate image 2 by a few degrees, say 3 degrees, and repeat the process. We can obviously keep track of the correlation values for each rotation and determine for which rotation values a particular image 1 cell attains its maximum CCF. If two cartridge cases are genuine matches, then we would expect there to be some consensus among the cells for which theta value they attain their max CCF. For example, below we see a histogram of theta values for which the cells in the fadul1-1 attain highest correlation in their associated fadul1-2 regions. We can see a peak around -20 degrees. In particular, the consensus-based theta value turns out to be -21 degrees.
+
+```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/fadul1_fadul2_thetaHistogram.png")
+```
+
+If we then consider the CCF values at the -21 degree rotation comparison, we see there are quite a few cells that could be classified as "highly correlated". Tong et al. discuss various criteria they use to define a cell as a "Congruent Matching Cell." For example, they set a minimum CCF value of .25. Based on the criteria that they set, we can see in the table below that there are 14 cells that can be defined as CMCs. In their original paper, the number of CMCs they found was 15. The discrepancy likely comes from the fact that they perform different pre-processing steps than we do but don't discuss what those pre-processing steps are.
+
+|cell_ID                     |      corr|  dx|  dy|
+|:---------------------------|---------:|---:|---:|
+|x = 1 - 82,y = 407 - 487    | 0.4605801|  -7| -19|
+|x = 83 - 163,y = 83 - 163   | 0.3465763|  -1| -13|
+|x = 83 - 163,y = 488 - 568  | 0.2773731| -35|  25|
+|x = 164 - 244,y = 488 - 568 | 0.3917978| -24|   2|
+|x = 245 - 326,y = 488 - 568 | 0.4946205| -17|   1|
+|x = 327 - 407,y = 407 - 487 | 0.4824218|   4|   2|
+|x = 327 - 407,y = 488 - 568 | 0.4830941| -17|   4|
+|x = 408 - 488,y = 83 - 163  | 0.4034100|   9| -13|
+|x = 408 - 488,y = 164 - 244 | 0.3274178|   4| -14|
+|x = 408 - 488,y = 407 - 487 | 0.4588278|   7|  -3|
+|x = 489 - 569,y = 83 - 163  | 0.5382969|   9|   7|
+|x = 489 - 569,y = 164 - 244 | 0.4523592| -31|  21|
+|x = 489 - 569,y = 326 - 406 | 0.5687978|   8|  16|
+|x = 489 - 569,y = 407 - 487 | 0.5720020|   2|  24|
+
+We can visualize which cells in fadul1-1 are classified as CMCs. The image below shows the fadul1-1 CMCs as well as fadul1-2 rotated by -21 degrees (the consensus-based theta value chosen from before). We can see that most of the regions with the most obvious visual similarity between the two cartridge cases (in particular, the linear markings in the bottom-right of each image) are indeed classified as CMCs.
+
+```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/fadu1_pair_CMCs.png")
+```
 
 </details>
 

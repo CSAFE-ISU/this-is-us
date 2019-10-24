@@ -151,6 +151,14 @@ More on one barrel case
 include_graphics(c("images/yawei/onebarrel.png"))
 ```
 
+Some conclusions from current plots:
+
+1. Generally, the fits are stable in both ten-fold-cross validation and increasing sample cases
+2. In ten-fold model, group8 model behaves a little different from others when in three components case
+3. In increasing sample models, the one barrel model is not stable, but the one in our case is still a rarare case
+4. The three components model for KM is less stable than two components one especially in small sample cases
+5. Two components model for KNM is not stable in small sample case(in terms of weight)
+
 #### follow-up study 
 
 4 bullets per barrel for  96 of the original 626 Beretta firearms using different ammunition

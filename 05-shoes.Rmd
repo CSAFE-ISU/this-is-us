@@ -193,7 +193,8 @@ The coordinates in bold have been scaled according to the size reduction, so tha
 
 The resulting aligned images are shown above; black pixels are areas where both images agree; pink and blue pixels represent areas found in one image but not the other. Some images which have many bubbles (air between the film and backing) or which contain blurred or double prints do not align accurately; this is really not avoidable with automatic alignment solutions. 
 
-The alignment process itself (without any image preprocessing) is extremely fast, about 1s per image pair, and seems to be similar even when image size is increased by a factor of 16. Due to the scaling process and necessary modification of the transformation matrix, the alignments may be off by 1-5 pixels in some cases. This might be handled by aligning a smaller subset of the image at full resolution. (TODO)
+The alignment process itself (without any image preprocessing) is extremely fast, about 1s per image pair, and seems to be similar even when image size is increased by a factor of 16. Due to the scaling process and necessary modification of the transformation matrix, the alignments may be off by 1-5 pixels in some cases. <span class="new">~~This might be handled by aligning a smaller subset of the image at full resolution.~~ Efforts to align sub-images produced less accurate alignments, likely due to the kinematic distortion of the sole during the walking process, resulting in situations where the local alignment estimate is not a good estimate of the global alignment. New attempts to find consensus alignment might include keypoint-based alignment methods, trying to identify the shoe border precisely to align that, and possibly use of Hough transforms to identify specific reproducible features that might serve as global keypoints.
+</span>
 
 </details>
 
@@ -220,6 +221,17 @@ With aligned images, we can then combine the information in each of the two prin
 
 Of these options, the first seems like the best, but the last provides some idea of whether the alignment was decent to begin with.
 
+The alignment method seems to fail more frequently when one of the images is very light. It may be advantageous to invest more effort into adaptive histogram normalization. 
+
+Alignment Fails:
+
+<img src="images/shoes/longitudinal/020574R_20180411_5_*_1_boekhoff_pashek_kruse.png" width = "45%"/>
+<img src="images/shoes/longitudinal/007961L_20180411_5_*_1_kruse_zwart_kruse.png" width = "45%"/>
+<br/>
+Alignment Success:
+
+<img src="images/shoes/longitudinal/074093L_20180207_5_*_1_csafe_boekhoff_boekhoff_hanrahan.png" width = "45%"/>
+<img src="images/shoes/longitudinal/087354L_20180425_5_*_1_boekhoff_Kruse_kruse.png" width = "45%"/>
 </div>
 </details>
 

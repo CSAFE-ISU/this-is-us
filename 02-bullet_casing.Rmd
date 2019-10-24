@@ -93,43 +93,64 @@ include_graphics(c("images/yawei/sam_max_1.PNG"))
 
 Possible dependence structure in land-land comparasions:
 
-Fact first: 
+Assume beta distributions for the ccf for both known mathces and known non-matches. For the real known match cases, we consider a mixture distribution of two/three beta distribution.
 
-1. Six lands on the bullet engraved by different parts of the barrel? So they are essentially different?
-
-2. Any additional similarity among different lands on a same bullet? or more generally, lands from the same barrel?
-
-```{r, fig.cap="Inside gun barrel from google: johan-swanepoel", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/gun-barrel-from-inside-johan-swanepoel.jpg"))
+```{r, fig.cap="KM three components for all data", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-three-alldata.png"))
 ```
 
-Assume beta distributions for the ccf for both known mathces and known non-matches. For the real known match cases, we consider a mixture distribution of two beta distribution.
-
-I'm working on those concepts mixture model, mixture distribution, beta-mixture model, mixture beta regression. And try to fit the model by R packages: mixtools, flexmix, betareg. I'm trying to find a way using the above mentioned methods and packages.
-
-```{r, fig.cap="beta mixture fit seperately", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/betafit3.PNG"))
+```{r, fig.cap="KNM two components for all data", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-two-alldata.png"))
 ```
 
-```{r, fig.cap="beta mixture fit including some prior information", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/betafift2.PNG"))
+```{r, fig.cap="common component", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/commoncomp.png"))
 ```
 
-```{r, fig.cap="beta mixture fit for land-land KM", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/landp1.PNG"))
+Ten-fold-cross validation (no validation yet), check the model estimator sensibility
+
+```{r, fig.cap="KM ten-fold models for two components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-two.png"))
 ```
 
-```{r, fig.cap="beta mixture fit for land-land KNM and KM comp1", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/landp2.PNG"))
+```{r, fig.cap="KM ten-fold models for three components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-three.png"))
 ```
 
-```{r, fig.cap="log-likelihood ratio for KNM and KM", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/knm-km-entire.PNG"))
+```{r, fig.cap="KNM ten-fold models for one component", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-one.png"))
 ```
 
-```{r, fig.cap="log-likelihood ratio for KNM and KM_Comp2", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/knm-km-comp2.PNG"))
+```{r, fig.cap="KNM ten-fold models for two components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-two.png"))
 ```
+
+Increasing sample size: 1, 2, 6, 12, ... number of barrels
+
+```{r, fig.cap="KM increasing sample models for two components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-two-cum.png"))
+```
+
+```{r, fig.cap="KNM increasing sample models for one components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-one-cum.png"))
+```
+
+```{r, fig.cap="KM increasing sample for first component", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-c1-cum.png"))
+```
+
+More on the weight
+
+```{r, fig.cap="Prior weight on components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/priorboxplot.png"))
+```
+
+More on one barrel case
+
+```{r, fig.cap="KM one barrel model for the frist ten barrels", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/onebarrel.png"))
+```
+
 #### follow-up study 
 
 4 bullets per barrel for  96 of the original 626 Beretta firearms using different ammunition

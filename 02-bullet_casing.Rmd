@@ -436,9 +436,65 @@ knitr::include_graphics(c("images/bullets/Hough_project/canny-land.png"))
 knitr::include_graphics("images/bullets/Hough_project/strong-threshold.png")
 ```
 
+Utilizing the cleaned up edges in our bullet image, the Hough transform cycles through every pixel of an image in an attempt to find aligned points on an edge. To do so, the Hough transform operates by transforming each point in a line into a different feature space. 
 
-Once we have attained this "cleaned-up" gradient image we can start our Hough transform. 
-##### Results
+```{r, fig.cap="Diagram of detecting aligned points by looking for intersections in the feature space. Source: 'How Hough Transform Works'- Thales Sehn Körting", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/feature-space.png")
+```
+
+Unfortunately, vertical lines have slopes in x that tend to infinity, which would make storing the results of the Hough transform impossible due to memory storage issues. So the Hough transform parameterizes lines in what is known as the Hessian Normal Form. 
+$$ \rho = x\ \cos(\theta) \ + \ y\ \sin(\theta)$$
+
+```{r, fig.cap="Hessian Normal Form of simple line over bullet image", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/hessian-example.png")
+```
+
+```{r, fig.cap="Gif of a Hough Transform Algorithm at work. Source: 'How Hough Transform Works' - Thales Sehn Körting", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/hough-detect.gif")
+
+```
+
+
+So the output of the Hough algorithm (in this package we utilize the `hough_lines` function from the `imager` package) is thus a set of $\rho$ and $\theta$ that define the detected lines but also a "score" which indicates the number of points that the algorithm detected for this particular edge estimation. This allows us to use thresholding and other means to select only the strongest candidates as groove estimates. Previous iterations of the `get_hough_grooves` function used a user-specified score thresholding level which made results highly variable dependent on the inputted score threshold. Now we use a normalized "score" to select the strongest line detected in the image. Once our lines for the left-hand and right-hand grooves are selected, we choose to output two functions that define our estimated grooves. To compute the parameters of our Hough line, we first find the location of where each line first intersects the bullet ("xtop") then we use our known "xtop" and our known "height" of the image to calculate "xbottom" using good ol' SOH CAH TOA. 
+
+```{r, fig.cap="Geometrically Calculating 'xbottom'", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/calc-xbottom.png")
+
+```
+
+The reason for calculating the top and bottom intersection points is so that we can derive a slope for our groove estimate in y. When we learned how to calculate slope in grade school, we were always taught to use "rise over run" which is slope in x. However when the lines are vertical, we are essentially dividing the height of our bullet land by 0 to obtain a slope. So it is numerically more stable to define the slope as $\frac{(\text{xtop - xbottom})}{\text{height}}$ so vertical lines simply have a slope of 0. 
+
+##### Implementation 
+
+As far as implementation goes, the function `get_grooves_hough` takes care of the edge detection, Hough algorithm, and line selection. Similar to other methods used for detecting lines, the `get_grooves_hough` function has an adjust parameter that allows the user to specify how far inward they want to "nudge" the groove estimates. The default for the Hough transform is set at 10, however this needs to be experimented with for a variety of different bullets to find appropriate adjust levels.
+
+```{r eval = F}
+library(x3ptools)
+library(ggplot2)
+library(grooveFinder)
+
+x3p <- br411 #built into x3ptools
+
+# Get grooves fit for left and right groove from x3p
+grooves <- get_grooves_hough(x3p_to_df(x3p), adjust = 20)
+
+# Find optimized crosscut location, this may take some time
+crosscut <- x3p %>% bulletxtrctr::x3p_crosscut_optimize()
+
+# obtain a three dimensional visualization of the groove estimates
+a <- get_mask_hough(x3p, grooves)
+x3ptools::image_x3p(a)
+
+```
+
+```{r, fig.cap="3d visualization of example bullet", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/br411_3d.png")
+
+```
+
+##### What's Next?
+
+
 
 
 </details>

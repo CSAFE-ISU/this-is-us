@@ -494,6 +494,17 @@ knitr::include_graphics("images/bullets/Hough_project/br411_3d.png")
 
 ##### What's Next?
 
+Fiddling with adjusts and how it affects score. To find an optimal adjust for the Phoenix set, I calculate the default Hough groove estimates then find what the estimate would be for a series of adjusts. Naively I have defined a new parameter called "difference_left" and "difference_right" which is simply the difference between the manually identified groove location at an optimized crosscut and our Hough estimate at a particular adjust level. For now, I have defined any negative values to indicate that the Hough estimate is further from the center than the identified truth. So we want to minimize these negative difference to better get rid of boundary effects. 
+
+```{r, fig.cap="Difference between the left hand Hough estimate and the truth at various adjusts", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/adjust-boxplot-left.png")
+
+```
+
+```{r, fig.cap="Difference between the righ hand Hough estimate and the truth at various adjusts", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/adjust-boxplot-right.png")
+
+```
 
 
 

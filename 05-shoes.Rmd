@@ -498,11 +498,11 @@ Non-mates|    9     |       6.43     |   0.1208  |        1.39          |
 
 
 **ROC curves on test comparisons**:
-<img src="images/shoes/Features/SURF_ROC_deg.png" width="100%"/>
+<img src="images/shoes/Features/ROC_allfeatures.png" width="100%"/>
 
 
-**ROC curves on test comparisons**:
-<img src="images/shoes/Features/ROC_features.png" width="100%"/>
+**ROC curves when Q is degraded**:
+<img src="images/shoes/Features/ROC_deg10.png" width="100%"/>
 
 
 

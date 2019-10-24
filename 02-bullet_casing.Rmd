@@ -206,10 +206,12 @@ Installation instructions and some basic usage can be found at https://heike.git
 #### Approaches to identify groove locations
 
 ##### Hough Transform Method for Identifying Grooves
+<details>
 
-Charlotte 9/5/19 Update:
+<summary>
+Charlotte 9/5/19 Update: State semester goals and iron out inconsistencies with 2-d and 3-d visualizations due to unit changes.
+</summary>
 
-Will fill in with more detail later
 
 **Current Goals**:
 - Iron-out issues with consistency of units with `get_hough_grooves`. I believe there are some issues translating from the 2-d visualization to the 3-d visualization that might have to do with inconsistent unit inputs? For Example
@@ -233,12 +235,17 @@ So either somethin is wrong with `get_mask_hough` or something is funky with the
   - Create graphical images to explain line selection method
   - Include 2-d and 3-d visualizations of Hough groove area identifications
   - Include crosscut visualization and comparison in results
-  
 
+</details>
+
+
+<details>
+<summary>
 Charlotte update 09/12/19: 
 This week I have been working on obtaining some results for the Phoenix set on Sunny.
 As a minor update the unit issues in `get_mask_hough()` are resolved ( I think). Below
 is an example of a nice image that has been generated using masks.
+</summary>
 
 ```{r, fig.cap=" Phoenix Gun1 A-9 B1 Land 4 generated at strength threshold of 0.99, initially did not generate estimates at the 0.999 or 0.995 level", fig.keep="hold",fig.align = "center"}
 knitr::include_graphics("images/bullets/Hough_project/mask_phoenix_nice.png")
@@ -278,10 +285,15 @@ For improvement before next week, I will investigate why there are 47 missing Ho
 predictions resulting in a score of 0 in these results and change the parameters in the
 `get_grooves_hough()` function to try and generate estimates for some of those missing values.
 
+</details>
 
+<details>
+
+<summary>
 Charlotte update 09/19/2019:
 
 This week we are trying to think of a new way for selecting Hough lines for bullet estimates. The previous method for selecting Hough lines was to find lines with x-intercepts at the top and bottom of the lands closest to the lower and upper one sixth of the bullet lands. However this process was highly dependent on score thresholding from the Hough transform which is frustrating when running a large number of bullets since if the right score threshold was not achieved, no result would be produced. So right now I'm working on a way of selecting Hough lines from the normalized Hough scores.
+</summary>
 
 To obtain a normalized Hough score I take the x-intercepts of each estimated Hough line generate and find the distance between the x-intercept at the top and the bottom of the land. This should give me the max possible score for each Hough line, rather than calculating based on theta. Then I take the Hough score and divide by this maximum to normalize scores between 0 and 1. Right now I am working on visualizing some of these results but my code is buggy because I'm getting negative values when I try to visualize the process using masks when I shouldn't. Here is an example of a bullet land using the old and new method. Really similar results although it would appear that the new resut places the Hough transform lines further in to interior of the land than the old results. So that's promising?
 
@@ -293,10 +305,17 @@ knitr::include_graphics("images/bullets/Hough_project/phoenix_current_hough_land
 knitr::include_graphics("images/bullets/Hough_project/phoenix_new_hough_land1.png")
 ```
 
+</details>
+
+<details>
+
+<summary>
 Charlotte Update 09/26/2019:
 
-Fixing the normalization of the scores for Hough grooves. Instead of dividing by the 
-geometric distance between the top and bottom intercepts of the bullet image. Now
+This week is focused on fixing the normalization of the scores for Hough grooves. So that the process can be automatic rather than rely on manual input for the score threshold.
+</summary>
+
+Instead of dividing by the geometric distance between the top and bottom intercepts of the bullet image. Now
 we only consider Hough lines that actually go through both the top and bottom of the land,
 therefore we can normalize each score by dividing the original hough score by the height
 of the image and multiplied by the cosine of theta which accounts for the difference
@@ -341,6 +360,7 @@ the old one on nearly every bullet land in the Hamby 252 demo set.
 knitr::include_graphics("images/bullets/Hough_project/Hamby_demo_crosscuts.png")
 ```
 
+</details>
 
 Charlotte Update 10/3/2019:
 
@@ -359,9 +379,29 @@ Charlotte Update 10/17/2019:
 
 - Finally finished up with the vignette, but need to finish one or two more explanation diagrams before first-pass is complete. Having trouble figuring out what the results section should really look like. 
 
-- Trying to re-run phoenix results with a different adjust parameter, having issues with the rstudio server -- anyone else?
-
 - Need to finish tests for get_grooves_hough. 
+
+<details>
+
+<summary>
+Charlotte Update 10/22/2019: For this weeks spotlight I will focus on motivating the reasoning behind the Hough project, a demonstration of mechanics or how the function actually works and maybe a few results.
+</summary>
+
+##### Project Motivation
+
+One of the main objectives of the bullet project is to develop algorithms that can match bullet lands based on a set of  features taken from a signature of a single bullet crosscut. In order to to extract these vital signatures we need to fit a robust loess to our crosscut data to remove the curvature inherent in each bullet land. However, there-in lies a problem. If the groove engraved areas are included in our fitting of the robust loess we observe boundary effects that negatively impact the accuracy of the extracted signature. 
+
+INSERT PICTURE HERE OF EXTRACTING BORDER EFFECTS SIGNATURE AND NO-BORDER EFFECTS SIGNATURE
+
+So a key goal in the bullet project is to be able to automatically identify the location of bullet grooves. Other projects in pursuit of this goal use a statistical approach to calculating the location of bullet grooves over a single crosscut. However, we are given an entire land scan in the form of an x3p file. By using low-level image algorithms like the Hough transform, we can make almost full utility of the x3p scan by estimating bullet grooves 
+
+##### Method and Application
+
+##### Results
+
+
+</details>
+
 
 ##### LASSO Method  
 

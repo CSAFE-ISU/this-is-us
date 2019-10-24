@@ -284,8 +284,6 @@ The overhead costs of going fully convolutional are high; CNN papers are opaque,
 
 In the meantime, it is much easier (relatively speaking) to use our existing framework of 256x256 square pixel images, for which we have generated thousands of labeled images and have already trained and improved domain-specific models. Currently, I have code working to automatically crop image borders, chop the image into 256x256 pixels (padding the image when appropriate) and equalize the contrast on the individual images.
 
-<div class = "new">
-
 **Pad the left and top of the image with a pre-specified offset, then chop the image into 256x256 pixel pieces**  
 <img src="images/shoes/neuralnets/chop.PNG" width = "100%"/>
 
@@ -301,9 +299,22 @@ In the meantime, it is much easier (relatively speaking) to use our existing fra
 **Shiny App**
 <img src="images/shoes/neuralnets/Shiny_ggHeatmaps.PNG" width = "100%"/>
 
+<div class = "new">
+
+**Updates/In progress:**
+
+- Presented on CoNNOR at [ISU's 3-Minute Thesis competition](https://www.grad-college.iastate.edu/three-minute-thesis/)
+    - Preliminaries: 8 heats with 10-12 participants each
+    - Winner of each heat (announced today by 5 pm) will go on to finals next week
+- Implementing semantic segmentation model on HPC
+    - Learning HPC structure, command line syntax, using Python in practice
+    - Documentation assumes high baseline of knowledge :(
+- Improving spatial integration process
+    - Remove predictions for blank (and mostly blank) edge images
+    - Smooth predictions for overlapping image pieces
+    - Discovered bug this morning. Pictures coming soon!
 
 </div>
-
 
 
 ## Maximum Clique Matching {#maxclique}
@@ -323,9 +334,7 @@ In progress:
 
 #### Comparing the procedures
 
-<div class = "new">
-
-| Procedure           | Leverhulme      | CSAFE (initial)    | CSAFE (proposed)
+| Procedure           | Leverhulme      | CSAFE (initial)    | CSAFE (proposed) |
 |---------------------|-----------------|--------------------|------------------|
 | 'Before' Views      | 4 per shoe      | 5 per shoe         | 5 per shoe       |
 | 'Before' Pictures   | 1 per view      | 3 per view         | 1 per view       |
@@ -334,25 +343,35 @@ In progress:
 | Paper               | Letter (larger) | Tape 8.5 x 11      | Tape 8.5 x 11    |
 |                     |                 |                    |                  |
 | Actions             | Run, jump, walk | Step, hop          | Step, hop        |
-| Replicates          | 6 per shoe      | 9 per shoe         | 6 per shoe       |
-| 'After' Pictures    | 1 pic per print | 3 pics per print   | 1 pic per print  |
+| Replicates          | 6 per action    | 9 per action       | 3 per action     |
+| 'After' Pictures    | 1 pic per rep.  | 3 pics per rep.    | 1 pic per rep.   |
 |                     |                 |                    |                  |
-| Total number prints | 18 per shoe     | 18 per shoe        | 12 per shoe      |
-| Total number images | 18 per shoe     | 54 per shoe        | 12 per shoe      |
+| Total number prints | 18 per shoe     | 18 per shoe        | 6 per shoe       |
+| Total number images | 18 per shoe     | 54 per shoe        | 6 per shoe       |
 |                     |                 |                    |                  |
 | Requested # shoes   | Not specified   | Both shoes         | One, 2nd optional|
 
 
-Recommendations:
+**Recommended procedure modifications:**
 
 - Ask for one high-quality image of each shoe angle ('before') and print ('after'), instead of three replicate images of each
     - If Project Tread submission website is set up like current CSSM system (which takes community submissions for environmental images), intermediate quality control can help filter out bad images
 - Only ask for one shoe, and make second shoe optional
-    - Analysis ramifications?
-- Ask for 6 replicates per shoe, like Leverhulme
-    - Analysis ramifications?
+    - E.g., always ask for left shoe, and make right shoe optional
+- Ask for 3 replicates per shoe
+    - Longitudinal shoe study uses 2-3 replicates per shoe
     
+<div class = "new">
+
+**Next steps:**
+
+- Ask volunteers to test procedure by Monday, November 4th
+    - I believe Heike volunteered her children, and Joe reluctantly agreed to help. Anyone else? Pretty please? :D
+- Ask Leverhulme how they use their data, what changes they would make, etc. First, currently checking with James to see if he already has this info.
+- Talk to Alicia about how (or whether) CSAFE plans to use the data in any specific ways, to make sure procedure pruning doesn't impede analysis
+
 </div>
+    
 
 ## 3d Shoe Recognition 
 

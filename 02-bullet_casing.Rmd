@@ -681,6 +681,71 @@ While running code, I've also been working on putting all of my working function
 
 </details>
 
+<details>
+<summary>
+Joe 10/24/18 Update: Finished computing (almost) all 780 possible known match and known non-match comparisons for the 40 cartridge case scans discussed in the Tong paper. It certainly appears that we have qualitatively similar results to what they provide. I am also working on writing up a vignette that discusses how to use the package.
+</summary>
+
+Our current goal is to demonstrate that the current form of the package produces "qualitatively similar" results to those presented by Tong et al. Unfortunately, we don't actually know which data they used to produce their results. We have a strong suspicion that they just used the first pair of cartridge cases encountered when downloading the study's data from the NBTRD website, so we're going to try to base our results comparison based on those.
+
+Below we can see the known match cartridge case pair in their raw format before pre-processing. In this state, it's difficult to make any comparisons between the two breech faces. The first step is to process these images to both remove as much of the non-breech face region of the image as possible and accentuate the breech face impression markings left on the cartridge case.
+
+```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/fadul1_pair_raw.png")
+```
+
+We can see the results of the pre-processing below. It will hopefully look to you as if one of the images is simply a rotated copy of the other. Our goal is to automatically detect what the correct rotation value is to properly align the two images.
+
+```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/fadul1_pair_processed.png")
+```
+
+In order to find the correct rotational value to align the two images, we divide the first image (fadul1-1) into a 7x7 grid of cells. For each cell in image 1, we select a similarly located, wider region in image 2 and calculate the cross-correlation between the image 1 cell and the larger image 2 region. Below is an image that illustrates this for a particular cell.
+
+```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/im1_im2_cellComparison.png")
+```
+
+Below is a gif showing an example of cell/region pairs for which the CCF is computed.
+
+```{r, fig.cap="(Left) 100x100 cells from Image 1. (Right) 200x200 cells from Image 2.", out.width="50%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/im1_standardCells.gif",
+                          "images/cartridge_cases/im2_largerCells.gif"))
+```
+
+Once we calculate the CCF for each cell/region pair, we rotate image 2 by a few degrees, say 3 degrees, and repeat the process. We can obviously keep track of the correlation values for each rotation and determine for which rotation values a particular image 1 cell attains its maximum CCF. If two cartridge cases are genuine matches, then we would expect there to be some consensus among the cells for which theta value they attain their max CCF. For example, below we see a histogram of theta values for which the cells in the fadul1-1 attain highest correlation in their associated fadul1-2 regions. We can see a peak around -20 degrees. In particular, the consensus-based theta value turns out to be -21 degrees.
+
+```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/fadul1_fadul2_thetaHistogram.png")
+```
+
+If we then consider the CCF values at the -21 degree rotation comparison, we see there are quite a few cells that could be classified as "highly correlated". Tong et al. discuss various criteria they use to define a cell as a "Congruent Matching Cell." For example, they set a minimum CCF value of .25. Based on the criteria that they set, we can see in the table below that there are 14 cells that can be defined as CMCs. In their original paper, the number of CMCs they found was 15. The discrepancy likely comes from the fact that they perform different pre-processing steps than we do but don't discuss what those pre-processing steps are.
+
+|cell_ID                     |      corr|  dx|  dy|
+|:---------------------------|---------:|---:|---:|
+|x = 1 - 82,y = 407 - 487    | 0.4605801|  -7| -19|
+|x = 83 - 163,y = 83 - 163   | 0.3465763|  -1| -13|
+|x = 83 - 163,y = 488 - 568  | 0.2773731| -35|  25|
+|x = 164 - 244,y = 488 - 568 | 0.3917978| -24|   2|
+|x = 245 - 326,y = 488 - 568 | 0.4946205| -17|   1|
+|x = 327 - 407,y = 407 - 487 | 0.4824218|   4|   2|
+|x = 327 - 407,y = 488 - 568 | 0.4830941| -17|   4|
+|x = 408 - 488,y = 83 - 163  | 0.4034100|   9| -13|
+|x = 408 - 488,y = 164 - 244 | 0.3274178|   4| -14|
+|x = 408 - 488,y = 407 - 487 | 0.4588278|   7|  -3|
+|x = 489 - 569,y = 83 - 163  | 0.5382969|   9|   7|
+|x = 489 - 569,y = 164 - 244 | 0.4523592| -31|  21|
+|x = 489 - 569,y = 326 - 406 | 0.5687978|   8|  16|
+|x = 489 - 569,y = 407 - 487 | 0.5720020|   2|  24|
+
+We can visualize which cells in fadul1-1 are classified as CMCs. The image below shows the fadul1-1 CMCs as well as fadul1-2 rotated by -21 degrees (the consensus-based theta value chosen from before). We can see that most of the regions with the most obvious visual similarity between the two cartridge cases (in particular, the linear markings in the bottom-right of each image) are indeed classified as CMCs.
+
+```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/fadu1_pair_CMCs.png")
+```
+
+</details>
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
 The moified Chumbley non-random algorithm is a statistical non-paramaetric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segement to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 

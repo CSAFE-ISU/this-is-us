@@ -952,10 +952,7 @@ While running code, I've also been working on putting all of my working function
 
 </details>
 
-<details>
-<summary>
-Joe 10/24/18 Update: Finished computing (almost) all 780 possible known match and known non-match comparisons for the 40 cartridge case scans discussed in the Tong paper. It certainly appears that we have qualitatively similar results to what they provide. I am also working on writing up a vignette that discusses how to use the package.
-</summary>
+Joe 10/31/18 Update: Finished computing (almost) all 780 possible known match and known non-match comparisons for the 40 cartridge case scans discussed in the Tong paper. We're running into an issue where the correlations we're getting out appear to be signficantly lower than what we expect them to be based on the results reported by Tong et al. The biggest challenge is that we effectively need to guess how the images in the Tong paper were pre-processed, so certain decisions we make may drastically affect the final results. We're going to see if making a few minor changes to the way we pre-process the images will change the results to what we expect.
 
 Our current goal is to demonstrate that the current form of the package produces "qualitatively similar" results to those presented by Tong et al. Unfortunately, we don't actually know which data they used to produce their results. We have a strong suspicion that they just used the first pair of cartridge cases encountered when downloading the study's data from the NBTRD website, so we're going to try to base our results comparison based on those.
 
@@ -1014,8 +1011,6 @@ We can visualize which cells in fadul1-1 are classified as CMCs. The image below
 ```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
 knitr::include_graphics("images/cartridge_cases/fadu1_pair_CMCs.png")
 ```
-
-</details>
 
 ### Modified Chumbley non-random test
 #### Land-to-land scores

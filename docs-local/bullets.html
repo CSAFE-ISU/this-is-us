@@ -1102,10 +1102,7 @@ Figure 3.73: The same pair as above after being incorrectly aligned via the CMC 
 </div>
 <p>While running code, I’ve also been working on putting all of my working functions into a package. I should hopefully have something resembling a structured package by my spotlight in November.</p>
 </details>
-<details>
-<p><summary>
-Joe 10/24/18 Update: Finished computing (almost) all 780 possible known match and known non-match comparisons for the 40 cartridge case scans discussed in the Tong paper. It certainly appears that we have qualitatively similar results to what they provide. I am also working on writing up a vignette that discusses how to use the package.
-</summary></p>
+<p>Joe 10/31/18 Update: Finished computing (almost) all 780 possible known match and known non-match comparisons for the 40 cartridge case scans discussed in the Tong paper. We’re running into an issue where the correlations we’re getting out appear to be signficantly lower than what we expect them to be based on the results reported by Tong et al. The biggest challenge is that we effectively need to guess how the images in the Tong paper were pre-processed, so certain decisions we make may drastically affect the final results. We’re going to see if making a few minor changes to the way we pre-process the images will change the results to what we expect.</p>
 <p>Our current goal is to demonstrate that the current form of the package produces “qualitatively similar” results to those presented by Tong et al. Unfortunately, we don’t actually know which data they used to produce their results. We have a strong suspicion that they just used the first pair of cartridge cases encountered when downloading the study’s data from the NBTRD website, so we’re going to try to base our results comparison based on those.</p>
 <p>Below we can see the known match cartridge case pair in their raw format before pre-processing. In this state, it’s difficult to make any comparisons between the two breech faces. The first step is to process these images to both remove as much of the non-breech face region of the image as possible and accentuate the breech face impression markings left on the cartridge case.</p>
 <p><img src="images/cartridge_cases/fadul1_pair_raw.png" width="75%" style="display: block; margin: auto;" /></p>
@@ -1221,7 +1218,6 @@ Figure 3.74: (Left) 100x100 cells from Image 1. (Right) 200x200 cells from Image
 </table>
 <p>We can visualize which cells in fadul1-1 are classified as CMCs. The image below shows the fadul1-1 CMCs as well as fadul1-2 rotated by -21 degrees (the consensus-based theta value chosen from before). We can see that most of the regions with the most obvious visual similarity between the two cartridge cases (in particular, the linear markings in the bottom-right of each image) are indeed classified as CMCs.</p>
 <p><img src="images/cartridge_cases/fadu1_pair_CMCs.png" width="75%" style="display: block; margin: auto;" /></p>
-</details>
 </div>
 </div>
 <div id="modified-chumbley-non-random-test" class="section level3">

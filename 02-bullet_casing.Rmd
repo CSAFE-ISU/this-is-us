@@ -530,6 +530,27 @@ knitr::include_graphics("images/bullets/Hough_project/adjust-boxplot-right.png")
 
 </details>
 
+<details>
+<summary>
+Charlotte Update 10/31/2019:
+This weeks work has been focused on figuring out why we have such extreme mis-identifications for the adjust in the Phoenix set and work on edits for the vignette.
+</summary>
+
+So last week I showed a series of boxplots that show the impact of adjust levels on the difference between the manual identification and the groove estimates from the Hough transform. There were a few significant outliers shown in the boxplot. Upon further investigation it seems as if the Hough transform simply does not find a groove on the right side of the land. 
+
+```{r, fig.cap="Adjust level at 100, image of bullet land with a right hand differene of -600", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/gun-L5-B3-l1.png")
+
+```
+
+```{r, fig.cap="What the Hough Transform Sees", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/hough-estimates-problem-boy.png")
+
+```
+
+
+</details>
+
 
 ##### LASSO Method  
 

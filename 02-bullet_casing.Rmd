@@ -548,7 +548,10 @@ knitr::include_graphics("images/bullets/Hough_project/hough-estimates-problem-bo
 
 ```
 
+I wanted to show scores this time around but I just found out from looking through my saved results that the number of observations produced differs for each adjust level and I don't know why. So there's some major error with my code that I need to work out before proceeding. 
 
+For example: adjust = 0 number of observations 1980
+adjust = 10 number of observations 1782??????
 </details>
 
 

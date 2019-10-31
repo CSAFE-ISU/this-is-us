@@ -444,12 +444,42 @@ Aligning each image to the template corresponding to the shoe model and size pro
 <p>The alignment process itself (without any image preprocessing) is extremely fast, about 1s per image pair, and seems to be similar even when image size is increased by a factor of 16. Due to the scaling process and necessary modification of the transformation matrix, the alignments may be off by 1-5 pixels in some cases. <span class="new"><del>This might be handled by aligning a smaller subset of the image at full resolution.</del> Efforts to align sub-images produced less accurate alignments, likely due to the kinematic distortion of the sole during the walking process, resulting in situations where the local alignment estimate is not a good estimate of the global alignment. New attempts to find consensus alignment might include keypoint-based alignment methods, trying to identify the shoe border precisely to align that, and possibly use of Hough transforms to identify specific reproducible features that might serve as global keypoints.
 </span></p>
 </details>
-<div class="new">
 <p>Given how well RNiftyReg works, the next question is whether all of the preprocessing is even necessary.</p>
 <p>In the image below, the first row is alignment with the full image, the second is alignment with a binarized version of the output image (so masked + thresholded), and the third is automatically cropped around the mask which is aligned to the image using the rough-align process. The third row maintains most of the information and produces better alignments than the other rows; thus, we can conclude that it’s necessary to combine the preprocessing and rough alignment in order to get the best results from RNiftyReg.</p>
 <p><img src="images/shoes/longitudinal/Combining_Prints_Consensus_Images.png" width="100%"/></p>
-</div>
-<div class="new">
+<details>
+<p><summary> Fine Alignment of two images using FFT </summary>
+Basic Process:</p>
+<ol style="list-style-type: decimal">
+<li><p>Pad images so they’re the same size (Let’s say that <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are the two images)</p></li>
+<li><p>Downweight the edges of the images using a <a href="https://en.wikipedia.org/wiki/Hann_function">Hann function</a><br />
+This is necessary because Fourier transforms assume images go on forever, so abrupt changes (e.g. edges) don’t work out that well. Computationally, the image is “wrapped” around itself to be considered “infinite”.</p></li>
+<li><p>Use the Fast Fourier Transform on each image. Center the FFT’d images so that low frequencies are in the center (exchange top left quadrant with bottom right, and top right quadrant with bottom left). Call the FFT’d, centered images <span class="math inline">\(F(A)\)</span> and <span class="math inline">\(F(B)\)</span></p></li>
+<li><p>Recover the angle between the two images:<br />
+In Fourier space, a rotated image produces the same signal in Fourier space, but rotated. To recover this information, we can use the <strong>magnitude</strong> of the FFT’d images as a new image. Call these images <span class="math inline">\(|F(A)|\)</span> and <span class="math inline">\(|F(B)|\)</span>. Then,</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Polar transform the image, so that a rotation of the original image is a linear shift of the transformed image (<span class="math inline">\(P(|F(A)|)\)</span> and <span class="math inline">\(P(|F(B)|)\)</span>). Apply Hann functions to the polar-transformed images.</p></li>
+<li><p>Use FFT-based alignment (see steps 3, 5) to pick out the <span class="math inline">\(\theta, \rho\)</span> which best align the two polar images</p></li>
+<li><p>Discard <span class="math inline">\(\rho\)</span> and keep <span class="math inline">\(\theta\)</span>. Transform the original image (not the FFT’d image) to get <span class="math inline">\(\tilde{B}_\theta\)</span> and recompute the FFT on the rotated image (<span class="math inline">\(F(\tilde{B}_\theta)\)</span>).</p></li>
+</ol></li>
+<li><p>Recover the shift between the two images:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Compute the cross-power spectrum: <span class="math inline">\(S = F(A) \times F(\tilde{B}_\theta)*\)</span>, where <span class="math inline">\(F(x)*\)</span> is the complex conjugate of <span class="math inline">\(F(x)\)</span> (e.g. <span class="math inline">\(a + bi\)</span> becomes <span class="math inline">\(a - bi\)</span>)</p></li>
+<li><p>Compute the magnitude of the cross-power spectrum: <span class="math inline">\(|S| = \sqrt{S \times S*}\)</span></p></li>
+<li><p>Use (a) and (b) to get the normalized cross power spectrum: <span class="math inline">\(S/|S|\)</span></p></li>
+<li><p>Take the inverse FFT of <span class="math inline">\(S/|S|\)</span>: <span class="math inline">\(A = F^{-1}(S/|S|)\)</span></p></li>
+<li><p>Find the maximum of the <span class="math inline">\(A\)</span> matrix. The row and column where the maximum is found are the shift to align the two images: <span class="math inline">\((\Delta x, \Delta y)\)</span>.</p></li>
+</ol></li>
+<li><p>Apply the shift to image <span class="math inline">\(\tilde{B}_\theta\)</span> to get <span class="math inline">\(\tilde{B}_{\theta,\Delta x, \Delta y}\)</span>.</p></li>
+</ol>
+<p>There are some fiddly details (e.g. converting shifts which are most of the image into negative shifts), but FFT-based alignment works pretty well (and pretty quickly) for shoes.</p>
+<p>Original Images:</p>
+<p><img src="images/shoes/longitudinal/FFT_Alignment_Orig_20191031.png" width = "100%"/></p>
+<p>Angle-aligned Images:</p>
+<p><img src="images/shoes/longitudinal/FFT_Alignment_Angle_Only_20191031.png" width = "100%"/></p>
+<p>FFT-Aligned Result: (still working out the kinks)</p>
+<p><img src="images/shoes/longitudinal/FFT_Alignment_20191031.png" width = "100%"/></p>
+</details>
 <details>
 <p><summary>Combining information from multiple images</summary></p>
 <p>With aligned images, we can then combine the information in each of the two prints taken at the same timepoint to get more reliable images. Because the methodology for acquiring the prints changed from timepoint to timepoint, the analysis of each type of print doesn’t make sense - it is completely conflated with the observation date. However, the multiple prints aren’t wasted, because while each print may be missing information, the combination of both of the prints (when properly aligned) provides a much more reliable assessment of the shoe (and the wear of that shoe at the proper timepoint). There are at least 3 options to combine these images (note that white = 1, black = 0):</p>
@@ -470,7 +500,6 @@ Aligning each image to the template corresponding to the shoe model and size pro
 Alignment Success:</p>
 <img src="images/shoes/longitudinal/074093L_20180207_5_x_1_csafe_boekhoff_boekhoff_hanrahan.png" width = "45%"/>
 <img src="images/shoes/longitudinal/087354L_20180425_5_x_1_boekhoff_Kruse_kruse.png" width = "45%"/>
-</div>
 </details>
 </div>
 <div id="lss-paper-analysis-wear" class="section level5 unnumbered">

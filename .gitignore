@@ -2,6 +2,3 @@
 .Rhistory
 .RData
 .Ruserdata
-.gitignore
-docs-local
-_bookdown_files/

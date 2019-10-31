@@ -225,13 +225,13 @@ The alignment method seems to fail more frequently when one of the images is ver
 
 Alignment Fails:
 
-<img src="images/shoes/longitudinal/020574R_20180411_5_*_1_boekhoff_pashek_kruse.png" width = "45%"/>
-<img src="images/shoes/longitudinal/007961L_20180411_5_*_1_kruse_zwart_kruse.png" width = "45%"/>
+<img src="images/shoes/longitudinal/020574R_20180411_5_x_1_boekhoff_pashek_kruse.png" width = "45%"/>
+<img src="images/shoes/longitudinal/007961L_20180411_5_x_1_kruse_zwart_kruse.png" width = "45%"/>
 <br/>
 Alignment Success:
 
-<img src="images/shoes/longitudinal/074093L_20180207_5_*_1_csafe_boekhoff_boekhoff_hanrahan.png" width = "45%"/>
-<img src="images/shoes/longitudinal/087354L_20180425_5_*_1_boekhoff_Kruse_kruse.png" width = "45%"/>
+<img src="images/shoes/longitudinal/074093L_20180207_5_x_1_csafe_boekhoff_boekhoff_hanrahan.png" width = "45%"/>
+<img src="images/shoes/longitudinal/087354L_20180425_5_x_1_boekhoff_Kruse_kruse.png" width = "45%"/>
 </div>
 </details>
 

@@ -159,6 +159,26 @@ Some conclusions from current plots:
 4. The three components model for KM is less stable than two components one especially in small sample cases
 5. Two components model for KNM is not stable in small sample case(in terms of weight)
 
+```{r, fig.cap="ROC-cv-models", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/roc-cvmodels.png"))
+```
+
+```{r, fig.cap="ROC-different-size-models", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/roc-differentsize.png"))
+```
+
+```{r, fig.cap="ROC-one-barrel", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/roc-onebarrel.png"))
+```
+
+```{r, fig.cap="KM-table", out.width="100%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-table1.PNG"))
+```
+
+```{r, fig.cap="KNM-table", out.width="100%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-table1.PNG"))
+```
+
 #### follow-up study 
 
 4 bullets per barrel for  96 of the original 626 Beretta firearms using different ammunition

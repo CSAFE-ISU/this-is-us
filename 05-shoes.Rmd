@@ -299,20 +299,31 @@ In the meantime, it is much easier (relatively speaking) to use our existing fra
 **Shiny App**
 <img src="images/shoes/neuralnets/Shiny_ggHeatmaps.PNG" width = "100%"/>
 
-<div class = "new">
 
 **Updates/In progress:**
 
 - Presented on CoNNOR at [ISU's 3-Minute Thesis competition](https://www.grad-college.iastate.edu/three-minute-thesis/)
     - Preliminaries: 8 heats with 10-12 participants each
-    - Winner of each heat (announced today by 5 pm) will go on to finals next week
+    - Runner up to a guy making better yogurt
 - Implementing semantic segmentation model on HPC
     - Learning HPC structure, command line syntax, using Python in practice
     - Documentation assumes high baseline of knowledge :(
 - Improving spatial integration process
     - Remove predictions for blank (and mostly blank) edge images
     - Smooth predictions for overlapping image pieces
-    - Discovered bug this morning. Pictures coming soon!
+    - Average and max predictions shown below. Something in between might be better?
+
+
+<div class = "new">
+
+**New Images**
+
+<img src="images/shoes/neuralnets/predict_original.PNG" width = "100%"/>
+
+<img src="images/shoes/neuralnets/predict_max.PNG" width = "100%"/>
+
+<img src="images/shoes/neuralnets/predict_smooth.PNG" width = "100%"/>
+
 
 </div>
 
@@ -323,12 +334,14 @@ In the meantime, it is much easier (relatively speaking) to use our existing fra
 
 Project Tread, modified from [Leverhulme Institute's Sole Searching](https://www.dundee.ac.uk/leverhulme/citizenscience/details/sole-searching.php), is a developing CSAFE project with the goals of engaging community participation in forensic research and acquiring shoe print data that may be useful in future analyses.
 
+
+<div class = "new">
 In progress:
 
 - Review [procedures](https://forensicstats.org/project-tread/) and IRB documents written by James
-- Perhaps modify procedures, then bribe some friends into helping me test them :)
-    - Test for length, clarity, ease, etc.
+- Volunteers are testing modified procedure (below)
 - Be involved in set up of data collection site (through CSSM)
+</div>
 
 
 
@@ -361,16 +374,6 @@ In progress:
 - Ask for 3 replicates per shoe
     - Longitudinal shoe study uses 2-3 replicates per shoe
     
-<div class = "new">
-
-**Next steps:**
-
-- Ask volunteers to test procedure by Monday, November 4th
-    - I believe Heike volunteered her children, and Joe reluctantly agreed to help. Anyone else? Pretty please? :D
-- Ask Leverhulme how they use their data, what changes they would make, etc. First, currently checking with James to see if he already has this info.
-- Talk to Alicia about how (or whether) CSAFE plans to use the data in any specific ways, to make sure procedure pruning doesn't impede analysis
-
-</div>
     
 
 ## 3d Shoe Recognition 

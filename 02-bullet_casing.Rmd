@@ -593,11 +593,13 @@ The changes to our results are minor, but it is an important detail when modelin
 
 <p class="new"> Sometimes, data collection goes awry... </p>  
 
-<img src="images/bullets/pipeline/double_upload_A.png" width = "80%"/>  
+<img src="images/bullets/pipeline/double_upload_A.png" width = "60%"/>  
 
-<p class="new"> I am in the process of documenting all the data issues and double-checking everything. We are adding more operators (and another set of bullets) to our variability study! </p>  
+<p class="new"> I am in the process of documenting all the data issues and double-checking everything. We are adding more operators (and another set of bullets) to our variability study! </p>    
 
-<p class="new"> I am in a mad dash to get more book content to Alicia and then reviewers soon. </p>
+<img src="images/bullets/pipeline/rfscores_all_barrels.png" width = "80%"/>
+
+<p class="new"> I am in a mad dash to get more book content to Alicia and then reviewers soon. </p>  
 
 
 

@@ -159,6 +159,26 @@ Some conclusions from current plots:
 4. The three components model for KM is less stable than two components one especially in small sample cases
 5. Two components model for KNM is not stable in small sample case(in terms of weight)
 
+```{r, fig.cap="ROC-cv-models", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/roc-cvmodels.png"))
+```
+
+```{r, fig.cap="ROC-different-size-models", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/roc-differentsize.png"))
+```
+
+```{r, fig.cap="ROC-one-barrel", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/roc-onebarrel.png"))
+```
+
+```{r, fig.cap="KM-table", out.width="100%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-table1.PNG"))
+```
+
+```{r, fig.cap="KNM-table", out.width="100%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-table1.PNG"))
+```
+
 #### follow-up study 
 
 4 bullets per barrel for  96 of the original 626 Beretta firearms using different ammunition
@@ -494,7 +514,39 @@ knitr::include_graphics("images/bullets/Hough_project/br411_3d.png")
 
 ##### What's Next?
 
+Fiddling with adjusts and how it affects score. To find an optimal adjust for the Phoenix set, I calculate the default Hough groove estimates then find what the estimate would be for a series of adjusts. Naively I have defined a new parameter called "difference_left" and "difference_right" which is simply the difference between the manually identified groove location at an optimized crosscut and our Hough estimate at a particular adjust level. For now, I have defined any negative values to indicate that the Hough estimate is further from the center than the identified truth. So we want to minimize these negative difference to better get rid of boundary effects. 
 
+```{r, fig.cap="Difference between the left hand Hough estimate and the truth at various adjusts", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/adjust-boxplot-left.png")
+
+```
+
+```{r, fig.cap="Difference between the righ hand Hough estimate and the truth at various adjusts", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/adjust-boxplot-right.png")
+
+```
+
+
+
+</details>
+
+<details>
+<summary>
+Charlotte Update 10/31/2019:
+This weeks work has been focused on figuring out why we have such extreme mis-identifications for the adjust in the Phoenix set and work on edits for the vignette.
+</summary>
+
+So last week I showed a series of boxplots that show the impact of adjust levels on the difference between the manual identification and the groove estimates from the Hough transform. There were a few significant outliers shown in the boxplot. Upon further investigation it seems as if the Hough transform simply does not find a groove on the right side of the land. 
+
+```{r, fig.cap="Adjust level at 100, image of bullet land with a right hand differene of -600", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/gun-L5-B3-l1.png")
+
+```
+
+```{r, fig.cap="What the Hough Transform Sees", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/hough-estimates-problem-boy.png")
+
+```
 
 
 </details>
@@ -582,11 +634,13 @@ The changes to our results are minor, but it is an important detail when modelin
 
 <p class="new"> Sometimes, data collection goes awry... </p>  
 
-<img src="images/bullets/pipeline/double_upload_A.png" width = "80%"/>  
+<img src="images/bullets/pipeline/double_upload_A.png" width = "60%"/>  
 
-<p class="new"> I am in the process of documenting all the data issues and double-checking everything. We are adding more operators (and another set of bullets) to our variability study! </p>  
+<p class="new"> I am in the process of documenting all the data issues and double-checking everything. We are adding more operators (and another set of bullets) to our variability study! </p>    
 
-<p class="new"> I am in a mad dash to get more book content to Alicia and then reviewers soon. </p>
+<img src="images/bullets/pipeline/rfscores_all_barrels.png" width = "80%"/>
+
+<p class="new"> I am in a mad dash to get more book content to Alicia and then reviewers soon. </p>  
 
 
 
@@ -851,10 +905,7 @@ While running code, I've also been working on putting all of my working function
 
 </details>
 
-<details>
-<summary>
-Joe 10/24/18 Update: Finished computing (almost) all 780 possible known match and known non-match comparisons for the 40 cartridge case scans discussed in the Tong paper. It certainly appears that we have qualitatively similar results to what they provide. I am also working on writing up a vignette that discusses how to use the package.
-</summary>
+Joe 10/31/18 Update: Finished computing (almost) all 780 possible known match and known non-match comparisons for the 40 cartridge case scans discussed in the Tong paper. We're running into an issue where the correlations we're getting out appear to be signficantly lower than what we expect them to be based on the results reported by Tong et al. The biggest challenge is that we effectively need to guess how the images in the Tong paper were pre-processed, so certain decisions we make may drastically affect the final results. We're going to see if making a few minor changes to the way we pre-process the images will change the results to what we expect.
 
 Our current goal is to demonstrate that the current form of the package produces "qualitatively similar" results to those presented by Tong et al. Unfortunately, we don't actually know which data they used to produce their results. We have a strong suspicion that they just used the first pair of cartridge cases encountered when downloading the study's data from the NBTRD website, so we're going to try to base our results comparison based on those.
 
@@ -913,8 +964,6 @@ We can visualize which cells in fadul1-1 are classified as CMCs. The image below
 ```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
 knitr::include_graphics("images/cartridge_cases/fadu1_pair_CMCs.png")
 ```
-
-</details>
 
 ### Modified Chumbley non-random test
 #### Land-to-land scores

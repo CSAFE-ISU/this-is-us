@@ -193,20 +193,67 @@ The coordinates in bold have been scaled according to the size reduction, so tha
 
 The resulting aligned images are shown above; black pixels are areas where both images agree; pink and blue pixels represent areas found in one image but not the other. Some images which have many bubbles (air between the film and backing) or which contain blurred or double prints do not align accurately; this is really not avoidable with automatic alignment solutions. 
 
-The alignment process itself (without any image preprocessing) is extremely fast, about 1s per image pair, and seems to be similar even when image size is increased by a factor of 16. Due to the scaling process and necessary modification of the transformation matrix, the alignments may be off by 1-5 pixels in some cases. This might be handled by aligning a smaller subset of the image at full resolution. (TODO)
+The alignment process itself (without any image preprocessing) is extremely fast, about 1s per image pair, and seems to be similar even when image size is increased by a factor of 16. Due to the scaling process and necessary modification of the transformation matrix, the alignments may be off by 1-5 pixels in some cases. <span class="new">~~This might be handled by aligning a smaller subset of the image at full resolution.~~ Efforts to align sub-images produced less accurate alignments, likely due to the kinematic distortion of the sole during the walking process, resulting in situations where the local alignment estimate is not a good estimate of the global alignment. New attempts to find consensus alignment might include keypoint-based alignment methods, trying to identify the shoe border precisely to align that, and possibly use of Hough transforms to identify specific reproducible features that might serve as global keypoints.
+</span>
 
 </details>
 
-<div class="new">
 Given how well RNiftyReg works, the next question is whether all of the preprocessing is even necessary. 
 
 In the image below, the first row is alignment with the full image, the second is alignment with a binarized version of the output image (so masked + thresholded), and the third is automatically cropped around the mask which is aligned to the image using the rough-align process. The third row maintains most of the information and produces better alignments than the other rows; thus, we can conclude that it's necessary to combine the preprocessing and rough alignment in order to get the best results from RNiftyReg.
 
 <img src="images/shoes/longitudinal/Combining_Prints_Consensus_Images.png" width="100%"/>
 
-</div>
+<details>
+<summary> Fine Alignment of two images using FFT </summary>
+Basic Process:
 
-<div class="new"> 
+1. Pad images so they're the same size (Let's say that $A$ and $B$ are the two images)
+
+2. Downweight the edges of the images using a [Hann function](https://en.wikipedia.org/wiki/Hann_function)    
+This is necessary because Fourier transforms assume images go on forever, so abrupt changes (e.g. edges) don't work out that well. Computationally, the image is "wrapped" around itself to be considered "infinite". 
+
+3. Use the Fast Fourier Transform on each image. Center the FFT'd images so that low frequencies are in the center (exchange top left quadrant with bottom right, and top right quadrant with bottom left). Call the FFT'd, centered images $F(A)$ and $F(B)$
+
+4. Recover the angle between the two images:     
+In Fourier space, a rotated image produces the same signal in Fourier space, but rotated. To recover this information, we can use the **magnitude** of the FFT'd images as a new image. Call these images $|F(A)|$ and $|F(B)|$. Then, 
+
+    a. Polar transform the image, so that a rotation of the original image is a linear shift of the transformed image ($P(|F(A)|)$ and $P(|F(B)|)$). Apply Hann functions to the polar-transformed images.
+    
+    b. Use FFT-based alignment (see steps 3, 5) to pick out the $\theta, \rho$ which best align the two polar images
+    
+    c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT'd image) to get $\tilde{B}_\theta$ and recompute the FFT on the rotated image ($F(\tilde{B}_\theta)$).
+
+5. Recover the shift between the two images: 
+    
+    a. Compute the cross-power spectrum: $S = F(A) \times F(\tilde{B}_\theta)*$, where $F(x)*$ is the complex conjugate of $F(x)$ (e.g. $a + bi$ becomes $a - bi$)
+    
+    b. Compute the magnitude of the cross-power spectrum: $|S| = \sqrt{S \times S*}$
+    
+    c. Use (a) and (b) to get the normalized cross power spectrum: $S/|S|$
+    
+    d. Take the inverse FFT of $S/|S|$: $A = F^{-1}(S/|S|)$
+    
+    e. Find the maximum of the $A$ matrix. The row and column where the maximum is found are the shift to align the two images: $(\Delta x, \Delta y)$.
+
+6. Apply the shift to image $\tilde{B}_\theta$ to get $\tilde{B}_{\theta,\Delta x, \Delta y}$. 
+
+There are some fiddly details (e.g. converting shifts which are most of the image into negative shifts), but FFT-based alignment works pretty well (and pretty quickly) for shoes.
+
+Original Images:
+
+<img src="images/shoes/longitudinal/FFT_Alignment_Orig_20191031.png" width = "100%"/>
+
+Angle-aligned Images:
+
+<img src="images/shoes/longitudinal/FFT_Alignment_Angle_Only_20191031.png" width = "100%"/>
+
+FFT-Aligned Result: (still working out the kinks)
+
+<img src="images/shoes/longitudinal/FFT_Alignment_20191031.png" width = "100%"/>
+
+</details>
+
 <details><summary>Combining information from multiple images</summary>
 
 With aligned images, we can then combine the information in each of the two prints taken at the same timepoint to get more reliable images. Because the methodology for acquiring the prints changed from timepoint to timepoint, the analysis of each type of print doesn't make sense - it is completely conflated with the observation date. However, the multiple prints aren't wasted, because while each print may be missing information, the combination of both of the prints (when properly aligned) provides a much more reliable assessment of the shoe (and the wear of that shoe at the proper timepoint). There are at least 3 options to combine these images (note that white = 1, black = 0):
@@ -220,7 +267,17 @@ With aligned images, we can then combine the information in each of the two prin
 
 Of these options, the first seems like the best, but the last provides some idea of whether the alignment was decent to begin with.
 
-</div>
+The alignment method seems to fail more frequently when one of the images is very light. It may be advantageous to invest more effort into adaptive histogram normalization. 
+
+Alignment Fails:
+
+<img src="images/shoes/longitudinal/020574R_20180411_5_x_1_boekhoff_pashek_kruse.png" width = "45%"/>
+<img src="images/shoes/longitudinal/007961L_20180411_5_x_1_kruse_zwart_kruse.png" width = "45%"/>
+<br/>
+Alignment Success:
+
+<img src="images/shoes/longitudinal/074093L_20180207_5_x_1_csafe_boekhoff_boekhoff_hanrahan.png" width = "45%"/>
+<img src="images/shoes/longitudinal/087354L_20180425_5_x_1_boekhoff_Kruse_kruse.png" width = "45%"/>
 </details>
 
 ##### Wear Characterization {-#lss-paper-analysis-wear}
@@ -398,10 +455,10 @@ What we are doing now
     - angle transformations 
     
 -PCA: 
-<img src="images/shoes/3dshoes/pca1.png" width="100%"/>
-<img src="images/shoes/3dshoes/pca2.png" width="100%"/>
+<img src="images/shoes/3dshoes/SonyPACside.png" width="100%"/>
+<img src="images/shoes/3dshoes/SonyPAC.png" width="100%"/>
 
-Better 
+This is working wiht the shoes that I have personally scanned, however still in the process of working on fixing them for the shoes of the longitudinal study. Once this occurs, need to figure out how to revert it to mesh objects agian. 
     
 ## Shoe outsole matching using image descriptors
 
@@ -489,11 +546,11 @@ Non-mates|    9     |       6.43     |   0.1208  |        1.39          |
 
 
 **ROC curves on test comparisons**:
-<img src="images/shoes/Features/SURF_ROC_deg.png" width="100%"/>
+<img src="images/shoes/Features/ROC_allfeatures.png" width="100%"/>
 
 
-**ROC curves on test comparisons**:
-<img src="images/shoes/Features/ROC_features.png" width="100%"/>
+**ROC curves when Q is degraded**:
+<img src="images/shoes/Features/ROC_deg10.png" width="100%"/>
 
 
 

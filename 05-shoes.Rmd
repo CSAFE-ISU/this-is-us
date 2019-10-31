@@ -452,10 +452,10 @@ What we are doing now
     - angle transformations 
     
 -PCA: 
-<img src="images/shoes/3dshoes/pca1.png" width="100%"/>
-<img src="images/shoes/3dshoes/pca2.png" width="100%"/>
+<img src="images/shoes/3dshoes/SonyPACside.png" width="100%"/>
+<img src="images/shoes/3dshoes/SonyPAC.png" width="100%"/>
 
-Better 
+This is working wiht the shoes that I have personally scanned, however still in the process of working on fixing them for the shoes of the longitudinal study. Once this occurs, need to figure out how to revert it to mesh objects agian. 
     
 ## Shoe outsole matching using image descriptors
 

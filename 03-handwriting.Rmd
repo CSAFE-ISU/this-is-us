@@ -16,19 +16,32 @@ The handwriting project has four major focuses:
 ## Data Collection
 We are conducting a large data collection study to gather handwriting samples from a variety of participants across the world (most in the Midwest). Each participant provides handwriting samples at three sessions. Session packets are prepared, mailed to participants, completed, and mailed back. Once recieved, we scan all surveys and writing samples. Scans are loaded, cropped, and saved using a Shiny app. The app also facilitates survey data entry, saving that participant data to lines in an excel spreadsheet.
 
-As of September 2019, Marc and Anyesha are the primary contacts for the study. <span class="new">Phase 2 recruiting is underway.</span>
+As of September 2019, Marc and Anyesha are the primary contacts for the study. <span class="new">Phase 2 recruiting is/will be underway.</span>
 
-<p class="new">The first 90 complete writers were published:<p>
+<p class="new"><strong>The first 90 complete writers were published:</strong><p>
 > <span class="new">Crawford, Amy; Ray, Anyesha; Carriquiry, Alicia; Kruse, James; Peterson, Marc (2019): CSAFE Handwriting Database. Iowa State University. Dataset. https://doi.org/10.25380/iastate.10062203.</span>
 
-<details>
-<summary><span class="new">A data article has been submitted to [Data in Brief](https://www.journals.elsevier.com/data-in-brief). </span> </summary>
+<p class="new">Anyesha and I worked on a variety of <strong>data quality checks and batch processing</strong> prior to publication. Scanner cuts a portion of the left side of the documents off sporadically. Survey date checks. Batch removal of header.<p>
+```{r, fig.cap="Batch process samples: rotate 0.05 degrees, turn black line pixels white, crop 450 pixels from top (under QR code), rename.", out.width="90%", fig.keep="hold", fig.align='center'}
+include_graphics(c( "images/handwriting/amy/promptimage.png"))
+```
+
+<p class="new"> We hit a bump with the ISU Office for Responsible Research (ORR). </summary> They had concerns with the demographic variables we collected on the surveys and wanted to publish. We "negotiated'' and settled on the following survey information.<p>
+
+```{r, fig.cap="", out.width="110%", fig.keep="hold", fig.align='center'}
+include_graphics(c( "images/handwriting/amy/surveydata_header.png"))
+```
 <br>
-```{r, fig.cap="", out.width="70%", fig.keep="hold", fig.align='center'}
+
+<details>
+<summary><span class="new">A data article has been submitted to [Data in Brief](https://www.journals.elsevier.com/data-in-brief). </span></summary>
+<br>
+```{r, fig.cap="", out.width="90%", fig.keep="hold", fig.align='center'}
 include_graphics(c( "images/handwriting/amy/datainbrief_header.png"))
 ```
-</details>
-  
+</details>   
+
+
 ## Computational Tools
 `handwriter` is a developmental R package hosted at https://github.com/CSAFE-ISU/handwriter. It is our major computational tool for the project. The package takes in scanned handwritten documents and the following are performed. 
 

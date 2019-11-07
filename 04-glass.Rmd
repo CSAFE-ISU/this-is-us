@@ -1,13 +1,148 @@
-# Glass: Chemical compositions
+# Glass
 
-**Evaluation and comparison of methods for forensic glass source conclusions, Soyoung Park and Sam Tyner**
 
-  - Get reviews back from *Forensic Science International* 
-  - Most of comments from Reviewer1 are minor on format or forensic background
-  - Reviewer2 said *I very much enjoyed reading your paper and congratulate you on a really nice piece of work*
+## Data collection
+  - Since 2016, it has started to collect the float glass panes from two glass industries in the U.S. 
+  - Glass panes were consecutively manufactured. 
   
-What we plan to do,
+  <img src="images/glass/TI-float.PNG" width="100%"/>
+  
+  - We could construct the challenging comparisons. 
+  
+  <img src="images/glass/glass-date.PNG" width="100%"/>
+  
+  - The elemental chemical concentrations were measured by LA-ICP-MS by the help from Univ. of Iowa. 
+  - Each pane was broken to several fragments. Then we pick 24 fragments randomly.
+  - Each fragment was measured 5 times for 21 fragments and measured 20 times for 3 fragments. 
+  - Using the data, we construct mates and non-mates. 
 
-  - Revise the maunuscript as comments by reviewers ASAP
-  - Will get more data 
-  - Write a paper describing data in *Data in Brief* 
+  <img src="images/glass/box_6plots.png" width="100%"/>
+
+
+## The ASTM standard method 
+
+- ASTM-E2330-12 (2012) and ASTM-E2927-16 (2016) detail the steps recommended to carry out forensic glass comparisons. 
+- At a minimum, the standard approach calls for three fragments from the source at the crime scene (\(n_{K} \geq 3\)), each measured at least three times
+(\(M_K \geq 3\)), and one fragment, also measured three times, recovered from the suspect (\(n_Q = 1, M_Q \geq 3\)). Using those measurements:
+
+1.  Calculate the mean concentration for each element \(i = 1, \dots, p\)
+  from the known fragments, denoted \(\bar{y}_{Ki\cdot\cdot}\). Also
+  record 3\% of the mean, \(0.03\cdot \bar{y}_{Ki\cdot\cdot}\).
+2.  Calculate the standard deviation of each elemental concentration from
+  the known fragments. Denote this value by \(\sigma_{Ki}\).
+3.  Compute an interval for each \(i\): \(\bar{y}_{Ki\cdot\cdot}\) \(\pm\)
+  4 \(\times\) \(\max(\sigma_{Ki}, 0.03\cdot \bar{y}_{Ki\cdot\cdot})\).
+  This is also known as the \(4\sigma\) interval in the literature
+  (cf.~Weis et al. (2011)).
+4.   Calculate the mean concentration of each element \(i = 1, \dots, p\)
+  in the questioned fragment(s), denoted \(\bar{y}_{Qi\cdot\cdot}\).
+5.  Compare the value \(\bar{y}_{Qi\cdot\cdot}\) to the \(4\sigma\)
+  interval from Step 3: if
+  \(\bar{y}_{Qi\cdot\cdot} \notin (\bar{y}_{Ki\cdot\cdot} \pm 4 \times \max(\sigma_{Ki}, 0.03\cdot \bar{y}_{Ki\cdot\cdot}))\)
+  for one or more values of \(i\), the glass sources for two groups
+  \(G_K\) and \(G_Q\) are distinguishable. Otherwise, they are
+  indistinguishable. This means that if any single element mean value
+  from the questioned source does not fall in the \(4\sigma\) interval,
+  the glass sources are declared distinguishable, otherwise they are
+  declared indistinguishable.
+
+
+
+## Learning algorithms to evaluate forensic glass evidence
+
+by Soyoung Park \& Alicia Carriquiry,
+
+published in *The Annals of Applied Statistics* in 2019.06.
+
+
+
+- Take the pariwise differences of 18 element values between two fragments which assigned to classes of mates and non-mates. 
+
+<img src="images/glass/hist_SS_DS_4.png" width="100%"/>
+
+
+
+- Developed the scoring metric using several machine learning algorithm and the existing methods, including the ASTM standard. 
+
+
+- We proposed expressing the criterion suggested
+by the ASTM standard as a \emph{score}, representing the degree of
+similarity between \(G_K\) and \(G_Q\). Mathematically, this score is
+computed as:
+
+\begin{eqnarray}
+S_{ASTM,i}&=&\left|\frac{\bar{y}_{Ki\cdot\cdot}-\bar{y}_{Qi\cdot\cdot}}{\max(\sigma_{Ki}, 0.03\cdot \bar{y}_{Ki\cdot\cdot} )}\right| \label{eq:scorestad1} \\ 
+ S_{ASTM}&=&\max(S_{ASTM,i})  \label{eq:scorestad2}
+\end{eqnarray}
+
+
+\noindent where \(i \in \{1, 2, \dots 18\}\) indexes element. The
+maximum (\(S_{ASTM}\)) across all element-wise scores (\(S_{ASTM,i}\))
+becomes the final score to determine if fragments from the pane \(K\)
+and the pane \(Q\) have a common source. If \(S_{ASTM} > 4\), then the
+two groups of fragments, \(G_K\) and \(G_Q\) from panes \(K\) and \(Q\)
+are declared to be distinguishable. 
+
+
+- Test the source prediction performance among the RF, BART, ASTM, hotelling T^2 shrinkage and more.. 
+
+<img src="images/glass/ROC_all.png" width="100%"/>
+
+
+- Density plots by the RF and the ASTM 
+<img src="images/glass/density_rf_stad.png" width="100%"/>
+
+
+
+## Evaluation and comparison of methods for forensic glass source conclusions
+
+by Soyoung Park \& Sam Tyner,
+
+accepted for publication in *Forensic Science International* in 2019.
+
+*Understanding the ASTM method*
+
+- Comparison of the RF method and the ASTM method on source conclusion.
+- Depart the ASTM criteria into five pieces:
+
+
+\begin{eqnarray}
+S_{ASTM,i}&=&\left|\frac{\bar{y}_{Ki\cdot\cdot}-\bar{y}_{Qi\cdot\cdot}}{\max(\sigma_{Ki}, 0.03\cdot \bar{y}_{Ki\cdot\cdot} )}\right| \\ 
+S_{ASTM}&=&\max(S_{ASTM,i}) 
+\end{eqnarray}
+
+  1. The absolute difference in mean of two fragments
+  
+  <img src="images/glass/boxplot-1.PNG" width="100%"/>
+  
+  2. Standard Deviation or 3\% Known Mean?
+  
+  <img src="images/glass/int_K_Li-1.PNG" width="100%"/>
+  
+  3. Deciding Element 
+
+  <img src="images/glass/elembyrate-1.PNG" width="100%"/>
+  
+  4. Decision Threshold
+  
+  <img src="images/glass/ROC1.PNG" width="100%"/>
+  
+  
+ |Method|AUC-ROC|EER|OT|FPR(OT)|FNR(OT)|
+ |-------|--------|-----|-----|--------|-------|
+ |RF     | 0.965  |0.098|0.522| 0.142  | 0.045 |
+ |ASTM   | 0.936  |0.137|2.870| 0.140  | 0.133 |
+  
+  5. Number of Known Fragments
+
+  <img src="images/glass/err-rates-by-n-1.PNG" width="100%"/>
+
+
+  6. Stressing test 
+
+
+<img src="images/glass/table5.PNG" width="100%"/>
+<img src="images/glass/disagree-bar.PNG" width="100%"/>
+<img src="images/glass/p_correct.PNG" width="100%"/>
+
+

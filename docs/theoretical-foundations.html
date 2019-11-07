@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2019-10-31" />
+<meta name="date" content="2019-11-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -644,14 +644,14 @@ which is approximately equivalent to
 <p>As an illustration, consider one dimensional feature space. Take <span class="math inline">\(\mu_{1} = 1, \mu_{2} = -1, \Sigma = 1\)</span>, and <span class="math inline">\(p_{1} = p_{2} = 0.5\)</span>. Figure 1 shows the optimal matching rule and the optimal rule based on feature difference.
 We see that in this example the matching region from the feature difference method only overlaps a small fraction of that from the optimal matching rule, and there is a missing alignment for the feature difference method in the two small triangles at the origin.
 We also note that even though most of the pink area and the blue area in Figure 1 don’t overlap, the probabilities that the pair of data <span class="math inline">\((x_{1}, x_{2})\)</span> falling into those non-overlapping regions could be small, especially if the absolute value of either coordinate is large. See the contours of multivariate normal distribution in Figure 1.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-111"></span>
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-111-1.png" alt="Matching regions from the optimal rule (in pink) and the method based on feature difference (in blue). The contours of multivariate normal distribution with means $(1, -1)$ (unmatching case) and $(1, 1)$ (matching case) are marked in black and red, respectively, where the covariance is identity." width="672" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-113"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-113-1.png" alt="Matching regions from the optimal rule (in pink) and the method based on feature difference (in blue). The contours of multivariate normal distribution with means $(1, -1)$ (unmatching case) and $(1, 1)$ (matching case) are marked in black and red, respectively, where the covariance is identity." width="672" />
 <p class="caption">
 Figure 7.1: Matching regions from the optimal rule (in pink) and the method based on feature difference (in blue). The contours of multivariate normal distribution with means <span class="math inline">\((1, -1)\)</span> (unmatching case) and <span class="math inline">\((1, 1)\)</span> (matching case) are marked in black and red, respectively, where the covariance is identity.
 </p>
 </div>
 <p><strong>Comparison with random forest.</strong> We also conducted a small scale simulation to compare the optimal matching rule with the random forest method applied on the feature difference. The traning data include 50 observations from <span class="math inline">\(N(1, 1)\)</span> and <span class="math inline">\(N(-1, 1)\)</span>. There are additional 10 observations from each of the group serving as the testing data. We evaluate the percentage of the matching errors on the pairs of the testing data. We repeated the whole simulation 100 times. The accuracy rates are <strong><em>0.762</em></strong> and <strong><em>0.708</em></strong> for the optimal matching rule and the random forest applied on the differences of the measurements, respectively. 65% out of the 100 repetitions, the former method has higher accuracy than the latter method.</p>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-113-1.png" width="288" /><img src="bookdown-demo_files/figure-html/unnamed-chunk-113-2.png" width="288" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-115-1.png" width="288" /><img src="bookdown-demo_files/figure-html/unnamed-chunk-115-2.png" width="288" /></p>
 </div>
 <div id="topics-needs-exploration" class="section level3">
 <h3><span class="header-section-number">7.3.2</span> Topics needs exploration</h3>

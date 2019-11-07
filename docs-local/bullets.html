@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Project CC: Bullets and Cartridge Cases | This is us: making CSAFE stronger each week</title>
   <meta name="description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Project CC: Bullets and Cartridge Cases | This is us: making CSAFE stronger each week" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2019-10-31" />
+<meta name="date" content="2019-11-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -40,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -177,7 +180,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#undergraduates-1"><i class="fa fa-check"></i><b>4.5.3</b> Undergraduates</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="glass-chemical-compositions.html"><a href="glass-chemical-compositions.html"><i class="fa fa-check"></i><b>5</b> Glass: Chemical compositions</a></li>
+<li class="chapter" data-level="5" data-path="glass.html"><a href="glass.html"><i class="fa fa-check"></i><b>5</b> Glass</a><ul>
+<li class="chapter" data-level="5.1" data-path="glass.html"><a href="glass.html#data-collection-2"><i class="fa fa-check"></i><b>5.1</b> Data collection</a></li>
+<li class="chapter" data-level="5.2" data-path="glass.html"><a href="glass.html#the-astm-standard-method"><i class="fa fa-check"></i><b>5.2</b> The ASTM standard method</a></li>
+<li class="chapter" data-level="5.3" data-path="glass.html"><a href="glass.html#learning-algorithms-to-evaluate-forensic-glass-evidence"><i class="fa fa-check"></i><b>5.3</b> Learning algorithms to evaluate forensic glass evidence</a></li>
+<li class="chapter" data-level="5.4" data-path="glass.html"><a href="glass.html#evaluation-and-comparison-of-methods-for-forensic-glass-source-conclusions"><i class="fa fa-check"></i><b>5.4</b> Evaluation and comparison of methods for forensic glass source conclusions</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="shoes.html"><a href="shoes.html"><i class="fa fa-check"></i><b>6</b> Shoes</a><ul>
 <li class="chapter" data-level="6.1" data-path="shoes.html"><a href="shoes.html#longitudinal"><i class="fa fa-check"></i><b>6.1</b> Longitudinal Shoe Study</a><ul>
 <li class="chapter" data-level="6.1.1" data-path="shoes.html"><a href="shoes.html#paper-describing-the-database"><i class="fa fa-check"></i><b>6.1.1</b> Paper describing the database</a></li>
@@ -1102,7 +1110,7 @@ Figure 3.73: The same pair as above after being incorrectly aligned via the CMC 
 </div>
 <p>While running code, I’ve also been working on putting all of my working functions into a package. I should hopefully have something resembling a structured package by my spotlight in November.</p>
 </details>
-<p>Joe 10/31/18 Update: Finished computing (almost) all 780 possible known match and known non-match comparisons for the 40 cartridge case scans discussed in the Tong paper. We’re running into an issue where the correlations we’re getting out appear to be signficantly lower than what we expect them to be based on the results reported by Tong et al. The biggest challenge is that we effectively need to guess how the images in the Tong paper were pre-processed, so certain decisions we make may drastically affect the final results. We’re going to see if making a few minor changes to the way we pre-process the images will change the results to what we expect.</p>
+<p>Joe 11/7/18 Update: Finished computing (almost) all 780 possible known match and known non-match comparisons for the 40 cartridge case scans discussed in the Tong paper. We’re running into an issue where the correlations we’re getting out appear to be signficantly lower than what we expect them to be based on the results reported by Tong et al. The biggest challenge is that we effectively need to guess how the images in the Tong paper were pre-processed, so certain decisions we make may drastically affect the final results. We’re going to see if making a few minor changes to the way we pre-process the images will change the results to what we expect.</p>
 <p>Our current goal is to demonstrate that the current form of the package produces “qualitatively similar” results to those presented by Tong et al. Unfortunately, we don’t actually know which data they used to produce their results. We have a strong suspicion that they just used the first pair of cartridge cases encountered when downloading the study’s data from the NBTRD website, so we’re going to try to base our results comparison based on those.</p>
 <p>Below we can see the known match cartridge case pair in their raw format before pre-processing. In this state, it’s difficult to make any comparisons between the two breech faces. The first step is to process these images to both remove as much of the non-breech face region of the image as possible and accentuate the breech face impression markings left on the cartridge case.</p>
 <p><img src="images/cartridge_cases/fadul1_pair_raw.png" width="75%" style="display: block; margin: auto;" /></p>
@@ -1218,6 +1226,8 @@ Figure 3.74: (Left) 100x100 cells from Image 1. (Right) 200x200 cells from Image
 </table>
 <p>We can visualize which cells in fadul1-1 are classified as CMCs. The image below shows the fadul1-1 CMCs as well as fadul1-2 rotated by -21 degrees (the consensus-based theta value chosen from before). We can see that most of the regions with the most obvious visual similarity between the two cartridge cases (in particular, the linear markings in the bottom-right of each image) are indeed classified as CMCs.</p>
 <p><img src="images/cartridge_cases/fadu1_pair_CMCs.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>We are currently running into issues where the correlations values we get out between the two images are not nearly as high as they appear to be in the Tong paper (although we don’t really know since they didn’t provide much context). Below is an example of a pair of known match cells. The two breech faces have already been rotationally aligned (by hand), so these should have very high correlation (apparantely something north of .55 according the the Tong paper). We can certainly see a mode in the correlation (red spot), but it is hard for me to interpret exactly what that mode represents. I believe it represents the shift needed to align the second, larger image with the first image. I need to do some more digging into what is actually happening with FFTs and cross-correlation implementations to know for sure.</p>
+<p><img src="images/cartridge_cases/cellCCFMap.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="modified-chumbley-non-random-test" class="section level3">
@@ -1243,7 +1253,7 @@ Figure 3.74: (Left) 100x100 cells from Image 1. (Right) 200x200 cells from Image
 <p>We extract markings, locate grooves, align signatures, and generate cross-comparison results. Each step is notified in UI and all steps are logged.</p>
 <p>The scores and results are then communicated through an interactive visualization. We first interact at the top most level where we have bullet-to-bullet scores for all the cross-comparisons presented in a grid. We can select one comparison at a time which would generate a second level of grid visualization that shows the land-to-land scores for all 36 comparisons within a bullet. Interacting with this visualization, we can now pull up score tables, profiles, location of grooves, aligned signatures and raw images.</p>
 <p>The framework of interactions, allows for validation of classification recommended by the RF model as well as gives an opportunity to critically asses, identify the cause and diagnose any problems encountered in the bullet matching pipeline.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-85"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-86"></span>
 <img src="images/bullets/gan-app2_consolidated.png" alt="An instance of the interactive visualizations for communicating results" width="50%" />
 <p class="caption">
 Figure 3.75: An instance of the interactive visualizations for communicating results
@@ -1370,11 +1380,13 @@ Figure 3.75: An instance of the interactive visualizations for communicating res
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -1402,7 +1414,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"download": null,
 "toc": {
 "collapse": "subsection"
 }

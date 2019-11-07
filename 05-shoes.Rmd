@@ -368,21 +368,20 @@ In the meantime, it is much easier (relatively speaking) to use our existing fra
 - Improving spatial integration process
     - Remove predictions for blank (and mostly blank) edge images
     - Smooth predictions for overlapping image pieces
-    - Average and max predictions shown below. Something in between might be better?
+      - geom_density2d(), stat_contour(), creating brush overlay with EBImage
 
 
 <div class = "new">
 
 **New Images**
 
-<img src="images/shoes/neuralnets/predict_original.PNG" width = "100%"/>
-
-<img src="images/shoes/neuralnets/predict_max.PNG" width = "100%"/>
-
-<img src="images/shoes/neuralnets/predict_smooth.PNG" width = "100%"/>
-
-
 </div>
+
+**Plotting with stat_contour**
+<img src="images/shoes/neuralnets/contour_by_shape.PNG" width = "100%"/>
+
+
+
 
 
 ## Maximum Clique Matching {#maxclique}

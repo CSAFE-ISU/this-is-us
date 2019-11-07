@@ -179,6 +179,14 @@ include_graphics(c("images/yawei/km-table1.PNG"))
 include_graphics(c("images/yawei/knm-table1.PNG"))
 ```
 
+```{r, fig.cap="ccf in each barrel", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/ccfineachbarrel.png"))
+```
+
+```{r, fig.cap="within barrel ROC for barrel 42 and 56", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/withinbarrel4256roc.png"))
+```
+
 #### follow-up study 
 
 4 bullets per barrel for  96 of the original 626 Beretta firearms using different ammunition

@@ -590,16 +590,17 @@ Alignment Success:</p>
 <li>Improving spatial integration process
 <ul>
 <li>Remove predictions for blank (and mostly blank) edge images</li>
-<li>Smooth predictions for overlapping image pieces</li>
-<li>Average and max predictions shown below. Something in between might be better?</li>
+<li>Smooth predictions for overlapping image pieces
+<ul>
+<li>geom_density2d(), stat_contour(), creating brush overlay with EBImage</li>
+</ul></li>
 </ul></li>
 </ul>
 <div class="new">
 <p><strong>New Images</strong></p>
-<p><img src="images/shoes/neuralnets/predict_original.PNG" width = "100%"/></p>
-<p><img src="images/shoes/neuralnets/predict_max.PNG" width = "100%"/></p>
-<p><img src="images/shoes/neuralnets/predict_smooth.PNG" width = "100%"/></p>
 </div>
+<p><strong>Plotting with stat_contour</strong>
+<img src="images/shoes/neuralnets/contour_by_shape.PNG" width = "100%"/></p>
 </div>
 </div>
 <div id="maxclique" class="section level2">

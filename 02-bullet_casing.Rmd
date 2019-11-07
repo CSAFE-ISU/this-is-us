@@ -633,7 +633,7 @@ Over the summer I made a function to "fix" this, to address the estimation probl
 
 The changes to our results are minor, but it is an important detail when modeling things.  
 
-<p class="new"> Two papers in progress! Groove ID paper #1 is waiting for reviewer scores, Groove ID paper #2 is waiting for advisor comments. </p>
+<p class="new"> Two papers in progress! Groove ID paper #1 needs another round of minor revisions (hopefully will be accepted soon!), Groove ID paper #2 is waiting for advisor comments. </p> 
 
 <p class="new"> Sometimes, data collection goes awry... </p>  
 
@@ -643,7 +643,7 @@ The changes to our results are minor, but it is an important detail when modelin
 
 <img src="images/bullets/pipeline/rfscores_all_barrels.png" width = "80%"/>
 
-<p class="new"> I am in a mad dash to get more book content to Alicia and then reviewers soon. </p>  
+<p class="new"> I am polishing two full chapters of the book this week. Starting to write up the full variability study (as a dissertation chapter). Writing, writing, writing! </p>  
 
 
 

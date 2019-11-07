@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2019-11-01" />
+<meta name="date" content="2019-11-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -177,7 +177,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#undergraduates-1"><i class="fa fa-check"></i><b>4.5.3</b> Undergraduates</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="glass-chemical-compositions.html"><a href="glass-chemical-compositions.html"><i class="fa fa-check"></i><b>5</b> Glass: Chemical compositions</a></li>
+<li class="chapter" data-level="5" data-path="glass.html"><a href="glass.html"><i class="fa fa-check"></i><b>5</b> Glass</a><ul>
+<li class="chapter" data-level="5.1" data-path="glass.html"><a href="glass.html#data-collection-2"><i class="fa fa-check"></i><b>5.1</b> Data collection</a></li>
+<li class="chapter" data-level="5.2" data-path="glass.html"><a href="glass.html#the-astm-standard-method"><i class="fa fa-check"></i><b>5.2</b> The ASTM standard method</a></li>
+<li class="chapter" data-level="5.3" data-path="glass.html"><a href="glass.html#learning-algorithms-to-evaluate-forensic-glass-evidence"><i class="fa fa-check"></i><b>5.3</b> Learning algorithms to evaluate forensic glass evidence</a></li>
+<li class="chapter" data-level="5.4" data-path="glass.html"><a href="glass.html#evaluation-and-comparison-of-methods-for-forensic-glass-source-conclusions"><i class="fa fa-check"></i><b>5.4</b> Evaluation and comparison of methods for forensic glass source conclusions</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="shoes.html"><a href="shoes.html"><i class="fa fa-check"></i><b>6</b> Shoes</a><ul>
 <li class="chapter" data-level="6.1" data-path="shoes.html"><a href="shoes.html#longitudinal"><i class="fa fa-check"></i><b>6.1</b> Longitudinal Shoe Study</a><ul>
 <li class="chapter" data-level="6.1.1" data-path="shoes.html"><a href="shoes.html#paper-describing-the-database"><i class="fa fa-check"></i><b>6.1.1</b> Paper describing the database</a></li>
@@ -692,14 +697,10 @@ Figure 3.40: Crosscut Results Hamby 252 Demo Set Comparison between old and new 
 <p><summary>
 Charlotte Update 10/22/2019: For this weeks spotlight I will focus on motivating the reasoning behind the Hough project, a demonstration of mechanics or how the function actually works and maybe a few results.
 </summary></p>
-</div>
-<div id="project-motivation" class="section level5">
-<h5><span class="header-section-number">3.3.1.1.2</span> Project Motivation</h5>
+<p>** Project Motivation **</p>
 <p>One of the main objectives of the bullet project is to develop algorithms that can match bullet lands based on a set of features taken from a signature of a single bullet crosscut. In order to to extract these vital signatures we need to fit a robust loess to our crosscut data to remove the curvature inherent in each bullet land. However, there-in lies a problem. If the groove engraved areas are included in our fitting of the robust loess we observe boundary effects that negatively impact the accuracy of the extracted signature.</p>
 <p>So a key goal in the bullet project is to be able to automatically identify the location of bullet grooves. Other projects in pursuit of this goal use a statistical approach to calculating the location of bullet grooves over a single crosscut. However, we are given an entire land scan in the form of an x3p file. By using low-level image algorithms like the Hough transform, we can almost make full utility of the x3p scan by estimating bullet grooves over the entire bullet land image instead of a single crosscut.</p>
-</div>
-<div id="hough-transform-mechanics" class="section level5">
-<h5><span class="header-section-number">3.3.1.1.3</span> Hough Transform Mechanics</h5>
+<p>** Hough Transform Mechanics**</p>
 <p>Hough transforms are essentially a computer algorithm for detecting imperfect incidences of a known class of shapes in an image by finding aligned points. In our case, grooves are typically linear so we want the Hough transform to detect straight lines. Anyone who has looked at a bullet scan knows that the striae are also straight lines, so some image pre-processing is necessary for the algorithm to be able to distinguish between weaker appearing striae and the prominent groove features. Traditionally a gaussian blur and Canny Edge detection are performed to reduce the noise found in a gradient image. However, we have found that using Canny Edge detection is pretty much unnecessary for identifying grooves.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-43"></span>
 <img src="images/bullets/Hough_project/canny-land.png" alt="Bullet land with Canny Edge detection" width="80%" />
@@ -742,9 +743,7 @@ Figure 3.46: Geometrically Calculating ‘xbottom’
 </p>
 </div>
 <p>The reason for calculating the top and bottom intersection points is so that we can derive a slope for our groove estimate in y. When we learned how to calculate slope in grade school, we were always taught to use “rise over run” which is slope in x. However when the lines are vertical, we are essentially dividing the height of our bullet land by 0 to obtain a slope. So it is numerically more stable to define the slope as <span class="math inline">\(\frac{(\text{xtop - xbottom})}{\text{height}}\)</span> so vertical lines simply have a slope of 0.</p>
-</div>
-<div id="implementation" class="section level5">
-<h5><span class="header-section-number">3.3.1.1.4</span> Implementation</h5>
+<p><strong>Implementation </strong></p>
 <p>As far as implementation goes, the function <code>get_grooves_hough</code> takes care of the edge detection, Hough algorithm, and line selection. Similar to other methods used for detecting lines, the <code>get_grooves_hough</code> function has an adjust parameter that allows the user to specify how far inward they want to “nudge” the groove estimates. The default for the Hough transform is set at 10, however this needs to be experimented with for a variety of different bullets to find appropriate adjust levels.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-50"></span>
 <img src="images/bullets/Hough_project/br411_3d.png" alt="3d visualization of example bullet" width="80%" />
@@ -752,9 +751,7 @@ Figure 3.46: Geometrically Calculating ‘xbottom’
 Figure 3.47: 3d visualization of example bullet
 </p>
 </div>
-</div>
-<div id="whats-next" class="section level5">
-<h5><span class="header-section-number">3.3.1.1.5</span> What’s Next?</h5>
+<p>** What’s Next? **</p>
 <p>Fiddling with adjusts and how it affects score. To find an optimal adjust for the Phoenix set, I calculate the default Hough groove estimates then find what the estimate would be for a series of adjusts. Naively I have defined a new parameter called “difference_left” and “difference_right” which is simply the difference between the manually identified groove location at an optimized crosscut and our Hough estimate at a particular adjust level. For now, I have defined any negative values to indicate that the Hough estimate is further from the center than the identified truth. So we want to minimize these negative difference to better get rid of boundary effects.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-51"></span>
 <img src="images/bullets/Hough_project/adjust-boxplot-left.png" alt="Difference between the left hand Hough estimate and the truth at various adjusts" width="80%" />
@@ -788,16 +785,47 @@ Figure 3.51: What the Hough Transform Sees
 </p>
 </div>
 <p>I wanted to show scores this time around but I just found out from looking through my saved results that the number of observations produced differs for each adjust level and I don’t know why. So there’s some major error with my code that I need to work out before proceeding.</p>
-For example: adjust = 0 number of observations 1980
-adjust = 10 number of observations 1782??????
 </details>
+<details>
+<p><summary>
+Charlotte Update 11/07/2019: This week a major bug was discovered in the code! Still working to look at different adjust impacts on score and now the <code>get_grooves_hough</code> function takes x3ps and dataframes as inputs.
+</summary></p>
+<p>Below are the visualized scores for the left and right hand estimates at various adjust levels.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-55"></span>
+<img src="images/bullets/Hough_project/rh-phoenix-adjust-scores.png" alt=" Phoenix Hough Scores for estimates with a series of 10 different adjusts for the Right Groove" width="50%" />
+<p class="caption">
+Figure 3.52:  Phoenix Hough Scores for estimates with a series of 10 different adjusts for the Right Groove
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-56"></span>
+<img src="images/bullets/Hough_project/lh-phoenix-adjust-scores.png" alt=" Phoenix Hough Scores for estimates with a series of 10 different adjusts for the Left Groove" width="50%" />
+<p class="caption">
+Figure 3.53:  Phoenix Hough Scores for estimates with a series of 10 different adjusts for the Left Groove
+</p>
+</div>
+<p>What we mightn notice the most from these two graphics is that there are still persistent extreme scores despite the adjusts with areas of identification in the thousands. The most extreme of which for the right side happens to have a score of about 5000. Upon taking a look at the specific lands that have problematic scores
+they look relatively normal. So then we want to estimate where the Hough transform thinks the grooves are.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-57"></span>
+<img src="images/bullets/Hough_project/phoenix-Gun1-U10.png" alt="Gun1-U10 Bullet 3 Image Scan" width="50%" />
+<p class="caption">
+Figure 3.54: Gun1-U10 Bullet 3 Image Scan
+</p>
+</div>
+<p>Which looks like a pretty regular scan but when we look at the groove estimates we see.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-58"></span>
+<img src="images/bullets/Hough_project/grooves-est-gunu10.png" alt="Gun1-U10 Bullet 3 Crosscut Hough Estimates" width="50%" />
+<p class="caption">
+Figure 3.55: Gun1-U10 Bullet 3 Crosscut Hough Estimates
+</p>
+</div>
+<p>Which is bizarre because the Right hand estimate is way too far into the bullet land. However we filter out any lines that are within the middle 2/3rds of the bullet scan, and this estimate is clearly within the middle 2/3rds. So we have discovered a new bug in the code, but at least this bug is consistent.</p>
 </div>
 <div id="lasso-method" class="section level5">
-<h5><span class="header-section-number">3.3.1.1.6</span> LASSO Method</h5>
+<h5><span class="header-section-number">3.3.1.1.2</span> LASSO Method</h5>
 <p>A paper is in preparation for submission to Forensic Science International describing this method (<code>get_grooves_lassofull</code> in <code>grooveFinder</code>), as well as the Bayesian changepoint method (<code>get_grooves_bcp</code>).</p>
 </div>
 <div id="robust-loess-method" class="section level5">
-<h5><span class="header-section-number">3.3.1.1.7</span> Robust LOESS Method</h5>
+<h5><span class="header-section-number">3.3.1.1.3</span> Robust LOESS Method</h5>
 <p>A paper submitted to the Journal of Forensic Science is waiting for peer review response to the first round of revisions.</p>
 </div>
 </div>
@@ -866,7 +894,7 @@ It does not scale well.
 <p><img src="images/bullets/pipeline/comparison_grid_example.png" width = "80%"/></p>
 <p>The changes to our results are minor, but it is an important detail when modeling things.</p>
 <p class="new">
-Two papers in progress! Groove ID paper #1 is waiting for reviewer scores, Groove ID paper #2 is waiting for advisor comments.
+Two papers in progress! Groove ID paper #1 needs another round of minor revisions (hopefully will be accepted soon!), Groove ID paper #2 is waiting for advisor comments.
 </p>
 <p class="new">
 Sometimes, data collection goes awry…
@@ -877,7 +905,7 @@ I am in the process of documenting all the data issues and double-checking every
 </p>
 <p><img src="images/bullets/pipeline/rfscores_all_barrels.png" width = "80%"/></p>
 <p class="new">
-I am in a mad dash to get more book content to Alicia and then reviewers soon.
+I am polishing two full chapters of the book this week. Starting to write up the full variability study (as a dissertation chapter). Writing, writing, writing!
 </p>
 </div>
 </div>
@@ -891,31 +919,31 @@ Joe 9/5/19 Update: Explanation of missing value problem when calculating cross-c
 </summary>
 Dealing with missing values in the x3p scans continues to be an issue. The Fast Fourier Transform method for calculating cross-correlation can’t handle missing data in an image, so we’ve attempted a few “fixes” that haven’t necessarily turned out as well as expected. One idea we had was to replace the NA values in a cell with the average pixel value. However, this is artificially introducing a signal where before there was none. This can (and demonstrably has) led to inflated/incorrect correlations between cells that shouldn’t have much at all in common. Unfortunately, this may be the only solution if we still wish to adhere to the CMC algorithm as described in Song et al. (2015). One improvement that I’ve implemented is to “crop out” the rows and columns of an image that only contain NAs. This at least means that we’ve weakened the strength of the artificial signal relative to the breechface’s signal.</p>
 <p>Below is a series of images that illustrate how we might compare a cell in one image to a region of another image.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-55"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-59"></span>
 <img src="images/cartridge_cases/im1_im2_cellComparison.png" alt="Comparing a cell in image 1 to a larger region in image 2. We wish to find the translations of the image 1 cell that yield the highest correlation within the image 2 region." width="50%" />
 <p class="caption">
-Figure 3.52: Comparing a cell in image 1 to a larger region in image 2. We wish to find the translations of the image 1 cell that yield the highest correlation within the image 2 region.
+Figure 3.56: Comparing a cell in image 1 to a larger region in image 2. We wish to find the translations of the image 1 cell that yield the highest correlation within the image 2 region.
 </p>
 </div>
 <p>For the sake of an example, let’s focus on the blue outlined cell in image 1. Our goal is to use the image 1 cell to “search” a corresponding larger region in image 2 for the horizontal/vertical translations needed to produce the highest correlation. Below is a zoomed-in version of the blue outlined image 1 cell on the left and the larger image 2 region (approximately: I made the gridded image above by-hand outside of R while the images below are from R). The image 1 cell may look larger than the image 2 region, but we can see from the axes that the image 2 region is indeed larger. Any white pixels in the two images are NA values that need to be dealt with in some way before we can use FFTs to calculate the cross-correlation.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-56"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-60"></span>
 <img src="images/cartridge_cases/im1_split.png" alt="(Left) A cell from image 1. (Right) A region from image 2 centered in the same location as the image 1 cell, yet quadruple the area." width="50%" /><img src="images/cartridge_cases/im2_split.png" alt="(Left) A cell from image 1. (Right) A region from image 2 centered in the same location as the image 1 cell, yet quadruple the area." width="50%" />
 <p class="caption">
-Figure 3.53: (Left) A cell from image 1. (Right) A region from image 2 centered in the same location as the image 1 cell, yet quadruple the area.
+Figure 3.57: (Left) A cell from image 1. (Right) A region from image 2 centered in the same location as the image 1 cell, yet quadruple the area.
 </p>
 </div>
 <p>As already discussed above, one “solution” is to replace the NA values with the average pixel value of each image. However, to avoid creating a stronger artificial signal than necessary, we can crop-out the NA rows and columns from the two images above. Below is the cropped version of the two images. The cropping doesn’t produce signficantly different images in this case, but you could imagine other examples in which a cell has captured only small amount of breechface in the corner. Such examples are fairly common and cropping signficantly changes the resulting correlation values.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-57"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-61"></span>
 <img src="images/cartridge_cases/im1_splitFilteredCropped.png" alt="The same images as above after cropping NA rows/columns." width="50%" /><img src="images/cartridge_cases/im2_splitFilteredCropped.png" alt="The same images as above after cropping NA rows/columns." width="50%" />
 <p class="caption">
-Figure 3.54: The same images as above after cropping NA rows/columns.
+Figure 3.58: The same images as above after cropping NA rows/columns.
 </p>
 </div>
 <p>The last step before calculating correlation for these cells is to replace the remaining NAs with the average pixel value. This is shown below.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-58"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-62"></span>
 <img src="images/cartridge_cases/im1_splitShifted.png" alt="The NA-cropped images with remaining NAs replaced with the image's average pixel values." width="50%" /><img src="images/cartridge_cases/im2_splitShifted.png" alt="The NA-cropped images with remaining NAs replaced with the image's average pixel values." width="50%" />
 <p class="caption">
-Figure 3.55: The NA-cropped images with remaining NAs replaced with the image’s average pixel values.
+Figure 3.59: The NA-cropped images with remaining NAs replaced with the image’s average pixel values.
 </p>
 </div>
 <p>The cross-correlation is then calculated between these two images via a standard fast fourier transform process (see <a href="http://mathworld.wolfram.com/Cross-CorrelationTheorem.html">Cross-Correlation Theorem</a>). The benefit of using such a process is that (as the name suggests) it’s faster than calculating the raw correlation between the two images. Also, the translations that produce the highest correlation between the image 1 cell and the image 2 region fall out of the calculation for free.</p>
@@ -929,10 +957,10 @@ This pre-processing/cross-correlation calculation procedure is repeated for ever
 Joe 9/5/19 Update (cont’d): A brief introduction to a congruent matching “tori” method that may provide a better solution to the missing value problem.
 </summary></p>
 <p>As discussed above, dealing with missing values is provign to be a pain. The good news is that the currently-implemented CMC as described above yields results very similar to those published in Song et al. (2015) that originally describes that CMC algorithm. While our results seem to agree with currently published results, it would be nice if we could avoid needing to artifically replace missing values. We can do so if, rather than breaking up the circular breech face impression scans into disjoint squares, we break up the breech face impression into donut-shaped regions containing only breech face impression. Below is an example of such a toroidal region.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-59"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-63"></span>
 <img src="images/cartridge_cases/im1_original.png" alt="(Left) The original breech face impression scan image. (Right) A donut-shaped region cut out of the original image." width="50%" /><img src="images/cartridge_cases/im1_toroidalRegion.png" alt="(Left) The original breech face impression scan image. (Right) A donut-shaped region cut out of the original image." width="50%" />
 <p class="caption">
-Figure 3.56: (Left) The original breech face impression scan image. (Right) A donut-shaped region cut out of the original image.
+Figure 3.60: (Left) The original breech face impression scan image. (Right) A donut-shaped region cut out of the original image.
 </p>
 </div>
 By comparing such regions instead of the square cells, we would presumably only need to fill in a few missing value “holes” in the breech face impression scan rather than completely replacing a non-existent signal with an artificial one. In the near-future, I hope to finish up the pre-processing needed for this Congruent Matching Tori method by performing a polar transformation on these images to make them into strips that can easily be compared via an FFT.
@@ -942,24 +970,24 @@ By comparing such regions instead of the square cells, we would presumably only 
 Joe 9/12/19 Update: Explanation of some of the pre-processing steps needed to make the CMC work as described in <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4730689/">Tong et al. (2015)</a>
 </summary></p>
 <p>Before carving out toroidal regions from the two images we wish to compare, a fair amount of pre-processing needs to be completed. For example, the scans we work with begin with a considerable amount of auxiliary information, for example the firing pin impression, that we don’t want to use in our comparisons. This isn’t to say that firing pin impressions aren’t useful to determine a match between two cartridge cases. In fact there is quite a lot of published research on how to compare two firing pin impressions. Rather, it is common practice to compare breech face impressions and firing pin impressions separately since it is difficult to scan both simultaneously. Thus, there are regions of a breech face impression scan that we want to remove so that the breech face impressions are more easily comparable. Below is an example of two breech face impression scans before processing.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-60"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-64"></span>
 <img src="images/cartridge_cases/im1_fullScan.png" alt="Two cartridge case scans before pre-processing." width="50%" /><img src="images/cartridge_cases/im2_fullScan.png" alt="Two cartridge case scans before pre-processing." width="50%" />
 <p class="caption">
-Figure 3.57: Two cartridge case scans before pre-processing.
+Figure 3.61: Two cartridge case scans before pre-processing.
 </p>
 </div>
 <p>There are a variety of techniques to segment an image into various parts. In image processing, common techniques are the Canny edge detector, which identifies edges of shapes in an image using image gradient techniques, and the Hough Transform, which can detect a variety of geometrical shapes in an image. The Hough Transform is what is used to segment the cartridge case images used in the previous section. However, we’ve found that the use of a Hough Transform doesn’t extract the “breech face signal” from an image as other techniques. Namely, the breech face can be effectively extracted using the RANSAC (Random sample consensus) method that iteratively fits a plane to a set of data until it settles upon a consensus-based “bulk” of the data. In the case of these cartridge case scans, the bulk of the data should predominantely be distributed around the mode height value. That is, the breech face impression. Once we’ve fit this plane to the breech face impression, we can extract the residuals of the fit to better accentuate the markings left in the cartridge case base by a firearm’s breech face. Below is an example of the residuals left after fitting a RANSAC plane to two cartridge case scans above. In the example below, we grab any residuals less than 20 microns in magnitude.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-61"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-65"></span>
 <img src="images/cartridge_cases/im1_ransacResiduals.png" alt="Residual values of a RANSAC plane fit to the two cartridge case scans shown above." width="50%" /><img src="images/cartridge_cases/im2_ransacResiduals.png" alt="Residual values of a RANSAC plane fit to the two cartridge case scans shown above." width="50%" />
 <p class="caption">
-Figure 3.58: Residual values of a RANSAC plane fit to the two cartridge case scans shown above.
+Figure 3.62: Residual values of a RANSAC plane fit to the two cartridge case scans shown above.
 </p>
 </div>
 <p>Although these two images are of two different cartridge cases, you can hopefully see that one looks very much like a rotated version of the other. These two cartridge case scans are in fact fired from the same gun (known matches), so it’s a good thing that they look so similar. We’ve now removed quite a bit of the unwanted regions of the original scans. However, there are still some areas of the image (e.g., the faint circular region of pixels in the center of the breech face scan) that just so happened to be close to the fitted plane and thus were brought along in the residual extraction. There are a few ways that we can clean up these last few areas. One is to use two Hough Transforms to detect the inner and outer circles of the breech face impression and filter out any pixels outside of the region between these two circles. The biggest issue with using a Hough Transform is that it must be given the radius of the circle that it is to search for in the image as an argument. That is, we need to know the radius of the breech face impression that we haven’t yet identified in order to identify the breech face impression. Instead, we can dilate/erode (or vice-versa) the pixels in the image to remove the remaining “speckle” in the image. Below is an example of of the breech face impressions cleaned via a dilation/erosion procedure.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-62"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-66"></span>
 <img src="images/cartridge_cases/im1_maskFiltered.png" alt="The selected breech face impressions based on dilation and erosion." width="50%" /><img src="images/cartridge_cases/im2_maskFiltered.png" alt="The selected breech face impressions based on dilation and erosion." width="50%" />
 <p class="caption">
-Figure 3.59: The selected breech face impressions based on dilation and erosion.
+Figure 3.63: The selected breech face impressions based on dilation and erosion.
 </p>
 </div>
 <p>The final step in the pre-processing is to align the two images in some consistent fashion. Luckily, the firing pin impression ring that’s left after performing the above dilation/erosion provides us with some idea of how to align the breech face impressions. The location of the firing ring impression in the breech face impression provides us with an indicator of where the cartridge case was located relative to the firing pin when it was sitting in the barrel. So aligning two cartridge cases so that their firing pin impression rings align will ensure that, at the very least, the breech face impression left on the cartridge case is horizontally/vertically aligned if not rotationally aligned.</p>
@@ -970,17 +998,17 @@ Joe 9/18/19 Update: Continuation of pre-process explanation with a discussion on
 </summary>
 To automatically detect the radius of a given breech face impression, we can count the number of non-NA pixels in each row. If we were to imagine scanning down an image and counting the number of non-NA pixels in each row, then this count would obviously start to increase the moment we hit the top of the breech face impression. Because the breech face impressions are circular, the count would continue to increase the further down the image we scan. That is, until we hit the firing pin impression circle. At this point, because the firing pin impression circle consists of NAs, we would expect the non-NA pixel count to dip. This increasing followed by decreasing behavior in the non-NA pixel count constitutes a local maximum. We can use this local maximum of the non-NA pixel count to identify the beginning of the firing pin impression circle. Similarly, we would expect the non-NA pixel count to reach another local maximum once we hit the end of the firing pin impression circle. It’s then a simple subtraction of the two row indices containing these local maxima to determine an estimate for the diameter of the firing pin impression circle.</p>
 <p>We can see below an example of the non-NA pixel row sums plotted against the row indices (starting from the top of the image and moving down). You can hopefully see that the raw row sums are rather “noisy”. As such, we can pass a moving average smoother over the row sum values so that the local maxima are easier to identify. This may not be the most robust way to determine the local maxima. I hope to investigate the use of b-splines fit over the row sum values to see if these would be more effective at finding local maxima</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-63"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-67"></span>
 <img src="images/cartridge_cases/nonNA_rowSums.png" alt="Non-NA pixel row counts and moving average-smoothed row count values plotted against row index." width="50%" />
 <p class="caption">
-Figure 3.60: Non-NA pixel row counts and moving average-smoothed row count values plotted against row index.
+Figure 3.64: Non-NA pixel row counts and moving average-smoothed row count values plotted against row index.
 </p>
 </div>
 <p>However, because firing pin impression circles have somewhat perforated edges, performing one pass through the image may not yield a particularly accurate estimate. As such, we can repeat the process of finding the distance between local maxima for both the row and column non-NA pixel counts. We can also rotate the image by a few degrees and perform the same process. I am currently rotating the image 0, 15, 30, 45, 60, and 75 degrees and calculating row and column diameter estimates per rotation. Obviously we can apply whatever aggregation function we desire to these estimates to determine a final estimate. Below we see what the Hough Transform selects as the breech face for 4 different radii values. In particular, for circles of radius 210, 213, 216, and 219.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-64"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-68"></span>
 <img src="images/cartridge_cases/houghTransformGridSearch.png" alt="Hough Transform selected circles (red) of radius (1) 210, (2) 213, (3) 216, and (4) 219." width="50%" />
 <p class="caption">
-Figure 3.61: Hough Transform selected circles (red) of radius (1) 210, (2) 213, (3) 216, and (4) 219.
+Figure 3.65: Hough Transform selected circles (red) of radius (1) 210, (2) 213, (3) 216, and (4) 219.
 </p>
 </div>
 </details>
@@ -989,31 +1017,31 @@ Figure 3.61: Hough Transform selected circles (red) of radius (1) 210, (2) 213, 
 Joe 9/25/18 Update: Dilation and erosion of the breech face impression image seems to be fairly effective, but require some parameter tuning based on the firing pin impression we’re considering (e.g., effective erosion in one image may have a different, adverse effect in another image). The watershed algorithm appears to be a promising alternative to selecting the breech face impression out of an image containing extra “minutiae”.
 </summary></p>
 <p>When trying to select the breech face impression out of an image such as the one below (this is a slice of the original scan based on the RANSAC method-selected breech face impression z-value), we’re really just interesting in obtaining a yes/no answer for each pixel to the question: “Are you a part of the breech face impression?” As such, rather than looking at the considering the raw pixel values, we can binarize the image to a 1/0 (equivalently, non-NA/NA) pixel representation. Such a representation is below.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-65"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-69"></span>
 <img src="images/cartridge_cases/im1_ransacResiduals.png" alt="(Left) Residual values of a RANSAC plane fit to a cartridge case scan. (Right) Binarized non-NA/NA image for segmentation." width="50%" /><img src="images/cartridge_cases/breechFaceIndicator.png" alt="(Left) Residual values of a RANSAC plane fit to a cartridge case scan. (Right) Binarized non-NA/NA image for segmentation." width="50%" />
 <p class="caption">
-Figure 3.62: (Left) Residual values of a RANSAC plane fit to a cartridge case scan. (Right) Binarized non-NA/NA image for segmentation.
+Figure 3.66: (Left) Residual values of a RANSAC plane fit to a cartridge case scan. (Right) Binarized non-NA/NA image for segmentation.
 </p>
 </div>
 <p>Using this “indicator image”, the beginning/end of the breech face impression should be much more obvious to, say, a Canny edge detector. Below is the output of such a Canny edge detector.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-66"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-70"></span>
 <img src="images/cartridge_cases/watershedPriorityMap.png" alt="The edges of the binarized image above via a Canny edge detector. " width="50%" />
 <p class="caption">
-Figure 3.63: The edges of the binarized image above via a Canny edge detector.
+Figure 3.67: The edges of the binarized image above via a Canny edge detector.
 </p>
 </div>
 <p>From here, we can use a Watershed image segmentation procedure to identify various regions within this image. The Watershed algorithm needs to be given a set of pixel locations that the user believes to be within distinct regions of the image. With these “seed” pixels, the algorithm then searches neighboring pixels and attempts to identify them as within/without the same region. Almost as if a water source turned on at the given seed pixel and water began to spread to as many neighboring pixels as it could. The water should “stop” at the black lines in the image above, thus defining the boundary of a seed pixel’s region. An example of the above image post-segmentation is given below. The 5 seed pixels I used were the 4 corners and center of the image. As we can, the watershed algorithm “overflowed” into the breech face impression, but segmented the firing pin impression circle from the rest of the image. Because most of the minutiae that we want to remove is in within this firing pin impression circle, this is not a problem for our purposes. With 5 seed images, there are technically 5 segments represented in the image below (although it’s hard to see where the outer segments begin/end). So as shown below, we can just binarize the segments as being a part of the firing pin impression circle or not.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-67"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-71"></span>
 <img src="images/cartridge_cases/watershedFiringPin_segments.png" alt="(Left) Watershed segmentation of the Canny edge image above. (Right) The firing pin impression circle binarization of the Watershed segmentation image." width="350" /><img src="images/cartridge_cases/watershedFiringPin_binarized.png" alt="(Left) Watershed segmentation of the Canny edge image above. (Right) The firing pin impression circle binarization of the Watershed segmentation image." width="350" />
 <p class="caption">
-Figure 3.64: (Left) Watershed segmentation of the Canny edge image above. (Right) The firing pin impression circle binarization of the Watershed segmentation image.
+Figure 3.68: (Left) Watershed segmentation of the Canny edge image above. (Right) The firing pin impression circle binarization of the Watershed segmentation image.
 </p>
 </div>
 <p>Finally, now that we’ve identified where the firing pin impression circle is in the original image, we can simply replace any pixel values within this circle with NAs. The final filtered image is shown below.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-68"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-72"></span>
 <img src="images/cartridge_cases/watershedFinalFiltered.png" alt="Final filtered image." width="350" />
 <p class="caption">
-Figure 3.65: Final filtered image.
+Figure 3.69: Final filtered image.
 </p>
 </div>
 </details>
@@ -1022,24 +1050,24 @@ Figure 3.65: Final filtered image.
 Joe 10/3/18 Update: Determined a fairly computationally intensive yet (seemingly) effective way to find the firing pin impression circle in an image using a grid search of possible radius values. I will now start putting together a package for easy access. I’m not yet sure what to call the package, so any ideas are welcomed
 </summary></p>
 <p>We can find a rough estimate for the firing pin radius estimate using a variety of methods. The one that I’ve found to be fairly consistent in the few examples I’ve worked with (detailed in the in the 9/18/19 update) is by counting the number of non-NA pixels in each row/column of the image and identifying the distance between the two largest local maxima in this non-NA count sequence. We can pass a grid of radius values centered on this estimate to a Hough Transform and determine which radius picks out the firing pin impression circle most effectively. The difficulty is in how we quantify “effective” using the output of the Hough Transform. Below you can see the original image including the “minutiae” within the firing pin impression circle that we hope to filter out. You can also see the result of filtering out the firing pin impression circle based on the original radius estimate (210 pixels) obtained from the “local maxima” method.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-69"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-73"></span>
 <img src="images/cartridge_cases/breechFaceIndicator.png" alt="(Left) Original breech face impression image. (Right) The breech face impression image after filtering based on a Hough Transform-selected circle of radius 210 pixels." width="350" /><img src="images/cartridge_cases/firingPinImpressionFiltered_radius210.png" alt="(Left) Original breech face impression image. (Right) The breech face impression image after filtering based on a Hough Transform-selected circle of radius 210 pixels." width="350" />
 <p class="caption">
-Figure 3.66: (Left) Original breech face impression image. (Right) The breech face impression image after filtering based on a Hough Transform-selected circle of radius 210 pixels.
+Figure 3.70: (Left) Original breech face impression image. (Right) The breech face impression image after filtering based on a Hough Transform-selected circle of radius 210 pixels.
 </p>
 </div>
 <p>As already discussed, we can test a variety of radius values around the 210 estimate to determine which is best. Below is a gif animating the result of filtering based on a Hough Transform for radius values ranging from 190 to 230. Although a radius of 210 does a decent job of filtering out the minutiae, a slightly smaller radius may be preferred as larger circles tend to cut into the breech face impression. We obviously want to retain as much of the breech face impression as possible for our later analysis.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-70"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-74"></span>
 <img src="images/cartridge_cases/houghTransformFilter.gif" alt="Gif showing the result of filtering based on Hough Transform circles of various radii. "  />
 <p class="caption">
-Figure 3.67: Gif showing the result of filtering based on Hough Transform circles of various radii.
+Figure 3.71: Gif showing the result of filtering based on Hough Transform circles of various radii.
 </p>
 </div>
 <p>Using the output of the Hough Transform-selected circles shown above we would like to determine an optimal radius with which to filter out the firing pin impression circle. I explored a few ways of quantifying how “effective” a given radius is at filtering out the firing pin impression minutiae while simulataneously retaining as much of the breech face impression surface as possible. For example, it seemed logical to me to count the number of non-NA pixels we would be throwing out if we filtered based on a particular radius value. As you can see from the gif above, larger radii end up chewing into the breech face impression surface while smaller radii appear to sort of bounce around inside of the firing pin impression circle. We may be able to look at the count of filtered non-NA pixel values for each radius and determine a threshold in which the circles become large enough to start chewing into the breech face impression. Unfortunately, that is not the case. You can see from the plot below on the left that the number of filtered non-NA pixels increased fairly steadily. There isn’t an obvious location along the curve signalling when the circles are getting to be too large (the differences between successive counts are also shown). Since that metric didn’t end up being fruitful, I had to explore alternatives. One alternative that isn’t obvious from just visualizing which pixels are filtered by each radius is called the “Hough score” which essentially quantifies how confident the Hough Transform is that it indeed found the circle that it was told to find in the image. The plot on the right below shows the top Hough scores for each radius value. We can see that there is some variability depending on the radius value. However, there are a range of radius values starting at 210 in which the Hough Transform is consistently rather confident in its circle detection. In fact, we can see from the gif above that radius values between 201 and 206 indeed do a good job of filtering out the firing pin impression circle. Currently, I am basing my final firing pin radius estimate on the radius value in the middle of the longest-running sequence of high-confidence radius values. In both example breech face impressions that I’ve been working with (same type, fired from the same firearm), this final estimate ended up being 203. This is obviously promising, but I would like to spend time to verify that my current method is generalizable to other cartridge case scans.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-71"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-75"></span>
 <img src="images/cartridge_cases/nonNA_filteredPixelCounts.png" alt="(Left) The number of non-NA pixels filtered out by the Hough Transform-selected circles for different radius values. (Right) The Hough score curve used to determine the firing pin radius estimate." width="324" /><img src="images/cartridge_cases/houghScorePlot.png" alt="(Left) The number of non-NA pixels filtered out by the Hough Transform-selected circles for different radius values. (Right) The Hough score curve used to determine the firing pin radius estimate." width="324" />
 <p class="caption">
-Figure 3.68: (Left) The number of non-NA pixels filtered out by the Hough Transform-selected circles for different radius values. (Right) The Hough score curve used to determine the firing pin radius estimate.
+Figure 3.72: (Left) The number of non-NA pixels filtered out by the Hough Transform-selected circles for different radius values. (Right) The Hough score curve used to determine the firing pin radius estimate.
 </p>
 </div>
 </details>
@@ -1060,24 +1088,24 @@ Joe 10/10/18 Update: Discuss how the algorithm generalizes to different pairs of
 <img src="images/cartridge_cases/fadul2_im1_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul2_im2_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul3_im1_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul3_im2_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul4_im1_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul4_im2_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul5_im1_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul5_im2_beforeRotation.png" alt=" " width="50%" />
 </details>
 <p>One iteration of the CMC algorithm was already discussed in-detail in the 9/5/19 Update above, so I won’t go into detail about that here (I’m saving it for my Spotlight in November). Instead, we can see a gif that shows which cells from image A and image B we compare when calculating the cross-correlation. Recall that the image A cells are 100x100 and image B cells are 200x200, which is why the cells on the right appear to cover more of the breech face impression than the cells on the left.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-73"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-77"></span>
 <img src="images/cartridge_cases/im1_standardCells.gif" alt="(Left) 100x100 cells from Image A. (Right) 200x200 cells from Image B." width="50%" /><img src="images/cartridge_cases/im2_largerCells.gif" alt="(Left) 100x100 cells from Image A. (Right) 200x200 cells from Image B." width="50%" />
 <p class="caption">
-Figure 3.69: (Left) 100x100 cells from Image A. (Right) 200x200 cells from Image B.
+Figure 3.73: (Left) 100x100 cells from Image A. (Right) 200x200 cells from Image B.
 </p>
 </div>
 <p>As we can clearly see from the 5 pairs above, we need to perform rotations to properly align one with the other. We perform the cross-correlation calculation for 43 different rotation angles (of image B) to determine which rotation angle yields the highest correlation (<span class="math inline">\(\theta \in [-179.5,180]\)</span> by <span class="math inline">\(2.5^\circ\)</span>). However, because we have broken up our images into cells, each cell in image A gets to “vote” for the theta value for which it had the highest correlation with its paired cell in image B. Below, we see the distribution of such theta values (referred to as the “registration angle” in Tong et al. (2015)). The histogram shows that the many of the cells tend to vote for theta values in a relatively small range, which bodes well for us in determining the optimal rotation angle.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-74"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-78"></span>
 <img src="images/cartridge_cases/highestCorrelationRegistrationAngleHistogram.png" alt="Histogram of the registration angle of highest correlation for each of the 5 pairs of breech face impressions." width="75%" />
 <p class="caption">
-Figure 3.70: Histogram of the registration angle of highest correlation for each of the 5 pairs of breech face impressions.
+Figure 3.74: Histogram of the registration angle of highest correlation for each of the 5 pairs of breech face impressions.
 </p>
 </div>
 <p>Since we clearly have a region of popular theta values for each pair, we can perform a finer search around these theta values to arrive at a more precise estimate. The histogram for this finer grid search is shown below. According to Tong et al. (2015), the minimum number of cells that must agree upon a theta value (up to some margin) for two breech face impressions to be called a “match” is 6. We can clearly see from the histogram below that this criterion is met. There are other criteria that Tong et al. discuss including how far we need to shift each cell in image A to achieve the highest correlation with the neighboring cell in image B. Those criteria also seem to be met on the examples I’ve looked at.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-75"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-79"></span>
 <img src="images/cartridge_cases/finerGridHighestCorrRegistrationAngleHistogram.png" alt="A finer grid search histogram of the registration angle of highest correlation for each of the 5 pairs of breech face impressions." width="75%" />
 <p class="caption">
-Figure 3.71: A finer grid search histogram of the registration angle of highest correlation for each of the 5 pairs of breech face impressions.
+Figure 3.75: A finer grid search histogram of the registration angle of highest correlation for each of the 5 pairs of breech face impressions.
 </p>
 </div>
 <details>
@@ -1097,29 +1125,29 @@ Figure 3.71: A finer grid search histogram of the registration angle of highest 
 Joe 10/17/18 Update: Continued testing the CMC algorithm on more known match and known non-match pairs of cartridge cases. It’s a time intensive process, but the current results show that the algorithm works for the majority of known match pairs and, most importantly, appear to be qualitatively similar to what is reported in Tong et al. (2015).
 </summary></p>
 <p>I’ve continued to run the algorithm on a number of known match pairs of cartridge cases. Although the algorithm seems to work well for the majority of known match pairs, it isn’t perfect at picking the correct rotation angle. I haven’t yet determined the cause of when the algorithm fails to pick the correct rotation angle.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-77"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-81"></span>
 <img src="images/cartridge_cases/Fadul8-2_FadulX_beforeRotation.png" alt="A pair of known match cartridge cases that start off as rotationally mis-aligned." width="75%" />
 <p class="caption">
-Figure 3.72: A pair of known match cartridge cases that start off as rotationally mis-aligned.
+Figure 3.76: A pair of known match cartridge cases that start off as rotationally mis-aligned.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-78"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-82"></span>
 <img src="images/cartridge_cases/Fadul8-2_FadulX_afterRotation.png" alt="The same pair as above after being correctly aligned via the CMC algorithm." width="75%" />
 <p class="caption">
-Figure 3.73: The same pair as above after being correctly aligned via the CMC algorithm.
+Figure 3.77: The same pair as above after being correctly aligned via the CMC algorithm.
 </p>
 </div>
 <p>Below is an example of a pair for which the algorithm does a poor job of choosing the correct rotation to align the two images.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-79"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-83"></span>
 <img src="images/cartridge_cases/FadulC_FadulM_beforeRotation.png" alt="A pair of known match cartridge cases that start off as rotationally mis-aligned." width="75%" />
 <p class="caption">
-Figure 3.74: A pair of known match cartridge cases that start off as rotationally mis-aligned.
+Figure 3.78: A pair of known match cartridge cases that start off as rotationally mis-aligned.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-80"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-84"></span>
 <img src="images/cartridge_cases/FadulC_FadulM_afterRotation.png" alt="The same pair as above after being incorrectly aligned via the CMC algorithm." width="75%" />
 <p class="caption">
-Figure 3.75: The same pair as above after being incorrectly aligned via the CMC algorithm.
+Figure 3.79: The same pair as above after being incorrectly aligned via the CMC algorithm.
 </p>
 </div>
 <p>While running code, I’ve also been working on putting all of my working functions into a package. I should hopefully have something resembling a structured package by my spotlight in November.</p>
@@ -1133,10 +1161,10 @@ Figure 3.75: The same pair as above after being incorrectly aligned via the CMC 
 <p>In order to find the correct rotational value to align the two images, we divide the first image (fadul1-1) into a 7x7 grid of cells. For each cell in image 1, we select a similarly located, wider region in image 2 and calculate the cross-correlation between the image 1 cell and the larger image 2 region. Below is an image that illustrates this for a particular cell.</p>
 <p><img src="images/cartridge_cases/im1_im2_cellComparison.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Below is a gif showing an example of cell/region pairs for which the CCF is computed.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-84"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-88"></span>
 <img src="images/cartridge_cases/im1_standardCells.gif" alt="(Left) 100x100 cells from Image 1. (Right) 200x200 cells from Image 2." width="50%" /><img src="images/cartridge_cases/im2_largerCells.gif" alt="(Left) 100x100 cells from Image 1. (Right) 200x200 cells from Image 2." width="50%" />
 <p class="caption">
-Figure 3.76: (Left) 100x100 cells from Image 1. (Right) 200x200 cells from Image 2.
+Figure 3.80: (Left) 100x100 cells from Image 1. (Right) 200x200 cells from Image 2.
 </p>
 </div>
 <p>Once we calculate the CCF for each cell/region pair, we rotate image 2 by a few degrees, say 3 degrees, and repeat the process. We can obviously keep track of the correlation values for each rotation and determine for which rotation values a particular image 1 cell attains its maximum CCF. If two cartridge cases are genuine matches, then we would expect there to be some consensus among the cells for which theta value they attain their max CCF. For example, below we see a histogram of theta values for which the cells in the fadul1-1 attain highest correlation in their associated fadul1-2 regions. We can see a peak around -20 degrees. In particular, the consensus-based theta value turns out to be -21 degrees.</p>
@@ -1240,6 +1268,8 @@ Figure 3.76: (Left) 100x100 cells from Image 1. (Right) 200x200 cells from Image
 </table>
 <p>We can visualize which cells in fadul1-1 are classified as CMCs. The image below shows the fadul1-1 CMCs as well as fadul1-2 rotated by -21 degrees (the consensus-based theta value chosen from before). We can see that most of the regions with the most obvious visual similarity between the two cartridge cases (in particular, the linear markings in the bottom-right of each image) are indeed classified as CMCs.</p>
 <p><img src="images/cartridge_cases/fadu1_pair_CMCs.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>We are currently running into issues where the correlations values we get out between the two images are not nearly as high as they appear to be in the Tong paper (although we don’t really know since they didn’t provide much context). Below is an example of a pair of known match cells. The two breech faces have already been rotationally aligned (by hand), so these should have very high correlation (apparantely something north of .55 according the the Tong paper). We can certainly see a mode in the correlation (red spot), but it is hard for me to interpret exactly what that mode represents. I believe it represents the shift needed to align the second, larger image with the first image. I need to do some more digging into what is actually happening with FFTs and cross-correlation implementations to know for sure.</p>
+<p><img src="images/cartridge_cases/cellCCFMap.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="modified-chumbley-non-random-test" class="section level3">
@@ -1265,10 +1295,10 @@ Figure 3.76: (Left) 100x100 cells from Image 1. (Right) 200x200 cells from Image
 <p>We extract markings, locate grooves, align signatures, and generate cross-comparison results. Each step is notified in UI and all steps are logged.</p>
 <p>The scores and results are then communicated through an interactive visualization. We first interact at the top most level where we have bullet-to-bullet scores for all the cross-comparisons presented in a grid. We can select one comparison at a time which would generate a second level of grid visualization that shows the land-to-land scores for all 36 comparisons within a bullet. Interacting with this visualization, we can now pull up score tables, profiles, location of grooves, aligned signatures and raw images.</p>
 <p>The framework of interactions, allows for validation of classification recommended by the RF model as well as gives an opportunity to critically asses, identify the cause and diagnose any problems encountered in the bullet matching pipeline.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-87"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-92"></span>
 <img src="images/bullets/gan-app2_consolidated.png" alt="An instance of the interactive visualizations for communicating results" width="50%" />
 <p class="caption">
-Figure 3.77: An instance of the interactive visualizations for communicating results
+Figure 3.81: An instance of the interactive visualizations for communicating results
 </p>
 </div>
 <div id="conference-presentations" class="section level3">
@@ -1424,7 +1454,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"download": null,
 "toc": {
 "collapse": "subsection"
 }

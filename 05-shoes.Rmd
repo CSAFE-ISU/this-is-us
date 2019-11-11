@@ -254,15 +254,15 @@ ggplot(centering_op, aes(x = x, y = y, fill = factor(label))) +
 4. Recover the angle between the two images:     
 In Fourier space, a rotated image produces the same signal in Fourier space, but rotated. To recover this information, we can use the **magnitude** of the FFT'd images as a new image. Call these images $|F(A)|$ and $|F(B)|$. Then, 
 
-    a. Polar transform the image, so that a rotation of the original image is a linear shift of the transformed image ($P(|F(A)|)$ and $P(|F(B)|)$). Apply Hann functions to the polar-transformed images.    
+    a. Polar transform the image, so that a rotation of the original image is a linear shift of the transformed image ($P(|F(A)|)$ and $P(|F(B)|)$). Apply Hann functions to the polar-transformed images.     
     
-<img src="images/shoes/longitudinal/FFT_Demo_FFT2_Polar.png", width = "75%"/>
+<img src="images/shoes/longitudinal/FFT_Demo_Hann.png" width = "25%"/>
     
     b. Use FFT-based alignment (see steps 3, 5) to pick out the $\theta, \rho$ which best align the two polar images
     
-    c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT'd image) to get $\tilde{B}_\theta$ and recompute the FFT on the rotated image ($F(\tilde{B}_\theta)$).    
+    c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT'd image) to get $\tilde{B}_\theta$ and recompute the FFT on the rotated image ($F(\tilde{B}_\theta)$).     
     
-<img src="images/shoes/longitudinal/FFT_Demo_FFT3_Rotate.png", width = "50%"/>
+<img src="images/shoes/longitudinal/FFT_Demo_FFT3_Rotate.png" width = "50%"/>
     
 
 5. Recover the shift between the two images: 
@@ -277,11 +277,11 @@ In Fourier space, a rotated image produces the same signal in Fourier space, but
     
     e. Find the maximum of the $A$ matrix. The row and column where the maximum is found are the shift to align the two images: $(\Delta x, \Delta y)$.       
     
-<img src="images/shoes/longitudinal/FFT_Demo_FFT4_Shift.png", width = "25%"/>
+<img src="images/shoes/longitudinal/FFT_Demo_FFT4_Shift.png" width = "25%"/>
 
 6. Apply the shift to image $\tilde{B}_\theta$ to get $\tilde{B}_{\theta,\Delta x, \Delta y}$.    
     
-<img src="images/shoes/longitudinal/FFT_Demo_FFT5_Shift.png", width = "25%"/>
+<img src="images/shoes/longitudinal/FFT_Demo_FFT5_Shift.png" width = "25%"/>
 
 There are some fiddly details (e.g. converting shifts which are most of the image into negative shifts), but FFT-based alignment works pretty well (and pretty quickly) for shoes.
 

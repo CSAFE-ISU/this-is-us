@@ -16,18 +16,32 @@ The handwriting project has four major focuses:
 ## Data Collection
 We are conducting a large data collection study to gather handwriting samples from a variety of participants across the world (most in the Midwest). Each participant provides handwriting samples at three sessions. Session packets are prepared, mailed to participants, completed, and mailed back. Once recieved, we scan all surveys and writing samples. Scans are loaded, cropped, and saved using a Shiny app. The app also facilitates survey data entry, saving that participant data to lines in an excel spreadsheet.
 
+As of September 2019, Marc and Anyesha are the primary contacts for the study. <span class="new">Phase 2 recruiting is/will be underway.</span>
 
-<p class="new">Data collection is underway with the most recent update (10/3):<p>
+<p class="new"><strong>The first 90 complete writers were published:</strong><p>
+> <span class="new">Crawford, Amy; Ray, Anyesha; Carriquiry, Alicia; Kruse, James; Peterson, Marc (2019): CSAFE Handwriting Database. Iowa State University. Dataset. https://doi.org/10.25380/iastate.10062203.</span>
 
-  - 88 complete through session #3
-  - 11 complete through session #2
-  - 12 complete through session #1
+<p class="new">Anyesha and I worked on a variety of <strong>data quality checks and batch processing</strong> prior to publication. Scanner cuts a portion of the left side of the documents off sporadically. Survey date checks. Batch removal of header.<p>
+```{r, fig.cap="Batch process samples: rotate 0.05 degrees, turn black line pixels white, crop 450 pixels from top (under QR code), rename.", out.width="90%", fig.keep="hold", fig.align='center'}
+include_graphics(c( "images/handwriting/amy/promptimage.png"))
+```
 
-As of September 2019, Marc and Anyesha are the primary contacts for the study.
+<p class="new"> We hit a bump with the ISU Office for Responsible Research (ORR). </summary> They had concerns with the demographic variables we collected on the surveys and wanted to publish. We "negotiated'' and settled on the following survey information.<p>
 
-<p class="new"> An article for [Data in Brief](https://www.journals.elsevier.com/data-in-brief) will be drafted this semester. Authors: Anyesha Rey, Amy Crawford, Alicia Carriquiry.<p>
+```{r, fig.cap="", out.width="110%", fig.keep="hold", fig.align='center'}
+include_graphics(c( "images/handwriting/amy/surveydata_header.png"))
+```
+<br>
 
-  
+<details>
+<summary><span class="new">A data article has been submitted to [Data in Brief](https://www.journals.elsevier.com/data-in-brief). </span></summary>
+<br>
+```{r, fig.cap="", out.width="90%", fig.keep="hold", fig.align='center'}
+include_graphics(c( "images/handwriting/amy/datainbrief_header.png"))
+```
+</details>   
+
+
 ## Computational Tools
 `handwriter` is a developmental R package hosted at https://github.com/CSAFE-ISU/handwriter. It is our major computational tool for the project. The package takes in scanned handwritten documents and the following are performed. 
 
@@ -43,11 +57,19 @@ include_graphics(c( "images/handwriting/amy/handwriter_csafe.png"))
 
 For an input document, functions in the package give back a list of glyphs with path and node location information, adjacency grouping assignment, slope (pictured below), and centroid locations, among other things.
 
-```{r, fig.cap="A visual of the ``slope'' calculation for two glyphs.", out.width="90%", fig.keep="hold", fig.align='center'}
+```{r, fig.cap="A visual of the ''slope'' calculation for two glyphs.", out.width="90%", fig.keep="hold", fig.align='center'}
 include_graphics(c( "images/handwriting/amy/handwriter_slopecalc.png"))
 ```
 
-We are currently working to incorporate the cluster grouping assignments into the package. This will be complete pending creation of a template. <p class="new">Code is running on the `csafe-01` server for template creation. <p>
+
+<span class="new">New measurement, *compactness*, by James.</span>
+
+
+```{r, fig.cap="A visual of the ''compactness'' calculation for glyphs.", out.width="90%", fig.keep="hold", fig.align='center'}
+include_graphics(c( "images/handwriting/amy/compactness.png"))
+```
+
+We are currently working to incorporate the cluster grouping assignments into the package. This will be complete pending creation of a template. <span class="new">Code is running on the `csafe-01` server for template creation. </span>
 
 ## Statistical Analysis
 ### Clustering
@@ -209,7 +231,7 @@ include_graphics(c( "images/handwriting/amy/CVL_w27_h4_cluster40_basemodel_grid.
 
 <br>
 
-<p class="new"> We can use a cross validation routine to estimate error. For each writer, shuffle the order of their body of documents. For the first fold we holdout the first document for testing, for the second fold we hold out the second document for testing, etc.. This yields 6 results analogous to that of the figure above. <p>
+We can use a cross validation routine to estimate error. For each writer, shuffle the order of their body of documents. For the first fold we holdout the first document for testing, for the second fold we hold out the second document for testing, etc.. This yields 6 results analogous to that of the figure above.
 
 
 ```{r, fig.cap="Posterior predictive results for each fold of the CV routine outlined above. Log Loss is clearly not a great summary of performance.", out.width="100%", fig.keep="hold", fig.align='center'}
@@ -245,7 +267,7 @@ include_graphics(c( "images/handwriting/amy/writer23samples.png"))
 
 
 #### Model #2, Mixture{-}
-<p class = "new"> There seem to be greatly varying shapes in the relative frequency of cluster fill. We think maybe a more flexible Dirichlet distribution is warranted.<p>
+There seem to be greatly varying shapes in the relative frequency of cluster fill. We think maybe a more flexible Dirichlet distribution is warranted.
 ```{r, fig.cap="Average relative frequency of cluster fill for the 8 most common clusters. Notice writers 12/21 and 6/17/18.", out.width="80%", fig.keep="hold", fig.align='center'}
 include_graphics(c( "images/handwriting/amy/bucketfillshapes.png"))
 ```
@@ -262,7 +284,7 @@ $$\begin{array}{rl}
 
 <strong> Label Switchin Issues. </strong>  
 The model is non-identifiabile. We need to either place constraints on the parameter space to exclude the possibility of a second mode apriori, or estimate the posterior in both modes and post-process for label reassignment after.
-<p class="new">This has been resolved (?) by placing constraints on the first three elements of $\alpha$ and $\beta$ with moderately informative priors. <p>
+This has been resolved (?) by placing constraints on the first three elements of $\alpha$ and $\beta$ with moderately informative priors.
 
   - $\mathbf{\alpha_1 < \beta_1}$, $\quad$  $\alpha_1 \sim Gamma(2, 0.25) \:\: \& \:\: \beta_1 \sim Gamma(4, 0.25)$  
         

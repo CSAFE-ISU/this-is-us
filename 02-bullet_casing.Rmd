@@ -179,6 +179,14 @@ include_graphics(c("images/yawei/km-table1.PNG"))
 include_graphics(c("images/yawei/knm-table1.PNG"))
 ```
 
+```{r, fig.cap="ccf in each barrel", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/ccfineachbarrel.png"))
+```
+
+```{r, fig.cap="within barrel ROC for barrel 42 and 56", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/withinbarrel4256roc.png"))
+```
+
 #### follow-up study 
 
 4 bullets per barrel for  96 of the original 626 Beretta firearms using different ammunition
@@ -436,14 +444,14 @@ Charlotte Update 10/17/2019:
 Charlotte Update 10/22/2019: For this weeks spotlight I will focus on motivating the reasoning behind the Hough project, a demonstration of mechanics or how the function actually works and maybe a few results.
 </summary>
 
-##### Project Motivation
+** Project Motivation **
 
 One of the main objectives of the bullet project is to develop algorithms that can match bullet lands based on a set of  features taken from a signature of a single bullet crosscut. In order to to extract these vital signatures we need to fit a robust loess to our crosscut data to remove the curvature inherent in each bullet land. However, there-in lies a problem. If the groove engraved areas are included in our fitting of the robust loess we observe boundary effects that negatively impact the accuracy of the extracted signature. 
 
 
 So a key goal in the bullet project is to be able to automatically identify the location of bullet grooves. Other projects in pursuit of this goal use a statistical approach to calculating the location of bullet grooves over a single crosscut. However, we are given an entire land scan in the form of an x3p file. By using low-level image algorithms like the Hough transform, we can almost make full utility of the x3p scan by estimating bullet grooves over the entire bullet land image instead of a single crosscut.
 
-##### Hough Transform Mechanics
+** Hough Transform Mechanics**
 
  Hough transforms are essentially a computer algorithm for detecting imperfect incidences of a known class of shapes in an image by finding aligned points. In our case, grooves are typically linear so we want the Hough transform to detect straight lines. Anyone who has looked at a bullet scan knows that the striae are also straight lines, so some image pre-processing is necessary for the algorithm to be able to distinguish between weaker appearing striae and the prominent groove features. Traditionally a gaussian blur and Canny Edge detection are performed to reduce the noise found in a gradient image. However, we have found that using Canny Edge detection is pretty much unnecessary for identifying grooves.
 
@@ -484,7 +492,7 @@ knitr::include_graphics("images/bullets/Hough_project/calc-xbottom.png")
 
 The reason for calculating the top and bottom intersection points is so that we can derive a slope for our groove estimate in y. When we learned how to calculate slope in grade school, we were always taught to use "rise over run" which is slope in x. However when the lines are vertical, we are essentially dividing the height of our bullet land by 0 to obtain a slope. So it is numerically more stable to define the slope as $\frac{(\text{xtop - xbottom})}{\text{height}}$ so vertical lines simply have a slope of 0. 
 
-##### Implementation 
+**Implementation **
 
 As far as implementation goes, the function `get_grooves_hough` takes care of the edge detection, Hough algorithm, and line selection. Similar to other methods used for detecting lines, the `get_grooves_hough` function has an adjust parameter that allows the user to specify how far inward they want to "nudge" the groove estimates. The default for the Hough transform is set at 10, however this needs to be experimented with for a variety of different bullets to find appropriate adjust levels.
 
@@ -512,7 +520,7 @@ knitr::include_graphics("images/bullets/Hough_project/br411_3d.png")
 
 ```
 
-##### What's Next?
+** What's Next? **
 
 Fiddling with adjusts and how it affects score. To find an optimal adjust for the Phoenix set, I calculate the default Hough groove estimates then find what the estimate would be for a series of adjusts. Naively I have defined a new parameter called "difference_left" and "difference_right" which is simply the difference between the manually identified groove location at an optimized crosscut and our Hough estimate at a particular adjust level. For now, I have defined any negative values to indicate that the Hough estimate is further from the center than the identified truth. So we want to minimize these negative difference to better get rid of boundary effects. 
 
@@ -525,10 +533,8 @@ knitr::include_graphics("images/bullets/Hough_project/adjust-boxplot-left.png")
 knitr::include_graphics("images/bullets/Hough_project/adjust-boxplot-right.png")
 
 ```
-
-
-
 </details>
+
 
 <details>
 <summary>
@@ -550,10 +556,40 @@ knitr::include_graphics("images/bullets/Hough_project/hough-estimates-problem-bo
 
 I wanted to show scores this time around but I just found out from looking through my saved results that the number of observations produced differs for each adjust level and I don't know why. So there's some major error with my code that I need to work out before proceeding. 
 
-For example: adjust = 0 number of observations 1980
-adjust = 10 number of observations 1782??????
 </details>
 
+<details>
+<summary>
+Charlotte Update 11/07/2019: This week a major bug was discovered in the code! Still working to look at different adjust impacts on score and now the `get_grooves_hough` function takes x3ps and dataframes as inputs.
+</summary>
+
+Below are the visualized scores for the left and right hand estimates at various adjust levels.
+
+```{r, fig.cap=" Phoenix Hough Scores for estimates with a series of 10 different adjusts for the Right Groove", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/rh-phoenix-adjust-scores.png")
+```
+
+
+```{r, fig.cap=" Phoenix Hough Scores for estimates with a series of 10 different adjusts for the Left Groove", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/lh-phoenix-adjust-scores.png")
+```
+
+What we mightn notice the most from these two graphics is that there are still persistent extreme scores despite the adjusts with areas of identification in the thousands. The most extreme of which for the right side happens to have a score of about 5000. Upon taking a look at the specific lands that have problematic scores
+they look relatively normal. So then we want to estimate where the Hough transform thinks the grooves are.
+
+```{r, fig.cap="Gun1-U10 Bullet 3 Image Scan", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/phoenix-Gun1-U10.png")
+```
+
+
+Which looks like a pretty regular scan but when we look at the groove estimates we see.
+
+```{r, fig.cap="Gun1-U10 Bullet 3 Crosscut Hough Estimates", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/grooves-est-gunu10.png")
+```
+
+
+Which is bizarre because the Right hand estimate is way too far into the bullet land. However we filter out any lines that are within the middle 2/3rds of the bullet scan, and this estimate is clearly within the middle 2/3rds. So we have discovered a new bug in the code, but at least this bug is consistent.
 
 ##### LASSO Method  
 

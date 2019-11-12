@@ -24,14 +24,14 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2019-11-01" />
+<meta name="date" content="2019-11-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="glass-chemical-compositions.html"/>
+<link rel="prev" href="glass.html"/>
 <link rel="next" href="theoretical-foundations.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -177,7 +177,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#undergraduates-1"><i class="fa fa-check"></i><b>4.5.3</b> Undergraduates</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="glass-chemical-compositions.html"><a href="glass-chemical-compositions.html"><i class="fa fa-check"></i><b>5</b> Glass: Chemical compositions</a></li>
+<li class="chapter" data-level="5" data-path="glass.html"><a href="glass.html"><i class="fa fa-check"></i><b>5</b> Glass</a><ul>
+<li class="chapter" data-level="5.1" data-path="glass.html"><a href="glass.html#data-collection-2"><i class="fa fa-check"></i><b>5.1</b> Data collection</a></li>
+<li class="chapter" data-level="5.2" data-path="glass.html"><a href="glass.html#the-astm-standard-method"><i class="fa fa-check"></i><b>5.2</b> The ASTM standard method</a></li>
+<li class="chapter" data-level="5.3" data-path="glass.html"><a href="glass.html#learning-algorithms-to-evaluate-forensic-glass-evidence"><i class="fa fa-check"></i><b>5.3</b> Learning algorithms to evaluate forensic glass evidence</a></li>
+<li class="chapter" data-level="5.4" data-path="glass.html"><a href="glass.html#evaluation-and-comparison-of-methods-for-forensic-glass-source-conclusions"><i class="fa fa-check"></i><b>5.4</b> Evaluation and comparison of methods for forensic glass source conclusions</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="shoes.html"><a href="shoes.html"><i class="fa fa-check"></i><b>6</b> Shoes</a><ul>
 <li class="chapter" data-level="6.1" data-path="shoes.html"><a href="shoes.html#longitudinal"><i class="fa fa-check"></i><b>6.1</b> Longitudinal Shoe Study</a><ul>
 <li class="chapter" data-level="6.1.1" data-path="shoes.html"><a href="shoes.html#paper-describing-the-database"><i class="fa fa-check"></i><b>6.1.1</b> Paper describing the database</a></li>
@@ -450,18 +455,38 @@ Aligning each image to the template corresponding to the shoe model and size pro
 <details>
 <p><summary> Fine Alignment of two images using FFT </summary>
 Basic Process:</p>
+<p><img src="images/shoes/longitudinal/FFT_Demo_Orig.png" width = "50%"/></p>
 <ol style="list-style-type: decimal">
-<li><p>Pad images so they’re the same size (Let’s say that <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are the two images)</p></li>
-<li><p>Downweight the edges of the images using a <a href="https://en.wikipedia.org/wiki/Hann_function">Hann function</a><br />
-This is necessary because Fourier transforms assume images go on forever, so abrupt changes (e.g. edges) don’t work out that well. Computationally, the image is “wrapped” around itself to be considered “infinite”.</p></li>
-<li><p>Use the Fast Fourier Transform on each image. Center the FFT’d images so that low frequencies are in the center (exchange top left quadrant with bottom right, and top right quadrant with bottom left). Call the FFT’d, centered images <span class="math inline">\(F(A)\)</span> and <span class="math inline">\(F(B)\)</span></p></li>
+<li>Pad images so they’re the same size (Let’s say that <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are the two images)</li>
+</ol>
+<p><img src="images/shoes/longitudinal/FFT_Demo_Pad.png" width = "25%"/></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Downweight the edges of the images using a <a href="https://en.wikipedia.org/wiki/Hann_function">Hann function</a><br />
+This is necessary because Fourier transforms assume images go on forever, so abrupt changes (e.g. edges) don’t work out that well. Computationally, the image is “wrapped” around itself to be considered “infinite”.</li>
+</ol>
+<p><img src="images/shoes/longitudinal/FFT_Demo_Hann.png" width = "25%"/></p>
+<ul>
+<li>The strength of the Hann function can be adjusted by a power argument<br />
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-2-1.png" width="672" /></li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Use the Fast Fourier Transform on each image. Center the FFT’d images so that low frequencies are in the center (exchange top left quadrant with bottom right, and top right quadrant with bottom left). Call the FFT’d, centered images <span class="math inline">\(F(A)\)</span> and <span class="math inline">\(F(B)\)</span><br />
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-3-1.png" width="50%" /></li>
+</ol>
+<p><img src="images/shoes/longitudinal/FFT_Demo_FFT1.png" width = "50%"/></p>
+<ol start="4" style="list-style-type: decimal">
 <li><p>Recover the angle between the two images:<br />
 In Fourier space, a rotated image produces the same signal in Fourier space, but rotated. To recover this information, we can use the <strong>magnitude</strong> of the FFT’d images as a new image. Call these images <span class="math inline">\(|F(A)|\)</span> and <span class="math inline">\(|F(B)|\)</span>. Then,</p>
 <ol style="list-style-type: lower-alpha">
-<li><p>Polar transform the image, so that a rotation of the original image is a linear shift of the transformed image (<span class="math inline">\(P(|F(A)|)\)</span> and <span class="math inline">\(P(|F(B)|)\)</span>). Apply Hann functions to the polar-transformed images.</p></li>
-<li><p>Use FFT-based alignment (see steps 3, 5) to pick out the <span class="math inline">\(\theta, \rho\)</span> which best align the two polar images</p></li>
-<li><p>Discard <span class="math inline">\(\rho\)</span> and keep <span class="math inline">\(\theta\)</span>. Transform the original image (not the FFT’d image) to get <span class="math inline">\(\tilde{B}_\theta\)</span> and recompute the FFT on the rotated image (<span class="math inline">\(F(\tilde{B}_\theta)\)</span>).</p></li>
+<li>Polar transform the image, so that a rotation of the original image is a linear shift of the transformed image (<span class="math inline">\(P(|F(A)|)\)</span> and <span class="math inline">\(P(|F(B)|)\)</span>). Apply Hann functions to the polar-transformed images.</li>
 </ol></li>
+</ol>
+<p><img src="images/shoes/longitudinal/FFT_Demo_Hann.png" width = "25%"/></p>
+<pre><code>b. Use FFT-based alignment (see steps 3, 5) to pick out the $\theta, \rho$ which best align the two polar images
+
+c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#39;d image) to get $\tilde{B}_\theta$ and recompute the FFT on the rotated image ($F(\tilde{B}_\theta)$).     </code></pre>
+<p><img src="images/shoes/longitudinal/FFT_Demo_FFT3_Rotate.png" width = "50%"/></p>
+<ol start="5" style="list-style-type: decimal">
 <li><p>Recover the shift between the two images:</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Compute the cross-power spectrum: <span class="math inline">\(S = F(A) \times F(\tilde{B}_\theta)*\)</span>, where <span class="math inline">\(F(x)*\)</span> is the complex conjugate of <span class="math inline">\(F(x)\)</span> (e.g. <span class="math inline">\(a + bi\)</span> becomes <span class="math inline">\(a - bi\)</span>)</p></li>
@@ -470,8 +495,12 @@ In Fourier space, a rotated image produces the same signal in Fourier space, but
 <li><p>Take the inverse FFT of <span class="math inline">\(S/|S|\)</span>: <span class="math inline">\(A = F^{-1}(S/|S|)\)</span></p></li>
 <li><p>Find the maximum of the <span class="math inline">\(A\)</span> matrix. The row and column where the maximum is found are the shift to align the two images: <span class="math inline">\((\Delta x, \Delta y)\)</span>.</p></li>
 </ol></li>
-<li><p>Apply the shift to image <span class="math inline">\(\tilde{B}_\theta\)</span> to get <span class="math inline">\(\tilde{B}_{\theta,\Delta x, \Delta y}\)</span>.</p></li>
 </ol>
+<p><img src="images/shoes/longitudinal/FFT_Demo_FFT4_Shift.png" width = "25%"/></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Apply the shift to image <span class="math inline">\(\tilde{B}_\theta\)</span> to get <span class="math inline">\(\tilde{B}_{\theta,\Delta x, \Delta y}\)</span>.</li>
+</ol>
+<p><img src="images/shoes/longitudinal/FFT_Demo_FFT5_Shift.png" width = "25%"/></p>
 <p>There are some fiddly details (e.g. converting shifts which are most of the image into negative shifts), but FFT-based alignment works pretty well (and pretty quickly) for shoes.</p>
 <p>Original Images:</p>
 <p><img src="images/shoes/longitudinal/FFT_Alignment_Orig_20191031.png" width = "100%"/></p>
@@ -585,16 +614,17 @@ Alignment Success:</p>
 <li>Improving spatial integration process
 <ul>
 <li>Remove predictions for blank (and mostly blank) edge images</li>
-<li>Smooth predictions for overlapping image pieces</li>
-<li>Average and max predictions shown below. Something in between might be better?</li>
+<li>Smooth predictions for overlapping image pieces
+<ul>
+<li>geom_density2d(), stat_contour(), creating brush overlay with EBImage</li>
+</ul></li>
 </ul></li>
 </ul>
 <div class="new">
 <p><strong>New Images</strong></p>
-<p><img src="images/shoes/neuralnets/predict_original.PNG" width = "100%"/></p>
-<p><img src="images/shoes/neuralnets/predict_max.PNG" width = "100%"/></p>
-<p><img src="images/shoes/neuralnets/predict_smooth.PNG" width = "100%"/></p>
 </div>
+<p><strong>Plotting with stat_contour</strong>
+<img src="images/shoes/neuralnets/contour_by_shape.PNG" width = "100%"/></p>
 </div>
 </div>
 <div id="maxclique" class="section level2">
@@ -874,7 +904,7 @@ Alignment Success:</p>
           </div>
         </div>
       </div>
-<a href="glass-chemical-compositions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="glass.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="theoretical-foundations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
@@ -912,7 +942,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"download": null,
 "toc": {
 "collapse": "subsection"
 }

@@ -206,23 +206,64 @@ In the image below, the first row is alignment with the full image, the second i
 
 <details>
 <summary> Fine Alignment of two images using FFT </summary>
-Basic Process:
+Basic Process:    
+    
+<img src="images/shoes/longitudinal/FFT_Demo_Orig.png" width = "50%"/>
 
 1. Pad images so they're the same size (Let's say that $A$ and $B$ are the two images)
+    
+<img src="images/shoes/longitudinal/FFT_Demo_Pad.png" width = "25%"/>
 
 2. Downweight the edges of the images using a [Hann function](https://en.wikipedia.org/wiki/Hann_function)    
-This is necessary because Fourier transforms assume images go on forever, so abrupt changes (e.g. edges) don't work out that well. Computationally, the image is "wrapped" around itself to be considered "infinite". 
+This is necessary because Fourier transforms assume images go on forever, so abrupt changes (e.g. edges) don't work out that well. Computationally, the image is "wrapped" around itself to be considered "infinite".     
+    
+<img src="images/shoes/longitudinal/FFT_Demo_Hann.png" width = "25%"/>
 
-3. Use the Fast Fourier Transform on each image. Center the FFT'd images so that low frequencies are in the center (exchange top left quadrant with bottom right, and top right quadrant with bottom left). Call the FFT'd, centered images $F(A)$ and $F(B)$
+  - The strength of the Hann function can be adjusted by a power argument     
+```{r, echo = F, warning = F, message = F}
+library(tidyverse)
+fun <- function(y, x = 0:1000) {
+  data.frame(x = x/max(x), y = y, Hann = (.5 * (1 - cos(2*pi*(x)/max(x)))) ^ (1/y))
+}
+
+purrr::map_df(c(.2, .5, 1, 2, 5, 10), fun) %>%
+  ggplot(aes(x = x, y = Hann, color = factor(y))) + 
+  geom_line() + 
+  scale_color_discrete("Root") + 
+  ggtitle("Widen_root argument to Hann function")
+
+```
+
+3. Use the Fast Fourier Transform on each image. Center the FFT'd images so that low frequencies are in the center (exchange top left quadrant with bottom right, and top right quadrant with bottom left). Call the FFT'd, centered images $F(A)$ and $F(B)$    
+```{r, echo = F, warning = F, message = F, fig.width = 8, fig.height = 4.25, out.width = "50%"}
+centering_op <- bind_rows(
+  data.frame(type = "Original", x = .5*c(1, -1, -1, 1), y = .5*c(1, 1, -1, -1), label = 1:4),
+  data.frame(type = "Centered", x = .5*c(1, -1, -1, 1), y = .5*c(1, 1, -1, -1), label = c(3, 4, 1, 2))) %>%
+  mutate(type = factor(type, levels = c("Original", "Centered"), ordered = T))
+
+ggplot(centering_op, aes(x = x, y = y, fill = factor(label))) + 
+  geom_tile(color = "black") + 
+  geom_text(aes(label = label)) + 
+  scale_fill_discrete(guide = F) + 
+  facet_wrap(~type) + 
+  theme_void()
+```    
+    
+<img src="images/shoes/longitudinal/FFT_Demo_FFT1.png" width = "50%"/>
 
 4. Recover the angle between the two images:     
 In Fourier space, a rotated image produces the same signal in Fourier space, but rotated. To recover this information, we can use the **magnitude** of the FFT'd images as a new image. Call these images $|F(A)|$ and $|F(B)|$. Then, 
 
-    a. Polar transform the image, so that a rotation of the original image is a linear shift of the transformed image ($P(|F(A)|)$ and $P(|F(B)|)$). Apply Hann functions to the polar-transformed images.
+    a. Polar transform the image, so that a rotation of the original image is a linear shift of the transformed image ($P(|F(A)|)$ and $P(|F(B)|)$). Apply Hann functions to the polar-transformed images.     
+    
+<img src="images/shoes/longitudinal/FFT_Demo_Hann.png" width = "25%"/>
     
     b. Use FFT-based alignment (see steps 3, 5) to pick out the $\theta, \rho$ which best align the two polar images
     
-    c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT'd image) to get $\tilde{B}_\theta$ and recompute the FFT on the rotated image ($F(\tilde{B}_\theta)$).
+    c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT'd image) to get $\tilde{B}_\theta$ and recompute the FFT on the rotated image ($F(\tilde{B}_\theta)$).     
+    
+<img src="images/shoes/longitudinal/FFT_Demo_FFT3_Rotate.png" width = "50%"/>
+    
 
 5. Recover the shift between the two images: 
     
@@ -234,9 +275,13 @@ In Fourier space, a rotated image produces the same signal in Fourier space, but
     
     d. Take the inverse FFT of $S/|S|$: $A = F^{-1}(S/|S|)$
     
-    e. Find the maximum of the $A$ matrix. The row and column where the maximum is found are the shift to align the two images: $(\Delta x, \Delta y)$.
+    e. Find the maximum of the $A$ matrix. The row and column where the maximum is found are the shift to align the two images: $(\Delta x, \Delta y)$.       
+    
+<img src="images/shoes/longitudinal/FFT_Demo_FFT4_Shift.png" width = "25%"/>
 
-6. Apply the shift to image $\tilde{B}_\theta$ to get $\tilde{B}_{\theta,\Delta x, \Delta y}$. 
+6. Apply the shift to image $\tilde{B}_\theta$ to get $\tilde{B}_{\theta,\Delta x, \Delta y}$.    
+    
+<img src="images/shoes/longitudinal/FFT_Demo_FFT5_Shift.png" width = "25%"/>
 
 There are some fiddly details (e.g. converting shifts which are most of the image into negative shifts), but FFT-based alignment works pretty well (and pretty quickly) for shoes.
 
@@ -368,21 +413,20 @@ In the meantime, it is much easier (relatively speaking) to use our existing fra
 - Improving spatial integration process
     - Remove predictions for blank (and mostly blank) edge images
     - Smooth predictions for overlapping image pieces
-    - Average and max predictions shown below. Something in between might be better?
+      - geom_density2d(), stat_contour(), creating brush overlay with EBImage
 
 
 <div class = "new">
 
 **New Images**
 
-<img src="images/shoes/neuralnets/predict_original.PNG" width = "100%"/>
-
-<img src="images/shoes/neuralnets/predict_max.PNG" width = "100%"/>
-
-<img src="images/shoes/neuralnets/predict_smooth.PNG" width = "100%"/>
-
-
 </div>
+
+**Plotting with stat_contour**
+<img src="images/shoes/neuralnets/contour_by_shape.PNG" width = "100%"/>
+
+
+
 
 
 ## Maximum Clique Matching {#maxclique}

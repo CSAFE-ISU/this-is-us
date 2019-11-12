@@ -908,7 +908,7 @@ While running code, I've also been working on putting all of my working function
 
 </details>
 
-Joe 10/31/18 Update: Finished computing (almost) all 780 possible known match and known non-match comparisons for the 40 cartridge case scans discussed in the Tong paper. We're running into an issue where the correlations we're getting out appear to be signficantly lower than what we expect them to be based on the results reported by Tong et al. The biggest challenge is that we effectively need to guess how the images in the Tong paper were pre-processed, so certain decisions we make may drastically affect the final results. We're going to see if making a few minor changes to the way we pre-process the images will change the results to what we expect.
+Finished computing (almost) all 780 possible known match and known non-match comparisons for the 40 cartridge case scans discussed in the Tong paper. We're running into an issue where the correlations we're getting out appear to be signficantly lower than what we expect them to be based on the results reported by Tong et al. The biggest challenge is that we effectively need to guess how the images in the Tong paper were pre-processed, so certain decisions we make may drastically affect the final results. We're going to see if making a few minor changes to the way we pre-process the images will change the results to what we expect.
 
 Our current goal is to demonstrate that the current form of the package produces "qualitatively similar" results to those presented by Tong et al. Unfortunately, we don't actually know which data they used to produce their results. We have a strong suspicion that they just used the first pair of cartridge cases encountered when downloading the study's data from the NBTRD website, so we're going to try to base our results comparison based on those.
 
@@ -973,6 +973,31 @@ We are currently running into issues where the correlations values we get out be
 ```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
 knitr::include_graphics("images/cartridge_cases/cellCCFMap.png")
 ```
+
+<details>
+<summary>
+I'm still currently trying to determine the cause of the correlation issue we're running into. In doing so, I've been making sure that the method by which we are calculating correlation works for simpler examples. I found these examples useful in understanding the strengths/limitations of using a FFT-based approach for calculating cross correlation, so I thought that I would share.
+</summary>
+For each of these examples, the image on the left is the "reference" image that we want to align the image on the right with. The left image will always be a square image with most pixel values 0 and a square of side length 20 pixels and value 255 in the middle. We want to see how changing characteristics of the right picture affects the correlation values calculated by the CCF.
+
+In the first example below, the image on the right just has the box shifted down 30 pixels and right 10 pixels. If we were to overlay the two images with their centers aligned, the correlation "map" that accompanies this pair provides instructions for how to shift the right image to correctly match up with the left image. We see from the location of the largest correlation value (of 1 at (-10,30)) that the CCF indeed detected the correct shift.
+
+```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/examplePerfectCCFMap.png")
+```
+
+In the second example, the 0-values pixels in the right image are replaced with randomly generated $\mu = 0$ and $\sigma = 50$ white noise. We see that the max correlation value still occurs at the right location, but with a smaller magnitude. We also see that the rest of the correlation map isn't all 0 as it was in the 0-pixel example above.
+
+```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/exampleWN_CCFMap.png")
+```
+
+Lastly, we have an example where the second image contains a smaller square of side-length 10 pixels. We see that, again, the correlation value maximum occurs at the correct location yet with a magnitude well below 1. 
+
+```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/exampleWNSmallerSquare_CCFMap.png")
+```
+</details>
 
 ### Modified Chumbley non-random test
 #### Land-to-land scores

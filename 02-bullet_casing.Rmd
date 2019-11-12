@@ -591,11 +591,11 @@ knitr::include_graphics("images/bullets/Hough_project/grooves-est-gunu10.png")
 
 Which is bizarre because the Right hand estimate is way too far into the bullet land. However we filter out any lines that are within the middle 2/3rds of the bullet scan, and this estimate is clearly within the middle 2/3rds. So we have discovered a new bug in the code, but at least this bug is consistent.
 
+</details>
 
 <details>
 
 <summary>
-
 Charlotte Update 11/12/2019:
 This week I've dug more into the mysterious bug from last week. It turns out that the "bug" was actually a mis-understanding with regards to unit conversion. So get_grooves_hough is working like it should! But our estimates are still not very good.
 

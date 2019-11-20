@@ -508,11 +508,11 @@ Principal Component Analysis:
 The basic idea of principal component analysis is to take a dataset with many variables, and simplify that dataset by turning the original variables into a smaller number of "Principal Components". These principal components are the underlying structure in the data. Taking that data and giving a vector in directions where there is the most variance. Taking these egienvectors as the data, we can get a "flattened" version of our origianl shoe. 
 
 Once a shoe has been turned into coordinates from the verticies of a mesh object, we can use the function prcomp (site this and expain what it does) to get a transformation matrix. Some notes on this:
--use vertices of 7 to decrease amount of points to match
--if you have too few points also doesnt work
--turn table works the best 
--Sony are the best matches 
--
+
+  - use vertices of 7 to decrease amount of points to match
+  - if you have too few points also doesnt work
+  - turn table works the best 
+  - Sony are the best matches (the shoes I personally have scanned) 
 
 An example:     
     

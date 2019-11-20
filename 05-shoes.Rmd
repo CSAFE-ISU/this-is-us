@@ -485,24 +485,39 @@ Note: With these alignment processes we are assuming that the shoe size does not
 
 Then we want to look at the change overtime a specific shoe, so we need to grab the shoe scans over time. Using the function *shoe_grab* to grab the scans of a given shoe ID, specify the id number of a shoe you want to look at, (Make sure you have access to the data, follow the steps on the README for more information. For more information on the shoe data, see **Longituidinal_Shoe_Study**), and turns the given shoe into mesh objects to do further analysis. 
 
+Mesh Objects: A triangle mesh object is made up of the following parts, sufaces, polygons, faces, edges and vertices.
+(intert drawing)
 
-What we have tried: 
 
-At first we wanted to try to simplify the mesh object to just the basic shape in order have simplicity when aligning. The idea of allignment is to take the most basic features, allign them, then by adding complexity of the soul, further allign the two different shoes. The idea is that we want to take a lower detail scan of shoe, allign it, then by adding complexity we can further allign the shoes. However the problem was realized that we are using a prediction to allign rather than the shoe, which ran into some quick problems. 
+Some background: 
+At first we wanted to try to simplify the mesh object to just the basic shape in order have simplicity when aligning. The idea of allignment is to take the most basic features, allign them, then by adding complexity of the soul, further allign the two different shoes. The idea is that we want to take a lower detail scan of shoe, allign it, then by adding complexity we can further allign the shoes. However the problem was realized that we are using a prediction to allign rather than the shoe, which ran into some quick problems. The next "attempt" at alignment came from a package called morph. In order to use this package, we needed to transform the data from a mesh object into a plane of points. In order to do this, we greated the function *shoe_coord*. This function takes a triangle mesh object, and looks at the vertices that make up each triangle. With a specific amount of vertices specified using the specification vert, *shoe_coord*, takes these vertices and maps them onto a x,y,z coordinate plane. Then using this coordinate plane, the allignment process began. 
 
-What we are doing now 
+
+Some attempts that have not really turned out well 
   - Transforming the mesh objects to points aligned by the center of mass to overlay them detecting difference. 
 <img src="images/shoes/3dshoes/AlignShoeTest.png" width="100%"/>
   - Problems 
     - Isnt aligning properly as you can see 
-  - Next
-    - angle transformations 
+    
+
+Principal Component Analysis: 
+The basic idea of principal component analysis is to take a dataset with many variables, and simplify that dataset by turning the original variables into a smaller number of "Principal Components". These principal components are the underlying structure in the data. Taking that data and giving a vector in directions where there is the most variance. Taking these egienvectors as the data, we can get a "flattened" version of our origianl shoe. 
+
+Once a shoe has been turned into coordinates from the verticies of a mesh object, we can use the function prcomp (site this and expain what it does) to get a transformation matrix. Some notes on this:
+-use vertices of 7 to decrease amount of points to match
+-if you have too few points also doesnt work
+-turn table works the best 
+-Sony are the best matches 
+-
+
+An example:     
     
 -PCA: 
 <img src="images/shoes/3dshoes/SonyPACside.png" width="100%"/>
 <img src="images/shoes/3dshoes/SonyPAC.png" width="100%"/>
 
-This is working wiht the shoes that I have personally scanned, however still in the process of working on fixing them for the shoes of the longitudinal study. Once this occurs, need to figure out how to revert it to mesh objects agian. 
+This is working wiht the shoes that I have personally scanned, however still in the process of working on fixing them for the shoes of the longitudinal study. One thing that seems to be working is when we compare two shoes of the same size that were both turn tables we seem to get a better match 
+
     
 ## Shoe outsole matching using image descriptors
 

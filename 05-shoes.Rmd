@@ -515,8 +515,13 @@ Once a shoe has been turned into coordinates from the verticies of a mesh object
   - Sony are the best matches (the shoes I personally have scanned) 
 
 An example:     
+
     
 -PCA: 
+  - First looking at shoes with all vertices included: 
+  <img src="images/shoes/3dshoes/PACwithallpoints.png" width="100%"/>
+<img src="images/shoes/3dshoes/SidePACwithallpoints.png" width="100%"/>
+  - Now the same shoe with fewer vertices included in the allignment 
 <img src="images/shoes/3dshoes/SonyPACside.png" width="100%"/>
 <img src="images/shoes/3dshoes/SonyPAC.png" width="100%"/>
 

@@ -917,7 +917,7 @@ knitr::include_graphics(c("images/cartridge_cases/fadul5_im1_afterRotation.png",
 
 <details>
 <summary>
-Joe 10/17/18 Update: Continued testing the CMC algorithm on more known match and known non-match pairs of cartridge cases. It's a time intensive process, but the current results show that the algorithm works for the majority of known match pairs and, most importantly, appear to be qualitatively similar to what is reported in Tong et al. (2015).
+Continued testing the CMC algorithm on more known match and known non-match pairs of cartridge cases. It's a time intensive process, but the current results show that the algorithm works for the majority of known match pairs and, most importantly, appear to be qualitatively similar to what is reported in Tong et al. (2015).
 </summary>
 
 I've continued to run the algorithm on a number of known match pairs of cartridge cases. Although the algorithm seems to work well for the majority of known match pairs, it isn't perfect at picking the correct rotation angle. I haven't yet determined the cause of when the algorithm fails to pick the correct rotation angle.
@@ -941,8 +941,6 @@ knitr::include_graphics(c("images/cartridge_cases/FadulC_FadulM_afterRotation.pn
 ```
 
 While running code, I've also been working on putting all of my working functions into a package. I should hopefully have something resembling a structured package by my spotlight in November.
-
-</details>
 
 Finished computing (almost) all 780 possible known match and known non-match comparisons for the 40 cartridge case scans discussed in the Tong paper. We're running into an issue where the correlations we're getting out appear to be signficantly lower than what we expect them to be based on the results reported by Tong et al. The biggest challenge is that we effectively need to guess how the images in the Tong paper were pre-processed, so certain decisions we make may drastically affect the final results. We're going to see if making a few minor changes to the way we pre-process the images will change the results to what we expect.
 
@@ -1033,6 +1031,118 @@ Lastly, we have an example where the second image contains a smaller square of s
 ```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
 knitr::include_graphics("images/cartridge_cases/exampleWNSmallerSquare_CCFMap.png")
 ```
+</details>
+
+</details>
+
+<details>
+<summary>
+Joe's 11/21 Spotlight: Visual Explanation of the "Improved" Congruent Matching Cells Algorithm proposed by [Tong et al. (2015)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4730689/).
+</summary>
+
+A cartridge case is a type of pre-assembled firearm ammunition packaging a projectile (e.g., bullet, shots, or slug). Below is an image showing different examples of cartridge cases.
+
+```{r, out.width="30%",echo=FALSE,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/11-21-Spotlight/cartridgeCaseExamples.jpg")
+```
+
+When a firearm is discharged, the projectile stored in the cartridge case is propelled down the barrel of the firearm. In response, the rest of the cartridge case that remains inside of the firearm is forced towards the back of the barrel (for every action, an equal and opposite reaction). The force with which the remaining cartridge case (hereby referred to as simply "the cartridge case") is propelled backwards causes it to strike against the back wall of the firearm's barrel. This area is commonly referred to as the "breech face." An example of a breech face from a 12 GAUGE, single-shot shotgun is shown below.
+
+```{r, out.width="30%",echo=FALSE,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/11-21-Spotlight/breechFace.jpg")
+```
+  
+  The hole in the center of the breech face is where the firing pin shoots out to strike the cartridge case primer, which in turn ignites the propellant within the cartridge case causing an explosion that propels the bullet forward down the barrel. As you can see from the image above, there are markings (e.g., manufacturing imperfections) on the breech face. When the cartridge case slams against the breech face during the firing process, these markings can be "stamped" into either the primer of the cartridge case or the cartridge case itself. The markings left on a cartridge case from the firearm's breech face are called "breech face impressions." The image below shows the primer of a shotshell fired in the above shotgun. You can clearly see that some impressions were left on the primer during the firing process.
+  
+```{r, out.width="30%",echo=FALSE,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/11-21-Spotlight/breechFaceImpression.jpg")
+```
+
+The image below shows how the breech face scans come in their raw format. We want to preprocess the images to remove the firing pin impression in the center and accentuate the firing pin impression.
+
+```{r, out.width="60%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/rawBF.png"))
+```
+
+Although it is non-trivial to preprocess the images, I am going to skip the explanation of the preprocessing steps so that we have time to focus on how we quantify similarity. The image below shows the result of the preprocessing steps.
+
+```{r, out.width="60%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/processedBF.png"))
+```
+
+We *could* now directly calculate the pixel-wise correlation between these two images. However, there are a few issues with doing so directly. One issue is that we can visually see that the two images are not rotationally aligned, so we wouldn't expect the correlation to be particularly high. We can fix this by considering a variety of rotations of the images to determine for which rotation the images are the "most aligned." While it's not obvious from the images, there is also an issue with the two images being translationally aligned. Lastly, due to the slight differences between the two images, taking the pixel-wise correlation between the entirety of the two images may lead to a deceptively small correlation. This is the motivation behind what Tong et al. (2015) describe as the "Congruent Matching Cells" algorithm. The idea is quite simple. Rather than calculating correlation across entire images, it might be better to break up each image into smaller pieces ("cells") and calculate correlation for each cell pair. In doing so, a highly correlated pair of cells won't be drowned-out by less correlated pairs of cells.
+
+Tong et al. propose this cell-based method for quantifying similarity between two breech face impressions. For a given pair of images (like the two shown below), the first image is divided into a 7x7 grid. Each cell in this grid is then compared to a region in the second image. Because the two images aren't assumed to be translationally aligned, the region in the second image will be larger than its associated cell in the first image so that different $(dx,dy)$ translation pairs can be considered.
+
+```{r, out.width="60%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/im1_im2_cellComparison.png"))
+```
+
+Below is a gif showing an example of different pairs of image 1 cells (left) and image 2 regions (right).
+
+```{r, fig.cap="(Left) 100x100 cells from Image 1. (Right) 200x200 cells from Image 2.", out.width="50%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/im1_standardCells.gif",
+                          "images/cartridge_cases/11-21-Spotlight/im2_largerCells.gif"))
+```
+
+We measure the similarity between two breech face impressions using the cross-correlation function. The cross-correlation function (CCF) is a measure of similarity of two series as a function of the displacement of one relative to the other. The cross-correlation function for two complex functions $f(t)$ and $g(t)$ for $t \in \mathbb{R}$, denoted $f \star g$, is defined by
+
+$$
+(f \star g)(\tau) \equiv \int_{-\infty}^\infty \overline{f(\tau)}g(t + \tau)\ d\tau
+$$
+
+where $\overline{f(t)}$ is the complex conjugate of $f(t)$. Much like correlation between two random variables, the cross-correlation can be used as a measure of similarity between two different functions. In particular, for $f,g$ real-valued we can interpret the CCF as a measure of common area or "overlap" between the two functions at different values of $\tau$. The value $\tau$ at which $(f \star g)(\tau)$ achieves its maximum can be interpreted as the horizontal translation of $g$ at which $f$ and $g$ are the overlapping the most (i.e., are the "most similar" to each other). Below is an animation of two sinusoids that illustrates this concept. We can view the blue sinusoid as being the stationary $f$ function while the red sinusoid is function $g$ that is being translated by different versions of $\tau$. For each $\tau$ value, the integral of the product of the two functions (since $f$ is real-valued, $\bar{f} = f$) is plotted as the green curve. We can see that the CCF achieves a maximum at $\tau = 0$.
+
+```{r, caption="http://inst.eecs.berkeley.edu/~ee16a/sp15/Labs/location/ee16a_location_lab1.html", out.width="50%",echo=FALSE,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/11-21-Spotlight/ccfExample.gif")
+```
+
+Because we work with discretized representations of cartridge cases, we need to use the discrete analogue of the cross-correlation function. For two discrete functions $f$ and $g$, the CCF is defined to be
+
+$$
+(f \star g)(n) \equiv \sum_{m = -\infty}^\infty \overline{f(m-n)}g(m)
+$$
+
+The images we use are obviously 2-dimensional while the CCF defined above is for 1-dimensional functions. The 2-dimensional extension of the CCF is defined analogously. We can see two examples below of how the 2-dimensional CCF works for simple images. The image immediately below shows an image on the left of mostly 0-valued, black pixels with a 20x20 pixel square of 255-valued, white pixels. The image on the right is the same as the image on the left, but with the square shifted to the right 10 pixels and down 30 pixels. The blue/green/red image below these two shows the correlation "map" that indicates the CCF values for various $(dx,dy)$ pairs. If we were to overlay the two images such that their centers aligned with each other, the CCF map tells us how we should shift the second image so that it properly aligns with the first image. As we can see in this simple example, the maximum correlation (of 1) occurs at $(dx,dy) = (-10,30)$ indicating that we should move the second image to the left to pixels and up 30 pixels. This demonstrates that the CCF is sensitive to the correct translation values, at least for these simple examples.
+
+```{r, out.width="80%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/examplePerfectCCFMap.png"))
+```
+
+To show a situation in which the CCF map changes, consider the images below. The image on the left is the same as the example above. However, the image on the right now has WN$(\mu = 0,\sigma = 50)$ pixels instead of strictly 0-valued pixels. The rectangle in this right image is in the same location as in the example above, yet with an intensity of 100 rather than 255. Lowering the intensity means that we are making the rectangle's "signal" weaker relative to the surrounding pixels. We can see from the CCF map that this weaker signal indeed affects the correlation values. Although the $(dx,dy)$ at which the CCF achieves its maximum is still at the appropriate location $(-10,30)$, we see that this max CCF is now only around $.4$.
+
+```{r, out.width="80%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/correlationMap_noiseExample.png"))
+```
+
+Hopefully the two examples above provide some intuition in how the CCF function can be used to measure properly align two images to be the "most similar." As already stated, we perform this CCF calculation for each cell in image 1 and associated region in image 2. For each pair, we keep track of the both the value and $(dx,dy)$ translation at which the CCF achieves its maximum. We count this as the that cell's "vote" for how the two images should be shifted to become properly aligned. It's reasonable to assume that the true $(dx,dy)$ translation values should receive many votes from cells, up to some error threshold (e.g., the votes should be within, say, 25 pixels of the true values). Determining the correct rotational alignment isn't as straightforward. We need to search over a grid of $\theta$ rotation values and determine the rotation for which the most cells vote. Below is a gif in which we can compare the two breech face scans for various rotations of the second image. We can visually see that the two images are most similar at a rotation value of about $-24^{\circ}$. The blue region on the right image is meant to illustrate the region that is being compared to to the associated cell in the left image.
+
+```{r, out.width="60%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/bfRotationComparison.gif"))
+```
+
+Below is an example showing the CCF map associated with (left) an image 1 cell and (right) its associated image 2 region. We can see that the CCF hits a maximum of about .5 around $(25,0)$. This is, unfortunately, not nearly the magnitude of correlation that we should expect based on the results discussed in Tong et al. (2015). It sounds like the correlation values they were getting from their comparisons were consistently above .55. The CCF maps that we have calculated are rarely above .55. Our hunch is that they are using the CCF to extract the $(dx,dy)$ pairs, but then computing the raw, pixel-wise correlation between the two images once they translate appropriately.
+
+```{r, out.width="80%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/cellCCFMap.png"))
+```
+
+```{r, out.width="80%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/beforeAndAfterShiftExample.png"))
+```
+
+We can keep track of each cell's vote for the rotation and translation values at which it achieved its maximum correlation with its associated region in image 2. Again, we would expect that the true rotation and translation values should receive a large number of votes. We can see below a histogram of the theta values voted for by the cells in the left image above. We can a clear mode at a $\theta$ value slightly less than -20. Based on the gif of the rotating breech face above, it appears that the automatic CCF-based "votes" agree with what we can visually see to be the best rotation value to align the two images.
+
+```{r, out.width="60%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/thetaVoteHistogram.png"))
+```
+
+Based on the histogram above, the algorithm has detected the correct rotation value to align the two images. If we were to rotationally align the two images based on this value, we can count the number of pairs that are "highly similar" with each other. Tong et al. discuss various criteria to use to define "highly similar" including having a minimum CCF value (.55 in their paper). They also require that the $(dx,dy)$ translation values that a particular pair voted for must be within some number of pixels of the "majority-voted" translation values (they propose a maximum of 25 pixels away from the median translation values). All of this seems rather arbitrary, so it would be interesting to explore if alternative criteria would be more effective at differentiating between matches and non-matches.
+
+```{r, out.width="60%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/CMCs.png"))
+```
+
 </details>
 
 ### Modified Chumbley non-random test

@@ -486,8 +486,12 @@ Note: With these alignment processes we are assuming that the shoe size does not
 Then we want to look at the change overtime a specific shoe, so we need to grab the shoe scans over time. Using the function *shoe_grab* to grab the scans of a given shoe ID, specify the id number of a shoe you want to look at, (Make sure you have access to the data, follow the steps on the README for more information. For more information on the shoe data, see **Longituidinal_Shoe_Study**), and turns the given shoe into mesh objects to do further analysis. 
 
 Mesh Objects: A triangle mesh object is made up of the following parts, sufaces, polygons, faces, edges and vertices.
-(intert drawing)
 
+<img src="images/shoes/3dshoes/describing_mesh.jpeg" width="100%"/>
+
+Looking at a mesh object at first: 
+
+<img src="images/shoes/3dshoes/MeshObject.png" width="100%"/>
 
 Some background: 
 At first we wanted to try to simplify the mesh object to just the basic shape in order have simplicity when aligning. The idea of allignment is to take the most basic features, allign them, then by adding complexity of the soul, further allign the two different shoes. The idea is that we want to take a lower detail scan of shoe, allign it, then by adding complexity we can further allign the shoes. However the problem was realized that we are using a prediction to allign rather than the shoe, which ran into some quick problems. The next "attempt" at alignment came from a package called morph. In order to use this package, we needed to transform the data from a mesh object into a plane of points. In order to do this, we greated the function *shoe_coord*. This function takes a triangle mesh object, and looks at the vertices that make up each triangle. With a specific amount of vertices specified using the specification vert, *shoe_coord*, takes these vertices and maps them onto a x,y,z coordinate plane. Then using this coordinate plane, the allignment process began. 
@@ -516,7 +520,7 @@ An example:
 <img src="images/shoes/3dshoes/SonyPACside.png" width="100%"/>
 <img src="images/shoes/3dshoes/SonyPAC.png" width="100%"/>
 
-This is working wiht the shoes that I have personally scanned, however still in the process of working on fixing them for the shoes of the longitudinal study. One thing that seems to be working is when we compare two shoes of the same size that were both turn tables we seem to get a better match 
+This is working wiht the shoes that I have personally scanned, however still in the process of working on fixing them for the shoes of the longitudinal study. One thing that seems to be working is when we compare two shoes of the same size that were both turn tables we seem to get a better match. 
 
     
 ## Shoe outsole matching using image descriptors

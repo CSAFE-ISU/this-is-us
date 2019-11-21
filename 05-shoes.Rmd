@@ -514,7 +514,8 @@ In progress:
 
 <img src="images/shoes/ProjectTread/IMG_20191108_205037.jpg" width = "50%"/><img src="images/shoes/ProjectTread/scanned_print.PNG" width = "30%"/>
 
-<img src="images/shoes/ProjectTread/SP2_1.PNG" width = "34%"/><img src="images/shoes/ProjectTread/SP2_2.PNG" width = "33%"/><img src="images/shoes/ProjectTread/SP2_3.PNG" width = "28%"/>
+<img src="images/shoes/ProjectTread/SP2_1.PNG" width = "32%"/><img src="images/shoes/ProjectTread/SP2_2.PNG" width = "33%"/><img src="images/shoes/ProjectTread/SP2_3.PNG" width = "30%"/>
+
 
 
 ## 3d Shoe Recognition 

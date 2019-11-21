@@ -159,6 +159,10 @@ Some conclusions from current plots:
 4. The three components model for KM is less stable than two components one especially in small sample cases
 5. Two components model for KNM is not stable in small sample case(in terms of weight)
 
+After fitting Beta mixture models with different number of components and analysis with the actual fit (more on this). We finally choose Beta mixture models with two components for both KM and KNM distributions. Then we will make further inference about the land-land comparisons based on that. Specifically, we will use log likelihood ratios to quantify how strong our evidence is to support that two lands are from same source.
+
+To evaluate the Beta mixture models for KM and KNM, we produce ROC curves using log likelihood ratios. We also evaluate the models in different cases to see how stable the fits are and how effective the procedure is to classify the land-land comparisons. Since the log likelihood ratios require both KM and KNM models, we will control the KNM model as the full data fitted KNM model and focus mainly on the KM models in the following sections unless otherwise specified such as in the one-barrel comparisons later where we use the KNM fitted from within barrel with three bullets.
+
 ```{r, fig.cap="ROC-cv-models", out.width="50%", fig.keep="hold", fig.align='center'}
 include_graphics(c("images/yawei/roc-cvmodels.png"))
 ```

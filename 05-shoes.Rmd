@@ -391,13 +391,13 @@ In the meantime, it is much easier (relatively speaking) to use our existing fra
 Project Tread, modified from [Leverhulme Institute's Sole Searching](https://www.dundee.ac.uk/leverhulme/citizenscience/details/sole-searching.php), is a developing CSAFE project with the goals of engaging community participation in forensic research and acquiring shoe print data that may be useful in future analyses.
 
 
-<div class = "new">
+
 In progress:
 
 - Review [procedures](https://forensicstats.org/project-tread/) and IRB documents written by James
 - Volunteers are testing modified procedure (below)
 - Be involved in set up of data collection site (through CSSM)
-</div>
+- Develop plan for data analysis and use (to inform procedure modifications)
 
 
 
@@ -405,32 +405,72 @@ In progress:
 
 | Procedure           | Leverhulme      | CSAFE (initial)    | CSAFE (proposed) |
 |---------------------|-----------------|--------------------|------------------|
-| 'Before' Views      | 4 per shoe      | 5 per shoe         | 5 per shoe       |
+| 'Before' Views      | 4 per shoe      | 5 per shoe         | 2 per shoe       |
 | 'Before' Pictures   | 1 per view      | 3 per view         | 1 per view       |
-| Total 'before' pics | 4 per shoe      | 15 per shoe        | 5 per shoe       |
+| Total 'before' pics | 4 per shoe      | 15 per shoe        | 2 per shoe       |
 |                     |                 |                    |                  |
-| Paper               | Letter (larger) | Tape 8.5 x 11      | Tape 8.5 x 11    |
+| Paper               | Letter (larger) | 8.5x11 or 8.5x14   | 8.5x11 or 8.5x14 |
 |                     |                 |                    |                  |
 | Actions             | Run, jump, walk | Step, hop          | Step, hop        |
 | Replicates          | 6 per action    | 9 per action       | 3 per action     |
 | 'After' Pictures    | 1 pic per rep.  | 3 pics per rep.    | 1 pic per rep.   |
 |                     |                 |                    |                  |
-| Total number prints | 18 per shoe     | 18 per shoe        | 6 per shoe       |
-| Total number images | 18 per shoe     | 54 per shoe        | 6 per shoe       |
+| Total # prints      | 18 per shoe     | 18 per shoe        | 6 per shoe       |
+| Total # print images| 18 per shoe     | 54 per shoe        | 6 per shoe       |
 |                     |                 |                    |                  |
 | Requested # shoes   | Not specified   | Both shoes         | One, 2nd optional|
+|                     |                 |                    |                  |
+| Total # images taken| 22 or 44        | 138                | 8 or 16          |
+
 
 
 **Recommended procedure modifications:**
 
 - Ask for one high-quality image of each shoe angle ('before') and print ('after'), instead of three replicate images of each
-    - If Project Tread submission website is set up like current CSSM system (which takes community submissions for environmental images), intermediate quality control can help filter out bad images
+    - If Project Tread submission website will be set up like current CSSM system (which takes community submissions for environmental images), intermediate quality control can help filter out bad images
 - Only ask for one shoe, and make second shoe optional
     - E.g., always ask for left shoe, and make right shoe optional
-- Ask for 3 replicates per shoe
-    - Longitudinal shoe study uses 2-3 replicates per shoe
+- Ask for 3 replicates per shoe instead of 6-9
+    - Longitudinal shoe study only uses 2-3 replicates per shoe
+- Make written instructions clearer, close loopholes
+
+
+
+<div class = "new">
+### Pilot procedure testing
+
+**Feedback from pilot testing:**
+
+- Materials
+    - Used 1/4 - 1/2 tsp of cocoa powder, not a "dime-size""
+    - Test/specify cocoa powder vs hot chocolate powder 
+    
+- Procedure
+    - Sift cocoa powder onto paper (brushing damages print)
+    - More pictures of what things should look like
+    - Fewer "before" pictures: bottom and side only
+    - Mention won't see oil if done correctly
+    - Don't stack completed prints until after imaging/scanning
+    
+- Analysis
+    - Use printable scale/ruler for later alignment of images
+    - QR code (like handwriting study) to identify action/replicate/meta info
+    - Collect shoe demographics (brand, size, measurements of length/width)
+    - Get "mask" by tracing around shoe
+
+</div>
     
     
+**A few images from pilot testing**
+
+<img src="images/shoes/ProjectTread/IMG_20191108_194133.jpg" width = "50%"/><img src="images/shoes/ProjectTread/IMG_20191108_194148.jpg" width = "50%"/>
+
+<img src="images/shoes/ProjectTread/IMG_20191108_194603.jpg" width = "50%"/><img src="images/shoes/ProjectTread/IMG_20191108_194608.jpg" width = "50%"/>
+
+<img src="images/shoes/ProjectTread/IMG_20191108_205037.jpg" width = "50%"/><img src="images/shoes/ProjectTread/scanned_print.PNG" width = "30%"/>
+
+<img src="images/shoes/ProjectTread/SP2_1.PNG" width = "34%"/><img src="images/shoes/ProjectTread/SP2_2.PNG" width = "33%"/><img src="images/shoes/ProjectTread/SP2_3.PNG" width = "28%"/>
+
 
 ## 3d Shoe Recognition 
 

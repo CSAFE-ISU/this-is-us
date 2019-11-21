@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2019-11-13" />
+<meta name="date" content="2019-11-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -467,11 +467,11 @@ This is necessary because Fourier transforms assume images go on forever, so abr
 <p><img src="images/shoes/longitudinal/FFT_Demo_Hann.png" width = "25%"/></p>
 <ul>
 <li>The strength of the Hann function can be adjusted by a power argument<br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-133-1.png" width="672" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-148-1.png" width="672" /></li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
 <li>Use the Fast Fourier Transform on each image. Center the FFT’d images so that low frequencies are in the center (exchange top left quadrant with bottom right, and top right quadrant with bottom left). Call the FFT’d, centered images <span class="math inline">\(F(A)\)</span> and <span class="math inline">\(F(B)\)</span><br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-134-1.png" width="50%" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-149-1.png" width="50%" /></li>
 </ol>
 <p><img src="images/shoes/longitudinal/FFT_Demo_FFT1.png" width = "50%"/></p>
 <ol start="4" style="list-style-type: decimal">
@@ -633,14 +633,13 @@ Alignment Success:</p>
 <div id="cocoa" class="section level2">
 <h2><span class="header-section-number">6.4</span> Project Tread (formerly Cocoa Powder Citizen Science)</h2>
 <p>Project Tread, modified from <a href="https://www.dundee.ac.uk/leverhulme/citizenscience/details/sole-searching.php">Leverhulme Institute’s Sole Searching</a>, is a developing CSAFE project with the goals of engaging community participation in forensic research and acquiring shoe print data that may be useful in future analyses.</p>
-<div class="new">
 <p>In progress:</p>
 <ul>
 <li>Review <a href="https://forensicstats.org/project-tread/">procedures</a> and IRB documents written by James</li>
 <li>Volunteers are testing modified procedure (below)</li>
 <li>Be involved in set up of data collection site (through CSSM)</li>
+<li>Develop plan for data analysis and use (to inform procedure modifications)</li>
 </ul>
-</div>
 <div id="comparing-the-procedures" class="section level4">
 <h4><span class="header-section-number">6.4.0.1</span> Comparing the procedures</h4>
 <table>
@@ -657,7 +656,7 @@ Alignment Success:</p>
 <td>‘Before’ Views</td>
 <td>4 per shoe</td>
 <td>5 per shoe</td>
-<td>5 per shoe</td>
+<td>2 per shoe</td>
 </tr>
 <tr class="even">
 <td>‘Before’ Pictures</td>
@@ -669,7 +668,7 @@ Alignment Success:</p>
 <td>Total ‘before’ pics</td>
 <td>4 per shoe</td>
 <td>15 per shoe</td>
-<td>5 per shoe</td>
+<td>2 per shoe</td>
 </tr>
 <tr class="even">
 <td></td>
@@ -680,8 +679,8 @@ Alignment Success:</p>
 <tr class="odd">
 <td>Paper</td>
 <td>Letter (larger)</td>
-<td>Tape 8.5 x 11</td>
-<td>Tape 8.5 x 11</td>
+<td>8.5x11 or 8.5x14</td>
+<td>8.5x11 or 8.5x14</td>
 </tr>
 <tr class="even">
 <td></td>
@@ -714,13 +713,13 @@ Alignment Success:</p>
 <td></td>
 </tr>
 <tr class="odd">
-<td>Total number prints</td>
+<td>Total # prints</td>
 <td>18 per shoe</td>
 <td>18 per shoe</td>
 <td>6 per shoe</td>
 </tr>
 <tr class="even">
-<td>Total number images</td>
+<td>Total # print images</td>
 <td>18 per shoe</td>
 <td>54 per shoe</td>
 <td>6 per shoe</td>
@@ -737,23 +736,67 @@ Alignment Success:</p>
 <td>Both shoes</td>
 <td>One, 2nd optional</td>
 </tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Total # images taken</td>
+<td>22 or 44</td>
+<td>138</td>
+<td>8 or 16</td>
+</tr>
 </tbody>
 </table>
 <p><strong>Recommended procedure modifications:</strong></p>
 <ul>
 <li>Ask for one high-quality image of each shoe angle (‘before’) and print (‘after’), instead of three replicate images of each
 <ul>
-<li>If Project Tread submission website is set up like current CSSM system (which takes community submissions for environmental images), intermediate quality control can help filter out bad images</li>
+<li>If Project Tread submission website will be set up like current CSSM system (which takes community submissions for environmental images), intermediate quality control can help filter out bad images</li>
 </ul></li>
 <li>Only ask for one shoe, and make second shoe optional
 <ul>
 <li>E.g., always ask for left shoe, and make right shoe optional</li>
 </ul></li>
-<li>Ask for 3 replicates per shoe
+<li>Ask for 3 replicates per shoe instead of 6-9
 <ul>
-<li>Longitudinal shoe study uses 2-3 replicates per shoe</li>
+<li>Longitudinal shoe study only uses 2-3 replicates per shoe</li>
+</ul></li>
+<li>Make written instructions clearer, close loopholes</li>
+</ul>
+<div class="new">
+<h3 id="pilot-procedure-testing"><span class="header-section-number">6.4.0.1</span> Pilot procedure testing</h3>
+<p><strong>Feedback from pilot testing:</strong></p>
+<ul>
+<li>Materials
+<ul>
+<li>Used 1/4 - 1/2 tsp of cocoa powder, not a “dime-size”&quot;</li>
+<li>Test/specify cocoa powder vs hot chocolate powder</li>
+</ul></li>
+<li>Procedure
+<ul>
+<li>Sift cocoa powder onto paper (brushing damages print)</li>
+<li>More pictures of what things should look like</li>
+<li>Fewer “before” pictures: bottom and side only</li>
+<li>Mention won’t see oil if done correctly</li>
+<li>Don’t stack completed prints until after imaging/scanning</li>
+</ul></li>
+<li>Analysis
+<ul>
+<li>Use printable scale/ruler for later alignment of images</li>
+<li>QR code (like handwriting study) to identify action/replicate/meta info</li>
+<li>Collect shoe demographics (brand, size, measurements of length/width)</li>
+<li>Get “mask” by tracing around shoe</li>
 </ul></li>
 </ul>
+</div>
+<p><strong>A few images from pilot testing</strong></p>
+<p><img src="images/shoes/ProjectTread/IMG_20191108_194133.jpg" width = "50%"/><img src="images/shoes/ProjectTread/IMG_20191108_194148.jpg" width = "50%"/></p>
+<p><img src="images/shoes/ProjectTread/IMG_20191108_194603.jpg" width = "50%"/><img src="images/shoes/ProjectTread/IMG_20191108_194608.jpg" width = "50%"/></p>
+<p><img src="images/shoes/ProjectTread/IMG_20191108_205037.jpg" width = "50%"/><img src="images/shoes/ProjectTread/scanned_print.PNG" width = "30%"/></p>
+<p><img src="images/shoes/ProjectTread/SP2_1.PNG" width = "32%"/><img src="images/shoes/ProjectTread/SP2_2.PNG" width = "33%"/><img src="images/shoes/ProjectTread/SP2_3.PNG" width = "30%"/></p>
 </div>
 </div>
 <div id="d-shoe-recognition" class="section level2">
@@ -761,19 +804,35 @@ Alignment Success:</p>
 <p>The set up:</p>
 <p>Note: With these alignment processes we are assuming that the shoe size does not change with wear and that we are not aligning across pairs of shoes.</p>
 <p>Then we want to look at the change overtime a specific shoe, so we need to grab the shoe scans over time. Using the function <em>shoe_grab</em> to grab the scans of a given shoe ID, specify the id number of a shoe you want to look at, (Make sure you have access to the data, follow the steps on the README for more information. For more information on the shoe data, see <strong>Longituidinal_Shoe_Study</strong>), and turns the given shoe into mesh objects to do further analysis.</p>
-<p>What we have tried:</p>
-<p>At first we wanted to try to simplify the mesh object to just the basic shape in order have simplicity when aligning. The idea of allignment is to take the most basic features, allign them, then by adding complexity of the soul, further allign the two different shoes. The idea is that we want to take a lower detail scan of shoe, allign it, then by adding complexity we can further allign the shoes. However the problem was realized that we are using a prediction to allign rather than the shoe, which ran into some quick problems.</p>
-<p>What we are doing now
+<p>Mesh Objects: A triangle mesh object is made up of the following parts, sufaces, polygons, faces, edges and vertices.</p>
+<p><img src="images/shoes/3dshoes/describing_mesh.jpeg" width="100%"/></p>
+<p>Looking at a mesh object at first:</p>
+<p><img src="images/shoes/3dshoes/MeshObject.png" width="100%"/></p>
+<p>Some background:
+At first we wanted to try to simplify the mesh object to just the basic shape in order have simplicity when aligning. The idea of allignment is to take the most basic features, allign them, then by adding complexity of the soul, further allign the two different shoes. The idea is that we want to take a lower detail scan of shoe, allign it, then by adding complexity we can further allign the shoes. However the problem was realized that we are using a prediction to allign rather than the shoe, which ran into some quick problems. The next “attempt” at alignment came from a package called morph. In order to use this package, we needed to transform the data from a mesh object into a plane of points. In order to do this, we greated the function <em>shoe_coord</em>. This function takes a triangle mesh object, and looks at the vertices that make up each triangle. With a specific amount of vertices specified using the specification vert, <em>shoe_coord</em>, takes these vertices and maps them onto a x,y,z coordinate plane. Then using this coordinate plane, the allignment process began.</p>
+<p>Some attempts that have not really turned out well
 - Transforming the mesh objects to points aligned by the center of mass to overlay them detecting difference.
 <img src="images/shoes/3dshoes/AlignShoeTest.png" width="100%"/>
 - Problems
-- Isnt aligning properly as you can see
-- Next
-- angle transformations</p>
+- Isnt aligning properly as you can see</p>
+<p>Principal Component Analysis:
+The basic idea of principal component analysis is to take a dataset with many variables, and simplify that dataset by turning the original variables into a smaller number of “Principal Components”. These principal components are the underlying structure in the data. Taking that data and giving a vector in directions where there is the most variance. Taking these egienvectors as the data, we can get a “flattened” version of our origianl shoe.</p>
+<p>Once a shoe has been turned into coordinates from the verticies of a mesh object, we can use the function prcomp (site this and expain what it does) to get a transformation matrix. Some notes on this:</p>
+<ul>
+<li>use vertices of 7 to decrease amount of points to match</li>
+<li>if you have too few points also doesnt work</li>
+<li>turn table works the best</li>
+<li>Sony are the best matches (the shoes I personally have scanned)</li>
+</ul>
+<p>An example:</p>
 <p>-PCA:
+- First looking at shoes with all vertices included:
+<img src="images/shoes/3dshoes/PACwithallpoints.png" width="100%"/>
+<img src="images/shoes/3dshoes/SidePACwithallpoints.png" width="100%"/>
+- Now the same shoe with fewer vertices included in the allignment
 <img src="images/shoes/3dshoes/SonyPACside.png" width="100%"/>
 <img src="images/shoes/3dshoes/SonyPAC.png" width="100%"/></p>
-<p>This is working wiht the shoes that I have personally scanned, however still in the process of working on fixing them for the shoes of the longitudinal study. Once this occurs, need to figure out how to revert it to mesh objects agian.</p>
+<p>This is working wiht the shoes that I have personally scanned, however still in the process of working on fixing them for the shoes of the longitudinal study. One thing that seems to be working is when we compare two shoes of the same size that were both turn tables we seem to get a better match.</p>
 </div>
 <div id="shoe-outsole-matching-using-image-descriptors" class="section level2">
 <h2><span class="header-section-number">6.6</span> Shoe outsole matching using image descriptors</h2>

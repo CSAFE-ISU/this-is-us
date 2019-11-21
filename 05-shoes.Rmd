@@ -398,8 +398,6 @@ In the meantime, it is much easier (relatively speaking) to use our existing fra
 **Repeat the above process for different cuts of the original image, and aggregate predictions**
 <img src="images/shoes/neuralnets/predict_rect.PNG" width = "100%"/>
 
-**Shiny App**
-<img src="images/shoes/neuralnets/Shiny_ggHeatmaps.PNG" width = "100%"/>
 
 
 **Updates/In progress:**
@@ -418,13 +416,9 @@ In the meantime, it is much easier (relatively speaking) to use our existing fra
 
 <div class = "new">
 
-**New Images**
+**Shiny app demo**
 
 </div>
-
-**Plotting with stat_contour**
-<img src="images/shoes/neuralnets/contour_by_shape.PNG" width = "100%"/>
-
 
 
 

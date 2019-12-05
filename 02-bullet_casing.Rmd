@@ -696,6 +696,37 @@ knitr::include_graphics("images/bullets/Hough_project/gun1-p7-twothirds-b.png")
 
 </details>
 
+<details>
+<summary>
+Charlotte Update 12/5/2019: Short update today due to unforseen circumstances but we have resolved most of the issues with some of our previous problem bullets and are starting to compare to other methods.
+
+</summary>
+
+So the previous heuristic used the middle two/thirds as a way of eliminating lines from consideration. But this lead to a problem with scans that were a much larger size than other iterations of the Pheonix study producing poor results.
+
+```{r, fig.cap="Old Cetner Heuristic", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/hough-estimates-problem-boy.png")
+```
+
+Now with an optimized adjust and a middle 50% heuristic we get
+
+```{r, fig.cap="New Cetner Heuristic", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/problem-boy-solved.png")
+```
+
+Which is a much better estimate. Comparing the differences between groove estimates and the manually identified truth for the BCP, Lasso, and Hough methods we receive the following two density plots of differences.
+
+```{r, fig.cap="Left Groove Difference Estimates", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/left-groove-comparison.png")
+```
+
+```{r, fig.cap="Right Groove Difference Estimates", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/right-groove-comparison.png")
+```
+
+</details>
+
+
 ##### LASSO Method  
 
 A paper is in preparation for submission to Forensic Science International describing this method (`get_grooves_lassofull` in `grooveFinder`), as well as the Bayesian changepoint method (`get_grooves_bcp`).  

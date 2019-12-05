@@ -1193,6 +1193,31 @@ knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/CMCs.png"))
 
 </details>
 
+<details>
+<summary>
+Joe 12/5 Update: I believe we've finally cracked the issue that we've been running into the past few weeks of our correlations not being as high as those reported in the Tong paper. The fix is that we can first use the FFT-based method of calculating the CCF to obtain the correct dx,dy translation pairs and then calculate the raw correlation between the two images once we translate them appropriately. Before, we were using the correlation given to us by the FFT-based CCF method, which were most often deflated relative to the true correlation (due to replacing missing values with 0).
+</summary>
+
+Below, I have three examples showing the raw correlation values between pairs of cells. Any pair with a correlation above .55 we would call "highly correlated" under the Tong paper's criteria. The first example below shows a best-case scenario in which we have two images containing a lot of observed values and those observed values have a fairly high correlation (high enough to meet the arbitrary .55 threshold, at least).
+
+```{r}
+include_graphics("images/cartridge_cases/highlyCorrelatedCellPair_largeProportionOfImage")
+```
+
+However, the second example shows a not-so-great scenario in which we don't have a lot of observed values in the two images, but they are still highly correlated. We should be less confident that such examples indicate that the overall breech face impressions are "true matches" than we are in the example above, but the Tong paper doesn't seem to make such a distinction.
+
+```{r}
+include_graphics("images/cartridge_cases/highlyCorrelatedCellPair_smallProportionOfImage")
+```
+
+Lastly, I have an example of two images that certainly have many observed value that visually look like they should be fairly highly correlated. However, we can see by the raw correlation value that they, in fact, wouldn't pass the threshold to be "highly correlated." As such, we wouldn't include them when we count the number of highly correlated pairs between the two images. I wanted this example to demonstrate that our eyes don't always necessarily pick up on subtleties as strongly as a computer might.
+
+```{r}
+include_graphics("images/cartridge_cases/lowCorrelatedCellPair_largeProportionOfImage")
+```
+
+</details>
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
 The moified Chumbley non-random algorithm is a statistical non-paramaetric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segement to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 

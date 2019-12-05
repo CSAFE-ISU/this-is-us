@@ -175,15 +175,15 @@ From the ROC curves, we can easily see how stable our procedure is in terms of t
 
 
 ```{r, fig.cap="ROC-cv-models", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/roc-cvmodels.png"))
+include_graphics(c("images/yawei/roc-cvmodels-new.png"))
 ```
 
 ```{r, fig.cap="ROC-different-size-models", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/roc-differentsize.png"))
+include_graphics(c("images/yawei/roc-differentsize-new.png"))
 ```
 
 ```{r, fig.cap="ROC-one-barrel", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/roc-onebarrel.png"))
+include_graphics(c("images/yawei/roc-onebarrel-new.png"))
 ```
 
 

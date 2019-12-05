@@ -209,7 +209,7 @@ include_graphics(c("images/yawei/ccfineachbarrel.png"))
 To show how our model works in a single barrel case, we conduct the model fit as in the real case. We fit the KM and KNM models with three bullet comparisons (18 KM and 135 KNM land-land ccf respectively), and conduct a test on those comparisons with the forth bullet (18 KM and 105 KNM land-land ccf respectively). We conduct the above procedure in a LOO frame work, i.e. to leave one bullet out each time. The ROC curves for two barrels are shown as follows. We can see the classification results are almost as good as the previous ones.
 
 ```{r, fig.cap="within barrel ROC for barrel 42 and 56", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/withinbarrel4256roc.png"))
+include_graphics(c("images/yawei/withinbarrel4256roc-new.png"))
 ```
 
 #### follow-up study 

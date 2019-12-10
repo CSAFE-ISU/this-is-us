@@ -1222,21 +1222,46 @@ Joe 12/5 Update: I believe we've finally cracked the issue that we've been runni
 Below, I have three examples showing the raw correlation values between pairs of cells. Any pair with a correlation above .55 we would call "highly correlated" under the Tong paper's criteria. The first example below shows a best-case scenario in which we have two images containing a lot of observed values and those observed values have a fairly high correlation (high enough to meet the arbitrary .55 threshold, at least).
 
 ```{r}
-include_graphics("images/cartridge_cases/highlyCorrelatedCellPair_largeProportionOfImage")
+include_graphics("images/cartridge_cases/highlyCorrelatedCellPair_largeProportionOfImage.png")
 ```
 
 However, the second example shows a not-so-great scenario in which we don't have a lot of observed values in the two images, but they are still highly correlated. We should be less confident that such examples indicate that the overall breech face impressions are "true matches" than we are in the example above, but the Tong paper doesn't seem to make such a distinction.
 
 ```{r}
-include_graphics("images/cartridge_cases/highlyCorrelatedCellPair_smallProportionOfImage")
+include_graphics("images/cartridge_cases/highlyCorrelatedCellPair_smallProportionOfImage.png")
 ```
 
 Lastly, I have an example of two images that certainly have many observed value that visually look like they should be fairly highly correlated. However, we can see by the raw correlation value that they, in fact, wouldn't pass the threshold to be "highly correlated." As such, we wouldn't include them when we count the number of highly correlated pairs between the two images. I wanted this example to demonstrate that our eyes don't always necessarily pick up on subtleties as strongly as a computer might.
 
 ```{r}
-include_graphics("images/cartridge_cases/lowCorrelatedCellPair_largeProportionOfImage")
+include_graphics("images/cartridge_cases/lowCorrelatedCellPair_largeProportionOfImage.png")
 ```
 
+</details>
+
+<details>
+<summary>
+Joe 12/12 Update: I have been trying to implement the Tong paper's criteria for calling two images "matches" and apply these criteria to all of the known match and known non-match image pairs. I have results to share regarding the number of CMCs counted for each known-match cell pair (the known non-matches take much longer to run).
+</summary>
+
+To recap, the CMC algorithm attempts to match two breech face impression images by breaking the image up into "cells" and counting the number of cells that are highly similar between the two images. So for each pair of images, we get a congruent matching cell count indicating how similar the overall images are. For the Fadul data that the Tong paper uses, there are 63 known match pairs. The bar chart on the left shows the various CMC counts for these 63 known match pairs as determined by our implementation in the algorithm. In contrast, the CMC count distribution as reported in the Tong paper is on the right (known matches in gold). We can see that our histogram is qualititatively similar to the gold distribution on the right.
+
+```{r}
+include_graphics(c("images/cartridge_cases/kmCMCDistribution.png",
+                 "images/cartridge_cases/CMCDistribution_Tong.PNG"))
+```
+
+There are two pairs that seem to be giving us trouble in the histogram above (we expect all of the known match pairs to have a large number of "highly similar" cells). Below shows the se two pairs. Hopefully it's clear to see that the first pair, while known matches, look fairly different. There are many regions in the image on the left that are missing from the image on the right. These differences possibly provide some justification as to why the current implementation of the algorithm fails to identify these two images as matches.
+
+```{r}
+include_graphics("images/cartridge_cases/lowCMCCount_example1.png")
+```
+
+The troubling example is below. It's visually obvious that these two images are very similar to each other. However, the algorithm does not identify these as matches. Our current hunch is that the way we preprocess the images has a dramatic effect on the results we ultimately observe. We have a few ideas to tweak the preprocessing to hopefully fix such issues. Unfortunately, the Tong paper never describes how they preprocess the 3D scans, so we have no way of truly replicating their results. All we can hope for is qualitatively similar results, which appears to be the case for the most part.
+
+```{r}
+include_graphics("images/cartridge_cases/lowCMCCount_example2.png")
+```
 </details>
 
 ### Modified Chumbley non-random test

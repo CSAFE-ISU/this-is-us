@@ -212,6 +212,42 @@ To show how our model works in a single barrel case, we conduct the model fit as
 include_graphics(c("images/yawei/withinbarrel4256roc-new.png"))
 ```
 
+Error Rate Control and Cutoff
+
+Based on our estimated models for KM and KNM, we hope to construct a test statistic to quatify how likely a new bullet has the same source with our testing bullets. We start from the land-land comparison and finally reach a bullet-bullet comparison based land-land comparison.
+
+We start with the well-known log-likelihood ratio, and see how well it works in our case. We define the statistic as: 
+
+$$T = log(\frac{KM}{KNM})$$
+
+In which case, we reject the null hypohesis that the new bullet is from different source from our testing bullets when we have a large value for $T$. 
+
+First we have a look at how this log-likelihood ratio statistic changes with respect to the ccf score we calculated.
+
+```{r, fig.cap="loglr-fau42", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/loglr-fau42.png"))
+```
+
+Clearly, there is a potential issue with the log-likelihood ratio since it is not monotone w.r.t ccf, which means a larger ccf may lead to a smaller test statistic sometimes. As we can see when ccf is 0.45, the log-lr is 0.127 > 0, however it goes below 0 when ccf increase to 0.523 (the cutoff with type one error rate as 0.05). We can also find another issue from a different aspect. If we set the type one error as 0.05 (which should be smaller in practice), then we find the ccf with this error rate from KNM (null hypothesis) is 0.523. Then the log-likelihood ratio we calculated at this point is -1.11, which means we have larger likelihood for KNM than KM even with this large enough cutoff in terms of the type one error rate. These two criteria give us contradicted results. The cutoff we set according to the usual type one error rate contradicted with the one indicated by log-likelihood ratio. However, the lower tail of the KM distribution at this cutoff here is 0.12, which is twice as larger as 0.05, which is contradicted with the log-lr again.
+
+Another issue arised in the situation above is that the cutoff according to type one error is also a lower tail cutoff with small probability for the alternative hypothesis. We may be able to reject the null hypothesis, but it is not enough to support the alternative hypothesis and those hypotheses may be rejected both depending on your construction of hypothesis. This is a problem caused by the fact that these two hypothetic distributions are far apart from each other. A smaller type one error rate might help. But the issue with the log-likelihood ratio can be severe sometimes because we have non-unimodal distributions and the comparison may happen beween two components of KM distribution, which might result in a misleading result. Besides, the tail behavior is quite sensitive to the model assumption and estimation, which we should avoid to rely on.
+
+So we might consider a probability based criteria instead of a density based criteria. The odds ratio statistic we are going to construct is promising. Given a cutoff $x_0$, we can determine the probabilities to be classified as matches for both KNM and KM distributions. Denote these probabilities for KNM and KM are $p_1$ and $p_2$ respectively, we can get the following form of odds ratio given a cutoff:
+
+$$odds~ratio = \frac{p_2/(1-p_2)}{p_1/(1-p_1)}$$
+
+notice that the numerator descreases w.r.t $x_0$, and the denominator descreases w.r.t $x_0$. We are able to calculate a maximum value of the odds ratio w.r.t $x_0$, which gives us a reasonable cutoff of ccf to be classified into matches.
+
+Other possible ways to get a cutoff and control the error rate may be
+
+1) Set a reasonable type one error rate in advance and report the cutoff
+
+2) From the ROC curve
+
+An additional requirement may be $$(1-p_2) > Mp_1$$ for a large M.
+
+We are going to compare the above methods next.
+
 #### follow-up study 
 
 4 bullets per barrel for  96 of the original 626 Beretta firearms using different ammunition
@@ -659,6 +695,37 @@ knitr::include_graphics("images/bullets/Hough_project/gun1-p7-twothirds-b.png")
 
 
 </details>
+
+<details>
+<summary>
+Charlotte Update 12/5/2019: Short update today due to unforseen circumstances but we have resolved most of the issues with some of our previous problem bullets and are starting to compare to other methods.
+
+</summary>
+
+So the previous heuristic used the middle two/thirds as a way of eliminating lines from consideration. But this lead to a problem with scans that were a much larger size than other iterations of the Pheonix study producing poor results.
+
+```{r, fig.cap="Old Cetner Heuristic", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/hough-estimates-problem-boy.png")
+```
+
+Now with an optimized adjust and a middle 50% heuristic we get
+
+```{r, fig.cap="New Cetner Heuristic", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/problem-boy-solved.png")
+```
+
+Which is a much better estimate. Comparing the differences between groove estimates and the manually identified truth for the BCP, Lasso, and Hough methods we receive the following two density plots of differences.
+
+```{r, fig.cap="Left Groove Difference Estimates", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/left-groove-comparison.png")
+```
+
+```{r, fig.cap="Right Groove Difference Estimates", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/right-groove-comparison.png")
+```
+
+</details>
+
 
 ##### LASSO Method  
 

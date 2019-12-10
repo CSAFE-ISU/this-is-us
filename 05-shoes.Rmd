@@ -14,8 +14,7 @@ Goal:
 - Describe database function
 - Publicize data for analysis by others in the community
 
-#### Methods and Data Description {-#lss-paper-methods}
-Methods and data description handed off to Alicia for editing
+Accompanied by Figshare upload of static data sets (grouped by type). 
 
 #### Data Analysis Tools {-#lss-paper-analysis}
 - Working with the `EBImage` package - very fast processing of images

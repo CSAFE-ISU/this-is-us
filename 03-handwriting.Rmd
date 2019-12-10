@@ -16,17 +16,17 @@ The handwriting project has four major focuses:
 ## Data Collection
 We are conducting a large data collection study to gather handwriting samples from a variety of participants across the world (most in the Midwest). Each participant provides handwriting samples at three sessions. Session packets are prepared, mailed to participants, completed, and mailed back. Once recieved, we scan all surveys and writing samples. Scans are loaded, cropped, and saved using a Shiny app. The app also facilitates survey data entry, saving that participant data to lines in an excel spreadsheet.
 
-As of September 2019, Marc and Anyesha are the primary contacts for the study. <span class="new">Phase 2 recruiting is/will be underway.</span>
+As of September 2019, Marc and Anyesha are the primary contacts for the study. Phase 2 recruiting is underway.
 
-<p class="new"><strong>The first 90 complete writers were published:</strong><p>
-> <span class="new">Crawford, Amy; Ray, Anyesha; Carriquiry, Alicia; Kruse, James; Peterson, Marc (2019): CSAFE Handwriting Database. Iowa State University. Dataset. https://doi.org/10.25380/iastate.10062203.</span>
+<strong>The first 90 complete writers were published:</strong>
+> Crawford, Amy; Ray, Anyesha; Carriquiry, Alicia; Kruse, James; Peterson, Marc (2019): CSAFE Handwriting Database. Iowa State University. Dataset. https://doi.org/10.25380/iastate.10062203.
 
-<p class="new">Anyesha and I worked on a variety of <strong>data quality checks and batch processing</strong> prior to publication. Scanner cuts a portion of the left side of the documents off sporadically. Survey date checks. Batch removal of header.<p>
+Anyesha and I worked on a variety of <strong>data quality checks and batch processing</strong> prior to publication. Scanner cuts a portion of the left side of the documents off sporadically. Survey date checks. Batch removal of header.
 ```{r, fig.cap="Batch process samples: rotate 0.05 degrees, turn black line pixels white, crop 450 pixels from top (under QR code), rename.", out.width="90%", fig.keep="hold", fig.align='center'}
 include_graphics(c( "images/handwriting/amy/promptimage.png"))
 ```
 
-<p class="new"> We hit a bump with the ISU Office for Responsible Research (ORR). </summary> They had concerns with the demographic variables we collected on the surveys and wanted to publish. We "negotiated'' and settled on the following survey information.<p>
+We hit a bump with the ISU Office for Responsible Research (ORR). </summary> They had concerns with the demographic variables we collected on the surveys and wanted to publish. We "negotiated'' and settled on the following survey information.
 
 ```{r, fig.cap="", out.width="110%", fig.keep="hold", fig.align='center'}
 include_graphics(c( "images/handwriting/amy/surveydata_header.png"))
@@ -34,7 +34,9 @@ include_graphics(c( "images/handwriting/amy/surveydata_header.png"))
 <br>
 
 <details>
-<summary><span class="new">A data article has been submitted to [Data in Brief](https://www.journals.elsevier.com/data-in-brief). </span></summary>
+<summary><span class="new">A data article has been submitted to [Data in Brief](https://www.journals.elsevier.com/data-in-brief).</span>  <i>"I think this manuscript should probably be accepted providing some small revisions are made. Overall it is a very high quality data article."</i>   
+ - Sample selection method details.  
+ - Link to Shiny application for scan and survey processing.  </summary>
 <br>
 ```{r, fig.cap="", out.width="90%", fig.keep="hold", fig.align='center'}
 include_graphics(c( "images/handwriting/amy/datainbrief_header.png"))
@@ -61,21 +63,22 @@ For an input document, functions in the package give back a list of glyphs with 
 include_graphics(c( "images/handwriting/amy/handwriter_slopecalc.png"))
 ```
 
+<br>
 
-<span class="new">New measurement, *compactness*, by James.</span>
+*Compactness measuremnt*, by James.
 
 
 ```{r, fig.cap="A visual of the ''compactness'' calculation for glyphs.", out.width="90%", fig.keep="hold", fig.align='center'}
 include_graphics(c( "images/handwriting/amy/compactness.png"))
 ```
 
-We are currently working to incorporate the cluster grouping assignments into the package. This will be complete pending creation of a template. <span class="new">Code is running on the `csafe-01` server for template creation. </span>
+We are currently working to incorporate the cluster grouping assignments into the package. This will be complete pending creation of a template.
 
 ## Statistical Analysis
 ### Clustering
 
  
-Paper submitted (September 2019)!
+Paper submitted in September 2019.
 
 ```{r, fig.cap="", out.width="70%", fig.keep="hold", fig.align='center'}
 include_graphics(c( "images/handwriting/amy/clusterpaper_header.png"))
@@ -163,6 +166,28 @@ During clustering, outliers are considered glyphs that are at least $T_o$ distan
 
 ```{r, fig.cap="Cluster of outliers.", out.width="80%", fig.keep="hold", fig.align='center'}
 include_graphics(c( "images/handwriting/amy/HW_Outliers.png"))
+```
+
+
+#### <span class="new"> CVL + CSAFE Template Development </span>
+<span class="new">Template development on 23 CVL documents and 77 CSAFE documents, each from a unique writer. </span>
+
+1. Starting values.
+2. Changes to the distance measurement to emphasize shape, and focus less on character size.
+    - $\frac{1}{2}\times$ **Stretch** (straight line distance component, ~ size)
+    - 1 $\times$ **Shift** (nearest endpoint)
+    - 2 $\times$ **Shape**
+    - (ghost edge comparisons)$^2$
+3. A sample template is picture below. 
+    - 27 CVL documents (6 unique), 73 CSAFE documents (2 unique)
+    - Currently working on 20+ algorithm runs with a variety of starting values to select final template.
+
+```{r, fig.cap="Cluster Members and Exemplars.", out.width="80%", fig.keep="hold", fig.align='center'}
+include_graphics(c( "images/handwriting/amy/d100_sm0_seed65_exemplars.png"))
+```
+
+```{r, fig.cap="Cluster Means.", out.width="78%", fig.keep="hold", fig.align='center'}
+include_graphics(c( "images/handwriting/amy/d100_sm0_seed65_means.png"))
 ```
 
 
@@ -307,7 +332,7 @@ df %>% gather(key = "GammaDist", value = "value", -x) %>%
 <strong> Results </strong>    
 
 The mixing component gives insights into writing style.
-```{r, fig.cap="Average $ \rho_w $ value for each writer.", out.width="70%", fig.keep="hold", fig.align='center'}
+```{r, fig.cap="Average \rho_w value for each writer.", out.width="70%", fig.keep="hold", fig.align='center'}
 include_graphics(c( "images/handwriting/amy/mixprior_rhosamps2.png"))
 ```  
 
@@ -321,6 +346,27 @@ Evaluate the posterior probability of writership for each of the holdout documen
 include_graphics(c( "images/handwriting/amy/CVL_w27_h4_cluster40_mixparam_grid.png"))
 ```
 
+
+#### <span class="new"> Model #2, CVL + CSAFE Template </span>
+The following analysis was done for the first 20 CSAFE writers.
+
+- Training docs: s01_pLND_r01, s01_pLND_r03, s01_pWOZ_r02, s01_pPHR_r03  
+- Testing doc: s01_pLND_r02
+
+```{r, fig.cap="Average relative frequency of cluster fill for the 8 most common clusters.", out.width="90%", fig.keep="hold", fig.align='center'}
+include_graphics(c( "images/handwriting/amy/csafe20_relfreqbyrho_template65_first8clusters.png"))
+```
+
+Posterior probability results.
+```{r, fig.cap="Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one.", out.width="60%", fig.keep="hold", fig.align='center'}
+include_graphics(c( "images/handwriting/amy/csafe20_postprobs_template65.png"))
+```
+
+Not surprising. Working on:
+
+- More writers (need to go through handwriter)
+- Testing on the phrase prompt
+- Including not yet seen CVL writers in analysis.
 
 
 
@@ -395,15 +441,13 @@ Presenting author is in bold.
     - Authors: Nick Berry and Amy Crawford
     - Submitted to The Annals of Applied Statistics in September 2019.
     
-- <strong>"Bayesian Hierarchical Modeling for Forensic Handwriting Analysis"</strong>
-    - Authors: Amy Crawford, Alicia Carriquiry, and Danica Ommen
-    - In preparation for submission to PNAS
-    
 - <strong>"A Database of Handwriting Samples for Applications in Forensic Statistics"</strong>
     - Authors: Anyesha Rey, Amy Crawford, and Alicia Carriquiry
-    - In preparation for submission to Data in Brief
-   
-   
+    - Submitted to Data in Brief in October 2019.
+    
+- <strong>"Bayesian Hierarchical Modeling for Forensic Handwriting Analysis"</strong>
+    - Authors: Amy Crawford, Alicia Carriquiry, and Danica Ommen
+    - In preparation for submission to PNAS.
 
 ### Talks
 - <strong>"Statistical Analysis of Handwriting for Writer Identification"</strong>
@@ -480,8 +524,5 @@ Presenting author is in bold.
 
 ### Undergraduates
 
-- Anyesha Rey (data collection)
+- Anyesha Ray (data collection)
 - James Taylor (feature extraction)
-
-
-

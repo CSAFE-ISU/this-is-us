@@ -768,15 +768,22 @@ This year, I'll be studying our bullet land "pipeline" here at CSAFE, as well as
 
 The code in `bulletxtrctr` is already really well set up as a data "pipeline", so now we are conceptualizing the best way to wrap the pipeline and keep track of what decisions are made along the way. 
 
-We are using few resources to conceptualize and plan the pipeline work, including:  
+The current work underway on this project is focused on developing a package in `R` that will assist users in keeping track of data science projects. We believe it will be particularly useful for those developing a data science process and tools to complete that process. This is most obviously the case for a lot of the ongoing projects at CSAFE; for example: 
 
-1. `tidymodels`, a part of the `tidyverse` focused on design matrices and reproducibility of modeling
-2. `drake`, an R package by Will Landau which helps cache information and keep track of steps in a pipeline  
-     - We are investigating how well this scales to ``big data".  
-     - <p class="new"> It does not scale well. </p>
-3. Some pipeline/plumbing papers by Hadley Wickham, Heike Hofmann, Dianne Cook, and others  
-     - These focus on interactive graphics and updating data/plotting objects with interactivity  
-4. All of the existing tools in the "bulletverse"; `x3ptools`, `bulletxtrctr`, `grooveFinder`, etc.
+1. The `bulletverse`, packages in development include `x3ptools`, `bulletxtrctr`, and `grooveFinder`. 
+     - Methods are worked on at multiple stages (e.g., groove ID methods, work on modeling bullet scores)
+     - Multiple people are on the project and may make changes to things that impact other stages
+     - We want to keep track of when something (e.g., a function, model object, parameters) changes that will impact our analyses/scripts.
+2. `handwriter`, a package which processes handwritten documents and extracts data features to be used in modeling 
+     - If processing code changes, how does that impact the features that are extracted? 
+     - Can you check entire package for changes to see if you need to re-run processing?
+3. `ShoeScrubR`, `shoeprintr` packages... etc. 
+
+Almost all of the methods developed here at CSAFE use non-traditional data that requires processing and feature generation before modeling/analysis can begin. These processes are continually improved as projects move forward, and thus as changes happen we need to be able to assess: 
+
+- The impact of differing processing approaches and how that changes results  
+- Whether results need to be re-run after changes are made in a package (time saver!)  
+- Confidence in reporting results: how much uncertainty is introduced by manipulating the data in a certain way?  
 
 
 Earlier this year, we designed and collected a bullet scanning variability study of 9 bullets. I'm working on formally modeling the variability at the signature level, taking two major approaches:   

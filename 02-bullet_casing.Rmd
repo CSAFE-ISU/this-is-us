@@ -30,6 +30,25 @@ Those are:
 
 ## Data Collection
 
+Overview in numbers:
+
+**scans from bullet lands (about 25,000 total)**
+
+  - LAPD: 4 bullets per barrel for 626 firearms
+  - LAPD sub-study: 4 bullets per barrel for 92 out of 626 firearms (different ammunition)
+  - Variability study: 5 operators x 2 machines x 5 time points x 3 types of bullets x 3 bullets (~450 bullets)
+  - Hamby Sets 10, 36, 44, 224, and a clone (35 bullets each)
+  - Houston test sets (6 kits with 25 bullets each)
+  - Houston persistence: 8 barrels with 40 fired bullets each
+  - St Louis persistence: 2 barrels with 192 fired bullets each
+  - most of the CSAFE persistence study 
+    
+**and cartridge cases**
+
+  - DFSC (about 2000)
+  - getting ready to scan cartridges for CSAFE persistence
+
+
 ### LAPD
 
 All bullets are collected by Srinivasan Rathinam, LAPD. 

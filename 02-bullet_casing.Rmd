@@ -1331,6 +1331,79 @@ include_graphics("images/cartridge_cases/lowCMCCount_example2.png")
 ```
 </details>
 
+<details>
+<summary>
+Joe 1/17 Update: Broad overview of project.
+</summary>
+
+A cartridge case is a type of pre-assembled firearm ammunition packaging a projectile (e.g., bullet, shots, or slug). Below is an image showing different examples of cartridge cases.
+
+```{r, out.width="30%",echo=FALSE,fig.align='center',fig.cap="Various cartridge cases"}
+knitr::include_graphics("images/cartridge_cases/11-21-Spotlight/cartridgeCaseExamples.jpg")
+```
+
+When a firearm is discharged, the projectile stored in the cartridge case is propelled down the barrel of the firearm. In response, the rest of the cartridge case that remains inside of the firearm is forced towards the back of the barrel (for every action, an equal and opposite reaction). The force with which the remaining cartridge case (hereby referred to as simply "the cartridge case") is propelled backwards causes it to strike against the back wall of the firearm's barrel. This area is commonly referred to as the "breech face." An example of a breech face from a 12 GAUGE, single-shot shotgun is shown below.
+
+```{r, out.width="30%",echo=FALSE,fig.align='center',fig.cap="Breech face of a shotgun"}
+knitr::include_graphics("images/cartridge_cases/11-21-Spotlight/breechFace.jpg")
+```
+  
+  The hole in the center of the breech face is where the firing pin shoots out to strike the cartridge case primer, which in turn ignites the propellant within the cartridge case causing an explosion that propels the bullet forward down the barrel. As you can see from the image above, there are markings (e.g., manufacturing imperfections) on the breech face. When the cartridge case slams against the breech face during the firing process, these markings can be "stamped" into either the primer of the cartridge case or the cartridge case itself. The markings left on a cartridge case from the firearm's breech face are called "breech face impressions." The image below shows the primer of a shotshell fired in the above shotgun. You can clearly see that some impressions were left on the primer during the firing process.
+  
+```{r, out.width="30%",echo=FALSE,fig.align='center',fig.cap="Breech face impression on a cartridge case"}
+knitr::include_graphics("images/cartridge_cases/11-21-Spotlight/breechFaceImpression.jpg")
+```
+
+The image below shows how the breech face scans come in their raw format. We want to preprocess the images to remove the firing pin impression in the center and accentuate the firing pin impression.
+
+```{r, out.width="100%",echo=FALSE,fig.align='center',fig.cap="A pair of known match cartridge case scans"}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/rawBF.png"))
+```
+
+Tong et al. propose this cell-based method for quantifying similarity between two breech face impressions. For a given pair of images (like the two shown below), the first image is divided into a 7x7 grid. Each cell in this grid is then compared to a region in the second image. Because the two images aren't assumed to be translationally aligned, the region in the second image will be larger than its associated cell in the first image so that different $(dx,dy)$ translation pairs can be considered.
+
+```{r, out.width="80%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/im1_im2_cellComparison.png"))
+```
+
+Below is a gif showing an example of different pairs of image 1 cells (left) and image 2 regions (right).
+
+```{r, fig.cap="(Left) 100x100 cells from Image 1. (Right) 200x200 cells from Image 2.", out.width="40%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/im1_standardCells.gif",
+                          "images/cartridge_cases/11-21-Spotlight/im2_largerCells.gif"))
+```
+
+The two-dimensional CCF is used to quantify similarity between two breech face impressions. Below are two examples illustrating how to interpret the two-dimensional CCF.
+
+```{r, out.width="80%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/examplePerfectCCFMap.png"))
+```
+
+Below is an example showing the CCF map associated with (left) an image 1 cell and (right) its associated image 2 region. We can see that the CCF hits a maximum of about .5 around $(25,0)$. This is, unfortunately, not nearly the magnitude of correlation that we should expect based on the results discussed in Tong et al. (2015). It sounds like the correlation values they were getting from their comparisons were consistently above .55. The CCF maps that we have calculated are rarely above .55. Our hunch is that they are using the CCF to extract the $(dx,dy)$ pairs, but then computing the raw, pixel-wise correlation between the two images once they translate appropriately.
+
+```{r, out.width="80%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/cellCCFMap.png"))
+```
+
+The image below shows how the smaller breech face impression image aligns with the larger breech face impression image after being translated by the CCF-detected $(dx,dy)$ values.
+
+```{r, out.width="80%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/beforeAndAfterShiftExample.png"))
+```
+
+The animation below shows how the two breech face impressions compare for various rotations of the second breech face impression.
+
+```{r, out.width="60%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/bfRotationComparison.gif"))
+```
+
+We can keep track of each cell's vote for the rotation and translation values at which it achieved its maximum correlation with its associated region in image 2. Again, we would expect that the true rotation and translation values should receive a large number of votes. We can see below a histogram of the theta values voted for by the cells in the left image above. We can a clear mode at a $\theta$ value slightly less than -20. Based on the gif of the rotating breech face above, it appears that the automatic CCF-based "votes" agree with what we can visually see to be the best rotation value to align the two images.
+
+```{r, out.width="80%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/CMCs.png"))
+```
+</details
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
 The moified Chumbley non-random algorithm is a statistical non-paramaetric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segement to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 

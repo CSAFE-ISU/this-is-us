@@ -11,7 +11,7 @@ output:
 significantly, but this information might be relevant for others 
 in the future.**
 
-**See [here](run:/images/foundations/nate/RA2019_manuscript.pdf) 
+**See [here](https://github.com/CSAFE-ISU/this-is-us/blob/master/images/foundations/nate/RA2019_manuscript.pdf) 
 for the current draft of the paper from this work.**
 
 ### Introduction
@@ -282,6 +282,10 @@ of the score KL divergence.
 I have assumed in the previous section that the order of consideration of hypotheses should not affect the ordering of the data vector $E = (e_u,e_A,e_B)$ or of the ordering of these arguments to the score function. This seems reasonable, but perhaps [REFS] would argue that considering $H_A$ first, $E = (e_u, e_A, e_B)$ and $s(E) = s(e_u, e_A, e_B)$, but considering $H_B$ first, $E = (e_u, e_B, e_A)$ and $s(E) = s(e_u, e_B, e_A)$. In this case, $SLR_{A,B} \neq \frac{1}{SLR_{B,A}}$ because we switch the order of arguments to the score from one SLR to the other. Note that, however, if we relax the independence assumptions of independence under either $H_A$ or $H_B$, then even the LR becomes "incoherent" because $\frac{p(e_u, e_A, e_B|H_A)}{p(e_u, e_A, e_B|H_B)} \neq \frac{p(e_u, e_B, e_A|H_A)}{p(e_u, e_B, e_A|H_B)}$ in general.
 
 It is true that the LR depends only on the evidence of the unknown source _in this specific scenario_, but that is a consequence of modeling assumptions and not of LR paradigmatic principals. 
+
+## Copper Wire Synthetic Data
+
+![log-LR versus log-SLR scatterplots under hypothesis P and D using four types of SLRs. The first three scores correspond to using different statistics to aggregate dissimilarity scores in the alternative source population. The fourth score is essentially the predicted probability of Hypothesis P being true given the first three scores based on a sparse Gaussian process model. We try min, average, and max, corresponding to rows 1-3, respectively. Results are based on 1,000 observations for each hypothesis due to training time for the sparse Gaussian process.](images/foundations/nate/multisource_slr_vs_lr_gp.png)
 
 ## Optimal matching problem
 

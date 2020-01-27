@@ -1,6 +1,18 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Theoretical foundations
 
 ## Common Source vs Specific Source Comparison via Information Theory
+
+**Please note that this project has changed somewhat 
+significantly, but this information might be relevant for others 
+in the future.**
+
+**See [here](run:/images/foundations/nate/RA2019_manuscript.pdf) 
+for the current draft of the paper from this work.**
 
 ### Introduction
 **Central Goals**

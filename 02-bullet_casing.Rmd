@@ -1409,13 +1409,47 @@ We can keep track of each cell's vote for the rotation and translation values at
 ```{r, out.width="80%",echo=FALSE,fig.align='center'}
 knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/CMCs.png"))
 ```
-</details
+</details>
 
 <details>
 <summary>
 Joe 12/27 Update: I've been starting to write up an article that we hope to submit to the R Journal to introduce the MARCC (Matching Algorithms in R for Cartridge Cases) package (name pending). It's been rather time intensive, but I've also been re-running the algorithm with different pre-processing steps to determine how sensitive the final results are to how we pre-process the images. It seems like they are rather sensitive to the pre-processing procedure used.
 </summary>
 
+```{r}
+knitr::include_graphics("images/cartridge_cases/paperHeader.PNG")
+```
+
+
+I thought I would share a few of the CMC distributions made for different pre-processing steps. These pre-processing steps include extracting the breech face impression region from the rest of the image, which may be done by-hand (Tong et al. (2014/15) may do this), using the RANSAC method (Xiao Hui and I have been doing this), or using a 2nd order robust Gaussian regression filter (Chen et al. (2017) does this). Further complications come in the form of how these methods are implemented across various MATLAB and R functions (I have yet to find a Gaussian Regression filter implemented anywhere in R or MATLAB) and whether they provide the same results. After selecting the breech face impression region from the scan, no paper I have come across details how they then resize their images to their desired dimension. Tong et al. resizes to 700x700 in 2014 and 560x560 in 2015. Chen et al. uses resizes to 600x600 in 2017. As discussed below, the resizing method (nearest-neighbors, linear, lanczos) does seem to affect the final results.
+
+To recap, we are supposed to call two cells a "match" (or "congruent matching cells") if they pass a few criteria. These criteria are based in part on whether their associated translation and rotation "votes" are close to the consensus-based votes across all cells in the image. The motivation here being that we would expect the cells in a pair of truly matching cartridge cases to all vote for approximately the same translation/rotation values to achieve maximum similarity. Another criterion is that the cell pair must reach some minimum correlation cut-off (all of these criteria vary depending on the paper).
+
+Each of the following plots were subject to the same criteria and are based on the same data, so they should be the same plot. As we can clearly see, there is certainly some variability in how the CMC counts are distributed.
+
+This is an example from Chen et al. (2017) that the rest of the plots are trying to emulate. This plot was made using reportedly images downsampled to size 600x600 and an 8x8 grid of cells. Again, it's unclear how this downsampling was performed since the raw surface data often have dimensions near 600x600, but never perfectly 600x600. The plots following include various resizing/padding techniques used to try to get this nominal 600x600 image size.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/kmCMCs_Chen.png")
+```
+
+This is a plot based on images that were resized to 560x560 (the image size specified by Tong et al. (2015)) using linear interpolation.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/kmCMCs_560x560_linearInterp.png")
+```
+
+This is a plot based on images that were resized to 600x600 (the image size specified by Chen et al. (2017)) using the `x3ptools::resize_x3p()` function followed by padding the image with NAs until it reaches a size of 600x600.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/kmCMCs_600x600_sample_x3p.png")
+```
+
+This final distribution is the most promising of the ones I've made. This distribution is also based on images that were resized using `x3ptools::resize_x3p()`. However, rather than padding the exterior of the image with NA rows/cols until it achieves the nominal 600x600 size, the image is first split into an 8x8 grid of cells and each cell is individually padded until it reaches dimension 75x75.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/kmCMCs_originalSize_downSampled.png")
+```
 
 </details>
 

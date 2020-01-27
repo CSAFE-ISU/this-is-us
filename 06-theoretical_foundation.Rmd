@@ -285,7 +285,7 @@ It is true that the LR depends only on the evidence of the unknown source _in th
 
 ## Copper Wire Synthetic Data
 
-![log-LR versus log-SLR scatterplots under hypothesis P and D using four types of SLRs. The first three scores correspond to using different statistics to aggregate dissimilarity scores in the alternative source population. The fourth score is essentially the predicted probability of Hypothesis P being true given the first three scores based on a sparse Gaussian process model. We try min, average, and max, corresponding to rows 1-3, respectively. Results are based on 1,000 observations for each hypothesis due to training time for the sparse Gaussian process.](images/foundations/nate/multisource_slr_vs_lr_gp.png)
+![Score KL divergences and Monte Carlo standard errors for five randomly generated synthetic copper wire data sets under $H_p$ and $H_d$.](images/foundations/nate/cw_results_NA50.png)
 
 ## Optimal matching problem
 

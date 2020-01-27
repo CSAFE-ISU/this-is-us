@@ -30,6 +30,25 @@ Those are:
 
 ## Data Collection
 
+Overview in numbers:
+
+**scans from bullet lands (about 25,000 total)**
+
+  - LAPD: 4 bullets per barrel for 626 firearms
+  - LAPD sub-study: 4 bullets per barrel for 92 out of 626 firearms (different ammunition)
+  - Variability study: 5 operators x 2 machines x 5 time points x 3 types of bullets x 3 bullets (~450 bullets)
+  - Hamby Sets 10, 36, 44, 224, and a clone (35 bullets each)
+  - Houston test sets (6 kits with 25 bullets each)
+  - Houston persistence: 8 barrels with 40 fired bullets each
+  - St Louis persistence: 2 barrels with 192 fired bullets each
+  - most of the CSAFE persistence study 
+    
+**and cartridge cases**
+
+  - DFSC (about 2000)
+  - getting ready to scan cartridges for CSAFE persistence
+
+
 ### LAPD
 
 All bullets are collected by Srinivasan Rathinam, LAPD. 
@@ -93,43 +112,161 @@ include_graphics(c("images/yawei/sam_max_1.PNG"))
 
 Possible dependence structure in land-land comparasions:
 
-Fact first: 
+Assume beta distributions for the ccf for both known mathces and known non-matches. For the real known match cases, we consider a mixture distribution of two/three beta distribution.
 
-1. Six lands on the bullet engraved by different parts of the barrel? So they are essentially different?
-
-2. Any additional similarity among different lands on a same bullet? or more generally, lands from the same barrel?
-
-```{r, fig.cap="Inside gun barrel from google: johan-swanepoel", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/gun-barrel-from-inside-johan-swanepoel.jpg"))
+```{r, fig.cap="KM three components for all data", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-three-alldata.png"))
 ```
 
-Assume beta distributions for the ccf for both known mathces and known non-matches. For the real known match cases, we consider a mixture distribution of two beta distribution.
-
-I'm working on those concepts mixture model, mixture distribution, beta-mixture model, mixture beta regression. And try to fit the model by R packages: mixtools, flexmix, betareg. I'm trying to find a way using the above mentioned methods and packages.
-
-```{r, fig.cap="beta mixture fit seperately", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/betafit3.PNG"))
+```{r, fig.cap="KNM two components for all data", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-two-alldata.png"))
 ```
 
-```{r, fig.cap="beta mixture fit including some prior information", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/betafift2.PNG"))
+```{r, fig.cap="common component", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/commoncomp.png"))
 ```
 
-```{r, fig.cap="beta mixture fit for land-land KM", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/landp1.PNG"))
+Ten-fold-cross validation (no validation yet), check the model estimator sensibility
+
+```{r, fig.cap="KM ten-fold models for two components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-two.png"))
 ```
 
-```{r, fig.cap="beta mixture fit for land-land KNM and KM comp1", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/landp2.PNG"))
+```{r, fig.cap="KM ten-fold models for three components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-three.png"))
 ```
 
-```{r, fig.cap="log-likelihood ratio for KNM and KM", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/knm-km-entire.PNG"))
+```{r, fig.cap="KNM ten-fold models for one component", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-one.png"))
 ```
 
-```{r, fig.cap="log-likelihood ratio for KNM and KM_Comp2", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/knm-km-comp2.PNG"))
+```{r, fig.cap="KNM ten-fold models for two components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-two.png"))
 ```
+
+Increasing sample size: 1, 2, 6, 12, ... number of barrels
+
+```{r, fig.cap="KM increasing sample models for two components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-two-cum.png"))
+```
+
+```{r, fig.cap="KNM increasing sample models for one components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-one-cum.png"))
+```
+
+```{r, fig.cap="KM increasing sample for first component", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-c1-cum.png"))
+```
+
+More on the weight
+
+```{r, fig.cap="Prior weight on components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/priorboxplot.png"))
+```
+
+More on one barrel case
+
+```{r, fig.cap="KM one barrel model for the frist ten barrels", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/onebarrel.png"))
+```
+
+Some conclusions from current plots:
+
+1. Generally, the fits are stable in both ten-fold-cross validation and increasing sample cases
+2. In ten-fold model, group8 model behaves a little different from others when in three components case
+3. In increasing sample models, the one barrel model is not stable, but the one in our case is still a rarare case
+4. The three components model for KM is less stable than two components one especially in small sample cases
+5. Two components model for KNM is not stable in small sample case(in terms of weight)
+
+After fitting Beta mixture models with different number of components and analysis with the actual fit (more on this). We finally choose Beta mixture models with two components for both KM and KNM distributions of land-land comparisons. Then we will make further inference about the land-land comparisons based on that. Specifically, we will use log likelihood ratios to quantify how strong our evidence is to support that two lands are from the same source.
+
+To evaluate the Beta mixture models for KM and KNM, we produce ROC curves using log likelihood ratios. We also evaluate the models in different cases to see how stable the fits are and how effective the procedure is to classify the land-land comparisons. Since the log likelihood ratios require both KM and KNM models, we will control the KNM model as the full-data fitted KNM model and focus mainly on the KM models in the following sections unless otherwise specified such as in the one-barrel comparisons later where we use the KNM fitted from within barrels with three bullets.
+
+We produced ROC curves in three different cases:
+
+1)	Cross validation KM models and full data KNM model. Each KM model is fitted with 54 barrels, 1944 land-land comparisons.
+
+2)	Different size KM models and full data KNM model. KM models has sample size from 1 to 60 barrels. (1, 2, 6, 12, …, 60 as stated before)
+
+3)	One-barrel KM models and full data KNM model. One-barrel KM models use the first ten barrels.
+
+From the ROC curves, we can easily see how stable our procedure is in terms of the classification performance. Note that those ROC curves start with the y-axis higher than 0.5 (which may be changed later). And the TPR(y-value) goes up steeply to about 0.75 with almost no change in FPR(x-value). Then the curve gradually goes up with different rates. There are two significant points from the ROC curves: 1) the pattern is very stable in the ROC curves across different cases and within each case; 2) the models perform very well. And also note that when we produce ROC curves, we need to get test sets and specify sample size and proportion. Here we generate the test set from the full data randomly, and set KM/KNM ratio as 200/1000. The same set is used in all three ROC plots. We choose such a ratio to make the true positive classification more difficult. If we set KM/KNM as 1000/1000, the curves will be smoother and get rid of those concave regions in current plots and of course, perform a little better in those concave regions but not significantly different in overall performance and pattern.
+
+
+```{r, fig.cap="ROC-cv-models", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/roc-cvmodels-new.png"))
+```
+
+```{r, fig.cap="ROC-different-size-models", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/roc-differentsize-new.png"))
+```
+
+```{r, fig.cap="ROC-one-barrel", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/roc-onebarrel-new.png"))
+```
+
+
+To summarize the model fits we have, we compare several important parameters in the following tables. We primarily focus on how stable the model we have with fixed sample size and across different sample sizes. 
+
+From the KM-table and KNM-table, we have the following observations: 1) The weight of the components is not stable in terms of large standard errors in both KM and KNM cases with small sample sizes. 2) The mean values of the distributions (parameter mu) are relatively stable, especially for the primary components (first component for KNM and second component for KM). 3) The variance of the estimated distributions (parameter phi) is not stable, which is reasonable because it takes care of the variation of the data in each fit. 4) The variance of the estimated distributions (parameter phi) decreases as sample size increases. To better understand how well the model fit is and how stable it is we should also refer to the actual curves to help us see what those parameters actually mean in the curves. And I would say three barrels may be a safe minimum sample size to get a stable fit across different cases in terms of handling differences and variations existing in data sets but it’s not the minimum sample size required to make good classifications. 
+
+
+```{r, fig.cap="KM-table", out.width="100%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-table1.PNG"))
+```
+
+```{r, fig.cap="KNM-table", out.width="100%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-table1.PNG"))
+```
+
+We’re also interested in the variation of mean values of KM ccf in different barrels. The following boxplot with the global box as the right most one is shown for this comparison. From this plot, the constant mean value assumption may be challenged, however, we must take the practice work of scan and identification into considerations when making such conclusions.
+
+```{r, fig.cap="ccf in each barrel", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/ccfineachbarrel.png"))
+```
+
+To show how our model works in a single barrel case, we conduct the model fit as in the real case. We fit the KM and KNM models with three bullet comparisons (18 KM and 135 KNM land-land ccf respectively), and conduct a test on those comparisons with the forth bullet (18 KM and 105 KNM land-land ccf respectively). We conduct the above procedure in a LOO frame work, i.e. to leave one bullet out each time. The ROC curves for two barrels are shown as follows. We can see the classification results are almost as good as the previous ones.
+
+```{r, fig.cap="within barrel ROC for barrel 42 and 56", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/withinbarrel4256roc-new.png"))
+```
+
+Error Rate Control and Cutoff
+
+Based on our estimated models for KM and KNM, we hope to construct a test statistic to quatify how likely a new bullet has the same source with our testing bullets. We start from the land-land comparison and finally reach a bullet-bullet comparison based land-land comparison.
+
+We start with the well-known log-likelihood ratio, and see how well it works in our case. We define the statistic as: 
+
+$$T = log(\frac{KM}{KNM})$$
+
+In which case, we reject the null hypohesis that the new bullet is from different source from our testing bullets when we have a large value for $T$. 
+
+First we have a look at how this log-likelihood ratio statistic changes with respect to the ccf score we calculated.
+
+```{r, fig.cap="loglr-fau42", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/loglr-fau42.png"))
+```
+
+Clearly, there is a potential issue with the log-likelihood ratio since it is not monotone w.r.t ccf, which means a larger ccf may lead to a smaller test statistic sometimes. As we can see when ccf is 0.45, the log-lr is 0.127 > 0, however it goes below 0 when ccf increase to 0.523 (the cutoff with type one error rate as 0.05). We can also find another issue from a different aspect. If we set the type one error as 0.05 (which should be smaller in practice), then we find the ccf with this error rate from KNM (null hypothesis) is 0.523. Then the log-likelihood ratio we calculated at this point is -1.11, which means we have larger likelihood for KNM than KM even with this large enough cutoff in terms of the type one error rate. These two criteria give us contradicted results. The cutoff we set according to the usual type one error rate contradicted with the one indicated by log-likelihood ratio. However, the lower tail of the KM distribution at this cutoff here is 0.12, which is twice as larger as 0.05, which is contradicted with the log-lr again.
+
+Another issue arised in the situation above is that the cutoff according to type one error is also a lower tail cutoff with small probability for the alternative hypothesis. We may be able to reject the null hypothesis, but it is not enough to support the alternative hypothesis and those hypotheses may be rejected both depending on your construction of hypothesis. This is a problem caused by the fact that these two hypothetic distributions are far apart from each other. A smaller type one error rate might help. But the issue with the log-likelihood ratio can be severe sometimes because we have non-unimodal distributions and the comparison may happen beween two components of KM distribution, which might result in a misleading result. Besides, the tail behavior is quite sensitive to the model assumption and estimation, which we should avoid to rely on.
+
+So we might consider a probability based criteria instead of a density based criteria. The odds ratio statistic we are going to construct is promising. Given a cutoff $x_0$, we can determine the probabilities to be classified as matches for both KNM and KM distributions. Denote these probabilities for KNM and KM are $p_1$ and $p_2$ respectively, we can get the following form of odds ratio given a cutoff:
+
+$$odds~ratio = \frac{p_2/(1-p_2)}{p_1/(1-p_1)}$$
+
+notice that the numerator descreases w.r.t $x_0$, and the denominator descreases w.r.t $x_0$. We are able to calculate a maximum value of the odds ratio w.r.t $x_0$, which gives us a reasonable cutoff of ccf to be classified into matches.
+
+Other possible ways to get a cutoff and control the error rate may be
+
+1) Set a reasonable type one error rate in advance and report the cutoff
+
+2) From the ROC curve
+
+An additional requirement may be $$(1-p_2) > Mp_1$$ for a large M.
+
+We are going to compare the above methods next.
+
 #### follow-up study 
 
 4 bullets per barrel for  96 of the original 626 Beretta firearms using different ammunition
@@ -206,10 +343,12 @@ Installation instructions and some basic usage can be found at https://heike.git
 #### Approaches to identify groove locations
 
 ##### Hough Transform Method for Identifying Grooves
+<details>
 
-Charlotte 9/5/19 Update:
+<summary>
+Charlotte 9/5/19 Update: State semester goals and iron out inconsistencies with 2-d and 3-d visualizations due to unit changes.
+</summary>
 
-Will fill in with more detail later
 
 **Current Goals**:
 - Iron-out issues with consistency of units with `get_hough_grooves`. I believe there are some issues translating from the 2-d visualization to the 3-d visualization that might have to do with inconsistent unit inputs? For Example
@@ -233,12 +372,17 @@ So either somethin is wrong with `get_mask_hough` or something is funky with the
   - Create graphical images to explain line selection method
   - Include 2-d and 3-d visualizations of Hough groove area identifications
   - Include crosscut visualization and comparison in results
-  
 
+</details>
+
+
+<details>
+<summary>
 Charlotte update 09/12/19: 
 This week I have been working on obtaining some results for the Phoenix set on Sunny.
 As a minor update the unit issues in `get_mask_hough()` are resolved ( I think). Below
 is an example of a nice image that has been generated using masks.
+</summary>
 
 ```{r, fig.cap=" Phoenix Gun1 A-9 B1 Land 4 generated at strength threshold of 0.99, initially did not generate estimates at the 0.999 or 0.995 level", fig.keep="hold",fig.align = "center"}
 knitr::include_graphics("images/bullets/Hough_project/mask_phoenix_nice.png")
@@ -278,10 +422,15 @@ For improvement before next week, I will investigate why there are 47 missing Ho
 predictions resulting in a score of 0 in these results and change the parameters in the
 `get_grooves_hough()` function to try and generate estimates for some of those missing values.
 
+</details>
 
+<details>
+
+<summary>
 Charlotte update 09/19/2019:
 
 This week we are trying to think of a new way for selecting Hough lines for bullet estimates. The previous method for selecting Hough lines was to find lines with x-intercepts at the top and bottom of the lands closest to the lower and upper one sixth of the bullet lands. However this process was highly dependent on score thresholding from the Hough transform which is frustrating when running a large number of bullets since if the right score threshold was not achieved, no result would be produced. So right now I'm working on a way of selecting Hough lines from the normalized Hough scores.
+</summary>
 
 To obtain a normalized Hough score I take the x-intercepts of each estimated Hough line generate and find the distance between the x-intercept at the top and the bottom of the land. This should give me the max possible score for each Hough line, rather than calculating based on theta. Then I take the Hough score and divide by this maximum to normalize scores between 0 and 1. Right now I am working on visualizing some of these results but my code is buggy because I'm getting negative values when I try to visualize the process using masks when I shouldn't. Here is an example of a bullet land using the old and new method. Really similar results although it would appear that the new resut places the Hough transform lines further in to interior of the land than the old results. So that's promising?
 
@@ -293,10 +442,17 @@ knitr::include_graphics("images/bullets/Hough_project/phoenix_current_hough_land
 knitr::include_graphics("images/bullets/Hough_project/phoenix_new_hough_land1.png")
 ```
 
+</details>
+
+<details>
+
+<summary>
 Charlotte Update 09/26/2019:
 
-Fixing the normalization of the scores for Hough grooves. Instead of dividing by the 
-geometric distance between the top and bottom intercepts of the bullet image. Now
+This week is focused on fixing the normalization of the scores for Hough grooves. So that the process can be automatic rather than rely on manual input for the score threshold.
+</summary>
+
+Instead of dividing by the geometric distance between the top and bottom intercepts of the bullet image. Now
 we only consider Hough lines that actually go through both the top and bottom of the land,
 therefore we can normalize each score by dividing the original hough score by the height
 of the image and multiplied by the cosine of theta which accounts for the difference
@@ -341,6 +497,7 @@ the old one on nearly every bullet land in the Hamby 252 demo set.
 knitr::include_graphics("images/bullets/Hough_project/Hamby_demo_crosscuts.png")
 ```
 
+</details>
 
 Charlotte Update 10/3/2019:
 
@@ -353,6 +510,241 @@ Finished up the application section of the Hough grooves vignette, need to fill 
 Now working on:
 - Finish visualization portion for the vignette
 - Expand testing for get_grooves_hough
+
+
+Charlotte Update 10/17/2019:
+
+- Finally finished up with the vignette, but need to finish one or two more explanation diagrams before first-pass is complete. Having trouble figuring out what the results section should really look like. 
+
+- Need to finish tests for get_grooves_hough. 
+
+<details>
+
+<summary>
+Charlotte Update 10/22/2019: For this weeks spotlight I will focus on motivating the reasoning behind the Hough project, a demonstration of mechanics or how the function actually works and maybe a few results.
+</summary>
+
+** Project Motivation **
+
+One of the main objectives of the bullet project is to develop algorithms that can match bullet lands based on a set of  features taken from a signature of a single bullet crosscut. In order to to extract these vital signatures we need to fit a robust loess to our crosscut data to remove the curvature inherent in each bullet land. However, there-in lies a problem. If the groove engraved areas are included in our fitting of the robust loess we observe boundary effects that negatively impact the accuracy of the extracted signature. 
+
+
+So a key goal in the bullet project is to be able to automatically identify the location of bullet grooves. Other projects in pursuit of this goal use a statistical approach to calculating the location of bullet grooves over a single crosscut. However, we are given an entire land scan in the form of an x3p file. By using low-level image algorithms like the Hough transform, we can almost make full utility of the x3p scan by estimating bullet grooves over the entire bullet land image instead of a single crosscut.
+
+** Hough Transform Mechanics**
+
+ Hough transforms are essentially a computer algorithm for detecting imperfect incidences of a known class of shapes in an image by finding aligned points. In our case, grooves are typically linear so we want the Hough transform to detect straight lines. Anyone who has looked at a bullet scan knows that the striae are also straight lines, so some image pre-processing is necessary for the algorithm to be able to distinguish between weaker appearing striae and the prominent groove features. Traditionally a gaussian blur and Canny Edge detection are performed to reduce the noise found in a gradient image. However, we have found that using Canny Edge detection is pretty much unnecessary for identifying grooves.
+
+```{r, fig.cap="Bullet land with Canny Edge detection", out.width = "80%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/bullets/Hough_project/canny-land.png"))
+
+```
+
+```{r, fig.cap="Same bullet land but only with gradient magnitude thresholding at the 99th percentile", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/strong-threshold.png")
+```
+
+Utilizing the cleaned up edges in our bullet image, the Hough transform cycles through every pixel of an image in an attempt to find aligned points on an edge. To do so, the Hough transform operates by transforming each point in a line into a different feature space. 
+
+```{r, fig.cap="Diagram of detecting aligned points by looking for intersections in the feature space. Source: 'How Hough Transform Works'- Thales Sehn Körting", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/feature-space.png")
+```
+
+Unfortunately, vertical lines have slopes in x that tend to infinity, which would make storing the results of the Hough transform impossible due to memory storage issues. So the Hough transform parameterizes lines in what is known as the Hessian Normal Form. 
+$$ \rho = x\ \cos(\theta) \ + \ y\ \sin(\theta)$$
+
+```{r, fig.cap="Hessian Normal Form of simple line over bullet image", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/hessian-example.png")
+```
+
+```{r, fig.cap="Gif of a Hough Transform Algorithm at work. Source: 'How Hough Transform Works' - Thales Sehn Körting", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/hough-detect.gif")
+
+```
+
+
+So the output of the Hough algorithm (in this package we utilize the `hough_lines` function from the `imager` package) is thus a set of $\rho$ and $\theta$ that define the detected lines but also a "score" which indicates the number of points that the algorithm detected for this particular edge estimation. This allows us to use thresholding and other means to select only the strongest candidates as groove estimates. Previous iterations of the `get_hough_grooves` function used a user-specified score thresholding level which made results highly variable dependent on the inputted score threshold. Now we use a normalized "score" to select the strongest line detected in the image. Once our lines for the left-hand and right-hand grooves are selected, we choose to output two functions that define our estimated grooves. To compute the parameters of our Hough line, we first find the location of where each line first intersects the bullet ("xtop") then we use our known "xtop" and our known "height" of the image to calculate "xbottom" using good ol' SOH CAH TOA. 
+
+```{r, fig.cap="Geometrically Calculating 'xbottom'", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/calc-xbottom.png")
+
+```
+
+The reason for calculating the top and bottom intersection points is so that we can derive a slope for our groove estimate in y. When we learned how to calculate slope in grade school, we were always taught to use "rise over run" which is slope in x. However when the lines are vertical, we are essentially dividing the height of our bullet land by 0 to obtain a slope. So it is numerically more stable to define the slope as $\frac{(\text{xtop - xbottom})}{\text{height}}$ so vertical lines simply have a slope of 0. 
+
+**Implementation **
+
+As far as implementation goes, the function `get_grooves_hough` takes care of the edge detection, Hough algorithm, and line selection. Similar to other methods used for detecting lines, the `get_grooves_hough` function has an adjust parameter that allows the user to specify how far inward they want to "nudge" the groove estimates. The default for the Hough transform is set at 10, however this needs to be experimented with for a variety of different bullets to find appropriate adjust levels.
+
+```{r eval = F}
+library(x3ptools)
+library(ggplot2)
+library(grooveFinder)
+
+x3p <- br411 #built into x3ptools
+
+# Get grooves fit for left and right groove from x3p
+grooves <- get_grooves_hough(x3p_to_df(x3p), adjust = 20)
+
+# Find optimized crosscut location, this may take some time
+crosscut <- x3p %>% bulletxtrctr::x3p_crosscut_optimize()
+
+# obtain a three dimensional visualization of the groove estimates
+a <- get_mask_hough(x3p, grooves)
+x3ptools::image_x3p(a)
+
+```
+
+```{r, fig.cap="3d visualization of example bullet", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/br411_3d.png")
+
+```
+
+** What's Next? **
+
+Fiddling with adjusts and how it affects score. To find an optimal adjust for the Phoenix set, I calculate the default Hough groove estimates then find what the estimate would be for a series of adjusts. Naively I have defined a new parameter called "difference_left" and "difference_right" which is simply the difference between the manually identified groove location at an optimized crosscut and our Hough estimate at a particular adjust level. For now, I have defined any negative values to indicate that the Hough estimate is further from the center than the identified truth. So we want to minimize these negative difference to better get rid of boundary effects. 
+
+```{r, fig.cap="Difference between the left hand Hough estimate and the truth at various adjusts", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/adjust-boxplot-left.png")
+
+```
+
+```{r, fig.cap="Difference between the righ hand Hough estimate and the truth at various adjusts", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/adjust-boxplot-right.png")
+
+```
+</details>
+
+
+<details>
+<summary>
+Charlotte Update 10/31/2019:
+This weeks work has been focused on figuring out why we have such extreme mis-identifications for the adjust in the Phoenix set and work on edits for the vignette.
+</summary>
+
+So last week I showed a series of boxplots that show the impact of adjust levels on the difference between the manual identification and the groove estimates from the Hough transform. There were a few significant outliers shown in the boxplot. Upon further investigation it seems as if the Hough transform simply does not find a groove on the right side of the land. 
+
+```{r, fig.cap="Adjust level at 100, image of bullet land with a right hand differene of -600", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/gun-L5-B3-l1.png")
+
+```
+
+```{r, fig.cap="What the Hough Transform Sees", out.width = "80%", fig.keep = "hold", fig.align="center", fig.show="hold"}
+knitr::include_graphics("images/bullets/Hough_project/hough-estimates-problem-boy.png")
+
+```
+
+I wanted to show scores this time around but I just found out from looking through my saved results that the number of observations produced differs for each adjust level and I don't know why. So there's some major error with my code that I need to work out before proceeding. 
+
+</details>
+
+<details>
+<summary>
+Charlotte Update 11/07/2019: This week a major bug was discovered in the code! Still working to look at different adjust impacts on score and now the `get_grooves_hough` function takes x3ps and dataframes as inputs.
+</summary>
+
+Below are the visualized scores for the left and right hand estimates at various adjust levels.
+
+```{r, fig.cap=" Phoenix Hough Scores for estimates with a series of 10 different adjusts for the Right Groove", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/rh-phoenix-adjust-scores.png")
+```
+
+
+```{r, fig.cap=" Phoenix Hough Scores for estimates with a series of 10 different adjusts for the Left Groove", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/lh-phoenix-adjust-scores.png")
+```
+
+What we mightn notice the most from these two graphics is that there are still persistent extreme scores despite the adjusts with areas of identification in the thousands. The most extreme of which for the right side happens to have a score of about 5000. Upon taking a look at the specific lands that have problematic scores
+they look relatively normal. So then we want to estimate where the Hough transform thinks the grooves are.
+
+```{r, fig.cap="Gun1-U10 Bullet 3 Image Scan", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/phoenix-Gun1-U10.png")
+```
+
+
+Which looks like a pretty regular scan but when we look at the groove estimates we see.
+
+```{r, fig.cap="Gun1-U10 Bullet 3 Crosscut Hough Estimates", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/grooves-est-gunu10.png")
+```
+
+
+Which is bizarre because the Right hand estimate is way too far into the bullet land. However we filter out any lines that are within the middle 2/3rds of the bullet scan, and this estimate is clearly within the middle 2/3rds. So we have discovered a new bug in the code, but at least this bug is consistent.
+
+</details>
+
+<details>
+
+<summary>
+Charlotte Update 11/12/2019:
+This week I've dug more into the mysterious bug from last week. It turns out that the "bug" was actually a mis-understanding with regards to unit conversion. So get_grooves_hough is working like it should! But our estimates are still not very good.
+
+</summary>
+
+If we take a look at a single crosscut of a problematic bullet like Gun1-U1-Bullet-3-L1. We'll see something different from other lands. This land in particular has a much larger width than other lands found in our dataframe. So consequently the heuristic we used in `get_grooves_hough` which filtered out any lines within the middle two-thirds of the bullet were problematic.
+
+```{r, fig.cap="Crosscut of Gun1-U10-B3-L1 with original Hough heuristic", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/u10-original.png")
+```
+
+```{r, fig.cap="Crosscut of Gun1-U10-B3-L1 with middle fifty percent Hough heuristic", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/u10-middle-fifty.png")
+```
+
+Unfortunately even though the middle 50 percent heuristic is better suited for this particular land, the groove estimates are still not good. Let's look at a second problematic case with Fun1-p7-B3-L5. 
+
+
+```{r, fig.cap="Crosscut of Gun1-P7-B3-L5 with original Hough heuristic", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/p7-original.png")
+```
+
+```{r, fig.cap="Crosscut of Gun1-P7-B3-L5 with middle fifty percent Hough heuristic", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/p7-middle-fifty.png")
+```
+
+Which is a marked improvement. Here is a comparion of the three dimensional lands
+
+```{r, fig.cap="3D view of Gun1-P7-B3-L5 with original Hough heuristic", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/gun1-p7-twothirds.png")
+```
+
+```{r, fig.cap="3D view of Gun1-P7-B3-L5 with original Hough heuristic", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/gun1-p7-twothirds-b.png")
+```
+
+
+</details>
+
+<details>
+<summary>
+Charlotte Update 12/5/2019: Short update today due to unforseen circumstances but we have resolved most of the issues with some of our previous problem bullets and are starting to compare to other methods.
+
+</summary>
+
+So the previous heuristic used the middle two/thirds as a way of eliminating lines from consideration. But this lead to a problem with scans that were a much larger size than other iterations of the Pheonix study producing poor results.
+
+```{r, fig.cap="Old Cetner Heuristic", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/hough-estimates-problem-boy.png")
+```
+
+Now with an optimized adjust and a middle 50% heuristic we get
+
+```{r, fig.cap="New Cetner Heuristic", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/problem-boy-solved.png")
+```
+
+Which is a much better estimate. Comparing the differences between groove estimates and the manually identified truth for the BCP, Lasso, and Hough methods we receive the following two density plots of differences.
+
+```{r, fig.cap="Left Groove Difference Estimates", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/left-groove-comparison.png")
+```
+
+```{r, fig.cap="Right Groove Difference Estimates", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/right-groove-comparison.png")
+```
+
+</details>
+
 
 ##### LASSO Method  
 
@@ -395,15 +787,22 @@ This year, I'll be studying our bullet land "pipeline" here at CSAFE, as well as
 
 The code in `bulletxtrctr` is already really well set up as a data "pipeline", so now we are conceptualizing the best way to wrap the pipeline and keep track of what decisions are made along the way. 
 
-We are using few resources to conceptualize and plan the pipeline work, including:  
+The current work underway on this project is focused on developing a package in `R` that will assist users in keeping track of data science projects. We believe it will be particularly useful for those developing a data science process and tools to complete that process. This is most obviously the case for a lot of the ongoing projects at CSAFE; for example: 
 
-1. `tidymodels`, a part of the `tidyverse` focused on design matrices and reproducibility of modeling
-2. `drake`, an R package by Will Landau which helps cache information and keep track of steps in a pipeline  
-     - We are investigating how well this scales to ``big data".  
-     - <p class="new"> It does not scale well. </p>
-3. Some pipeline/plumbing papers by Hadley Wickham, Heike Hofmann, Dianne Cook, and others  
-     - These focus on interactive graphics and updating data/plotting objects with interactivity  
-4. All of the existing tools in the "bulletverse"; `x3ptools`, `bulletxtrctr`, `grooveFinder`, etc.
+1. The `bulletverse`, packages in development include `x3ptools`, `bulletxtrctr`, and `grooveFinder`. 
+     - Methods are worked on at multiple stages (e.g., groove ID methods, work on modeling bullet scores)
+     - Multiple people are on the project and may make changes to things that impact other stages
+     - We want to keep track of when something (e.g., a function, model object, parameters) changes that will impact our analyses/scripts.
+2. `handwriter`, a package which processes handwritten documents and extracts data features to be used in modeling 
+     - If processing code changes, how does that impact the features that are extracted? 
+     - Can you check entire package for changes to see if you need to re-run processing?
+3. `ShoeScrubR`, `shoeprintr` packages... etc. 
+
+Almost all of the methods developed here at CSAFE use non-traditional data that requires processing and feature generation before modeling/analysis can begin. These processes are continually improved as projects move forward, and thus as changes happen we need to be able to assess: 
+
+- The impact of differing processing approaches and how that changes results  
+- Whether results need to be re-run after changes are made in a package (time saver!)  
+- Confidence in reporting results: how much uncertainty is introduced by manipulating the data in a certain way?  
 
 
 Earlier this year, we designed and collected a bullet scanning variability study of 9 bullets. I'm working on formally modeling the variability at the signature level, taking two major approaches:   
@@ -432,11 +831,17 @@ Over the summer I made a function to "fix" this, to address the estimation probl
 
 The changes to our results are minor, but it is an important detail when modeling things.  
 
-<p class="new"> Two papers in progress! Groove ID paper #1 is waiting for reviewer scores, Groove ID paper #2 is waiting for advisor comments. </p>
+<p class="new"> Two papers in progress! Groove ID paper #1 needs another round of minor revisions (hopefully will be accepted soon!), Groove ID paper #2 is waiting for advisor comments. </p> 
 
-<p class="new"> We are adding more operators to our variability study! </p>
+<p class="new"> Sometimes, data collection goes awry... </p>  
 
-<p class="new"> I have been working on book edits this week as well. :) </p>
+<img src="images/bullets/pipeline/double_upload_A.png" width = "60%"/>  
+
+<p class="new"> I am in the process of documenting all the data issues and double-checking everything. We are adding more operators (and another set of bullets) to our variability study! </p>    
+
+<img src="images/bullets/pipeline/rfscores_all_barrels.png" width = "80%"/>
+
+<p class="new"> I am polishing two full chapters of the book this week. Starting to write up the full variability study (as a dissertation chapter). Writing, writing, writing! </p>  
 
 
 
@@ -674,7 +1079,7 @@ knitr::include_graphics(c("images/cartridge_cases/fadul5_im1_afterRotation.png",
 
 <details>
 <summary>
-Joe 10/17/18 Update: Continued testing the CMC algorithm on more known match and known non-match pairs of cartridge cases. It's a time intensive process, but the current results show that the algorithm works for the majority of known match pairs and, most importantly, appear to be qualitatively similar to what is reported in Tong et al. (2015).
+Continued testing the CMC algorithm on more known match and known non-match pairs of cartridge cases. It's a time intensive process, but the current results show that the algorithm works for the majority of known match pairs and, most importantly, appear to be qualitatively similar to what is reported in Tong et al. (2015).
 </summary>
 
 I've continued to run the algorithm on a number of known match pairs of cartridge cases. Although the algorithm seems to work well for the majority of known match pairs, it isn't perfect at picking the correct rotation angle. I haven't yet determined the cause of when the algorithm fails to pick the correct rotation angle.
@@ -698,6 +1103,372 @@ knitr::include_graphics(c("images/cartridge_cases/FadulC_FadulM_afterRotation.pn
 ```
 
 While running code, I've also been working on putting all of my working functions into a package. I should hopefully have something resembling a structured package by my spotlight in November.
+
+Finished computing (almost) all 780 possible known match and known non-match comparisons for the 40 cartridge case scans discussed in the Tong paper. We're running into an issue where the correlations we're getting out appear to be signficantly lower than what we expect them to be based on the results reported by Tong et al. The biggest challenge is that we effectively need to guess how the images in the Tong paper were pre-processed, so certain decisions we make may drastically affect the final results. We're going to see if making a few minor changes to the way we pre-process the images will change the results to what we expect.
+
+Our current goal is to demonstrate that the current form of the package produces "qualitatively similar" results to those presented by Tong et al. Unfortunately, we don't actually know which data they used to produce their results. We have a strong suspicion that they just used the first pair of cartridge cases encountered when downloading the study's data from the NBTRD website, so we're going to try to base our results comparison based on those.
+
+Below we can see the known match cartridge case pair in their raw format before pre-processing. In this state, it's difficult to make any comparisons between the two breech faces. The first step is to process these images to both remove as much of the non-breech face region of the image as possible and accentuate the breech face impression markings left on the cartridge case.
+
+```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/fadul1_pair_raw.png")
+```
+
+We can see the results of the pre-processing below. It will hopefully look to you as if one of the images is simply a rotated copy of the other. Our goal is to automatically detect what the correct rotation value is to properly align the two images.
+
+```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/fadul1_pair_processed.png")
+```
+
+In order to find the correct rotational value to align the two images, we divide the first image (fadul1-1) into a 7x7 grid of cells. For each cell in image 1, we select a similarly located, wider region in image 2 and calculate the cross-correlation between the image 1 cell and the larger image 2 region. Below is an image that illustrates this for a particular cell.
+
+```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/im1_im2_cellComparison.png")
+```
+
+Below is a gif showing an example of cell/region pairs for which the CCF is computed.
+
+```{r, fig.cap="(Left) 100x100 cells from Image 1. (Right) 200x200 cells from Image 2.", out.width="50%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/im1_standardCells.gif",
+                          "images/cartridge_cases/im2_largerCells.gif"))
+```
+
+Once we calculate the CCF for each cell/region pair, we rotate image 2 by a few degrees, say 3 degrees, and repeat the process. We can obviously keep track of the correlation values for each rotation and determine for which rotation values a particular image 1 cell attains its maximum CCF. If two cartridge cases are genuine matches, then we would expect there to be some consensus among the cells for which theta value they attain their max CCF. For example, below we see a histogram of theta values for which the cells in the fadul1-1 attain highest correlation in their associated fadul1-2 regions. We can see a peak around -20 degrees. In particular, the consensus-based theta value turns out to be -21 degrees.
+
+```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/fadul1_fadul2_thetaHistogram.png")
+```
+
+If we then consider the CCF values at the -21 degree rotation comparison, we see there are quite a few cells that could be classified as "highly correlated". Tong et al. discuss various criteria they use to define a cell as a "Congruent Matching Cell." For example, they set a minimum CCF value of .25. Based on the criteria that they set, we can see in the table below that there are 14 cells that can be defined as CMCs. In their original paper, the number of CMCs they found was 15. The discrepancy likely comes from the fact that they perform different pre-processing steps than we do but don't discuss what those pre-processing steps are.
+
+|cell_ID                     |      corr|  dx|  dy|
+|:---------------------------|---------:|---:|---:|
+|x = 1 - 82,y = 407 - 487    | 0.4605801|  -7| -19|
+|x = 83 - 163,y = 83 - 163   | 0.3465763|  -1| -13|
+|x = 83 - 163,y = 488 - 568  | 0.2773731| -35|  25|
+|x = 164 - 244,y = 488 - 568 | 0.3917978| -24|   2|
+|x = 245 - 326,y = 488 - 568 | 0.4946205| -17|   1|
+|x = 327 - 407,y = 407 - 487 | 0.4824218|   4|   2|
+|x = 327 - 407,y = 488 - 568 | 0.4830941| -17|   4|
+|x = 408 - 488,y = 83 - 163  | 0.4034100|   9| -13|
+|x = 408 - 488,y = 164 - 244 | 0.3274178|   4| -14|
+|x = 408 - 488,y = 407 - 487 | 0.4588278|   7|  -3|
+|x = 489 - 569,y = 83 - 163  | 0.5382969|   9|   7|
+|x = 489 - 569,y = 164 - 244 | 0.4523592| -31|  21|
+|x = 489 - 569,y = 326 - 406 | 0.5687978|   8|  16|
+|x = 489 - 569,y = 407 - 487 | 0.5720020|   2|  24|
+
+We can visualize which cells in fadul1-1 are classified as CMCs. The image below shows the fadul1-1 CMCs as well as fadul1-2 rotated by -21 degrees (the consensus-based theta value chosen from before). We can see that most of the regions with the most obvious visual similarity between the two cartridge cases (in particular, the linear markings in the bottom-right of each image) are indeed classified as CMCs.
+
+```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/fadu1_pair_CMCs.png")
+```
+
+We are currently running into issues where the correlations values we get out between the two images are not nearly as high as they appear to be in the Tong paper (although we don't really know since they didn't provide much context). Below is an example of a pair of known match cells. The two breech faces have already been rotationally aligned (by hand), so these should have very high correlation (apparantely something north of .55 according the the Tong paper). We can certainly see a mode in the correlation (red spot), but it is hard for me to interpret exactly what that mode represents. I believe it represents the shift needed to align the second, larger image with the first image. I need to do some more digging into what is actually happening with FFTs and cross-correlation implementations to know for sure.
+
+```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/cellCCFMap.png")
+```
+
+<details>
+<summary>
+I'm still currently trying to determine the cause of the correlation issue we're running into. In doing so, I've been making sure that the method by which we are calculating correlation works for simpler examples. I found these examples useful in understanding the strengths/limitations of using a FFT-based approach for calculating cross correlation, so I thought that I would share.
+</summary>
+For each of these examples, the image on the left is the "reference" image that we want to align the image on the right with. The left image will always be a square image with most pixel values 0 and a square of side length 20 pixels and value 255 in the middle. We want to see how changing characteristics of the right picture affects the correlation values calculated by the CCF.
+
+In the first example below, the image on the right just has the box shifted down 30 pixels and right 10 pixels. If we were to overlay the two images with their centers aligned, the correlation "map" that accompanies this pair provides instructions for how to shift the right image to correctly match up with the left image. We see from the location of the largest correlation value (of 1 at (-10,30)) that the CCF indeed detected the correct shift.
+
+```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/examplePerfectCCFMap.png")
+```
+
+In the second example, the 0-values pixels in the right image are replaced with randomly generated $\mu = 0$ and $\sigma = 50$ white noise. We see that the max correlation value still occurs at the right location, but with a smaller magnitude. We also see that the rest of the correlation map isn't all 0 as it was in the 0-pixel example above.
+
+```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/exampleWN_CCFMap.png")
+```
+
+Lastly, we have an example where the second image contains a smaller square of side-length 10 pixels. We see that, again, the correlation value maximum occurs at the correct location yet with a magnitude well below 1. 
+
+```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/cartridge_cases/exampleWNSmallerSquare_CCFMap.png")
+```
+</details>
+
+</details>
+
+<details>
+<summary>
+Joe's 11/21 Spotlight: Visual Explanation of the "Improved" Congruent Matching Cells Algorithm proposed by [Tong et al. (2015)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4730689/).
+</summary>
+
+A cartridge case is a type of pre-assembled firearm ammunition packaging a projectile (e.g., bullet, shots, or slug). Below is an image showing different examples of cartridge cases.
+
+```{r, out.width="30%",echo=FALSE,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/11-21-Spotlight/cartridgeCaseExamples.jpg")
+```
+
+When a firearm is discharged, the projectile stored in the cartridge case is propelled down the barrel of the firearm. In response, the rest of the cartridge case that remains inside of the firearm is forced towards the back of the barrel (for every action, an equal and opposite reaction). The force with which the remaining cartridge case (hereby referred to as simply "the cartridge case") is propelled backwards causes it to strike against the back wall of the firearm's barrel. This area is commonly referred to as the "breech face." An example of a breech face from a 12 GAUGE, single-shot shotgun is shown below.
+
+```{r, out.width="30%",echo=FALSE,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/11-21-Spotlight/breechFace.jpg")
+```
+  
+  The hole in the center of the breech face is where the firing pin shoots out to strike the cartridge case primer, which in turn ignites the propellant within the cartridge case causing an explosion that propels the bullet forward down the barrel. As you can see from the image above, there are markings (e.g., manufacturing imperfections) on the breech face. When the cartridge case slams against the breech face during the firing process, these markings can be "stamped" into either the primer of the cartridge case or the cartridge case itself. The markings left on a cartridge case from the firearm's breech face are called "breech face impressions." The image below shows the primer of a shotshell fired in the above shotgun. You can clearly see that some impressions were left on the primer during the firing process.
+  
+```{r, out.width="30%",echo=FALSE,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/11-21-Spotlight/breechFaceImpression.jpg")
+```
+
+The image below shows how the breech face scans come in their raw format. We want to preprocess the images to remove the firing pin impression in the center and accentuate the firing pin impression.
+
+```{r, out.width="60%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/rawBF.png"))
+```
+
+Although it is non-trivial to preprocess the images, I am going to skip the explanation of the preprocessing steps so that we have time to focus on how we quantify similarity. The image below shows the result of the preprocessing steps.
+
+```{r, out.width="60%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/processedBF.png"))
+```
+
+We *could* now directly calculate the pixel-wise correlation between these two images. However, there are a few issues with doing so directly. One issue is that we can visually see that the two images are not rotationally aligned, so we wouldn't expect the correlation to be particularly high. We can fix this by considering a variety of rotations of the images to determine for which rotation the images are the "most aligned." While it's not obvious from the images, there is also an issue with the two images being translationally aligned. Lastly, due to the slight differences between the two images, taking the pixel-wise correlation between the entirety of the two images may lead to a deceptively small correlation. This is the motivation behind what Tong et al. (2015) describe as the "Congruent Matching Cells" algorithm. The idea is quite simple. Rather than calculating correlation across entire images, it might be better to break up each image into smaller pieces ("cells") and calculate correlation for each cell pair. In doing so, a highly correlated pair of cells won't be drowned-out by less correlated pairs of cells.
+
+Tong et al. propose this cell-based method for quantifying similarity between two breech face impressions. For a given pair of images (like the two shown below), the first image is divided into a 7x7 grid. Each cell in this grid is then compared to a region in the second image. Because the two images aren't assumed to be translationally aligned, the region in the second image will be larger than its associated cell in the first image so that different $(dx,dy)$ translation pairs can be considered.
+
+```{r, out.width="60%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/im1_im2_cellComparison.png"))
+```
+
+Below is a gif showing an example of different pairs of image 1 cells (left) and image 2 regions (right).
+
+```{r, fig.cap="(Left) 100x100 cells from Image 1. (Right) 200x200 cells from Image 2.", out.width="50%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/im1_standardCells.gif",
+                          "images/cartridge_cases/11-21-Spotlight/im2_largerCells.gif"))
+```
+
+We measure the similarity between two breech face impressions using the cross-correlation function. The cross-correlation function (CCF) is a measure of similarity of two series as a function of the displacement of one relative to the other. The cross-correlation function for two complex functions $f(t)$ and $g(t)$ for $t \in \mathbb{R}$, denoted $f \star g$, is defined by
+
+$$
+(f \star g)(\tau) \equiv \int_{-\infty}^\infty \overline{f(t)}g(t + \tau)\ dt
+$$
+
+where $\overline{f(t)}$ is the complex conjugate of $f(t)$. The cross-correlation can be used as a measure of similarity between two different functions. In particular, for $f,g$ real-valued we can interpret the CCF as a measure of common area or "overlap" between the two functions at different values of $\tau$. The value $\tau$ at which $(f \star g)(\tau)$ achieves its maximum can be interpreted as the horizontal translation of $g$ at which $f$ and $g$ are overlapping the most (i.e., are the "most similar" to each other). Below is an animation of two sinusoids that illustrates this concept. We can view the blue sinusoid as being the stationary $f$ function while the red sinusoid is function $g$ that is being translated by different versions of $\tau$. For each $\tau$ value, the integral of the product of the two functions (since $f$ is real-valued, $\bar{f} = f$) is plotted as the green curve. We can see that the CCF achieves a maximum at $\tau = 0$. Intuitively, this because the peaks and troughs of the two functions line up perfectly when $g$ is translated by $\tau = 0$ units, so their product contributes a large, positive amount to the integral.
+
+```{r, caption="http://inst.eecs.berkeley.edu/~ee16a/sp15/Labs/location/ee16a_location_lab1.html", out.width="50%",echo=FALSE,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/11-21-Spotlight/ccfExample.gif")
+```
+
+Because we work with discretized representations of cartridge cases, we need to use the discrete analogue of the cross-correlation function. For two discrete functions $f$ and $g$, the CCF is defined to be
+
+$$
+(f \star g)(n) \equiv \sum_{m = -\infty}^\infty \overline{f(m)}g(m+n)
+$$
+
+The images we use are obviously 2-dimensional while the CCF defined above is for 1-dimensional functions. The 2-dimensional extension of the CCF is defined analogously. We can see two examples below of how the 2-dimensional CCF works for simple images. The image immediately below shows an image on the left of mostly 0-valued, black pixels with a 20x20 pixel square of 255-valued, white pixels. The image on the right is the same as the image on the left, but with the square shifted to the right 10 pixels and down 30 pixels. The blue/green/red image below these two shows the correlation "map" that indicates the CCF values for various $(dx,dy)$ pairs. If we were to overlay the two images such that their centers aligned with each other, the CCF map tells us how we should shift the second image so that it properly aligns with the first image. As we can see in this simple example, the maximum correlation (of 1) occurs at $(dx,dy) = (-10,30)$ indicating that we should move the second image to the left to pixels and up 30 pixels. This demonstrates that the CCF is sensitive to the correct translation values, at least for these simple examples.
+
+```{r, out.width="80%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/examplePerfectCCFMap.png"))
+```
+
+To show a situation in which the CCF map changes, consider the images below. The image on the left is the same as the example above. However, the image on the right now has WN$(\mu = 0,\sigma = 50)$ pixels instead of strictly 0-valued pixels. The rectangle in this right image is in the same location as in the example above, yet with an intensity of 100 rather than 255. Lowering the intensity means that we are making the rectangle's "signal" weaker relative to the surrounding pixels. We can see from the CCF map that this weaker signal indeed affects the correlation values. Although the $(dx,dy)$ at which the CCF achieves its maximum is still at the appropriate location $(-10,30)$, we see that this max CCF is now only around $.4$.
+
+```{r, out.width="80%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/correlationMap_noiseExample.png"))
+```
+
+Hopefully the two examples above provide some intuition in how the CCF function can be used to measure properly align two images to be the "most similar." As already stated, we perform this CCF calculation for each cell in image 1 and associated region in image 2. For each pair, we keep track of the both the value and $(dx,dy)$ translation at which the CCF achieves its maximum. We count this as the that cell's "vote" for how the two images should be shifted to become properly aligned. It's reasonable to assume that the true $(dx,dy)$ translation values should receive many votes from cells, up to some error threshold (e.g., the votes should be within, say, 25 pixels of the true values). Determining the correct rotational alignment isn't as straightforward. We need to search over a grid of $\theta$ rotation values and determine the rotation for which the most cells vote. Below is a gif in which we can compare the two breech face scans for various rotations of the second image. We can visually see that the two images are most similar at a rotation value of about $-24^{\circ}$. The blue region on the right image is meant to illustrate the region that is being compared to to the associated cell in the left image.
+
+```{r, out.width="60%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/bfRotationComparison.gif"))
+```
+
+Below is an example showing the CCF map associated with (left) an image 1 cell and (right) its associated image 2 region. We can see that the CCF hits a maximum of about .5 around $(25,0)$. This is, unfortunately, not nearly the magnitude of correlation that we should expect based on the results discussed in Tong et al. (2015). It sounds like the correlation values they were getting from their comparisons were consistently above .55. The CCF maps that we have calculated are rarely above .55. Our hunch is that they are using the CCF to extract the $(dx,dy)$ pairs, but then computing the raw, pixel-wise correlation between the two images once they translate appropriately.
+
+```{r, out.width="80%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/cellCCFMap.png"))
+```
+
+```{r, out.width="80%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/beforeAndAfterShiftExample.png"))
+```
+
+We can keep track of each cell's vote for the rotation and translation values at which it achieved its maximum correlation with its associated region in image 2. Again, we would expect that the true rotation and translation values should receive a large number of votes. We can see below a histogram of the theta values voted for by the cells in the left image above. We can a clear mode at a $\theta$ value slightly less than -20. Based on the gif of the rotating breech face above, it appears that the automatic CCF-based "votes" agree with what we can visually see to be the best rotation value to align the two images.
+
+```{r, out.width="60%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/thetaVoteHistogram.png"))
+```
+
+Based on the histogram above, the algorithm has detected the correct rotation value to align the two images. If we were to rotationally align the two images based on this value, we can count the number of pairs that are "highly similar" with each other. Tong et al. discuss various criteria to use to define "highly similar" including having a minimum CCF value (.55 in their paper). They also require that the $(dx,dy)$ translation values that a particular pair voted for must be within some number of pixels of the "majority-voted" translation values (they propose a maximum of 25 pixels away from the median translation values). All of this seems rather arbitrary, so it would be interesting to explore if alternative criteria would be more effective at differentiating between matches and non-matches.
+
+```{r, out.width="60%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/CMCs.png"))
+```
+
+</details>
+
+<details>
+<summary>
+Joe 12/5 Update: I believe we've finally cracked the issue that we've been running into the past few weeks of our correlations not being as high as those reported in the Tong paper. The fix is that we can first use the FFT-based method of calculating the CCF to obtain the correct dx,dy translation pairs and then calculate the raw correlation between the two images once we translate them appropriately. Before, we were using the correlation given to us by the FFT-based CCF method, which were most often deflated relative to the true correlation (due to replacing missing values with 0).
+</summary>
+
+Below, I have three examples showing the raw correlation values between pairs of cells. Any pair with a correlation above .55 we would call "highly correlated" under the Tong paper's criteria. The first example below shows a best-case scenario in which we have two images containing a lot of observed values and those observed values have a fairly high correlation (high enough to meet the arbitrary .55 threshold, at least).
+
+```{r}
+include_graphics("images/cartridge_cases/highlyCorrelatedCellPair_largeProportionOfImage.png")
+```
+
+However, the second example shows a not-so-great scenario in which we don't have a lot of observed values in the two images, but they are still highly correlated. We should be less confident that such examples indicate that the overall breech face impressions are "true matches" than we are in the example above, but the Tong paper doesn't seem to make such a distinction.
+
+```{r}
+include_graphics("images/cartridge_cases/highlyCorrelatedCellPair_smallProportionOfImage.png")
+```
+
+Lastly, I have an example of two images that certainly have many observed value that visually look like they should be fairly highly correlated. However, we can see by the raw correlation value that they, in fact, wouldn't pass the threshold to be "highly correlated." As such, we wouldn't include them when we count the number of highly correlated pairs between the two images. I wanted this example to demonstrate that our eyes don't always necessarily pick up on subtleties as strongly as a computer might.
+
+```{r}
+include_graphics("images/cartridge_cases/lowCorrelatedCellPair_largeProportionOfImage.png")
+```
+
+</details>
+
+<details>
+<summary>
+Joe 12/12 Update: I have been trying to implement the Tong paper's criteria for calling two images "matches" and apply these criteria to all of the known match and known non-match image pairs. I have results to share regarding the number of CMCs counted for each known-match cell pair (the known non-matches take much longer to run).
+</summary>
+
+To recap, the CMC algorithm attempts to match two breech face impression images by breaking the image up into "cells" and counting the number of cells that are highly similar between the two images. So for each pair of images, we get a congruent matching cell count indicating how similar the overall images are. For the Fadul data that the Tong paper uses, there are 63 known match pairs. The bar chart on the left shows the various CMC counts for these 63 known match pairs as determined by our implementation in the algorithm. In contrast, the CMC count distribution as reported in the Tong paper is on the right (known matches in gold). We can see that our histogram is qualititatively similar to the gold distribution on the right.
+
+```{r}
+include_graphics(c("images/cartridge_cases/kmCMCDistribution.png",
+                 "images/cartridge_cases/CMCDistribution_Tong.PNG"))
+```
+
+There are two pairs that seem to be giving us trouble in the histogram above (we expect all of the known match pairs to have a large number of "highly similar" cells). Below shows the se two pairs. Hopefully it's clear to see that the first pair, while known matches, look fairly different. There are many regions in the image on the left that are missing from the image on the right. These differences possibly provide some justification as to why the current implementation of the algorithm fails to identify these two images as matches.
+
+```{r}
+include_graphics("images/cartridge_cases/lowCMCCount_example1.png")
+```
+
+The troubling example is below. It's visually obvious that these two images are very similar to each other. However, the algorithm does not identify these as matches. Our current hunch is that the way we preprocess the images has a dramatic effect on the results we ultimately observe. We have a few ideas to tweak the preprocessing to hopefully fix such issues. Unfortunately, the Tong paper never describes how they preprocess the 3D scans, so we have no way of truly replicating their results. All we can hope for is qualitatively similar results, which appears to be the case for the most part.
+
+```{r}
+include_graphics("images/cartridge_cases/lowCMCCount_example2.png")
+```
+</details>
+
+<details>
+<summary>
+Joe 1/17 Update: Broad overview of project.
+</summary>
+
+A cartridge case is a type of pre-assembled firearm ammunition packaging a projectile (e.g., bullet, shots, or slug). Below is an image showing different examples of cartridge cases.
+
+```{r, out.width="30%",echo=FALSE,fig.align='center',fig.cap="Various cartridge cases"}
+knitr::include_graphics("images/cartridge_cases/11-21-Spotlight/cartridgeCaseExamples.jpg")
+```
+
+When a firearm is discharged, the projectile stored in the cartridge case is propelled down the barrel of the firearm. In response, the rest of the cartridge case that remains inside of the firearm is forced towards the back of the barrel (for every action, an equal and opposite reaction). The force with which the remaining cartridge case (hereby referred to as simply "the cartridge case") is propelled backwards causes it to strike against the back wall of the firearm's barrel. This area is commonly referred to as the "breech face." An example of a breech face from a 12 GAUGE, single-shot shotgun is shown below.
+
+```{r, out.width="30%",echo=FALSE,fig.align='center',fig.cap="Breech face of a shotgun"}
+knitr::include_graphics("images/cartridge_cases/11-21-Spotlight/breechFace.jpg")
+```
+  
+  The hole in the center of the breech face is where the firing pin shoots out to strike the cartridge case primer, which in turn ignites the propellant within the cartridge case causing an explosion that propels the bullet forward down the barrel. As you can see from the image above, there are markings (e.g., manufacturing imperfections) on the breech face. When the cartridge case slams against the breech face during the firing process, these markings can be "stamped" into either the primer of the cartridge case or the cartridge case itself. The markings left on a cartridge case from the firearm's breech face are called "breech face impressions." The image below shows the primer of a shotshell fired in the above shotgun. You can clearly see that some impressions were left on the primer during the firing process.
+  
+```{r, out.width="30%",echo=FALSE,fig.align='center',fig.cap="Breech face impression on a cartridge case"}
+knitr::include_graphics("images/cartridge_cases/11-21-Spotlight/breechFaceImpression.jpg")
+```
+
+The image below shows how the breech face scans come in their raw format. We want to preprocess the images to remove the firing pin impression in the center and accentuate the firing pin impression.
+
+```{r, out.width="100%",echo=FALSE,fig.align='center',fig.cap="A pair of known match cartridge case scans"}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/rawBF.png"))
+```
+
+Tong et al. propose this cell-based method for quantifying similarity between two breech face impressions. For a given pair of images (like the two shown below), the first image is divided into a 7x7 grid. Each cell in this grid is then compared to a region in the second image. Because the two images aren't assumed to be translationally aligned, the region in the second image will be larger than its associated cell in the first image so that different $(dx,dy)$ translation pairs can be considered.
+
+```{r, out.width="80%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/im1_im2_cellComparison.png"))
+```
+
+Below is a gif showing an example of different pairs of image 1 cells (left) and image 2 regions (right).
+
+```{r, fig.cap="(Left) 100x100 cells from Image 1. (Right) 200x200 cells from Image 2.", out.width="40%",fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/im1_standardCells.gif",
+                          "images/cartridge_cases/11-21-Spotlight/im2_largerCells.gif"))
+```
+
+The two-dimensional CCF is used to quantify similarity between two breech face impressions. Below are two examples illustrating how to interpret the two-dimensional CCF.
+
+```{r, out.width="80%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/examplePerfectCCFMap.png"))
+```
+
+Below is an example showing the CCF map associated with (left) an image 1 cell and (right) its associated image 2 region. We can see that the CCF hits a maximum of about .5 around $(25,0)$. This is, unfortunately, not nearly the magnitude of correlation that we should expect based on the results discussed in Tong et al. (2015). It sounds like the correlation values they were getting from their comparisons were consistently above .55. The CCF maps that we have calculated are rarely above .55. Our hunch is that they are using the CCF to extract the $(dx,dy)$ pairs, but then computing the raw, pixel-wise correlation between the two images once they translate appropriately.
+
+```{r, out.width="80%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/cellCCFMap.png"))
+```
+
+The image below shows how the smaller breech face impression image aligns with the larger breech face impression image after being translated by the CCF-detected $(dx,dy)$ values.
+
+```{r, out.width="80%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/beforeAndAfterShiftExample.png"))
+```
+
+The animation below shows how the two breech face impressions compare for various rotations of the second breech face impression.
+
+```{r, out.width="60%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/bfRotationComparison.gif"))
+```
+
+We can keep track of each cell's vote for the rotation and translation values at which it achieved its maximum correlation with its associated region in image 2. Again, we would expect that the true rotation and translation values should receive a large number of votes. We can see below a histogram of the theta values voted for by the cells in the left image above. We can a clear mode at a $\theta$ value slightly less than -20. Based on the gif of the rotating breech face above, it appears that the automatic CCF-based "votes" agree with what we can visually see to be the best rotation value to align the two images.
+
+```{r, out.width="80%",echo=FALSE,fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/11-21-Spotlight/CMCs.png"))
+```
+</details>
+
+<details>
+<summary>
+Joe 1/27 Update: I've been starting to write up an article that we hope to submit to the R Journal to introduce the MARCC (Matching Algorithms in R for Cartridge Cases) package (name pending). It's been rather time intensive, but I've also been re-running the algorithm with different pre-processing steps to determine how sensitive the final results are to how we pre-process the images. It seems like they are rather sensitive to the pre-processing procedure used.
+</summary>
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/paperHeader.PNG")
+```
+
+
+I thought I would share a few of the CMC distributions made for different pre-processing steps. These pre-processing steps include extracting the breech face impression region from the rest of the image, which may be done by-hand (Tong et al. (2014/15) may do this), using the RANSAC method (Xiao Hui and I have been doing this), or using a 2nd order robust Gaussian regression filter (Chen et al. (2017) does this). Further complications come in the form of how these methods are implemented across various MATLAB and R functions (I have yet to find a Gaussian Regression filter implemented anywhere in R or MATLAB) and whether they provide the same results. After selecting the breech face impression region from the scan, no paper I have come across details how they then resize their images to their desired dimension. Tong et al. resizes to 700x700 in 2014 and 560x560 in 2015. Chen et al. uses resizes to 600x600 in 2017. As discussed below, the resizing method (nearest-neighbors, linear, lanczos) does seem to affect the final results.
+
+To recap, we are supposed to call two cells a "match" (or "congruent matching cells") if they pass a few criteria. These criteria are based in part on whether their associated translation and rotation "votes" are close to the consensus-based votes across all cells in the image. The motivation here being that we would expect the cells in a pair of truly matching cartridge cases to all vote for approximately the same translation/rotation values to achieve maximum similarity. Another criterion is that the cell pair must reach some minimum correlation cut-off (all of these criteria vary depending on the paper).
+
+Each of the following plots were subject to the same criteria and are based on the same data, so they should be the same plot. As we can clearly see, there is certainly some variability in how the CMC counts are distributed.
+
+This is an example from Chen et al. (2017) that the rest of the plots are trying to emulate. This plot was made using reportedly images downsampled to size 600x600 and an 8x8 grid of cells. Again, it's unclear how this downsampling was performed since the raw surface data often have dimensions near 600x600, but never perfectly 600x600. The plots following include various resizing/padding techniques used to try to get this nominal 600x600 image size.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/kmCMCs_Chen.png")
+```
+
+This is a plot based on images that were resized to 560x560 (the image size specified by Tong et al. (2015)) using linear interpolation.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/kmCMCs_560x560_linearInterp.png")
+```
+
+This is a plot based on images that were resized to 600x600 (the image size specified by Chen et al. (2017)) using the `x3ptools::resize_x3p()` function followed by padding the image with NAs until it reaches a size of 600x600.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/kmCMCs_600x600_sample_x3p.png")
+```
+
+This final distribution is the most promising of the ones I've made. This distribution is also based on images that were resized using `x3ptools::resize_x3p()`. However, rather than padding the exterior of the image with NA rows/cols until it achieves the nominal 600x600 size, the image is first split into an 8x8 grid of cells and each cell is individually padded until it reaches dimension 75x75.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/kmCMCs_originalSize_downSampled.png")
+```
 
 </details>
 

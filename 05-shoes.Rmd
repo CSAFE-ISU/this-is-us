@@ -14,14 +14,13 @@ Goal:
 - Describe database function
 - Publicize data for analysis by others in the community
 
-#### Methods and Data Description {-#lss-paper-methods}
-Methods and data description handed off to Alicia for editing
+Accompanied by Figshare upload of static data sets (grouped by type). 
 
 #### Data Analysis Tools {-#lss-paper-analysis}
 - Working with the `EBImage` package - very fast processing of images
 
 ##### `ShoeScrubR` package {-#lss-data-cleaning}
-Cleaning methods for the Longitudinal data are contained in the [`ShoeScrubR` package](https://github.com/srvanderplas/ShoeScrubR). <span class="new">The package includes (as of 2019-10-17) a complete set of tests to guard against regressions (100% test coverage!) and uses continuous integration to ensure that the installation process is also monitored.</span>
+Cleaning methods for the Longitudinal data are contained in the [`ShoeScrubR` package](https://github.com/srvanderplas/ShoeScrubR). The package includes (as of 2019-10-17) a complete set of tests to guard against regressions (100% test coverage!) and uses continuous integration to ensure that the installation process is also monitored.
 
 The `ShoeScrubR` package also includes logging of all image-in image-out operations using attributes - each time a transformation is performed, the transformation and the parameters are appended to the running operations log. This should make it possible to track the provenance of an object through the set of transformations (and potentially un-do them in some cases).
 
@@ -110,8 +109,6 @@ And proceed with the alignment as normal:
 </details>
 
 Aligning each image to the template corresponding to the shoe model and size provides a good first step towards aligning the images to one another, but additional work is necessary in order to ensure that we can compare two images from the same shoe (or two images from different shoes). 
-Image-to-image alignment requires more work. 
-
 <details>
 <summary> Fine Alignment of two images using RNiftyReg
 </summary>
@@ -195,8 +192,136 @@ The coordinates in bold have been scaled according to the size reduction, so tha
 
 The resulting aligned images are shown above; black pixels are areas where both images agree; pink and blue pixels represent areas found in one image but not the other. Some images which have many bubbles (air between the film and backing) or which contain blurred or double prints do not align accurately; this is really not avoidable with automatic alignment solutions. 
 
-The alignment process itself (without any image preprocessing) is extremely fast, about 1s per image pair, and seems to be similar even when image size is increased by a factor of 16. Due to the scaling process and necessary modification of the transformation matrix, the alignments may be off by 1-5 pixels in some cases. This might be handled by aligning a smaller subset of the image at full resolution. (TODO)
+The alignment process itself (without any image preprocessing) is extremely fast, about 1s per image pair, and seems to be similar even when image size is increased by a factor of 16. Due to the scaling process and necessary modification of the transformation matrix, the alignments may be off by 1-5 pixels in some cases. <span class="new">~~This might be handled by aligning a smaller subset of the image at full resolution.~~ Efforts to align sub-images produced less accurate alignments, likely due to the kinematic distortion of the sole during the walking process, resulting in situations where the local alignment estimate is not a good estimate of the global alignment. New attempts to find consensus alignment might include keypoint-based alignment methods, trying to identify the shoe border precisely to align that, and possibly use of Hough transforms to identify specific reproducible features that might serve as global keypoints.
+</span>
 
+</details>
+
+Given how well RNiftyReg works, the next question is whether all of the preprocessing is even necessary. 
+
+In the image below, the first row is alignment with the full image, the second is alignment with a binarized version of the output image (so masked + thresholded), and the third is automatically cropped around the mask which is aligned to the image using the rough-align process. The third row maintains most of the information and produces better alignments than the other rows; thus, we can conclude that it's necessary to combine the preprocessing and rough alignment in order to get the best results from RNiftyReg.
+
+<img src="images/shoes/longitudinal/Combining_Prints_Consensus_Images.png" width="100%"/>
+
+<details>
+<summary> Fine Alignment of two images using FFT </summary>
+Basic Process:    
+    
+<img src="images/shoes/longitudinal/FFT_Demo_Orig.png" width = "50%"/>
+
+1. Pad images so they're the same size (Let's say that $A$ and $B$ are the two images)
+    
+<img src="images/shoes/longitudinal/FFT_Demo_Pad.png" width = "25%"/>
+
+2. Downweight the edges of the images using a [Hann function](https://en.wikipedia.org/wiki/Hann_function)    
+This is necessary because Fourier transforms assume images go on forever, so abrupt changes (e.g. edges) don't work out that well. Computationally, the image is "wrapped" around itself to be considered "infinite".     
+    
+<img src="images/shoes/longitudinal/FFT_Demo_Hann.png" width = "25%"/>
+
+  - The strength of the Hann function can be adjusted by a power argument     
+```{r, echo = F, warning = F, message = F}
+library(tidyverse)
+fun <- function(y, x = 0:1000) {
+  data.frame(x = x/max(x), y = y, Hann = (.5 * (1 - cos(2*pi*(x)/max(x)))) ^ (1/y))
+}
+
+purrr::map_df(c(.2, .5, 1, 2, 5, 10), fun) %>%
+  ggplot(aes(x = x, y = Hann, color = factor(y))) + 
+  geom_line() + 
+  scale_color_discrete("Root") + 
+  ggtitle("Widen_root argument to Hann function")
+
+```
+
+3. Use the Fast Fourier Transform on each image. Center the FFT'd images so that low frequencies are in the center (exchange top left quadrant with bottom right, and top right quadrant with bottom left). Call the FFT'd, centered images $F(A)$ and $F(B)$    
+```{r, echo = F, warning = F, message = F, fig.width = 8, fig.height = 4.25, out.width = "50%"}
+centering_op <- bind_rows(
+  data.frame(type = "Original", x = .5*c(1, -1, -1, 1), y = .5*c(1, 1, -1, -1), label = 1:4),
+  data.frame(type = "Centered", x = .5*c(1, -1, -1, 1), y = .5*c(1, 1, -1, -1), label = c(3, 4, 1, 2))) %>%
+  mutate(type = factor(type, levels = c("Original", "Centered"), ordered = T))
+
+ggplot(centering_op, aes(x = x, y = y, fill = factor(label))) + 
+  geom_tile(color = "black") + 
+  geom_text(aes(label = label)) + 
+  scale_fill_discrete(guide = F) + 
+  facet_wrap(~type) + 
+  theme_void()
+```    
+    
+<img src="images/shoes/longitudinal/FFT_Demo_FFT1.png" width = "50%"/>
+
+4. Recover the angle between the two images:     
+In Fourier space, a rotated image produces the same signal in Fourier space, but rotated. To recover this information, we can use the **magnitude** of the FFT'd images as a new image. Call these images $|F(A)|$ and $|F(B)|$. Then, 
+
+    a. Polar transform the image, so that a rotation of the original image is a linear shift of the transformed image ($P(|F(A)|)$ and $P(|F(B)|)$). Apply Hann functions to the polar-transformed images.     
+    
+<img src="images/shoes/longitudinal/FFT_Demo_Hann.png" width = "25%"/>
+    
+    b. Use FFT-based alignment (see steps 3, 5) to pick out the $\theta, \rho$ which best align the two polar images
+    
+    c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT'd image) to get $\tilde{B}_\theta$ and recompute the FFT on the rotated image ($F(\tilde{B}_\theta)$).     
+    
+<img src="images/shoes/longitudinal/FFT_Demo_FFT3_Rotate.png" width = "50%"/>
+    
+
+5. Recover the shift between the two images: 
+    
+    a. Compute the cross-power spectrum: $S = F(A) \times F(\tilde{B}_\theta)*$, where $F(x)*$ is the complex conjugate of $F(x)$ (e.g. $a + bi$ becomes $a - bi$)
+    
+    b. Compute the magnitude of the cross-power spectrum: $|S| = \sqrt{S \times S*}$
+    
+    c. Use (a) and (b) to get the normalized cross power spectrum: $S/|S|$
+    
+    d. Take the inverse FFT of $S/|S|$: $A = F^{-1}(S/|S|)$
+    
+    e. Find the maximum of the $A$ matrix. The row and column where the maximum is found are the shift to align the two images: $(\Delta x, \Delta y)$.       
+    
+<img src="images/shoes/longitudinal/FFT_Demo_FFT4_Shift.png" width = "25%"/>
+
+6. Apply the shift to image $\tilde{B}_\theta$ to get $\tilde{B}_{\theta,\Delta x, \Delta y}$.    
+    
+<img src="images/shoes/longitudinal/FFT_Demo_FFT5_Shift.png" width = "25%"/>
+
+There are some fiddly details (e.g. converting shifts which are most of the image into negative shifts), but FFT-based alignment works pretty well (and pretty quickly) for shoes.
+
+Original Images:
+
+<img src="images/shoes/longitudinal/FFT_Alignment_Orig_20191031.png" width = "100%"/>
+
+Angle-aligned Images:
+
+<img src="images/shoes/longitudinal/FFT_Alignment_Angle_Only_20191031.png" width = "100%"/>
+
+FFT-Aligned Result: (still working out the kinks)
+
+<img src="images/shoes/longitudinal/FFT_Alignment_20191031.png" width = "100%"/>
+
+</details>
+
+<details><summary>Combining information from multiple images</summary>
+
+With aligned images, we can then combine the information in each of the two prints taken at the same timepoint to get more reliable images. Because the methodology for acquiring the prints changed from timepoint to timepoint, the analysis of each type of print doesn't make sense - it is completely conflated with the observation date. However, the multiple prints aren't wasted, because while each print may be missing information, the combination of both of the prints (when properly aligned) provides a much more reliable assessment of the shoe (and the wear of that shoe at the proper timepoint). There are at least 3 options to combine these images (note that white = 1, black = 0):
+
+- Take the pixel-by-pixel minimum: this keeps all the noise from both images (but there's relatively little noise in the cropped images, so that may not matter too much). If images are misaligned, this results in a "double" print (or smeared print). This method is also sensitive to the lightness of the print - a complete print would still be ignored if the "dark" part of the print was lighter than the "light" part of the second print.     
+<img src="images/shoes/longitudinal/Combining_Prints_Consensus_min.png" width="100%"/>
+- Take the pixel-by-pixel maximum: this keeps only points which appear strongly in both images (losing a lot of data but also a lot of noise in the process)    
+<img src="images/shoes/longitudinal/Combining_Prints_Consensus_max.png" width="100%"/>
+- Take the pixel-by-pixel mean: This would result in lighter regions where one image has "gaps" but would reduce noise and make it clear where there is less sure information.
+<img src="images/shoes/longitudinal/Combining_Prints_Consensus_mean.png" width="100%"/>
+
+Of these options, the first seems like the best, but the last provides some idea of whether the alignment was decent to begin with.
+
+The alignment method seems to fail more frequently when one of the images is very light. It may be advantageous to invest more effort into adaptive histogram normalization. 
+
+Alignment Fails:
+
+<img src="images/shoes/longitudinal/020574R_20180411_5_x_1_boekhoff_pashek_kruse.png" width = "45%"/>
+<img src="images/shoes/longitudinal/007961L_20180411_5_x_1_kruse_zwart_kruse.png" width = "45%"/>
+<br/>
+Alignment Success:
+
+<img src="images/shoes/longitudinal/074093L_20180207_5_x_1_csafe_boekhoff_boekhoff_hanrahan.png" width = "45%"/>
+<img src="images/shoes/longitudinal/087354L_20180425_5_x_1_boekhoff_Kruse_kruse.png" width = "45%"/>
 </details>
 
 ##### Wear Characterization {-#lss-paper-analysis-wear}
@@ -260,8 +385,6 @@ The overhead costs of going fully convolutional are high; CNN papers are opaque,
 
 In the meantime, it is much easier (relatively speaking) to use our existing framework of 256x256 square pixel images, for which we have generated thousands of labeled images and have already trained and improved domain-specific models. Currently, I have code working to automatically crop image borders, chop the image into 256x256 pixels (padding the image when appropriate) and equalize the contrast on the individual images.
 
-<div class = "new">
-
 **Pad the left and top of the image with a pre-specified offset, then chop the image into 256x256 pixel pieces**  
 <img src="images/shoes/neuralnets/chop.PNG" width = "100%"/>
 
@@ -274,11 +397,28 @@ In the meantime, it is much easier (relatively speaking) to use our existing fra
 **Repeat the above process for different cuts of the original image, and aggregate predictions**
 <img src="images/shoes/neuralnets/predict_rect.PNG" width = "100%"/>
 
-**Shiny App**
-<img src="images/shoes/neuralnets/Shiny_ggHeatmaps.PNG" width = "100%"/>
 
+
+**Updates/In progress:**
+
+- Presented on CoNNOR at [ISU's 3-Minute Thesis competition](https://www.grad-college.iastate.edu/three-minute-thesis/)
+    - Preliminaries: 8 heats with 10-12 participants each
+    - Runner up to a guy making better yogurt
+- Implementing semantic segmentation model on HPC
+    - Learning HPC structure, command line syntax, using Python in practice
+    - Documentation assumes high baseline of knowledge :(
+- Improving spatial integration process
+    - Remove predictions for blank (and mostly blank) edge images
+    - Smooth predictions for overlapping image pieces
+      - geom_density2d(), stat_contour(), creating brush overlay with EBImage
+
+
+<div class = "new">
+
+**Shiny app demo**
 
 </div>
+
 
 
 
@@ -288,47 +428,88 @@ In the meantime, it is much easier (relatively speaking) to use our existing fra
 
 Project Tread, modified from [Leverhulme Institute's Sole Searching](https://www.dundee.ac.uk/leverhulme/citizenscience/details/sole-searching.php), is a developing CSAFE project with the goals of engaging community participation in forensic research and acquiring shoe print data that may be useful in future analyses.
 
+
+
 In progress:
 
 - Review [procedures](https://forensicstats.org/project-tread/) and IRB documents written by James
-- Perhaps modify procedures, then bribe some friends into helping me test them :)
-    - Test for length, clarity, ease, etc.
+- Volunteers are testing modified procedure (below)
 - Be involved in set up of data collection site (through CSSM)
+- Develop plan for data analysis and use (to inform procedure modifications)
 
 
 
 #### Comparing the procedures
 
-<div class = "new">
-
-| Procedure           | Leverhulme      | CSAFE (initial)    | CSAFE (proposed)
+| Procedure           | Leverhulme      | CSAFE (initial)    | CSAFE (proposed) |
 |---------------------|-----------------|--------------------|------------------|
-| 'Before' Views      | 4 per shoe      | 5 per shoe         | 5 per shoe       |
+| 'Before' Views      | 4 per shoe      | 5 per shoe         | 2 per shoe       |
 | 'Before' Pictures   | 1 per view      | 3 per view         | 1 per view       |
-| Total 'before' pics | 4 per shoe      | 15 per shoe        | 5 per shoe       |
+| Total 'before' pics | 4 per shoe      | 15 per shoe        | 2 per shoe       |
 |                     |                 |                    |                  |
-| Paper               | Letter (larger) | Tape 8.5 x 11      | Tape 8.5 x 11    |
+| Paper               | Letter (larger) | 8.5x11 or 8.5x14   | 8.5x11 or 8.5x14 |
 |                     |                 |                    |                  |
 | Actions             | Run, jump, walk | Step, hop          | Step, hop        |
-| Replicates          | 6 per shoe      | 9 per shoe         | 6 per shoe       |
-| 'After' Pictures    | 1 pic per print | 3 pics per print   | 1 pic per print  |
+| Replicates          | 6 per action    | 9 per action       | 3 per action     |
+| 'After' Pictures    | 1 pic per rep.  | 3 pics per rep.    | 1 pic per rep.   |
 |                     |                 |                    |                  |
-| Total number prints | 18 per shoe     | 18 per shoe        | 12 per shoe      |
-| Total number images | 18 per shoe     | 54 per shoe        | 12 per shoe      |
+| Total # prints      | 18 per shoe     | 18 per shoe        | 6 per shoe       |
+| Total # print images| 18 per shoe     | 54 per shoe        | 6 per shoe       |
 |                     |                 |                    |                  |
 | Requested # shoes   | Not specified   | Both shoes         | One, 2nd optional|
+|                     |                 |                    |                  |
+| Total # images taken| 22 or 44        | 138                | 8 or 16          |
 
 
-Recommendations:
+
+**Recommended procedure modifications:**
 
 - Ask for one high-quality image of each shoe angle ('before') and print ('after'), instead of three replicate images of each
-    - If Project Tread submission website is set up like current CSSM system (which takes community submissions for environmental images), intermediate quality control can help filter out bad images
+    - If Project Tread submission website will be set up like current CSSM system (which takes community submissions for environmental images), intermediate quality control can help filter out bad images
 - Only ask for one shoe, and make second shoe optional
-    - Analysis ramifications?
-- Ask for 6 replicates per shoe, like Leverhulme
-    - Analysis ramifications?
+    - E.g., always ask for left shoe, and make right shoe optional
+- Ask for 3 replicates per shoe instead of 6-9
+    - Longitudinal shoe study only uses 2-3 replicates per shoe
+- Make written instructions clearer, close loopholes
+
+
+
+<div class = "new">
+### Pilot procedure testing
+
+**Feedback from pilot testing:**
+
+- Materials
+    - Used 1/4 - 1/2 tsp of cocoa powder, not a "dime-size""
+    - Test/specify cocoa powder vs hot chocolate powder 
     
+- Procedure
+    - Sift cocoa powder onto paper (brushing damages print)
+    - More pictures of what things should look like
+    - Fewer "before" pictures: bottom and side only
+    - Mention won't see oil if done correctly
+    - Don't stack completed prints until after imaging/scanning
+    
+- Analysis
+    - Use printable scale/ruler for later alignment of images
+    - QR code (like handwriting study) to identify action/replicate/meta info
+    - Collect shoe demographics (brand, size, measurements of length/width)
+    - Get "mask" by tracing around shoe
+
 </div>
+    
+    
+**A few images from pilot testing**
+
+<img src="images/shoes/ProjectTread/IMG_20191108_194133.jpg" width = "50%"/><img src="images/shoes/ProjectTread/IMG_20191108_194148.jpg" width = "50%"/>
+
+<img src="images/shoes/ProjectTread/IMG_20191108_194603.jpg" width = "50%"/><img src="images/shoes/ProjectTread/IMG_20191108_194608.jpg" width = "50%"/>
+
+<img src="images/shoes/ProjectTread/IMG_20191108_205037.jpg" width = "50%"/><img src="images/shoes/ProjectTread/scanned_print.PNG" width = "30%"/>
+
+<img src="images/shoes/ProjectTread/SP2_1.PNG" width = "32%"/><img src="images/shoes/ProjectTread/SP2_2.PNG" width = "33%"/><img src="images/shoes/ProjectTread/SP2_3.PNG" width = "30%"/>
+
+
 
 ## 3d Shoe Recognition 
 
@@ -338,19 +519,48 @@ Note: With these alignment processes we are assuming that the shoe size does not
 
 Then we want to look at the change overtime a specific shoe, so we need to grab the shoe scans over time. Using the function *shoe_grab* to grab the scans of a given shoe ID, specify the id number of a shoe you want to look at, (Make sure you have access to the data, follow the steps on the README for more information. For more information on the shoe data, see **Longituidinal_Shoe_Study**), and turns the given shoe into mesh objects to do further analysis. 
 
+Mesh Objects: A triangle mesh object is made up of the following parts, sufaces, polygons, faces, edges and vertices.
 
-What we have tried: 
+<img src="images/shoes/3dshoes/describing_mesh.jpeg" width="100%"/>
 
-At first we wanted to try to simplify the mesh object to just the basic shape in order have simplicity when aligning. The idea of allignment is to take the most basic features, allign them, then by adding complexity of the soul, further allign the two different shoes. The idea is that we want to take a lower detail scan of shoe, allign it, then by adding complexity we can further allign the shoes. However the problem was realized that we are using a prediction to allign rather than the shoe, which ran into some quick problems. 
+Looking at a mesh object at first: 
 
-What we are doing now 
+<img src="images/shoes/3dshoes/MeshObject.png" width="100%"/>
+
+Some background: 
+At first we wanted to try to simplify the mesh object to just the basic shape in order have simplicity when aligning. The idea of allignment is to take the most basic features, allign them, then by adding complexity of the soul, further allign the two different shoes. The idea is that we want to take a lower detail scan of shoe, allign it, then by adding complexity we can further allign the shoes. However the problem was realized that we are using a prediction to allign rather than the shoe, which ran into some quick problems. The next "attempt" at alignment came from a package called morph. In order to use this package, we needed to transform the data from a mesh object into a plane of points. In order to do this, we greated the function *shoe_coord*. This function takes a triangle mesh object, and looks at the vertices that make up each triangle. With a specific amount of vertices specified using the specification vert, *shoe_coord*, takes these vertices and maps them onto a x,y,z coordinate plane. Then using this coordinate plane, the allignment process began. 
+
+
+Some attempts that have not really turned out well 
   - Transforming the mesh objects to points aligned by the center of mass to overlay them detecting difference. 
 <img src="images/shoes/3dshoes/AlignShoeTest.png" width="100%"/>
   - Problems 
     - Isnt aligning properly as you can see 
-  - Next
-    - angle transformations 
     
+
+Principal Component Analysis: 
+The basic idea of principal component analysis is to take a dataset with many variables, and simplify that dataset by turning the original variables into a smaller number of "Principal Components". These principal components are the underlying structure in the data. Taking that data and giving a vector in directions where there is the most variance. Taking these egienvectors as the data, we can get a "flattened" version of our origianl shoe. 
+
+Once a shoe has been turned into coordinates from the verticies of a mesh object, we can use the function prcomp (site this and expain what it does) to get a transformation matrix. Some notes on this:
+
+  - use vertices of 7 to decrease amount of points to match
+  - if you have too few points also doesnt work
+  - turn table works the best 
+  - Sony are the best matches (the shoes I personally have scanned) 
+
+An example:     
+
+    
+-PCA: 
+  - First looking at shoes with all vertices included: 
+  <img src="images/shoes/3dshoes/PACwithallpoints.png" width="100%"/>
+<img src="images/shoes/3dshoes/SidePACwithallpoints.png" width="100%"/>
+  - Now the same shoe with fewer vertices included in the allignment 
+<img src="images/shoes/3dshoes/SonyPACside.png" width="100%"/>
+<img src="images/shoes/3dshoes/SonyPAC.png" width="100%"/>
+
+This is working wiht the shoes that I have personally scanned, however still in the process of working on fixing them for the shoes of the longitudinal study. One thing that seems to be working is when we compare two shoes of the same size that were both turn tables we seem to get a better match. 
+
     
 ## Shoe outsole matching using image descriptors
 
@@ -438,11 +648,11 @@ Non-mates|    9     |       6.43     |   0.1208  |        1.39          |
 
 
 **ROC curves on test comparisons**:
-<img src="images/shoes/Features/SURF_ROC_deg.png" width="100%"/>
+<img src="images/shoes/Features/ROC_allfeatures.png" width="100%"/>
 
 
-**ROC curves on test comparisons**:
-<img src="images/shoes/Features/ROC_features.png" width="100%"/>
+**ROC curves when Q is degraded**:
+<img src="images/shoes/Features/ROC_deg10.png" width="100%"/>
 
 
 

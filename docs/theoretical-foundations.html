@@ -250,6 +250,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 7</span> Theoretical foundations</h1>
 <div id="common-source-vs-specific-source-comparison-via-information-theory" class="section level2">
 <h2><span class="header-section-number">7.1</span> Common Source vs Specific Source Comparison via Information Theory</h2>
+<p><strong>Please note that this project has changed somewhat
+significantly, but this information might be relevant for others
+in the future.</strong></p>
+<p><strong>See <a href="run:/images/foundations/nate/RA2019_manuscript.pdf">here</a>
+for the current draft of the paper from this work.</strong></p>
 <div id="introduction" class="section level3">
 <h3><span class="header-section-number">7.1.1</span> Introduction</h3>
 <p><strong>Central Goals</strong></p>
@@ -509,8 +514,8 @@ H_d: &amp; e_u \sim GMM(\{\mu_k\}_{k = 1}^{K - 1}, \{ \pi_k \}_{k = 1}^{K - 1}, 
 \]</span></p>
 <p>where all random variables are assumed to be independent conditional on each hypothesis. We will further assume that <span class="math inline">\(\mu_i \stackrel{iid}{\sim} N(0, \tau^2), i \in \{ 1,..., K-1 \}\)</span>.</p>
 <div class="figure">
-<img src="images/foundations/nate/multisource_slr_vs_lr.png" alt="log-LR versus log-SLR scatterplots under hypothesis P and D using three types of SLRs which correspond to using different statistics to aggregate dissimilarity scores in the alternative source population. We try min, average, and max, corresponding to rows 1-3, respectively." />
-<p class="caption">log-LR versus log-SLR scatterplots under hypothesis P and D using three types of SLRs which correspond to using different statistics to aggregate dissimilarity scores in the alternative source population. We try min, average, and max, corresponding to rows 1-3, respectively.</p>
+<img src="images/foundations/nate/multisource_slr_vs_lr.png" alt="log-LR versus log-SLR scatterplots under hypothesis P and D using three types of SLRs which correspond to using different statistics to aggregate dissimilarity scores in the alternative source population. We try min, average, and max, corresponding to rows 1-3, respectively.Results are based on 10,000 observations for each hypothesis." />
+<p class="caption">log-LR versus log-SLR scatterplots under hypothesis P and D using three types of SLRs which correspond to using different statistics to aggregate dissimilarity scores in the alternative source population. We try min, average, and max, corresponding to rows 1-3, respectively.Results are based on 10,000 observations for each hypothesis.</p>
 </div>
 <table>
 <thead>
@@ -574,6 +579,115 @@ H_d: &amp; e_u \sim GMM(\{\mu_k\}_{k = 1}^{K - 1}, \{ \pi_k \}_{k = 1}^{K - 1}, 
 </tr>
 </tbody>
 </table>
+<div class="figure">
+<img src="images/foundations/nate/multisource_slr_vs_lr_gp.png" alt="log-LR versus log-SLR scatterplots under hypothesis P and D using four types of SLRs. The first three scores correspond to using different statistics to aggregate dissimilarity scores in the alternative source population. The fourth score is essentially the predicted probability of Hypothesis P being true given the first three scores based on a sparse Gaussian process model. We try min, average, and max, corresponding to rows 1-3, respectively. Results are based on 1,000 observations for each hypothesis due to training time for the sparse Gaussian process." />
+<p class="caption">log-LR versus log-SLR scatterplots under hypothesis P and D using four types of SLRs. The first three scores correspond to using different statistics to aggregate dissimilarity scores in the alternative source population. The fourth score is essentially the predicted probability of Hypothesis P being true given the first three scores based on a sparse Gaussian process model. We try min, average, and max, corresponding to rows 1-3, respectively. Results are based on 1,000 observations for each hypothesis due to training time for the sparse Gaussian process.</p>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">RMSE</th>
+<th align="right">Exp.Cond.KL</th>
+<th align="right">KL</th>
+<th align="right">true.KL</th>
+<th align="left">type</th>
+<th align="left">hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="right">3.0605</td>
+<td align="right">2.0616</td>
+<td align="right">2.3206</td>
+<td align="right">4.3809</td>
+<td align="left">min</td>
+<td align="left">P</td>
+</tr>
+<tr class="even">
+<td align="left">3</td>
+<td align="right">3.2725</td>
+<td align="right">2.0710</td>
+<td align="right">2.3111</td>
+<td align="right">4.3809</td>
+<td align="left">avg</td>
+<td align="left">P</td>
+</tr>
+<tr class="odd">
+<td align="left">5</td>
+<td align="right">3.7826</td>
+<td align="right">2.5398</td>
+<td align="right">1.8424</td>
+<td align="right">4.3809</td>
+<td align="left">max</td>
+<td align="left">P</td>
+</tr>
+<tr class="even">
+<td align="left">7</td>
+<td align="right">2.6095</td>
+<td align="right">1.5380</td>
+<td align="right">2.8442</td>
+<td align="right">4.3809</td>
+<td align="left">gp</td>
+<td align="left">P</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">RMSE</th>
+<th align="right">Exp.Cond.KL</th>
+<th align="right">KL</th>
+<th align="right">true.KL</th>
+<th align="left">type</th>
+<th align="left">hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2</td>
+<td align="right">7.9189</td>
+<td align="right">4.7271</td>
+<td align="right">2.1101</td>
+<td align="right">6.8364</td>
+<td align="left">min</td>
+<td align="left">D</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="right">7.1000</td>
+<td align="right">3.8640</td>
+<td align="right">2.9724</td>
+<td align="right">6.8364</td>
+<td align="left">avg</td>
+<td align="left">D</td>
+</tr>
+<tr class="odd">
+<td align="left">6</td>
+<td align="right">6.6734</td>
+<td align="right">4.0090</td>
+<td align="right">2.8274</td>
+<td align="right">6.8364</td>
+<td align="left">max</td>
+<td align="left">D</td>
+</tr>
+<tr class="even">
+<td align="left">8</td>
+<td align="right">6.9872</td>
+<td align="right">3.3887</td>
+<td align="right">3.4414</td>
+<td align="right">6.8364</td>
+<td align="left">gp</td>
+<td align="left">D</td>
+</tr>
+</tbody>
+</table>
+<p>Aggregating scores via the sparse GP results in a final score that uniformly beats
+each of the other scores under both the prosecution and defense hypotheses in terms
+of the score KL divergence.</p>
 </div>
 <div id="other-possible-viewpoints" class="section level3">
 <h3><span class="header-section-number">7.2.6</span> Other Possible Viewpoints?</h3>

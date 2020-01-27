@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-01-17" />
+<meta name="date" content="2020-01-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -66,7 +66,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -147,12 +147,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3" data-path="bullets.html"><a href="bullets.html#similarity-scores"><i class="fa fa-check"></i><b>3.3</b> Similarity Scores</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="bullets.html"><a href="bullets.html#bullet-lands"><i class="fa fa-check"></i><b>3.3.1</b> Bullet Lands</a></li>
 <li class="chapter" data-level="3.3.2" data-path="bullets.html"><a href="bullets.html#cartridge-cases"><i class="fa fa-check"></i><b>3.3.2</b> Cartridge Cases</a></li>
-<li class="chapter" data-level="3.3.3" data-path="bullets.html"><a href="bullets.html#conference-presentations"><i class="fa fa-check"></i><b>3.3.3</b> Conference Presentations</a></li>
+<li class="chapter" data-level="3.3.3" data-path="bullets.html"><a href="bullets.html#modified-chumbley-non-random-test"><i class="fa fa-check"></i><b>3.3.3</b> Modified Chumbley non-random test</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="bullets.html"><a href="bullets.html#people-involved"><i class="fa fa-check"></i><b>3.4</b> People involved</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="bullets.html"><a href="bullets.html#faculty"><i class="fa fa-check"></i><b>3.4.1</b> Faculty</a></li>
-<li class="chapter" data-level="3.4.2" data-path="bullets.html"><a href="bullets.html#graduate-students"><i class="fa fa-check"></i><b>3.4.2</b> Graduate Students</a></li>
-<li class="chapter" data-level="3.4.3" data-path="bullets.html"><a href="bullets.html#undergraduates"><i class="fa fa-check"></i><b>3.4.3</b> Undergraduates</a></li>
+<li class="chapter" data-level="3.4" data-path="bullets.html"><a href="bullets.html#analysis-of-results"><i class="fa fa-check"></i><b>3.4</b> Analysis of Results</a></li>
+<li class="chapter" data-level="3.5" data-path="bullets.html"><a href="bullets.html#communication-of-results-and-methods"><i class="fa fa-check"></i><b>3.5</b> Communication of Results and Methods</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="bullets.html"><a href="bullets.html#conference-presentations"><i class="fa fa-check"></i><b>3.5.1</b> Conference Presentations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="bullets.html"><a href="bullets.html#people-involved"><i class="fa fa-check"></i><b>3.6</b> People involved</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="bullets.html"><a href="bullets.html#faculty"><i class="fa fa-check"></i><b>3.6.1</b> Faculty</a></li>
+<li class="chapter" data-level="3.6.2" data-path="bullets.html"><a href="bullets.html#graduate-students"><i class="fa fa-check"></i><b>3.6.2</b> Graduate Students</a></li>
+<li class="chapter" data-level="3.6.3" data-path="bullets.html"><a href="bullets.html#undergraduates"><i class="fa fa-check"></i><b>3.6.3</b> Undergraduates</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html"><i class="fa fa-check"></i><b>4</b> Project G: Handwriting (&amp; Signatures)</a><ul>
@@ -460,11 +464,11 @@ This is necessary because Fourier transforms assume images go on forever, so abr
 <p><img src="images/shoes/longitudinal/FFT_Demo_Hann.png" width = "25%"/></p>
 <ul>
 <li>The strength of the Hann function can be adjusted by a power argument<br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-174-1.png" width="672" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-179-1.png" width="672" /></li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
 <li>Use the Fast Fourier Transform on each image. Center the FFT’d images so that low frequencies are in the center (exchange top left quadrant with bottom right, and top right quadrant with bottom left). Call the FFT’d, centered images <span class="math inline">\(F(A)\)</span> and <span class="math inline">\(F(B)\)</span><br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-175-1.png" width="50%" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-180-1.png" width="50%" /></li>
 </ol>
 <p><img src="images/shoes/longitudinal/FFT_Demo_FFT1.png" width = "50%"/></p>
 <ol start="4" style="list-style-type: decimal">
@@ -482,7 +486,7 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 <ol start="5" style="list-style-type: decimal">
 <li><p>Recover the shift between the two images:</p>
 <ol style="list-style-type: lower-alpha">
-<li><p>Compute the cross-power spectrum: <span class="math inline">\(S = F(A) \times F(\tilde{B}_\theta)*\)</span>, where <span class="math inline">\(F(x)*\)</span> is the complex conjugate of <span class="math inline">\(F(x)\)</span> (e.g. <span class="math inline">\(a + bi\)</span> becomes <span class="math inline">\(a - bi\)</span>)</p></li>
+<li><p>Compute the cross-power spectrum: <span class="math inline">\(S = F(A) \times F(\tilde{B}_\theta)*\)</span>, where <span class="math inline">\(F(x)*\)</span> is the complex conjugate of <span class="math inline">\(F(x)\)</span> (e.g. <span class="math inline">\(a + bi\)</span> becomes <span class="math inline">\(a - bi\)</span>)</p></li>
 <li><p>Compute the magnitude of the cross-power spectrum: <span class="math inline">\(|S| = \sqrt{S \times S*}\)</span></p></li>
 <li><p>Use (a) and (b) to get the normalized cross power spectrum: <span class="math inline">\(S/|S|\)</span></p></li>
 <li><p>Take the inverse FFT of <span class="math inline">\(S/|S|\)</span>: <span class="math inline">\(A = F^{-1}(S/|S|)\)</span></p></li>
@@ -761,7 +765,7 @@ Alignment Success:</p>
 <ul>
 <li>Materials
 <ul>
-<li>Used 1/4 - 1/2 tsp of cocoa powder, not a “dime-size”&quot;</li>
+<li>Used 1/4 - 1/2 tsp of cocoa powder, not a “dime-size”"</li>
 <li>Test/specify cocoa powder vs hot chocolate powder</li>
 </ul></li>
 <li>Procedure

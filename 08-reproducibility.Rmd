@@ -4,3 +4,20 @@ We are working on improving CSAFE's reproducibility in research.
 
 ## Computational Reproducibility  
 
+CSAFE's work is driven by a goal of providing open-source research, including open-source data and open-source algorithms. We believe in transparency and honesty in research, and allowing others to see ``under the hood" of algorithms that may be used to analyze evidence.   
+
+In the process of furthering that goal, many of our researchers implement methods and data analysis in R, an open-source scripting language often used in data science and statistics. R and python are both languages which encourage (and rely on) user-developed packages to enhance the language's ability to perform specific data manipulation and modeling tasks.  
+
+Many software packages are still under development; that is, functions and methods that exist in a package are subject to changes over time by the developers. This affects our work as statistics researchers in three major ways:  
+- Code to run data analyses and obtain quantitative results may be affected by package updates. This can lead to differing quantitative results and lack of reproducibility of a method. 
+- Researchers' own packages in development (e.g., bullet pipeline, shoe analysis pipeline) are vulnerable to changes in any package dependencies.  
+- Group collaboration efforts on a developing package can lead to miscommunications, including changes in code that affect others' results (sorry again, Charlotte!)  
+
+
+So, how does this practically affect CSAFE's research teams, and how can we manage it?  
+
+Here I'm going to put our bullet pipeline but with packages that we depend on for example.  
+
+Here I'm going to put a whole dependency tree of 4 major CSAFE packages.  
+
+

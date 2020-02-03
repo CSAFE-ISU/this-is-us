@@ -30,6 +30,25 @@ Those are:
 
 ## Data Collection
 
+Overview in numbers:
+
+**scans from bullet lands (about 25,000 total)**
+
+  - LAPD: 4 bullets per barrel for 626 firearms
+  - LAPD sub-study: 4 bullets per barrel for 92 out of 626 firearms (different ammunition)
+  - Variability study: 5 operators x 2 machines x 5 time points x 3 types of bullets x 3 bullets (~450 bullets)
+  - Hamby Sets 10, 36, 44, 224, and a clone (35 bullets each)
+  - Houston test sets (6 kits with 25 bullets each)
+  - Houston persistence: 8 barrels with 40 fired bullets each
+  - St Louis persistence: 2 barrels with 192 fired bullets each
+  - most of the CSAFE persistence study 
+    
+**and cartridge cases**
+
+  - DFSC (about 2000)
+  - getting ready to scan cartridges for CSAFE persistence
+
+
 ### LAPD
 
 All bullets are collected by Srinivasan Rathinam, LAPD. 
@@ -247,6 +266,18 @@ Other possible ways to get a cutoff and control the error rate may be
 An additional requirement may be $$(1-p_2) > Mp_1$$ for a large M.
 
 We are going to compare the above methods next.
+
+```{r, fig.cap="two curves", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/curves.png"))
+```
+
+```{r, fig.cap="odds ratio", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/oddsratio2.png"))
+```
+
+```{r, fig.cap="comparison table", out.width="100%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/comparetable2.PNG"))
+```
 
 #### follow-up study 
 
@@ -824,6 +855,12 @@ The changes to our results are minor, but it is an important detail when modelin
 
 <p class="new"> I am polishing two full chapters of the book this week. Starting to write up the full variability study (as a dissertation chapter). Writing, writing, writing! </p>  
 
+
+Update on data collection:  
+
+We are in "Phase 2" of data collection, shown below as the purple numbers:   
+
+<img src="images/bullets/pipeline/data-collection-update-feb-spotlight.png" width = "80%"/>  
 
 
 

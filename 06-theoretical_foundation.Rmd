@@ -1,6 +1,18 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Theoretical foundations
 
 ## Common Source vs Specific Source Comparison via Information Theory
+
+**Please note that this project has changed somewhat 
+significantly, but this information might be relevant for others 
+in the future.**
+
+**See [here](run:/images/foundations/nate/RA2019_manuscript.pdf) 
+for the current draft of the paper from this work.**
 
 ### Introduction
 **Central Goals**
@@ -235,7 +247,7 @@ H_d: & e_u \sim GMM(\{\mu_k\}_{k = 1}^{K - 1}, \{ \pi_k \}_{k = 1}^{K - 1}, \sig
 
 where all random variables are assumed to be independent conditional on each hypothesis. We will further assume that $\mu_i \stackrel{iid}{\sim} N(0, \tau^2), i \in \{ 1,..., K-1 \}$.
 
-![log-LR versus log-SLR scatterplots under hypothesis P and D using three types of SLRs which correspond to using different statistics to aggregate dissimilarity scores in the alternative source population. We try min, average, and max, corresponding to rows 1-3, respectively.](images/foundations/nate/multisource_slr_vs_lr.png)
+![log-LR versus log-SLR scatterplots under hypothesis P and D using three types of SLRs which correspond to using different statistics to aggregate dissimilarity scores in the alternative source population. We try min, average, and max, corresponding to rows 1-3, respectively.Results are based on 10,000 observations for each hypothesis.](images/foundations/nate/multisource_slr_vs_lr.png)
 
 |   RMSE| Exp.Cond.KL|     KL| true.KL|type |hypothesis |
 |------:|-----------:|------:|-------:|:----|:----------|
@@ -245,6 +257,26 @@ where all random variables are assumed to be independent conditional on each hyp
 | 7.6549|      4.2336| 2.7529|  6.9865|avg  |D          |
 | 3.8587|      2.7198| 1.7333|  4.4527|max  |P          |
 | 7.0711|      4.1623| 2.8250|  6.9865|max  |D          |
+
+![log-LR versus log-SLR scatterplots under hypothesis P and D using four types of SLRs. The first three scores correspond to using different statistics to aggregate dissimilarity scores in the alternative source population. The fourth score is essentially the predicted probability of Hypothesis P being true given the first three scores based on a sparse Gaussian process model. We try min, average, and max, corresponding to rows 1-3, respectively. Results are based on 1,000 observations for each hypothesis due to training time for the sparse Gaussian process.](images/foundations/nate/multisource_slr_vs_lr_gp.png)
+
+|   |   RMSE| Exp.Cond.KL|     KL| true.KL|type |hypothesis |
+|:--|------:|-----------:|------:|-------:|:----|:----------|
+|1  | 3.0605|      2.0616| 2.3206|  4.3809|min  |P          |
+|3  | 3.2725|      2.0710| 2.3111|  4.3809|avg  |P          |
+|5  | 3.7826|      2.5398| 1.8424|  4.3809|max  |P          |
+|7  | 2.6095|      1.5380| 2.8442|  4.3809|gp   |P          |
+
+|   |   RMSE| Exp.Cond.KL|     KL| true.KL|type |hypothesis |
+|:--|------:|-----------:|------:|-------:|:----|:----------|
+|2  | 7.9189|      4.7271| 2.1101|  6.8364|min  |D          |
+|4  | 7.1000|      3.8640| 2.9724|  6.8364|avg  |D          |
+|6  | 6.6734|      4.0090| 2.8274|  6.8364|max  |D          |
+|8  | 6.9872|      3.3887| 3.4414|  6.8364|gp   |D          |
+
+Aggregating scores via the sparse GP results in a final score that uniformly beats 
+each of the other scores under both the prosecution and defense hypotheses in terms 
+of the score KL divergence. 
 
 ### Other Possible Viewpoints?
 I have assumed in the previous section that the order of consideration of hypotheses should not affect the ordering of the data vector $E = (e_u,e_A,e_B)$ or of the ordering of these arguments to the score function. This seems reasonable, but perhaps [REFS] would argue that considering $H_A$ first, $E = (e_u, e_A, e_B)$ and $s(E) = s(e_u, e_A, e_B)$, but considering $H_B$ first, $E = (e_u, e_B, e_A)$ and $s(E) = s(e_u, e_B, e_A)$. In this case, $SLR_{A,B} \neq \frac{1}{SLR_{B,A}}$ because we switch the order of arguments to the score from one SLR to the other. Note that, however, if we relax the independence assumptions of independence under either $H_A$ or $H_B$, then even the LR becomes "incoherent" because $\frac{p(e_u, e_A, e_B|H_A)}{p(e_u, e_A, e_B|H_B)} \neq \frac{p(e_u, e_B, e_A|H_A)}{p(e_u, e_B, e_A|H_B)}$ in general.

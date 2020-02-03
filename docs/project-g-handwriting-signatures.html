@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-01-17" />
+<meta name="date" content="2020-01-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -66,7 +66,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -147,12 +147,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3" data-path="bullets.html"><a href="bullets.html#similarity-scores"><i class="fa fa-check"></i><b>3.3</b> Similarity Scores</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="bullets.html"><a href="bullets.html#bullet-lands"><i class="fa fa-check"></i><b>3.3.1</b> Bullet Lands</a></li>
 <li class="chapter" data-level="3.3.2" data-path="bullets.html"><a href="bullets.html#cartridge-cases"><i class="fa fa-check"></i><b>3.3.2</b> Cartridge Cases</a></li>
-<li class="chapter" data-level="3.3.3" data-path="bullets.html"><a href="bullets.html#conference-presentations"><i class="fa fa-check"></i><b>3.3.3</b> Conference Presentations</a></li>
+<li class="chapter" data-level="3.3.3" data-path="bullets.html"><a href="bullets.html#modified-chumbley-non-random-test"><i class="fa fa-check"></i><b>3.3.3</b> Modified Chumbley non-random test</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="bullets.html"><a href="bullets.html#people-involved"><i class="fa fa-check"></i><b>3.4</b> People involved</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="bullets.html"><a href="bullets.html#faculty"><i class="fa fa-check"></i><b>3.4.1</b> Faculty</a></li>
-<li class="chapter" data-level="3.4.2" data-path="bullets.html"><a href="bullets.html#graduate-students"><i class="fa fa-check"></i><b>3.4.2</b> Graduate Students</a></li>
-<li class="chapter" data-level="3.4.3" data-path="bullets.html"><a href="bullets.html#undergraduates"><i class="fa fa-check"></i><b>3.4.3</b> Undergraduates</a></li>
+<li class="chapter" data-level="3.4" data-path="bullets.html"><a href="bullets.html#analysis-of-results"><i class="fa fa-check"></i><b>3.4</b> Analysis of Results</a></li>
+<li class="chapter" data-level="3.5" data-path="bullets.html"><a href="bullets.html#communication-of-results-and-methods"><i class="fa fa-check"></i><b>3.5</b> Communication of Results and Methods</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="bullets.html"><a href="bullets.html#conference-presentations"><i class="fa fa-check"></i><b>3.5.1</b> Conference Presentations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="bullets.html"><a href="bullets.html#people-involved"><i class="fa fa-check"></i><b>3.6</b> People involved</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="bullets.html"><a href="bullets.html#faculty"><i class="fa fa-check"></i><b>3.6.1</b> Faculty</a></li>
+<li class="chapter" data-level="3.6.2" data-path="bullets.html"><a href="bullets.html#graduate-students"><i class="fa fa-check"></i><b>3.6.2</b> Graduate Students</a></li>
+<li class="chapter" data-level="3.6.3" data-path="bullets.html"><a href="bullets.html#undergraduates"><i class="fa fa-check"></i><b>3.6.3</b> Undergraduates</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html"><i class="fa fa-check"></i><b>4</b> Project G: Handwriting (&amp; Signatures)</a><ul>
@@ -221,6 +225,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8" data-path="outreach-activities.html"><a href="outreach-activities.html"><i class="fa fa-check"></i><b>8</b> Outreach activities</a><ul>
 <li class="chapter" data-level="8.1" data-path="outreach-activities.html"><a href="outreach-activities.html#book-on-forensic-science-and-statistics"><i class="fa fa-check"></i><b>8.1</b> Book on Forensic Science and Statistics</a></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html"><i class="fa fa-check"></i><b>9</b> Reproducibility in Research</a><ul>
+<li class="chapter" data-level="9.1" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html#computational-reproducibility"><i class="fa fa-check"></i><b>9.1</b> Computational Reproducibility</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -262,13 +269,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>The first 90 complete writers were published:</strong>
 &gt; Crawford, Amy; Ray, Anyesha; Carriquiry, Alicia; Kruse, James; Peterson, Marc (2019): CSAFE Handwriting Database. Iowa State University. Dataset. <a href="https://doi.org/10.25380/iastate.10062203" class="uri">https://doi.org/10.25380/iastate.10062203</a>.</p>
 Anyesha and I worked on a variety of <strong>data quality checks and batch processing</strong> prior to publication. Scanner cuts a portion of the left side of the documents off sporadically. Survey date checks. Batch removal of header.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-141"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-146"></span>
 <img src="images/handwriting/amy/promptimage.png" alt="Batch process samples: rotate 0.05 degrees, turn black line pixels white, crop 450 pixels from top (under QR code), rename." width="90%" />
 <p class="caption">
 Figure 4.1: Batch process samples: rotate 0.05 degrees, turn black line pixels white, crop 450 pixels from top (under QR code), rename.
 </p>
 </div>
-<p>We hit a bump with the ISU Office for Responsible Research (ORR). </summary> They had concerns with the demographic variables we collected on the surveys and wanted to publish. We &quot;negotiated’’ and settled on the following survey information.</p>
+<p>We hit a bump with the ISU Office for Responsible Research (ORR). </summary> They had concerns with the demographic variables we collected on the surveys and wanted to publish. We "negotiated’’ and settled on the following survey information.</p>
 <p><img src="images/handwriting/amy/surveydata_header.png" width="110%" style="display: block; margin: auto;" />
 <br></p>
 <details>
@@ -288,14 +295,14 @@ Figure 4.1: Batch process samples: rotate 0.05 degrees, turn black line pixels w
 <li><strong> Break. </strong> Connected writing is decomposed into small manageable pieces called <strong> glyphs </strong>. Glyphs are graphical structures with nodes and edges that often, but not always, correspond to Roman letters, and are the smallest unit of observation we consider for statistcal modelling.</li>
 <li><strong> Measure. </strong> A variety of measurements are taken on each glyph.</li>
 </ol>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-144"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-149"></span>
 <img src="images/handwriting/amy/handwriter_csafe.png" alt="Connected text processed by `handwriter`. The grey background is the original pen stroke. Colored lines represent the single pixel skeleton with color changes marking glyph decomposition. Red dots mark endpoints and intersections of each glyph." width="50%" />
 <p class="caption">
 Figure 4.2: Connected text processed by <code>handwriter</code>. The grey background is the original pen stroke. Colored lines represent the single pixel skeleton with color changes marking glyph decomposition. Red dots mark endpoints and intersections of each glyph.
 </p>
 </div>
 <p>For an input document, functions in the package give back a list of glyphs with path and node location information, adjacency grouping assignment, slope (pictured below), and centroid locations, among other things.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-145"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-150"></span>
 <img src="images/handwriting/amy/handwriter_slopecalc.png" alt="A visual of the ''slope'' calculation for two glyphs." width="90%" />
 <p class="caption">
 Figure 4.3: A visual of the ‘’slope’’ calculation for two glyphs.
@@ -303,7 +310,7 @@ Figure 4.3: A visual of the ‘’slope’’ calculation for two glyphs.
 </div>
 <p><br></p>
 <p><em>Compactness measuremnt</em>, by James.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-146"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-151"></span>
 <img src="images/handwriting/amy/compactness.png" alt="A visual of the ''compactness'' calculation for glyphs." width="90%" />
 <p class="caption">
 Figure 4.4: A visual of the ‘’compactness’’ calculation for glyphs.
@@ -329,7 +336,7 @@ Figure 4.4: A visual of the ‘’compactness’’ calculation for glyphs.
 <p>We begin by defining edge to edge distances. Edge to edge distances are subsequently combined for an overall glyph to glyph distance.</p>
 <p><strong>Edge to edge distances:</strong></p>
 Consider the following single edge glyphs, <span class="math inline">\(e_1\)</span> and <span class="math inline">\(e_2\)</span>. Make <span class="math inline">\(3\)</span> edits to <span class="math inline">\(e_1\)</span> to match <span class="math inline">\(e_2\)</span>. The combined magnitude of each edit make the edge distance.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-148"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-153"></span>
 <img src="images/handwriting/amy/DistMeasurePlot1.png" alt="Two edges that are also glyphs, $e_1$ and $e_2$." width="60%" />
 <p class="caption">
 Figure 4.5: Two edges that are also glyphs, <span class="math inline">\(e_1\)</span> and <span class="math inline">\(e_2\)</span>.
@@ -337,28 +344,28 @@ Figure 4.5: Two edges that are also glyphs, <span class="math inline">\(e_1\)</s
 </div>
 <ol style="list-style-type: decimal">
 <li><strong> Shift</strong>. Anchor to the nearest endpoint by shifting.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-149"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-154"></span>
 <img src="images/handwriting/amy/DistMeasurePlot2.png" alt="Shift = 1.4." width="25%" />
 <p class="caption">
 Figure 4.6: Shift = 1.4.
 </p>
 </div></li>
 <li><strong> Stretch</strong>. Make the endpoints the same distance apart.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-150"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-155"></span>
 <img src="images/handwriting/amy/DistMeasurePlot3.png" alt="Stretch = 9.9." width="25%" />
 <p class="caption">
 Figure 4.7: Stretch = 9.9.
 </p>
 </div></li>
 <li><strong> Shape</strong>. Bend and twist the edge using <span class="math inline">\(7\)</span> shape points. Shape points are ‘’matched’’ and the distance between them is averaged to obtain the shape contribution to the distance measure.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-151"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-156"></span>
 <img src="images/handwriting/amy/DistMeasurePlot4.png" alt="Shape Components." width="25%" />
 <p class="caption">
 Figure 4.8: Shape Components.
 </p>
 </div></li>
 </ol>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-152"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-157"></span>
 <img src="images/handwriting/amy/DistMeasurePlot5.png" alt="Shape = 8.4." width="100%" />
 <p class="caption">
 Figure 4.9: Shape = 8.4.
@@ -370,7 +377,7 @@ Figure 4.9: Shape = 8.4.
 <div id="measure-of-glyph-centers" class="section level4 unnumbered">
 <h4>Measure of glyph centers</h4>
 Take the weighted average of endpoints, <span class="math inline">\(7\)</span> shape points, and edge length.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-153"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-158"></span>
 <img src="images/handwriting/amy/Meanplot1.png" alt="Weighted mean between two glyphs. p = weight on blue." width="60%" />
 <p class="caption">
 Figure 4.10: Weighted mean between two glyphs. p = weight on blue.
@@ -387,14 +394,14 @@ Figure 4.10: Weighted mean between two glyphs. p = weight on blue.
 </li>
 <li>Calculate each cluster mean as defined. Find the exemplar nearest the cluster mean and use it as the new cluster center.</li>
 </ol>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-154"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-159"></span>
 <img src="images/handwriting/amy/Cluster40.png" alt="One of $K=40$ Clusters. Exemplar &amp; cluster members (left). Cluster mean (right)." width="40%" />
 <p class="caption">
 Figure 4.11: One of <span class="math inline">\(K=40\)</span> Clusters. Exemplar &amp; cluster members (left). Cluster mean (right).
 </p>
 </div>
 <p>Use one document from each training writer to cluster and obtain a template. Make cluster assignments for the remaining documents by finding the template exemplar each glyph is nearest to. Below is an example of data that arises from the clustering method.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-155"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-160"></span>
 <img src="images/handwriting/amy/Clusterdata.png" alt="Data arising from the cluster grouping method. Cluster #'s ordered by most to least populated." width="60%" />
 <p class="caption">
 Figure 4.12: Data arising from the cluster grouping method. Cluster #’s ordered by most to least populated.
@@ -404,7 +411,7 @@ Figure 4.12: Data arising from the cluster grouping method. Cluster #’s ordere
 <div id="outliers" class="section level4">
 <h4><span class="header-section-number">4.3.1.1</span> Outliers</h4>
 <p>During clustering, outliers are considered glyphs that are at least <span class="math inline">\(T_o\)</span> distance units from cluster exemplars. The algorithm sets a ceiling <span class="math inline">\(n_o\)</span> on the allowable number of outliers. Initially, we were going to ignore the outliers, but now they are considered the <span class="math inline">\(K+1\)</span>th cluster and contribute information about writer.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-156"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-161"></span>
 <img src="images/handwriting/amy/HW_Outliers.png" alt="Cluster of outliers." width="80%" />
 <p class="caption">
 Figure 4.13: Cluster of outliers.
@@ -429,13 +436,13 @@ Figure 4.13: Cluster of outliers.
 <li>Currently working on 20+ algorithm runs with a variety of starting values to select final template.</li>
 </ul></li>
 </ol>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-157"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-162"></span>
 <img src="images/handwriting/amy/d100_sm0_seed65_exemplars.png" alt="Cluster Members and Exemplars." width="80%" />
 <p class="caption">
 Figure 4.14: Cluster Members and Exemplars.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-158"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-163"></span>
 <img src="images/handwriting/amy/d100_sm0_seed65_means.png" alt="Cluster Means." width="78%" />
 <p class="caption">
 Figure 4.15: Cluster Means.
@@ -468,7 +475,7 @@ Figure 4.15: Cluster Means.
 </ul></li>
 <li>Assess the posterior probability of writership under each known writer <span class="math inline">\(\boldsymbol\pi_{w}\)</span> vectors.
 <ul>
-<li>i.e. <span class="math inline">\(p(w^* = w^\prime|\boldsymbol{Y^*}, \boldsymbol{Y})\)</span> for each writer <span class="math inline">\(w^\prime\)</span> in the training data.</li>
+<li>i.e. <span class="math inline">\(p(w^* = w^\prime|\boldsymbol{Y^*}, \boldsymbol{Y})\)</span> for each writer <span class="math inline">\(w^\prime\)</span> in the training data.</li>
 </ul></li>
 </ul>
 <p>The posterior probability that the questioned document <span class="math inline">\(\boldsymbol{Y}^*_{w^*}\)</span> belongs to writer <span class="math inline">\(w^\prime\)</span> with respect to the closed set is,
@@ -493,7 +500,7 @@ and compute summaries over the MCMC draws,
 \]</span></p>
 <p><strong> Results </strong></p>
 <p>If we use a single holdout document for each writer (doc 4). The <span class="math inline">\(\boldsymbol{\bar{p}}\)</span> vector as given above is shown graphically for each holdout document (the rows).</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-159"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-164"></span>
 <img src="images/handwriting/amy/CVL_w27_h4_cluster40_basemodel_grid.png" alt="Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.2013" width="60%" />
 <p class="caption">
 Figure 4.16: Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.2013
@@ -501,7 +508,7 @@ Figure 4.16: Posterior predictive results. Rows are evaluated independently and 
 </div>
 <p><br></p>
 <p>We can use a cross validation routine to estimate error. For each writer, shuffle the order of their body of documents. For the first fold we holdout the first document for testing, for the second fold we hold out the second document for testing, etc.. This yields 6 results analogous to that of the figure above.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-160"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-165"></span>
 <img src="images/handwriting/amy/CVL_w27_CVfoldall_cluster40_basemodel_grid.png" alt="Posterior predictive results for each fold of the CV routine outlined above. Log Loss is clearly not a great summary of performance." width="100%" />
 <p class="caption">
 Figure 4.17: Posterior predictive results for each fold of the CV routine outlined above. Log Loss is clearly not a great summary of performance.
@@ -515,20 +522,20 @@ With a count data model it is important to investigate the presence of over- and
 <li>Relative Dispersion Index (RDI) = <span class="math inline">\(\frac{\mbox{writer data GDI}}{\mbox{model simulated GDI}}.\)</span></li>
 <li>High RDI <span class="math inline">\(\implies\)</span> data over-dispersion and high sample to sample variability.</li>
 </ul>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-161"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-166"></span>
 <img src="images/handwriting/amy/RDI_table.png" alt="RDIs for the 27 CVL writers under Model #1." width="60%" />
 <p class="caption">
 Figure 4.18: RDIs for the 27 CVL writers under Model #1.
 </p>
 </div>
 <p>High RDI <span class="math inline">\(\implies\)</span> data over-dispersion &amp; high sample to sample variability (in the sense of glyph cluster membership rates).</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-162"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-167"></span>
 <img src="images/handwriting/amy/writer12samples.png" alt="Handwriting Samples from Writer #12. Notice the repeated patterns in letters 'a', 'e', 'f', 'g', 'h', 't', etc. across samples." width="70%" />
 <p class="caption">
 Figure 4.19: Handwriting Samples from Writer #12. Notice the repeated patterns in letters ‘a’, ‘e’, ‘f’, ‘g’, ‘h’, ‘t’, etc. across samples.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-163"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-168"></span>
 <img src="images/handwriting/amy/writer23samples.png" alt="Handwriting Samples from Writer #23. Note the red 'h's, green 'll's, purple terminal 'y's, and blue 'loo's" width="80%" />
 <p class="caption">
 Figure 4.20: Handwriting Samples from Writer #23. Note the red ’h’s, green ’ll’s, purple terminal ’y’s, and blue ’loo’s
@@ -538,7 +545,7 @@ Figure 4.20: Handwriting Samples from Writer #23. Note the red ’h’s, green �
 <div id="model-2-mixture" class="section level4 unnumbered">
 <h4>Model #2, Mixture</h4>
 There seem to be greatly varying shapes in the relative frequency of cluster fill. We think maybe a more flexible Dirichlet distribution is warranted.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-164"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-169"></span>
 <img src="images/handwriting/amy/bucketfillshapes.png" alt="Average relative frequency of cluster fill for the 8 most common clusters. Notice writers 12/21 and 6/17/18." width="80%" />
 <p class="caption">
 Figure 4.21: Average relative frequency of cluster fill for the 8 most common clusters. Notice writers 12/21 and 6/17/18.
@@ -559,10 +566,10 @@ This has been resolved (?) by placing constraints on the first three elements of
 <li><p><span class="math inline">\(\mathbf{\alpha_2 &gt; \beta_2}\)</span> , <span class="math inline">\(\quad\)</span> <span class="math inline">\(\alpha_2 \sim Gamma(4, 0.25) \:\: \&amp; \:\: \beta_2 \sim Gamma(1, 0.25)\)</span></p></li>
 <li><p><span class="math inline">\(\mathbf{\alpha_3 &gt; \beta_3}\)</span> , <span class="math inline">\(\quad\)</span> <span class="math inline">\(\alpha_3 \sim Gamma(4, 0.25) \:\: \&amp; \:\: \beta_3 \sim Gamma(1, 0.25)\)</span></p></li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-165-1.png" width="624" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-170-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p><strong> Results </strong></p>
 The mixing component gives insights into writing style.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-166"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-171"></span>
 <img src="images/handwriting/amy/mixprior_rhosamps2.png" alt="Average 
 ho_w value for each writer." width="70%" />
 <p class="caption">
@@ -570,14 +577,14 @@ Figure 4.22: Average
 ho_w value for each writer.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-167"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-172"></span>
 <img src="images/handwriting/amy/writingsamples_style.png" alt="Writing samples in a variety of styles based on the mixing parameter. From top to bottom, writer #'s 21, 4, 29, 20, 18." width="60%" />
 <p class="caption">
 Figure 4.23: Writing samples in a variety of styles based on the mixing parameter. From top to bottom, writer #’s 21, 4, 29, 20, 18.
 </p>
 </div>
 Evaluate the posterior probability of writership for each of the holdout documents.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-168"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-173"></span>
 <img src="images/handwriting/amy/CVL_w27_h4_cluster40_mixparam_grid.png" alt="Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.2078" width="60%" />
 <p class="caption">
 Figure 4.24: Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.2078
@@ -592,14 +599,14 @@ Figure 4.24: Posterior predictive results. Rows are evaluated independently and 
 </li>
 <li>Testing doc: s01_pLND_r02</li>
 </ul>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-169"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-174"></span>
 <img src="images/handwriting/amy/csafe20_relfreqbyrho_template65_first8clusters.png" alt="Average relative frequency of cluster fill for the 8 most common clusters." width="90%" />
 <p class="caption">
 Figure 4.25: Average relative frequency of cluster fill for the 8 most common clusters.
 </p>
 </div>
 Posterior probability results.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-170"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-175"></span>
 <img src="images/handwriting/amy/csafe20_postprobs_template65.png" alt="Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one." width="60%" />
 <p class="caption">
 Figure 4.26: Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one.
@@ -650,7 +657,7 @@ Figure 4.26: Posterior predictive results. Rows are evaluated independently and 
 for MCMC samples <span class="math inline">\(m = 1, \dots, M\)</span>.</p>
 <p><strong> Results </strong></p>
 Evaluate the posterior probability of writership for each of the holdout documents.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-171"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-176"></span>
 <img src="images/handwriting/amy/CVL_w27_h4_cluster40_normslopemean_grid.png" alt="Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.0883." width="60%" />
 <p class="caption">
 Figure 4.27: Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.0883.

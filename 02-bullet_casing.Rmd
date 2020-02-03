@@ -856,6 +856,12 @@ The changes to our results are minor, but it is an important detail when modelin
 <p class="new"> I am polishing two full chapters of the book this week. Starting to write up the full variability study (as a dissertation chapter). Writing, writing, writing! </p>  
 
 
+Update on data collection:  
+
+We are in "Phase 2" of data collection, shown below as the purple numbers:   
+
+<img src="images/bullets/pipeline/data-collection-update-feb-spotlight.png" width = "80%"/>  
+
 
 
 ### Cartridge Cases

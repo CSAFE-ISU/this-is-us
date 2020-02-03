@@ -1453,6 +1453,39 @@ knitr::include_graphics("images/cartridge_cases/kmCMCs_originalSize_downSampled.
 
 </details>
 
+<details>
+<summary>
+Joe 2/3 Update: I've been working on getting a Gaussian bandpass filter implemented for the cartridge cases in an attempt to match the results reported by Chen et al. (2017). I've also been writing more of the journal submission while code runs.
+</summary>
+
+Below is an image of black (0 intensity) grayscale image to which a low-frequency, 255 intensity box and high-frequency Gaussian noise has been added.
+```{r}
+knitr::include_graphics("images/cartridge_cases/2-3_fftExample/originalImage_flat.PNG")
+```
+
+Below is a 3D rendering of the same image.
+```{r}
+knitr::include_graphics("images/cartridge_cases/2-3_fftExample/originalImage.PNG")
+```
+
+
+A "low pass" Gaussian filter can be interpreted as reducing the strength of high frequency signals in the image. In the image above, the Gaussian noise is higher in frequency than the white box, so it can be reduced without drastically affecting the box. In the spatial domain, we can think of a moving average as performing a similar operation as a low pass filter.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/2-3_fftExample/lowPassFiltered.PNG")
+```
+
+Conversely, a "high pass" Gaussian filter reduces the strength of low frequency (longer period) signals and emphasizing high frequency signals. We can see in the image below that much of the white box has been removed from the image below by passing a high pass filter since the much of the white box can be explained with large period sinusoids. Only the edges, which would need to be explained with higher frequency sinusoids, remain after passing the high pass filter. The Gaussian noise also remains.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/2-3_fftExample/highPassFiltered.PNG")
+
+knitr::include_graphics("images/cartridge_cases/2-3_fftExample/highPassFiltered_sideView.PNG")
+```
+
+
+</details>
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
 The moified Chumbley non-random algorithm is a statistical non-paramaetric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segement to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 

@@ -267,6 +267,18 @@ An additional requirement may be $$(1-p_2) > Mp_1$$ for a large M.
 
 We are going to compare the above methods next.
 
+```{r, fig.cap="two curves", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/curves.png"))
+```
+
+```{r, fig.cap="odds ratio", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/oddsratio2.png"))
+```
+
+```{r, fig.cap="comparison table", out.width="100%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/comparetable2.PNG"))
+```
+
 #### follow-up study 
 
 4 bullets per barrel for  96 of the original 626 Beretta firearms using different ammunition

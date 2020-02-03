@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-01-31" />
+<meta name="date" content="2020-02-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -261,8 +261,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 - Researchers’ own packages in development (e.g., bullet pipeline, shoe analysis pipeline) are vulnerable to changes in any package dependencies.<br />
 - Group collaboration efforts on a developing package can lead to miscommunications, including changes in code that affect others’ results (sorry again, Charlotte!)</p>
 <p>So, how does this practically affect CSAFE’s research teams, and how can we manage it?</p>
-<p>Here I’m going to put our bullet pipeline but with packages that we depend on for example.</p>
-<p>Here I’m going to put a whole dependency tree of 4 major CSAFE packages.</p>
+<p>For example, consider the bullet analysis ``pipeline" and some of the R packages that are involved at different steps of the process (this is not exhaustive):</p>
+<p><img src="images/reproducibility/pipeline_small_bullets_packages.png" width = "90%"/></p>
+<p>Just to go from a two raw x3p files to a quantitative result of a similarity score between the two bullet LEAs, we need a lot of R packages. When something in those packages change (e.g., default requirements for a <code>tidyverse</code> function), it can break our code! In addition, different people on the project may be running the same script to analyze bullets but be using different versions of packages.</p>
+<p>Because packages like <code>bulletxtrctr</code> and the methodology for different steps (e.g., groove ID, crosscut ID) are still changing and new approaches are being added, we need to be thoughtful and careful about reporting results and working to make sure our results are reproducible by other team members and outside users.</p>
+<p>This is not isolated to just the bullet project, either. Let’s consider three major projects at CSAFE and their associated packages: <code>bulletxtrctr</code> and <code>x3ptools</code> for the bullet project, <code>handwriter</code> for the handwriting project, and <code>shoeprintr</code> for the shoe project.</p>
+<p><img src="images/reproducibility/csafe_packages_tree.png" width = "100%"/></p>
+<p>A total of 109 different packages are involved!!!!! This is a LOT of packages, and it leaves ``open forensic science in R" very vulnerable to changes in other packages.</p>
+<p>To remedy this, we are developing a package to help manage dependencies and track when functions change. It is ongoing work, and by the next spotlight I should be able to share some use cases, examples, and functionality that will majorly assist our package development workflow.</p>
 
 </div>
 </div>

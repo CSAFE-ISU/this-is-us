@@ -276,7 +276,7 @@ include_graphics(c("images/yawei/oddsratio2.png"))
 ```
 
 ```{r, fig.cap="comparison table", out.width="100%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/comparetable2.PNG"))
+include_graphics(c("images/yawei/comparetable3.PNG"))
 ```
 
 #### follow-up study 

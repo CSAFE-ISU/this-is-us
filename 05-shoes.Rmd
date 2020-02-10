@@ -698,4 +698,22 @@ Non-mates|    9     |       6.43     |   0.1208  |        1.39          |
 <img src="images/shoes/Features/density_w2_w4.png" width="100%"/>
 
 
+**Discrimination among groups**
+ 
+<img src="images/shoes/Features/vest-w2w4.png" width="100%"/>
 
+  - Initial analysis 
+     + Cluster analysis; hcluter
+     + Principal component analysis (PCA)
+ 
+  - Are groups significantly different?
+     + Multivariate Analysis of Variance (MANOVA)
+     + Multi-Response Permutation Procedurs(MRPP)
+     + Analysis of Group Similarities (ANOSIM)
+     
+  - How do groups differ?
+     + Discriminant Analysis (DA)
+     + Classification and Regression Trees (CART)
+     + Logistic Regression (LR)
+     
+     

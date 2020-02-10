@@ -757,6 +757,35 @@ knitr::include_graphics("images/bullets/Hough_project/right-groove-comparison.pn
 
 </details>
 
+<details>
+<summary>
+Charlotte Update 02/03/2020:
+Teaching this semester which has been fun and challenging in a new way. Had an issue with comparing LASSO Results between ones found by myself in the grooveFinder package and results that had been previously saved by Kiegan. Now I'm investigating optimal adjusts for the Hamby44 set and will be working on the summary report.
+</summary>
+
+A while back, I ran into an issue where the estimated grooves using the Lasso-full method did not match Kiegan's previously saved results. It turns out that the lasso function in grooveFinder does not have a built in adjust parameter so the results are different from those create from the bulletxtrctr version. So accounting for the adjust, I re-ran results and obtained something suprising. I know that six additional scans were uploaded to Sunny since the time Kiegan ran the lasso results. However, those were removed for the sake of consistency. 
+
+```{r, fig.cap="Left Groove Difference Estimates", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/left-lasso-comparison.png")
+```
+
+```{r, fig.cap="Right Groove Difference Estimates", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/right-lasso-comparison.png")
+```
+
+
+So it leaves the question, why are these results ever so slightly different and  which results do we use to compare to Hough even though they're largely consistent. Other than the LASSO question I have also run the Hough results on the Hamby 44 set to find the optimal adjust. One interesting observation is that there is a set of nine observations where no valid crosscut can be produced. 
+
+```{r,out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/hamby-44-barrel-six-land-5.png")
+```
+
+```{r, out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/hamby-44-barrel-two-land-one.png")
+```
+
+
+
 
 ##### LASSO Method  
 

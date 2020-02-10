@@ -1523,6 +1523,152 @@ knitr::include_graphics("images/cartridge_cases/2-3_fftExample/highPassFiltered_
 
 </details>
 
+<details>
+<summary>
+Joe 2/10 Spotlight: A further explanation of how I have been pre-processing the images and how those steps affect the CCF values.
+</summary>
+
+I have been spending the last few weeks tweaking the pre-processing procedures in order to perform a "sensitivity analysis" of the final results given a variety of initial conditions. This has required me to look deeper into various image processing techniques that has taken up a surprising amount of time. I have also been trying to pull together the various threads of the project into a cohesive manuscript and R package. I'm planning on making this project my CC and hoping to present it in late March/early April.
+
+I've spent a considerable amount of this project, possibly more than half, agonizing over various image processing techniques. We had a working "prototype" of the CMC working as far back as October of last year. However, it quickly became evident that our results didn't quite match the results reported by authors at NIST. This realization caused us to go down a variety of rabbit holes, some of which we're still in, to determine the cause of these differing results. The biggest obstacle that we've faced is that we don't quite know how the images were processed before they were used in the CMC method; and it doesn't appear that NIST is willing to share much of their information (although Susan is currently trying to get them to share). There are a variety of decisions that need to be made when pre-processing the images that aren't discussed in sufficient detail in any papers on the CMC method. So it has been up to us to test various combinations of these decisions to determine how they affect the final results.
+
+Because I have been spending so much time the past few weeks (months?) exploring various pre-processing techniques, I'm hoping to share with you all some of what I have learned. I've never really discussed the pre-processing procedure(s) in-full, so I hope to use this space as an opportunity to pull together various threads that I can hopefully use for my CC.
+
+When we say that we need to "pre-process" the cartridge case scans, we mean that there are regions of the scan that aren't useful to us that we want to remove. In particular, any regions that don't come into contact with the breech face of the firearm barrel aren't going to be informative. The image below shows left-hand side and top-down views of a cartridge case.
+
+```{r }
+knitr::include_graphics(c("images/cartridge_cases/2-10_spotlight/cartridgeCaseScanBottomSideView_1.png"),dpi = 650)
+
+knitr::include_graphics(c("images/cartridge_cases/2-10_spotlight/cartridgeCaseScanTopView_1.png"),dpi = 400)
+```
+
+The regions we want to remove outright from the scan are highlighted in red in the image below. The red circe in the middle is caused by the firing pin pushing into the cartridge case primer, causing some of the metal to be pushed to the side. This region does not come into contact with the breech face, but instead goes inside of the firing pin hole. The cluster of points in the corners of the image are from the machine with which the scan was taken. Removing these regions by hand would be straightforward. The issue comes from trying to come up with automatic methods for identifying and removing these regions for an arbitrary scan.
+
+```{r out.height=400, out.width=400,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/2-10_spotlight/cartridgeCaseScanTopViewHighlighted_1.png")
+```
+
+The first goal is to identify at which height value the breech face impression is in the scan. We currently use the RANSAC (RAndom SAmple Consensus) method to accomplish this. For our purposes, RANSAC iteratively fits a number of "candidate" planes to the cartridge case scan based on randomly selected points. At each iteration, the method determines whether a newly proposed candidate plane contains more "inliers" (defined as points within some threshold distance of fitted plane) than the previously proposed candidate planes. If so, then the method chooses this new plane as the current "consensus." After a set number of iterations, the last consensually-selected plane is returned. The picture below provides a 2-dimensional illustration of the method ([Source](https://bitesofcode.wordpress.com/category/python/)).
+
+```{r out.height=400,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/2-10_spotlight/ransacMethod.png")
+```
+
+Once the RANSAC plane is fit, we have two options. We can either take the residuals between the fitted plane and the observed breech face impression values or simply extract from the original scan the observed values within some specified distance of the fitted plane. Assuming that the cartridge case scans aren't tilted off the horizontal, these should yield similar results. However, we have some evidence to suggest that the planes are slightly tilted. The pair of images below illustrates this point. The image on the left represents the raw, observed breech values while the image on the right contains the residuals. The grayscale intensity of the images reflect the height values. We can see that in the image on the left that there is a general trend from darker to lighter pixels (i.e, height values go from low to high) from the bottom-left corner to the top-right corner. The image on the right, on the other hand, does not contain this trend since it contains residual values. It should be noted that, although we can see a trend, this trend may be exaggerated since the pixel intensities are colored on a scale relative to the values in the image. That is, although there *is* a clear trend, this trend may not actually be that extreme when viewing the raw pixel values.
+
+```{r}
+knitr::include_graphics(c("images/cartridge_cases/2-10_spotlight/ransacSelectedBF.png"),
+                        dpi = 100)
+
+knitr::include_graphics(c("images/cartridge_cases/2-10_spotlight/ransacSelectedBFResiduals.png"),
+                        dpi = 100)
+
+```
+
+We have yet to determine whether fixing this tilt affects the results in any major way, but, to be safe, we have mostly been using the residuals rather than the raw, observed breech face impression values. It should be noted that because the RANSAC method is dependent on randomly selected points in the scan, the final consensually-selected plane may differ in size/values between different applications of the method. However, we've observed this difference to be only slight across the many times we've applied the method.
+
+You'll notice in the above image that we still haven't removed all of the observed values inside nor outside the breech face impression. These remaining, unwanted pixels happen to have the same height value as the breech face impression pixels. Removing the outer pixels simply requires cropping the image down such that the breech face impression pixels touch the edge of the image. Removing the inner pixels is slightly harder and was the focus of a few weeks of work last semester. The method we implemented to detect where these pixels are in the image involves first estimating the radius of the inner circle and then using a Hough Transform to detect where that circle is in the image. For the sake of wanting to discuss other pre-processing more in-depth, I'm going to skip the details here. The additionally cropped/filtered image using the RANSAC residuals is shown below.
+
+```{r}
+knitr::include_graphics(c("images/cartridge_cases/2-10_spotlight/fullyProcessedBFResidualsTopDown.PNG"),
+                        dpi = 100)
+```
+
+The next pre-processing step involves passing a Gaussian filter over the image to improve the "signal-to-noise" ratio. For our purposes, the "signal" that we want to identify are the impression markings left by the breech face onto the cartridge case. "Noise" includes possible measurement error and larger structure on the cartridge case that isn't an artifact of contact with the breech face. The Gaussian filtering is performed in the frequency domain using the Convolution Theorem.
+
+<details>
+<summary>
+**Gaussian Filter Intuition**
+</summary>
+
+Below is an image of black (0 intensity) grayscale image to which a low-frequency, 255 intensity box and high-frequency Gaussian noise has been added.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/2-3_fftExample/originalImage_flat.PNG")
+```
+
+Below shows a 3D rendering of the same image.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/2-3_fftExample/originalImage.PNG")
+```
+
+A "low pass" Gaussian filter can be interpreted as reducing the strength of high frequency signals in the image. In the image above, the Gaussian noise is higher in frequency than the white box, so it can be reduced without completely removing the box, although the box will be affected. In the spatial domain, we can think of a weighted moving average as performing a similar operation as a low pass filter.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/2-3_fftExample/lowPassFiltered.PNG")
+```
+
+Conversely, a "high pass" Gaussian filter reduces the strength of low frequency (longer period) signals and emphasizing high frequency signals. We can see in the image below that much of the white box has been removed from the image below by passing a high pass filter since the much of the white box can be explained with large period sinusoids. Only the edges, which would need to be explained with higher frequency sinusoids, remain after passing the high pass filter. The Gaussian noise also remains.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/2-3_fftExample/highPassFiltered.PNG")
+
+knitr::include_graphics("images/cartridge_cases/2-3_fftExample/highPassFiltered_sideView.PNG")
+```
+
+</details>
+
+A Gaussian bandpass filter can be used to reduce signals that are either too low or too high in frequency - i.e., what we have deemed to be noise. Below we can see the processed RANSAC residuals after filtering using a Gaussian bandpass. I've implemented the Gaussian bandpass by-hand since effectively no package  We can see that the "high-frequency" markings that were in the top-right quarter of the original RANSAC residuals have been visually reduced. Increasing the high-pass threshold of the Gaussian filter would mean allowing more of the high-frequency signals to be unaffected. A balance must be struck so that enough of the "true signal" remains in the filtered image while simulatenously reducing the effects of random noise.
+
+```{r}
+knitr::include_graphics(c("images/cartridge_cases/2-10_spotlight/filteredBFResiduals.png"),
+                        dpi = 100)
+```
+
+All of this pre-processing can be done while keeping the original resolution of the surface matrix. For the Fadul (2011) sets, this is 3.125 microns/pixel. The literature available commonly describes downsizing a breech face impression to speed up computational time. However, no direction is given into how this downsampling happens. For example, we could downsample simply by taking every every other row/column in an image. This is the method implemented in the `x3ptools::sample_x3p` function. On the other hand, a large number of downsampling interpolation techniques exist that take weighted averages in neighborhoods of points to determine the values in a downsampled image. Many of these interpolation methods (nearest neighbor, linear, cubic, lanczos) are implemented in the `imager::resize` function. However, `imager` is effectively an `R` frontend to the `C` library `CImg`, so the way in which these methods are actually implemented may be difficult to track down.
+
+<details>
+<summary>
+**Sensitivity Analysis Example**
+</summary>
+
+To illustrate some of the sensitivity of the final results to the pre-processing steps, we'll consider an example in which we have 3 cartridge case scans. We'll consider two of them "known" and one of them to be "questioned." We'll consider combinations of two different decisions: 1) take the RANSAC residuals or the raw breech face impression values and 2) pass a gaussian bandpass filter over the images or not. In each of these examples, the questioned cartridge case is in the top left, its (known) match is in the top right, a (known) non-match is in the bottom left, and the distribution of maximum CCF values per cell comparing the questioned cartridge case to the two known cartridge cases is in the bottom right.
+ 
+Below we can see the results if the RANSAC residuals were taken and then bandpass filtered. We can see considerable overlap between the two distributions.
+
+```{r out.width = "49%"}
+knitr::include_graphics(c("images/cartridge_cases/2-10_spotlight/sensitivityExample/bandpassResiduals/fadul1_bandpassResiduals.png",
+                            "images/cartridge_cases/2-10_spotlight/sensitivityExample/bandpassResiduals/fadul2_bandpassResiduals.png"))
+
+knitr::include_graphics(c("images/cartridge_cases/2-10_spotlight/sensitivityExample/bandpassResiduals/fadulx_bandpassResiduals.png",
+                          "images/cartridge_cases/2-10_spotlight/sensitivityExample/bandpassResiduals/BandpassResiduals_ccfHistogram.png"))
+```
+ 
+Below we can see the results if the raw breech face values were taken and then bandpass filtered. Again, considerable overlap.
+
+```{r out.width = "49%"}
+knitr::include_graphics(c("images/cartridge_cases/2-10_spotlight/sensitivityExample/bandpassRawValues/fadul1_bandpassRawValues.png",
+                          "images/cartridge_cases/2-10_spotlight/sensitivityExample/bandpassRawValues/fadul2_bandpassRawValues.png"))
+
+knitr::include_graphics(c("images/cartridge_cases/2-10_spotlight/sensitivityExample/bandpassRawValues/fadulx_bandpassRawValues.png",
+                          "images/cartridge_cases/2-10_spotlight/sensitivityExample/bandpassRawValues/BandpassRawValues_ccfHistogram.png"))
+```
+
+Below we can see the results if the raw breech face values were taken, but no bandpass filter was applied. One could argue that the CCF values are slightly higher than in the bandpass cases, but there is still considerable overlap.
+
+```{r out.width = "49%"}
+knitr::include_graphics(c("images/cartridge_cases/2-10_spotlight/sensitivityExample/noBandpassResiduals/fadul1_noBandpassResiduals.png",
+                          "images/cartridge_cases/2-10_spotlight/sensitivityExample/noBandpassResiduals/fadul2_noBandpassResiduals.png"))
+
+knitr::include_graphics(c("images/cartridge_cases/2-10_spotlight/sensitivityExample/noBandpassResiduals/fadulx_noBandpassResiduals.png",
+                          "images/cartridge_cases/2-10_spotlight/sensitivityExample/noBandpassResiduals/noBandpassFilterResiduals_ccfHistogram.png"))
+```
+
+Startilingly, the non-bandpassed, raw values yield the highest CCF values of these 4 combinations. However, it's important to point out that the known match images very clearly have trend that starts low in the bottom left corner and increases to the top right corner. The non-match has a completely different trend. As we can see from the non-bandpassed, residual CCF histogram above, it appears that this global difference does have a fairly drastic effect on the final results. From what I have read, no author recognizes this global trend as a possible reason for the why matches tend to be more similar than the non-matches.
+
+```{r out.width = "49%"}
+knitr::include_graphics(c("images/cartridge_cases/2-10_spotlight/sensitivityExample/noBandpassRawValues/fadul1_noBandpassNoResiduals.png",
+                          "images/cartridge_cases/2-10_spotlight/sensitivityExample/noBandpassRawValues/fadul2_noBandpassNoResiduals.png"))
+
+knitr::include_graphics(c("images/cartridge_cases/2-10_spotlight/sensitivityExample/noBandpassRawValues/fadulx_noBandpassNoResiduals.png",
+                          "images/cartridge_cases/2-10_spotlight/sensitivityExample/noBandpassRawValues/noBandpassNoResiduals_ccfHistogram.png"))
+```
+
+</details>
+
+</details>
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
 The moified Chumbley non-random algorithm is a statistical non-paramaetric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segement to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 

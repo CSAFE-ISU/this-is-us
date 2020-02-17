@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-02-03" />
+<meta name="date" content="2020-02-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -196,11 +196,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4" data-path="shoes.html"><a href="shoes.html#cocoa"><i class="fa fa-check"></i><b>6.4</b> Project Tread (formerly Cocoa Powder Citizen Science)</a></li>
 <li class="chapter" data-level="6.5" data-path="shoes.html"><a href="shoes.html#d-shoe-recognition"><i class="fa fa-check"></i><b>6.5</b> 3d Shoe Recognition</a></li>
 <li class="chapter" data-level="6.6" data-path="shoes.html"><a href="shoes.html#shoe-outsole-matching-using-image-descriptors"><i class="fa fa-check"></i><b>6.6</b> Shoe outsole matching using image descriptors</a><ul>
-<li class="chapter" data-level="6.6.1" data-path="shoes.html"><a href="shoes.html#features"><i class="fa fa-check"></i><b>6.6.1</b> Features</a></li>
-<li class="chapter" data-level="6.6.2" data-path="shoes.html"><a href="shoes.html#matching-on-clean-and-full-images"><i class="fa fa-check"></i><b>6.6.2</b> Matching on clean and full images</a></li>
-<li class="chapter" data-level="6.6.3" data-path="shoes.html"><a href="shoes.html#matching-on-degraded-and-partial-images"><i class="fa fa-check"></i><b>6.6.3</b> Matching on degraded and partial images</a></li>
+<li class="chapter" data-level="6.6.1" data-path="shoes.html"><a href="shoes.html#method-1-edge-detection-and-mc-mc-comp"><i class="fa fa-check"></i><b>6.6.1</b> Method 1: Edge detection and MC (MC-COMP)</a></li>
+<li class="chapter" data-level="6.6.2" data-path="shoes.html"><a href="shoes.html#method-2-surf-detection-and-mc-on-degraded-impressions"><i class="fa fa-check"></i><b>6.6.2</b> Method 2: SURF detection and MC on degraded impressions</a></li>
+<li class="chapter" data-level="6.6.3" data-path="shoes.html"><a href="shoes.html#research-1-features"><i class="fa fa-check"></i><b>6.6.3</b> Research 1: Features</a></li>
+<li class="chapter" data-level="6.6.4" data-path="shoes.html"><a href="shoes.html#matching-on-clean-and-full-images"><i class="fa fa-check"></i><b>6.6.4</b> Matching on clean and full images</a></li>
+<li class="chapter" data-level="6.6.5" data-path="shoes.html"><a href="shoes.html#matching-on-degraded-and-partial-images"><i class="fa fa-check"></i><b>6.6.5</b> Matching on degraded and partial images</a></li>
+<li class="chapter" data-level="6.6.6" data-path="shoes.html"><a href="shoes.html#research-2-impact-of-weight-to-outsole-scans-from-everos-2d-scanner"><i class="fa fa-check"></i><b>6.6.6</b> Research 2: Impact of weight to outsole scans from EverOS 2D scanner</a></li>
+<li class="chapter" data-level="6.6.7" data-path="shoes.html"><a href="shoes.html#research-3-mc-cnn"><i class="fa fa-check"></i><b>6.6.7</b> Research 3: MC + CNN</a></li>
 </ul></li>
-<li class="chapter" data-level="6.7" data-path="shoes.html"><a href="shoes.html#impact-of-weight-to-outsole-scans-from-everos-2d-scanner"><i class="fa fa-check"></i><b>6.7</b> Impact of weight to outsole scans from EverOS 2D scanner</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html"><i class="fa fa-check"></i><b>7</b> Theoretical foundations</a><ul>
 <li class="chapter" data-level="7.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#common-source-vs-specific-source-comparison-via-information-theory"><i class="fa fa-check"></i><b>7.1</b> Common Source vs Specific Source Comparison via Information Theory</a><ul>
@@ -467,11 +470,11 @@ This is necessary because Fourier transforms assume images go on forever, so abr
 <p><img src="images/shoes/longitudinal/FFT_Demo_Hann.png" width = "25%"/></p>
 <ul>
 <li>The strength of the Hann function can be adjusted by a power argument<br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-186-1.png" width="672" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-204-1.png" width="672" /></li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
 <li>Use the Fast Fourier Transform on each image. Center the FFT’d images so that low frequencies are in the center (exchange top left quadrant with bottom right, and top right quadrant with bottom left). Call the FFT’d, centered images <span class="math inline">\(F(A)\)</span> and <span class="math inline">\(F(B)\)</span><br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-187-1.png" width="50%" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-205-1.png" width="50%" /></li>
 </ol>
 <p><img src="images/shoes/longitudinal/FFT_Demo_FFT1.png" width = "50%"/></p>
 <ol start="4" style="list-style-type: decimal">
@@ -832,8 +835,42 @@ The basic idea of principal component analysis is to take a dataset with many va
 </div>
 <div id="shoe-outsole-matching-using-image-descriptors" class="section level2">
 <h2><span class="header-section-number">6.6</span> Shoe outsole matching using image descriptors</h2>
-<div id="features" class="section level3">
-<h3><span class="header-section-number">6.6.1</span> Features</h3>
+<div id="method-1-edge-detection-and-mc-mc-comp" class="section level3">
+<h3><span class="header-section-number">6.6.1</span> Method 1: Edge detection and MC (MC-COMP)</h3>
+<p>Under the revision by <em>Journal of Applied Statistics</em>,</p>
+<p><img src="images/shoes/Features/signature.png" width="100%"/></p>
+<p><strong>Comments by reviewers</strong></p>
+<ol style="list-style-type: decimal">
+<li>Discuss ways in which the MC-COMP could be <strong>tuned</strong> to fit a more <strong>generalizable</strong> prediction?
+<ul>
+<li>image pattern matching including other forensic discipline.</li>
+</ul></li>
+<li>Possible to extend to <strong>3D images</strong>?</li>
+<li>Possible to include manual matching from <strong>a forensic examiner</strong>?</li>
+<li>Compare MC-COMP with <strong>deep learning approaches</strong>.
+<ul>
+<li>Kong et al. (2019); aligning two images, find features by CNN, predict the source by ResNet-50 model.</li>
+</ul></li>
+<li><p>What <strong>other classifiers</strong> we tried, besides random forest?</p></li>
+<li>Define a <strong>variability</strong> in the similarity score.
+<ul>
+<li>Train Bayesian Additive regrssion trees (BART)</li>
+</ul></li>
+<li><p>Compare your predictive accuracies on the <strong>number of circles (more or less than 3)</strong>.</p></li>
+</ol>
+</div>
+<div id="method-2-surf-detection-and-mc-on-degraded-impressions" class="section level3">
+<h3><span class="header-section-number">6.6.2</span> Method 2: SURF detection and MC on degraded impressions</h3>
+<p>Accepted by <em>Statistical Analysis and Data Mining</em> in Feb. 2020.</p>
+<p><strong>Comments by reviewers</strong></p>
+<ol style="list-style-type: decimal">
+<li>Generalization (Fingerprints, Photos of faces, … )</li>
+<li>Other classifiers, besides the random forest.</li>
+<li>Variable importance</li>
+</ol>
+</div>
+<div id="research-1-features" class="section level3">
+<h3><span class="header-section-number">6.6.3</span> Research 1: Features</h3>
 <p>Previously, features such as edge, corner, SURF were extracted to match shoeprints. The goal of this project is to find other image descriptors as image features for shoe print matching.</p>
 <p><strong>Image descriptors</strong></p>
 <ul>
@@ -851,7 +888,7 @@ The basic idea of principal component analysis is to take a dataset with many va
 <p><img src="images/shoes/Features/shoe1_comb_features.png" width="100%"/></p>
 </div>
 <div id="matching-on-clean-and-full-images" class="section level3">
-<h3><span class="header-section-number">6.6.2</span> Matching on clean and full images</h3>
+<h3><span class="header-section-number">6.6.4</span> Matching on clean and full images</h3>
 <p><img src="images/shoes/Features/ex_original_KM_KNM.jpg" width="100%"/></p>
 <ul>
 <li>Mates : Image (1) and (2)</li>
@@ -906,7 +943,7 @@ The basic idea of principal component analysis is to take a dataset with many va
 <p><img src="images/shoes/Features/ROC_surf.png" width="100%"/></p>
 </div>
 <div id="matching-on-degraded-and-partial-images" class="section level3">
-<h3><span class="header-section-number">6.6.3</span> Matching on degraded and partial images</h3>
+<h3><span class="header-section-number">6.6.5</span> Matching on degraded and partial images</h3>
 <p><strong>Example of degraded images</strong>:</p>
 <p><img src="images/shoes/Features/deg_full_ex.jpg" width="100%"/></p>
 <p><strong>ROC curves on test comparisons</strong>:
@@ -920,9 +957,8 @@ The basic idea of principal component analysis is to take a dataset with many va
 <li>Submit the paper</li>
 </ul>
 </div>
-</div>
-<div id="impact-of-weight-to-outsole-scans-from-everos-2d-scanner" class="section level2">
-<h2><span class="header-section-number">6.7</span> Impact of weight to outsole scans from EverOS 2D scanner</h2>
+<div id="research-2-impact-of-weight-to-outsole-scans-from-everos-2d-scanner" class="section level3">
+<h3><span class="header-section-number">6.6.6</span> Research 2: Impact of weight to outsole scans from EverOS 2D scanner</h3>
 <p><strong>Analysis setup</strong>:</p>
 <ul>
 <li>Shoes: 5 pairs of Nike Winflow 4, size 10.5 (Brand-new shoes)</li>
@@ -945,7 +981,40 @@ The basic idea of principal component analysis is to take a dataset with many va
 <li>Shoes are never used.</li>
 </ul>
 <p><img src="images/shoes/Features/density_w2_w4.png" width="100%"/></p>
+<p><strong>Discrimination among groups</strong></p>
+<p>Let’s simplify the question; <strong>Is the person effect significant?</strong></p>
+<p><img src="images/shoes/Features/vest-w2w4.png" width="100%"/></p>
+<ul>
+<li>Initial analysis
+<ul>
+<li>Cluster analysis; hcluter</li>
+<li>Principal component analysis (PCA)</li>
+</ul></li>
+<li>Are groups significantly different?
+<ul>
+<li>Multivariate Analysis of Variance (MANOVA)</li>
+<li>Multi-Response Permutation Procedurs(MRPP)</li>
+<li>Analysis of Group Similarities (ANOSIM)</li>
+</ul></li>
+<li>How do groups differ?
+<ul>
+<li>Discriminant Analysis (DA)</li>
+<li>Classification and Regression Trees (CART)</li>
+<li>Logistic Regression (LR)</li>
+</ul></li>
+</ul>
+</div>
+<div id="research-3-mc-cnn" class="section level3">
+<h3><span class="header-section-number">6.6.7</span> Research 3: MC + CNN</h3>
+<p><strong>Idea</strong>:</p>
+<ol style="list-style-type: decimal">
+<li>Align two images using MC.</li>
+<li>Calculate similarity features.</li>
+<li>Ask CNN to learn similarity features.</li>
+<li>Combine 3 and 4. Use ResNet-50 to get a final similarity value.</li>
+</ol>
 
+</div>
 </div>
 </div>
 <h3>References</h3>

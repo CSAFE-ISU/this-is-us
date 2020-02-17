@@ -34,12 +34,11 @@ include_graphics(c( "images/handwriting/amy/surveydata_header.png"))
 <br>
 
 <details>
-<summary><span class="new">A data article has been submitted to [Data in Brief](https://www.journals.elsevier.com/data-in-brief).</span>  <i>"I think this manuscript should probably be accepted providing some small revisions are made. Overall it is a very high quality data article."</i>   
- - Sample selection method details.  
- - Link to Shiny application for scan and survey processing.  </summary>
+<summary>A data article was accepted at [Data in Brief](https://www.sciencedirect.com/science/article/pii/S2352340919314155?via%3Dihub). <br>
+Crawford, A., Ray, A., & Carriquiry, A. (2020). A database of handwriting samples for applications in forensic statistics. Data in brief, 28, 105059.</summary>
 <br>
 ```{r, fig.cap="", out.width="90%", fig.keep="hold", fig.align='center'}
-include_graphics(c( "images/handwriting/amy/datainbrief_header.png"))
+include_graphics(c( "images/handwriting/amy/DIBarticle.png"))
 ```
 </details>   
 
@@ -50,41 +49,91 @@ include_graphics(c( "images/handwriting/amy/datainbrief_header.png"))
 1. <strong> Binarize.</strong> Turn the image to pure black and white.
 2. <strong> Skeletonize. </strong> Reduce writing to a 1 pixel wide skeleton.
 3. <strong> Break. </strong> Connected writing is decomposed into small manageable pieces called <strong> glyphs </strong>. Glyphs are graphical structures with nodes and edges that often, but not always, correspond to Roman letters, and are the smallest unit of observation we consider for statistcal modelling.
-4. <strong> Measure. </strong> A variety of measurements are taken on each glyph.
+4. <strong> Measure. </strong> A variety of measurements are taken on each glyph. See Section 4.2.1.
 
 ```{r, fig.cap="Connected text processed by `handwriter`. The grey background is the original pen stroke. Colored lines represent the single pixel skeleton with color changes marking glyph decomposition. Red dots mark endpoints and intersections of each glyph.", out.width="50%", fig.keep="hold", fig.align='center'}
 include_graphics(c( "images/handwriting/amy/handwriter_csafe.png"))
 ```
 
 
-For an input document, functions in the package give back a list of glyphs with path and node location information, adjacency grouping assignment, slope (pictured below), and centroid locations, among other things.
+For an input document, functions in the package give back a list of glyphs with path and node location information, adjacency grouping assignment, centroid locations, measurements (such as slope, pictured below), among other things. More on measurements in Section 4.2.1.
 
 ```{r, fig.cap="A visual of the ''slope'' calculation for two glyphs.", out.width="90%", fig.keep="hold", fig.align='center'}
 include_graphics(c( "images/handwriting/amy/handwriter_slopecalc.png"))
 ```
 
+### Graph measurements (extracted in RCpp by James)
+
+The goal is to extract features that will discrimiate between writers within clusters.
+
+
+<details>
+<summary> 
+  1. Compactness measurements
+</summary> 
 <br>
+$$\sum_{Num.\: Pixels}\frac{d(pixel,centroid)^2}{Num.\: Pixels -1}$$
+While informative for comparing like-sized graphs, this measurement suffers from the inherit spacial dependence between pixels and (unfortunately) does not scale well for modelling.
+```{r, fig.cap="A visual of the ``compactness'' calculation for graphs", out.width="90%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/handwriting/amy/compactness.png"))
+```
+</details> 
 
-*Compactness measuremnt*, by James.
+<details>
+<summary> 
+  2. Rotation angle measurements
+</summary>
+The first principal component for each graph, or "letter", is calculated through an eigendecomposition of the covariance matrix. The first principal component enjoys the property of having two invariant directions, and so we take the vector that lies in the upper half plane. The rotation angle of the graph is defined as the angle between the vector (0,1), and the unit principal component vector on the upper half plane. The angle is measured in radians and is considered a feature of the graph defined on the interval (0,$\pi$).
 
-
-```{r, fig.cap="A visual of the ''compactness'' calculation for glyphs.", out.width="90%", fig.keep="hold", fig.align='center'}
-include_graphics(c( "images/handwriting/amy/compactness.png"))
+```{r, echo=FALSE, fig.cap="Top: writing from one of Writer 95's training documents. Bottom: the graphs from handwriter that correpsond to the writing, and the unit vector in the first pricipal direction. Red vectors are rotated by $\\pi$ to lie in the upper half plane prior to calculation of the rotation angle from the positive x-axis.", out.width = '100%', fig.align='center', fig.pos="ht!"}
+knitr::include_graphics("images/handwriting/amy/w0095-1.png")
 ```
 
-We are currently working to incorporate the cluster grouping assignments into the package. This will be complete pending creation of a template.
+```{r, echo=FALSE, fig.cap = "Data: All Cluster \\#29 graphs in Writer 95's training documents. Left: A Nightingale Rose diagram displaying the rotation angles in 20 'petals'. A point for each observed rotation angle is plotted on the outermost ring of the diagram. Right: A traditional histogram of the rotation angles with 20 bins, a point for each observation is plotted on the x-axis.", fig.align='center', warning=FALSE, message=FALSE, out.width='70%', fig.pos="H"}
+include_graphics(c("images/handwriting/amy/rotationangles_writer95_cluster29.pdf"))
+```
+
+```{r, echo=FALSE, fig.cap="Top: writing from one of Writer 1's training documents. Bottom: the graphs from handwriter that correpsond to the writing, and the unit vector in the first pricipal direction. Red vectors are rotated by $\\pi$ to lie in the upper half plane prior to calculation of the rotation angle from the positive x-axis.", out.width = '100%', fig.align='center', fig.pos="ht!"}
+knitr::include_graphics("images/handwriting/amy/w0001crop.png")
+```
+
+
+
+```{r, echo=FALSE, fig.cap = "Nightingale rose diagrams and traditional histograms for the rotation angles from Writer \\#1's training documents in Clusters \\#29 (top) and \\#16 (bottom).", fig.align='center', warning=FALSE, message=FALSE, out.width='70%', fig.pos="H"}
+include_graphics(c("images/handwriting/amy/rotationangles_writer1_clusters-16-29.pdf"))
+```
+</details> 
+
+
+<details>
+<summary> 
+  3. Loop measurements
+</summary>
+```{r, echo=FALSE, fig.cap="A few graphs with loops that come from the Writer 95 sample from Figure 4.5 (top).", out.width = '100%', fig.align='center', fig.pos="ht!"}
+knitr::include_graphics("images/handwriting/amy/loops_writer95.pdf")
+```
+
+```{r, echo=FALSE, fig.cap = "Distribution of loop ratios for Writer 95 across all training documents.", fig.align='center', warning=FALSE, message=FALSE, out.width='68%', fig.pos="H"}
+include_graphics(c("images/handwriting/amy/loops_linearvslog_writer95.pdf"))
+```
+
+
+```{r, echo=FALSE, fig.cap = "Distribution of log loop ratios for Writers 1 and 95 across all training documents.", fig.align='center', warning=FALSE, message=FALSE, out.width='45%', fig.pos="H"}
+include_graphics(c("images/handwriting/amy/loops_hist_writers-95-1.pdf"))
+```
+
+</details> 
 
 ## Statistical Analysis
 ### Clustering
 
- 
-Paper submitted in September 2019.
+<details> 
+<summary>Paper submitted to ASA Statistical Analysis and Data Mining.</summary>
 
 ```{r, fig.cap="", out.width="70%", fig.keep="hold", fig.align='center'}
 include_graphics(c( "images/handwriting/amy/clusterpaper_header.png"))
 ```
-
----
+</details> 
 
 Rather than impose rigid grouping rules (the previously used ''adjacency grouping'') we consider a more robust, dynamic $K-$means type clustering method that is focused on major glyph structural components.  
   
@@ -169,8 +218,15 @@ include_graphics(c( "images/handwriting/amy/HW_Outliers.png"))
 ```
 
 
-#### <span class="new"> CVL + CSAFE Template Development </span>
-<span class="new">Template development on 23 CVL documents and 77 CSAFE documents, each from a unique writer. </span>
+#### <span class="new"> CVL + CSAFE + IAM Template Development </span>
+
+Template development on:   
+
+    1.  CSAFE Handwriting Database, 25 documents. 
+    2.  Computer Vision Lab (CVL) Database, 25 documents.
+    3.  IAM Handwriting Database, 50 documents.
+
+With the new template, we've made a few adjustments to the original algorithm and measurement tools:  
 
 1. Starting values.
 2. Changes to the distance measurement to emphasize shape, and focus less on character size.
@@ -182,16 +238,17 @@ include_graphics(c( "images/handwriting/amy/HW_Outliers.png"))
     - 27 CVL documents (6 unique), 73 CSAFE documents (2 unique)
     - Currently working on 20+ algorithm runs with a variety of starting values to select final template.
 
-```{r, fig.cap="Cluster Members and Exemplars.", out.width="80%", fig.keep="hold", fig.align='center'}
-include_graphics(c( "images/handwriting/amy/d100_sm0_seed65_exemplars.png"))
+<details> <summary>The final template.</summary>
+```{r, fig.cap="Exemplars for the first 20 most populated clusters (according to training data, later). The red lines are not plotting correctly..", out.width="80%", fig.keep="hold", fig.align='center'}
+include_graphics(c( "images/handwriting/amy/clusterplot2.png"))
 ```
 
-```{r, fig.cap="Cluster Means.", out.width="78%", fig.keep="hold", fig.align='center'}
-include_graphics(c( "images/handwriting/amy/d100_sm0_seed65_means.png"))
+```{r, fig.cap="Exemplars for the first 20 least populated clusters (according to training data, later). The red lines are not plotting correctly..", out.width="80%", fig.keep="hold", fig.align='center'}
+include_graphics(c( "images/handwriting/amy/clusterplot1.png"))
 ```
+</details>
 
-
-### Closed set modeling
+### Statistical Modeling
 
 
 #### Model #1, Straw Man {-}
@@ -347,7 +404,7 @@ include_graphics(c( "images/handwriting/amy/CVL_w27_h4_cluster40_mixparam_grid.p
 ```
 
 
-#### <span class="new"> Model #2, CVL + CSAFE Template </span>
+#### Model #2, CSAFE + CVL (not most recent) Template
 The following analysis was done for the first 20 CSAFE writers.
 
 - Training docs: s01_pLND_r01, s01_pLND_r03, s01_pWOZ_r02, s01_pPHR_r03  
@@ -433,6 +490,203 @@ df = data.frame(Model = c("#1", "#1", "#2", "#3"), Data = c("Adjacency Grouping 
 kable(df)
 ```
 
+#### Modeling update (Feb 17)
+ 90 writers, Session \#1  
+ 
+- Train: 3 London Letters
+    - A few writers only had 2 (working on this)
+- Test: 1 Wizard of Oz
+
+Recall rotation angle measurements:
+
+```{r, echo=FALSE, fig.cap = "Data: All Cluster \\#29 graphs in Writer 95's training documents. Left: A Nightingale Rose diagram displaying the rotation angles in 20 'petals'. A point for each observed rotation angle is plotted on the outermost ring of the diagram. Right: A traditional histogram of the rotation angles with 20 bins, a point for each observation is plotted on the x-axis.", fig.align='center', warning=FALSE, message=FALSE, out.width='70%', fig.pos="H"}
+include_graphics(c("images/handwriting/amy/rotationangles_writer95_cluster29.pdf"))
+```
+
+**A NAIVE Model for Rotation Angles**
+
+Naively we can treat the rotation angle values as if they are linear on the interval (0,$\pi$). This is of course not the case, since a value of 0 is extremely similar to a value of $\pi$, both corresponding to letters that do not lean a great deal to the left or right, and are wider than they are tall. This can be seen in Figure 2, where the unimodal density ends abuptly at zero and "wraps around" in the higher values near $\pi$. Nonetheless, we can specify a disribution on the linear, or unwrapped, rotation angles as follows: 
+\begin{align} \nonumber
+\mathbf{Y}_{w(d)} | \boldsymbol\pi_{w}, w \: &\stackrel{ind}{\sim} \:Multinomial(\boldsymbol\pi_{w}), \\ \nonumber
+\boldsymbol{\pi}_w|\boldsymbol{\gamma} \: &\stackrel{ind}{\sim}\:Dirichlet(\boldsymbol{\gamma}), \\ \nonumber
+\gamma_k\: &\stackrel{iid}{\sim}\: Gamma(a = 2, \: b= 0.25),  \\ \nonumber
+& \quad \\ \nonumber
+SRA_{w,k} | w,k \: & \stackrel{iid}{\sim}\: Beta \left( \alpha_{w,k}, \beta_{w,k} \right) \\ \nonumber
+& \quad \\ \nonumber
+\mu_{w,k} &= \frac{\alpha_{w,k}}{\alpha_{w,k}+\beta_{w,k}} \: \sim Beta(2,2) \\ \nonumber
+variance_{w,k} &= \frac{\mu_{w,k}(1 - \mu_{w,k})}{\alpha_{w,k} + \beta_{w,k} + 1} = \frac{\mu_{w,k}(1 - \mu_{w,k})}{\kappa_{w,k}+1} \\ \nonumber
+\kappa_{w,k} &= \alpha_{w,k} + \beta_{w,k}  \: \sim Gamma(shape = 0.1, rate = 1)
+\end{align}
+
+Where $SRA_{w,k,i}, \: \:i = 1, \dots, n_{w,k}$, are rotation angles from cluster $k$, and writer $w$, scaled to the beta density support of (0,1). For a given writer and cluster, $\mu_{w,k}$ is the mean of the data distribution, expressed as a functions of $\alpha_{w,k}$ and $\beta_{w,k}$. We place a weak prior, $Beta(2,2)$, on all $\mu_{w,k}$. Similarly, $\kappa_{w,k}$ is expressed as a function of $\alpha_{w,k}$ and $\beta_{w,k}$ and is a sort of "sample size", or "precision" parameter. Notice that $\kappa_{w,k}+1\propto\frac{1}{variance_{w,k}}$.
+
+
+
+```{r, echo=FALSE, fig.cap = "Writer 95, Cluster 29. A plot depicting elements of the data model $SRA_{w,k} \\: \\sim \\: Beta ( \\alpha_{w,k}, \\beta_{w,k})$. Top: values of $\\alpha^{(m)}_{95,29}$ and $\\beta^{(m)}_{95,29}$ for $m = 1, \\dots,12$ iterations taken from the middle of the chain and used to plot the $12$ correpsonding beta densities. Bottom: the unscaled rotation angles (unscaled $SRA_{w,k}$), serving as data for the parameter estimation.", fig.align='center', warning=FALSE, message=FALSE, out.width='70%', fig.pos="H"}
+include_graphics(c("images/handwriting/amy/rotationangles_writer95_cluster29_mcmcsamples.pdf"))
+```
+
+For a different writer who does not tend to lean one way or another...
+
+```{r, echo=FALSE, fig.cap = "Nightingale rose diagrams and traditional histograms for the rotation angles from Writer \\#1's training documents in Clusters \\#29 (top) and \\#16 (bottom).", fig.align='center', warning=FALSE, message=FALSE, out.width='75%', fig.pos="H"}
+
+knitr::include_graphics("images/handwriting/amy/rotationangles_writer1_clusters-16-29.pdf")
+```
+
+And we can look at a handful of beta distributions that arise from $w=1$ and $k=16$...
+
+
+```{r, eval = TRUE, echo=FALSE, fig.cap = "Writer 1, Cluster 16. A plot depicting elements of the data model $SRA_{w,k} \\: \\sim \\: Beta ( \\alpha_{w,k}, \\beta_{w,k})$. Top: values of $\\alpha^{(m)}_{1,16}$ and $\\beta^{(m)}_{1,16}$ for $m = 1, \\dots,12$ iterations taken from the middle of the chain and used to plot the $12$ correpsonding beta densities. Bottom: the unscaled rotation angles (unscaled $SRA_{w,k}$), serving as data for the parameter estimation.", fig.align='center', warning=FALSE, message=FALSE, out.width='70%', fig.pos="ht!"}
+
+knitr::include_graphics("images/handwriting/amy/rotationangles_writer1_cluster16_mcmcsamples.pdf")
+```
+
+
+
+
+Why am I showing you histograms and MCMC samples from clusters #29 and #16?? Becasue these are great examples of where the problems occur with the naive approach to modeling the "unwrapped" angles. 
+
+```{r, eval = TRUE, echo=FALSE, fig.cap="Cluster members in grey, and cluster exemplars in red (plotting is a few pixels shifted left) for clusters $\\#29$ (left), and $\\#26$ (right)", out.width = '15%', fig.align='center', fig.pos="ht!", fig.show='hold'}
+knitr::include_graphics(c("images/handwriting/amy/cluster29.png", "images/handwriting/amy/cluster16.png"))
+```
+
+
+These are clusters that tend to hold the letters $n$ and $u$ and thus, are generally wider than they are tall. When a writer emits one of these nearly straight up and down, but slightly right leaning, the rotation angle will be just above zero. If the graph is very slightly left leaning, then the rotation angle will be just under $\pi$. 
+
+
+While the beta distribution can take on a $U$-shape (like the Writer 1, Cluster 16 data in Figure 4), this is still undesirable, becuase we want to express the fact that values near $0$ and $\pi$ are actually very similar. For example, a mean near $\pi/2$ does not do a good job of expressing the center of those rotation angles, and a traditional "unwrapped" variance will overstate the variability in data that is actually quite similar.
+
+Consider the following distribution of cluster #16 rotation angles from writer #85's questioned document. The largest observation is 3.129, which scales to 0.996, the next largest is 3.024, which scales to 0.963. These are going to accumulate a huge amount of likelihood when evaluated under the beta parameters for Writer #1, displayed in Figure 6. The rest of the rotation angles are relatively spread out over the $x$-axis, and not necessarily reflective of the Writer #1 distribution in Cluster #16.
+
+```{r, eval = TRUE, echo=FALSE, fig.cap="Questioned Document. Writer \\#85. Cluster \\#16.", fig.align='center', warning=FALSE, message=FALSE, out.width='45%', fig.pos="ht!"}
+knitr::include_graphics(c("images/handwriting/amy/rotationangles_writer85_qd.pdf"))
+```
+
+
+**QD evaluation** under beta distributed rotation angles using $k=1,\dots,20$, the $20$ most populated clusters. Notice the probability for questioned writer #85 that is assigned to known writer #1. This error is explained by the behavior depicted above. Not all off-diagonal probability assignment can be attributed to similar behavior, but much of it can.
+
+```{r, eval = TRUE, echo=FALSE, fig.cap = "Posterior predictive evaluation of QDs under beta distributed rotation angles.", fig.align='center', warning=FALSE, message=FALSE,out.width='100%', fig.pos="ht!"}
+knitr::include_graphics(c("images/handwriting/amy/postprobs_RA_betadist.pdf"))
+```
+
+**A Wrapped Model for Rotation Angles**
+
+A more appropriate approach to the problem is to consider the rotation angles in the polar coordinate system and treat them as spanning the full circle. So we map the upper half plane values to $(0,2\pi)$, where values above the $x-$axis indicate a right leaning graph and below the $x-$axis indicate left leaning graphs. Graphs that are relatively straight up and down will have values near $0/2\pi$ if they are wider than they are tall, and near $\pi$ if they are taller than they are wide.
+
+```{r, eval = TRUE, echo=FALSE, fig.cap="Writer 1, Cluster 16. Left: linear consideration of the rotation angles. Right: wrapped rotation angles on the full circle.", fig.align='center', warning=FALSE, message=FALSE, fig.pos="ht!", fig.width=6.5}
+knitr::include_graphics(c("images/handwriting/amy/rotationangles_writer1_wrappeddata.pdf"))
+```
+
+```{r, eval = TRUE, echo=FALSE, fig.cap="Two candidate distributions defined on circular data, both specified at MLE parameter values calculated from the data.", fig.align='center', warning=FALSE, message=FALSE, fig.pos="ht!", fig.width=6.5}
+knitr::include_graphics(c("images/handwriting/amy/rotationangles_writer1_wrappeddata_withdist.pdf"))
+```
+
+
+We consider two distributions that are appropriate for circular data. First, the **von Mises** distribution is a close approximation to the wrapped normal distribution, which is the circular analouge of the normal. This is the "go-to" unimodal wrapped distribution, like the normal is the traditional "go-to" unimodal distribution. It is specified through the mean, $\mu$, and concentration, $\kappa$ ($\frac{1}{\kappa}$ analogous to $\sigma^2$).
+
+The second is the **wrapped Cauchy** distribution, which is the wrapped version of the Caucy distribution. Similar to the traditional Cauchy, this distribution is symmetric, unimodel, and specified by a location parameter, $\mu$, and concentration parameter, $\rho$. This distribution is also heavy-tailed in the sense that it will place more density on the "back" of the circle opposite the peak of the distribution.
+
+
+Now, consider 
+\begin{align} \nonumber
+\mathbf{Y}_{w(d)} | \boldsymbol\pi_{w}, w \: &\stackrel{ind}{\sim} \:Multinomial(\boldsymbol\pi_{w}), \\ \nonumber
+\boldsymbol{\pi}_w|\boldsymbol{\gamma} \: &\stackrel{ind}{\sim}\:Dirichlet(\boldsymbol{\gamma}), \\ \nonumber
+\gamma_k\: &\stackrel{iid}{\sim}\: Gamma(a = 2, \: b= 0.25),  \\ \nonumber
+& \quad \\ \nonumber
+RA_{w,k} | w,k \: & \stackrel{iid}{\sim}\: Wrapped \: Cauchy \left( \mu_{w,k}, \phi_{w,k} \right) \\ \nonumber
+\mu_{w,k} &\sim Uniform(0,2\pi) \\ \nonumber
+\phi{w,k} &\sim Uniform(0,1) \\ \nonumber
+\end{align}
+
+Where $RA_{w,k,i}, \: \:i = 1, \dots, n_{w,k}$, are rotation angles from cluster $k$, and writer $w$, on the full circle $(0,2\pi)$. For a given writer and cluster, $\mu_{w,k}$ and $\phi_{w,k}$ are the location and concentration parameters, respectively. We place non-informative uniform priors on each. Again, there is no borrowing set up in the model for rotation angles. Each writer/cluster combination gets its own estimated rotation angle distribution.
+
+**QD evaluation** under wrapped Cauchy distributed rotation angles, using $k=1,\dots,20$, the $20$ most populated clusters. Notice the probability for questioned writer #85 that was previously assigned to known writer #1 is no longer an issue.
+
+
+```{r, eval = TRUE, echo=FALSE, fig.cap = "Posterior predictive evaluation of QDs under wrapped Cauchy distributed rotation angles.", fig.align='center', warning=FALSE, message=FALSE, out.width='100%', fig.pos="ht!"}
+knitr::include_graphics(c("images/handwriting/amy/postprobs_RA_wrappedcauchy.pdf"))
+```
+
+
+### Interesting documents
+
+#### Where do we miss?
+
+
+We tend to do worse on writers who only had 2 training documents.
+
+```{r, eval = TRUE, echo=FALSE, fig.cap = "", fig.align='left', warning=FALSE, message=FALSE, out.width='80%', fig.pos="ht!"}
+knitr::include_graphics(c("images/handwriting/amy/Amountoftrainingdata.png"))
+```
+
+
+
+Writers 32 and 133. 
+```{r, eval = TRUE, echo=FALSE, fig.cap = "All 40 documents, wrapped cauchy rotation angles, where do we miss?", fig.align='center', warning=FALSE, message=FALSE, out.width='100%', fig.pos="ht!"}
+knitr::include_graphics(c("images/handwriting/amy/postprobs_RA_wrappedcauchy_all40_miss.png"))
+```
+
+
+
+Samples:  
+
+<details><summary>Writer 32 Test</summary>
+```{r, eval = TRUE, echo=FALSE, fig.cap = "Writer 32 Test", fig.align='center', warning=FALSE, message=FALSE, out.width='100%', fig.pos="ht!"}
+knitr::include_graphics(c("images/handwriting/amy/writer32_qd.png"))
+```
+</details>
+
+
+<details><summary>Writer 133 Train</summary>
+```{r, eval = TRUE, echo=FALSE, fig.cap = "Writer 133 Train", fig.align='center', warning=FALSE, message=FALSE, out.width='100%', fig.pos="ht!"}
+knitr::include_graphics(c("images/handwriting/amy/writer133_train.png"))
+```
+</details>
+
+
+#### Writer 4 Data
+<details><summary>London Letter #1</summary>
+```{r, eval = TRUE, echo=FALSE, fig.cap = "Writer 4 data.", fig.align='center', warning=FALSE, message=FALSE, out.width='100%', fig.pos="ht!"}
+knitr::include_graphics(c("images/handwriting/amy/writer4_1.png"))
+```
+</details>
+
+<details><summary>London Letter #2</summary>
+```{r, eval = TRUE, echo=FALSE, fig.cap = "Writer 4 data.", fig.align='center', warning=FALSE, message=FALSE, out.width='100%', fig.pos="ht!"}
+knitr::include_graphics(c("images/handwriting/amy/writer4_2.png"))
+```
+</details>
+
+<details><summary>London Letter #3</summary>
+```{r, eval = TRUE, echo=FALSE, fig.cap = "Writer 4 data.", fig.align='center', warning=FALSE, message=FALSE, out.width='100%', fig.pos="ht!"}
+knitr::include_graphics(c("images/handwriting/amy/writer4_3.png"))
+```
+</details>
+
+
+#### You all!
+```{r, eval = TRUE, echo=FALSE, fig.cap = "CSAFE writers.", fig.align='center', warning=FALSE, message=FALSE, out.width='100%', fig.pos="ht!"}
+knitr::include_graphics(c("images/handwriting/amy/csafewriters_modelresults.png"))
+```
+
+<details><summary>Wolfgang</summary>
+```{r, eval = TRUE, echo=FALSE, fig.cap = "A training sample from Wolfgang.", fig.align='center', warning=FALSE, message=FALSE, out.width='100%', fig.pos="ht!"}
+knitr::include_graphics(c("images/handwriting/amy/Wolfgang_writing.png"))
+```
+</details>
+
+<details><summary>Soyoung</summary>
+```{r, eval = TRUE, echo=FALSE, fig.cap = "A training sample from Soyoung.", fig.align='center', warning=FALSE, message=FALSE, out.width='100%', fig.pos="ht!"}
+knitr::include_graphics(c("images/handwriting/amy/Soyoung_writing.png"))
+```
+</details>
+
+<details><summary>Other writer</summary>
+```{r, eval = TRUE, echo=FALSE, fig.cap = "A training sample from the other writer with off-diagonal assignment for Wolfgang.", fig.align='center', warning=FALSE, message=FALSE, out.width='100%', fig.pos="ht!"}
+knitr::include_graphics(c("images/handwriting/amy/wolfgang_miss2.png"))
+```
+</details>
+
 ## Communication of Results  
 Presenting author is in bold.
 
@@ -491,7 +745,8 @@ Presenting author is in bold.
     - Authors: <strong>Amy Crawford</strong>, Alicia Carriquiry, Danica Ommen
     - 10th International Workshop on Statistics and Simulation in Salzburg, Austria
     - <i>1st Springer Poster Award</i>
-    ![Poster given at the 10th International Workshop on Simulation and Statistics](images/handwriting/amy/Crawford_SIMSTAT_2019.png)
+    - <details><summary>Click for Poster Image</summary>
+    ![Poster given at the 10th International Workshop on Simulation and Statistics](images/handwriting/amy/Crawford_SIMSTAT_2019.png)</details>
     
 - <strong>"Statistical Analysis of Handwriting"</strong>
     - May 2019

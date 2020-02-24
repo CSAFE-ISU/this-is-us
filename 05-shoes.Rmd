@@ -564,7 +564,46 @@ This is working wiht the shoes that I have personally scanned, however still in 
     
 ## Shoe outsole matching using image descriptors
 
-### Features
+### Method 1: Edge detection and MC (MC-COMP)
+
+Under the revision by *Journal of Applied Statistics*,
+
+<img src="images/shoes/Features/signature.png" width="100%"/>
+
+**Comments by reviewers**
+
+  1. Discuss ways in which the MC-COMP could be **tuned** to fit a more **generalizable** prediction?
+      + image pattern matching including other forensic discipline. 
+    
+  2. Possible to extend to **3D images**?
+  3. Possible to include manual matching from **a forensic examiner**? 
+  4. Compare MC-COMP with **deep learning approaches**.
+      + Kong et al. (2019); aligning two images, find features by CNN, predict the source by ResNet-50 model. 
+    
+  5. What **other classifiers** we tried, besides random forest?
+    
+  6. Define a **variability** in the similarity score.
+      + Train Bayesian Additive regrssion trees (BART)
+    
+  7. Compare your predictive accuracies on the **number of circles (more or less than 3)**.
+
+
+### Method 2: SURF detection and MC on degraded impressions 
+
+
+Accepted by *Statistical Analysis and Data Mining* in Feb. 2020. 
+
+
+**Comments by reviewers**
+
+  1. Generalization (Fingerprints,  Photos of faces, ... )
+  2. Other classifiers, besides the random forest.
+  3. Variable importance
+
+
+
+
+### Research 1: Features
 Previously, features such as edge, corner, SURF were extracted to match shoeprints. The goal of this project is to find other image descriptors as image features for shoe print matching. 
 
 **Image descriptors**
@@ -667,7 +706,7 @@ Non-mates|    9     |       6.43     |   0.1208  |        1.39          |
 
 
   
-## Impact of weight to outsole scans from EverOS 2D scanner 
+### Research 2: Impact of weight to outsole scans from EverOS 2D scanner 
 
 **Analysis setup**:
 
@@ -698,4 +737,33 @@ Non-mates|    9     |       6.43     |   0.1208  |        1.39          |
 <img src="images/shoes/Features/density_w2_w4.png" width="100%"/>
 
 
+**Discrimination among groups**
+ 
+ Let's simplify the question; **Is the person effect significant?** 
+ 
+<img src="images/shoes/Features/vest-w2w4.png" width="100%"/>
 
+  - Initial analysis 
+     + Cluster analysis; hcluter
+     + Principal component analysis (PCA)
+ 
+  - Are groups significantly different?
+     + Multivariate Analysis of Variance (MANOVA)
+     + Multi-Response Permutation Procedurs(MRPP)
+     + Analysis of Group Similarities (ANOSIM)
+     
+  - How do groups differ?
+     + Discriminant Analysis (DA)
+     + Classification and Regression Trees (CART)
+     + Logistic Regression (LR)
+     
+     
+     
+### Research 3: MC + CNN
+
+**Idea**:
+
+  1. Align two images using MC. 
+  2. Calculate similarity features.
+  3. Ask CNN to learn similarity features.
+  4. Combine 3 and 4. Use ResNet-50 to get a final similarity value. 

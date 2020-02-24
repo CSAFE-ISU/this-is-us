@@ -1,0 +1,34 @@
+# Reproducibility in Research  
+
+We are working on improving CSAFE's reproducibility in research.  
+
+## Computational Reproducibility  
+
+CSAFE's work is driven by a goal of providing open-source research, including open-source data and open-source algorithms. We believe in transparency and honesty in research, and allowing others to see ``under the hood" of algorithms that may be used to analyze evidence.   
+
+In the process of furthering that goal, many of our researchers implement methods and data analysis in R, an open-source scripting language often used in data science and statistics. R and python are both languages which encourage (and rely on) user-developed packages to enhance the language's ability to perform specific data manipulation and modeling tasks.  
+
+Many software packages are still under development; that is, functions and methods that exist in a package are subject to changes over time by the developers. This affects our work as statistics researchers in three major ways:  
+- Code to run data analyses and obtain quantitative results may be affected by package updates. This can lead to differing quantitative results and lack of reproducibility of a method. 
+- Researchers' own packages in development (e.g., bullet pipeline, shoe analysis pipeline) are vulnerable to changes in any package dependencies.  
+- Group collaboration efforts on a developing package can lead to miscommunications, including changes in code that affect others' results (sorry again, Charlotte!)  
+
+
+So, how does this practically affect CSAFE's research teams, and how can we manage it?  
+
+For example, consider the bullet analysis ``pipeline" and some of the R packages that are involved at different steps of the process (this is not exhaustive):  
+
+<img src="images/reproducibility/pipeline_small_bullets_packages.png" width = "90%"/>  
+
+Just to go from a two raw x3p files to a quantitative result of a similarity score between the two bullet LEAs, we need a lot of R packages. When something in those packages change (e.g., default requirements for a `tidyverse` function), it can break our code! In addition, different people on the project may be running the same script to analyze bullets but be using different versions of packages.  
+
+Because packages like `bulletxtrctr` and the methodology for different steps (e.g., groove ID, crosscut ID) are still changing and new approaches are being added, we need to be thoughtful and careful about reporting results and working to make sure our results are reproducible by other team members and outside users.  
+
+This is not isolated to just the bullet project, either. Let's consider three major projects at CSAFE and their associated packages: `bulletxtrctr` and `x3ptools` for the bullet project, `handwriter` for the handwriting project, and `shoeprintr` for the shoe project.  
+
+<img src="images/reproducibility/csafe_packages_tree.png" width = "100%"/>  
+
+A total of 109 different packages are involved!!!!! This is a LOT of packages, and it leaves ``open forensic science in R" very vulnerable to changes in other packages.  
+
+To remedy this, we are developing a package to help manage dependencies and track when functions change. It is ongoing work, and by the next spotlight I should be able to share some use cases, examples, and functionality that will majorly assist our package development workflow.  
+

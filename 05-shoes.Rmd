@@ -515,9 +515,11 @@ In progress:
 
 The set up: 
 
-Note: With these alignment processes we are assuming that the shoe size does not change with wear and that we are not aligning across pairs of shoes. 
+Ititally, the idea of the of the study was to use the data from the longitudial study in order to determine if one could predict wear, given pressure point matts and amount of steps and so on that was all part of the longitutidal data collection done previously. This idea has someone shifted. There is a large difference between the scans of the longitudial study that were conducted by hand scanning and those conducted using the turn table. The hand scan soles of the shoes have a wide variation not only on quality, but also on amount of shoe and direction of the scan. In order to simplify the inital processes and determining a pipeline for alignment, instead of the longitudinal shoe scans, the processes below are using a shoe that is scanned soly using the turn table to have some consistancy in the processing as we start to have a pipe line for at least alignment, then later using the longitudinal study add the extra information into the processing; amount of steps, weight,ect. 
 
-Then we want to look at the change overtime a specific shoe, so we need to grab the shoe scans over time. Using the function *shoe_grab* to grab the scans of a given shoe ID, specify the id number of a shoe you want to look at, (Make sure you have access to the data, follow the steps on the README for more information. For more information on the shoe data, see **Longituidinal_Shoe_Study**), and turns the given shoe into mesh objects to do further analysis. 
+<details>
+<summary> 
+The shoe scans start as an stl file, however R does not work with stl files directly so they need to be transformed into a mesh object, in this specific case a triangle mesh object:  </summary>
 
 Mesh Objects: A triangle mesh object is made up of the following parts, sufaces, polygons, faces, edges and vertices.
 
@@ -527,40 +529,83 @@ Looking at a mesh object at first:
 
 <img src="images/shoes/3dshoes/MeshObject.png" width="100%"/>
 
+</details>
+
+
 Some background: 
 At first we wanted to try to simplify the mesh object to just the basic shape in order have simplicity when aligning. The idea of allignment is to take the most basic features, allign them, then by adding complexity of the soul, further allign the two different shoes. The idea is that we want to take a lower detail scan of shoe, allign it, then by adding complexity we can further allign the shoes. However the problem was realized that we are using a prediction to allign rather than the shoe, which ran into some quick problems. The next "attempt" at alignment came from a package called morph. In order to use this package, we needed to transform the data from a mesh object into a plane of points. In order to do this, we greated the function *shoe_coord*. This function takes a triangle mesh object, and looks at the vertices that make up each triangle. With a specific amount of vertices specified using the specification vert, *shoe_coord*, takes these vertices and maps them onto a x,y,z coordinate plane. Then using this coordinate plane, the allignment process began. 
-
+<details>
+<summary> 
+When working with coordinate systems, there was still not aligning, as each shoe was set on its own coordinate plane  </summary>
 
 Some attempts that have not really turned out well 
   - Transforming the mesh objects to points aligned by the center of mass to overlay them detecting difference. 
 <img src="images/shoes/3dshoes/AlignShoeTest.png" width="100%"/>
   - Problems 
     - Isnt aligning properly as you can see 
-    
+</details>    
 
 Principal Component Analysis: 
-The basic idea of principal component analysis is to take a dataset with many variables, and simplify that dataset by turning the original variables into a smaller number of "Principal Components". These principal components are the underlying structure in the data. Taking that data and giving a vector in directions where there is the most variance. Taking these egienvectors as the data, we can get a "flattened" version of our origianl shoe. 
+The basic idea of principal component analysis is to take a dataset with many variables, and simplify that dataset by turning the original variables into a smaller number of "Principal Components". These principal components are the underlying structure in the data. Taking that data and giving a vector in directions where there is the most variance. Taking these egienvectors as the data, we can get a "flattened" version of our origianl shoe. This is done using singular decomposition: If the $N  \times p$ matrix X has rank r then it has a so-called singular value decomposition as $X_{N \times p} = U_{N\times r} D_{r \times r} V'_{r\times p}$ where U has orthonormal columns spanning the column space of X, V has orthonormal columns spanning the colum space of X' and D is a diaginal matrix of singular values. For ordinary principal components, the columns of V are called the principal component directions in $\Re^3$ . 
 
-Once a shoe has been turned into coordinates from the verticies of a mesh object, we can use the function prcomp (site this and expain what it does) to get a transformation matrix. Some notes on this:
+Once a shoe has been turned into coordinates from the verticies of a mesh object, we can use the function *prcomp* to get a transformation matrix.
+
+<details>
+<summary>Some notes on this:</summary>
 
   - use vertices of 7 to decrease amount of points to match
   - if you have too few points also doesnt work
   - turn table works the best 
   - Sony are the best matches (the shoes I personally have scanned) 
+</details>
+<details>
+<summary> Point cloud alignment </summary>     
 
-An example:     
-
-    
--PCA: 
   - First looking at shoes with all vertices included: 
   <img src="images/shoes/3dshoes/PACwithallpoints.png" width="100%"/>
-<img src="images/shoes/3dshoes/SidePACwithallpoints.png" width="100%"/>
+  
+<img src="images/shoes/3dshoes/SidePCAwithallpoints.png" width="100%"/>
+
   - Now the same shoe with fewer vertices included in the allignment 
 <img src="images/shoes/3dshoes/SonyPACside.png" width="100%"/>
+
 <img src="images/shoes/3dshoes/SonyPAC.png" width="100%"/>
 
-This is working wiht the shoes that I have personally scanned, however still in the process of working on fixing them for the shoes of the longitudinal study. One thing that seems to be working is when we compare two shoes of the same size that were both turn tables we seem to get a better match. 
+With these point clous alignments, the next step is to take the rotation matrix given by *prcomp* and apply it to the original mesh object since rather than comparing points that may or may not exsisit in comparison to each other shoes, as the vertices are not exactly the same on a mesh object from scan to scan of even the same shoe. *prcomp* gives a matrix that can be applied to a mesh object using a function called *transform3d*
 
+
+<img src="images/shoes/3dshoes/prcompwithoutcenter.png" width="100%"/>
+
+</details>
+
+
+Once this was tried, it seems that the function *prcomp* isnt actually centering the data, although according to the code it should. So in order to overcome this issue when initially turning the stl file into a mesh object, a centering is performed using the barycenter of the shoe scan. In astronomy, the barycenter is the center of mass of two or more bodies that orbit one another and is the point about which the bodies orbit, since we are obviously only dealing with one object, the barycenter can be thought of as the center of mass for the shoe scan (the center of mass of a distribution of mass in space is the unique point where the weighted relative position of the distributed mass sums to zero). This puts the point (0,0,0) in the center of the shoe rather than the center being close to the 300s as before 
+<details><summary> Centering </summary>
+<img src="images/shoes/3dshoes/centeredvsnoncentered.png" width="100%"/>
+
+
+The blue shoe is the original shoe grab, where the green shoe is now the shoe that has been centered on the center of mass. Now we can start with two shoes that at least have the same "center" point before principal component analysis is completed: 
+
+<img src="images/shoes/3dshoes/Centeredshoes.png" width="100%"/>
+</details>
+
+
+Once the shoes themselves have been centered, then PCA can be compleated on the shoes themselves: 
+<details> <summary> PCA after centering </summary>
+<img src="images/shoes/3dshoes/AfterPCA.png" width="100%"/>
+
+
+The Green shoe is the original shoe grab centered, where the red shoe is now after PCA has been applied. Then using the PCA for both of the two scans we can get the following map of the two shoes with their given principal component rotation matrix applied: 
+<img src="images/shoes/3dshoes/RotatedShoes.png" width="100%"/>
+
+As you can see although they are on the same plane, they are not exactly allign. In order to get them aligned a matrix of 1s and -1 needs to be applied in some order, minimizing the RMSE 
+
+<img src="images/shoes/3dshoes/Applingmatrixes.png" width="100%"/>
+<img src="images/shoes/3dshoes/initalAlignment.png" width="100%"/>
+</details>
+
+Once the PCA has done the initial alignment, then a secondary alignment needs to be done using Itterative Closest Point, to do this a landmark must be established. One cant just use the PCA, the way that the initial scans are only of the soles, which change as they wear, so we are trying to allign something that is not there anymore. The idea landmark will give a spot in the shoe that will not change, the arch or a large indent, in order to find a proposed landmark, we are attempting to use the maximum distance in z. 
+ 
     
 ## Shoe outsole matching using image descriptors
 

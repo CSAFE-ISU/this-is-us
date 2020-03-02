@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-02-24" />
+<meta name="date" content="2020-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -66,7 +66,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -474,11 +474,11 @@ This is necessary because Fourier transforms assume images go on forever, so abr
 <p><img src="images/shoes/longitudinal/FFT_Demo_Hann.png" width = "25%"/></p>
 <ul>
 <li>The strength of the Hann function can be adjusted by a power argument<br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-233-1.png" width="672" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-232-1.png" width="672" /></li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
 <li>Use the Fast Fourier Transform on each image. Center the FFT’d images so that low frequencies are in the center (exchange top left quadrant with bottom right, and top right quadrant with bottom left). Call the FFT’d, centered images <span class="math inline">\(F(A)\)</span> and <span class="math inline">\(F(B)\)</span><br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-234-1.png" width="50%" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-233-1.png" width="50%" /></li>
 </ol>
 <p><img src="images/shoes/longitudinal/FFT_Demo_FFT1.png" width = "50%"/></p>
 <ol start="4" style="list-style-type: decimal">
@@ -496,7 +496,7 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 <ol start="5" style="list-style-type: decimal">
 <li><p>Recover the shift between the two images:</p>
 <ol style="list-style-type: lower-alpha">
-<li><p>Compute the cross-power spectrum: <span class="math inline">\(S = F(A) \times F(\tilde{B}_\theta)*\)</span>, where <span class="math inline">\(F(x)*\)</span> is the complex conjugate of <span class="math inline">\(F(x)\)</span> (e.g. <span class="math inline">\(a + bi\)</span> becomes <span class="math inline">\(a - bi\)</span>)</p></li>
+<li><p>Compute the cross-power spectrum: <span class="math inline">\(S = F(A) \times F(\tilde{B}_\theta)*\)</span>, where <span class="math inline">\(F(x)*\)</span> is the complex conjugate of <span class="math inline">\(F(x)\)</span> (e.g. <span class="math inline">\(a + bi\)</span> becomes <span class="math inline">\(a - bi\)</span>)</p></li>
 <li><p>Compute the magnitude of the cross-power spectrum: <span class="math inline">\(|S| = \sqrt{S \times S*}\)</span></p></li>
 <li><p>Use (a) and (b) to get the normalized cross power spectrum: <span class="math inline">\(S/|S|\)</span></p></li>
 <li><p>Take the inverse FFT of <span class="math inline">\(S/|S|\)</span>: <span class="math inline">\(A = F^{-1}(S/|S|)\)</span></p></li>
@@ -775,7 +775,7 @@ Alignment Success:</p>
 <ul>
 <li>Materials
 <ul>
-<li>Used 1/4 - 1/2 tsp of cocoa powder, not a “dime-size”"</li>
+<li>Used 1/4 - 1/2 tsp of cocoa powder, not a “dime-size”&quot;</li>
 <li>Test/specify cocoa powder vs hot chocolate powder</li>
 </ul></li>
 <li>Procedure
@@ -805,37 +805,77 @@ Alignment Success:</p>
 <div id="d-shoe-recognition" class="section level2">
 <h2><span class="header-section-number">6.5</span> 3d Shoe Recognition</h2>
 <p>The set up:</p>
-<p>Note: With these alignment processes we are assuming that the shoe size does not change with wear and that we are not aligning across pairs of shoes.</p>
-<p>Then we want to look at the change overtime a specific shoe, so we need to grab the shoe scans over time. Using the function <em>shoe_grab</em> to grab the scans of a given shoe ID, specify the id number of a shoe you want to look at, (Make sure you have access to the data, follow the steps on the README for more information. For more information on the shoe data, see <strong>Longituidinal_Shoe_Study</strong>), and turns the given shoe into mesh objects to do further analysis.</p>
+<p>Ititally, the idea of the of the study was to use the data from the longitudial study in order to determine if one could predict wear, given pressure point matts and amount of steps and so on that was all part of the longitutidal data collection done previously. This idea has someone shifted. There is a large difference between the scans of the longitudial study that were conducted by hand scanning and those conducted using the turn table. The hand scan soles of the shoes have a wide variation not only on quality, but also on amount of shoe and direction of the scan. In order to simplify the inital processes and determining a pipeline for alignment, instead of the longitudinal shoe scans, the processes below are using a shoe that is scanned soly using the turn table to have some consistancy in the processing as we start to have a pipe line for at least alignment, then later using the longitudinal study add the extra information into the processing; amount of steps, weight,ect.</p>
+<details>
+<p><summary>
+The shoe scans start as an stl file, however R does not work with stl files directly so they need to be transformed into a mesh object, in this specific case a triangle mesh object: </summary></p>
 <p>Mesh Objects: A triangle mesh object is made up of the following parts, sufaces, polygons, faces, edges and vertices.</p>
 <p><img src="images/shoes/3dshoes/describing_mesh.jpeg" width="100%"/></p>
 <p>Looking at a mesh object at first:</p>
 <p><img src="images/shoes/3dshoes/MeshObject.png" width="100%"/></p>
-<p>Some background:
-At first we wanted to try to simplify the mesh object to just the basic shape in order have simplicity when aligning. The idea of allignment is to take the most basic features, allign them, then by adding complexity of the soul, further allign the two different shoes. The idea is that we want to take a lower detail scan of shoe, allign it, then by adding complexity we can further allign the shoes. However the problem was realized that we are using a prediction to allign rather than the shoe, which ran into some quick problems. The next “attempt” at alignment came from a package called morph. In order to use this package, we needed to transform the data from a mesh object into a plane of points. In order to do this, we greated the function <em>shoe_coord</em>. This function takes a triangle mesh object, and looks at the vertices that make up each triangle. With a specific amount of vertices specified using the specification vert, <em>shoe_coord</em>, takes these vertices and maps them onto a x,y,z coordinate plane. Then using this coordinate plane, the allignment process began.</p>
-<p>Some attempts that have not really turned out well
+</details>
+Some background:
+At first we wanted to try to simplify the mesh object to just the basic shape in order have simplicity when aligning. The idea of allignment is to take the most basic features, allign them, then by adding complexity of the soul, further allign the two different shoes. The idea is that we want to take a lower detail scan of shoe, allign it, then by adding complexity we can further allign the shoes. However the problem was realized that we are using a prediction to allign rather than the shoe, which ran into some quick problems. The next “attempt” at alignment came from a package called morph. In order to use this package, we needed to transform the data from a mesh object into a plane of points. In order to do this, we greated the function <em>shoe_coord</em>. This function takes a triangle mesh object, and looks at the vertices that make up each triangle. With a specific amount of vertices specified using the specification vert, <em>shoe_coord</em>, takes these vertices and maps them onto a x,y,z coordinate plane. Then using this coordinate plane, the allignment process began.
+<details>
+<p><summary>
+When working with coordinate systems, there was still not aligning, as each shoe was set on its own coordinate plane </summary></p>
+Some attempts that have not really turned out well
 - Transforming the mesh objects to points aligned by the center of mass to overlay them detecting difference.
 <img src="images/shoes/3dshoes/AlignShoeTest.png" width="100%"/>
 - Problems
-- Isnt aligning properly as you can see</p>
+- Isnt aligning properly as you can see
+</details>
 <p>Principal Component Analysis:
-The basic idea of principal component analysis is to take a dataset with many variables, and simplify that dataset by turning the original variables into a smaller number of “Principal Components”. These principal components are the underlying structure in the data. Taking that data and giving a vector in directions where there is the most variance. Taking these egienvectors as the data, we can get a “flattened” version of our origianl shoe.</p>
-<p>Once a shoe has been turned into coordinates from the verticies of a mesh object, we can use the function prcomp (site this and expain what it does) to get a transformation matrix. Some notes on this:</p>
+The basic idea of principal component analysis is to take a dataset with many variables, and simplify that dataset by turning the original variables into a smaller number of “Principal Components”. These principal components are the underlying structure in the data. Taking that data and giving a vector in directions where there is the most variance. Taking these egienvectors as the data, we can get a “flattened” version of our origianl shoe. This is done using singular decomposition: If the <span class="math inline">\(N \times p\)</span> matrix X has rank r then it has a so-called singular value decomposition as <span class="math inline">\(X_{N \times p} = U_{N\times r} D_{r \times r} V&#39;_{r\times p}\)</span> where U has orthonormal columns spanning the column space of X, V has orthonormal columns spanning the colum space of X’ and D is a diaginal matrix of singular values. For ordinary principal components, the columns of V are called the principal component directions in <span class="math inline">\(\Re^3\)</span> .</p>
+<p>Once a shoe has been turned into coordinates from the verticies of a mesh object, we can use the function <em>prcomp</em> to get a transformation matrix.</p>
+<details>
+<p><summary>Some notes on this:</summary></p>
 <ul>
 <li>use vertices of 7 to decrease amount of points to match</li>
 <li>if you have too few points also doesnt work</li>
 <li>turn table works the best</li>
 <li>Sony are the best matches (the shoes I personally have scanned)</li>
 </ul>
-<p>An example:</p>
-<p>-PCA:
-- First looking at shoes with all vertices included:
-<img src="images/shoes/3dshoes/PACwithallpoints.png" width="100%"/>
-<img src="images/shoes/3dshoes/SidePACwithallpoints.png" width="100%"/>
-- Now the same shoe with fewer vertices included in the allignment
-<img src="images/shoes/3dshoes/SonyPACside.png" width="100%"/>
-<img src="images/shoes/3dshoes/SonyPAC.png" width="100%"/></p>
-<p>This is working wiht the shoes that I have personally scanned, however still in the process of working on fixing them for the shoes of the longitudinal study. One thing that seems to be working is when we compare two shoes of the same size that were both turn tables we seem to get a better match.</p>
+</details>
+<details>
+<p><summary> Point cloud alignment </summary></p>
+<ul>
+<li>First looking at shoes with all vertices included:
+<img src="images/shoes/3dshoes/PACwithallpoints.png" width="100%"/></li>
+</ul>
+<p><img src="images/shoes/3dshoes/SidePCAwithallpoints.png" width="100%"/></p>
+<ul>
+<li>Now the same shoe with fewer vertices included in the allignment
+<img src="images/shoes/3dshoes/SonyPACside.png" width="100%"/></li>
+</ul>
+<p><img src="images/shoes/3dshoes/SonyPAC.png" width="100%"/></p>
+<p>With these point clous alignments, the next step is to take the rotation matrix given by <em>prcomp</em> and apply it to the original mesh object since rather than comparing points that may or may not exsisit in comparison to each other shoes, as the vertices are not exactly the same on a mesh object from scan to scan of even the same shoe. <em>prcomp</em> gives a matrix that can be applied to a mesh object using a function called <em>transform3d</em></p>
+<p><img src="images/shoes/3dshoes/prcompwithoutcenter.png" width="100%"/></p>
+</details>
+Once this was tried, it seems that the function <em>prcomp</em> isnt actually centering the data, although according to the code it should. So in order to overcome this issue when initially turning the stl file into a mesh object, a centering is performed using the barycenter of the shoe scan. In astronomy, the barycenter is the center of mass of two or more bodies that orbit one another and is the point about which the bodies orbit, since we are obviously only dealing with one object, the barycenter can be thought of as the center of mass for the shoe scan (the center of mass of a distribution of mass in space is the unique point where the weighted relative position of the distributed mass sums to zero). This puts the point (0,0,0) in the center of the shoe rather than the center being close to the 300s as before
+<details>
+<p><summary> Centering </summary>
+<img src="images/shoes/3dshoes/centeredvsnoncentered.png" width="100%"/></p>
+<p>The blue shoe is the original shoe grab, where the green shoe is now the shoe that has been centered on the center of mass. Now we can start with two shoes that at least have the same “center” point before principal component analysis is completed:</p>
+<img src="images/shoes/3dshoes/Centeredshoes.png" width="100%"/>
+</details>
+Once the shoes themselves have been centered, then PCA can be compleated on the shoes themselves:
+<details>
+<p><summary> PCA after centering </summary>
+<img src="images/shoes/3dshoes/AfterPCA.png" width="100%"/></p>
+<p>The Green shoe is the original shoe grab centered, where the red shoe is now after PCA has been applied. Then using the PCA for both of the two scans we can get the following map of the two shoes with their given principal component rotation matrix applied:
+<img src="images/shoes/3dshoes/RotatedShoes.png" width="100%"/></p>
+<p>As you can see although they are on the same plane, they are not exactly allign. In order to get them aligned a matrix of 1s and -1 needs to be applied in some order, minimizing the RMSE</p>
+<img src="images/shoes/3dshoes/Applingmatrixes.png" width="100%"/>
+<img src="images/shoes/3dshoes/initalAlignment.png" width="100%"/>
+</details>
+<p>Once the PCA has done the initial alignment, then a secondary alignment needs to be done using Itterative Closest Point, to do this a landmark must be established. One cant just use the PCA, the way that the initial scans are only of the soles, which change as they wear, so we are trying to allign something that is not there anymore. The idea landmark will give a spot in the shoe that will not change, the arch or a large indent, in order to find a proposed landmark, we are attempting to use the maximum distance in z.</p>
+<details>
+<summary> </summary>
+<img src="images/shoes/3dshoes/ICP1.png" width="100%"/>
+<img src="images/shoes/3dshoes/ICP2.png" width="100%"/>
+<img src="images/shoes/3dshoes/ICPzoom.png" width="100%"/>
+</details>
 </div>
 <div id="shoe-outsole-matching-using-image-descriptors" class="section level2">
 <h2><span class="header-section-number">6.6</span> Shoe outsole matching using image descriptors</h2>
@@ -853,7 +893,7 @@ The basic idea of principal component analysis is to take a dataset with many va
 <li>Possible to include manual matching from <strong>a forensic examiner</strong>?</li>
 <li>Compare MC-COMP with <strong>deep learning approaches</strong>.
 <ul>
-<li>Kong et al. (2019); aligning two images, find features by CNN, predict the source by ResNet-50 model.</li>
+<li>Kong et al. (2019); aligning two images, find features by CNN, predict the source by ResNet-50 model.</li>
 </ul></li>
 <li><p>What <strong>other classifiers</strong> we tried, besides random forest?</p></li>
 <li>Define a <strong>variability</strong> in the similarity score.

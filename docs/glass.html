@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-02-24" />
+<meta name="date" content="2020-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -66,7 +66,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -293,7 +293,7 @@ the known fragments. Denote this value by <span class="math inline">\(\sigma_{Ki
 <li>Compute an interval for each <span class="math inline">\(i\)</span>: <span class="math inline">\(\bar{y}_{Ki\cdot\cdot}\)</span> <span class="math inline">\(\pm\)</span>
 4 <span class="math inline">\(\times\)</span> <span class="math inline">\(\max(\sigma_{Ki}, 0.03\cdot \bar{y}_{Ki\cdot\cdot})\)</span>.
 This is also known as the <span class="math inline">\(4\sigma\)</span> interval in the literature
-(cf.~Weis et al. (2011)).</li>
+(cf.~Weis et al. (2011)).</li>
 <li>Calculate the mean concentration of each element <span class="math inline">\(i = 1, \dots, p\)</span>
 in the questioned fragment(s), denoted <span class="math inline">\(\bar{y}_{Qi\cdot\cdot}\)</span>.</li>
 <li>Compare the value <span class="math inline">\(\bar{y}_{Qi\cdot\cdot}\)</span> to the <span class="math inline">\(4\sigma\)</span>

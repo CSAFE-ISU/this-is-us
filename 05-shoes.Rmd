@@ -609,6 +609,7 @@ Once the PCA has done the initial alignment, then a secondary alignment needs to
 <details><summary> </summary>
 <img src="images/shoes/3dshoes/ICP1.png" width="100%"/>
 <img src="images/shoes/3dshoes/ICP2.png" width="100%"/>
+<img src="images/shoes/3dshoes/ICPzoom.png" width="100%"/>
 </details>
     
 ## Shoe outsole matching using image descriptors

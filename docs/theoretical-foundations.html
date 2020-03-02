@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Theoretical foundations | This is us: making CSAFE stronger each week</title>
   <meta name="description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Theoretical foundations | This is us: making CSAFE stronger each week" />
   <meta property="og:type" content="book" />
@@ -40,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -66,7 +69,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -384,7 +387,7 @@ KL(P(X,Y|A &amp;= a, B = a)||P(X,Y|A = a, B \neq a)) = E_{(X,Y)}\left[ \log \fra
 &amp;= E_{S} \left[ KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a)) \right] + KL(P(S|A = a, B = a)||P(S|A = a, B \neq a)).
 \end{align*}\]</span></p>
 <p>This implies that <span class="math inline">\(KL(P(X,Y|A = a, B = a)||P(X,Y|A = a, B \neq a)) \geq KL(P(S|A = a, B = a)||P(S|A = a, B \neq a))\)</span>.</p>
-<p>An additional consequence is that larger values of <span class="math inline">\(KL(P(S|A = a, B = a)||P(S|A = a, B \neq a))\)</span> imply smaller values of <span class="math inline">\(E_{S} \left[ KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a)) \right]\)</span>. Because <span class="math inline">\(KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a))\)</span> is a nonnegative function in terms of <span class="math inline">\(S\)</span>, small values of <span class="math inline">\(E_{S} \left[ KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a)) \right]\)</span> imply small values (in some sense) of <span class="math inline">\(KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a))\)</span>. For example, if the expectation is zero, then the (conditional) KL divergence is zero almost everywhere. Zero KL divergence implies that <span class="math inline">\(P(Y|S,A = a,B = b) = P(Y|S,A = a,B \neq b)\)</span>, i.e. <span class="math inline">\(S\)</span> is sufficient for the specific source hypothesis.</p>
+<p>An additional consequence is that larger values of <span class="math inline">\(KL(P(S|A = a, B = a)||P(S|A = a, B \neq a))\)</span> imply smaller values of <span class="math inline">\(E_{S} \left[ KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a)) \right]\)</span>. Because <span class="math inline">\(KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a))\)</span> is a nonnegative function in terms of <span class="math inline">\(S\)</span>, small values of <span class="math inline">\(E_{S} \left[ KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a)) \right]\)</span> imply small values (in some sense) of <span class="math inline">\(KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a))\)</span>. For example, if the expectation is zero, then the (conditional) KL divergence is zero almost everywhere. Zero KL divergence implies that <span class="math inline">\(P(Y|S,A = a,B = b) = P(Y|S,A = a,B \neq b)\)</span>, i.e. <span class="math inline">\(S\)</span> is sufficient for the specific source hypothesis.</p>
 <p>All of this means that <span class="math inline">\(KL(P(S|A = a, B = a)||P(S|A = a, B \neq a))\)</span> and <span class="math inline">\(KL(P(S|A = a, B \neq a)||P(S|A = a, B = a))\)</span> are measures of the usefulness of the score which have direct ties to sufficiency. Estimates of these are always computable in practice, and they are intuitive targets to maximize. For example, if the score is a predicted class probability for “match”, the more discriminative the classifier, the more sufficient the score.</p>
 </div>
 </div>
@@ -405,7 +408,7 @@ H_A: &amp; e_u \text{ was generated from source } A \\
 H_B: &amp; e_u \text{ was generated from source } B.
 \end{array}\]</span></p>
 <p>In this case, we have <span class="math inline">\(LR_{A,B} = \frac{p(e_A, e_B, e_u|H_A)}{p(e_A, e_B, e_u|H_B)}\)</span>. We make use of <em>all</em> available data in the formulation of the numerator and denominator densities. Under the assumptions that each fragment of evidence is independent under both hypothesis <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> as well as that <span class="math inline">\(p(e_A,e_B|H_A) = p(e_A,e_B|H_B)\)</span>, the LR reduces to <span class="math inline">\(LR_{A,B} = \frac{p(e_u|H_A)}{p(e_u|H_B)}\)</span>. The second assumption is generally acceptable as the source of <span class="math inline">\(e_u\)</span> ought to have no impact on the distribution of the evidence with known source.</p>
-<p>[REFS] then consider possible SLRs for this example. However, they make an assumption that the score is explicitly a function only of two fragments of evidence. That is, assuming the dimension of <span class="math inline">\(e_i\)</span>, <span class="math inline">\(dim(e_i) = k\)</span>, is constant for <span class="math inline">\(i = A,B,u\)</span>, their score maps <span class="math inline">\(s:\mathbb{R}^k \times \mathbb{R}^k \rightarrow \mathbb{R}\)</span>. An common example of such a score is Euclidean distance, i.e. <span class="math inline">\(s(x,y) = \left[ \sum_{i = 1}^{k}(x_i - y_i)^2 \right]^{1/2}\)</span>. Such a score makes perfect sense in a typical specific-source problem context in which only two fragments of evidence are considered: one from the known source and one from the unknown source.</p>
+<p>[REFS] then consider possible SLRs for this example. However, they make an assumption that the score is explicitly a function only of two fragments of evidence. That is, assuming the dimension of <span class="math inline">\(e_i\)</span>, <span class="math inline">\(dim(e_i) = k\)</span>, is constant for <span class="math inline">\(i = A,B,u\)</span>, their score maps <span class="math inline">\(s:\mathbb{R}^k \times \mathbb{R}^k \rightarrow \mathbb{R}\)</span>. An common example of such a score is Euclidean distance, i.e. <span class="math inline">\(s(x,y) = \left[ \sum_{i = 1}^{k}(x_i - y_i)^2 \right]^{1/2}\)</span>. Such a score makes perfect sense in a typical specific-source problem context in which only two fragments of evidence are considered: one from the known source and one from the unknown source.</p>
 <p>However, when one desires to create an SLR based on this score in this particular example, it is tempting to suggest that the natural SLR is <span class="math inline">\(SLR_{A,B} = \frac{p(s(e_A,e_u)|H_A)}{p(s(e_A,e_u)|H_B)}\)</span>. Yet, the natural SLR if the hypotheses were reversed is <span class="math inline">\(SLR_{B,A} = \frac{p(s(e_B,e_u)|H_B)}{p(s(e_B,e_u)|H_A)}\)</span>. Neither of these SLRs is the reciprocal of the other, and so the specific source SLR appears to be “incoherent”.</p>
 <p>This approach, however, should raise a red flag immediately. Why, in the full LR case, do we require that (simplifying model assumptions aside) the numerator and denominator densities be functions of all available data, but the score is not? Furthermore, if we consider these SLRs in the more general context of scores depending on all available data, we see that, in fact, what [REFS] define to be <span class="math inline">\(SLR_{A,B}\)</span> and <span class="math inline">\(SLR_{B,A}\)</span> turn out to be two different SLRs depending on two different scores.</p>
 <p>For clarity, we will use <span class="math inline">\(s(\cdot)\)</span> to denote scores which are explicitly functions of <em>all</em> observed data, and we will use <span class="math inline">\(\delta (\cdot)\)</span> to denote score functions which are only a function of two fragments of evidence/data. Specifically, the score in <span class="math inline">\(SLR_{A,B}\)</span> is <span class="math inline">\(s_1(e_u,e_A,e_B) = \delta(e_u,e_A)\)</span> and the score in <span class="math inline">\(SLR_{B,A}\)</span> is <span class="math inline">\(s_2(e_u,e_A,e_B) = \delta(e_u,e_B)\)</span>. While the functional form of the score in the two SLRs <em>appears</em> to be the same, clearly <span class="math inline">\(s_1(e_u,e_A,e_B) \neq s_2(e_u,e_A,e_B)\)</span>. Thus, the two SLRs are simply two distinct quantities whose relationship needn’t be expected to be related anymore than if one had decided to use two different function forms of <span class="math inline">\(\delta(\cdot,\cdot)\)</span> in the two separate SLRs.</p>
@@ -810,11 +813,13 @@ Figure 7.1: Matching regions from the optimal rule (in pink) and the method base
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -822,12 +827,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -839,6 +843,10 @@ gitbook.start({
 "text": "Edit"
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },

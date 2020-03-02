@@ -605,7 +605,11 @@ As you can see although they are on the same plane, they are not exactly allign.
 </details>
 
 Once the PCA has done the initial alignment, then a secondary alignment needs to be done using Itterative Closest Point, to do this a landmark must be established. One cant just use the PCA, the way that the initial scans are only of the soles, which change as they wear, so we are trying to allign something that is not there anymore. The idea landmark will give a spot in the shoe that will not change, the arch or a large indent, in order to find a proposed landmark, we are attempting to use the maximum distance in z. 
- 
+
+<details><summary> </summary>
+<img src="images/shoes/3dshoes/ICP1.png" width="100%"/>
+<img src="images/shoes/3dshoes/ICP2.png" width="100%"/>
+</details>
     
 ## Shoe outsole matching using image descriptors
 

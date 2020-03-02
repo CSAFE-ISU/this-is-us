@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Theoretical foundations | This is us: making CSAFE stronger each week</title>
+  <meta name="description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Theoretical foundations | This is us: making CSAFE stronger each week" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="csafe-isu/this-is-us" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Theoretical foundations | This is us: making CSAFE stronger each week" />
+  
+  <meta name="twitter:description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="CSAFE" />
+
+
+<meta name="date" content="2020-03-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="shoes.html"/>
+<link rel="next" href="outreach-activities.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">This is us</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="bullets.html"><a href="bullets.html"><i class="fa fa-check"></i><b>3</b> Project CC: Bullets and Cartridge Cases</a><ul>
+<li class="chapter" data-level="3.1" data-path="bullets.html"><a href="bullets.html#data-collection"><i class="fa fa-check"></i><b>3.1</b> Data Collection</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="bullets.html"><a href="bullets.html#lapd"><i class="fa fa-check"></i><b>3.1.1</b> LAPD</a></li>
+<li class="chapter" data-level="3.1.2" data-path="bullets.html"><a href="bullets.html#hamby-sets"><i class="fa fa-check"></i><b>3.1.2</b> Hamby Sets</a></li>
+<li class="chapter" data-level="3.1.3" data-path="bullets.html"><a href="bullets.html#houston-tests"><i class="fa fa-check"></i><b>3.1.3</b> Houston Tests</a></li>
+<li class="chapter" data-level="3.1.4" data-path="bullets.html"><a href="bullets.html#houston-persistence"><i class="fa fa-check"></i><b>3.1.4</b> Houston Persistence</a></li>
+<li class="chapter" data-level="3.1.5" data-path="bullets.html"><a href="bullets.html#st-louis-persistence"><i class="fa fa-check"></i><b>3.1.5</b> St Louis persistence</a></li>
+<li class="chapter" data-level="3.1.6" data-path="bullets.html"><a href="bullets.html#dfsc-cartridge-cases"><i class="fa fa-check"></i><b>3.1.6</b> DFSC Cartridge cases</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="bullets.html"><a href="bullets.html#computational-tools"><i class="fa fa-check"></i><b>3.2</b> Computational Tools</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="bullets.html"><a href="bullets.html#x3ptools"><i class="fa fa-check"></i><b>3.2.1</b> x3ptools</a></li>
+<li class="chapter" data-level="3.2.2" data-path="bullets.html"><a href="bullets.html#bulletxtrctr"><i class="fa fa-check"></i><b>3.2.2</b> bulletxtrctr</a></li>
+<li class="chapter" data-level="3.2.3" data-path="bullets.html"><a href="bullets.html#groovefinder"><i class="fa fa-check"></i><b>3.2.3</b> grooveFinder</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="bullets.html"><a href="bullets.html#similarity-scores"><i class="fa fa-check"></i><b>3.3</b> Similarity Scores</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="bullets.html"><a href="bullets.html#bullet-lands"><i class="fa fa-check"></i><b>3.3.1</b> Bullet Lands</a></li>
+<li class="chapter" data-level="3.3.2" data-path="bullets.html"><a href="bullets.html#cartridge-cases"><i class="fa fa-check"></i><b>3.3.2</b> Cartridge Cases</a></li>
+<li class="chapter" data-level="3.3.3" data-path="bullets.html"><a href="bullets.html#modified-chumbley-non-random-test"><i class="fa fa-check"></i><b>3.3.3</b> Modified Chumbley non-random test</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="bullets.html"><a href="bullets.html#analysis-of-results"><i class="fa fa-check"></i><b>3.4</b> Analysis of Results</a></li>
+<li class="chapter" data-level="3.5" data-path="bullets.html"><a href="bullets.html#communication-of-results-and-methods"><i class="fa fa-check"></i><b>3.5</b> Communication of Results and Methods</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="bullets.html"><a href="bullets.html#conference-presentations"><i class="fa fa-check"></i><b>3.5.1</b> Conference Presentations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="bullets.html"><a href="bullets.html#people-involved"><i class="fa fa-check"></i><b>3.6</b> People involved</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="bullets.html"><a href="bullets.html#faculty"><i class="fa fa-check"></i><b>3.6.1</b> Faculty</a></li>
+<li class="chapter" data-level="3.6.2" data-path="bullets.html"><a href="bullets.html#graduate-students"><i class="fa fa-check"></i><b>3.6.2</b> Graduate Students</a></li>
+<li class="chapter" data-level="3.6.3" data-path="bullets.html"><a href="bullets.html#undergraduates"><i class="fa fa-check"></i><b>3.6.3</b> Undergraduates</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html"><i class="fa fa-check"></i><b>4</b> Project G: Handwriting (&amp; Signatures)</a><ul>
+<li class="chapter" data-level="4.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#data-collection-1"><i class="fa fa-check"></i><b>4.1</b> Data Collection</a></li>
+<li class="chapter" data-level="4.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#computational-tools-1"><i class="fa fa-check"></i><b>4.2</b> Computational Tools</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#graph-measurements-extracted-in-rcpp-by-james"><i class="fa fa-check"></i><b>4.2.1</b> Graph measurements (extracted in RCpp by James)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#statistical-analysis"><i class="fa fa-check"></i><b>4.3</b> Statistical Analysis</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#clustering"><i class="fa fa-check"></i><b>4.3.1</b> Clustering</a></li>
+<li class="chapter" data-level="4.3.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#statistical-modeling"><i class="fa fa-check"></i><b>4.3.2</b> Statistical Modeling</a></li>
+<li class="chapter" data-level="4.3.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#interesting-documents"><i class="fa fa-check"></i><b>4.3.3</b> Interesting documents</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#communication-of-results"><i class="fa fa-check"></i><b>4.4</b> Communication of Results</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#papers"><i class="fa fa-check"></i><b>4.4.1</b> Papers</a></li>
+<li class="chapter" data-level="4.4.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#talks"><i class="fa fa-check"></i><b>4.4.2</b> Talks</a></li>
+<li class="chapter" data-level="4.4.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#posters"><i class="fa fa-check"></i><b>4.4.3</b> Posters</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#people-involved-1"><i class="fa fa-check"></i><b>4.5</b> People involved</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#faculty-1"><i class="fa fa-check"></i><b>4.5.1</b> Faculty</a></li>
+<li class="chapter" data-level="4.5.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#graduate-students-1"><i class="fa fa-check"></i><b>4.5.2</b> Graduate Students</a></li>
+<li class="chapter" data-level="4.5.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#undergraduates-1"><i class="fa fa-check"></i><b>4.5.3</b> Undergraduates</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="glass.html"><a href="glass.html"><i class="fa fa-check"></i><b>5</b> Glass</a><ul>
+<li class="chapter" data-level="5.1" data-path="glass.html"><a href="glass.html#data-collection-2"><i class="fa fa-check"></i><b>5.1</b> Data collection</a></li>
+<li class="chapter" data-level="5.2" data-path="glass.html"><a href="glass.html#the-astm-standard-method"><i class="fa fa-check"></i><b>5.2</b> The ASTM standard method</a></li>
+<li class="chapter" data-level="5.3" data-path="glass.html"><a href="glass.html#learning-algorithms-to-evaluate-forensic-glass-evidence"><i class="fa fa-check"></i><b>5.3</b> Learning algorithms to evaluate forensic glass evidence</a></li>
+<li class="chapter" data-level="5.4" data-path="glass.html"><a href="glass.html#evaluation-and-comparison-of-methods-for-forensic-glass-source-conclusions"><i class="fa fa-check"></i><b>5.4</b> Evaluation and comparison of methods for forensic glass source conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="shoes.html"><a href="shoes.html"><i class="fa fa-check"></i><b>6</b> Shoes</a><ul>
+<li class="chapter" data-level="6.1" data-path="shoes.html"><a href="shoes.html#longitudinal"><i class="fa fa-check"></i><b>6.1</b> Longitudinal Shoe Study</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="shoes.html"><a href="shoes.html#paper-describing-the-database"><i class="fa fa-check"></i><b>6.1.1</b> Paper describing the database</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="shoes.html"><a href="shoes.html#connor"><i class="fa fa-check"></i><b>6.2</b> Passive Shoe Recognition</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="shoes.html"><a href="shoes.html#nij-grant"><i class="fa fa-check"></i><b>6.2.1</b> NIJ Grant</a></li>
+<li class="chapter" data-level="6.2.2" data-path="shoes.html"><a href="shoes.html#connor-convolutional-neural-network-for-outsole-recognition"><i class="fa fa-check"></i><b>6.2.2</b> CoNNOR: Convolutional Neural Network for Outsole Recognition</a></li>
+<li class="chapter" data-level="6.2.3" data-path="shoes.html"><a href="shoes.html#spatial-integration"><i class="fa fa-check"></i><b>6.2.3</b> Spatial integration</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="shoes.html"><a href="shoes.html#maxclique"><i class="fa fa-check"></i><b>6.3</b> Maximum Clique Matching</a></li>
+<li class="chapter" data-level="6.4" data-path="shoes.html"><a href="shoes.html#cocoa"><i class="fa fa-check"></i><b>6.4</b> Project Tread (formerly Cocoa Powder Citizen Science)</a></li>
+<li class="chapter" data-level="6.5" data-path="shoes.html"><a href="shoes.html#d-shoe-recognition"><i class="fa fa-check"></i><b>6.5</b> 3d Shoe Recognition</a></li>
+<li class="chapter" data-level="6.6" data-path="shoes.html"><a href="shoes.html#shoe-outsole-matching-using-image-descriptors"><i class="fa fa-check"></i><b>6.6</b> Shoe outsole matching using image descriptors</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="shoes.html"><a href="shoes.html#method-1-edge-detection-and-mc-mc-comp"><i class="fa fa-check"></i><b>6.6.1</b> Method 1: Edge detection and MC (MC-COMP)</a></li>
+<li class="chapter" data-level="6.6.2" data-path="shoes.html"><a href="shoes.html#method-2-surf-detection-and-mc-on-degraded-impressions"><i class="fa fa-check"></i><b>6.6.2</b> Method 2: SURF detection and MC on degraded impressions</a></li>
+<li class="chapter" data-level="6.6.3" data-path="shoes.html"><a href="shoes.html#research-1-features"><i class="fa fa-check"></i><b>6.6.3</b> Research 1: Features</a></li>
+<li class="chapter" data-level="6.6.4" data-path="shoes.html"><a href="shoes.html#matching-on-clean-and-full-images"><i class="fa fa-check"></i><b>6.6.4</b> Matching on clean and full images</a></li>
+<li class="chapter" data-level="6.6.5" data-path="shoes.html"><a href="shoes.html#matching-on-degraded-and-partial-images"><i class="fa fa-check"></i><b>6.6.5</b> Matching on degraded and partial images</a></li>
+<li class="chapter" data-level="6.6.6" data-path="shoes.html"><a href="shoes.html#research-2-impact-of-weight-to-outsole-scans-from-everos-2d-scanner"><i class="fa fa-check"></i><b>6.6.6</b> Research 2: Impact of weight to outsole scans from EverOS 2D scanner</a></li>
+<li class="chapter" data-level="6.6.7" data-path="shoes.html"><a href="shoes.html#research-3-mc-cnn"><i class="fa fa-check"></i><b>6.6.7</b> Research 3: MC + CNN</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html"><i class="fa fa-check"></i><b>7</b> Theoretical foundations</a><ul>
+<li class="chapter" data-level="7.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#common-source-vs-specific-source-comparison-via-information-theory"><i class="fa fa-check"></i><b>7.1</b> Common Source vs Specific Source Comparison via Information Theory</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#introduction"><i class="fa fa-check"></i><b>7.1.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.1.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#common-source-vs-specific-source-lr"><i class="fa fa-check"></i><b>7.1.2</b> Common Source vs Specific Source LR</a></li>
+<li class="chapter" data-level="7.1.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#other-notions-of-information"><i class="fa fa-check"></i><b>7.1.3</b> Other notions of information</a></li>
+<li class="chapter" data-level="7.1.4" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#information-theoretic-specific-source-score-sufficiency-metric"><i class="fa fa-check"></i><b>7.1.4</b> Information Theoretic Specific Source Score Sufficiency Metric</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#score-based-likelihood-ratios-are-not-fundamentally-incoherent"><i class="fa fa-check"></i><b>7.2</b> Score-based Likelihood Ratios are not Fundamentally “Incoherent”</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#coherence"><i class="fa fa-check"></i><b>7.2.1</b> Coherence</a></li>
+<li class="chapter" data-level="7.2.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#problems-with-arguments-showing-slrs-are-incoherent"><i class="fa fa-check"></i><b>7.2.2</b> Problems with arguments showing SLRs are incoherent</a></li>
+<li class="chapter" data-level="7.2.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#example-of-a-coherent-slr-in-the-two-source-problem"><i class="fa fa-check"></i><b>7.2.3</b> Example of a coherent SLR in the two source problem</a></li>
+<li class="chapter" data-level="7.2.4" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#possible-generalizations-of-coherent-slrs-to-the-multisource-case"><i class="fa fa-check"></i><b>7.2.4</b> Possible Generalizations of Coherent SLRs to the Multisource Case</a></li>
+<li class="chapter" data-level="7.2.5" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#multisource-example"><i class="fa fa-check"></i><b>7.2.5</b> Multisource example</a></li>
+<li class="chapter" data-level="7.2.6" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#other-possible-viewpoints"><i class="fa fa-check"></i><b>7.2.6</b> Other Possible Viewpoints?</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#copper-wire-synthetic-data"><i class="fa fa-check"></i><b>7.3</b> Copper Wire Synthetic Data</a></li>
+<li class="chapter" data-level="7.4" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#optimal-matching-problem"><i class="fa fa-check"></i><b>7.4</b> Optimal matching problem</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#two-groups-case."><i class="fa fa-check"></i><b>7.4.1</b> Two groups case.</a></li>
+<li class="chapter" data-level="7.4.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#topics-needs-exploration"><i class="fa fa-check"></i><b>7.4.2</b> Topics needs exploration</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="outreach-activities.html"><a href="outreach-activities.html"><i class="fa fa-check"></i><b>8</b> Outreach activities</a><ul>
+<li class="chapter" data-level="8.1" data-path="outreach-activities.html"><a href="outreach-activities.html#book-on-forensic-science-and-statistics"><i class="fa fa-check"></i><b>8.1</b> Book on Forensic Science and Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html"><i class="fa fa-check"></i><b>9</b> Reproducibility in Research</a><ul>
+<li class="chapter" data-level="9.1" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html#computational-reproducibility"><i class="fa fa-check"></i><b>9.1</b> Computational Reproducibility</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">This is us: making CSAFE stronger each week</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="theoretical-foundations" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Theoretical foundations</h1>
+<div id="common-source-vs-specific-source-comparison-via-information-theory" class="section level2">
+<h2><span class="header-section-number">7.1</span> Common Source vs Specific Source Comparison via Information Theory</h2>
+<p><strong>Please note that this project has changed somewhat
+significantly, but this information might be relevant for others
+in the future.</strong></p>
+<p><strong>See <a href="https://github.com/CSAFE-ISU/this-is-us/blob/master/images/foundations/nate/RA2019_manuscript.pdf">here</a>
+for the current draft of the paper from this work.</strong></p>
+<div id="introduction" class="section level3">
+<h3><span class="header-section-number">7.1.1</span> Introduction</h3>
+<p><strong>Central Goals</strong></p>
+<ul>
+<li>continue work started by Danica and Peter Vergeer on the analysis of likelihood ratios</li>
+<li>study the differences between specific source (SS) and common source (CS) likelihood ratios (LRs) in an information theoretic way</li>
+<li>does the CS or SS LR have more “information”?</li>
+<li>does the data (or the score) have more “information” about the SS or the CS hypothesis?</li>
+<li>can be the CS or SS hypotheses (prosecution or defense) be formally compared in terms of being easier to “prove” or “disprove”?</li>
+</ul>
+<p><strong>General Notation</strong>
+Let <span class="math inline">\(X \in \mathbb{R}^{q_x}\)</span> and <span class="math inline">\(Y \in \mathbb{R}^{q_y}\)</span> be two random vectors with joint distribution <span class="math inline">\(P\)</span> and corresponding density <span class="math inline">\(p\)</span>.</p>
+<ul>
+<li>: <span class="math inline">\(\mathbb{H}(X) = -\int{p(x) \log p(x) dx}\)</span></li>
+<li>: <span class="math inline">\(\mathbb{H}(X|Y) = \mathbb{E}_{Y}\left[-\int{p(x|y) \log p(x|y) dx}\right]\)</span></li>
+<li>: <span class="math inline">\(\mathbb{H}_{2}(X|Y) = -\int{p(x|y) \log p(x|y) dx}\)</span></li>
+<li>: <span class="math inline">\(\mathbb{I}(X;Y) = \mathbb{H}(X) - \mathbb{H}(X|Y)\)</span></li>
+</ul>
+<p>Proof that Mutual Information is always positive:</p>
+<p><span class="math display">\[\begin{align*}
+\mathbb{I}(X;Y) &amp;= \mathbb{H}(X) - \mathbb{H}(X|Y) \\
+&amp;= -\int{p(x) \log p(x) dx} + \int{\int{p(x|y)p(y) \log p(x|y) dx} dy} \\
+&amp;= -\int{\int{p(x,y) \log p(x) dx}dy} + \int{\int{p(x,y) \log p(x|y) dx} dy} \\
+&amp;= -\int{\int{p(x,y) \log p(x) dx}dy} + \int{\int{p(x,y) \log \frac{p(x,y)}{p(y)} dx} dy} \\
+&amp;= \int{\int{p(x,y) \log \frac{p(x,y)}{p(x)p(y)} dx}dy} \\
+&amp;= KL(P||P_{X} \times P_{Y}) \\
+&amp;\geq 0
+\end{align*}\]</span></p>
+</div>
+<div id="common-source-vs-specific-source-lr" class="section level3">
+<h3><span class="header-section-number">7.1.2</span> Common Source vs Specific Source LR</h3>
+<p>The “common source” problem is to determine whether two pieces of evidence, both with unknown origin, have the same origin. One might be interested in this problem if two crimes were suspected to be linked, but no suspect has yet been identified. Alternatively, the “specific source” problem is to determine whether a fragment of evidence coming from an unknown source, such as evidence at a crime scene, has the same origin as a fragment of evidence of known origin, such as evidence collected directly from a suspect.</p>
+<p><strong>Basic Setup</strong></p>
+<ul>
+<li><span class="math inline">\(H \in \{ H_p, H_d \}\)</span> as the random variable associated with the CS hypothesis.</li>
+<li><span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are discrete r.v.’s representing two “sources” of evidence</li>
+<li>distributions for <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> defined conditionally based on the hypothesis</li>
+<li>SS hypothesis is represented by the conditional random variable <span class="math inline">\(H|A\)</span></li>
+<li><span class="math inline">\(X\)</span> is data coming from <span class="math inline">\(A\)</span>, <span class="math inline">\(Y\)</span> is data coming from <span class="math inline">\(B\)</span></li>
+<li>compare information contained in <span class="math inline">\((X,Y)\)</span> about <span class="math inline">\(H\)</span> and <span class="math inline">\(H|A\)</span></li>
+<li>join density can be written as <span class="math inline">\(p(X,Y,A,B,H) = p(X,Y|A,B)p(B|A,H)p(A|H)p(H)\)</span></li>
+</ul>
+<p><strong>Is there more information in a CS or SS LR?</strong></p>
+<p>Let us examine this question in two different ways.</p>
+<ol style="list-style-type: decimal">
+<li>Is the posterior entropy (given <span class="math inline">\((X,Y)\)</span>) in the common source hypothesis smaller than that of the specific source hypothesis?
+<ul>
+<li>In other words, would observing the specific value of <span class="math inline">\(A\)</span> as well as the data make you <em>more</em> certain about <span class="math inline">\(H\)</span> than just observing the data?</li>
+</ul></li>
+<li>Is the posterior entropy (given <span class="math inline">\((X,Y)\)</span>) in the common source hypothesis smaller than the average (over possible values for <span class="math inline">\((X,Y,A)\)</span>) posterior entropy of the specific source hypothesis?
+<ul>
+<li>In other words, do you expect that, on average, observing the value of <span class="math inline">\(A\)</span> as well as the data make you <em>more</em> certain about <span class="math inline">\(H\)</span> than just observing the data?</li>
+</ul></li>
+</ol>
+<p>Answering the first question/interpretation, to me, requires proving that</p>
+<p><span class="math display">\[ \mathbb{H}_{2}(H|X,Y) - \mathbb{H}_{2}(H|X,Y, A) \geq 0 \]</span>.</p>
+<p>Answering the second question requires proving that</p>
+<p><span class="math display">\[ \mathbb{H}(H|X,Y) - \mathbb{H}(H|X,Y, A) \geq 0 \]</span>.</p>
+<p>Luckily, the second question is true due to the fact that</p>
+<p><span class="math display">\[\begin{align*}
+\mathbb{H}(H|X,Y) - \mathbb{H}(H|X,Y,A) &amp;= \mathbb{E}_{(X,Y)} \left[ - \int{p(h,a|x,y) \log p(h|x,y) d(h,a)} + \int{p(h,a|x,y) \log p(h|x,y,a) d(h,a)} \right] \\
+&amp;= - \int{p(h,a|x,y)p(x,y) \log \frac{p(h,a|x,y)}{p(a|x,y)p(h|x,y)} d(h,x,y,a)} \\
+&amp;= \mathbb{E}_{(X,Y)} \left[ KL(P_{(H,A)|(X,Y)}||P_{H|(X,Y)} \times P_{A|(X,Y)}) \right] \geq 0
+\end{align*}\]</span></p>
+<p>Whether or not <span class="math inline">\(\mathbb{H}_{2}(H|X,Y) - \mathbb{H}_{2}(H|X,Y, A) \geq 0\)</span> is not obvious. We have that</p>
+<p><span class="math display">\[\begin{align*}
+\mathbb{H}_{2}(H|X,Y) - \mathbb{H}_{2}(H|X,Y, A) &amp;= \int{-p(h|x,y)\log p(h|x,y) dh} - \int{-p(h|x,y,a) \log p(h|x,y,a) dh} \\
+&amp;=  \frac{p(a)}{p(a|x,y)}\int{-p(h|x,y,a)\log p(h|x,y) dh} + \int{p(h|x,y,a) \log p(h|x,y,a) dh}\\ 
+&amp;???
+\end{align*}\]</span></p>
+<p>We can try and understand the value of <span class="math inline">\(\mathbb{H}_{2}(H|X,Y) - \mathbb{H}_{2}(H|X,Y, A)\)</span> in terms of <span class="math inline">\(\frac{p(a)}{p(a|x,y)}\)</span>. For example, if <span class="math inline">\(\frac{p(a)}{p(a|x,y)} \geq 1\)</span>, then <span class="math inline">\(\mathbb{H}_{2}(H|X,Y) - \mathbb{H}_{2}(H|X,Y, A) \geq 0\)</span>. If <span class="math inline">\(\frac{p(a)}{p(a|x,y)} \leq 1\)</span>, then it is hard to say much about the value of <span class="math inline">\(\mathbb{H}_{2}(H|X,Y) - \mathbb{H}_{2}(H|X,Y, A)\)</span>.</p>
+<p><strong>Is there more information in the data about the CS or SS hypothesis?</strong>
+Under the second scenario, we can study this question by looking at</p>
+<!-- \begin{align*} -->
+<!-- \mathbb{I}(H_{x};\delta) - \mathbb{I}(H;\delta) &= \begin{multlined}[t] \mathbb{H}(H|A) - \mathbb{H}(H|\delta, A) - \\ -->
+<!-- \left[ \mathbb{H}(H) - \mathbb{H}(H|\delta) \right] \end{multlined} \\ &= \begin{multlined}[t] \mathbb{H}(H|A) - \mathbb{H}(H) - \\  -->
+<!-- \left[ \mathbb{H}(H|\delta, A) - \mathbb{H}(H|\delta) \right] \end{multlined} \\ -->
+<!-- &= \mathbb{I}(H;A|\delta) - \mathbb{I}(H;A)  -->
+<!-- \end{align*} -->
+</div>
+<div id="other-notions-of-information" class="section level3">
+<h3><span class="header-section-number">7.1.3</span> Other notions of information</h3>
+<ul>
+<li>Information in <span class="math inline">\(Y\)</span> about <span class="math inline">\(X\)</span>:
+<ul>
+<li><span class="math inline">\(\int{p(x|y) \log \frac{p(x|y)}{p(x)} dx}\)</span></li>
+<li>nonnegative</li>
+<li>Equal to zero when <span class="math inline">\(X \perp Y\)</span></li>
+<li>needn’t integrate over <span class="math inline">\(Y\)</span> (?)</li>
+<li>as opposed to entropy, information in a random variable requires another random variable to be “predicted”… this is fine in our situation as we have a natural candidate: <span class="math inline">\(H_p\)</span> or <span class="math inline">\(H_d\)</span></li>
+</ul></li>
+</ul>
+</div>
+<div id="information-theoretic-specific-source-score-sufficiency-metric" class="section level3">
+<h3><span class="header-section-number">7.1.4</span> Information Theoretic Specific Source Score Sufficiency Metric</h3>
+<p>Consider the specific source problem. The following derivations are very similar to those in the “infinite alternative population” situation considered in the paper that Danica, Alicia, Jarad, and I submitted. Assuming <span class="math inline">\(X \perp Y|A,B\)</span> and both <span class="math inline">\(X \perp B|A\)</span> and <span class="math inline">\(Y \perp A|B\)</span>, the LR is</p>
+<p><span class="math display">\[\begin{align*}
+LR &amp;= \frac{p(x,y|A = a,B = a)}{p(x,y|A = a,B \neq a)} \\
+&amp;= \frac{p(x|A = a)p(y|A = a, B = a)}{p(x|A = a)p(y|A = a, B \neq a)} \\
+&amp;= \frac{p(y|A = a, B = a)}{p(y|A = a, B \neq a)}.
+\end{align*}\]</span></p>
+<p>Thus, the LR depends only on the evidence from the unknown source, <span class="math inline">\(Y\)</span>. For a given score, <span class="math inline">\(s\)</span>, we can also write the LR in the following way,</p>
+<p><span class="math display">\[\begin{align*}
+LR = \frac{p(y|A = a, B = a)}{p(y|A = a, B \neq a)} &amp;= \frac{p(s|y, A = a)p(y|A = a, B = a)}{p(s|y, A = a)p(y|A = a, B \neq a)} \\
+&amp;= \frac{p(s|y, A = a, B = a)p(y|A = a, B = a)}{p(s|y, A = a, B \neq a)p(y|A = a, B \neq a)} \\
+&amp;= \frac{p(s,y|A = a, B = a)}{p(s,y|A = a, B \neq a)} \\
+&amp;= \frac{p(y|s,A = a, B = a)p(s|A = a, B = a)}{p(y|s,A = a, B \neq a)p(s|A = a, B \neq a)}.
+\end{align*}\]</span></p>
+<p>Because <span class="math inline">\(S|Y,A\)</span> is a function only of the known source evidence, <span class="math inline">\(X\)</span>, and because <span class="math inline">\(X \perp B|A\)</span>, we have that <span class="math inline">\(S \perp B | Y, A\)</span>. This means that <span class="math inline">\(p(s|y, A = a, B = a) = p(s|y, A = a, B \neq a)\)</span>.</p>
+<p>Using these facts, we can then decompose the KL divergence of the data under the specific source prosecution hypothesis in the following way,</p>
+<p><span class="math display">\[\begin{align*}
+KL(P(X,Y|A &amp;= a, B = a)||P(X,Y|A = a, B \neq a)) = E_{(X,Y)}\left[ \log \frac{p(x,y|A = a,B = a)}{p(x,y|A = a,B \neq a)} | A = a, B = a \right] \\
+&amp;= E_{Y}\left[ \log \frac{p(y|A = a,B = a)}{p(y|A = a,B \neq a)} | A = a, B = a \right] \\
+&amp;= E_{S}\left[ E_{Y}\left[ \log \frac{p(y|A = a,B = a)}{p(y|A = a,B \neq a)} |s, A = a, B = a \right] \right] \\
+&amp;= E_{S}\left[ E_{Y}\left[ \log \frac{p(y|s,A = a,B = a)}{p(y|s,A = a,B \neq a)} + \log \frac{p(s|A = a, B = a)}{p(s|A = a, B \neq a)} |s, A = a, B = a \right] \right] \\
+&amp;= E_{S}\left[ E_{Y}\left[ \log \frac{p(y|s,A = a,B = a)}{p(y|s,A = a,B \neq a)}|s, A = a, B = a \right] \right] + E_{S} \left[ \log \frac{p(s|A = a, B = a)}{p(s|A = a, B \neq a)} \right] \\
+&amp;= E_{S} \left[ KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a)) \right] + KL(P(S|A = a, B = a)||P(S|A = a, B \neq a)).
+\end{align*}\]</span></p>
+<p>This implies that <span class="math inline">\(KL(P(X,Y|A = a, B = a)||P(X,Y|A = a, B \neq a)) \geq KL(P(S|A = a, B = a)||P(S|A = a, B \neq a))\)</span>.</p>
+<p>An additional consequence is that larger values of <span class="math inline">\(KL(P(S|A = a, B = a)||P(S|A = a, B \neq a))\)</span> imply smaller values of <span class="math inline">\(E_{S} \left[ KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a)) \right]\)</span>. Because <span class="math inline">\(KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a))\)</span> is a nonnegative function in terms of <span class="math inline">\(S\)</span>, small values of <span class="math inline">\(E_{S} \left[ KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a)) \right]\)</span> imply small values (in some sense) of <span class="math inline">\(KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a))\)</span>. For example, if the expectation is zero, then the (conditional) KL divergence is zero almost everywhere. Zero KL divergence implies that <span class="math inline">\(P(Y|S,A = a,B = b) = P(Y|S,A = a,B \neq b)\)</span>, i.e. <span class="math inline">\(S\)</span> is sufficient for the specific source hypothesis.</p>
+<p>All of this means that <span class="math inline">\(KL(P(S|A = a, B = a)||P(S|A = a, B \neq a))\)</span> and <span class="math inline">\(KL(P(S|A = a, B \neq a)||P(S|A = a, B = a))\)</span> are measures of the usefulness of the score which have direct ties to sufficiency. Estimates of these are always computable in practice, and they are intuitive targets to maximize. For example, if the score is a predicted class probability for “match”, the more discriminative the classifier, the more sufficient the score.</p>
+</div>
+</div>
+<div id="score-based-likelihood-ratios-are-not-fundamentally-incoherent" class="section level2">
+<h2><span class="header-section-number">7.2</span> Score-based Likelihood Ratios are not Fundamentally “Incoherent”</h2>
+<p>Concern has been raised in the literature on LRs about a desirable property supposedly inherently absent from specific-source SLRs. The property, dubbed “coherence”, intuitively says that given two mutually exhaustive hypotheses, <span class="math inline">\(H_A\)</span> and <span class="math inline">\(H_B\)</span>, the likelihood ratio used to compare hypothesis A to hypothesis B should be the reciprocal of that used to compare hypothesis B to hypothesis A. I will argue that the claims about the inherent incoherency of SLRs is a result of thinking about SLRs too narrowly. Specifically, I will show that the arguments as to why SLRs are incoherent arise through the inappropriate comparison of SLRs based on different score functions. When one appropriately considers a single score function, incoherency is impossible.</p>
+<div id="coherence" class="section level3">
+<h3><span class="header-section-number">7.2.1</span> Coherence</h3>
+<p>Denote by <span class="math inline">\(E \in \mathbb{R}^{n}\)</span> the vector of random variables describing <em>all</em> of the observed evidence or data which will be used to evaluate the relative likelihood of the two hypotheses. Define by <span class="math inline">\(LR_{i,j} \equiv \frac{p(E|H_i)}{p(E|H_j)}\)</span> the likelihood ratio of hypothesis <span class="math inline">\(i\)</span> to hypothesis <span class="math inline">\(j\)</span>. The coherency principal is satisfied if</p>
+<p><span class="math display">\[ LR_{i,j} = \frac{1}{LR_{j,i}} \]</span>.</p>
+<p>Likelihood ratios are fundamentally coherent, but what about score-based likelihood ratios? Denote by <span class="math inline">\(s: \mathbb{R}^n \rightarrow \mathbb{R}^{q}\)</span> a score function mapping the original data to Euclidean space of dimension <span class="math inline">\(q\)</span> (typically <span class="math inline">\(q = 1\)</span>). Similar to LRs, denote by <span class="math inline">\(SLR_{i,j} \equiv \frac{p(s(E)|H_i)}{p(s(E)|H_j)}\)</span> the score-based likelihood ratio comparing hypothesis <span class="math inline">\(i\)</span> to hypothesis <span class="math inline">\(j\)</span>. Clearly, in this general context SLRs are also coherent.</p>
+</div>
+<div id="problems-with-arguments-showing-slrs-are-incoherent" class="section level3">
+<h3><span class="header-section-number">7.2.2</span> Problems with arguments showing SLRs are incoherent</h3>
+<p>Let us examine the arguments presented in [REFS] to the incoherence of SLRs. These arguments stem from an example where there are two known sources of evidence say, source <span class="math inline">\(A\)</span> and source <span class="math inline">\(B\)</span>, each producing data <span class="math inline">\(e_A\)</span> and <span class="math inline">\(e_B\)</span>, respectively. Furthermore, assume that we have a third piece of evidence of unknown origin, <span class="math inline">\(e_u\)</span>, which must have come from either <span class="math inline">\(A\)</span> or <span class="math inline">\(B\)</span>. We then wish to evaluate the support of the data for <span class="math inline">\(H_A\)</span> or <span class="math inline">\(H_B\)</span> defined as follows</p>
+<p><span class="math display">\[\begin{array}{cc}
+H_A: &amp; e_u \text{ was generated from source } A \\
+H_B: &amp; e_u \text{ was generated from source } B.
+\end{array}\]</span></p>
+<p>In this case, we have <span class="math inline">\(LR_{A,B} = \frac{p(e_A, e_B, e_u|H_A)}{p(e_A, e_B, e_u|H_B)}\)</span>. We make use of <em>all</em> available data in the formulation of the numerator and denominator densities. Under the assumptions that each fragment of evidence is independent under both hypothesis <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> as well as that <span class="math inline">\(p(e_A,e_B|H_A) = p(e_A,e_B|H_B)\)</span>, the LR reduces to <span class="math inline">\(LR_{A,B} = \frac{p(e_u|H_A)}{p(e_u|H_B)}\)</span>. The second assumption is generally acceptable as the source of <span class="math inline">\(e_u\)</span> ought to have no impact on the distribution of the evidence with known source.</p>
+<p>[REFS] then consider possible SLRs for this example. However, they make an assumption that the score is explicitly a function only of two fragments of evidence. That is, assuming the dimension of <span class="math inline">\(e_i\)</span>, <span class="math inline">\(dim(e_i) = k\)</span>, is constant for <span class="math inline">\(i = A,B,u\)</span>, their score maps <span class="math inline">\(s:\mathbb{R}^k \times \mathbb{R}^k \rightarrow \mathbb{R}\)</span>. An common example of such a score is Euclidean distance, i.e. <span class="math inline">\(s(x,y) = \left[ \sum_{i = 1}^{k}(x_i - y_i)^2 \right]^{1/2}\)</span>. Such a score makes perfect sense in a typical specific-source problem context in which only two fragments of evidence are considered: one from the known source and one from the unknown source.</p>
+<p>However, when one desires to create an SLR based on this score in this particular example, it is tempting to suggest that the natural SLR is <span class="math inline">\(SLR_{A,B} = \frac{p(s(e_A,e_u)|H_A)}{p(s(e_A,e_u)|H_B)}\)</span>. Yet, the natural SLR if the hypotheses were reversed is <span class="math inline">\(SLR_{B,A} = \frac{p(s(e_B,e_u)|H_B)}{p(s(e_B,e_u)|H_A)}\)</span>. Neither of these SLRs is the reciprocal of the other, and so the specific source SLR appears to be “incoherent”.</p>
+<p>This approach, however, should raise a red flag immediately. Why, in the full LR case, do we require that (simplifying model assumptions aside) the numerator and denominator densities be functions of all available data, but the score is not? Furthermore, if we consider these SLRs in the more general context of scores depending on all available data, we see that, in fact, what [REFS] define to be <span class="math inline">\(SLR_{A,B}\)</span> and <span class="math inline">\(SLR_{B,A}\)</span> turn out to be two different SLRs depending on two different scores.</p>
+<p>For clarity, we will use <span class="math inline">\(s(\cdot)\)</span> to denote scores which are explicitly functions of <em>all</em> observed data, and we will use <span class="math inline">\(\delta (\cdot)\)</span> to denote score functions which are only a function of two fragments of evidence/data. Specifically, the score in <span class="math inline">\(SLR_{A,B}\)</span> is <span class="math inline">\(s_1(e_u,e_A,e_B) = \delta(e_u,e_A)\)</span> and the score in <span class="math inline">\(SLR_{B,A}\)</span> is <span class="math inline">\(s_2(e_u,e_A,e_B) = \delta(e_u,e_B)\)</span>. While the functional form of the score in the two SLRs <em>appears</em> to be the same, clearly <span class="math inline">\(s_1(e_u,e_A,e_B) \neq s_2(e_u,e_A,e_B)\)</span>. Thus, the two SLRs are simply two distinct quantities whose relationship needn’t be expected to be related anymore than if one had decided to use two different function forms of <span class="math inline">\(\delta(\cdot,\cdot)\)</span> in the two separate SLRs.</p>
+<p>One might ask how to reasonably construct an SLR which utilizes a (univariate) score other than a similarity metric for two fragments of evidence. One such example in this case would be <span class="math inline">\(s(e_u, e_A, e_B) = \frac{\delta(e_u,e_A)}{\delta(e_u,e_B)}\)</span>. Intuitively, under <span class="math inline">\(H_A\)</span>, the numerator should be larger than the denominator, while under <span class="math inline">\(H_B\)</span>, the opposite should be true.</p>
+</div>
+<div id="example-of-a-coherent-slr-in-the-two-source-problem" class="section level3">
+<h3><span class="header-section-number">7.2.3</span> Example of a coherent SLR in the two source problem</h3>
+<p>Suppose that our hypotheses are defined such that</p>
+<p><span class="math display">\[
+\begin{array}{cc}
+H_A: &amp; e_u \sim N(\mu_A, \sigma^2), e_A \sim N(\mu_A, \sigma^2), e_B \sim N(\mu_B, \sigma^2) \\
+H_B: &amp; e_u \sim N(\mu_B, \sigma^2), e_A \sim N(\mu_A, \sigma^2), e_B \sim N(\mu_B, \sigma^2),
+\end{array}
+\]</span></p>
+<p>where <span class="math inline">\(e_u\)</span>, <span class="math inline">\(e_A\)</span>, <span class="math inline">\(e_B\)</span> are mutual independent under both <span class="math inline">\(H_A\)</span> and <span class="math inline">\(H_B\)</span>. We will examine three different SLRs: <span class="math inline">\(SLR^{(A)} \equiv \frac{p(s_1(E)|H_A)}{p(s_1(E)|H_B)}\)</span>, <span class="math inline">\(SLR^{(B)} \equiv \frac{p(s_2(E)|H_A)}{p(s_2(E)|H_B)}\)</span>, and <span class="math inline">\(SLR^* \equiv \frac{p(s_3(E)|H_A)}{p(s_3(E)|H_B)}\)</span>, where</p>
+<p><span class="math display">\[\begin{align*}
+E &amp;= (e_u, e_A, e_B)^{\top} \\
+s_1(E) &amp;= \log \lVert e_u - e_A \rVert^2 \\
+s_2(E) &amp;= \log \lVert e_u - e_B \rVert^2 \\
+s_3(E) &amp;= \log \frac{\lVert e_u - e_A \rVert^2}{\lVert e_u - e_B \rVert^2}
+\end{align*}\]</span></p>
+<div class="figure">
+<img src="images/foundations/nate/incoherent_coherent_slr.png" alt="LR versus SLR scatterplots under hypothesis A and B using three types of SLRs: “coherent”, “incoherent” considering hypothesis A first, and “incoherent” considering hypothesis B first." />
+<p class="caption">LR versus SLR scatterplots under hypothesis A and B using three types of SLRs: “coherent”, “incoherent” considering hypothesis A first, and “incoherent” considering hypothesis B first.</p>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">RMSE</th>
+<th align="right">Exp.Cond.KL</th>
+<th align="right">score.KL</th>
+<th align="right">true.KL</th>
+<th align="left">type</th>
+<th align="left">hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">3.79</td>
+<td align="right">2.71</td>
+<td align="right">1.76</td>
+<td align="right">4.47</td>
+<td align="left">coherent</td>
+<td align="left">A</td>
+</tr>
+<tr class="even">
+<td align="right">3.86</td>
+<td align="right">2.77</td>
+<td align="right">1.74</td>
+<td align="right">4.51</td>
+<td align="left">coherent</td>
+<td align="left">B</td>
+</tr>
+<tr class="odd">
+<td align="right">4.64</td>
+<td align="right">3.37</td>
+<td align="right">1.10</td>
+<td align="right">4.47</td>
+<td align="left">incoherent A</td>
+<td align="left">A</td>
+</tr>
+<tr class="even">
+<td align="right">3.94</td>
+<td align="right">3.22</td>
+<td align="right">1.29</td>
+<td align="right">4.51</td>
+<td align="left">incoherent A</td>
+<td align="left">B</td>
+</tr>
+<tr class="odd">
+<td align="right">3.93</td>
+<td align="right">3.23</td>
+<td align="right">1.24</td>
+<td align="right">4.47</td>
+<td align="left">incoherent B</td>
+<td align="left">A</td>
+</tr>
+<tr class="even">
+<td align="right">4.73</td>
+<td align="right">3.44</td>
+<td align="right">1.07</td>
+<td align="right">4.51</td>
+<td align="left">incoherent B</td>
+<td align="left">B</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="possible-generalizations-of-coherent-slrs-to-the-multisource-case" class="section level3">
+<h3><span class="header-section-number">7.2.4</span> Possible Generalizations of Coherent SLRs to the Multisource Case</h3>
+<p>It might be nice to, in general, be able to construct a reasonable score given a “similarity” score, <span class="math inline">\(\delta(\cdot, \cdot)\)</span> defined in terms of two pieces of evidence. I’ll propose a couple ways of doing this. First, suppose that instead of two sources, we now have <span class="math inline">\(K\)</span> sources, one of which is the source of the evidence from an unknown source. The task is to compare the hypothesis that the unknown source evidence was generated by a specific source <span class="math inline">\(A = a_x \in \mathcal{S} \equiv \{1, 2, ..., K\}\)</span> to the hypothesis that the unknown source evidence was generated by any one of the other sources <span class="math inline">\(B = b \in \mathcal{S} \setminus a_x\)</span>. Mathematically,</p>
+<p><span class="math display">\[
+\begin{array}{cc}
+H_A: &amp; e_u \text{ generated by } a_x \\
+H_B: &amp; e_u \text{ generated by some } b \in \mathcal{S} \setminus a_x.
+\end{array}
+\]</span></p>
+<p>Let’s consider two possible scores, both of which will be based off of an accepted dissimilarity metric, <span class="math inline">\(\delta(\cdot, \cdot) \geq 0\)</span>. The first score that we will consider is</p>
+<p><span class="math display">\[ S_1(e_u, e_1, ..., e_K) = \log \frac{\delta(e_u, e_{a_x})}{ \min_{b \in \mathcal{S} \setminus a_x} \delta(e_u, e_b) }.
+\]</span></p>
+<p>The second score that we will consider is</p>
+<p><span class="math display">\[ S_2(e_u, e_1, ..., e_K) = \log \frac{\delta(e_u, e_{a_x})}{ \sum_{b \in \mathcal{S} \setminus a_x} w(b)\delta(e_u, e_b) },
+\]</span></p>
+<p>where <span class="math inline">\(w(b)\)</span> are weights with <span class="math inline">\(\sum_{b \in \mathcal{S} \setminus a_x} w(b) = 1\)</span>. Intuitively, the first score should perform well. The dissimilarity in the numerator should be compared with the smallest dissimilarity in $  a_x$. In the absence of other prior information, only the relative size of the numerator dissimilarity to the smallest dissimilarity of <span class="math inline">\(b \in \mathcal{S} \setminus a_x\)</span> should matter.</p>
+<p>The second score would likely be easier to study in terms of mathematical properties. For example, it might be possible to assume <span class="math inline">\(E \left[ \delta(e_u, e_i) \right] = \mu_1 &lt; \infty\)</span> if the source of <span class="math inline">\(e_u\)</span> is that of <span class="math inline">\(e_i\)</span> but that <span class="math inline">\(E \left[ \delta(e_u, e_i) \right] = \mu_2 &lt; \infty\)</span> if the sources are different. One might be able to show some type of consistency property if, instead of one copy of <span class="math inline">\(E = (e_u, e_1, ..., e_K)^{\top}\)</span>, we now have <span class="math inline">\(N\)</span> iid copies <span class="math inline">\(E_i = (e_u, e_1, ..., e_K)^{\top}_i\)</span>. Then, using <span class="math inline">\(\frac{1}{N} \sum_{i = 1}^{N} \delta(e_{u_i}, e_{j_i})\)</span> in place of <span class="math inline">\(\delta(e_u, e_j)\)</span> yields the ability to use the law of large numbers. This may be impractical in any real life situation, but I consider the score here nonetheless.</p>
+<p>In more generality, there seems to be no reason why a multisource score couldn’t be constructed using an arbitrary summary statistic of the “similarity” scores computed between the unknown source evidence and the alternative population.</p>
+</div>
+<div id="multisource-example" class="section level3">
+<h3><span class="header-section-number">7.2.5</span> Multisource example</h3>
+<p>For simplicity, we will again assume that all evidence is generated from independent, univariate Gaussian distributions. Specifically,</p>
+<p><span class="math display">\[
+\begin{array}{ccc}
+H_p: &amp; e_u \sim N(\mu_K, \sigma^2), &amp; e_i \sim N(\mu_i, \sigma^2), i \in \{ 1,..., K \} \\
+H_d: &amp; e_u \sim GMM(\{\mu_k\}_{k = 1}^{K - 1}, \{ \pi_k \}_{k = 1}^{K - 1}, \sigma^2),  &amp; e_i \sim N(\mu_i, \sigma^2), i \in \{ 1,...,K \}
+\end{array}.
+\]</span></p>
+<p>where all random variables are assumed to be independent conditional on each hypothesis. We will further assume that <span class="math inline">\(\mu_i \stackrel{iid}{\sim} N(0, \tau^2), i \in \{ 1,..., K-1 \}\)</span>.</p>
+<div class="figure">
+<img src="images/foundations/nate/multisource_slr_vs_lr.png" alt="log-LR versus log-SLR scatterplots under hypothesis P and D using three types of SLRs which correspond to using different statistics to aggregate dissimilarity scores in the alternative source population. We try min, average, and max, corresponding to rows 1-3, respectively.Results are based on 10,000 observations for each hypothesis." />
+<p class="caption">log-LR versus log-SLR scatterplots under hypothesis P and D using three types of SLRs which correspond to using different statistics to aggregate dissimilarity scores in the alternative source population. We try min, average, and max, corresponding to rows 1-3, respectively.Results are based on 10,000 observations for each hypothesis.</p>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">RMSE</th>
+<th align="right">Exp.Cond.KL</th>
+<th align="right">KL</th>
+<th align="right">true.KL</th>
+<th align="left">type</th>
+<th align="left">hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">3.1371</td>
+<td align="right">2.1718</td>
+<td align="right">2.2813</td>
+<td align="right">4.4527</td>
+<td align="left">min</td>
+<td align="left">P</td>
+</tr>
+<tr class="even">
+<td align="right">8.4669</td>
+<td align="right">5.1396</td>
+<td align="right">1.8487</td>
+<td align="right">6.9865</td>
+<td align="left">min</td>
+<td align="left">D</td>
+</tr>
+<tr class="odd">
+<td align="right">3.4835</td>
+<td align="right">2.3965</td>
+<td align="right">2.0568</td>
+<td align="right">4.4527</td>
+<td align="left">avg</td>
+<td align="left">P</td>
+</tr>
+<tr class="even">
+<td align="right">7.6549</td>
+<td align="right">4.2336</td>
+<td align="right">2.7529</td>
+<td align="right">6.9865</td>
+<td align="left">avg</td>
+<td align="left">D</td>
+</tr>
+<tr class="odd">
+<td align="right">3.8587</td>
+<td align="right">2.7198</td>
+<td align="right">1.7333</td>
+<td align="right">4.4527</td>
+<td align="left">max</td>
+<td align="left">P</td>
+</tr>
+<tr class="even">
+<td align="right">7.0711</td>
+<td align="right">4.1623</td>
+<td align="right">2.8250</td>
+<td align="right">6.9865</td>
+<td align="left">max</td>
+<td align="left">D</td>
+</tr>
+</tbody>
+</table>
+<div class="figure">
+<img src="images/foundations/nate/multisource_slr_vs_lr_gp.png" alt="log-LR versus log-SLR scatterplots under hypothesis P and D using four types of SLRs. The first three scores correspond to using different statistics to aggregate dissimilarity scores in the alternative source population. The fourth score is essentially the predicted probability of Hypothesis P being true given the first three scores based on a sparse Gaussian process model. We try min, average, and max, corresponding to rows 1-3, respectively. Results are based on 1,000 observations for each hypothesis due to training time for the sparse Gaussian process." />
+<p class="caption">log-LR versus log-SLR scatterplots under hypothesis P and D using four types of SLRs. The first three scores correspond to using different statistics to aggregate dissimilarity scores in the alternative source population. The fourth score is essentially the predicted probability of Hypothesis P being true given the first three scores based on a sparse Gaussian process model. We try min, average, and max, corresponding to rows 1-3, respectively. Results are based on 1,000 observations for each hypothesis due to training time for the sparse Gaussian process.</p>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">RMSE</th>
+<th align="right">Exp.Cond.KL</th>
+<th align="right">KL</th>
+<th align="right">true.KL</th>
+<th align="left">type</th>
+<th align="left">hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="right">3.0605</td>
+<td align="right">2.0616</td>
+<td align="right">2.3206</td>
+<td align="right">4.3809</td>
+<td align="left">min</td>
+<td align="left">P</td>
+</tr>
+<tr class="even">
+<td align="left">3</td>
+<td align="right">3.2725</td>
+<td align="right">2.0710</td>
+<td align="right">2.3111</td>
+<td align="right">4.3809</td>
+<td align="left">avg</td>
+<td align="left">P</td>
+</tr>
+<tr class="odd">
+<td align="left">5</td>
+<td align="right">3.7826</td>
+<td align="right">2.5398</td>
+<td align="right">1.8424</td>
+<td align="right">4.3809</td>
+<td align="left">max</td>
+<td align="left">P</td>
+</tr>
+<tr class="even">
+<td align="left">7</td>
+<td align="right">2.6095</td>
+<td align="right">1.5380</td>
+<td align="right">2.8442</td>
+<td align="right">4.3809</td>
+<td align="left">gp</td>
+<td align="left">P</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">RMSE</th>
+<th align="right">Exp.Cond.KL</th>
+<th align="right">KL</th>
+<th align="right">true.KL</th>
+<th align="left">type</th>
+<th align="left">hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2</td>
+<td align="right">7.9189</td>
+<td align="right">4.7271</td>
+<td align="right">2.1101</td>
+<td align="right">6.8364</td>
+<td align="left">min</td>
+<td align="left">D</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="right">7.1000</td>
+<td align="right">3.8640</td>
+<td align="right">2.9724</td>
+<td align="right">6.8364</td>
+<td align="left">avg</td>
+<td align="left">D</td>
+</tr>
+<tr class="odd">
+<td align="left">6</td>
+<td align="right">6.6734</td>
+<td align="right">4.0090</td>
+<td align="right">2.8274</td>
+<td align="right">6.8364</td>
+<td align="left">max</td>
+<td align="left">D</td>
+</tr>
+<tr class="even">
+<td align="left">8</td>
+<td align="right">6.9872</td>
+<td align="right">3.3887</td>
+<td align="right">3.4414</td>
+<td align="right">6.8364</td>
+<td align="left">gp</td>
+<td align="left">D</td>
+</tr>
+</tbody>
+</table>
+<p>Aggregating scores via the sparse GP results in a final score that uniformly beats
+each of the other scores under both the prosecution and defense hypotheses in terms
+of the score KL divergence.</p>
+</div>
+<div id="other-possible-viewpoints" class="section level3">
+<h3><span class="header-section-number">7.2.6</span> Other Possible Viewpoints?</h3>
+<p>I have assumed in the previous section that the order of consideration of hypotheses should not affect the ordering of the data vector <span class="math inline">\(E = (e_u,e_A,e_B)\)</span> or of the ordering of these arguments to the score function. This seems reasonable, but perhaps [REFS] would argue that considering <span class="math inline">\(H_A\)</span> first, <span class="math inline">\(E = (e_u, e_A, e_B)\)</span> and <span class="math inline">\(s(E) = s(e_u, e_A, e_B)\)</span>, but considering <span class="math inline">\(H_B\)</span> first, <span class="math inline">\(E = (e_u, e_B, e_A)\)</span> and <span class="math inline">\(s(E) = s(e_u, e_B, e_A)\)</span>. In this case, <span class="math inline">\(SLR_{A,B} \neq \frac{1}{SLR_{B,A}}\)</span> because we switch the order of arguments to the score from one SLR to the other. Note that, however, if we relax the independence assumptions of independence under either <span class="math inline">\(H_A\)</span> or <span class="math inline">\(H_B\)</span>, then even the LR becomes “incoherent” because <span class="math inline">\(\frac{p(e_u, e_A, e_B|H_A)}{p(e_u, e_A, e_B|H_B)} \neq \frac{p(e_u, e_B, e_A|H_A)}{p(e_u, e_B, e_A|H_B)}\)</span> in general.</p>
+<p>It is true that the LR depends only on the evidence of the unknown source <em>in this specific scenario</em>, but that is a consequence of modeling assumptions and not of LR paradigmatic principals.</p>
+</div>
+</div>
+<div id="copper-wire-synthetic-data" class="section level2">
+<h2><span class="header-section-number">7.3</span> Copper Wire Synthetic Data</h2>
+<div class="figure">
+<img src="images/foundations/nate/cw_results_NA50.png" alt="Score KL divergences and Monte Carlo standard errors for five randomly generated synthetic copper wire data sets under H_p and H_d." />
+<p class="caption">Score KL divergences and Monte Carlo standard errors for five randomly generated synthetic copper wire data sets under <span class="math inline">\(H_p\)</span> and <span class="math inline">\(H_d\)</span>.</p>
+</div>
+</div>
+<div id="optimal-matching-problem" class="section level2">
+<h2><span class="header-section-number">7.4</span> Optimal matching problem</h2>
+<div id="two-groups-case." class="section level3">
+<h3><span class="header-section-number">7.4.1</span> Two groups case.</h3>
+<p>Suppose there are two groups <span class="math inline">\(\pi_{1}\)</span> and <span class="math inline">\(\pi_{2}\)</span> with densities <span class="math inline">\(f_{1}(x)\)</span> and <span class="math inline">\(f_{2}(x)\)</span> on the support <span class="math inline">\(x \in T\)</span>.
+Let <span class="math inline">\(p_{1}\)</span> and <span class="math inline">\(p_{2}\)</span> be the prior probabilities of groups <span class="math inline">\(\pi_{1}\)</span> and <span class="math inline">\(\pi_{2}\)</span>, respectively.
+There are new observations <span class="math inline">\(\mbox{obs}_{1}\)</span> and <span class="math inline">\(\mbox{obs}_{2}\)</span> with measurements <span class="math inline">\(x_{1}\)</span> and <span class="math inline">\(x_{2}\)</span>, respectively. The goal is to distinguish there the new observations are from the same group or not. That is to partition the space <span class="math inline">\(T \times T\)</span> in to <span class="math inline">\(T_{m} \cup T_{nm}\)</span>, where we conclude <span class="math inline">\(\mbox{obs}_{1}\)</span> and <span class="math inline">\(\mbox{obs}_{2}\)</span> are from the same group if <span class="math inline">\((x_{1}, x_{2})\)</span> falls into <span class="math inline">\(T_{m}\)</span>; and otherwise if <span class="math inline">\((x_{1}, x_{2}) \in T_{nm}\)</span>.
+The two type errors:</p>
+<ul>
+<li>Matching error: <span class="math inline">\((x_{1}, x_{2}) \in T_{m}\)</span> if <span class="math inline">\(\mbox{obs}_{1} \in \pi_{1}, \mbox{obs}_{2} \in \pi_{2}\)</span> or <span class="math inline">\(\mbox{obs}_{1} \in \pi_{2}, \mbox{obs}_{2} \in \pi_{1}\)</span>;</li>
+<li>Unmatching error: <span class="math inline">\((x_{1}, x_{2}) \in T_{um}\)</span> if <span class="math inline">\(\mbox{obs}_{1}, \mbox{obs}_{2} \in \pi_{1}\)</span> or <span class="math inline">\(\mbox{obs}_{1}, \mbox{obs}_{2} \in \pi_{2}\)</span>.</li>
+</ul>
+<p>The probability of errors are:
+<span class="math display">\[P(\mbox{Matching error}) = \int_{T_{m}} \{f_{1}(x_{1})f_{2}(x_{2}) + f_{2}(x_{1})f_{1}(x_{2})\}p_{1}p_{2}dx_{1}dx_{2},\]</span>
+<span class="math display">\[P(\mbox{Unmatching error}) = \int_{T_{um}} \{f_{1}(x_{1})f_{1}(x_{2})p_{1}^{2} + f_{2}(x_{1})f_{2}(x_{2})p_{2}^{2}\}dx_{1}dx_{2}.\]</span>
+Consider the unweighted sum of those two error probabilities <span class="math inline">\(P(\mbox{error}) = P(\mbox{Matching error}) + P(\mbox{Unmatching error})\)</span>. We have
+<span class="math display">\[P(\mbox{error}) = \int_{T_{m}} \big[\{f_{1}(x_{1})f_{2}(x_{2}) + f_{2}(x_{1})f_{1}(x_{2})\}p_{1}p_{2} - \{f_{1}(x_{1})f_{1}(x_{2})p_{1}^{2} + f_{2}(x_{1})f_{2}(x_{2})p_{2}^{2}\}\big]dx_{1}dx_{2} + C,\]</span>
+where <span class="math inline">\(C\)</span> is a constant.</p>
+<p>The minimum of this error probability with respect to <span class="math inline">\(T_{m}\)</span> occurs when
+<span class="math display">\[\begin{equation}
+T_{m} = \bigg\{(x_{1}, x_{2}): \frac{[f_{1}(x_{1})f_{2}(x_{2}) + f_{2}(x_{1})f_{1}(x_{2})]p_{1}p_{2}}{f_{1}(x_{1})f_{1}(x_{2})p_{1}^{2} + f_{2}(x_{1})f_{2}(x_{2})p_{2}^{2}} &lt; 1 \bigg\}.
+\label{eq:Optimalrule1}
+\end{equation}\]</span>
+This decision region is the <strong><em>optimal</em></strong> matching rule to minimize the probability of the matching errors.
+Note that
+<span class="math display">\[f_{1}(x_{1})f_{1}(x_{2})p_{1}^{2} + f_{2}(x_{1})f_{2}(x_{2})p_{2}^{2} - [f_{1}(x_{1})f_{2}(x_{2}) + f_{2}(x_{1})f_{1}(x_{2})]p_{1}p_{2} = 
+\{f_{1}(x_{1})p_{1} - f_{2}(x_{1})p_{2}\}\{f_{1}(x_{2})p_{1} - f_{2}(x_{2})p_{2}\}.\]</span>
+The optimal region <span class="math inline">\(T_{m}\)</span> in () is equivalent to
+<span class="math display">\[\begin{eqnarray}
+\frac{f_{1}(x_{1})}{f_{2}(x_{1})} &lt; \frac{p_{2}}{p_{1}} 
+&amp;\mbox{and}&amp;
+\frac{f_{1}(x_{2})}{f_{2}(x_{2})} &lt; \frac{p_{2}}{p_{1}} \ \mbox{ or } \nonumber \\
+\frac{f_{1}(x_{1})}{f_{2}(x_{1})} &gt; \frac{p_{2}}{p_{1}} 
+&amp;\mbox{and}&amp;
+\frac{f_{1}(x_{2})}{f_{2}(x_{2})} &gt; \frac{p_{2}}{p_{1}}, 
+\label{eq:Optimalrule2}
+\end{eqnarray}\]</span>
+which corresponds to the optimal classification rule.
+From (), the optimal matching rule is equivalent to the optimal classification rule as long as we conclude the observations matched from one group if they are classified to the same group.</p>
+<p><strong>Normal distribution.</strong> As an example, assume <span class="math inline">\(\pi_{1}\)</span> and <span class="math inline">\(\pi_{2}\)</span> are from normal distributions with mean <span class="math inline">\(\mu_{1}\)</span> and <span class="math inline">\(\mu_{2}\)</span>, and covariance <span class="math inline">\(\Sigma\)</span>.
+Further assume the prioir probabilities are the same <span class="math inline">\(p_{1} = p_{2} = 1 / 2\)</span>.
+The optimal decision is to classify <span class="math inline">\(x_{1}\)</span> and <span class="math inline">\(x_{2}\)</span> into the same group if
+<span class="math display">\[\begin{equation}
+\frac{\exp\big[ \{x_{2} - (\mu_{1} + \mu_{2}) / 2\} \Sigma^{-1} (\mu_{2} - \mu_{1}) \big] + \exp\big[ \{x_{1} - (\mu_{1} + \mu_{2}) / 2\} \Sigma^{-1} (\mu_{2} - \mu_{1}) \big]} {1 + \exp\big[ \{x_{1} + x_{2} - (\mu_{1} + \mu_{2})\}&#39; \Sigma^{-1} (\mu_{2} - \mu_{1})  \big]} &lt; 1.
+\label{eq:OptimalruleNormal1}
+\end{equation}\]</span>
+It can be shown that the above inequality is equivalent to
+<span class="math display">\[\begin{eqnarray}
+\exp\big[ \{x_{2} - (\mu_{1} + \mu_{2}) / 2\} \Sigma^{-1} (\mu_{2} - \mu_{1}) \big] &lt; 1 
+&amp;\mbox{and}&amp;
+\exp\big[ \{x_{1} - (\mu_{1} + \mu_{2}) / 2\} \Sigma^{-1} (\mu_{2} - \mu_{1}) \big] &lt; 1 \ \mbox{ or } \nonumber \\
+\exp\big[ \{x_{2} - (\mu_{1} + \mu_{2}) / 2\} \Sigma^{-1} (\mu_{2} - \mu_{1}) \big] &gt; 1 
+&amp;\mbox{and}&amp;
+\exp\big[ \{x_{1} - (\mu_{1} + \mu_{2}) / 2\} \Sigma^{-1} (\mu_{2} - \mu_{1}) \big] &gt; 1
+\label{eq:OptimalruleNormal2}
+\end{eqnarray}\]</span>
+For discriminat analysis, it is well known that the optimal classification rule under normal distribution is to classify <span class="math inline">\(x_{1}\)</span> and <span class="math inline">\(x_{2}\)</span> to <span class="math inline">\(\pi_{1}\)</span> if <span class="math inline">\(\{x_{1} - (\mu_{1} + \mu_{2}) / 2\} \Sigma^{-1} (\mu_{2} - \mu_{1}) \leq 0\)</span> and <span class="math inline">\(\{x_{2} - (\mu_{1} + \mu_{2}) / 2\} \Sigma^{-1} (\mu_{2} - \mu_{1}) \leq 0\)</span> respectively, and classify them to <span class="math inline">\(\pi_{2}\)</span> if otherwise.</p>
+<p><strong>Feature difference</strong> is a method to solve the matching problem via classification. Take <span class="math inline">\(d = x_{1} - x_{2}\)</span> as the pairwise difference between two observations. It is clear that <span class="math inline">\(d \sim N(0, 2 \Sigma)\)</span> if <span class="math inline">\(x_{1}\)</span> and <span class="math inline">\(x_{2}\)</span> are both from either <span class="math inline">\(\pi_{1}\)</span> or <span class="math inline">\(\pi_{2}\)</span>, and <span class="math inline">\(d \sim N(\mu_{1} - \mu_{2}, 2 \Sigma)\)</span> or <span class="math inline">\(d \sim N(\mu_{2} - \mu_{1}, 2 \Sigma)\)</span> if <span class="math inline">\(x_{1}\)</span> and <span class="math inline">\(x_{2}\)</span> are from different groups.
+Let <span class="math inline">\(f_{m}(d)\)</span> and <span class="math inline">\(f_{um}(d)\)</span> be the density of <span class="math inline">\(d\)</span> if two observations are from the same group and different groups, respectively.
+Then, <span class="math inline">\(f_{m}(d)\)</span> is the normal density with mean <span class="math inline">\(0\)</span> and covariance <span class="math inline">\(2 \Sigma\)</span>, and <span class="math inline">\(f_{um}(d)\)</span> is the mixture normal <span class="math inline">\(0.5 N(\mu_{1} - \mu_{2}, 2 \Sigma) + 0.5 N(\mu_{2} - \mu_{1}, 2 \Sigma)\)</span>. The optimal discriminant rule is to classify <span class="math inline">\(d\)</span> into the unmatching case if
+<span class="math display">\[\frac{f_{um}(d)}{f_{m}(d)} = \frac{\exp\{-(d - \mu_{1} + \mu_{2})&#39; \Sigma^{-1} (d - \mu_{1} + \mu_{2}) / 4\} + \exp\{-(d + \mu_{1} - \mu_{2})&#39; \Sigma^{-1} (d + \mu_{1} - \mu_{2}) / 4\}}{2 \exp(-d&#39; \Sigma^{-1} d / 4)} &gt; \frac{p_{1}^{2} + p_{2}^{2}}{2 p_{1} p_{2}}.\]</span>
+Let <span class="math inline">\(\mu_{d} = \mu_{1} - \mu_{2}\)</span>. The above inequality is equivalent to
+<span class="math display">\[\exp(d&#39; \Sigma^{-1} \mu_{d} / 2) + \exp( - d&#39; \Sigma^{-1} \mu_{d} / 2) &gt; \exp(\mu_{d}&#39; \Sigma^{-1} \mu_{d} / 4) \frac{p_{1}^{2} + p_{2}^{2}}{p_{1}p_{2}},\]</span>
+which is approximately equivalent to
+<span class="math display">\[|d&#39; \Sigma^{-1} \mu_{d}| / 2 &gt; \mu_{d}&#39; \Sigma^{-1} \mu_{d} / 4 + \log (p_{1}^{2} + p_{2}^{2}) - \log(p_{1}p_{2}).\]</span></p>
+<p>As an illustration, consider one dimensional feature space. Take <span class="math inline">\(\mu_{1} = 1, \mu_{2} = -1, \Sigma = 1\)</span>, and <span class="math inline">\(p_{1} = p_{2} = 0.5\)</span>. Figure 1 shows the optimal matching rule and the optimal rule based on feature difference.
+We see that in this example the matching region from the feature difference method only overlaps a small fraction of that from the optimal matching rule, and there is a missing alignment for the feature difference method in the two small triangles at the origin.
+We also note that even though most of the pink area and the blue area in Figure 1 don’t overlap, the probabilities that the pair of data <span class="math inline">\((x_{1}, x_{2})\)</span> falling into those non-overlapping regions could be small, especially if the absolute value of either coordinate is large. See the contours of multivariate normal distribution in Figure 1.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-234"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-234-1.png" alt="Matching regions from the optimal rule (in pink) and the method based on feature difference (in blue). The contours of multivariate normal distribution with means $(1, -1)$ (unmatching case) and $(1, 1)$ (matching case) are marked in black and red, respectively, where the covariance is identity." width="672" />
+<p class="caption">
+Figure 7.1: Matching regions from the optimal rule (in pink) and the method based on feature difference (in blue). The contours of multivariate normal distribution with means <span class="math inline">\((1, -1)\)</span> (unmatching case) and <span class="math inline">\((1, 1)\)</span> (matching case) are marked in black and red, respectively, where the covariance is identity.
+</p>
+</div>
+<p><strong>Comparison with random forest.</strong> We also conducted a small scale simulation to compare the optimal matching rule with the random forest method applied on the feature difference. The traning data include 50 observations from <span class="math inline">\(N(1, 1)\)</span> and <span class="math inline">\(N(-1, 1)\)</span>. There are additional 10 observations from each of the group serving as the testing data. We evaluate the percentage of the matching errors on the pairs of the testing data. We repeated the whole simulation 100 times. The accuracy rates are <strong><em>0.762</em></strong> and <strong><em>0.708</em></strong> for the optimal matching rule and the random forest applied on the differences of the measurements, respectively. 65% out of the 100 repetitions, the former method has higher accuracy than the latter method.</p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-236-1.png" width="288" /><img src="bookdown-demo_files/figure-html/unnamed-chunk-236-2.png" width="288" /></p>
+</div>
+<div id="topics-needs-exploration" class="section level3">
+<h3><span class="header-section-number">7.4.2</span> Topics needs exploration</h3>
+<ul>
+<li>How to quantify the matching error rates when the training data only inlcude a small part of many potential groups?</li>
+<li>How training errors change as more and more features are collected (dimension <span class="math inline">\(p\)</span> increases), where only a small fraction of those features carry useful signals (feature selection).</li>
+</ul>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="shoes.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="outreach-activities.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/06-theoretical_foundation.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

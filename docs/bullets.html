@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Project CC: Bullets and Cartridge Cases | This is us: making CSAFE stronger each week</title>
   <meta name="description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Project CC: Bullets and Cartridge Cases | This is us: making CSAFE stronger each week" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-03-02" />
+<meta name="date" content="2020-03-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -40,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -66,7 +69,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -549,8 +552,27 @@ Figure 3.31: comparison table
 </p>
 </div>
 </div>
+<div id="look-colser-to-the-dependence-structure-of-the-land-engraved-areas" class="section level4">
+<h4><span class="header-section-number">3.1.1.2</span> Look colser to the dependence structure of the land engraved areas</h4>
+<p>There are some discussions about the existing patterns of dependence in the observed data. Inspired by that, we are trying to build a model to formalize those thoughts.</p>
+<p>We start from a model for the land engraved areas and try to develop a model for the ccfs in hand. We would naturely think about the following effects when producing characteristic features(in some measurement) on the lands we focused: 1) the barrel specific effect, 2) the land specific effect, 3) explosion effect, 4) random errors. If we are going to model this effect, there could be some models doing this jobs with different assumed denpendence structures accounted or expressed there. We are thinking about 1) the additive random effect model(if this is the correct name) , 2) some hierarchical structure with denpendence expressed somehow in the hyper parameters, 3) the glm.</p>
+<p>We start with the additive random effect model which has clearer structure at the first glance. We formulate the model as the following:</p>
+<p><span class="math inline">\(Y_{ijk}\)</span> is some measurement of a land engraved area from barrel <span class="math inline">\(i\)</span>, land <span class="math inline">\(j\)</span>(nested), and explosion <span class="math inline">\(k\)</span>.</p>
+<p><span class="math display">\[Y_{ijk} = \beta_0 + \mu_i + \nu_{ij} + \omega_k + \epsilon_{ijk}\]</span>
+where, barrel effect, land effect, explosion effect, random effect are respectively:</p>
+<p><span class="math inline">\(\mu_i\)</span>~ iid <span class="math inline">\(N(0, \sigma_{\mu}^2)\)</span>, <span class="math inline">\(\nu_{ij}\)</span>~ iid <span class="math inline">\(N(0, \sigma_{\nu}^2)\)</span>, <span class="math inline">\(\omega_{k}\)</span>~ iid <span class="math inline">\(N(0, \sigma_{\omega}^2)\)</span>, <span class="math inline">\(\epsilon_{ijk}\)</span>~ iid <span class="math inline">\(N(0, \sigma_{\epsilon}^2)\)</span>. (some more complicated structures are possible)</p>
+<p>Note this is a land model, however we want a ccf model. We first check the variance, covariance and correlations in different cases.</p>
+<p><span class="math display">\[Var(Y_{ijk}) = \sigma_{\mu}^2 + \sigma_{\nu}^2 + \sigma_{\omega}^2 + \sigma_{\epsilon}^2\]</span></p>
+<p>For the same barrel, same land but different expplosions(KM), we have the correlation:</p>
+<p><span class="math display">\[corr(Y_{ijk_1}, Y_{ijk_2}) = \frac{\sigma_{\mu}^2 + \sigma_{\nu}^2}{\sigma_{\mu}^2 + \sigma_{\nu}^2 + \sigma_{\omega}^2 + \sigma_{\epsilon}^2}\]</span></p>
+<p>For the same barrel, different land and different expplosions(some of KNM), we have the correlation:</p>
+<p><span class="math display">\[corr(Y_{ij_1k_1}, Y_{ij_2k_2}) = \frac{\sigma_{\mu}^2}{\sigma_{\mu}^2 + \sigma_{\nu}^2 + \sigma_{\omega}^2 + \sigma_{\epsilon}^2}\]</span></p>
+<p>Now we have a point estimator of the correlations in the above cases. To address our insterest, we need more than this. We could possiblly assume the beta distribution now as what we did previously(or mixed beta later). We are building a hierarchical model (not necessarily Bayesian now) for the ccfs with dependence structure considerred. We can reasonablly assume the above point estimation a mean value of the <span class="math inline">\(Beta(\mu, \phi)\)</span> (mean value parameterization, different <span class="math inline">\(\mu\)</span> from previous). We can somehow check the assumaption by some data driven methods. But the model we could have is then:</p>
+<p><span class="math display">\[Z_i \mbox{~}iid ~Beta(\mu_i, \phi_i)\]</span></p>
+<p>Where <span class="math inline">\(i\)</span> indicate the above two(or more) cases of correlations we are looking at. We could specify(assume) the model parameters by the additive random effect model through maximum likehood method or somehow.</p>
+</div>
 <div id="follow-up-study" class="section level4">
-<h4><span class="header-section-number">3.1.1.2</span> follow-up study</h4>
+<h4><span class="header-section-number">3.1.1.3</span> follow-up study</h4>
 <p>4 bullets per barrel for 96 of the original 626 Beretta firearms using different ammunition</p>
 <p class="new">
 bullets are being scanned
@@ -607,7 +629,7 @@ scans done, evaluation finished, some scans of doubtful quality
 <div id="x3ptools" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> x3ptools</h3>
 <p><code>x3ptools</code> is an R package for working with files in x3p format. x3p is an ISO standard for describing 3d topographic surface measurements.
-<code>x3ptools</code> is available on CRAN, i.e. can be installed with the command <code>install.packages(&quot;x3ptools&quot;)</code>. The development version is available from github. Installation instructions and basic usage can be found at <a href="https://heike.github.io/x3ptools/" class="uri">https://heike.github.io/x3ptools/</a></p>
+<code>x3ptools</code> is available on CRAN, i.e. can be installed with the command <code>install.packages("x3ptools")</code>. The development version is available from github. Installation instructions and basic usage can be found at <a href="https://heike.github.io/x3ptools/" class="uri">https://heike.github.io/x3ptools/</a></p>
 </div>
 <div id="bulletxtrctr" class="section level3">
 <h3><span class="header-section-number">3.2.2</span> bulletxtrctr</h3>
@@ -1038,7 +1060,7 @@ Figure 3.73: Right Groove Difference Estimates
 </li>
 <li>Comparing reproducibility/robustness of differing bullet analysis approaches
 <ul>
-<li><span class="citation">Hare, Hofmann, and Carriquiry (<a href="#ref-aoas">2016</a>)</span> vs. <span class="citation">Chu et al. (<a href="#ref-chu_jfs">2010</a>)</span>, for example</li>
+<li><span class="citation">Hare, Hofmann, and Carriquiry (<a href="#ref-aoas">2016</a>)</span> vs. <span class="citation">Chu et al. (<a href="#ref-chu_jfs">2010</a>)</span>, for example</li>
 <li>Crosscuts: method 1 vs. alternate? Crosscut parameter tuning?</li>
 <li>Groove methods<br />
 </li>
@@ -1117,7 +1139,7 @@ I am polishing two full chapters of the book this week. Starting to write up the
 <p><summary>
 Joe 9/5/19 Update: Explanation of missing value problem when calculating cross-correlations and some attempted fixes.
 </summary>
-Dealing with missing values in the x3p scans continues to be an issue. The Fast Fourier Transform method for calculating cross-correlation can’t handle missing data in an image, so we’ve attempted a few “fixes” that haven’t necessarily turned out as well as expected. One idea we had was to replace the NA values in a cell with the average pixel value. However, this is artificially introducing a signal where before there was none. This can (and demonstrably has) led to inflated/incorrect correlations between cells that shouldn’t have much at all in common. Unfortunately, this may be the only solution if we still wish to adhere to the CMC algorithm as described in Song et al. (2015). One improvement that I’ve implemented is to “crop out” the rows and columns of an image that only contain NAs. This at least means that we’ve weakened the strength of the artificial signal relative to the breechface’s signal.</p>
+Dealing with missing values in the x3p scans continues to be an issue. The Fast Fourier Transform method for calculating cross-correlation can’t handle missing data in an image, so we’ve attempted a few “fixes” that haven’t necessarily turned out as well as expected. One idea we had was to replace the NA values in a cell with the average pixel value. However, this is artificially introducing a signal where before there was none. This can (and demonstrably has) led to inflated/incorrect correlations between cells that shouldn’t have much at all in common. Unfortunately, this may be the only solution if we still wish to adhere to the CMC algorithm as described in Song et al. (2015). One improvement that I’ve implemented is to “crop out” the rows and columns of an image that only contain NAs. This at least means that we’ve weakened the strength of the artificial signal relative to the breechface’s signal.</p>
 <p>Below is a series of images that illustrate how we might compare a cell in one image to a region of another image.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-78"></span>
 <img src="images/cartridge_cases/im1_im2_cellComparison.png" alt="Comparing a cell in image 1 to a larger region in image 2. We wish to find the translations of the image 1 cell that yield the highest correlation within the image 2 region." width="50%" />
@@ -1156,7 +1178,7 @@ This pre-processing/cross-correlation calculation procedure is repeated for ever
 <p><summary>
 Joe 9/5/19 Update (cont’d): A brief introduction to a congruent matching “tori” method that may provide a better solution to the missing value problem.
 </summary></p>
-<p>As discussed above, dealing with missing values is provign to be a pain. The good news is that the currently-implemented CMC as described above yields results very similar to those published in Song et al. (2015) that originally describes that CMC algorithm. While our results seem to agree with currently published results, it would be nice if we could avoid needing to artifically replace missing values. We can do so if, rather than breaking up the circular breech face impression scans into disjoint squares, we break up the breech face impression into donut-shaped regions containing only breech face impression. Below is an example of such a toroidal region.</p>
+<p>As discussed above, dealing with missing values is provign to be a pain. The good news is that the currently-implemented CMC as described above yields results very similar to those published in Song et al. (2015) that originally describes that CMC algorithm. While our results seem to agree with currently published results, it would be nice if we could avoid needing to artifically replace missing values. We can do so if, rather than breaking up the circular breech face impression scans into disjoint squares, we break up the breech face impression into donut-shaped regions containing only breech face impression. Below is an example of such a toroidal region.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-82"></span>
 <img src="images/cartridge_cases/im1_original.png" alt="(Left) The original breech face impression scan image. (Right) A donut-shaped region cut out of the original image." width="50%" /><img src="images/cartridge_cases/im1_toroidalRegion.png" alt="(Left) The original breech face impression scan image. (Right) A donut-shaped region cut out of the original image." width="50%" />
 <p class="caption">
@@ -1167,7 +1189,7 @@ By comparing such regions instead of the square cells, we would presumably only 
 </details>
 <details>
 <p><summary>
-Joe 9/12/19 Update: Explanation of some of the pre-processing steps needed to make the CMC work as described in <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4730689/">Tong et al. (2015)</a>
+Joe 9/12/19 Update: Explanation of some of the pre-processing steps needed to make the CMC work as described in <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4730689/">Tong et al. (2015)</a>
 </summary></p>
 <p>Before carving out toroidal regions from the two images we wish to compare, a fair amount of pre-processing needs to be completed. For example, the scans we work with begin with a considerable amount of auxiliary information, for example the firing pin impression, that we don’t want to use in our comparisons. This isn’t to say that firing pin impressions aren’t useful to determine a match between two cartridge cases. In fact there is quite a lot of published research on how to compare two firing pin impressions. Rather, it is common practice to compare breech face impressions and firing pin impressions separately since it is difficult to scan both simultaneously. Thus, there are regions of a breech face impression scan that we want to remove so that the breech face impressions are more easily comparable. Below is an example of two breech face impression scans before processing.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-83"></span>
@@ -1281,11 +1303,10 @@ Joe 10/10/18 Update: Discuss how the algorithm generalizes to different pairs of
 <strong>For the sake of an example, I have 5 known-match breech face impressions shown below. In the state shown, the scans have been pre-processed to the point that we can visualy see when a pair matches. Hopefully, the scans should look to you as if one is just a rotated version of the other.</strong>
 </summary></p>
 <div class="figure" style="text-align: center">
-<img src="images/cartridge_cases/fadul1_im1_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul1_im2_beforeRotation.png" alt=" " width="50%" />
+<img src="images/cartridge_cases/fadul1_im1_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul1_im2_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul2_im1_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul2_im2_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul3_im1_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul3_im2_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul4_im1_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul4_im2_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul5_im1_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul5_im2_beforeRotation.png" alt=" " width="50%" />
 <p class="caption">
 </p>
 </div>
-<img src="images/cartridge_cases/fadul2_im1_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul2_im2_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul3_im1_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul3_im2_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul4_im1_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul4_im2_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul5_im1_beforeRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul5_im2_beforeRotation.png" alt=" " width="50%" />
 </details>
 <p>One iteration of the CMC algorithm was already discussed in-detail in the 9/5/19 Update above, so I won’t go into detail about that here (I’m saving it for my Spotlight in November). Instead, we can see a gif that shows which cells from image A and image B we compare when calculating the cross-correlation. Recall that the image A cells are 100x100 and image B cells are 200x200, which is why the cells on the right appear to cover more of the breech face impression than the cells on the left.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-96"></span>
@@ -1294,14 +1315,14 @@ Joe 10/10/18 Update: Discuss how the algorithm generalizes to different pairs of
 Figure 3.91: (Left) 100x100 cells from Image A. (Right) 200x200 cells from Image B.
 </p>
 </div>
-<p>As we can clearly see from the 5 pairs above, we need to perform rotations to properly align one with the other. We perform the cross-correlation calculation for 43 different rotation angles (of image B) to determine which rotation angle yields the highest correlation (<span class="math inline">\(\theta \in [-179.5,180]\)</span> by <span class="math inline">\(2.5^\circ\)</span>). However, because we have broken up our images into cells, each cell in image A gets to “vote” for the theta value for which it had the highest correlation with its paired cell in image B. Below, we see the distribution of such theta values (referred to as the “registration angle” in Tong et al. (2015)). The histogram shows that the many of the cells tend to vote for theta values in a relatively small range, which bodes well for us in determining the optimal rotation angle.</p>
+<p>As we can clearly see from the 5 pairs above, we need to perform rotations to properly align one with the other. We perform the cross-correlation calculation for 43 different rotation angles (of image B) to determine which rotation angle yields the highest correlation (<span class="math inline">\(\theta \in [-179.5,180]\)</span> by <span class="math inline">\(2.5^\circ\)</span>). However, because we have broken up our images into cells, each cell in image A gets to “vote” for the theta value for which it had the highest correlation with its paired cell in image B. Below, we see the distribution of such theta values (referred to as the “registration angle” in Tong et al. (2015)). The histogram shows that the many of the cells tend to vote for theta values in a relatively small range, which bodes well for us in determining the optimal rotation angle.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-97"></span>
 <img src="images/cartridge_cases/highestCorrelationRegistrationAngleHistogram.png" alt="Histogram of the registration angle of highest correlation for each of the 5 pairs of breech face impressions." width="75%" />
 <p class="caption">
 Figure 3.92: Histogram of the registration angle of highest correlation for each of the 5 pairs of breech face impressions.
 </p>
 </div>
-<p>Since we clearly have a region of popular theta values for each pair, we can perform a finer search around these theta values to arrive at a more precise estimate. The histogram for this finer grid search is shown below. According to Tong et al. (2015), the minimum number of cells that must agree upon a theta value (up to some margin) for two breech face impressions to be called a “match” is 6. We can clearly see from the histogram below that this criterion is met. There are other criteria that Tong et al. discuss including how far we need to shift each cell in image A to achieve the highest correlation with the neighboring cell in image B. Those criteria also seem to be met on the examples I’ve looked at.</p>
+<p>Since we clearly have a region of popular theta values for each pair, we can perform a finer search around these theta values to arrive at a more precise estimate. The histogram for this finer grid search is shown below. According to Tong et al. (2015), the minimum number of cells that must agree upon a theta value (up to some margin) for two breech face impressions to be called a “match” is 6. We can clearly see from the histogram below that this criterion is met. There are other criteria that Tong et al. discuss including how far we need to shift each cell in image A to achieve the highest correlation with the neighboring cell in image B. Those criteria also seem to be met on the examples I’ve looked at.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-98"></span>
 <img src="images/cartridge_cases/finerGridHighestCorrRegistrationAngleHistogram.png" alt="A finer grid search histogram of the registration angle of highest correlation for each of the 5 pairs of breech face impressions." width="75%" />
 <p class="caption">
@@ -1313,16 +1334,15 @@ Figure 3.93: A finer grid search histogram of the registration angle of highest 
 <strong>Finally, we can pick the most popular rotation angle for each firearm pair and visually compare how well the two breech face impressions match up. This is done so below. We can see that the algorithm has indeed selected good rotation values for each pair.</strong>
 </summary>
 <div class="figure" style="text-align: center">
-<img src="images/cartridge_cases/fadul1_im1_afterRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul1_im2_afterRotation.png" alt=" " width="50%" />
+<img src="images/cartridge_cases/fadul1_im1_afterRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul1_im2_afterRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul2_im1_afterRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul2_im2_afterRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul3_im1_afterRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul3_im2_afterRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul4_im1_afterRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul4_im2_afterRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul5_im1_afterRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul5_im2_afterRotation.png" alt=" " width="50%" />
 <p class="caption">
 </p>
 </div>
-<img src="images/cartridge_cases/fadul2_im1_afterRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul2_im2_afterRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul3_im1_afterRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul3_im2_afterRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul4_im1_afterRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul4_im2_afterRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul5_im1_afterRotation.png" alt=" " width="50%" /><img src="images/cartridge_cases/fadul5_im2_afterRotation.png" alt=" " width="50%" />
 </details>
 </details>
 <details>
 <p><summary>
-Continued testing the CMC algorithm on more known match and known non-match pairs of cartridge cases. It’s a time intensive process, but the current results show that the algorithm works for the majority of known match pairs and, most importantly, appear to be qualitatively similar to what is reported in Tong et al. (2015).
+Continued testing the CMC algorithm on more known match and known non-match pairs of cartridge cases. It’s a time intensive process, but the current results show that the algorithm works for the majority of known match pairs and, most importantly, appear to be qualitatively similar to what is reported in Tong et al. (2015).
 </summary></p>
 <p>I’ve continued to run the algorithm on a number of known match pairs of cartridge cases. Although the algorithm seems to work well for the majority of known match pairs, it isn’t perfect at picking the correct rotation angle. I haven’t yet determined the cause of when the algorithm fails to pick the correct rotation angle.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-100"></span>
@@ -1484,7 +1504,7 @@ For each of these examples, the image on the left is the “reference” image t
 </details>
 <details>
 <p><summary>
-Joe’s 11/21 Spotlight: Visual Explanation of the “Improved” Congruent Matching Cells Algorithm proposed by <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4730689/">Tong et al. (2015)</a>.
+Joe’s 11/21 Spotlight: Visual Explanation of the “Improved” Congruent Matching Cells Algorithm proposed by <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4730689/">Tong et al. (2015)</a>.
 </summary></p>
 <p>A cartridge case is a type of pre-assembled firearm ammunition packaging a projectile (e.g., bullet, shots, or slug). Below is an image showing different examples of cartridge cases.</p>
 <p><img src="images/cartridge_cases/11-21-Spotlight/cartridgeCaseExamples.jpg" width="30%" style="display: block; margin: auto;" /></p>
@@ -1496,7 +1516,7 @@ Joe’s 11/21 Spotlight: Visual Explanation of the “Improved” Congruent Matc
 <p><img src="images/cartridge_cases/11-21-Spotlight/rawBF.png" width="60%" style="display: block; margin: auto;" /></p>
 <p>Although it is non-trivial to preprocess the images, I am going to skip the explanation of the preprocessing steps so that we have time to focus on how we quantify similarity. The image below shows the result of the preprocessing steps.</p>
 <p><img src="images/cartridge_cases/11-21-Spotlight/processedBF.png" width="60%" style="display: block; margin: auto;" /></p>
-<p>We <em>could</em> now directly calculate the pixel-wise correlation between these two images. However, there are a few issues with doing so directly. One issue is that we can visually see that the two images are not rotationally aligned, so we wouldn’t expect the correlation to be particularly high. We can fix this by considering a variety of rotations of the images to determine for which rotation the images are the “most aligned.” While it’s not obvious from the images, there is also an issue with the two images being translationally aligned. Lastly, due to the slight differences between the two images, taking the pixel-wise correlation between the entirety of the two images may lead to a deceptively small correlation. This is the motivation behind what Tong et al. (2015) describe as the “Congruent Matching Cells” algorithm. The idea is quite simple. Rather than calculating correlation across entire images, it might be better to break up each image into smaller pieces (“cells”) and calculate correlation for each cell pair. In doing so, a highly correlated pair of cells won’t be drowned-out by less correlated pairs of cells.</p>
+<p>We <em>could</em> now directly calculate the pixel-wise correlation between these two images. However, there are a few issues with doing so directly. One issue is that we can visually see that the two images are not rotationally aligned, so we wouldn’t expect the correlation to be particularly high. We can fix this by considering a variety of rotations of the images to determine for which rotation the images are the “most aligned.” While it’s not obvious from the images, there is also an issue with the two images being translationally aligned. Lastly, due to the slight differences between the two images, taking the pixel-wise correlation between the entirety of the two images may lead to a deceptively small correlation. This is the motivation behind what Tong et al. (2015) describe as the “Congruent Matching Cells” algorithm. The idea is quite simple. Rather than calculating correlation across entire images, it might be better to break up each image into smaller pieces (“cells”) and calculate correlation for each cell pair. In doing so, a highly correlated pair of cells won’t be drowned-out by less correlated pairs of cells.</p>
 <p>Tong et al. propose this cell-based method for quantifying similarity between two breech face impressions. For a given pair of images (like the two shown below), the first image is divided into a 7x7 grid. Each cell in this grid is then compared to a region in the second image. Because the two images aren’t assumed to be translationally aligned, the region in the second image will be larger than its associated cell in the first image so that different <span class="math inline">\((dx,dy)\)</span> translation pairs can be considered.</p>
 <p><img src="images/cartridge_cases/11-21-Spotlight/im1_im2_cellComparison.png" width="60%" style="display: block; margin: auto;" /></p>
 <p>Below is a gif showing an example of different pairs of image 1 cells (left) and image 2 regions (right).</p>
@@ -1522,7 +1542,7 @@ Figure 3.99: (Left) 100x100 cells from Image 1. (Right) 200x200 cells from Image
 <p><img src="images/cartridge_cases/11-21-Spotlight/correlationMap_noiseExample.png" width="80%" style="display: block; margin: auto;" /></p>
 <p>Hopefully the two examples above provide some intuition in how the CCF function can be used to measure properly align two images to be the “most similar.” As already stated, we perform this CCF calculation for each cell in image 1 and associated region in image 2. For each pair, we keep track of the both the value and <span class="math inline">\((dx,dy)\)</span> translation at which the CCF achieves its maximum. We count this as the that cell’s “vote” for how the two images should be shifted to become properly aligned. It’s reasonable to assume that the true <span class="math inline">\((dx,dy)\)</span> translation values should receive many votes from cells, up to some error threshold (e.g., the votes should be within, say, 25 pixels of the true values). Determining the correct rotational alignment isn’t as straightforward. We need to search over a grid of <span class="math inline">\(\theta\)</span> rotation values and determine the rotation for which the most cells vote. Below is a gif in which we can compare the two breech face scans for various rotations of the second image. We can visually see that the two images are most similar at a rotation value of about <span class="math inline">\(-24^{\circ}\)</span>. The blue region on the right image is meant to illustrate the region that is being compared to to the associated cell in the left image.</p>
 <p><img src="images/cartridge_cases/11-21-Spotlight/bfRotationComparison.gif" width="60%" style="display: block; margin: auto;" /></p>
-<p>Below is an example showing the CCF map associated with (left) an image 1 cell and (right) its associated image 2 region. We can see that the CCF hits a maximum of about .5 around <span class="math inline">\((25,0)\)</span>. This is, unfortunately, not nearly the magnitude of correlation that we should expect based on the results discussed in Tong et al. (2015). It sounds like the correlation values they were getting from their comparisons were consistently above .55. The CCF maps that we have calculated are rarely above .55. Our hunch is that they are using the CCF to extract the <span class="math inline">\((dx,dy)\)</span> pairs, but then computing the raw, pixel-wise correlation between the two images once they translate appropriately.</p>
+<p>Below is an example showing the CCF map associated with (left) an image 1 cell and (right) its associated image 2 region. We can see that the CCF hits a maximum of about .5 around <span class="math inline">\((25,0)\)</span>. This is, unfortunately, not nearly the magnitude of correlation that we should expect based on the results discussed in Tong et al. (2015). It sounds like the correlation values they were getting from their comparisons were consistently above .55. The CCF maps that we have calculated are rarely above .55. Our hunch is that they are using the CCF to extract the <span class="math inline">\((dx,dy)\)</span> pairs, but then computing the raw, pixel-wise correlation between the two images once they translate appropriately.</p>
 <p><img src="images/cartridge_cases/11-21-Spotlight/cellCCFMap.png" width="80%" style="display: block; margin: auto;" /></p>
 <p><img src="images/cartridge_cases/11-21-Spotlight/beforeAndAfterShiftExample.png" width="80%" style="display: block; margin: auto;" /></p>
 <p>We can keep track of each cell’s vote for the rotation and translation values at which it achieved its maximum correlation with its associated region in image 2. Again, we would expect that the true rotation and translation values should receive a large number of votes. We can see below a histogram of the theta values voted for by the cells in the left image above. We can a clear mode at a <span class="math inline">\(\theta\)</span> value slightly less than -20. Based on the gif of the rotating breech face above, it appears that the automatic CCF-based “votes” agree with what we can visually see to be the best rotation value to align the two images.</p>
@@ -1595,7 +1615,7 @@ Figure 3.104: (Left) 100x100 cells from Image 1. (Right) 200x200 cells from Imag
 </div>
 <p>The two-dimensional CCF is used to quantify similarity between two breech face impressions. Below are two examples illustrating how to interpret the two-dimensional CCF.</p>
 <p><img src="images/cartridge_cases/11-21-Spotlight/examplePerfectCCFMap.png" width="80%" style="display: block; margin: auto;" /></p>
-<p>Below is an example showing the CCF map associated with (left) an image 1 cell and (right) its associated image 2 region. We can see that the CCF hits a maximum of about .5 around <span class="math inline">\((25,0)\)</span>. This is, unfortunately, not nearly the magnitude of correlation that we should expect based on the results discussed in Tong et al. (2015). It sounds like the correlation values they were getting from their comparisons were consistently above .55. The CCF maps that we have calculated are rarely above .55. Our hunch is that they are using the CCF to extract the <span class="math inline">\((dx,dy)\)</span> pairs, but then computing the raw, pixel-wise correlation between the two images once they translate appropriately.</p>
+<p>Below is an example showing the CCF map associated with (left) an image 1 cell and (right) its associated image 2 region. We can see that the CCF hits a maximum of about .5 around <span class="math inline">\((25,0)\)</span>. This is, unfortunately, not nearly the magnitude of correlation that we should expect based on the results discussed in Tong et al. (2015). It sounds like the correlation values they were getting from their comparisons were consistently above .55. The CCF maps that we have calculated are rarely above .55. Our hunch is that they are using the CCF to extract the <span class="math inline">\((dx,dy)\)</span> pairs, but then computing the raw, pixel-wise correlation between the two images once they translate appropriately.</p>
 <p><img src="images/cartridge_cases/11-21-Spotlight/cellCCFMap.png" width="80%" style="display: block; margin: auto;" /></p>
 <p>The image below shows how the smaller breech face impression image aligns with the larger breech face impression image after being translated by the CCF-detected <span class="math inline">\((dx,dy)\)</span> values.</p>
 <p><img src="images/cartridge_cases/11-21-Spotlight/beforeAndAfterShiftExample.png" width="80%" style="display: block; margin: auto;" /></p>
@@ -1609,21 +1629,21 @@ Figure 3.104: (Left) 100x100 cells from Image 1. (Right) 200x200 cells from Imag
 Joe 1/27 Update: I’ve been starting to write up an article that we hope to submit to the R Journal to introduce the MARCC (Matching Algorithms in R for Cartridge Cases) package (name pending). It’s been rather time intensive, but I’ve also been re-running the algorithm with different pre-processing steps to determine how sensitive the final results are to how we pre-process the images. It seems like they are rather sensitive to the pre-processing procedure used.
 </summary></p>
 <p><img src="images/cartridge_cases/paperHeader.PNG" width="382" /></p>
-<p>I thought I would share a few of the CMC distributions made for different pre-processing steps. These pre-processing steps include extracting the breech face impression region from the rest of the image, which may be done by-hand (Tong et al. (2014/15) may do this), using the RANSAC method (Xiao Hui and I have been doing this), or using a 2nd order robust Gaussian regression filter (Chen et al. (2017) does this). Further complications come in the form of how these methods are implemented across various MATLAB and R functions (I have yet to find a Gaussian Regression filter implemented anywhere in R or MATLAB) and whether they provide the same results. After selecting the breech face impression region from the scan, no paper I have come across details how they then resize their images to their desired dimension. Tong et al. resizes to 700x700 in 2014 and 560x560 in 2015. Chen et al. uses resizes to 600x600 in 2017. As discussed below, the resizing method (nearest-neighbors, linear, lanczos) does seem to affect the final results.</p>
+<p>I thought I would share a few of the CMC distributions made for different pre-processing steps. These pre-processing steps include extracting the breech face impression region from the rest of the image, which may be done by-hand (Tong et al. (2014/15) may do this), using the RANSAC method (Xiao Hui and I have been doing this), or using a 2nd order robust Gaussian regression filter (Chen et al. (2017) does this). Further complications come in the form of how these methods are implemented across various MATLAB and R functions (I have yet to find a Gaussian Regression filter implemented anywhere in R or MATLAB) and whether they provide the same results. After selecting the breech face impression region from the scan, no paper I have come across details how they then resize their images to their desired dimension. Tong et al. resizes to 700x700 in 2014 and 560x560 in 2015. Chen et al. uses resizes to 600x600 in 2017. As discussed below, the resizing method (nearest-neighbors, linear, lanczos) does seem to affect the final results.</p>
 <p>To recap, we are supposed to call two cells a “match” (or “congruent matching cells”) if they pass a few criteria. These criteria are based in part on whether their associated translation and rotation “votes” are close to the consensus-based votes across all cells in the image. The motivation here being that we would expect the cells in a pair of truly matching cartridge cases to all vote for approximately the same translation/rotation values to achieve maximum similarity. Another criterion is that the cell pair must reach some minimum correlation cut-off (all of these criteria vary depending on the paper).</p>
 <p>Each of the following plots were subject to the same criteria and are based on the same data, so they should be the same plot. As we can clearly see, there is certainly some variability in how the CMC counts are distributed.</p>
-<p>This is an example from Chen et al. (2017) that the rest of the plots are trying to emulate. This plot was made using reportedly images downsampled to size 600x600 and an 8x8 grid of cells. Again, it’s unclear how this downsampling was performed since the raw surface data often have dimensions near 600x600, but never perfectly 600x600. The plots following include various resizing/padding techniques used to try to get this nominal 600x600 image size.</p>
+<p>This is an example from Chen et al. (2017) that the rest of the plots are trying to emulate. This plot was made using reportedly images downsampled to size 600x600 and an 8x8 grid of cells. Again, it’s unclear how this downsampling was performed since the raw surface data often have dimensions near 600x600, but never perfectly 600x600. The plots following include various resizing/padding techniques used to try to get this nominal 600x600 image size.</p>
 <p><img src="images/cartridge_cases/kmCMCs_Chen.png" width="336" /></p>
-<p>This is a plot based on images that were resized to 560x560 (the image size specified by Tong et al. (2015)) using linear interpolation.</p>
+<p>This is a plot based on images that were resized to 560x560 (the image size specified by Tong et al. (2015)) using linear interpolation.</p>
 <p><img src="images/cartridge_cases/kmCMCs_560x560_linearInterp.png" width="350" /></p>
-<p>This is a plot based on images that were resized to 600x600 (the image size specified by Chen et al. (2017)) using the <code>x3ptools::resize_x3p()</code> function followed by padding the image with NAs until it reaches a size of 600x600.</p>
+<p>This is a plot based on images that were resized to 600x600 (the image size specified by Chen et al. (2017)) using the <code>x3ptools::resize_x3p()</code> function followed by padding the image with NAs until it reaches a size of 600x600.</p>
 <p><img src="images/cartridge_cases/kmCMCs_600x600_sample_x3p.png" width="350" /></p>
 <p>This final distribution is the most promising of the ones I’ve made. This distribution is also based on images that were resized using <code>x3ptools::resize_x3p()</code>. However, rather than padding the exterior of the image with NA rows/cols until it achieves the nominal 600x600 size, the image is first split into an 8x8 grid of cells and each cell is individually padded until it reaches dimension 75x75.</p>
 <p><img src="images/cartridge_cases/kmCMCs_originalSize_downSampled.png" width="350" /></p>
 </details>
 <details>
 <p><summary>
-Joe 2/3 Update: I’ve been working on getting a Gaussian bandpass filter implemented for the cartridge cases in an attempt to match the results reported by Chen et al. (2017). I’ve also been writing more of the journal submission while code runs.
+Joe 2/3 Update: I’ve been working on getting a Gaussian bandpass filter implemented for the cartridge cases in an attempt to match the results reported by Chen et al. (2017). I’ve also been writing more of the journal submission while code runs.
 </summary></p>
 <p>Below is an image of black (0 intensity) grayscale image to which a low-frequency, 255 intensity box and high-frequency Gaussian noise has been added.
 <img src="images/cartridge_cases/2-3_fftExample/originalImage_flat.PNG" width="332" /></p>
@@ -1694,6 +1714,10 @@ Joe 2/17 Update: Not too much to report today. I’ve mainly working on the cmcR
 <p><summary>
 Joe 2/24/20 Update: Not too much to update for today. I’ve been working on writing the package and associated RJournal submission. I have a few functions that I am still planning on implementing in the package, but I will for the most part be getting the package CRAN-ready. I’m planning on building upon the journal submission for my CC that I’ll be presenting in April, so I will soon begin writing that as well.
 </summary></p>
+</details>
+<details>
+<p><summary>
+Joe 3/2/20 Update: I spent a considerable amount of time writing my CC this week. I essentially only have the Literature Review and Results/Conclusions sections to write up before the initial draft is complete. I’ve also been working on pulling together results to put in the results section, but performing the entire CMC procedure on around 800 cartridge cases takes about 6 hours (I’ll try to parallelize better to cut this time down on the server).</p>
 </details>
 </div>
 </div>
@@ -1827,7 +1851,7 @@ Figure 3.105: An instance of the interactive visualizations for communicating re
 <p>Chu, Wei, T. Song, J. Vorburger, J. Yen, S. Ballou, and B. Bacharach. 2010. “Pilot study of automated bullet signature identification based on topography measurements and correlations.” <em>Journal of Forensic Sciences</em> 55 (2): 341–47.</p>
 </div>
 <div id="ref-aoas">
-<p>Hare, Eric, Heike Hofmann, and Alicia Carriquiry. 2016. “Automatic Matching of Bullet Lands.” <em>ArXiv E-Prints</em>, January.</p>
+<p>Hare, Eric, Heike Hofmann, and Alicia Carriquiry. 2016. “Automatic Matching of Bullet Lands.” <em>ArXiv E-Prints</em>, January. <a href="http://arxiv.org/abs/1601.05788">http://arxiv.org/abs/1601.05788</a>.</p>
 </div>
 <div id="ref-gkhh">
 <p>Krishnan, Ganesh, and Heike Hofmann. 2019. “Adapting the Chumbley Score to Match Striae on Land Engraved Areas (Leas) of Bullets.” <em>Journal of Forensic Sciences</em> 64 (3): 728–40. <a href="https://doi.org/10.1111/1556-4029.13950">https://doi.org/10.1111/1556-4029.13950</a>.</p>
@@ -1847,11 +1871,13 @@ Figure 3.105: An instance of the interactive visualizations for communicating re
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -1859,12 +1885,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -1876,6 +1901,10 @@ gitbook.start({
 "text": "Edit"
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },

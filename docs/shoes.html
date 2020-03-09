@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Shoes | This is us: making CSAFE stronger each week</title>
   <meta name="description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Shoes | This is us: making CSAFE stronger each week" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-03-02" />
+<meta name="date" content="2020-03-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -40,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -66,7 +69,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -496,7 +499,7 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 <ol start="5" style="list-style-type: decimal">
 <li><p>Recover the shift between the two images:</p>
 <ol style="list-style-type: lower-alpha">
-<li><p>Compute the cross-power spectrum: <span class="math inline">\(S = F(A) \times F(\tilde{B}_\theta)*\)</span>, where <span class="math inline">\(F(x)*\)</span> is the complex conjugate of <span class="math inline">\(F(x)\)</span> (e.g. <span class="math inline">\(a + bi\)</span> becomes <span class="math inline">\(a - bi\)</span>)</p></li>
+<li><p>Compute the cross-power spectrum: <span class="math inline">\(S = F(A) \times F(\tilde{B}_\theta)*\)</span>, where <span class="math inline">\(F(x)*\)</span> is the complex conjugate of <span class="math inline">\(F(x)\)</span> (e.g. <span class="math inline">\(a + bi\)</span> becomes <span class="math inline">\(a - bi\)</span>)</p></li>
 <li><p>Compute the magnitude of the cross-power spectrum: <span class="math inline">\(|S| = \sqrt{S \times S*}\)</span></p></li>
 <li><p>Use (a) and (b) to get the normalized cross power spectrum: <span class="math inline">\(S/|S|\)</span></p></li>
 <li><p>Take the inverse FFT of <span class="math inline">\(S/|S|\)</span>: <span class="math inline">\(A = F^{-1}(S/|S|)\)</span></p></li>
@@ -775,7 +778,7 @@ Alignment Success:</p>
 <ul>
 <li>Materials
 <ul>
-<li>Used 1/4 - 1/2 tsp of cocoa powder, not a “dime-size”&quot;</li>
+<li>Used 1/4 - 1/2 tsp of cocoa powder, not a “dime-size”"</li>
 <li>Test/specify cocoa powder vs hot chocolate powder</li>
 </ul></li>
 <li>Procedure
@@ -893,7 +896,7 @@ Once the shoes themselves have been centered, then PCA can be compleated on the 
 <li>Possible to include manual matching from <strong>a forensic examiner</strong>?</li>
 <li>Compare MC-COMP with <strong>deep learning approaches</strong>.
 <ul>
-<li>Kong et al. (2019); aligning two images, find features by CNN, predict the source by ResNet-50 model.</li>
+<li>Kong et al. (2019); aligning two images, find features by CNN, predict the source by ResNet-50 model.</li>
 </ul></li>
 <li><p>What <strong>other classifiers</strong> we tried, besides random forest?</p></li>
 <li>Define a <strong>variability</strong> in the similarity score.
@@ -1078,11 +1081,13 @@ Once the shoes themselves have been centered, then PCA can be compleated on the 
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -1090,12 +1095,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -1107,6 +1111,10 @@ gitbook.start({
 "text": "Edit"
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },

@@ -279,6 +279,39 @@ include_graphics(c("images/yawei/oddsratio2.png"))
 include_graphics(c("images/yawei/comparetable3.PNG"))
 ```
 
+#### Look colser to the dependence structure of the land engraved areas
+
+There are some discussions about the existing patterns of dependence in the observed data. Inspired by that, we are trying to build a model to formalize those thoughts.
+
+We start from a model for the land engraved areas and try to develop a model for the ccfs in hand. We would naturely think about the following effects when producing characteristic features(in some measurement) on the lands we focused: 1) the barrel specific effect, 2) the land specific effect, 3) explosion effect, 4) random errors. If we are going to model this effect, there could be some models doing this jobs with different assumed denpendence structures accounted or expressed there. We are thinking about 1) the additive random effect model(if this is the correct name) , 2) some hierarchical structure with denpendence expressed somehow in the hyper parameters, 3) the glm.
+
+We start with the additive random effect model which has clearer structure at the first glance. We formulate the model as the following: 
+
+$Y_{ijk}$ is some measurement of a land engraved area from barrel $i$, land $j$(nested), and explosion $k$. 
+
+$$Y_{ijk} = \beta_0 + \mu_i + \nu_{ij} + \omega_k + \epsilon_{ijk}$$
+where, barrel effect, land effect, explosion effect, random effect are respectively:
+
+$\mu_i$~ iid $N(0, \sigma_{\mu}^2)$, $\nu_{ij}$~ iid $N(0, \sigma_{\nu}^2)$, $\omega_{k}$~ iid $N(0, \sigma_{\omega}^2)$, $\epsilon_{ijk}$~ iid $N(0, \sigma_{\epsilon}^2)$. (some more complicated structures are possible)
+
+Note this is a land model, however we want a ccf model. We first check the variance, covariance and correlations in different cases.
+
+$$Var(Y_{ijk}) = \sigma_{\mu}^2 + \sigma_{\nu}^2 + \sigma_{\omega}^2 + \sigma_{\epsilon}^2$$
+
+For the same barrel, same land but different expplosions(KM), we have the correlation:
+
+$$corr(Y_{ijk_1}, Y_{ijk_2}) = \frac{\sigma_{\mu}^2 + \sigma_{\nu}^2}{\sigma_{\mu}^2 + \sigma_{\nu}^2 + \sigma_{\omega}^2 + \sigma_{\epsilon}^2}$$
+
+For the same barrel, different land and different expplosions(some of KNM), we have the correlation:
+
+$$corr(Y_{ij_1k_1}, Y_{ij_2k_2}) = \frac{\sigma_{\mu}^2}{\sigma_{\mu}^2 + \sigma_{\nu}^2 + \sigma_{\omega}^2 + \sigma_{\epsilon}^2}$$
+
+Now we have a point estimator of the correlations in the above cases. To address our insterest, we need more than this. We could possiblly assume the beta distribution now as what we did previously(or mixed beta later). We are building a hierarchical model (not necessarily Bayesian now) for the ccfs with dependence structure considerred. We can reasonablly assume the above point estimation a mean value of the $Beta(\mu, \phi)$ (mean value parameterization, different $\mu$ from previous). We can somehow check the assumaption by some data driven methods. But the model we could have is then:
+
+$$Z_i \mbox{~}iid ~Beta(\mu_i, \phi_i)$$ 
+
+Where $i$ indicate the above two(or more) cases of correlations we are looking at. We could specify(assume) the model parameters by the additive random effect model through maximum likehood method or somehow.
+
 #### follow-up study 
 
 4 bullets per barrel for  96 of the original 626 Beretta firearms using different ammunition

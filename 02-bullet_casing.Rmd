@@ -1719,6 +1719,12 @@ Joe 3/2/20 Update: I spent a considerable amount of time writing my CC this week
 
 </details>
 
+<details>
+<summary>
+Joe 3/9/20: Still more CC writing, pulling together results for the Results/Conclusion section, and tweaking functions in the cmcR package. We're seeing more promising results than we have in the past, but there are still avenues to explore. I'm looking forward to sharing these results and the cmcR package at my Spotlight the Monday after spring break!
+
+</details>
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
 The moified Chumbley non-random algorithm is a statistical non-paramaetric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segement to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 

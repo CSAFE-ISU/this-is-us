@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-03-22" />
+<meta name="date" content="2020-03-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -205,7 +205,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.6.1" data-path="shoes.html"><a href="shoes.html#method-1-edge-detection-and-mc-mc-comp"><i class="fa fa-check"></i><b>6.6.1</b> Method 1: Edge detection and MC (MC-COMP)</a></li>
 <li class="chapter" data-level="6.6.2" data-path="shoes.html"><a href="shoes.html#method-2-surf-detection-and-mc-on-degraded-impressions"><i class="fa fa-check"></i><b>6.6.2</b> Method 2: SURF detection and MC on degraded impressions</a></li>
 <li class="chapter" data-level="6.6.3" data-path="shoes.html"><a href="shoes.html#research-1-features"><i class="fa fa-check"></i><b>6.6.3</b> Research 1: Features</a></li>
-<li class="chapter" data-level="6.6.4" data-path="shoes.html"><a href="shoes.html#matching-on-clean-and-full-images"><i class="fa fa-check"></i><b>6.6.4</b> Matching on clean and full images</a></li>
+<li class="chapter" data-level="6.6.4" data-path="shoes.html"><a href="shoes.html#matching-on-clean-and-full-images-with-several-features"><i class="fa fa-check"></i><b>6.6.4</b> Matching on clean and full images with several features</a></li>
 <li class="chapter" data-level="6.6.5" data-path="shoes.html"><a href="shoes.html#matching-on-degraded-and-partial-images"><i class="fa fa-check"></i><b>6.6.5</b> Matching on degraded and partial images</a></li>
 <li class="chapter" data-level="6.6.6" data-path="shoes.html"><a href="shoes.html#research-2-impact-of-weight-to-outsole-scans-from-everos-2d-scanner"><i class="fa fa-check"></i><b>6.6.6</b> Research 2: Impact of weight to outsole scans from EverOS 2D scanner</a></li>
 <li class="chapter" data-level="6.6.7" data-path="shoes.html"><a href="shoes.html#research-3-mc-cnn"><i class="fa fa-check"></i><b>6.6.7</b> Research 3: MC + CNN</a></li>
@@ -887,24 +887,13 @@ Once the shoes themselves have been centered, then PCA can be compleated on the 
 <p>Under the revision by <em>Journal of Applied Statistics</em>,</p>
 <p><img src="images/shoes/Features/signature.png" width="100%"/></p>
 <p><strong>Comments by reviewers</strong></p>
-<ol style="list-style-type: decimal">
-<li>Discuss ways in which the MC-COMP could be <strong>tuned</strong> to fit a more <strong>generalizable</strong> prediction?
-<ul>
-<li>image pattern matching including other forensic discipline.</li>
-</ul></li>
-<li>Possible to extend to <strong>3D images</strong>?</li>
-<li>Possible to include manual matching from <strong>a forensic examiner</strong>?</li>
-<li>Compare MC-COMP with <strong>deep learning approaches</strong>.
-<ul>
-<li>Kong et al. (2019); aligning two images, find features by CNN, predict the source by ResNet-50 model.</li>
-</ul></li>
-<li><p>What <strong>other classifiers</strong> we tried, besides random forest?</p></li>
-<li>Define a <strong>variability</strong> in the similarity score.
-<ul>
-<li>Train Bayesian Additive regrssion trees (BART)</li>
-</ul></li>
-<li><p>Compare your predictive accuracies on the <strong>number of circles (more or less than 3)</strong>.</p></li>
-</ol>
+<p>Compare your predictive accuracies on the <strong>number of circles (more or less than 3)</strong>.</p>
+<p>In the previous matching, we found three circular regions in red. As reviewer requests, we selected the additional three more circles in blue. We tried the same set of mated and non-mated matching in training and testing set.</p>
+<p><img src="images/shoes/Features/six_circles.png" width="100%"/></p>
+<p>We get the average of the similarity values by the number of circles. The random forest is trained on the set of results summarised by the number of circles.</p>
+<p><img src="images/shoes/Features/RFi_error_graph.png" width="100%"/></p>
+<p>When there are five and six circles found in the questioned shoe, then the AUC is the largest as 0.96 in the test set.</p>
+<p><img src="images/shoes/Features/ROC_RFi.png" width="100%"/></p>
 </div>
 <div id="method-2-surf-detection-and-mc-on-degraded-impressions" class="section level3">
 <h3><span class="header-section-number">6.6.2</span> Method 2: SURF detection and MC on degraded impressions</h3>
@@ -934,8 +923,8 @@ Once the shoes themselves have been centered, then PCA can be compleated on the 
 </ul>
 <p><img src="images/shoes/Features/shoe1_comb_features.png" width="100%"/></p>
 </div>
-<div id="matching-on-clean-and-full-images" class="section level3">
-<h3><span class="header-section-number">6.6.4</span> Matching on clean and full images</h3>
+<div id="matching-on-clean-and-full-images-with-several-features" class="section level3">
+<h3><span class="header-section-number">6.6.4</span> Matching on clean and full images with several features</h3>
 <p><img src="images/shoes/Features/ex_original_KM_KNM.jpg" width="100%"/></p>
 <ul>
 <li>Mates : Image (1) and (2)</li>
@@ -993,16 +982,14 @@ Once the shoes themselves have been centered, then PCA can be compleated on the 
 <h3><span class="header-section-number">6.6.5</span> Matching on degraded and partial images</h3>
 <p><strong>Example of degraded images</strong>:</p>
 <p><img src="images/shoes/Features/deg_full_ex.jpg" width="100%"/></p>
-<p><strong>ROC curves on test comparisons</strong>:
-<img src="images/shoes/Features/ROC_allfeatures.png" width="100%"/></p>
-<p><strong>ROC curves when Q is degraded</strong>:
-<img src="images/shoes/Features/ROC_deg10.png" width="100%"/></p>
-<p><strong>What we plan to do</strong>:</p>
-<ul>
-<li>Get ROC curves using KASE, ORB, combination of them</li>
-<li>Do the same comparisons on degraded and partial impressions</li>
-<li>Submit the paper</li>
-</ul>
+<p><strong>Example crime-scene like images on dust from the data by Speir’s group</strong>:
+<img src="images/shoes/Features/dust_CS.png" width="30%"/></p>
+<p><strong>Density of mates and non-mates by features</strong>:
+<img src="images/shoes/Features/den_features_10.png" width="100%"/></p>
+<p><strong>ROC curves by features</strong>:
+<img src="images/shoes/Features/ROC_degs.png" width="100%"/></p>
+<p><strong>AUC values by features</strong>:
+<img src="images/shoes/Features/AUC_deg.png" width="100%"/></p>
 </div>
 <div id="research-2-impact-of-weight-to-outsole-scans-from-everos-2d-scanner" class="section level3">
 <h3><span class="header-section-number">6.6.6</span> Research 2: Impact of weight to outsole scans from EverOS 2D scanner</h3>

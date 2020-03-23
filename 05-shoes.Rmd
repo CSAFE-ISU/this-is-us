@@ -622,20 +622,23 @@ Under the revision by *Journal of Applied Statistics*,
 
 **Comments by reviewers**
 
-  1. Discuss ways in which the MC-COMP could be **tuned** to fit a more **generalizable** prediction?
-      + image pattern matching including other forensic discipline. 
-    
-  2. Possible to extend to **3D images**?
-  3. Possible to include manual matching from **a forensic examiner**? 
-  4. Compare MC-COMP with **deep learning approaches**.
-      + Kong et al. (2019); aligning two images, find features by CNN, predict the source by ResNet-50 model. 
-    
-  5. What **other classifiers** we tried, besides random forest?
-    
-  6. Define a **variability** in the similarity score.
-      + Train Bayesian Additive regrssion trees (BART)
-    
-  7. Compare your predictive accuracies on the **number of circles (more or less than 3)**.
+ Compare your predictive accuracies on the **number of circles (more or less than 3)**.
+
+
+In the previous matching, we found three circular regions in red. As reviewer requests, we selected the additional three more circles in blue. We tried the same set of mated and non-mated matching in training and testing set. 
+
+<img src="images/shoes/Features/six_circles.png" width="100%"/>
+
+
+We get the average of the similarity values by the number of circles. The random forest is trained on the set of results summarised by the number of circles. 
+
+<img src="images/shoes/Features/RFi_error_graph.png" width="100%"/>
+
+
+When there are five and six circles found in the questioned shoe, then the AUC is the largest as 0.96 in the test set. 
+
+<img src="images/shoes/Features/ROC_RFi.png" width="100%"/>
+
 
 
 ### Method 2: SURF detection and MC on degraded impressions 
@@ -674,14 +677,12 @@ Previously, features such as edge, corner, SURF were extracted to match shoeprin
   
 <img src="images/shoes/Features/shoe1_comb_features.png" width="100%"/>
 
-### Matching on clean and full images
+### Matching on clean and full images with several features
 
 <img src="images/shoes/Features/ex_original_KM_KNM.jpg" width="100%"/>
 
 - Mates : Image (1) and (2)
 - Non-mates : Image (1) and (3), Image (2) and (3) 
-
-
 
 
 **Performance evaluation using**
@@ -736,21 +737,19 @@ Non-mates|    9     |       6.43     |   0.1208  |        1.39          |
 <img src="images/shoes/Features/deg_full_ex.jpg" width="100%"/>
 
 
-**ROC curves on test comparisons**:
-<img src="images/shoes/Features/ROC_allfeatures.png" width="100%"/>
+**Example crime-scene like images on dust from the data by Speir's group**:
+<img src="images/shoes/Features/dust_CS.png" width="30%"/>
 
 
-**ROC curves when Q is degraded**:
-<img src="images/shoes/Features/ROC_deg10.png" width="100%"/>
+**Density of mates and non-mates by features**:
+<img src="images/shoes/Features/den_features_10.png" width="100%"/>
 
+**ROC curves by features**:
+<img src="images/shoes/Features/ROC_degs.png" width="100%"/>
 
+**AUC values by features**:
+<img src="images/shoes/Features/AUC_deg.png" width="100%"/>
 
-**What we plan to do**:
-
-  - Get ROC curves using KASE, ORB, combination of them
-  - Do the same comparisons on degraded and partial impressions
-  - Submit the paper
-  
 
 
 

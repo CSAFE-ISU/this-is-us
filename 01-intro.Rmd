@@ -2,6 +2,8 @@
 
 This section will become the section for the administrative updates/organization once we have figured out how to use all of the bookdown features for our purposes.
 
+The github repo corresponding to these pages is located at https://github.com/CSAFE-ISU/this-is-us
+
 You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(glass).
 
 Figures and tables with captions will be placed in `figure` and `table` environments, respectively.

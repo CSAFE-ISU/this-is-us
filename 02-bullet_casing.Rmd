@@ -920,6 +920,73 @@ We are in "Phase 2" of data collection, shown below as the purple numbers:
 
 <img src="images/bullets/pipeline/data-collection-update-feb-spotlight.png" width = "80%"/>  
 
+**March 23, 2020 Spotlight Update:**  
+
+We have completed Phase 2 of Variability Study Data Collection!!! 
+
+
+<img src="images/bullets/pipeline/data-collection-update-spotlight-march.png" width = "80%"/>   
+
+This means I have been doing tons of data processing!  
+
+Total scans: 
+
+**Barrel Blue** *(LAPD)*: 900  
+**Barrel Pink** *(Houston)*: 1386  
+**Barrel Orange** *(Hamby)*: 1386  
+
+Unfortunately, things aren't **perfectly** balanced, because we sometimes see things like this:  
+
+<img src="images/bullets/pipeline/double-scans-phase2.png" width = "100%"/>  
+
+But, we now have variability data for LAPD bullets!   
+
+<img src="images/bullets/pipeline/blue-land6-repeated-scans.png" width = "100%"/>   
+
+So, we are at the point of fitting a model and getting a "final" set of results for publication (/dissertation). Recently, we have been looking at the correct way to model things at the signature level. For a traditional Gauge Repeatability and Reproducibility (Gauge R&R) study, the model would look something like the following: n
+
+$$z_{BLijkmn} = \mu_{BLi} + \beta_{j} + \omega_{k} + \gamma_{m} + \beta\omega_{jk} + \beta\gamma_{jm} + \omega\gamma_{km} + \beta\omega\gamma_{jkm} + \epsilon_{BLijkmn}$$ 
+
+for location $i$, bullet $j$, operator $k$, machine $m$, and repetition $n$. $\mu_{BLi}$ is a fixed mean for location $i$ on barrel-land $BL$. We assume all other effects are random and are normally distributed. **Also note that we are using a subsampling model, so locations are spaced out to reduce location dependence.**  
+
+However, this model often results in *singularities*. Singularities can happen for several reasons:  
+
+1. There is not enough data to estimate parameters  
+2. The model is overspecified  
+3. There are not enough grouping levels for a random effect  
+4. The effects are too close to zero and optimization just pushes them to 0.  
+
+These reasons are relatively intertwined with one another. For example, a model that is overspecified is often one where there is either not enough data or not enough grouping levels. A singularity essentially means that the matrix has become rank deficient.  
+
+Due to the fact that our study was specifically designed to estimate effects of a Gauge R&R study, we wanted to mostly maintain the traditional Gauge R&R model framework. We also thought a LOT about what is happening underlying in our model, and decided to include location as an interaction with every other factor. Therefore, we won't simply have a "bullet effect", we will have a "bullet by location" effect:  
+
+$$z_{BLijkmn} = \mu + \alpha_{BLi} + \alpha\beta_{BLij} + \alpha\omega_{BLik} + \alpha\gamma_{BLim} + \alpha\beta\omega_{BLijk} + \alpha\beta\gamma_{BLijm}$$ 
+$$ + \alpha\omega\gamma_{BLikm} + \alpha\beta\omega\gamma_{BLijkm} + \epsilon_{BLijkmn}$$ 
+Where $alpha_{BLi}$ is a fixed location effect, but our other random effects are now split into "effect-by-location" groups.  
+
+We also some simulation studies on our data with this model in order to understand optimization, singularities, and how our estimates of effects may be affected by singularities that exist in the model. All of the effects in the following image are interacted with location; for simplicity's sake they have been labelled without location.  
+
+We simulated data in the following way:  
+
+1. Extract fixed means $\mu$ and $\alpha_{BLi}$ for a particular land.  
+2. Identify a set of "target" random effects to see whether we can estimate them.  
+3. For each run of the simulation, simulate a data set by doing the following:   
+     - Simulate a set of random effect "true" values for each effect  
+     - e.g., for $\alpha\beta_{BLij}$, the bullet-by-location effect, if we have 20 locations and 3 bullets, we simulate 60 values from a $N(0, \sigma_{BLij})$ distribution.
+     - Each group is then assigned one value from that set of simulated values.  
+     - Also do this for "residual" error for every single data point.  
+     - After simulating a group effect for each "data point", we add the fixed and simulated random effects together to create a simulated data point.  
+4. Using the simulated data, fit a model with our given specification; save the resulting estimates and whether the model is singular or not.  
+
+
+<img src="images/bullets/pipeline/orange_simulation_updates.png" width = "100%"/>
+
+
+Discussion points:  
+
+1. We (I) still need to get a handle on correctly estimating an upper bound or CI for when we have a singular model whose effect is estimated at 0.  
+2. Model and study design are very important!   
+3. When effects are small, they are difficult to estimate correctly; we will most likely overestimate them.  
 
 
 ### Cartridge Cases

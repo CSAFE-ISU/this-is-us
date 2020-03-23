@@ -2203,6 +2203,26 @@ cmcR::cmcPlot(unknown2_residuals$x3p,
 knitr::include_graphics("images/cartridge_cases/3-23_Spotlight/kmFinalCMC_2.png")
 ```
 
+*Most promising results:*
+
+Below are plots related to what we have found to be the most promising pre, inter, and post-processing conditions for differentiating known matches from known non-matches. In particular, if one takes the residuals from the RANSAC method and applies a bandpass filter with wavelength cut-offs of 16 and 250 microns (similar to Chen et al.)
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/3-23_Spotlight/residualsBP16_250.png")
+```
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/3-23_Spotlight/cmcResidualsBP16_250plot_corr30-90_trans10-30_noAUC.png")
+```
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/3-23_Spotlight/roc_residualsBP16-250.png")
+```
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/3-23_Spotlight/roc_residualsBP16-250_onePlot.png")
+```
+
 
 </details>
 

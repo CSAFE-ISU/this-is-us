@@ -738,11 +738,11 @@ Non-mates|    9     |       6.43     |   0.1208  |        1.39          |
 
 
 **Example crime-scene like images on dust from the data by Speir's group**:
-<img src="images/shoes/Features/dust_CS.png" width="100%"/>
+<img src="images/shoes/Features/dust_CS.png" width="50%"/>
 
 
 **Density of mates and non-mates by features**:
-<img src="images/shoes/Features/den_features.png" width="100%"/>
+<img src="images/shoes/Features/den_features_10.png" width="100%"/>
 
 **ROC curves by features**:
 <img src="images/shoes/Features/ROC_degs.png" width="100%"/>

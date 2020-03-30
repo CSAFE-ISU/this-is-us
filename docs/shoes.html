@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-03-23" />
+<meta name="date" content="2020-03-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -807,8 +807,12 @@ Alignment Success:</p>
 </div>
 <div id="d-shoe-recognition" class="section level2">
 <h2><span class="header-section-number">6.5</span> 3d Shoe Recognition</h2>
+<p>Some background info: Shoe impressions are often left at crime scenes. In an ideal investigation, an impression left atthe scene of the crime is matched to the suspect’s shoe, placing them at the scene. However, it is not always that easy. An additional problem when dealing with shoes in the forensic discipline isshoes wear over time. When time elapses between the crime and recovery of the shoe, this processmay be more difficult: identifying marks may have worn away, or new marks may have been acquired due to additional wear. In order to understand the changes to an outsole of a shoe that may occur during the wear process, it is necessary to collect longitudinal data from across the shoe’s lifetime. These studies are needed to establish statistical models for shoe wear patterns and accumulated damage. In order to analyze data collected from these studies, it is imperative to develop a statistical pipeline to align and compare successive 3D scans over time. Manual alignment methods are time consuming, and do not scale effectively to large studies, because it is necessary to align hundreds of scans, observed at multiple time points, before any statistical analysis or modeling can be performed. To practically use longitudinal studies, the best approach is to develop statistical tools, to provide a pipeline in which to align and analyze two shoe scans.</p>
 <p>The set up:</p>
 <p>Ititally, the idea of the of the study was to use the data from the longitudial study in order to determine if one could predict wear, given pressure point matts and amount of steps and so on that was all part of the longitutidal data collection done previously. This idea has someone shifted. There is a large difference between the scans of the longitudial study that were conducted by hand scanning and those conducted using the turn table. The hand scan soles of the shoes have a wide variation not only on quality, but also on amount of shoe and direction of the scan. In order to simplify the inital processes and determining a pipeline for alignment, instead of the longitudinal shoe scans, the processes below are using a shoe that is scanned soly using the turn table to have some consistancy in the processing as we start to have a pipe line for at least alignment, then later using the longitudinal study add the extra information into the processing; amount of steps, weight,ect.</p>
+<p>Steps:
+<img src="images/shoes/3dshoes/Part1.png" width="100%"/>
+<img src="images/shoes/3dshoes/Part2.png" width="100%"/></p>
 <details>
 <p><summary>
 The shoe scans start as an stl file, however R does not work with stl files directly so they need to be transformed into a mesh object, in this specific case a triangle mesh object: </summary></p>
@@ -879,6 +883,9 @@ Once the shoes themselves have been centered, then PCA can be compleated on the 
 <img src="images/shoes/3dshoes/ICP2.png" width="100%"/>
 <img src="images/shoes/3dshoes/ICPzoom.png" width="100%"/>
 </details>
+<p><img src="images/shoes/3dshoes/ICPall1.png" width="100%"/>
+<img src="images/shoes/3dshoes/ICPall2.png" width="100%"/>
+<img src="images/shoes/3dshoes/ICPall3.png" width="100%"/></p>
 </div>
 <div id="shoe-outsole-matching-using-image-descriptors" class="section level2">
 <h2><span class="header-section-number">6.6</span> Shoe outsole matching using image descriptors</h2>

@@ -833,6 +833,8 @@ knitr::include_graphics("images/bullets/Hough_project/right-groove-comparison.pn
 
 We had just instituted the optimal adjust, as well as the middle 50\% heuristic since we had some relatively large bullet scans in the Houston set. However the Hough transform still can't really compete with the LASSO method which is pretty dissapointing. 
 
+**Where we are**
+
 Before returning to discussing the Hough Process, we were interested in creating a mask that can pick up striae and give us a better understanding of where grooves are located. We create a rather naive way of finding striae by taking the difference in the x and y direction between each element of the surface matrix of our bullet land. We then determine what is a large enough difference in heights to be coloured in our mask by first finding the distribution of differences between different sets of our bullets. One thing that's interesting to notice is that the distribution of differences is essentially the same for the Phoenix, Hamby 44, and Houston set of scans. We might expect the Houston scan to have a different distribution because of it's deep grooves but it appears that this is some sort of scanning effect. 
 
 ```{r, fig.cap="Distribution of differences in the x-direction for the Phoenix Set", out.width="50%", fig.keep="hold", fig.align='center'}
@@ -847,7 +849,33 @@ knitr::include_graphics("images/bullets/Hough_project/phoenix-a9-b1-l1-differenc
 ```
 </details>
 
-So this mask is interesting since it successfully identifies some Striae and breakoff from the bullet scan. But it's not perfect. Some notable aspects of the grooves are not in fact coloured and on closer inspection this may be due to the presence of NAs. To combat this issue we have decided to impute the NA 
+So this mask is interesting since it successfully identifies some Striae and breakoff from the bullet scan. But it's not perfect. Some notable aspects of the grooves are not in fact coloured and on closer inspection this may be due to the presence of NAs. To combat this issue we have decided to impute the NA values by replacing them with 5\% greater than the maximum height recorded in the surface matrix. Ideally this will give us a better view of our grooves and maybe some of the breakoff. 
+
+```{r, fig.cap="Distribution of differences in the x-direction for the Phoenix Set with imputed NAs", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/phoenix-distribution-of-differences-na-imputed.png")
+```
+
+
+For all sets what is considered a large difference has now changed from an absolute difference of .2 to an absolute difference of .15. 
+
+
+```{r, fig.cap="Gun 1-M2 Bullet 2 Land 2 NA-imputed Mask of Differences", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/phoenix-1-M2-b2-l2-na-imputed-difference-mask.png")
+```
+
+With these NAs imputed we see a very clear delineation of grooves and breakoff from striae based on the NA. This is a very promising result and we decided to apply the Hough transform process to the imputed lands. Because the imputed NAs so dramatically change the bullet lands, we re-calculated the optimal adjust for this bullet set and then compared the new scores for the NA-imputed bullet lands to the older results. 
+
+
+```{r, fig.cap="Left-Hand groove score comparison between old Hough method and the new method on na-imputed bullet lands", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/left-hand-groove-score-comparison-na-imputed.png")
+```
+
+
+
+```{r, fig.cap="Right-Hand groove score comparison between old Hough method and the new method on na-imputed bullet lands", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/right-hand-groove-score-comparison-na-imputed.png")
+```
+
 
 
 ##### LASSO Method  

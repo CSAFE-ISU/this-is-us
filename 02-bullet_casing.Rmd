@@ -812,6 +812,34 @@ So it leaves the question, why are these results ever so slightly different and 
 ```{r, out.width="50%", fig.keep="hold", fig.align='center'}
 knitr::include_graphics("images/bullets/Hough_project/hamby-44-barrel-two-land-one.png")
 ```
+</details>
+
+<details>
+<summary>
+Charlotte Update 03-30-20: Long time no see guys! Hope everyone is well! Last time, the Hough project had kind of stagnated as results fitted with an optimal adjust were not very competitive against other methods. To improve results we have imputed NA values in our bullet land. 
+</summary>
+
+##### Where we were
+
+
+```{r, fig.cap="Left Groove Difference Estimates", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/left-groove-comparison.png")
+```
+
+```{r, fig.cap="Right Groove Difference Estimates", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/right-groove-comparison.png")
+```
+
+
+We had just instituted the optimal adjust, as well as the middle 50\% heuristic since we had some relatively large bullet scans in the Houston set. However the Hough transform still can't really compete with the LASSO method which is pretty dissapointing. 
+
+A couple of problems worth noting are that:
+
+* The Hough process has trouble detecting slanted lines in the z-direction
+
+
+
+</details>
 
 
 

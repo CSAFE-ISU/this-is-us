@@ -2383,6 +2383,21 @@ The framework of interactions, allows for validation of classification recommend
 knitr::include_graphics("images/bullets/gan-app2_consolidated.png")
 ```
 
+## Explainable results: Usability and Trust survey
+
+1. Brief background of what the App is doing in terms of FTEs
+2. The explanation system and the framework which is designed to build trust, better understanding, and diagnose problems.
+3. The plan- a focus group (now virtual and online)
+      a. need for anonymity- why?
+      b. possible way to set this up
+      c. Questionnaires before and after experiment - standard examples
+      d. Specific questions, for the generated b-to-b and land-to-land comparisons to scale how well critical analysis can lead to trust, understanding and diagnosing problems.
+4. Other issues on the timeline - IRB approval for Virtual setups?
+
+Connecting survey questions:
+1. Trust related questions
+2. Linking possible questions to the conceptual cognitive theory
+3. Best set of questionnaires need to be figured out
 
 ### Conference Presentations  
 

@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-03-30" />
+<meta name="date" content="2020-04-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -132,7 +132,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#guidelines-for-show-and-tell"><i class="fa fa-check"></i><b>2.1</b> Guidelines for show and tell</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#rmarkdown-how-to"><i class="fa fa-check"></i><b>2.2</b> Rmarkdown how-to</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="bullets.html"><a href="bullets.html"><i class="fa fa-check"></i><b>3</b> Project CC: Bullets and Cartridge Cases</a><ul>
 <li class="chapter" data-level="3.1" data-path="bullets.html"><a href="bullets.html#data-collection"><i class="fa fa-check"></i><b>3.1</b> Data Collection</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="bullets.html"><a href="bullets.html#lapd"><i class="fa fa-check"></i><b>3.1.1</b> LAPD</a></li>
@@ -263,6 +266,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 2</span> Introduction</h1>
 <p>This section will become the section for the administrative updates/organization once we have figured out how to use all of the bookdown features for our purposes.</p>
 <p>The github repo corresponding to these pages is located at <a href="https://github.com/CSAFE-ISU/this-is-us" class="uri">https://github.com/CSAFE-ISU/this-is-us</a></p>
+<div id="guidelines-for-show-and-tell" class="section level2">
+<h2><span class="header-section-number">2.1</span> Guidelines for show and tell</h2>
+<p>A. What are the expectations from a spotlight presenter?</p>
+<p>Spotlight presentations allow you to go into a bit of detail when presenting your work. Aim for 8-10 mins. Spotlights do not have to be full fledged presentations, but should address:</p>
+<ol style="list-style-type: decimal">
+<li>Background of the problem</li>
+<li>What you have done</li>
+<li>Obstacles and/or next steps</li>
+</ol>
+<p>Make sure to include a lot of pictures!
+Ideally a spotlight presentation sparks a bit of discussion.</p>
+<p>B. What about the time constraint when there is more than one spotlight?</p>
+<p>Usually we have 2-3 spotlight presenters scheduled for a show and tell session, so there should be plenty of time for all of you to present. The 8-10 mins are a guideline - sometimes you might need a bit more, sometimes less is fine as well.</p>
+<p>Talk to the other spotlighters to figure out the order in which you go :)</p>
+<p>C. Group Updates</p>
+<p>After spotlighter presentations are done, we go around the group to quickly talk about every one’s work/update.
+While we are in on-line mode we are not going to require a group update from everyone, but if you have something to share, please do so!</p>
+<p>D. What if I have to discuss ideas and want to practice for an upcoming big event presentation like a conference, seminar, creative component, or PhD defense etc?</p>
+<p>Please schedule a talk in the reading/working group which allows for deeper discussions and more time can be spent on different aspects of your research and presentation. You can set expectations from what kind of feedback you are expecting in the reading/working group talk. The working group allows for a longer period of time to not only get valuable feedback but also ensures that other spotlight presenters are not feeling underwhelmed by the response to their work</p>
+</div>
+<div id="rmarkdown-how-to" class="section level2">
+<h2><span class="header-section-number">2.2</span> Rmarkdown how-to</h2>
 <p>You can label chapter and section titles using <code>{#label}</code> after them, e.g., we can reference Chapter <a href="intro.html#intro">2</a>. If you do not manually label them, there will be automatic labels anyway, e.g., Chapter <a href="glass.html#glass">5</a>.</p>
 <p>Figures and tables with captions will be placed in <code>figure</code> and <code>table</code> environments, respectively.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">.1</span>, <span class="fl">.1</span>))</a>
@@ -434,6 +459,7 @@ Figure 2.1: Here is a nice figure!
 </table>
 <p>You can write citations, too. For example, we are using the <strong>bookdown</strong> package <span class="citation">(Xie <a href="#ref-R-bookdown">2020</a>)</span> in this sample book, which was built on top of R Markdown and <strong>knitr</strong> <span class="citation">(Xie <a href="#ref-xie2015">2015</a>)</span>.</p>
 
+</div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">

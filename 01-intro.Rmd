@@ -30,7 +30,7 @@ A. What are the expectations from a spotlight presenter?
 
 Spotlight presentations do not have to be full fledged presentations, but should aim to at least briefly address:
 (1) Background of what the problem is
-(2) What you have done
+(2) What's done
 (3) What you are trying to do
 
 B. What about the time constraint when there is more than one spotlight?

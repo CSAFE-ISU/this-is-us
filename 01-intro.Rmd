@@ -4,6 +4,37 @@ This section will become the section for the administrative updates/organization
 
 The github repo corresponding to these pages is located at https://github.com/CSAFE-ISU/this-is-us
 
+
+## Guidelines for show and tell
+
+A. What are the expectations from a spotlight presenter?
+
+Spotlight presentations allow you to go into a bit of detail when presenting your work. Aim for 8-10 mins. Spotlights do not have to be full fledged presentations, but should address:
+
+1. Background of the problem 
+2. What you have done
+3. Obstacles and/or next steps
+
+Make sure to include a lot of pictures! 
+Ideally a spotlight presentation sparks a bit of discussion. 
+
+B. What about the time constraint when there is more than one spotlight?
+
+Usually we have 2-3 spotlight presenters scheduled for a show and tell session, so there should be plenty of time for all of you to present. The 8-10 mins are a guideline - sometimes you might need a bit more, sometimes less is fine as well. 
+
+Talk to the other spotlighters to figure out the order in which you go :)
+
+C. Group Updates
+
+After spotlighter presentations are done, we go around the group to quickly talk about every one's work/update. 
+While we are in on-line mode we are not going to require a group update from everyone, but if you have something to share, please do so!
+
+D. What if I have to discuss ideas and want to practice for an upcoming big event presentation like a conference, seminar, creative component, or PhD defense etc?
+
+Please schedule a talk in the reading/working group which allows for deeper discussions and more time can be spent on different aspects of your research and presentation. You can set expectations from what kind of feedback you are expecting in the reading/working group talk. The working group allows for a longer period of time to not only get valuable feedback but also ensures that other spotlight presenters are not feeling underwhelmed by the response to their work
+
+## Rmarkdown how-to
+
 You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(glass).
 
 Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
@@ -23,27 +54,4 @@ knitr::kable(
 ````
 
 You can write citations, too. For example, we are using the **bookdown** package [@R-bookdown] in this sample book, which was built on top of R Markdown and **knitr** [@xie2015].  
-
-# Guidelines for show and tell
-
-A. What are the expectations from a spotlight presenter?
-
-Spotlight presentations do not have to be full fledged presentations, but should aim to at least briefly address:
-(1) Background of what the problem is
-(2) What's done
-(3) What you are trying to do
-
-B. What about the time constraint when there is more than one spotlight?
-
-Given that there are at least two or at most three spotlights, you can take up as much time as you want in show and tell, as long as any other person presenting with you, gets at least the same amount of time as you. This means if you go first, you need to leave enough time for others too. If you have more material than the others then it's probably best that you go at the end.
-
-It is encouraged that the spotlight presenters have a quick word amongst themselves as to who wants to go first, and who wants to go last.
-
-C. Group Updates
-
-There is no obligation to fill the whole time unless you want to, any group updates will come after all spotlight presentations and related discussions have finished and if there is enough time left.
-
-D. What if I have to discuss ideas and want to practice for an upcoming big event presentation like a conference, seminar, creative component, or PhD defense etc?
-
-Please schedule a talk in the reading/ working group which allows for deeper discussions and more time can be spent on different aspects of your research and presentation. You can set expectations from what kind of feedback you are expecting in the reading/ working group talk. The working group allows for a longer period of time to not only get valuable feedback but also ensures that other spotlight presenters are not feeling underwhelmed by the response to their work
 

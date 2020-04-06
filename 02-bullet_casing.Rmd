@@ -2397,7 +2397,7 @@ knitr::include_graphics("images/bullets/gan-app2_consolidated.png")
 Connecting survey questions:
 1. Trust related questions
 2. Linking possible questions to the conceptual cognitive theory
-3. Best set of questionnaires need to be figured out
+3. Best set of questionnaires need to be figured out.
 
 ### Conference Presentations  
 

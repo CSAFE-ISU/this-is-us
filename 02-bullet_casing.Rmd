@@ -279,6 +279,39 @@ include_graphics(c("images/yawei/oddsratio2.png"))
 include_graphics(c("images/yawei/comparetable3.PNG"))
 ```
 
+#### Look colser to the dependence structure of the land engraved areas
+
+There are some discussions about the existing patterns of dependence in the observed data. Inspired by that, we are trying to build a model to formalize those thoughts.
+
+We start from a model for the land engraved areas and try to develop a model for the ccfs in hand. We would naturely think about the following effects when producing characteristic features(in some measurement) on the lands we focused: 1) the barrel specific effect, 2) the land specific effect, 3) explosion effect, 4) random errors. If we are going to model this effect, there could be some models doing this jobs with different assumed denpendence structures accounted or expressed there. We are thinking about 1) the additive random effect model(if this is the correct name) , 2) some hierarchical structure with denpendence expressed somehow in the hyper parameters, 3) the glm.
+
+We start with the additive random effect model which has clearer structure at the first glance. We formulate the model as the following: 
+
+$Y_{ijk}$ is some measurement of a land engraved area from barrel $i$, land $j$(nested), and explosion $k$. 
+
+$$Y_{ijk} = \beta_0 + \mu_i + \nu_{ij} + \omega_k + \epsilon_{ijk}$$
+where, barrel effect, land effect, explosion effect, random effect are respectively:
+
+$\mu_i$~ iid $N(0, \sigma_{\mu}^2)$, $\nu_{ij}$~ iid $N(0, \sigma_{\nu}^2)$, $\omega_{k}$~ iid $N(0, \sigma_{\omega}^2)$, $\epsilon_{ijk}$~ iid $N(0, \sigma_{\epsilon}^2)$. (some more complicated structures are possible)
+
+Note this is a land model, however we want a ccf model. We first check the variance, covariance and correlations in different cases.
+
+$$Var(Y_{ijk}) = \sigma_{\mu}^2 + \sigma_{\nu}^2 + \sigma_{\omega}^2 + \sigma_{\epsilon}^2$$
+
+For the same barrel, same land but different expplosions(KM), we have the correlation:
+
+$$corr(Y_{ijk_1}, Y_{ijk_2}) = \frac{\sigma_{\mu}^2 + \sigma_{\nu}^2}{\sigma_{\mu}^2 + \sigma_{\nu}^2 + \sigma_{\omega}^2 + \sigma_{\epsilon}^2}$$
+
+For the same barrel, different land and different expplosions(some of KNM), we have the correlation:
+
+$$corr(Y_{ij_1k_1}, Y_{ij_2k_2}) = \frac{\sigma_{\mu}^2}{\sigma_{\mu}^2 + \sigma_{\nu}^2 + \sigma_{\omega}^2 + \sigma_{\epsilon}^2}$$
+
+Now we have a point estimator of the correlations in the above cases. To address our insterest, we need more than this. We could possiblly assume the beta distribution now as what we did previously(or mixed beta later). We are building a hierarchical model (not necessarily Bayesian now) for the ccfs with dependence structure considerred. We can reasonablly assume the above point estimation a mean value of the $Beta(\mu, \phi)$ (mean value parameterization, different $\mu$ from previous). We can somehow check the assumaption by some data driven methods. But the model we could have is then:
+
+$$Z_i \mbox{~}iid ~Beta(\mu_i, \phi_i)$$ 
+
+Where $i$ indicate the above two(or more) cases of correlations we are looking at. We could specify(assume) the model parameters by the additive random effect model through maximum likehood method or somehow.
+
 #### follow-up study 
 
 4 bullets per barrel for  96 of the original 626 Beretta firearms using different ammunition
@@ -776,14 +809,72 @@ knitr::include_graphics("images/bullets/Hough_project/right-lasso-comparison.png
 
 So it leaves the question, why are these results ever so slightly different and  which results do we use to compare to Hough even though they're largely consistent. Other than the LASSO question I have also run the Hough results on the Hamby 44 set to find the optimal adjust. One interesting observation is that there is a set of nine observations where no valid crosscut can be produced. 
 
-```{r,out.width="50%", fig.keep="hold", fig.align='center'}
-knitr::include_graphics("images/bullets/Hough_project/hamby-44-barrel-six-land-5.png")
-```
-
 ```{r, out.width="50%", fig.keep="hold", fig.align='center'}
 knitr::include_graphics("images/bullets/Hough_project/hamby-44-barrel-two-land-one.png")
 ```
+</details>
 
+<details>
+<summary>
+Charlotte Update 03-30-20: Long time no see guys! Hope everyone is well! Last time, the Hough project had kind of stagnated as results fitted with an optimal adjust were not very competitive against other methods. To improve results we have imputed NA values in our bullet land. 
+</summary>
+
+**Where we were**
+
+
+```{r, fig.cap="Left Groove Difference Estimates", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/left-groove-comparison.png")
+```
+
+```{r, fig.cap="Right Groove Difference Estimates", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/right-groove-comparison.png")
+```
+
+
+We had just instituted the optimal adjust, as well as the middle 50\% heuristic since we had some relatively large bullet scans in the Houston set. However the Hough transform still can't really compete with the LASSO method which is pretty dissapointing. 
+
+**Where we are**
+
+Before returning to discussing the Hough Process, we were interested in creating a mask that can pick up striae and give us a better understanding of where grooves are located. We create a rather naive way of finding striae by taking the difference in the x and y direction between each element of the surface matrix of our bullet land. We then determine what is a large enough difference in heights to be coloured in our mask by first finding the distribution of differences between different sets of our bullets. One thing that's interesting to notice is that the distribution of differences is essentially the same for the Phoenix, Hamby 44, and Houston set of scans. We might expect the Houston scan to have a different distribution because of it's deep grooves but it appears that this is some sort of scanning effect. 
+
+```{r, fig.cap="Distribution of differences in the x-direction for the Phoenix Set", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/phoenix-distribution-of-differences.png")
+```
+
+
+Based on this distribution we find that an absolute difference of about .2 would be considered to be a large difference since only about 10 \% of all observed differences are more extreme than this threshold. 
+
+```{r, fig.cap="Gun 1-A9 Bullet 1 Land 1 Difference Mask", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/phoenix-a9-b1-l1-difference-mask.png")
+```
+</details>
+
+So this mask is interesting since it successfully identifies some Striae and breakoff from the bullet scan. But it's not perfect. Some notable aspects of the grooves are not in fact coloured and on closer inspection this may be due to the presence of NAs. To combat this issue we have decided to impute the NA values by replacing them with 5\% greater than the maximum height recorded in the surface matrix. Ideally this will give us a better view of our grooves and maybe some of the breakoff. 
+
+```{r, fig.cap="Distribution of differences in the x-direction for the Phoenix Set with imputed NAs", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/phoenix-distribution-of-differences-na-imputed.png")
+```
+
+
+For all sets what is considered a large difference has now changed from an absolute difference of .2 to an absolute difference of .15. 
+
+
+```{r, fig.cap="Gun 1-M2 Bullet 2 Land 2 NA-imputed Mask of Differences", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/phoenix-1-M2-b2-l2-na-imputed-difference-mask.png")
+```
+
+With these NAs imputed we see a very clear delineation of grooves and breakoff from striae based on the NA. This is a very promising result and we decided to apply the Hough transform process to the imputed lands. Because the imputed NAs so dramatically change the bullet lands, we re-calculated the optimal adjust for this bullet set and then compared the new scores for the NA-imputed bullet lands to the older results. 
+
+
+```{r, fig.cap="Left-Hand groove score comparison between old Hough method and the new method on na-imputed bullet lands", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/left-hand-groove-score-comparison-na-imputed.png")
+```
+
+
+
+```{r, fig.cap="Right-Hand groove score comparison between old Hough method and the new method on na-imputed bullet lands", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/right-hand-groove-score-comparison-na-imputed.png")
+```
 
 
 
@@ -891,6 +982,73 @@ We are in "Phase 2" of data collection, shown below as the purple numbers:
 
 <img src="images/bullets/pipeline/data-collection-update-feb-spotlight.png" width = "80%"/>  
 
+**March 23, 2020 Spotlight Update:**  
+
+We have completed Phase 2 of Variability Study Data Collection!!! 
+
+
+<img src="images/bullets/pipeline/data-collection-update-spotlight-march.png" width = "80%"/>   
+
+This means I have been doing tons of data processing!  
+
+Total scans: 
+
+**Barrel Blue** *(LAPD)*: 900  
+**Barrel Pink** *(Houston)*: 1386  
+**Barrel Orange** *(Hamby)*: 1386  
+
+Unfortunately, things aren't **perfectly** balanced, because we sometimes see things like this:  
+
+<img src="images/bullets/pipeline/double-scans-phase2.png" width = "100%"/>  
+
+But, we now have variability data for LAPD bullets!   
+
+<img src="images/bullets/pipeline/blue-land6-repeated-scans.png" width = "100%"/>   
+
+So, we are at the point of fitting a model and getting a "final" set of results for publication (/dissertation). Recently, we have been looking at the correct way to model things at the signature level. For a traditional Gauge Repeatability and Reproducibility (Gauge R&R) study, the model would look something like the following: n
+
+$$z_{BLijkmn} = \mu_{BLi} + \beta_{j} + \omega_{k} + \gamma_{m} + \beta\omega_{jk} + \beta\gamma_{jm} + \omega\gamma_{km} + \beta\omega\gamma_{jkm} + \epsilon_{BLijkmn}$$ 
+
+for location $i$, bullet $j$, operator $k$, machine $m$, and repetition $n$. $\mu_{BLi}$ is a fixed mean for location $i$ on barrel-land $BL$. We assume all other effects are random and are normally distributed. **Also note that we are using a subsampling model, so locations are spaced out to reduce location dependence.**  
+
+However, this model often results in *singularities*. Singularities can happen for several reasons:  
+
+1. There is not enough data to estimate parameters  
+2. The model is overspecified  
+3. There are not enough grouping levels for a random effect  
+4. The effects are too close to zero and optimization just pushes them to 0.  
+
+These reasons are relatively intertwined with one another. For example, a model that is overspecified is often one where there is either not enough data or not enough grouping levels. A singularity essentially means that the matrix has become rank deficient.  
+
+Due to the fact that our study was specifically designed to estimate effects of a Gauge R&R study, we wanted to mostly maintain the traditional Gauge R&R model framework. We also thought a LOT about what is happening underlying in our model, and decided to include location as an interaction with every other factor. Therefore, we won't simply have a "bullet effect", we will have a "bullet by location" effect:  
+
+$$z_{BLijkmn} = \mu + \alpha_{BLi} + \alpha\beta_{BLij} + \alpha\omega_{BLik} + \alpha\gamma_{BLim} + \alpha\beta\omega_{BLijk} + \alpha\beta\gamma_{BLijm}$$ 
+$$ + \alpha\omega\gamma_{BLikm} + \alpha\beta\omega\gamma_{BLijkm} + \epsilon_{BLijkmn}$$ 
+Where $alpha_{BLi}$ is a fixed location effect, but our other random effects are now split into "effect-by-location" groups.  
+
+We also some simulation studies on our data with this model in order to understand optimization, singularities, and how our estimates of effects may be affected by singularities that exist in the model. All of the effects in the following image are interacted with location; for simplicity's sake they have been labelled without location.  
+
+We simulated data in the following way:  
+
+1. Extract fixed means $\mu$ and $\alpha_{BLi}$ for a particular land.  
+2. Identify a set of "target" random effects to see whether we can estimate them.  
+3. For each run of the simulation, simulate a data set by doing the following:   
+     - Simulate a set of random effect "true" values for each effect  
+     - e.g., for $\alpha\beta_{BLij}$, the bullet-by-location effect, if we have 20 locations and 3 bullets, we simulate 60 values from a $N(0, \sigma_{BLij})$ distribution.
+     - Each group is then assigned one value from that set of simulated values.  
+     - Also do this for "residual" error for every single data point.  
+     - After simulating a group effect for each "data point", we add the fixed and simulated random effects together to create a simulated data point.  
+4. Using the simulated data, fit a model with our given specification; save the resulting estimates and whether the model is singular or not.  
+
+
+<img src="images/bullets/pipeline/orange_simulation_updates.png" width = "100%"/>
+
+
+Discussion points:  
+
+1. We (I) still need to get a handle on correctly estimating an upper bound or CI for when we have a singular model whose effect is estimated at 0.  
+2. Model and study design are very important!   
+3. When effects are small, they are difficult to estimate correctly; we will most likely overestimate them.  
 
 
 ### Cartridge Cases
@@ -1710,6 +1868,493 @@ knitr::include_graphics("images/cartridge_cases/ccfDiagnosticMap.png")
 
 </details>
 
+<details>
+<summary>
+Joe 2/24/20 Update: Not too much to update for today. I've been working on writing the package and associated RJournal submission. I have a few functions that I am still planning on implementing in the package, but I will for the most part be getting the package CRAN-ready. I'm planning on building upon the journal submission for my CC that I'll be presenting in April, so I will soon begin writing that as well.
+</summary>
+
+</details>
+
+<details>
+<summary>
+Joe 3/2/20 Update: I spent a considerable amount of time writing my CC this week. I essentially only have the Literature Review and Results/Conclusions sections to write up before the initial draft is complete. I've also been working on pulling together results to put in the results section, but performing the entire CMC procedure on around 800 cartridge cases takes about 6 hours (I'll try to parallelize better to cut this time down on the server).
+
+</details>
+
+<details>
+<summary>
+Joe 3/9/20: Still more CC writing, pulling together results for the Results/Conclusion section, and tweaking functions in the cmcR package. We're seeing more promising results than we have in the past, but there are still avenues to explore. I'm looking forward to sharing these results and the cmcR package at my Spotlight the Monday after spring break!
+</summary>
+</details>
+
+<details>
+<summary>
+Joe 3/23/20 Spotlight: I've been spending a considerable amount of time putting the finishing touches on the R package cmcR. The core of the package is currently done, but I'm hoping to add a few more ancillary functions, improve the documentation, and write tests. I was hoping to spend some time during the spotlight showing off some of the package functionality and getting feedback. We are also now getting the results close to we've hoping for. I'm looking forward to sharing some of those results during the spotlight as well.
+</summary>
+
+I've pushed unevaluated code chunks to the this-is-us because it would otherwise require cartridge case scan data that many probably don't have locally on their computer. See below for a link of how to access the cartridge case data
+
+To install the cmcR package from github, run the following command in your R console.
+
+```{r eval=FALSE,echo=TRUE}
+devtools::install_github("https://github.com/jzemmels/cmcR")
+```
+
+```{r message=FALSE,warning=FALSE,eval = FALSE}
+library(cmcR)
+library(magrittr)
+library(ggplot2)
+library(dplyr)
+```
+
+For this use case, suppose we have two known match cartridge cases (km1 and km2) and two of unknown source (unknown1 and unknown2). Let's pretend that we don't see the file path clearing indicating which of the unknown source cartridge cases match the known source. These cartridge case data came from a study done by Fadul et al. (2011) and are accessible [here](https://tsapps.nist.gov/NRBTD/Studies/Studies/Details/e7a8aab8-8d5a-44ac-b2be-f0de7c2ca505?nm=True&mt=1&m=3&sp=1).
+
+```{r eval = FALSE,echo=TRUE}
+km1_raw <- x3ptools::read_x3p("~/bulletCartridgeScans/fadul_allScans/Fadul_1/cc/Fadul 1-1.x3p")
+km2_raw <- x3ptools::read_x3p("~/bulletCartridgeScans/fadul_allScans/Fadul_1/cc/Fadul 1-2.x3p")
+unknown1_raw <- x3ptools::read_x3p("~/bulletCartridgeScans/fadul_allScans/Fadul_2/cc/Fadul 2-1.x3p")
+unknown2_raw <- x3ptools::read_x3p("~/bulletCartridgeScans/fadul_allScans/Fadul_1/cc/Fadul F.x3p")
+```
+
+*Cartridge case visualization:*
+
+Visualizing cartridge case data is useful for determining, for example, how various pre-processing methods affect the final estimation of the breech face impressions. There are a number of ways to visualize cartridge case data, each with their own strengths and weaknesses.
+
+*Imager with Base Plot:*
+A quick yet inflexible way is to turn the surface matrix into a `cimg` object and use base plot.
+
+```{r eval = FALSE,echo=TRUE}
+par(mar = c(1,1,1,1))
+
+imager::imlist(
+km1_raw$surface.matrix %>%
+  imager::as.cimg(),
+km2_raw$surface.matrix %>%
+  imager::as.cimg(),
+unknown1_raw$surface.matrix %>%
+  imager::as.cimg(),
+unknown2_raw$surface.matrix %>%
+  imager::as.cimg()
+) %>%
+  plot()
+```
+```{r}
+knitr::include_graphics("images/cartridge_cases/3-23_Spotlight/rawPlots.png")
+```
+
+
+```{r eval = FALSE,echo=TRUE}
+km1_raw$surface.matrix %>%
+  imager::as.cimg() %>%
+  as.data.frame() %>%
+  ggplot(aes(x = x,y = y)) +
+  geom_raster(aes(fill = value)) +
+  scale_fill_gradient2(low = "grey0",
+                       mid = "grey50",
+                       high = "grey100",
+                       na.value = "white",
+                       midpoint = median(as.vector(median(km1_raw$surface.matrix,
+                                                          na.rm = TRUE)))) +
+  coord_fixed(expand = FALSE) +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        legend.position = "none",
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank())
+```
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/3-23_Spotlight/rawGGplot.png")
+```
+
+
+*x3ptools::image_x3p:*
+
+The `x3ptools::image_x3p` function provides 3D visualization functionality, but requires opening an RGL device on an individual machine (can't be viewed in an R Markdown file without making it huge)
+
+```{r eval=FALSE,echo=TRUE}
+km1_raw %>%
+  x3ptools::image_x3p(zoom = .7)
+```
+
+
+*Pre-processing:*
+
+If we want to compare these cartridge case scans based on their breech face impressions, they need to undergo some pre-processing. The `cmcR` package has the modularized family of `preProcess_` functions or the all-in-one (except Gaussian filtering) `selectBFImpression_` functions to accomplish this.
+
+Below we can see how the `preProcess_` family of functions can be used to process a cartridge case scan. The RANSAC method is applied twice for a more precise estimate of the breech face impression height value. Then the whitespace (all NA-valued rows/columns) on the exterior of the breech face impression is cropped. Next the firing pin circle is automatically estimated and any pixels within this circle are filtered out the scan. Lastly, a lowpass Gaussian filter meant to reduce the effect of high frequency "noise" in the scan is applied.
+
+```{r eval = FALSE,echo=TRUE}
+set.seed(3152020) #RANSAC method is based on randomly sampling points in matrix
+
+km1_residuals <- km1_raw %>%
+  x3ptools::sample_x3p(m = 2) #down-sampled copy of km1_raw
+
+km1_residuals$surface.matrix <- km1_residuals$surface.matrix %>%
+  preProcess_ransac(inlierTreshold = 10^(-5),
+                    finalSelectionThreshold = 2*(10^(-5)),
+                    iters = 150) %>%
+  preProcess_levelBF(useResiduals = TRUE) %>%
+  preProcess_ransac(inlierTreshold = .1*(10^(-5)),
+                    finalSelectionThreshold = 2*(10^(-5)),
+                    iters = 300) %>%
+  preProcess_levelBF(useResiduals = TRUE)
+
+km1_residuals$surface.matrix %>%
+  imager::as.cimg() %>%
+  plot()
+
+km1_residuals$surface.matrix <- km1_residuals$surface.matrix %>%
+  preProcess_cropWS(croppingThresh = 2) %>%
+  preProcess_removeFPCircle(aggregation_function = mean,
+                            smootherSize = 2*round((.1*nrow(.)/2)) + 1,
+                            meshSize = 1,
+                            houghScoreQuant = .9)
+
+km1_residuals$surface.matrix %>%
+  imager::as.cimg() %>%
+  plot()
+
+km1_residuals$surface.matrix <- km1_residuals$surface.matrix %>%
+  preProcess_gaussFilter(res = km1_residuals$header.info$incrementY,
+                         wavelength = 16,
+                         filtertype = "lp")
+
+km1_residuals$surface.matrix %>%
+  imager::as.cimg() %>%
+  plot()
+```
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/3-23_Spotlight/modularizedFilteredPlot.png")
+```
+
+
+The `selectBFImpression_` functions perform all of the pre-processing steps except for the Gaussian filtering in one function call. The following will process the 3 other scans in an equivalent manner to km1_residuals above. Note that the `selectBFImpression_` functions actually returns a list of two elements: `params` containing the list of parameters under which the function call was made (for reproducibility purposes) and `x3p` containing the actual processed x3p object.
+
+```{r eval = FALSE,echo=TRUE}
+km2_residuals <- selectBFImpression_sample_x3p(x3p_path = "~/bulletCartridgeScans/fadul_allScans/Fadul_1/cc/Fadul 1-2.x3p",
+                                               ransacIters = 150,
+                                               ransacInlierThresh = 10^-5,
+                                               ransacFinalSelectThresh = 2*(10^-5),
+                                               useResiduals = TRUE)
+unknown1_residuals <- selectBFImpression_sample_x3p(x3p_path = "~/bulletCartridgeScans/fadul_allScans/Fadul_2/cc/Fadul 2-1.x3p",
+                                                    ransacIters = 150,
+                                                    ransacInlierThresh = 10^-5,
+                                                    ransacFinalSelectThresh = 2*(10^-5),
+                                                    useResiduals = TRUE)
+unknown2_residuals <- selectBFImpression_sample_x3p(x3p_path = "~/bulletCartridgeScans/fadul_allScans/Fadul_1/cc/Fadul F.x3p",
+                                                    ransacIters = 150,
+                                                    ransacInlierThresh = 10^-5,
+                                                    ransacFinalSelectThresh = 2*(10^-5),
+                                                    useResiduals = TRUE)
+
+km2_residuals$x3p$surface.matrix <- 
+  cmcR::preProcess_gaussFilter(surfaceMat = km2_residuals$x3p$surface.matrix,
+                               res = km2_residuals$x3p$header.info$incrementY,
+                               wavelength = 16,
+                               filtertype = "lp")
+
+unknown1_residuals$x3p$surface.matrix <- 
+  cmcR::preProcess_gaussFilter(surfaceMat = unknown1_residuals$x3p$surface.matrix,
+                               res = unknown1_residuals$x3p$header.info$incrementY,
+                               wavelength = 16,
+                               filtertype = "lp")
+
+unknown2_residuals$x3p$surface.matrix <- 
+  cmcR::preProcess_gaussFilter(surfaceMat = unknown2_residuals$x3p$surface.matrix,
+                               res = unknown2_residuals$x3p$header.info$incrementY,
+                               wavelength = 16,
+                               filtertype = "lp")
+```
+
+```{r eval = FALSE,echo=TRUE}
+par(mar = c(1,1,1,1))
+
+imager::imlist(
+km1_residuals$surface.matrix %>%
+  imager::as.cimg(),
+km2_residuals$x3p$surface.matrix %>%
+  imager::as.cimg(),
+unknown1_residuals$x3p$surface.matrix %>%
+  imager::as.cimg(),
+unknown2_residuals$x3p$surface.matrix %>%
+  imager::as.cimg()
+) %>%
+  plot()
+```
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/3-23_Spotlight/filteredPlots.png")
+```
+
+
+*Cartridge case cell pair CCF calculation:*
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/3-23_Spotlight/im1_im2_cellComparison.png")
+```
+
+
+The Congruent Matching Cells (CMC) method was developed at the National Institute of Standards and Technology (NIST) to quantify the similarity between two spent cartridge cases based on their breech face impressions (Song (2013)). The CMC method involves dividing a breechface impression scan into a grid of cells and comparing each cell in one scan to a corresponding region in the other scan.  The motivation for this particular methodis that two breech face impressions tend to have regions of high similarity, e.g., where the firearm’s breech face impressed strongly into the cartridge case, and regions of low similarity, e.g., where the breech face may not have come into contact with the cartridge case.  The highly similar regions may be drowned-out, in a sense, by the less similar regions if one were to calculate a similarity score considering the entirety of the two scans.  By breaking up the breech face scans into a grid of cells, one can instead use the number of highly similar cells between the two scans as a more granular similarity metric.
+
+The `cellCCF` and `cellCCF_bothDirections` functions perform the splitting of two surface matrices into a grid of cells and performing the cross-correlation calculation for a variety of rotation values. The only difference between the two functions is that `cellCCF_bothDirections` calls `cellCCF` twice where each scan in a pair plays the role of the "questioned" scan that is divided into cells. These functions simply return results of the comparison and don't actually implement any of the CMC logic that goes into identifying "congruent matching cells."
+
+The call below will compare `km1_residuals` and `unknown1_residuals` by performing the following:
+
+1) Divide one of the matrices into a grid of $8 \times 8$ cells
+2) Determine which of these cells contains fewer than 15% of observed values (i.e., 85% or more NA values). These cells are not considered for the CCF calculation.
+3) For each remaining cell:
+        (a) rotate the other matrix (not the one divided into cells) by some theta value using a linear interpolation scheme
+        (b) extract a region from this rotated matrix that is centered on the same index as the cell is in its matrix but is 4 times larger.
+        (c) shift each cell/region by its respective average element value and divide by its standard deviation
+        (d) calculate the translation, $(dx,dy)$, values by which the maximum CCF is attained between a cell/region pair
+        (e) using these translation values, calculate the "raw" cross-correlation between the cell and the cell-sized portion of the larger region at which the max CCF was attained
+4) Compile a list of data frames, one per rotation value, of CCF, dx, and dy values per cell/region pair
+5) Perform steps 1-4 again, but by dividing the other matrix into a grid of cells to be compared to larger regions in the other matrix (i.e., the matrices swap roles).
+ 
+For now we'll just compare km1 to the two unknown source cartridge cases. The comparisons of km2 will be discussed below.
+
+```{r eval = FALSE,echo=TRUE}
+km1_unknown1_comparison <- cellCCF_bothDirections(km1_residuals,
+                                                  unknown1_residuals$x3p,
+                                                  thetas = seq(-30,30,by = 3),
+                                                  cellNumHoriz = 8,
+                                                  cellNumVert = 8,
+                                                  regionToCellProp = 4,
+                                                  minObservedProp = .15,
+                                                  centerCell = "individualCell",
+                                                  scaleCell = "individualCell")
+
+km1_unknown2_comparison <- cellCCF_bothDirections(km1_residuals,
+                                                  unknown2_residuals$x3p,
+                                                  thetas = seq(-30,30,by = 3),
+                                                  cellNumHoriz = 8,
+                                                  cellNumVert = 8,
+                                                  regionToCellProp = 4,
+                                                  minObservedProp = .15,
+                                                  centerCell = "individualCell",
+                                                  scaleCell = "individualCell")
+```
+
+We can see one of these data frames below, specifically where unknown1_residuals was rotated by 21 degrees before being compared to the cells of km1_residuals. The `cellID` column corresponds to the locations of each cell in km1_residuals. The `cellNum` column indexes the cells starting in the top left corner of the matrix moving right. The fact that this `cellNum == 1` is missing from this data frame means that the top left corner of the matrix contains too few observed (less than 15%) observed values to be considered for the CCF calculation. The `ccf`, `dx`, and `dy` columns represent the CCF$_{\max}$ value for a particular cell/region pair as well as the associated translation values at which this CCF value occurred. The values in the `ccf` column were calculated by replacing missing values (of which there are often many) with the average value in the cells/regions (which is necessary for calculating the CCF using the Cross-Correlation Theorem). The `rawCorr` column, on the other hand, contains correlation values calculated by effectively ignoring any NA-valued elements (specifically, using the `cor` function with `use = "pairwise.complete.obs"`).
+
+```{r eval = FALSE,echo=TRUE}
+head(km1_unknown1_comparison$comparison_1to2$ccfResults$`21`,10)
+```
+
+We are interested in extracting features from these CCF comparison results to differentiate matches from non-matches. In particular, we are interested only in cell/region pairs that are above a certain correlation threshold and have `dx`, `dy`, and `theta` values that are "close" to consensus-based values. We need to define what we mean be a consensus by determining some way to aggregate values together, preferably via some measure of center. It is common in the CMC literature to use the median `dx`, `dy`, and `theta` values, although the cmcR package lets you use any function you would like (although only mean, median, and mode have been tested).
+
+The `topResultsPerCell` function will take the list of data frames returned by cellCCF (or cellCCF_bothDirections) and  extract information about the `dx`, `dy`, and `theta` values at which each cell pair attained its maximum CCF value across the entire comparison (i.e., across every rotation). If we think of the CMC method as allowing cell pairs to "vote" for a translation and rotation of one cartridge case scan to align well with another, then the resulting data frame from `topResultsPerCell` is the number one choice per cell pair.
+
+```{r eval = FALSE,echo=TRUE}
+km1_unknown1_comparison$comparison_1to2$ccfResults %>%
+  topResultsPerCell() %>%
+  head(10)
+```
+
+*Congruent Matching Cells Filtering Logic:*
+
+*Initially proposed method:*
+
+Song (2013) initially proposed using this data frame to determine CMCs. In particular, we can take the `dx`, `dy`, and `theta` columns, determine some consensus value among each (by, e.g, taking the median), and then determine how close each cell pair's votes are to that consensus. For true matches, we would expect at least a majority of cells to have votes in the same ballpark. Thus, we can specify thresholds, `dx_thresh`, `dy_thresh`, and `theta_thresh` within which we will say that a cell pair's vote is "close" to the consensual value. We also only want to consider pairs that achieve some minimum correlation threshold. The`corr_thresh` argument sets this threshold.
+
+Below we can see the CMCs selected using the top results between km1 and unknown1. We'll refer to these as the "initial CMCs" since they were determined under the initially proposed CMC method by Song. There aren't very many initial CMCs between km1 and unknown1.
+
+```{r eval=FALSE,echo=TRUE}
+km1_unknown1_comparison$comparison_1to2$ccfResults %>%
+  topResultsPerCell() %>%
+  cmcFilter(corr_thresh = .8,
+            dx_thresh = 15)
+```
+
+In contrast, there are more initial CMCs between km1 and unknown2. This indicates a greater level of similarity between km1 and unknown2.
+
+```{r eval=FALSE,echo=TRUE}
+km1_unknown2_comparison$comparison_1to2$ccfResults %>%
+  topResultsPerCell() %>%
+  cmcFilter(corr_thresh = .8,
+            dx_thresh = 15,
+            theta_thresh = 3)
+```
+
+*"Improved" method:*
+
+Having chosen correlation and translation thresholds by which we can classify cell pairs as "congruent matching cells," a useful way to determine an estimate for the rotation values by which two cartridge cases will align is to plot the number of CMCs per rotation value. Identifying "modes" in these CMC-per-theta plots is what Tong et al. (2015) proposed as one improvement to the initially proposed method.
+
+The plots below show the "forward" and "backward" distribution of CMCs per theta value for the comparisons between km1 and unknown1 as well as km1 and unknown2. The "forward" and "backward" directions correspond to the which of the two scans in the comparison was partitioned into a grid of cells (think of this as the "questioned" cartridge case) and which was broken up into overlapping regions. For example, in the plot immediately below, the "x3p1 vs. x3p2" facet means that km1 was partitioned into a grid of cells, each of which were compared to larger regions in unknown1. 
+
+Tong et al. (2015) propose using these CMC-per-theta distributions to identify which theta values have a "high" number of associated CMCs. They define a "high" number of CMCs to be the maximum number of CMCs for a particular comparison minus some empirical constant (1 in their paper). If a theta value has an associated high number of CMCs, but is far away from the theta value with the maximum number of CMCs, then there's evidence to suggest that the pair is a non-match. The plot immediately below illustrates this idea. In both bar plots, the maximum number of CMCs is 2 (at $\theta = -9$ in the first plot and $\theta = 3$ in the second). However, a number of other theta values have high CMC numbers (1 in this example) that are far away from the max CMC theta values. We define "far away" as being greater than `theta_thresh` degrees away from the max CMC theta value. 
+
+```{r eval = FALSE,echo=TRUE}
+cmcPerThetaBarPlot(km1_unknown1_comparison,
+                   corr_thresh = .8,
+                   dx_thresh = 15,
+                   theta_thresh = 3,
+                   highCMCThresh = 1)
+```
+```{r}
+knitr::include_graphics("images/cartridge_cases/3-23_Spotlight/knmCMCpertheta.png")
+```
+
+
+In contrast, we can see a distinct mode in the bar plots below for the comparison between km1 and unknown2. Additionally, any theta values with associated high CMC counts are within `theta_thresh` degrees of the maximum CMC theta value. The two modes also agree with each other, up to a sign, which is what we would expect in comparing a true match pair in both directions.
+
+```{r eval = FALSE,echo=TRUE}
+cmcPerThetaBarPlot(km1_unknown2_comparison,
+                   corr_thresh = .8,
+                   dx_thresh = 15,
+                   theta_thresh = 3,
+                   highCMCThresh = 1)
+```
+
+To settle on a final CMC number, Tong et al. (2015) proposes first identifying whether the high CMC theta values are too diffuse around the max CMC theta value using the logic described above. If a particular pair doesn't pass this criterion, then we assign to it the initial CMCs (described above) as its final CMC number. Otherwise, if a theta value mode is identified, then we count the number of CMCs in this mode, including those associated with the max CMC as well as CMCs associated with theta values within `theta_thresh` of the max CMC theta value. We do this for both the "forward" and "backward" CMC distributions and combine the results as the final CMC count, excluding any duplicate pairs.
+
+The `cmcFilter_improved` function counts the number of CMCs under this improved method. It will return not only the final CMCs, but also the initial CMCs determined under the initially proposed method (in both directions).
+
+```{r eval = FALSE,echo=TRUE}
+km1_unknown1_cmcs <- cmcR::cmcFilter_improved(km1_unknown1_comparison,
+                                              consensus_function = median,
+                                              corr_thresh = .8,
+                                              dx_thresh = 15,
+                                              theta_thresh = 3)
+
+km1_unknown2_cmcs <- cmcR::cmcFilter_improved(km1_unknown2_comparison,
+                                              consensus_function = median,
+                                              corr_thresh = .8,
+                                              dx_thresh = 15,
+                                              theta_thresh = 3)
+```
+
+The improved CMC method did not yield any "final CMCs" for the comparison between km1 and unknown1. As such, we would assign the pair whichever was the minimum number of initial CMCs calculated between both directions. The CMC(s) between km1 and unknown1 are shown below.
+
+```{r eval=FALSE,echo=TRUE}
+km1_unknown1_cmcs$initialCMCs[[1]][[which.min(c(nrow(km1_unknown1_cmcs$initialCMCs[[1]][[1]]),
+                                                nrow(km1_unknown1_cmcs$initialCMCs[[1]][[2]])))]]
+```
+
+In contrast, the comparison between km1 and unknown2 did yield final CMCs, which are shown below.
+
+```{r eval=FALSE,echo=TRUE}
+km1_unknown2_cmcs$finalCMCs %>%
+  arrange(cellNum)
+```
+
+The same type of comparisons can be done between km2 and the two unknown source scans, although we now have very strong evidence (apart from being able to read file paths) that unknown1 does not match km1 while unknown2 does.
+
+```{r eval = FALSE,echo=TRUE}
+km2_unknown1_comparison <- cellCCF_bothDirections(km2_residuals$x3p,
+                                                  unknown1_residuals$x3p,
+                                                  thetas = seq(-30,30,by = 3),
+                                                  cellNumHoriz = 8,
+                                                  regionToCellProp = 4,
+                                                  minObservedProp = .15,
+                                                  centerCell = "individualCell",
+                                                  scaleCell = "individualCell")
+
+km2_unknown2_comparison <- cellCCF_bothDirections(km2_residuals$x3p,
+                                                  unknown2_residuals$x3p,
+                                                  thetas = seq(-30,30,by = 3),
+                                                  cellNumHoriz = 8,
+                                                  regionToCellProp = 4,
+                                                  minObservedProp = .15,
+                                                  centerCell = "individualCell",
+                                                  scaleCell = "individualCell")
+
+km2_unknown1_cmcs <- cmcR::cmcFilter_improved(km2_unknown1_comparison,
+                                              consensus_function = median,
+                                              corr_thresh = .8,
+                                              dx_thresh = 15)
+
+km2_unknown2_cmcs <- cmcR::cmcFilter_improved(km2_unknown2_comparison,
+                                              consensus_function = median,
+                                              corr_thresh = .8,
+                                              dx_thresh = 15)
+```
+
+Interestingly, we see that the comparison between km2 and unknown1 *does* actually yield final CMCs, although only 5. This illustates an important property of this method - its extreme sensitivity to making the "correct" pre, inter, and post-processing decisions. For example, changing `corr_thresh` from .8 to .81 in the call to `cmcFilter_improved` between km1 and unknown1 above yields 0 initial and final CMCs.  
+
+```{r eval=FALSE,echo=TRUE}
+km2_unknown1_cmcs$initialCMCs
+```
+
+The final CMCs for the comparison between km2 and unknown2 are given below.
+
+```{r eval=FALSE,echo=TRUE}
+km2_unknown2_cmcs$finalCMCs
+```
+
+*Diagnostic tools:*
+
+The `cmcPlot` function allows us to visualize the regions of a cartridge case scan that have been identified as "congruent matching." 
+
+For example, the 1 initial CMC calculated between km1 and unknown1 is shown below.
+
+```{r eval = FALSE,echo=TRUE}
+cmcR::cmcPlot(unknown1_residuals$x3p,
+              cmcDF = km1_unknown1_cmcs$initialCMCs[[1]][[2]])
+```
+```{r}
+knitr::include_graphics("images/cartridge_cases/3-23_Spotlight/knmInitialCMC.png")
+```
+
+
+In contrast, the final CMCs between km1 and unknown2 are shown below.
+
+```{r eval = FALSE,echo=TRUE}
+cmcR::cmcPlot(unknown2_residuals$x3p,
+              cmcDF = km1_unknown2_cmcs$finalCMCs)
+```
+```{r}
+knitr::include_graphics("images/cartridge_cases/3-23_Spotlight/kmFinalCMC.png")
+```
+
+
+The same types of plots can be made for the comparison between km2 and the unknown source scans. Below are the final CMCs between km2 and unknown1.
+
+```{r eval = FALSE,echo=TRUE}
+cmcR::cmcPlot(unknown1_residuals$x3p,
+              cmcDF = km2_unknown1_cmcs$finalCMCs)
+```
+```{r}
+knitr::include_graphics("images/cartridge_cases/3-23_Spotlight/knmFinalCMC.png")
+```
+
+
+And the CMCs for the comparison between km2 and unknown2 are shown below.
+
+```{r eval = FALSE,echo=TRUE}
+cmcR::cmcPlot(unknown2_residuals$x3p,
+              cmcDF = km2_unknown2_cmcs$finalCMCs)
+```
+```{r}
+knitr::include_graphics("images/cartridge_cases/3-23_Spotlight/kmFinalCMC_2.png")
+```
+
+*Most promising results:*
+
+Below are plots related to what we have found to be the most promising pre, inter, and post-processing conditions for differentiating known matches from known non-matches. In particular, if one takes the residuals from the RANSAC method and applies a bandpass filter with wavelength cut-offs of 16 and 250 microns (similar to Chen et al.)
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/3-23_Spotlight/residualsBP16_250.png")
+```
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/3-23_Spotlight/cmcResidualsBP16_250plot_corr30-90_trans10-30_noAUC.png")
+```
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/3-23_Spotlight/roc_residualsBP16-250.png")
+```
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/3-23_Spotlight/roc_residualsBP16-250_onePlot.png")
+```
+
+
+</details>
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
 The moified Chumbley non-random algorithm is a statistical non-paramaetric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segement to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 
@@ -1738,6 +2383,21 @@ The framework of interactions, allows for validation of classification recommend
 knitr::include_graphics("images/bullets/gan-app2_consolidated.png")
 ```
 
+## Explainable results: Usability and Trust survey
+
+1. Brief background of what the App is doing in terms of FTEs
+2. The explanation system and the framework which is designed to build trust, better understanding, and diagnose problems.
+3. The plan- a focus group (now virtual and online)
+      a. need for anonymity- why?
+      b. possible way to set this up
+      c. Questionnaires before and after experiment - standard examples
+      d. Specific questions, for the generated b-to-b and land-to-land comparisons to scale how well critical analysis can lead to trust, understanding and diagnosing problems.
+4. Other issues on the timeline - IRB approval for Virtual setups?
+
+Connecting survey questions:
+1. Trust related questions
+2. Linking possible questions to the conceptual cognitive theory
+3. Best set of questionnaires need to be figured out.
 
 ### Conference Presentations  
 

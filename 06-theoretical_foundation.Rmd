@@ -5,6 +5,45 @@ output:
 ---
 # Theoretical foundations
 
+## Explaining SLR behavior
+
+This project involves explaining the behavior of an SLR w.r.t. the true LR. Here 
+is a summary of the main results: 
+
+- $|log(LR) - log(SLR)|$ is likely to be unbounded and has to do with the fact 
+that the LR and the SLR typically do not share the same invariances (the contour
+lines of the LR and SLR differ). The example 
+in the paper shows how this works for univariate Gaussian data and squared 
+Euclidean distance score function.
+- Large discrepancies between the LR and the SLR are probably even with 
+univariate data
+- The most likely and largest discrepancies between the SLR and LR 
+tend to be when both the LR and SLR are very large or very small. 
+- Bounds on the tail probabilities of the LR given a score
+- Bounded LR implies bounded SLR
+- LRs are always larger than the SLR in expectation under the prosecution 
+hypothesis and smaller in expectation under the defense hypothesis (technically 
+the latter statement should be that the inverse of the LR is larger in expectation 
+than the inverse of the SLR)
+
+
+We submitted this to JRSS Series A, but it was returned to us with the option to 
+resubmit. The biggest issue seemed to be a misunderstanding about whether 
+independence under the prosecution hypothesis is reasonable. Otherwise, the 
+first reviewer seemed to focus heavily on the LR paradigm generally, and they 
+also seemed to misunderstand that our definition of "LR" was of the true 
+distributions from which data are sampled under both hypotheses. To address these 
+misunderstandings, we are completely rewriting the intro to move the 
+focus from LRs to SLRs and correcting some specific lines that may have helped 
+lead to some confusion. We are also taking more time in the paper to discuss that, 
+the specific source problem conditions on the source of the evidence under 
+the prosecution hypothesis, and thus the "dependence" that we think the reviewers 
+are thinking should exist is lost. That is, the fact that the unknown source and 
+known source data should be more similar under $H_p$ than any random two pieces 
+of evidence is already conditioned upon. 
+
+**See [here](https://github.com/CSAFE-ISU/this-is-us/blob/master/images/foundations/nate/slr_manuscript_revised.pdf) for the current draft of the paper from this work.**
+
 ## Common Source vs Specific Source Comparison via Information Theory
 
 **Please note that this project has changed somewhat 

@@ -812,7 +812,69 @@ So it leaves the question, why are these results ever so slightly different and 
 ```{r, out.width="50%", fig.keep="hold", fig.align='center'}
 knitr::include_graphics("images/bullets/Hough_project/hamby-44-barrel-two-land-one.png")
 ```
+</details>
 
+<details>
+<summary>
+Charlotte Update 03-30-20: Long time no see guys! Hope everyone is well! Last time, the Hough project had kind of stagnated as results fitted with an optimal adjust were not very competitive against other methods. To improve results we have imputed NA values in our bullet land. 
+</summary>
+
+**Where we were**
+
+
+```{r, fig.cap="Left Groove Difference Estimates", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/left-groove-comparison.png")
+```
+
+```{r, fig.cap="Right Groove Difference Estimates", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/right-groove-comparison.png")
+```
+
+
+We had just instituted the optimal adjust, as well as the middle 50\% heuristic since we had some relatively large bullet scans in the Houston set. However the Hough transform still can't really compete with the LASSO method which is pretty dissapointing. 
+
+**Where we are**
+
+Before returning to discussing the Hough Process, we were interested in creating a mask that can pick up striae and give us a better understanding of where grooves are located. We create a rather naive way of finding striae by taking the difference in the x and y direction between each element of the surface matrix of our bullet land. We then determine what is a large enough difference in heights to be coloured in our mask by first finding the distribution of differences between different sets of our bullets. One thing that's interesting to notice is that the distribution of differences is essentially the same for the Phoenix, Hamby 44, and Houston set of scans. We might expect the Houston scan to have a different distribution because of it's deep grooves but it appears that this is some sort of scanning effect. 
+
+```{r, fig.cap="Distribution of differences in the x-direction for the Phoenix Set", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/phoenix-distribution-of-differences.png")
+```
+
+
+Based on this distribution we find that an absolute difference of about .2 would be considered to be a large difference since only about 10 \% of all observed differences are more extreme than this threshold. 
+
+```{r, fig.cap="Gun 1-A9 Bullet 1 Land 1 Difference Mask", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/phoenix-a9-b1-l1-difference-mask.png")
+```
+</details>
+
+So this mask is interesting since it successfully identifies some Striae and breakoff from the bullet scan. But it's not perfect. Some notable aspects of the grooves are not in fact coloured and on closer inspection this may be due to the presence of NAs. To combat this issue we have decided to impute the NA values by replacing them with 5\% greater than the maximum height recorded in the surface matrix. Ideally this will give us a better view of our grooves and maybe some of the breakoff. 
+
+```{r, fig.cap="Distribution of differences in the x-direction for the Phoenix Set with imputed NAs", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/phoenix-distribution-of-differences-na-imputed.png")
+```
+
+
+For all sets what is considered a large difference has now changed from an absolute difference of .2 to an absolute difference of .15. 
+
+
+```{r, fig.cap="Gun 1-M2 Bullet 2 Land 2 NA-imputed Mask of Differences", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/phoenix-1-M2-b2-l2-na-imputed-difference-mask.png")
+```
+
+With these NAs imputed we see a very clear delineation of grooves and breakoff from striae based on the NA. This is a very promising result and we decided to apply the Hough transform process to the imputed lands. Because the imputed NAs so dramatically change the bullet lands, we re-calculated the optimal adjust for this bullet set and then compared the new scores for the NA-imputed bullet lands to the older results. 
+
+
+```{r, fig.cap="Left-Hand groove score comparison between old Hough method and the new method on na-imputed bullet lands", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/left-hand-groove-score-comparison-na-imputed.png")
+```
+
+
+
+```{r, fig.cap="Right-Hand groove score comparison between old Hough method and the new method on na-imputed bullet lands", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/right-hand-groove-score-comparison-na-imputed.png")
+```
 
 
 
@@ -2394,6 +2456,21 @@ The framework of interactions, allows for validation of classification recommend
 knitr::include_graphics("images/bullets/gan-app2_consolidated.png")
 ```
 
+## Explainable results: Usability and Trust survey
+
+1. Brief background of what the App is doing in terms of FTEs
+2. The explanation system and the framework which is designed to build trust, better understanding, and diagnose problems.
+3. The plan- a focus group (now virtual and online)
+      a. need for anonymity- why?
+      b. possible way to set this up
+      c. Questionnaires before and after experiment - standard examples
+      d. Specific questions, for the generated b-to-b and land-to-land comparisons to scale how well critical analysis can lead to trust, understanding and diagnosing problems.
+4. Other issues on the timeline - IRB approval for Virtual setups?
+
+Connecting survey questions:
+1. Trust related questions
+2. Linking possible questions to the conceptual cognitive theory
+3. Best set of questionnaires need to be figured out.
 
 ### Conference Presentations  
 

@@ -2079,7 +2079,7 @@ km1_unknown2_comparison <- cellCCF_bothDirections(km1_residuals,
 We can see one of these data frames below, specifically where unknown1_residuals was rotated by 21 degrees before being compared to the cells of km1_residuals. The `cellID` column corresponds to the locations of each cell in km1_residuals. The `cellNum` column indexes the cells starting in the top left corner of the matrix moving right. The fact that this `cellNum == 1` is missing from this data frame means that the top left corner of the matrix contains too few observed (less than 15%) observed values to be considered for the CCF calculation. The `ccf`, `dx`, and `dy` columns represent the CCF$_{\max}$ value for a particular cell/region pair as well as the associated translation values at which this CCF value occurred. The values in the `ccf` column were calculated by replacing missing values (of which there are often many) with the average value in the cells/regions (which is necessary for calculating the CCF using the Cross-Correlation Theorem). The `rawCorr` column, on the other hand, contains correlation values calculated by effectively ignoring any NA-valued elements (specifically, using the `cor` function with `use = "pairwise.complete.obs"`).
 
 ```{r eval = FALSE,echo=TRUE}
-head(km1_unknown1_comparison$comparison_1to2$ccfResults$`21`,10)
+km1_unknown1_comparison$comparison_1to2$ccfResults$`21`
 ```
 
 We are interested in extracting features from these CCF comparison results to differentiate matches from non-matches. In particular, we are interested only in cell/region pairs that are above a certain correlation threshold and have `dx`, `dy`, and `theta` values that are "close" to consensus-based values. We need to define what we mean be a consensus by determining some way to aggregate values together, preferably via some measure of center. It is common in the CMC literature to use the median `dx`, `dy`, and `theta` values, although the cmcR package lets you use any function you would like (although only mean, median, and mode have been tested).
@@ -2088,8 +2088,7 @@ The `topResultsPerCell` function will take the list of data frames returned by c
 
 ```{r eval = FALSE,echo=TRUE}
 km1_unknown1_comparison$comparison_1to2$ccfResults %>%
-  topResultsPerCell() %>%
-  head(10)
+  topResultsPerCell()
 ```
 
 *Congruent Matching Cells Filtering Logic:*
@@ -2104,7 +2103,8 @@ Below we can see the CMCs selected using the top results between km1 and unknown
 km1_unknown1_comparison$comparison_1to2$ccfResults %>%
   topResultsPerCell() %>%
   cmcFilter(corr_thresh = .8,
-            dx_thresh = 15)
+            dx_thresh = 15,
+            theta_thresh = 3)
 ```
 
 In contrast, there are more initial CMCs between km1 and unknown2. This indicates a greater level of similarity between km1 and unknown2.
@@ -2146,6 +2146,11 @@ cmcPerThetaBarPlot(km1_unknown2_comparison,
                    theta_thresh = 3,
                    highCMCThresh = 1)
 ```
+
+```{r}
+knitr::include_graphics("./images/cartridge_cases/3-23_Spotlight/kmCMCpertheta.png")
+```
+
 
 To settle on a final CMC number, Tong et al. (2015) proposes first identifying whether the high CMC theta values are too diffuse around the max CMC theta value using the logic described above. If a particular pair doesn't pass this criterion, then we assign to it the initial CMCs (described above) as its final CMC number. Otherwise, if a theta value mode is identified, then we count the number of CMCs in this mode, including those associated with the max CMC as well as CMCs associated with theta values within `theta_thresh` of the max CMC theta value. We do this for both the "forward" and "backward" CMC distributions and combine the results as the final CMC count, excluding any duplicate pairs.
 
@@ -2244,6 +2249,7 @@ In contrast, the final CMCs between km1 and unknown2 are shown below.
 cmcR::cmcPlot(unknown2_residuals$x3p,
               cmcDF = km1_unknown2_cmcs$finalCMCs)
 ```
+
 ```{r}
 knitr::include_graphics("images/cartridge_cases/3-23_Spotlight/kmFinalCMC.png")
 ```
@@ -2290,6 +2296,73 @@ knitr::include_graphics("images/cartridge_cases/3-23_Spotlight/roc_residualsBP16
 knitr::include_graphics("images/cartridge_cases/3-23_Spotlight/roc_residualsBP16-250_onePlot.png")
 ```
 
+
+</details>
+
+<details>
+<summary>
+Joe 4/20/20 Spotlight: Today I wanted to share some of the final results and conclusions related to our implementation of the Congruent Matching Cells method. I also wanted to discuss some ideas we have for the diretion of the project.
+</summary>
+
+The Congruent Matching Cells method was developed to identify a pair of cartridge case scans as "matches" or "non-matches." A brief summary of how we compare two cartridge case scans using this cell-based procedure is given below. The animation below illustrates the procedure.
+
+- Divide first cartridge case scan into a grid of cells.
+
+- Pair a larger region in the second cartridge case scan to each cell in the first.
+
+- Compare each cell to its associated region across various rotations of the second cartridge case scan.
+
+- For each rotation value, determine the translation values at which each cell/region pair attains maximum "similarity" (quantified by the cross-correlation function).
+
+- Use these estimated "alignment parameter" values (rotation & translation) as well as the estimated $CCF_{\max}$ values for each cell/region pair as features to determine whether the two cartridge case scans match.
+
+    - The idea here is that each cell/region pair for a truly matching pair of cartridge case scans should have alignment parameter estimates that "agree" with each other (within some tolerance). On the other hand, cell/region pairs from a truly *non*-matching pair of cartridge case scans should have alignment parameter estimates that vary randomly.
+    
+- Count the number of "congruent matching" cells (CMCs) and use that as a similarity score for the cartridge case pair. Song (2013) recommend using a minimum CMC count of 6 to classify a pair as a match, but many authors since then have demonstrated that this threshold isn't particularly effective in general.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-20_spotlight/bfRotationComparison.gif")
+```
+
+
+Two versions of the method are implemented in our `R` package, `cmcR`. The initially proposed method from John Song in 2013 and an "improved" method from Tong et al. in 2015. For both methods, the cell-based comparison procedure remains the same (so the first 4 bullet points above are performed for both). The only difference between the two methods is the manner by which the extracted features (i.e., the estimated alignment parameter values and the $CCF_{\max}$ values) are used to say whether a cell/region pair match. We'll skip the particulars of how these two methods work, but just keep in-mind that they both introduce some "similarity criteria," such as a minimum $CCF_{\max}$ threshold, used to call a particular cell/region pair a match.
+
+A commonly used set of cartridge case scans is from Fadul et al. (2011). This set is made up of 40 cartridge case scans - 63 known match (KM) pairs and 717 known non-match (KNM) pairs. We have applied both versions of the method implemented in the `cmcR` package to these scans and have been able to perfectly identify matches and non-matches for both. The plots below show the distributions of "Congruent Matching Cell" counts for all known match and known non-match pairs from the Fadul set. The first distributions shows the "initial" CMCs calculated under the initially proposed method from Song (2013) and the second the "final" CMCs calculated under the improved method from Tong et al. (2015). Pefect identification of matches and non-matches using a minimum CMC count classification threshold would correspond to separation of the known match and known non-match CMC count distributions. The ROC curves associated with each plot are created by varying the minimum CMC count classification threshold. The associated AUCs equal to 1 indicate that the KM and KNM CMC distributions are separated; that is, perfect identification is achieved.
+
+```{r}
+knitr::include_graphics(c("images/cartridge_cases/4-20_spotlight/initialCMCdistributions_perfectClassification.png","images/cartridge_cases/4-20_spotlight/initialCMCroc_perfectClassification.png"))
+```
+
+```{r}
+knitr::include_graphics(c("images/cartridge_cases/4-20_spotlight/finalCMCdistributions.png","images/cartridge_cases/4-20_spotlight/finalCMCroc.png"))
+```
+
+Take note that while we were able to achieve perfect identifictaion for both methods, we were not able to do so under the same set of conditions. We have yet to find a set of conditions for which perfect identification is achieved for both methods simultaneously, although we certainly have not considered every possible set of conditions. I am quite certain that further tuning of the various parameter values will yield such results. It should also be noted that other authors have been able to achieve better separation between the KM and KNM CMC distributions. The plots below show the analogous "initial" and "final" CMC distributions from Chen et al. (2017), who referred to the improved method from Tong et al. (2015) as the "high" CMC algorithm. They also used the Fadul set, except they used pre-processing procedures currently unavailable to us. Specifically, a second-order robust Gaussian regression filter. We are currently working to get this method implemented. Additionally, as already stated, finer tuning of the various parameters used in the method would undoubtedly lead to results closer to those of other authors.
+
+```{r}
+knitr::include_graphics(c("images/cartridge_cases/4-20_spotlight/chenInitialCMCdistribution.PNG","images/cartridge_cases/4-20_spotlight/chenFinalCMCdistribution.PNG"),dpi = 250)
+```
+
+<details>
+<summary>
+**Sensitivity Discussion**
+</summary>
+
+Additionally, we were interested in determining how "sensitive" the method is to various pre, inter, and post-processing conditions. In particular, we wanted to determine how well the method was able to differentiate between matches and non-matches as we change how "restrictive" the classification thresholds are. For example, how does the method respond to increasing the minimum $CCF_{\max}$ threshold used to determine if a cell/region pair is truly a match? The plot below show the CMC count distributions under the initially proposed method. We glazed over the exact details of how the CMCs are calculated, so the role of the `translateThresh` variable may not mean anything to you. Suffice it to say, our classification thresholds are becoming *more* restrictive as we move from the top right corner plot the bottom left corner plot. We can see that more lenient classification thresholds (top right corner) assign higher CMC counts to both known match and known non-match pairs - which makes some sense intuitively. We can see a clear migration of both CMC distributions as our thresholds become more restrictive.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-20_spotlight/initialCMCResidualsBP16_250plot_corr30-90_trans10-30_noAUC.png")
+```
+
+The plot below shows the CMC count distributions under the improved method, again for the purpose of determining its sensitivity to various classification thresholds. We can again see a migration of the CMC distributions as we move from less to more restrictive thresholds. The improved method seems to assign higher CMC counts to *both* known match and known non-matches than the improved method. In particular, considering the first two rows of plots below, we can clearly see that the known non-match CMC distribution is bimodal. This is an artifact of the way in which the improved method determines CMCs differently from the initial method, again skipping over the exact details. We have a few ideas of how we could "tweak" the improved method to reduce the number of "false positive" CMCs assigned to known non-matches.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-20_spotlight/cmcResidualsBP16_250_corr30-90_trans10-30_noAUC.png")
+```
+
+</details>
+
+While we haven't been able to perfectly replicate results of other authors, I do believe based on our results that our implementation of the two versions of the CMC method are quite close to the ones proposed. In the near future, we are hoping to write a submission for the R Journal related to our implementation and submit the `cmcR` package to CRAN. We are basically to the point where we have to write unit tests for functions in the package, so that should hopefully be completed in the near future (assuming I can motivate myself to write those unit tests). In the slightly further future, we are hoping to implement a few ideas we have on how to improve current CMC methodology. We should hopefully have related results to share sometime over the summer.
 
 </details>
 

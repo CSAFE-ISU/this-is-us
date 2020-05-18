@@ -847,7 +847,7 @@ Based on this distribution we find that an absolute difference of about .2 would
 ```{r, fig.cap="Gun 1-A9 Bullet 1 Land 1 Difference Mask", out.width="50%", fig.keep="hold", fig.align='center'}
 knitr::include_graphics("images/bullets/Hough_project/phoenix-a9-b1-l1-difference-mask.png")
 ```
-</details>
+
 
 So this mask is interesting since it successfully identifies some Striae and breakoff from the bullet scan. But it's not perfect. Some notable aspects of the grooves are not in fact coloured and on closer inspection this may be due to the presence of NAs. To combat this issue we have decided to impute the NA values by replacing them with 5\% greater than the maximum height recorded in the surface matrix. Ideally this will give us a better view of our grooves and maybe some of the breakoff. 
 
@@ -875,6 +875,24 @@ knitr::include_graphics("images/bullets/Hough_project/left-hand-groove-score-com
 ```{r, fig.cap="Right-Hand groove score comparison between old Hough method and the new method on na-imputed bullet lands", out.width="50%", fig.keep="hold", fig.align='center'}
 knitr::include_graphics("images/bullets/Hough_project/right-hand-groove-score-comparison-na-imputed.png")
 ```
+
+</details>
+
+<details>
+<summary>
+Charlotte Update 04/20/20:
+
+Fairly quick update from me today, I'm not really making new progress on results, I'm mainly just writing up what I have done and finding good and bad examples of Hough estimates. I'm really struggling figuring out what is and isn't important for Hough background details.
+</summary>
+
+```{r, fig.cap="Right-Hand differences distribution comparison", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/rh-difference-distribution-with-lasso.png")
+```
+
+```{r, fig.cap="Left-Hand differences distribution comparison", out.width="50%", fig.keep="hold", fig.align='center'}
+knitr::include_graphics("images/bullets/Hough_project/lh-difference-distribution-with-lasso.png")
+```
+</details>
 
 
 

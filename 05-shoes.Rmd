@@ -741,6 +741,8 @@ Non-mates|    9     |       6.43     |   0.1208  |        1.39          |
 
 
 
+
+  
   
 ### Matching on degraded and partial images  
   
@@ -765,6 +767,32 @@ Non-mates|    9     |       6.43     |   0.1208  |        1.39          |
 
 
 
+**Relationship among similarities (% Overlap) by feature-types**
+
+- Overlap feature (\% overlap after the alignment) in the degradation level, 0
+
+<img src="images/shoes/Features/feature_scatter.png" width="100%"/>
+
+
+
+- Overlap feature (\% overlap after the alignment) in the degradation level, 10
+
+<img src="images/shoes/Features/feature_scatter_deg10.png" width="100%"/>
+
+
+
+
+**Random forest training for the variable importance**
+
+- Trained the RF, in the degradatino level of 0 and 10, on the class with the variables of all similarities by each feature type.
+
+- Degradation level 0
+<img src="images/shoes/Features/varimp_deg0.png" width="100%"/>
+
+  
+- Degradation level 10
+<img src="images/shoes/Features/varimp_deg10.png" width="100%"/>
+  
 
   
 ### Research 2: Impact of weight to outsole scans from EverOS 2D scanner 

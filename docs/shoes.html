@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-04-13" />
+<meta name="date" content="2020-04-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -189,9 +189,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5" data-path="glass.html"><a href="glass.html"><i class="fa fa-check"></i><b>5</b> Glass</a><ul>
 <li class="chapter" data-level="5.1" data-path="glass.html"><a href="glass.html#data-collection-2"><i class="fa fa-check"></i><b>5.1</b> Data collection</a></li>
-<li class="chapter" data-level="5.2" data-path="glass.html"><a href="glass.html#the-astm-standard-method"><i class="fa fa-check"></i><b>5.2</b> The ASTM standard method</a></li>
-<li class="chapter" data-level="5.3" data-path="glass.html"><a href="glass.html#learning-algorithms-to-evaluate-forensic-glass-evidence"><i class="fa fa-check"></i><b>5.3</b> Learning algorithms to evaluate forensic glass evidence</a></li>
-<li class="chapter" data-level="5.4" data-path="glass.html"><a href="glass.html#evaluation-and-comparison-of-methods-for-forensic-glass-source-conclusions"><i class="fa fa-check"></i><b>5.4</b> Evaluation and comparison of methods for forensic glass source conclusions</a></li>
+<li class="chapter" data-level="5.2" data-path="glass.html"><a href="glass.html#data-collection-2.0"><i class="fa fa-check"></i><b>5.2</b> Data collection 2.0</a></li>
+<li class="chapter" data-level="5.3" data-path="glass.html"><a href="glass.html#the-astm-standard-method"><i class="fa fa-check"></i><b>5.3</b> The ASTM standard method</a></li>
+<li class="chapter" data-level="5.4" data-path="glass.html"><a href="glass.html#learning-algorithms-to-evaluate-forensic-glass-evidence"><i class="fa fa-check"></i><b>5.4</b> Learning algorithms to evaluate forensic glass evidence</a></li>
+<li class="chapter" data-level="5.5" data-path="glass.html"><a href="glass.html#evaluation-and-comparison-of-methods-for-forensic-glass-source-conclusions"><i class="fa fa-check"></i><b>5.5</b> Evaluation and comparison of methods for forensic glass source conclusions</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="shoes.html"><a href="shoes.html"><i class="fa fa-check"></i><b>6</b> Shoes</a><ul>
 <li class="chapter" data-level="6.1" data-path="shoes.html"><a href="shoes.html#longitudinal"><i class="fa fa-check"></i><b>6.1</b> Longitudinal Shoe Study</a><ul>
@@ -241,7 +242,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1" data-path="outreach-activities.html"><a href="outreach-activities.html#book-on-forensic-science-and-statistics"><i class="fa fa-check"></i><b>8.1</b> Book on Forensic Science and Statistics</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html"><i class="fa fa-check"></i><b>9</b> Reproducibility in Research</a><ul>
-<li class="chapter" data-level="9.1" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html#computational-reproducibility"><i class="fa fa-check"></i><b>9.1</b> Computational Reproducibility</a></li>
+<li class="chapter" data-level="9.1" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html#computational-reproducibility"><i class="fa fa-check"></i><b>9.1</b> Computational Reproducibility</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html#computational-reproducibility-in-team-based-collaboration"><i class="fa fa-check"></i><b>9.1.1</b> Computational Reproducibility in Team-based Collaboration</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -482,11 +485,11 @@ This is necessary because Fourier transforms assume images go on forever, so abr
 <p><img src="images/shoes/longitudinal/FFT_Demo_Hann.png" width = "25%"/></p>
 <ul>
 <li>The strength of the Hann function can be adjusted by a power argument<br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-280-1.png" width="672" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-289-1.png" width="672" /></li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
 <li>Use the Fast Fourier Transform on each image. Center the FFT’d images so that low frequencies are in the center (exchange top left quadrant with bottom right, and top right quadrant with bottom left). Call the FFT’d, centered images <span class="math inline">\(F(A)\)</span> and <span class="math inline">\(F(B)\)</span><br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-281-1.png" width="50%" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-290-1.png" width="50%" /></li>
 </ol>
 <p><img src="images/shoes/longitudinal/FFT_Demo_FFT1.png" width = "50%"/></p>
 <ol start="4" style="list-style-type: decimal">
@@ -1002,6 +1005,23 @@ Once the shoes themselves have been centered, then PCA can be compleated on the 
 <img src="images/shoes/Features/ROC_degs.png" width="100%"/></p>
 <p><strong>AUC values by features</strong>:
 <img src="images/shoes/Features/AUC_deg.png" width="100%"/></p>
+<p><strong>Relationship among similarities (% Overlap) by feature-types</strong></p>
+<ul>
+<li>Overlap feature (% overlap after the alignment) in the degradation level, 0</li>
+</ul>
+<p><img src="images/shoes/Features/feature_scatter.png" width="100%"/></p>
+<ul>
+<li>Overlap feature (% overlap after the alignment) in the degradation level, 10</li>
+</ul>
+<p><img src="images/shoes/Features/feature_scatter_deg10.png" width="100%"/></p>
+<p><strong>Random forest training for the variable importance</strong></p>
+<ul>
+<li><p>Trained the RF, in the degradatino level of 0 and 10, on the class with the variables of all similarities by each feature type.</p></li>
+<li><p>Degradation level 0
+<img src="images/shoes/Features/varimp_deg0.png" width="100%"/></p></li>
+<li><p>Degradation level 10
+<img src="images/shoes/Features/varimp_deg10.png" width="100%"/></p></li>
+</ul>
 </div>
 <div id="research-2-impact-of-weight-to-outsole-scans-from-everos-2d-scanner" class="section level3">
 <h3><span class="header-section-number">6.6.6</span> Research 2: Impact of weight to outsole scans from EverOS 2D scanner</h3>

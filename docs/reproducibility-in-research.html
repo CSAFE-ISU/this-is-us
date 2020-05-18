@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-04-13" />
+<meta name="date" content="2020-04-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -189,9 +189,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5" data-path="glass.html"><a href="glass.html"><i class="fa fa-check"></i><b>5</b> Glass</a><ul>
 <li class="chapter" data-level="5.1" data-path="glass.html"><a href="glass.html#data-collection-2"><i class="fa fa-check"></i><b>5.1</b> Data collection</a></li>
-<li class="chapter" data-level="5.2" data-path="glass.html"><a href="glass.html#the-astm-standard-method"><i class="fa fa-check"></i><b>5.2</b> The ASTM standard method</a></li>
-<li class="chapter" data-level="5.3" data-path="glass.html"><a href="glass.html#learning-algorithms-to-evaluate-forensic-glass-evidence"><i class="fa fa-check"></i><b>5.3</b> Learning algorithms to evaluate forensic glass evidence</a></li>
-<li class="chapter" data-level="5.4" data-path="glass.html"><a href="glass.html#evaluation-and-comparison-of-methods-for-forensic-glass-source-conclusions"><i class="fa fa-check"></i><b>5.4</b> Evaluation and comparison of methods for forensic glass source conclusions</a></li>
+<li class="chapter" data-level="5.2" data-path="glass.html"><a href="glass.html#data-collection-2.0"><i class="fa fa-check"></i><b>5.2</b> Data collection 2.0</a></li>
+<li class="chapter" data-level="5.3" data-path="glass.html"><a href="glass.html#the-astm-standard-method"><i class="fa fa-check"></i><b>5.3</b> The ASTM standard method</a></li>
+<li class="chapter" data-level="5.4" data-path="glass.html"><a href="glass.html#learning-algorithms-to-evaluate-forensic-glass-evidence"><i class="fa fa-check"></i><b>5.4</b> Learning algorithms to evaluate forensic glass evidence</a></li>
+<li class="chapter" data-level="5.5" data-path="glass.html"><a href="glass.html#evaluation-and-comparison-of-methods-for-forensic-glass-source-conclusions"><i class="fa fa-check"></i><b>5.5</b> Evaluation and comparison of methods for forensic glass source conclusions</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="shoes.html"><a href="shoes.html"><i class="fa fa-check"></i><b>6</b> Shoes</a><ul>
 <li class="chapter" data-level="6.1" data-path="shoes.html"><a href="shoes.html#longitudinal"><i class="fa fa-check"></i><b>6.1</b> Longitudinal Shoe Study</a><ul>
@@ -241,7 +242,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1" data-path="outreach-activities.html"><a href="outreach-activities.html#book-on-forensic-science-and-statistics"><i class="fa fa-check"></i><b>8.1</b> Book on Forensic Science and Statistics</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html"><i class="fa fa-check"></i><b>9</b> Reproducibility in Research</a><ul>
-<li class="chapter" data-level="9.1" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html#computational-reproducibility"><i class="fa fa-check"></i><b>9.1</b> Computational Reproducibility</a></li>
+<li class="chapter" data-level="9.1" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html#computational-reproducibility"><i class="fa fa-check"></i><b>9.1</b> Computational Reproducibility</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html#computational-reproducibility-in-team-based-collaboration"><i class="fa fa-check"></i><b>9.1.1</b> Computational Reproducibility in Team-based Collaboration</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -282,9 +285,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Because packages like <code>bulletxtrctr</code> and the methodology for different steps (e.g., groove ID, crosscut ID) are still changing and new approaches are being added, we need to be thoughtful and careful about reporting results and working to make sure our results are reproducible by other team members and outside users.</p>
 <p>This is not isolated to just the bullet project, either. Let’s consider three major projects at CSAFE and their associated packages: <code>bulletxtrctr</code> and <code>x3ptools</code> for the bullet project, <code>handwriter</code> for the handwriting project, and <code>shoeprintr</code> for the shoe project.</p>
 <p><img src="images/reproducibility/csafe_packages_tree.png" width = "100%"/></p>
-<p>A total of 109 different packages are involved!!!!! This is a LOT of packages, and it leaves ``open forensic science in R" very vulnerable to changes in other packages.</p>
+<p>A total of 109 different packages are involved!!!!! This is a LOT of packages, and it leaves “open forensic science in R” very vulnerable to changes in other packages.</p>
 <p>To remedy this, we are developing a package to help manage dependencies and track when functions change. It is ongoing work, and by the next spotlight I should be able to share some use cases, examples, and functionality that will majorly assist our package development workflow.</p>
+<div id="computational-reproducibility-in-team-based-collaboration" class="section level3">
+<h3><span class="header-section-number">9.1.1</span> Computational Reproducibility in Team-based Collaboration</h3>
+<p>In order to investigate just how vulnerable our teams are to differences in code across machines, we can perform a small case study of the CSAFE bullet team and each team member’s package inventories.</p>
+<p>I asked each member of the bullet project to use the <code>manager</code> tools we have developed to take an inventory of their package versions when they use the <code>bulletxtrctr</code> package (<code>take_inventory(packages = c("bulletxtrctr"))</code>), and send me their inventory.</p>
+<p>I received:</p>
+<ul>
+<li>9 total inventories<br />
+</li>
+<li>6 unique users (one user on 3 machines, one user on 2 machines)</li>
+</ul>
+<p>We first want to look at all the CSAFE R packages that are used when data analysis is done. The four packages developed by the team at CSAFE interact with one another during the bullet data analysis process:</p>
+<p><img src="images/reproducibility/pipeline-packages.png" width = "90%"/></p>
+<p>Most of these packages are under active development, which means that one or more people on the team are adding or changing functionality. This means that across the bullet team we can have multiple versions of the packages in question. We can look at the versions of the bullet-related packages that the team has:</p>
+<p><img src="images/reproducibility/bullet-package-versions.png" width = "90%"/></p>
+<p>This only accounts for the four bullet packages we are actively developing; however, there are a lot more packages implicitly involved when we call the <code>bulletxtrctr</code> package. We can take a look at a sampling of those package versions:</p>
+<p><img src="images/reproducibility/nonbullet-package-versions.png" width = "90%"/></p>
+<p>We can already see a lot of differences in package versions, but we are most interested in where <strong>functions</strong> and <strong>objects</strong> actually differ between packages. Just because two users or machines have two different versions of a package doesn’t mean there are any <strong>functional</strong> differences between the functions or objects employed in a script in question.</p>
+<p><img src="images/reproducibility/bullet-function-versions.png" width = "90%"/></p>
+<p>There is some inconsistency! There are only two pairs of users who have the same exact sets of functions, which means any other two users who run an analysis may end up with different results.</p>
+<p>However, we have also quickly identified specific functions which differ across the team, and can now focus on identifying whether these functions are used in a script in question, or for a particular analysis.</p>
 
+</div>
 </div>
 </div>
             </section>

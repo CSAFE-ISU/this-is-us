@@ -67,6 +67,27 @@ There is some inconsistency! There are only two pairs of users who have the same
 However, we have also quickly identified specific functions which differ across the team, and can now focus on identifying whether these functions are used in a script in question, or for a particular analysis.  
 
 
+*Kiegan Summer 2020 Plans*:  
+
+1. Work on CSAFE Statistics and Forensics Book  
+  - Chapter 1, Intro: **outline and draft**  
+  - Chapter 2, Analysis of Forensic Evidence: **written and edited**  
+  - Chapter 3, The Path to the Witness Stand: **written, partially edited**   
+  - Chapter 4, Communicating Evidence in the Courtroom: **draft and edit**  
+  - Chapter 5, Conclusions: **outline and draft**  
+2. Publication of Research Work  
+  - Groove ID Methods paper with Nate Garton. Aiming for FSI. **editing and submission**  
+  - Bullet scanning variability study   
+    - Forensic community-facing paper, study design and key findings   
+    - Statistics community-facing paper, statistical methodology and application    
+  - Computational Reproducibility Package, manager  
+    - Documentation and cleaning up, CRAN submission (?)   
+    - Written paper about tools with case studies   
+3. Presentation of Research Work   
+  - Symposium on Data Science and Statistics (SDSS)  
+4. Personal: Submit final dissertation, find a job  
+
+
 
 
   

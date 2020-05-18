@@ -2497,6 +2497,12 @@ Connecting survey questions:
 2. Linking possible questions to the conceptual cognitive theory
 3. Best set of questionnaires need to be figured out.
 
+## Research Plan Summer
+
+1. Trust model
+2. User study design
+3. JSM - Bullet scoring - Adapted Chumbley
+
 ### Conference Presentations  
 
 #### American Academy of Forensic Sciences  

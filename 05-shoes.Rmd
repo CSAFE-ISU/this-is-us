@@ -331,11 +331,31 @@ Ideas:
 - length of border/edges detected
 
 
-## Passive Shoe Recognition {#connor}
+## Shoe Scanner - Passive Shoe Recognition {#shoescanner}
 
 ### NIJ Grant
 
 Grant scope: Build the shoe scanner, develop an automatic recognition algorithm for geometric design elements, test the scanner in locations around Ames.
+
+#### Hardware
+
+#### Software
+
+##### Whole-Shoe Object Detection
+
+**Project Overview**
+
+- Explore the use of RCNNs for whole-shoe object detection 
+
+
+##### Restoring Shoe Images
+
+**Overview**
+
+- Use CNNs to "upsample" manually degraded shoe images (or pairs of ideal and realistic images), restoring as much of the original pattern as possible.
+
+
+
 
 ### CoNNOR: Convolutional Neural Network for Outsole Recognition##
 
@@ -379,7 +399,7 @@ Grant scope: Build the shoe scanner, develop an automatic recognition algorithm 
 ["W-Net: A Deep Model for Fully Unsupervised Image Segmentation"](https://arxiv.org/pdf/1711.08506.pdf)
 
 
-### Spatial integration
+#### Spatial integration
 
 The overhead costs of going fully convolutional are high; CNN papers are opaque, and many supervised techniques require fully labeled data for semantic segmentation (i.e., label every pixel). Moreover, complex models (for both supervised and unsupervised tequniques) are often only available in Python, and there are a large number of GitHub repositories of mixed quality and reliability. Filtering for quality, understanding code structures, and implementing them on HPC are all enormous tasks on their own.
 

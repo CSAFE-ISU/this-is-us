@@ -16,10 +16,21 @@ description: "This is our new approach of showing our  progress one week at a ti
 
 This project is a hugely collaborative effort across a large number of individuals. In order to avoid (technical) conflicts between contributions and contributors, we all need to follow a set of guidelines.
 
-## Technical requirements
+## Setting up the repository
 
 1. *Git and Github*: git has to be installed on your machine ([instructions](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)).
 Create a *free* Github account at https://github.com/. Most likely you qualify for one of their [educational discounts](https://education.github.com/). You can always upgrade your account at a later date, when you have a better idea of what the benefits mean.
 2. Become a member of the [csafe-isu github organization](https://github.com/CSAFE-ISU). For that send email with your github handle (the login you have just created) to hofmann at iastate dot edu. Dr Hofmann will then give you access to the organization.
 3. Create a local copy of the [this-is-us repository](https://github.com/CSAFE-ISU/this-is-us) on your machine by cloning it (the green button on the right hand side).
 4. Open the RStudio project in the this-is-us folder. I am assuming that you have set up git in Rstudio. Run the command `usethis::git_vaccinate` in the console. (In case you don't have the package `usethis` installed, run the command `install.packages("usethis")` beforehand.) The `git_vaccinate()` command  creates a file called .gitignore that prevents you from accidentally sharing personal credentials stored in files `.DS`, `.Rproj.user`, and `.Rhistory`.
+
+## Contributions to the repository
+
+Everybody is expected to add a summary of their work since the last show-and tell meeting. Think of this write-up as our joint lab book, that is organized by topic rather than chronologically.
+
+The mechanism to work with any github repository is `pull` - `commit` - `push`. When you are working collaboratively make sure that you commit and push often to avoid conflicts with your collaborators.
+
+1. *pull*: once RStudio has been set up properly, you will have an additional tab in your environment pane called `Git`. 
+
+
+

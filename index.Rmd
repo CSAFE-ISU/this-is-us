@@ -30,7 +30,34 @@ Everybody is expected to add a summary of their work since the last show-and tel
 
 The mechanism to work with any github repository is `pull` - `commit` - `push`. When you are working collaboratively make sure that you commit and push often to avoid conflicts with your collaborators.
 
-1. *pull*: once RStudio has been set up properly, you will have an additional tab in your environment pane called `Git`. 
+1. *pull*: once RStudio has been set up properly, you will have an additional tab in your environment pane called `Git`. The bluish downwards arrow is a shortcut for a pull. Click it and make sure that you don't get an error message. 
+
+2. *build*: Once everything is pulled, build the book by first selecting the tab `Build` and then hitting the `Build Book` hammer.
+
+3. make changes: work in your changes summarizing the work you have done since the last show and tell. Abstain from writing a novel - go for succinct and precise :)
+We are using Rmarkdown to write. There are plenty of resources for learning/brushing up on your Rmarkdown skills, e.g.:
+
+    - [cheatsheet with Rmarkdown commands](https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+    - Rstudio's [tutorial](https://rmarkdown.rstudio.com/)
+
+4. including figures: our work revolves around pattern evidence, so it is quite natural to include figures and graphs. There is a folder called `images` in the repo, within that each area has a subfolder. Pick the one that best describes your work. Create a folder with your name or your project's name. All of your figures should live inside that.
+Use the *local* path to your images, i.e. I would include my file `image.png` as `images/bullets/heike/image.png`.
+Image files should be either PNGs (png) or JPEGs (extension jpg or jpeg). PDF files as images will not show up in on the websites.
 
 
+5. *build*: Make sure that your changes don't introduce any technical problems. Also spellcheck your work. The html is living online, openly visible. Documents with lots of typos don't show us at our best.
 
+
+6. *commit*: commits are git's way of saving things. Try to be as specific in your commit message as you can. `Heike's changes for the show and tell on May 21` might be a correct message, but are completely void of information two months later, because the commit message is also dated. A commit message of `description of general work process for this-is-us repo` is much more helpful.
+
+7. check that you have added all the *figures* or any other new files. 
+Clicking on the checkmark in front of file in the Git panel will change the Status icon to a red A indicating that a file has been added. 
+Be careful with this power, files that have been pushed online can practically never be taken back. So DO NOT ADD DATA before double checking with your PI. Do not add passwords, credit card information, or other personal information.
+
+8. *push*: move your changes online by pushing. The greenish upwards arrow in the Git tab is a shortcut for that.
+
+9. Rinse and repeat 1-8. 
+
+While it looks like a long shopping list of things to remember, once you have gone through the cycle a few times, you will find that it becomes second nature. 
+
+Welcome on the CSAFE ship :)

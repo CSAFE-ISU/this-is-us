@@ -58,259 +58,7 @@ All bullets are collected by Srinivasan Rathinam, LAPD.
 
 scans are on Raven.
 
-<p class="new">evaluation: Yawei is going to work through all 626 barrels of knowns to assess similarity scores</p>
 
-```{r, fig.cap="Results from assessing scans of barrel FAU 1 similarity.", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/results-FAU-1.png"))
-```
-
-```{r, fig.cap="Results from assessing scans of barrel FAU 2 similarity.", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c( "images/yawei/results-FAU-2.png"))
-```
-
-Why some of the cases failed? (181/626 = 30%)
-
-`x3p_crosscut_optimize()` failed to find the positions to get cross cut for some lands.
-
-```{r, fig.cap="Land scan for barrel FAU 3 bullet A land 6.", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/lapd-FAU-3-Bullet-A-land-6.PNG"))
-```
-
-```{r, fig.cap="Land scan for barrel FAU 4 bullet C land 5.", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/lapd-FAU-4-Bullet-C-land-5.PNG"))
-```
-
-```{r, fig.cap="Land scan for barrel FAU 5 bullet B land 5.", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/lapd-FAU-5-Bullet-B-land-5.PNG"))
-```
-
-Assess the land-land comparasion and bullet-bullet comparasion
-
-For bullet-bullet comparasion: we use the "sequence average maximum"(SAM), i.e. average ccf of "lines" of land-land comparasions, as the bullet similarity score(currently).
-
-By making use of 92 manually generated comparasion data, we try to produce the KM(known-matches) and KNM(known-non-matches) plot.
-
-For the known mathches, we have totally 626 x 6 = 3756 for the LAPD data, excluding the comparasions for same bullet.
-
-For the known non-matches, we don't have the data in hand. We need to generate the data in a way. We have totally 626 x 625/2 x 16 = 313000 known non-matches. We can only generate a sample from the data.
-
-We sampled 100 bullet-bullet known non-matches from our 92 cases.
-
-```{r, fig.cap="KM and KNM", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/knmkm.png"))
-```
-
-Is the SAM(sequence average maximum) a good choice? Need to do a permutation test.
-
-```{r, fig.cap="SAM permutation result", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/sam_1.PNG"))
-```
-
-```{r, fig.cap="SAM permutation result among maxmum", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/sam_max_1.PNG"))
-```
-
-Possible dependence structure in land-land comparasions:
-
-Assume beta distributions for the ccf for both known mathces and known non-matches. For the real known match cases, we consider a mixture distribution of two/three beta distribution.
-
-```{r, fig.cap="KM three components for all data", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/km-three-alldata.png"))
-```
-
-```{r, fig.cap="KNM two components for all data", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/knm-two-alldata.png"))
-```
-
-```{r, fig.cap="common component", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/commoncomp.png"))
-```
-
-Ten-fold-cross validation (no validation yet), check the model estimator sensibility
-
-```{r, fig.cap="KM ten-fold models for two components", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/km-two.png"))
-```
-
-```{r, fig.cap="KM ten-fold models for three components", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/km-three.png"))
-```
-
-```{r, fig.cap="KNM ten-fold models for one component", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/knm-one.png"))
-```
-
-```{r, fig.cap="KNM ten-fold models for two components", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/knm-two.png"))
-```
-
-Increasing sample size: 1, 2, 6, 12, ... number of barrels
-
-```{r, fig.cap="KM increasing sample models for two components", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/km-two-cum.png"))
-```
-
-```{r, fig.cap="KNM increasing sample models for one components", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/knm-one-cum.png"))
-```
-
-```{r, fig.cap="KM increasing sample for first component", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/km-c1-cum.png"))
-```
-
-More on the weight
-
-```{r, fig.cap="Prior weight on components", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/priorboxplot.png"))
-```
-
-More on one barrel case
-
-```{r, fig.cap="KM one barrel model for the frist ten barrels", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/onebarrel.png"))
-```
-
-Some conclusions from current plots:
-
-1. Generally, the fits are stable in both ten-fold-cross validation and increasing sample cases
-2. In ten-fold model, group8 model behaves a little different from others when in three components case
-3. In increasing sample models, the one barrel model is not stable, but the one in our case is still a rarare case
-4. The three components model for KM is less stable than two components one especially in small sample cases
-5. Two components model for KNM is not stable in small sample case(in terms of weight)
-
-After fitting Beta mixture models with different number of components and analysis with the actual fit (more on this). We finally choose Beta mixture models with two components for both KM and KNM distributions of land-land comparisons. Then we will make further inference about the land-land comparisons based on that. Specifically, we will use log likelihood ratios to quantify how strong our evidence is to support that two lands are from the same source.
-
-To evaluate the Beta mixture models for KM and KNM, we produce ROC curves using log likelihood ratios. We also evaluate the models in different cases to see how stable the fits are and how effective the procedure is to classify the land-land comparisons. Since the log likelihood ratios require both KM and KNM models, we will control the KNM model as the full-data fitted KNM model and focus mainly on the KM models in the following sections unless otherwise specified such as in the one-barrel comparisons later where we use the KNM fitted from within barrels with three bullets.
-
-We produced ROC curves in three different cases:
-
-1)	Cross validation KM models and full data KNM model. Each KM model is fitted with 54 barrels, 1944 land-land comparisons.
-
-2)	Different size KM models and full data KNM model. KM models has sample size from 1 to 60 barrels. (1, 2, 6, 12, …, 60 as stated before)
-
-3)	One-barrel KM models and full data KNM model. One-barrel KM models use the first ten barrels.
-
-From the ROC curves, we can easily see how stable our procedure is in terms of the classification performance. Note that those ROC curves start with the y-axis higher than 0.5 (which may be changed later). And the TPR(y-value) goes up steeply to about 0.75 with almost no change in FPR(x-value). Then the curve gradually goes up with different rates. There are two significant points from the ROC curves: 1) the pattern is very stable in the ROC curves across different cases and within each case; 2) the models perform very well. And also note that when we produce ROC curves, we need to get test sets and specify sample size and proportion. Here we generate the test set from the full data randomly, and set KM/KNM ratio as 200/1000. The same set is used in all three ROC plots. We choose such a ratio to make the true positive classification more difficult. If we set KM/KNM as 1000/1000, the curves will be smoother and get rid of those concave regions in current plots and of course, perform a little better in those concave regions but not significantly different in overall performance and pattern.
-
-
-```{r, fig.cap="ROC-cv-models", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/roc-cvmodels-new.png"))
-```
-
-```{r, fig.cap="ROC-different-size-models", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/roc-differentsize-new.png"))
-```
-
-```{r, fig.cap="ROC-one-barrel", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/roc-onebarrel-new.png"))
-```
-
-
-To summarize the model fits we have, we compare several important parameters in the following tables. We primarily focus on how stable the model we have with fixed sample size and across different sample sizes. 
-
-From the KM-table and KNM-table, we have the following observations: 1) The weight of the components is not stable in terms of large standard errors in both KM and KNM cases with small sample sizes. 2) The mean values of the distributions (parameter mu) are relatively stable, especially for the primary components (first component for KNM and second component for KM). 3) The variance of the estimated distributions (parameter phi) is not stable, which is reasonable because it takes care of the variation of the data in each fit. 4) The variance of the estimated distributions (parameter phi) decreases as sample size increases. To better understand how well the model fit is and how stable it is we should also refer to the actual curves to help us see what those parameters actually mean in the curves. And I would say three barrels may be a safe minimum sample size to get a stable fit across different cases in terms of handling differences and variations existing in data sets but it’s not the minimum sample size required to make good classifications. 
-
-
-```{r, fig.cap="KM-table", out.width="100%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/km-table1.PNG"))
-```
-
-```{r, fig.cap="KNM-table", out.width="100%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/knm-table1.PNG"))
-```
-
-We’re also interested in the variation of mean values of KM ccf in different barrels. The following boxplot with the global box as the right most one is shown for this comparison. From this plot, the constant mean value assumption may be challenged, however, we must take the practice work of scan and identification into considerations when making such conclusions.
-
-```{r, fig.cap="ccf in each barrel", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/ccfineachbarrel.png"))
-```
-
-To show how our model works in a single barrel case, we conduct the model fit as in the real case. We fit the KM and KNM models with three bullet comparisons (18 KM and 135 KNM land-land ccf respectively), and conduct a test on those comparisons with the forth bullet (18 KM and 105 KNM land-land ccf respectively). We conduct the above procedure in a LOO frame work, i.e. to leave one bullet out each time. The ROC curves for two barrels are shown as follows. We can see the classification results are almost as good as the previous ones.
-
-```{r, fig.cap="within barrel ROC for barrel 42 and 56", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/withinbarrel4256roc-new.png"))
-```
-
-Error Rate Control and Cutoff
-
-Based on our estimated models for KM and KNM, we hope to construct a test statistic to quatify how likely a new bullet has the same source with our testing bullets. We start from the land-land comparison and finally reach a bullet-bullet comparison based land-land comparison.
-
-We start with the well-known log-likelihood ratio, and see how well it works in our case. We define the statistic as: 
-
-$$T = log(\frac{KM}{KNM})$$
-
-In which case, we reject the null hypohesis that the new bullet is from different source from our testing bullets when we have a large value for $T$. 
-
-First we have a look at how this log-likelihood ratio statistic changes with respect to the ccf score we calculated.
-
-```{r, fig.cap="loglr-fau42", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/loglr-fau42.png"))
-```
-
-Clearly, there is a potential issue with the log-likelihood ratio since it is not monotone w.r.t ccf, which means a larger ccf may lead to a smaller test statistic sometimes. As we can see when ccf is 0.45, the log-lr is 0.127 > 0, however it goes below 0 when ccf increase to 0.523 (the cutoff with type one error rate as 0.05). We can also find another issue from a different aspect. If we set the type one error as 0.05 (which should be smaller in practice), then we find the ccf with this error rate from KNM (null hypothesis) is 0.523. Then the log-likelihood ratio we calculated at this point is -1.11, which means we have larger likelihood for KNM than KM even with this large enough cutoff in terms of the type one error rate. These two criteria give us contradicted results. The cutoff we set according to the usual type one error rate contradicted with the one indicated by log-likelihood ratio. However, the lower tail of the KM distribution at this cutoff here is 0.12, which is twice as larger as 0.05, which is contradicted with the log-lr again.
-
-Another issue arised in the situation above is that the cutoff according to type one error is also a lower tail cutoff with small probability for the alternative hypothesis. We may be able to reject the null hypothesis, but it is not enough to support the alternative hypothesis and those hypotheses may be rejected both depending on your construction of hypothesis. This is a problem caused by the fact that these two hypothetic distributions are far apart from each other. A smaller type one error rate might help. But the issue with the log-likelihood ratio can be severe sometimes because we have non-unimodal distributions and the comparison may happen beween two components of KM distribution, which might result in a misleading result. Besides, the tail behavior is quite sensitive to the model assumption and estimation, which we should avoid to rely on.
-
-So we might consider a probability based criteria instead of a density based criteria. The odds ratio statistic we are going to construct is promising. Given a cutoff $x_0$, we can determine the probabilities to be classified as matches for both KNM and KM distributions. Denote these probabilities for KNM and KM are $p_1$ and $p_2$ respectively, we can get the following form of odds ratio given a cutoff:
-
-$$odds~ratio = \frac{p_2/(1-p_2)}{p_1/(1-p_1)}$$
-
-notice that the numerator descreases w.r.t $x_0$, and the denominator descreases w.r.t $x_0$. We are able to calculate a maximum value of the odds ratio w.r.t $x_0$, which gives us a reasonable cutoff of ccf to be classified into matches.
-
-Other possible ways to get a cutoff and control the error rate may be
-
-1) Set a reasonable type one error rate in advance and report the cutoff
-
-2) From the ROC curve
-
-An additional requirement may be $$(1-p_2) > Mp_1$$ for a large M.
-
-We are going to compare the above methods next.
-
-```{r, fig.cap="two curves", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/curves.png"))
-```
-
-```{r, fig.cap="odds ratio", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/oddsratio2.png"))
-```
-
-```{r, fig.cap="comparison table", out.width="100%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/comparetable3.PNG"))
-```
-
-#### Look colser to the dependence structure of the land engraved areas
-
-There are some discussions about the existing patterns of dependence in the observed data. Inspired by that, we are trying to build a model to formalize those thoughts.
-
-We start from a model for the land engraved areas and try to develop a model for the ccfs in hand. We would naturely think about the following effects when producing characteristic features(in some measurement) on the lands we focused: 1) the barrel specific effect, 2) the land specific effect, 3) explosion effect, 4) random errors. If we are going to model this effect, there could be some models doing this jobs with different assumed denpendence structures accounted or expressed there. We are thinking about 1) the additive random effect model(if this is the correct name) , 2) some hierarchical structure with denpendence expressed somehow in the hyper parameters, 3) the glm.
-
-We start with the additive random effect model which has clearer structure at the first glance. We formulate the model as the following: 
-
-$Y_{ijk}$ is some measurement of a land engraved area from barrel $i$, land $j$(nested), and explosion $k$. 
-
-$$Y_{ijk} = \beta_0 + \mu_i + \nu_{ij} + \omega_k + \epsilon_{ijk}$$
-where, barrel effect, land effect, explosion effect, random effect are respectively:
-
-$\mu_i$~ iid $N(0, \sigma_{\mu}^2)$, $\nu_{ij}$~ iid $N(0, \sigma_{\nu}^2)$, $\omega_{k}$~ iid $N(0, \sigma_{\omega}^2)$, $\epsilon_{ijk}$~ iid $N(0, \sigma_{\epsilon}^2)$. (some more complicated structures are possible)
-
-Note this is a land model, however we want a ccf model. We first check the variance, covariance and correlations in different cases.
-
-$$Var(Y_{ijk}) = \sigma_{\mu}^2 + \sigma_{\nu}^2 + \sigma_{\omega}^2 + \sigma_{\epsilon}^2$$
-
-For the same barrel, same land but different expplosions(KM), we have the correlation:
-
-$$corr(Y_{ijk_1}, Y_{ijk_2}) = \frac{\sigma_{\mu}^2 + \sigma_{\nu}^2}{\sigma_{\mu}^2 + \sigma_{\nu}^2 + \sigma_{\omega}^2 + \sigma_{\epsilon}^2}$$
-
-For the same barrel, different land and different expplosions(some of KNM), we have the correlation:
-
-$$corr(Y_{ij_1k_1}, Y_{ij_2k_2}) = \frac{\sigma_{\mu}^2}{\sigma_{\mu}^2 + \sigma_{\nu}^2 + \sigma_{\omega}^2 + \sigma_{\epsilon}^2}$$
-
-Now we have a point estimator of the correlations in the above cases. To address our insterest, we need more than this. We could possiblly assume the beta distribution now as what we did previously(or mixed beta later). We are building a hierarchical model (not necessarily Bayesian now) for the ccfs with dependence structure considerred. We can reasonablly assume the above point estimation a mean value of the $Beta(\mu, \phi)$ (mean value parameterization, different $\mu$ from previous). We can somehow check the assumaption by some data driven methods. But the model we could have is then:
-
-$$Z_i \mbox{~}iid ~Beta(\mu_i, \phi_i)$$ 
-
-Where $i$ indicate the above two(or more) cases of correlations we are looking at. We could specify(assume) the model parameters by the additive random effect model through maximum likehood method or somehow.
 
 #### follow-up study 
 
@@ -1067,6 +815,7 @@ Discussion points:
 1. We (I) still need to get a handle on correctly estimating an upper bound or CI for when we have a singular model whose effect is estimated at 0.  
 2. Model and study design are very important!   
 3. When effects are small, they are difficult to estimate correctly; we will most likely overestimate them.  
+
 
 
 ### Cartridge Cases
@@ -2486,6 +2235,263 @@ In this method we extend the modified chumbley non-random method from land-to-la
 
 ## Analysis of Results  
 
+### Stability of the Analysis Process
+
+<p class="new">evaluation: Yawei is going to work through all 626 barrels of knowns to assess similarity scores</p>
+
+```{r, fig.cap="Results from assessing scans of barrel FAU 1 similarity.", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/results-FAU-1.png"))
+```
+
+```{r, fig.cap="Results from assessing scans of barrel FAU 2 similarity.", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c( "images/yawei/results-FAU-2.png"))
+```
+
+Why some of the cases failed? (181/626 = 30%)
+
+`x3p_crosscut_optimize()` failed to find the positions to get cross cut for some lands.
+
+```{r, fig.cap="Land scan for barrel FAU 3 bullet A land 6.", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/lapd-FAU-3-Bullet-A-land-6.PNG"))
+```
+
+```{r, fig.cap="Land scan for barrel FAU 4 bullet C land 5.", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/lapd-FAU-4-Bullet-C-land-5.PNG"))
+```
+
+```{r, fig.cap="Land scan for barrel FAU 5 bullet B land 5.", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/lapd-FAU-5-Bullet-B-land-5.PNG"))
+```
+
+Assess the land-land comparasion and bullet-bullet comparasion
+
+For bullet-bullet comparasion: we use the "sequence average maximum"(SAM), i.e. average ccf of "lines" of land-land comparasions, as the bullet similarity score(currently).
+
+By making use of 92 manually generated comparasion data, we try to produce the KM(known-matches) and KNM(known-non-matches) plot.
+
+For the known mathches, we have totally 626 x 6 = 3756 for the LAPD data, excluding the comparasions for same bullet.
+
+For the known non-matches, we don't have the data in hand. We need to generate the data in a way. We have totally 626 x 625/2 x 16 = 313000 known non-matches. We can only generate a sample from the data.
+
+We sampled 100 bullet-bullet known non-matches from our 92 cases.
+
+```{r, fig.cap="KM and KNM", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knmkm.png"))
+```
+
+Is the SAM(sequence average maximum) a good choice? Need to do a permutation test.
+
+```{r, fig.cap="SAM permutation result", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/sam_1.PNG"))
+```
+
+```{r, fig.cap="SAM permutation result among maxmum", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/sam_max_1.PNG"))
+```
+
+Possible dependence structure in land-land comparasions:
+
+Assume beta distributions for the ccf for both known mathces and known non-matches. For the real known match cases, we consider a mixture distribution of two/three beta distribution.
+
+```{r, fig.cap="KM three components for all data", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-three-alldata.png"))
+```
+
+```{r, fig.cap="KNM two components for all data", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-two-alldata.png"))
+```
+
+```{r, fig.cap="common component", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/commoncomp.png"))
+```
+
+Ten-fold-cross validation (no validation yet), check the model estimator sensibility
+
+```{r, fig.cap="KM ten-fold models for two components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-two.png"))
+```
+
+```{r, fig.cap="KM ten-fold models for three components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-three.png"))
+```
+
+```{r, fig.cap="KNM ten-fold models for one component", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-one.png"))
+```
+
+```{r, fig.cap="KNM ten-fold models for two components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-two.png"))
+```
+
+Increasing sample size: 1, 2, 6, 12, ... number of barrels
+
+```{r, fig.cap="KM increasing sample models for two components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-two-cum.png"))
+```
+
+```{r, fig.cap="KNM increasing sample models for one components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-one-cum.png"))
+```
+
+```{r, fig.cap="KM increasing sample for first component", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-c1-cum.png"))
+```
+
+More on the weight
+
+```{r, fig.cap="Prior weight on components", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/priorboxplot.png"))
+```
+
+More on one barrel case
+
+```{r, fig.cap="KM one barrel model for the frist ten barrels", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/onebarrel.png"))
+```
+
+Some conclusions from current plots:
+
+1. Generally, the fits are stable in both ten-fold-cross validation and increasing sample cases
+2. In ten-fold model, group8 model behaves a little different from others when in three components case
+3. In increasing sample models, the one barrel model is not stable, but the one in our case is still a rarare case
+4. The three components model for KM is less stable than two components one especially in small sample cases
+5. Two components model for KNM is not stable in small sample case(in terms of weight)
+
+After fitting Beta mixture models with different number of components and analysis with the actual fit (more on this). We finally choose Beta mixture models with two components for both KM and KNM distributions of land-land comparisons. Then we will make further inference about the land-land comparisons based on that. Specifically, we will use log likelihood ratios to quantify how strong our evidence is to support that two lands are from the same source.
+
+To evaluate the Beta mixture models for KM and KNM, we produce ROC curves using log likelihood ratios. We also evaluate the models in different cases to see how stable the fits are and how effective the procedure is to classify the land-land comparisons. Since the log likelihood ratios require both KM and KNM models, we will control the KNM model as the full-data fitted KNM model and focus mainly on the KM models in the following sections unless otherwise specified such as in the one-barrel comparisons later where we use the KNM fitted from within barrels with three bullets.
+
+We produced ROC curves in three different cases:
+
+1)	Cross validation KM models and full data KNM model. Each KM model is fitted with 54 barrels, 1944 land-land comparisons.
+
+2)	Different size KM models and full data KNM model. KM models has sample size from 1 to 60 barrels. (1, 2, 6, 12, …, 60 as stated before)
+
+3)	One-barrel KM models and full data KNM model. One-barrel KM models use the first ten barrels.
+
+From the ROC curves, we can easily see how stable our procedure is in terms of the classification performance. Note that those ROC curves start with the y-axis higher than 0.5 (which may be changed later). And the TPR(y-value) goes up steeply to about 0.75 with almost no change in FPR(x-value). Then the curve gradually goes up with different rates. There are two significant points from the ROC curves: 1) the pattern is very stable in the ROC curves across different cases and within each case; 2) the models perform very well. And also note that when we produce ROC curves, we need to get test sets and specify sample size and proportion. Here we generate the test set from the full data randomly, and set KM/KNM ratio as 200/1000. The same set is used in all three ROC plots. We choose such a ratio to make the true positive classification more difficult. If we set KM/KNM as 1000/1000, the curves will be smoother and get rid of those concave regions in current plots and of course, perform a little better in those concave regions but not significantly different in overall performance and pattern.
+
+
+```{r, fig.cap="ROC-cv-models", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/roc-cvmodels-new.png"))
+```
+
+```{r, fig.cap="ROC-different-size-models", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/roc-differentsize-new.png"))
+```
+
+```{r, fig.cap="ROC-one-barrel", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/roc-onebarrel-new.png"))
+```
+
+
+To summarize the model fits we have, we compare several important parameters in the following tables. We primarily focus on how stable the model we have with fixed sample size and across different sample sizes. 
+
+From the KM-table and KNM-table, we have the following observations: 1) The weight of the components is not stable in terms of large standard errors in both KM and KNM cases with small sample sizes. 2) The mean values of the distributions (parameter mu) are relatively stable, especially for the primary components (first component for KNM and second component for KM). 3) The variance of the estimated distributions (parameter phi) is not stable, which is reasonable because it takes care of the variation of the data in each fit. 4) The variance of the estimated distributions (parameter phi) decreases as sample size increases. To better understand how well the model fit is and how stable it is we should also refer to the actual curves to help us see what those parameters actually mean in the curves. And I would say three barrels may be a safe minimum sample size to get a stable fit across different cases in terms of handling differences and variations existing in data sets but it’s not the minimum sample size required to make good classifications. 
+
+
+```{r, fig.cap="KM-table", out.width="100%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/km-table1.PNG"))
+```
+
+```{r, fig.cap="KNM-table", out.width="100%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/knm-table1.PNG"))
+```
+
+We’re also interested in the variation of mean values of KM ccf in different barrels. The following boxplot with the global box as the right most one is shown for this comparison. From this plot, the constant mean value assumption may be challenged, however, we must take the practice work of scan and identification into considerations when making such conclusions.
+
+```{r, fig.cap="ccf in each barrel", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/ccfineachbarrel.png"))
+```
+
+To show how our model works in a single barrel case, we conduct the model fit as in the real case. We fit the KM and KNM models with three bullet comparisons (18 KM and 135 KNM land-land ccf respectively), and conduct a test on those comparisons with the forth bullet (18 KM and 105 KNM land-land ccf respectively). We conduct the above procedure in a LOO frame work, i.e. to leave one bullet out each time. The ROC curves for two barrels are shown as follows. We can see the classification results are almost as good as the previous ones.
+
+```{r, fig.cap="within barrel ROC for barrel 42 and 56", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/withinbarrel4256roc-new.png"))
+```
+
+Error Rate Control and Cutoff
+
+Based on our estimated models for KM and KNM, we hope to construct a test statistic to quatify how likely a new bullet has the same source with our testing bullets. We start from the land-land comparison and finally reach a bullet-bullet comparison based land-land comparison.
+
+We start with the well-known log-likelihood ratio, and see how well it works in our case. We define the statistic as: 
+
+$$T = log(\frac{KM}{KNM})$$
+
+In which case, we reject the null hypohesis that the new bullet is from different source from our testing bullets when we have a large value for $T$. 
+
+First we have a look at how this log-likelihood ratio statistic changes with respect to the ccf score we calculated.
+
+```{r, fig.cap="loglr-fau42", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/loglr-fau42.png"))
+```
+
+Clearly, there is a potential issue with the log-likelihood ratio since it is not monotone w.r.t ccf, which means a larger ccf may lead to a smaller test statistic sometimes. As we can see when ccf is 0.45, the log-lr is 0.127 > 0, however it goes below 0 when ccf increase to 0.523 (the cutoff with type one error rate as 0.05). We can also find another issue from a different aspect. If we set the type one error as 0.05 (which should be smaller in practice), then we find the ccf with this error rate from KNM (null hypothesis) is 0.523. Then the log-likelihood ratio we calculated at this point is -1.11, which means we have larger likelihood for KNM than KM even with this large enough cutoff in terms of the type one error rate. These two criteria give us contradicted results. The cutoff we set according to the usual type one error rate contradicted with the one indicated by log-likelihood ratio. However, the lower tail of the KM distribution at this cutoff here is 0.12, which is twice as larger as 0.05, which is contradicted with the log-lr again. 
+
+Another issue arised in the situation above is that the cutoff according to type one error is also a lower tail cutoff with small probability for the alternative hypothesis. We may be able to reject the null hypothesis, but it is not enough to support the alternative hypothesis and those hypotheses may be rejected both depending on your construction of hypothesis. This is a problem caused by the fact that these two hypothetic distributions are far apart from each other. A smaller type one error rate might help. But the issue with the log-likelihood ratio can be severe sometimes because we have non-unimodal distributions and the comparison may happen beween two components of KM distribution, which might result in a misleading result. Besides, the tail behavior is quite sensitive to the model assumption and estimation, which we should avoid to rely on.
+
+So we might consider a probability based criteria instead of a density based criteria. The odds ratio statistic we are going to construct is promising. Given a cutoff $x_0$, we can determine the probabilities to be classified as matches for both KNM and KM distributions. Denote these probabilities for KNM and KM are $p_1$ and $p_2$ respectively, we can get the following form of odds ratio given a cutoff:
+
+$$odds~ratio = \frac{p_2/(1-p_2)}{p_1/(1-p_1)}$$
+
+notice that the numerator descreases w.r.t $x_0$, and the denominator descreases w.r.t $x_0$. We are able to calculate a maximum value of the odds ratio w.r.t $x_0$, which gives us a reasonable cutoff of ccf to be classified into matches.
+
+Other possible ways to get a cutoff and control the error rate may be
+
+1) Set a reasonable type one error rate in advance and report the cutoff
+
+2) From the ROC curve
+
+An additional requirement may be $$(1-p_2) > Mp_1$$ for a large M.
+
+We are going to compare the above methods next.
+
+```{r, fig.cap="two curves", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/curves.png"))
+```
+
+```{r, fig.cap="odds ratio", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/oddsratio2.png"))
+```
+
+```{r, fig.cap="comparison table", out.width="100%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/comparetable3.PNG"))
+```
+
+#### Look colser to the dependence structure of the land engraved areas
+
+There are some discussions about the existing patterns of dependence in the observed data. Inspired by that, we are trying to build a model to formalize those thoughts.
+
+We start from a model for the land engraved areas and try to develop a model for the ccfs in hand. We would naturely think about the following effects when producing characteristic features(in some measurement) on the lands we focused: 1) the barrel specific effect, 2) the land specific effect, 3) explosion effect, 4) random errors. If we are going to model this effect, there could be some models doing this jobs with different assumed denpendence structures accounted or expressed there. We are thinking about 1) the additive random effect model(if this is the correct name) , 2) some hierarchical structure with denpendence expressed somehow in the hyper parameters, 3) the glm.
+
+We start with the additive random effect model which has clearer structure at the first glance. We formulate the model as the following: 
+
+$Y_{ijk}$ is some measurement of a land engraved area from barrel $i$, land $j$(nested), and explosion $k$. 
+
+$$Y_{ijk} = \beta_0 + \mu_i + \nu_{ij} + \omega_k + \epsilon_{ijk}$$
+where, barrel effect, land effect, explosion effect, random effect are respectively:
+
+$\mu_i$~ iid $N(0, \sigma_{\mu}^2)$, $\nu_{ij}$~ iid $N(0, \sigma_{\nu}^2)$, $\omega_{k}$~ iid $N(0, \sigma_{\omega}^2)$, $\epsilon_{ijk}$~ iid $N(0, \sigma_{\epsilon}^2)$. (some more complicated structures are possible)
+
+Note this is a land model, however we want a ccf model. We first check the variance, covariance and correlations in different cases.
+
+$$Var(Y_{ijk}) = \sigma_{\mu}^2 + \sigma_{\nu}^2 + \sigma_{\omega}^2 + \sigma_{\epsilon}^2$$
+
+For the same barrel, same land but different expplosions(KM), we have the correlation:
+
+$$corr(Y_{ijk_1}, Y_{ijk_2}) = \frac{\sigma_{\mu}^2 + \sigma_{\nu}^2}{\sigma_{\mu}^2 + \sigma_{\nu}^2 + \sigma_{\omega}^2 + \sigma_{\epsilon}^2}$$
+
+For the same barrel, different land and different expplosions(some of KNM), we have the correlation:
+
+$$corr(Y_{ij_1k_1}, Y_{ij_2k_2}) = \frac{\sigma_{\mu}^2}{\sigma_{\mu}^2 + \sigma_{\nu}^2 + \sigma_{\omega}^2 + \sigma_{\epsilon}^2}$$
+
+Now we have a point estimator of the correlations in the above cases. To address our insterest, we need more than this. We could possiblly assume the beta distribution now as what we did previously(or mixed beta later). We are building a hierarchical model (not necessarily Bayesian now) for the ccfs with dependence structure considerred. We can reasonablly assume the above point estimation a mean value of the $Beta(\mu, \phi)$ (mean value parameterization, different $\mu$ from previous). We can somehow check the assumaption by some data driven methods. But the model we could have is then:
+
+$$Z_i \mbox{~}iid ~Beta(\mu_i, \phi_i)$$ 
+
+Where $i$ indicate the above two(or more) cases of correlations we are looking at. We could specify(assume) the model parameters by the additive random effect model through maximum likehood method or somehow.
+
+
 ## Communication of Results and Methods  
 
 The results are communicated through an interactive user interface. The first part of this interface lets you add all the bullets, barrels and lands for which the random forest and other scores are to be computed. A preliminary diagnostic of the orientations and dimensions of the lands tell us, if we can proceed safely to extraction of markings and then to  cross-comparisons.
@@ -2517,6 +2523,12 @@ Connecting survey questions:
 1. Trust related questions
 2. Linking possible questions to the conceptual cognitive theory
 3. Best set of questionnaires need to be figured out.
+
+## Research Plan Summer
+
+1. Trust model
+2. User study design
+3. JSM - Bullet scoring - Adapted Chumbley
 
 ### Conference Presentations  
 

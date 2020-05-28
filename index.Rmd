@@ -14,23 +14,50 @@ description: "This is our new approach of showing our  progress one week at a ti
 
 # Prerequisites
 
-This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports, e.g., a math equation $a^2 + b^2 = c^2$.
+This project is a hugely collaborative effort across a large number of individuals. In order to avoid (technical) conflicts between contributions and contributors, we all need to follow a set of guidelines.
 
-The **bookdown** package can be installed from CRAN or Github:
+## Setting up the repository
 
-```{r eval=FALSE}
-install.packages("bookdown")
-# or the development version
-# devtools::install_github("rstudio/bookdown")
-```
+1. *Git and Github*: git has to be installed on your machine ([instructions](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)).
+Create a *free* Github account at https://github.com/. Most likely you qualify for one of their [educational discounts](https://education.github.com/). You can always upgrade your account at a later date, when you have a better idea of what the benefits mean.
+2. Become a member of the [csafe-isu github organization](https://github.com/CSAFE-ISU). For that send email with your github handle (the login you have just created) to hofmann at iastate dot edu. Dr Hofmann will then give you access to the organization.
+3. Create a local copy of the [this-is-us repository](https://github.com/CSAFE-ISU/this-is-us) on your machine by cloning it (the green button on the right hand side).
+4. Open the RStudio project in the this-is-us folder. I am assuming that you have set up git in Rstudio. Run the command `usethis::git_vaccinate` in the console. (In case you don't have the package `usethis` installed, run the command `install.packages("usethis")` beforehand.) The `git_vaccinate()` command  creates a file called .gitignore that prevents you from accidentally sharing personal credentials stored in files `.DS`, `.Rproj.user`, and `.Rhistory`.
 
-Remember each Rmd file contains one and only one chapter, and a chapter is defined by the first-level heading `#`.
+## Contributions to the repository
 
-To compile this example to PDF, you need XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <https://yihui.name/tinytex/>.
+Everybody is expected to add a summary of their work since the last show-and tell meeting. Think of this write-up as our joint lab book, that is organized by topic rather than chronologically.
 
-```{r include=FALSE}
-# automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'
-), 'packages.bib')
-```
+The mechanism to work with any github repository is `pull` - `commit` - `push`. When you are working collaboratively make sure that you commit and push often to avoid conflicts with your collaborators.
+
+1. *pull*: once RStudio has been set up properly, you will have an additional tab in your environment pane called `Git`. The bluish downwards arrow is a shortcut for a pull. Click it and make sure that you don't get an error message. 
+
+2. *build*: Once everything is pulled, build the book by first selecting the tab `Build` and then hitting the `Build Book` hammer.
+
+3. make changes: work in your changes summarizing the work you have done since the last show and tell. Abstain from writing a novel - go for succinct and precise :)
+We are using Rmarkdown to write. There are plenty of resources for learning/brushing up on your Rmarkdown skills, e.g.:
+
+    - [cheatsheet with Rmarkdown commands](https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+    - Rstudio's [tutorial](https://rmarkdown.rstudio.com/)
+
+4. including figures: our work revolves around pattern evidence, so it is quite natural to include figures and graphs. There is a folder called `images` in the repo, within that each area has a subfolder. Pick the one that best describes your work. Create a folder with your name or your project's name. All of your figures should live inside that.
+Use the *local* path to your images, i.e. I would include my file `image.png` as `images/bullets/heike/image.png`.
+Image files should be either PNGs (png) or JPEGs (extension jpg or jpeg). PDF files as images will not show up in on the websites.
+
+
+5. *build*: Make sure that your changes don't introduce any technical problems. Also spellcheck your work. The html is living online, openly visible. Documents with lots of typos don't show us at our best.
+
+
+6. *commit*: commits are git's way of saving things. Try to be as specific in your commit message as you can. `Heike's changes for the show and tell on May 21` might be a correct message, but are completely void of information two months later, because the commit message is also dated. A commit message of `description of general work process for this-is-us repo` is much more helpful.
+
+7. check that you have added all the *figures* or any other new files. 
+Clicking on the checkmark in front of file in the Git panel will change the Status icon to a red A indicating that a file has been added. 
+Be careful with this power, files that have been pushed online can practically never be taken back. So DO NOT ADD DATA before double checking with your PI. Do not add passwords, credit card information, or other personal information.
+
+8. *pull-push*: move your changes online by pushing. In order to make sure that you incorporate all the changes that collaborators have made since you have pulled your changes last (in 1), update your document with another `pull` first. Once that has successfully happened, `push` your changes to the repo by clicking on the greenish upwards arrow in the Git tab.
+
+9. Rinse and repeat 1-8. 
+
+While it looks like a long shopping list of things to remember, once you have gone through the cycle a few times, you will find that it becomes second nature. 
+
+Welcome on the CSAFE ship :)

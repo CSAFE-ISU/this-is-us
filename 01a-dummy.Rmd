@@ -1,0 +1,3 @@
+# Dummy file 
+
+You can make changes and edits in this file as much as you want to - there's no danger in messing anything up :)

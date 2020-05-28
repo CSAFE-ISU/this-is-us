@@ -54,7 +54,7 @@ Image files should be either PNGs (png) or JPEGs (extension jpg or jpeg). PDF fi
 Clicking on the checkmark in front of file in the Git panel will change the Status icon to a red A indicating that a file has been added. 
 Be careful with this power, files that have been pushed online can practically never be taken back. So DO NOT ADD DATA before double checking with your PI. Do not add passwords, credit card information, or other personal information.
 
-8. *push*: move your changes online by pushing. The greenish upwards arrow in the Git tab is a shortcut for that.
+8. *pull-push*: move your changes online by pushing. In order to make sure that you incorporate all the changes that collaborators have made since you have pulled your changes last (in 1), update your document with another `pull` first. Once that has successfully happened, `push` your changes to the repo by clicking on the greenish upwards arrow in the Git tab.
 
 9. Rinse and repeat 1-8. 
 

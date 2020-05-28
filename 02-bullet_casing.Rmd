@@ -2446,12 +2446,33 @@ While we haven't been able to perfectly replicate results of other authors, I do
 
 </details>
 
-Joe 5/18 Summer plans:
+<details>
+<summary>
+Joe 5/28 Update: I've been writing and adding more functionality to the cmcR package in the last few weeks. I believe we are close to finishing the R Journal submission and are on the home stretch for finishing the cmcR package.
+</summary>
 
- - R Journal submission (hopefully soon!)
- - cmcR package final touches
- - Begin working on ideas we've had brewing for a while now of how to improve the method
- - Prelim studying!
+I have been working on a lot of the "boring" parts of package writing including adding some functionality, writing tests, and improving documentation. Writing has also taken up a considerable amount of time. For those of you who are new, I thought I would share some exposition for my project and discuss its current condition.
+
+The back wall of the barrel of the firearm is commonly referred to as the breech face. For a variety of reasons, the breech face of a firearm contains markings that can uniquely identify the firearm. During the firing process, cartridge cases, often colloquially referred to as "bullet casings," slam into the breech face. The breech face markings are impressed upon the cartridge case when this happens. Two cartridge cases fired from the same firearm can often be matched based on these "breech face impressions." 
+
+The Congruent Matching Cells (CMC) method was developed at the National Institute of Standards and Technology to determine whether two cartridge cases match. The method involves partitioning a scan of one cartridge case into a grid of cells. Each of these cells is paired with a counterpart region in the other cartridge case scan. In their "raw" format, two matching cartridge case scans are not necessarily aligned. In particular, one scan may need to be translated and rotated to properly align with the other. These "alignment parameter" values by which two scans will be properly aligned can be estimated for each cell/region pair (I'll skip over how this is done). The CMC method tries to determine whether a "consensus" exists among the estimated alignment parameter values across cell/region pairs. For a truly matching pair of cartridge cases, we would expect the estimated alignment parameter values to agree with each other (possibly within some tolerance). On the other hand, we would expect the estimated alignment parameter values to vary randomly for a truly *non*-matching pair of cartridge cases.
+
+The plots below illustrate the CMC method (now implemented in a function in the cmcR package!). The plot immediately below shows results from a comparison between two known match cartridge case scans. The scans were partitioned into an $8 \times 8$ grid of cells. Cells shown in black have been identified as "Congruent Matching Cells." Red cells have not been identified as CMCs. Recall that the CMC method uses the estimated alignment parameter (translation and rotation) values to identify matches (we skipped over the finer details). The plot on the right-hand side shows how each cell in the left-hand side plot aligns "best," where "best" is quantified using the cross-correlation function. 40 cells were identified as CMCs while 3 were not.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/5-28_update/kmCMCs.png")
+```
+
+In contrast, the plots below show the results from a comparison between two known *non*-match cartridge case scans.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/5-28_update/knmCMCs.png")
+```
+
+As I said above, we are close to finishing the R Journal submission as well as the development of the cmcR package. I'm very excited to delve into *new* ideas that we have for the project and will hopefully have thoughts to share on this in the future.
+
+</details>
+
 
 ### Modified Chumbley non-random test
 #### Land-to-land scores

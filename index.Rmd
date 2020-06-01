@@ -28,7 +28,7 @@ Create a *free* Github account at https://github.com/. Most likely you qualify f
 
 Everybody is expected to add a summary of their work since the last show-and tell meeting. Think of this write-up as our joint lab book, that is organized by topic rather than chronologically.
 
-The mechanism to work with any github repository is `pull` - `commit` - `push`. When you are working collaboratively make sure that you commit and push often to avoid conflicts with your collaborators.
+The mechanism to work with any github repository is `pull` - `commit` - `pull` - `push`. When you are working collaboratively make sure that you commit and push often to avoid conflicts with your collaborators.
 
 1. *pull*: once RStudio has been set up properly, you will have an additional tab in your environment pane called `Git`. The bluish downwards arrow is a shortcut for a pull. Click it and make sure that you don't get an error message. 
 

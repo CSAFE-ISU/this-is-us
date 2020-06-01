@@ -2197,7 +2197,7 @@ While we haven't been able to perfectly replicate results of other authors, I do
 
 <details>
 <summary>
-Joe 5/28 Update: I've been writing and adding more functionality to the cmcR package in the last few weeks. I believe we are close to finishing the R Journal submission and are on the home stretch for finishing the cmcR package.
+Joe 6/1 Update: I've been writing the R Journal submission and adding more functionality to the cmcR package in the last few weeks. I believe we are close to finishing the R Journal submission and are on the home stretch for finishing the cmcR package.
 </summary>
 
 I have been working on a lot of the "boring" parts of package writing including adding some functionality, writing tests, and improving documentation. Writing has also taken up a considerable amount of time. For those of you who are new, I thought I would share some exposition for my project and discuss its current condition.

@@ -339,6 +339,12 @@ Grant scope: Build the shoe scanner, develop an automatic recognition algorithm 
 
 #### Hardware
 
+- 2 molds made: Fiber cement held, modified cement is still under testing
+- Fiberglass in the ground being hydro-tested
+- Big mold - modified concrete, comes out of the mold tomorrow morning (2020-06-02)
+- Indoor ramp constructed - can hold 900 lbs safely
+- Electronics - waiting on plexiglass - proximity sensors aren't working in daylight with reg plexiglass. New plexiglass ordered wednesday to diffuse top-light better
+
 #### Software
 
 ##### Whole-Shoe Object Detection
@@ -347,6 +353,16 @@ Grant scope: Build the shoe scanner, develop an automatic recognition algorithm 
 
 - Explore the use of RCNNs for whole-shoe object detection 
 
+Preliminary results (using ~1000 previously classified images to train and then predict several thousand other images in a semi-supervised approach):
+
+![Model prediction](images/shoes/neuralnets/prediction_1.png)
+![Actual annotations](images/shoes/neuralnets/actual_1.png)
+
+![Model Prediction](images/shoes/neuralnets/prediction_2.png)
+![Actual annotation](images/shoes/neuralnets/actual_2.png)
+
+
+
 
 ##### Restoring Shoe Images
 
@@ -354,7 +370,9 @@ Grant scope: Build the shoe scanner, develop an automatic recognition algorithm 
 
 - Use CNNs to "upsample" manually degraded shoe images (or pairs of ideal and realistic images), restoring as much of the original pattern as possible.
 
+Proof of concept (with awful image scaling to 120x120 px... sorry)
 
+![Low light enhancement with CNNs](images/shoes/neuralnets/enhancement.PNG)
 
 
 ### CoNNOR: Convolutional Neural Network for Outsole Recognition##

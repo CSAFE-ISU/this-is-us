@@ -347,7 +347,7 @@ Grant scope: Build the shoe scanner, develop an automatic recognition algorithm 
 
 #### Software
 
-##### Whole-Shoe Object Detection
+##### Whole-Shoe Object Detection {.new}
 
 **Project Overview**
 
@@ -364,7 +364,7 @@ Preliminary results (using ~1000 previously classified images to train and then 
 
 
 
-##### Restoring Shoe Images
+##### Restoring Shoe Images {.new}
 
 **Overview**
 
@@ -376,7 +376,7 @@ Proof of concept (with awful image scaling to 120x120 px... sorry)
 
 
 ### CoNNOR: Convolutional Neural Network for Outsole Recognition##
-
+<details>
 **Project Overview**
 
   - Label images of shoes according to geometric classification scheme
@@ -457,7 +457,7 @@ In the meantime, it is much easier (relatively speaking) to use our existing fra
 
 </div>
 
-
+</details>
 
 
 ## Maximum Clique Matching {#maxclique}

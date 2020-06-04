@@ -501,3 +501,6 @@ data.res1 %>% ggplot(aes(y = prop, x = method)) + geom_boxplot() +
 
 - How to quantify the matching error rates when the training data only inlcude a small part of many potential groups?
 - How training errors change as more and more features are collected (dimension $p$ increases), where only a small fraction of those features carry useful signals (feature selection).
+
+
+### Contrasting Hypotesis in a court case. 

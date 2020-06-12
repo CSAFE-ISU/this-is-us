@@ -1,0 +1,21 @@
+Group Means:
+- - 10.0
+  - -10.0
+- - -1.0
+  - 1.0
+Group Variances:
+- - 25.0
+  - -4.0
+  - -4.0
+  - 25.0
+- - 25.0
+  - -4.0
+  - -4.0
+  - 25.0
+Total time (minutes): 108.1684329
+The number of repetitions: 100.0
+Average minutes for Optimal Rule: 1.0372759
+Average minutes for LDA: 0.0053017
+Average minutes for QDA: 0.0052208
+Average minutes for RF: 0.0096993
+Average minutes for LDA and QDA (feature differences): 0.0236853

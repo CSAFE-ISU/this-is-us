@@ -503,9 +503,6 @@ data.res1 %>% ggplot(aes(y = prop, x = method)) + geom_boxplot() +
 - How training errors change as more and more features are collected (dimension $p$ increases), where only a small fraction of those features carry useful signals (feature selection).
 
 
-<<<<<<< HEAD
-
-
 ### Optimal rule for matching problems
 
 We would like to statistically tell if two observations would have com from the same source or not, which is said to be matching problems. The optimal rule is designed to deal with matching problems, and to minimize the matching error rate defined as the unweighted or weighted sum of the probabilities related to mismatching the memberships of two observations.
@@ -637,7 +634,7 @@ Like above, two types of average ROC curves will be provided for comparing the p
 ```{r, echo = FALSE}
 output.f <- function(simulation.title){
 ## Simulation info amd times
- simul.info <-yaml::yaml.load_file(paste("./../Box Sync/Research (shared by Hana)/Simulations/",
+ simul.info <-yaml::yaml.load_file(paste("./images/foundations/optimal_rule/",
                                          simulation.title, ".yaml", sep = ""))
  if(is.list(simul.info[[2]]) == TRUE & length(unique(simul.info[[2]])) > 1){
    simul.info[[2]] <- lapply(simul.info[[2]], FUN = function(x) matrix(x, sqrt(length(x))))

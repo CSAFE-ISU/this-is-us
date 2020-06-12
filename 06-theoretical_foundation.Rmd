@@ -503,6 +503,7 @@ data.res1 %>% ggplot(aes(y = prop, x = method)) + geom_boxplot() +
 - How training errors change as more and more features are collected (dimension $p$ increases), where only a small fraction of those features carry useful signals (feature selection).
 
 
+<<<<<<< HEAD
 
 
 ### Optimal rule for matching problems
@@ -961,3 +962,5 @@ knitr::include_graphics("images/foundations/optimal_rule/Sp_dat4_avg_roc.png")
 knitr::include_graphics("images/foundations/optimal_rule/Sp_dat4_max_avg_roc.png")
 ```
 
+
+### Contrasting Hypotesis in a court case.

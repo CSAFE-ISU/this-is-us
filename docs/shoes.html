@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-05-28" />
+<meta name="date" content="2020-06-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -243,6 +243,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.5" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#optimal-matching-problem"><i class="fa fa-check"></i><b>8.5</b> Optimal matching problem</a><ul>
 <li class="chapter" data-level="8.5.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#two-groups-case."><i class="fa fa-check"></i><b>8.5.1</b> Two groups case.</a></li>
 <li class="chapter" data-level="8.5.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#topics-needs-exploration"><i class="fa fa-check"></i><b>8.5.2</b> Topics needs exploration</a></li>
+<li class="chapter" data-level="8.5.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#contrasting-hypotesis-in-a-court-case."><i class="fa fa-check"></i><b>8.5.3</b> Contrasting Hypotesis in a court case.</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="outreach-activities.html"><a href="outreach-activities.html"><i class="fa fa-check"></i><b>9</b> Outreach activities</a><ul>
@@ -574,27 +575,45 @@ Alignment Success:</p>
 <p>Grant scope: Build the shoe scanner, develop an automatic recognition algorithm for geometric design elements, test the scanner in locations around Ames.</p>
 <div id="hardware" class="section level4">
 <h4><span class="header-section-number">7.2.1.1</span> Hardware</h4>
+<ul>
+<li>2 molds made: Fiber cement held, modified cement is still under testing</li>
+<li>Fiberglass in the ground being hydro-tested</li>
+<li>Big mold - modified concrete, comes out of the mold tomorrow morning (2020-06-02)</li>
+<li>Indoor ramp constructed - can hold 900 lbs safely</li>
+<li>Electronics - waiting on plexiglass - proximity sensors aren’t working in daylight with reg plexiglass. New plexiglass ordered wednesday to diffuse top-light better</li>
+</ul>
 </div>
 <div id="software" class="section level4">
 <h4><span class="header-section-number">7.2.1.2</span> Software</h4>
-<div id="whole-shoe-object-detection" class="section level5">
+<div id="whole-shoe-object-detection" class="section level5 new">
 <h5><span class="header-section-number">7.2.1.2.1</span> Whole-Shoe Object Detection</h5>
 <p><strong>Project Overview</strong></p>
 <ul>
 <li>Explore the use of RCNNs for whole-shoe object detection</li>
 </ul>
+<p>Preliminary results (using ~1000 previously classified images to train and then predict several thousand other images in a semi-supervised approach):</p>
+<p><img src="images/shoes/neuralnets/prediction_1.png" alt="Model prediction" />
+<img src="images/shoes/neuralnets/actual_1.png" alt="Actual annotations" /></p>
+<p><img src="images/shoes/neuralnets/prediction_2.png" alt="Model Prediction" />
+<img src="images/shoes/neuralnets/actual_2.png" alt="Actual annotation" /></p>
 </div>
-<div id="restoring-shoe-images" class="section level5">
+<div id="restoring-shoe-images" class="section level5 new">
 <h5><span class="header-section-number">7.2.1.2.2</span> Restoring Shoe Images</h5>
 <p><strong>Overview</strong></p>
 <ul>
 <li>Use CNNs to “upsample” manually degraded shoe images (or pairs of ideal and realistic images), restoring as much of the original pattern as possible.</li>
 </ul>
+<p>Proof of concept (with awful image scaling to 120x120 px… sorry)</p>
+<div class="figure">
+<img src="images/shoes/neuralnets/enhancement.PNG" alt="Low light enhancement with CNNs" />
+<p class="caption">Low light enhancement with CNNs</p>
+</div>
 </div>
 </div>
 </div>
 <div id="connor-convolutional-neural-network-for-outsole-recognition" class="section level3">
 <h3><span class="header-section-number">7.2.2</span> CoNNOR: Convolutional Neural Network for Outsole Recognition</h3>
+<details>
 <p><strong>Project Overview</strong></p>
 <ul>
 <li>Label images of shoes according to geometric classification scheme</li>
@@ -665,6 +684,7 @@ Alignment Success:</p>
 <div class="new">
 <p><strong>Shiny app demo</strong></p>
 </div>
+</details>
 </div>
 </div>
 </div>

@@ -662,6 +662,9 @@ Once the PCA has done the initial alignment, then a secondary alignment needs to
 <img src="images/shoes/3dshoes/ICPall2.png" width="100%"/>
 <img src="images/shoes/3dshoes/ICPall3.png" width="100%"/>
     
+    
+Update 06/12/2020
+We are now taking the shoes that have been scanned using the turn table and collect them into a data package **shoesRus**. 
 ## Shoe outsole matching using image descriptors
 
 ### Method 1: Edge detection and MC (MC-COMP)

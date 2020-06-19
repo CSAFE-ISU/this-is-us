@@ -2197,37 +2197,52 @@ While we haven't been able to perfectly replicate results of other authors, I do
 
 <details>
 <summary>
-Joe 6/1 Update: I've been writing the R Journal submission and adding more functionality to the cmcR package in the last few weeks. I believe we are close to finishing the R Journal submission and are on the home stretch for finishing the cmcR package.
+Joe 6/22 Spotlight: I think we've finally found a tone for the paper that discusses the ambiguity and lack of computational reproducibility in the current CMC literature while not being overly harsh. We're hoping to use this project as an example to illustrate (1) common patterns in non-reproducible research such as omitting code, parameter settings, etc. and (2) what must be done to implement an algorithm that has only been qualitatively described.
 </summary>
 
-I have been working on a lot of the "boring" parts of package writing including adding some functionality, writing tests, and improving documentation. Writing has also taken up a considerable amount of time. For those of you who are new, I thought I would share some exposition for my project and discuss its current condition.
+First, I wanted to provide some context for those of us who are not familiar with the cartridge case project or the CMC method. This will also give me an opportunity to show-off some visualizations that I've spent a good deal of time putting together and incorporating into the cmcR package that I believe illustrates the concepts well.
 
 The back wall of the barrel of the firearm is commonly referred to as the breech face. For a variety of reasons, the breech face of a firearm contains markings that can uniquely identify the firearm. During the firing process, cartridge cases, often colloquially referred to as "bullet casings," slam into the breech face. The breech face markings are impressed upon the cartridge case when this happens. Two cartridge cases fired from the same firearm can often be matched based on these "breech face impressions." The plots below show a known match and known non-match pair of cartridge case scans.
 
 ```{r, fig.cap="Known match pair of cartridge cases"}
-knitr::include_graphics("images/cartridge_cases/5-28_update/kmPair.png", dpi = 100)
+knitr::include_graphics("images/cartridge_cases/6-22_spotlight//kmPair.png", dpi = 100)
 ```
 
 ```{r, fig.cap="Known non-match pair of cartridge cases"}
-knitr::include_graphics("images/cartridge_cases/5-28_update/knmPair.png", dpi = 100)
+knitr::include_graphics("images/cartridge_cases/6-22_spotlight//knmPair.png", dpi = 100)
 ```
 
+The Congruent Matching Cells (CMC) method was developed at the National Institute of Standards and Technology to determine whether two cartridge cases match. The method involves partitioning a scan of one cartridge case into a grid of cells. Each of these cells is paired with a counterpart region in the other cartridge case scan. In their "raw" format, two matching cartridge case scans are not necessarily aligned. In particular, one scan may need to be translated and rotated to properly align with the other. These "alignment parameter" values by which two scans will be properly aligned can be estimated for each cell/region pair (I'll skip over how this is done). The CMC method tries to determine whether a "consensus" exists among the estimated alignment parameter values across cell/region pairs. For a truly matching pair of cartridge cases, we would expect the estimated alignment parameter values to agree with each other (possibly within some tolerance). We would also expect the estimated alignment parameter values to vary randomly for a truly *non*-matching pair of cartridge cases. These are assumptions underlying all methods proposed in the CMC literature. Effectively, the only difference between the various methods is how a "consensus" is determined. We have implemented two methods, the initially proposed method from Song (2013) and the High CMC method from Tong et al. (2015), in the cmcR package (these were the first two versions of the CMC method proposed). I won't delve into the details of either method here.
 
-The Congruent Matching Cells (CMC) method was developed at the National Institute of Standards and Technology to determine whether two cartridge cases match. The method involves partitioning a scan of one cartridge case into a grid of cells. Each of these cells is paired with a counterpart region in the other cartridge case scan. In their "raw" format, two matching cartridge case scans are not necessarily aligned. In particular, one scan may need to be translated and rotated to properly align with the other. These "alignment parameter" values by which two scans will be properly aligned can be estimated for each cell/region pair (I'll skip over how this is done). The CMC method tries to determine whether a "consensus" exists among the estimated alignment parameter values across cell/region pairs. For a truly matching pair of cartridge cases, we would expect the estimated alignment parameter values to agree with each other (possibly within some tolerance). On the other hand, we would expect the estimated alignment parameter values to vary randomly for a truly *non*-matching pair of cartridge cases.
-
-The plots below illustrate the CMC method (now implemented in a function in the cmcR package!). The plot immediately below shows results from a comparison between two known match cartridge case scans. The scans were partitioned into an $8 \times 8$ grid of cells. Cells shown in black have been identified as "Congruent Matching Cells." Red cells have not been identified as CMCs. Recall that the CMC method uses the estimated alignment parameter (translation and rotation) values to identify matches (we skipped over the finer details). The plot on the right-hand side shows how each cell in the left-hand side plot aligns "best," where "best" is quantified using the cross-correlation function. 40 cells were identified as CMCs while 3 were not.
+The plots below illustrate the CMC method. The plot immediately below shows results from a comparison between two known match cartridge case scans. The scans were partitioned into an $8 \times 8$ grid of cells. Cells shown in black have been identified as "Congruent Matching Cells." Red cells have not been identified as CMCs. Recall that the CMC method uses the estimated alignment parameter (translation and rotation) values to identify matches. The plot on the right-hand side shows how each cell in the left-hand side plot aligns best (where "best" is quantified using the cross-correlation function). 40 cells were identified as CMCs while 3 were not.
 
 ```{r,fig.cap="CMC results for known match pair"}
-knitr::include_graphics("images/cartridge_cases/5-28_update/kmCMCs.png", dpi = 100)
+knitr::include_graphics("images/cartridge_cases/6-22_spotlight/kmCMCs.png", dpi = 100)
 ```
 
 In contrast, the plots below show the results from a comparison between two known *non*-match cartridge case scans.
 
 ```{r, fig.cap="CMC results for known non-match pair"}
-knitr::include_graphics("images/cartridge_cases/5-28_update/knmCMCs.png", dpi = 100)
+knitr::include_graphics("images/cartridge_cases/6-22_spotlight/knmCMCs.png", dpi = 100)
 ```
 
-As I said above, we are close to finishing the R Journal submission as well as the development of the cmcR package. I'm very excited to delve into *new* ideas that we have for the project and will hopefully have thoughts to share on this in the future.
+A popular cartridge case data set in the CMC literature is from Fadul et al. (2011). This data set contains 63 known match and 717 known non-match cartridge case pairs. We can count the number of CMCs for each of these cartridge case pairs. Obviously, assuming the methods applied are valid, we would expect matching pairs to have more CMCs than non-matching pairs. In particular, we hope that all KM pairs have higher CMC counts than all KNM pairs. The plot below shows the distributions of the CMC counts assigned to all 63 KM and 717 KNM pairs. We can see that there is separation between the two CMC count distributions between 15 and 16 CMCs (vertical line drawn at 15.5).
+
+```{r, fig.cap="Initially proposed CMC method applied to 63 KM and 717 KNM cartridge case pairs"}
+knitr::include_graphics("images/cartridge_cases/6-22_spotlight/initialCMC_example.png", dpi = 100)
+```
+
+The CMC count distributions based on the High CMC method are shown below for the same data set. Again, we see that there is separation between the two distributions. We've observed that both the initially proposed and High CMC methods tend to assign more "false positive" CMCs to non-match pairs than the initially proposed method. The number of non-matching pairs assigned a high false positive CMC count is heavily dependent on the the various parameters that require setting in the method. We hope to provide a deeper discussion on how sensitive the two methods are to various processing decisions than what is currently provided in the CMC literature.
+
+```{r, fig.cap="High CMC method applied to 63 KM and 717 KNM cartridge case pairs"}
+knitr::include_graphics("images/cartridge_cases/6-22_spotlight/highCMC_example.png", dpi = 100)
+```
+
+As stated above, I think we've found an appropriate tone for the paper that provides a tempered critique of and discussion of the lack of reproducibility in the CMC literature. Reproducibility of results (by other parties) is a necessary, if sometimes overlooked, component of research. For computationally-intensive research (e.g., algorithm development), computational reproducibility is vital. Anything short of the original data and code used to arrive at the results does not equate to full reproducibility.
+
+We are planning on using the cmcR package as an example of how unreproducibility, specifically computational unreproducibility, manifests in academic literature. This includes ambiguity in how parameters are chosen, using unreplicable processing procedures (e.g., processing data manually), or reliance on proprietary software. The CMC literature is rife with all of these  Reproducibility is especially important for algorithms that may affect legal decisions (e.g., suspect's firearm fired a particular cartridge case). While few would disagree with the need for reproducible research, I believe the cmcR package provides an illustrative example of the typical challenges, failures, and successes that one experiences when implementing a previously closed-source method.
+
+I have also been adding functionality to the cmcR as ideas come up while writing. For example, the cartridge case pairs and CMC plots shown above were created with functions available in the cmcR package.
 
 </details>
 

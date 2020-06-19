@@ -501,3 +501,637 @@ data.res1 %>% ggplot(aes(y = prop, x = method)) + geom_boxplot() +
 
 - How to quantify the matching error rates when the training data only inlcude a small part of many potential groups?
 - How training errors change as more and more features are collected (dimension $p$ increases), where only a small fraction of those features carry useful signals (feature selection).
+
+
+
+
+```{r echo = FALSE, warning = FALSE, message = FALSE, eval = FALSE, include = FALSE}
+library(tidyverse)
+library(MASS)
+
+
+
+paring.uni <- function(no.of.obs, data.X , data.Y){
+  # data.X contains info of response values 
+  # data.Y contains info of groups
+  id.set <- t(combn(no.of.obs,2))
+  
+  id1 <- as.data.frame(id.set[,1]) %>%
+    rename(id = `id.set[, 1]`)
+  
+  id2 <- as.data.frame(id.set[,2]) %>%
+    rename(id = `id.set[, 2]`)
+  
+  XY.with.id <- as.data.frame(cbind(1:no.of.obs, data.X, data.Y)); colnames(XY.with.id) <- c("id", "X", "Y")
+  XY.with.id1 <- left_join(id1, XY.with.id, by = "id"); colnames(XY.with.id1) <- c("id1", "X1", "Y1")
+  XY.with.id2 <- left_join(id2, XY.with.id, by = "id"); colnames(XY.with.id2) <- c("id2", "X2", "Y2")
+  
+  paired <- cbind(XY.with.id1, XY.with.id2) %>%
+    mutate(diff.X = X1 - X2,
+           group.matching = if_else(Y1==Y2, 1, 0))
+  
+  return(paired)
+}
+
+optimal.uni.w <- function(x1, x2, G, mu.vec, sigma.vec, prior.p, weight.DS.error){
+  # Here, G is the number of group
+  # Independence assumed among observations
+  # optimal matching rule with G groups under normal distributions
+  # mu is an G dimensional vector for group means
+  # prior probabilities are assumed the same
+  # As weight.DS.error (a vector) increases, sensitivity increases but specificity decreases
+  if(sum(weight.DS.error <0 | weight.DS.error >1) != 0) stop("Weights must be in [0, 1]")
+  
+  between.group = 0
+  for (j1 in 1 : G){
+    for (j2 in 1 : G){
+      if (j1 != j2){
+        temp = dnorm(x1, mu.vec[j1],sigma.vec[j1]) * dnorm(x2, mu.vec[j2], sigma.vec[j2]) * prior.p[j1] * prior.p[j2] * (1 - weight.DS.error)
+        between.group = between.group + temp #LHS term w/o p's in the equation (6)
+      }
+    }
+  }
+  within.group = 0
+  for (j in 1 : G){
+    temp = dnorm(x1, mu.vec[j], sigma.vec[j]) * dnorm(x2, mu.vec[j], sigma.vec[j]) * (prior.p[j])^2 * weight.DS.error
+    within.group = within.group + temp #RHS term w/o p's in the equation (6)
+  }
+  return(1 * (between.group <= within.group)) #1 if (x1, x2) belongs to T_m in the equation (6)
+}
+
+
+
+
+N = 1; G = 3;
+mu.vec = c(1, 7, 15)
+sigma.vec = c(1, 2, 3) 
+prior.p = c(1,1, 1)/3 
+n = 900
+
+no.obs.by.groups.train <- n*prior.p
+
+Y <- as.factor(rep(1:G, times = no.obs.by.groups.train))
+
+X <- c()
+for(g in 1:G){
+  X.g <- rnorm(no.obs.by.groups.train[g], mu.vec[g], sigma.vec[g])
+  
+  X <- c(X, X.g)
+}
+X <- as.matrix(X)
+
+source.distribution <- cbind.data.frame(X, Y) %>%
+  ggplot(aes(x = X, y = dnorm(X, mu.vec[Y], sigma.vec[Y]), colour = factor(Y))) + 
+  geom_line(size = 1) +
+  labs(colour = "Sources") +
+  xlab("a quantity of interest") + ylab("density for each source") +
+  annotate(geom="text", x = mu.vec, y = c(0.42, 0.22, 0.155), 
+           label=c(expression(paste("f( . |", pi[1], ")", sep = "")),
+                   expression(paste("f( . |", pi[2], ")", sep = "")),
+                   expression(paste("f( . |", pi[3], ")", sep = ""))),
+           color="black", size = 6) +
+  scale_color_brewer(palette = "Dark2")
+
+ggsave("images/foundations/optimal_rule/source.distribution.PNG", source.distribution)
+
+##### Pairing test data, and computing feature difference #####
+paired.train <- paring.uni(n, X, Y)
+###############################################################
+
+
+paired.res <- paired.train %>%
+  mutate(matching.res = optimal.uni.w(X1, X2, 
+                                      G, mu.vec, sigma.vec, 
+                                      prior.p, weight.DS.error = 0.5)) %>%
+  mutate(error.zone = if_else(group.matching == matching.res,
+                              1, 0),
+         matching.res = factor(matching.res, labels = c("Different Sources", "Same Sources")),
+         group.matching = factor(group.matching, labels = c("Different Sources", "Same Sources")))
+
+plot.true.T.ss <- paired.res %>%
+  ggplot(aes(x = X1, y = X2, colour = factor(group.matching))) + 
+  geom_point(size = 0.5) +
+  labs(colour = "True membership") +
+  xlab("x") + ylab("y") 
+
+
+plot.optimal.T.ss <- paired.res %>%
+  ggplot(aes(x = X1, y = X2, colour = factor(matching.res))) + 
+  geom_point(size = 0.5) +
+  labs(colour = "Predicted membership")+
+  xlab("x") + ylab("y")
+
+# plot.optimal.error <- paired.res %>% 
+#   filter(error.zone == 0) %>%
+#   ggplot(aes(x = X1, y = X2, colour = factor(error.zone))) + geom_point(size = 0.5) +
+#   scale_color_manual(values = c("red"))
+
+ggsave("images/foundations/optimal_rule/plot.true.T.ss.PNG", plot.true.T.ss)
+ggsave("images/foundations/optimal_rule/plot.optimal.T.ss.PNG", plot.optimal.T.ss)
+# ggsave("images/foundations/optimal_rule/plot.plot.optimal.error.PNG", plot.optimal.error)
+
+```
+
+
+### Brief introduction to optimal rule
+
+Suppose that there are multiple sources denoted by $\pi_g$ for $g = 1,\ \cdots,\ G$, and observations from each $\pi_g$ follow a distribution denoted by $f(\cdot|\pi_g)$. As an example, the figure below shows three different normal distributions by source. Let's say we have $n$ observations from those souces but do not know which sources they actually belong to. Our goal is to identify if two observations represented by $x$ and $y$ would have come from the same sources or not. 
+
+```{r, echo = FALSE, fig.cap="", out.width="60%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/source.distribution.PNG")
+```
+
+For $n$ independent observations, ${n \choose 2}$ pairwise comparisons occur. When we sampled 300 observations from each density in the plot above, the following plot illustrates whether each pair actually come from the same sources or not. Blue dots represent the pairs from the same sources, and red ones indicates the pairs from the different sources. If we can predict the blue area accurately as much as possible, our goal to predict the membership of pairwise observations will be attained.
+
+```{r, echo = FALSE, fig.cap="True membership of pairs", out.width="60%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/plot.true.T.ss.PNG")
+```
+
+The following figure displays the optimal rule's matching results using the data from the previous plot. Likewise, the blue dots represent the matched zone by optimal rule where the pairs are predicted to be from the same sources, and the red ones represent the unmatched zone by optimal rule where the pairs are predicted to be from different sources. 
+
+```{r, echo = FALSE, fig.cap="Membership of pairs predicted by optimal rule", out.width="60%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/plot.optimal.T.ss.PNG")
+```
+
+
+Now, let $T_{SS}$ and $T_{DS}$ denote the same source zone, and a different source zone, respectively where $T_{SS} \cup T_{DS} = T \times T$, $T$ is the support of observations, and $T_{SS} \cap T_{DS} = \emptyset$. With the notation, if a pair, $(x,y) \in T_{SS}$, then they are said to be **matched**. Otherewise, $(x,y) \in T_{DS}$, which means that the pair is not matching, **unmatched**. In addition, let $\pi_X$ and $\pi_Y$ denote the sources for $x$, and $y$, two observations in a pair. Our prior belief for sources is denoted by $p_g$ for a source, $\pi_g$, such that the probability of an observation belonging to $\pi_g$ is equal to $p_g$, and $\sum_{g=1}^G p_g = 1$ where $G$ is the total number of sources considered.
+
+Optimal rule is constructed to minimize the total error occuring when matching the memberships of two observations. The total error probability can be written as the following:
+
+$\begin{aligned}
+&P(\mbox{total error}) \\
+&=P(\mbox{Incorrectly matching pairs})\\
+&=P(\mbox{A pair of observations matched when they are from different sources}) \ +\\
+&\ \ \ \ \ \ \ \   P(\mbox{A pair of observations unmatched when they are from the same sources})\\
+&= P\left((X,Y) \in T_{SS}|\pi_X \ne \pi_Y\right)P\left(\pi_X \ne \pi_Y \right) + P\left((X,Y) \in T_{DS}|\pi_X = \pi_Y\right)P\left(\pi_X = \pi_Y \right) \\
+&=\int_{T_{SS}} \sum_{g_1 \ne g_2}^G f_X(x|\pi_{g_1}) f_Y(y|\pi_{g_2}) p_{g_1}p_{g_2} dx dy + \sum_{g=1}^G p_g^2 - \int_{T_{SS}}\sum_{g=1}^G  f_X(x|\pi_{g_1}) f_Y(y|\pi_{g_2}) p_g^2 dxdy \\
+&= \int_{T_{SS}} \left[\sum_{g_1 \ne g_2}^G f_X(x|\pi_{g_1}) f_Y(y|\pi_{g_2}) p_{g_1}p_{g_2}\right]  - \left[\sum_{g=1}^G  f_X(x| \pi_{g})  f_Y(y| \pi_{g}) p_g^2\right] dx dy + C \\
+&\mbox{where } C = \sum_{g=1}^G p_g^2 = P(\pi_X = \pi_Y) \mbox{ is a constant over } T_{SS}.
+\end{aligned}$
+
+If we could collect every $(x,y) \in T \times T$ such that 
+$$\left[\sum_{g_1 \ne g_2}^G f_X(x|\pi_{g_1}) f_Y(y|\pi_{g_2}) p_{g_1}p_{g_2}\right]  - \left[\sum_{g=1}^G  f_X(x| \pi_{g})  f_Y(y| \pi_{g}) p_g^2\right] < 0,$$
+then over the set denoted by $T_{SS}^{Opt}$, the intergral will attain its minimum, so does $P(\mbox{total error})$. That is,
+$$T_{SS}^{Opt} = \underset{T_{SS}}{\mathrm{argmin}} \ P(\mbox{total error}).$$
+
+Note above that the parameters for true densities are unknown in practice, so parameters will be replaced with sample estimates. (e.g., sample mean, and sample variance)
+
+
+### Optimal rule for matching problems
+
+We would like to statistically tell if two observations would have com from the same source or not, which is said to be matching problems. The optimal rule is designed to deal with matching problems, and to minimize the matching error rate defined as the unweighted or weighted sum of the probabilities related to mismatching the memberships of two observations.
+
+Let $X$ and $Y$ be two independent random variables associated with the observations $x$ and $y$, respectively, and $T$ be the support of them. i.e., $x \in T$, $y \in T$, and $(x,y)\in T \times T$. Suppose that there are $G$ known sources denoted by $\pi_1,\ \pi_2,\ \cdots ,\ \pi_G$ with corresponding prior probabilities denoted by $p_g \in (0,1)$ for $g = 1,\ \cdots,\ G$ where $\sum_{g=1}^G p_g = 1$. Next, let $\pi_X$ and $\pi_Y$ denote the source of $X$ and $Y$. Then, the conditional pdf of $X$ if it is from a source $\pi_g$ can be defined as $f_X(x|\pi_g)$ with the prior probability, $p_g = P(\pi_X = \pi_g)$. Likewise, the conditional pdf of $Y$ if it is from a source $\pi_{g'}$ is written as $f_Y(y|\pi_{g'})$ with the prior probability, $p_{g'} = P(\pi_Y = \pi_{g'})$. Lastly, let $T_{SS}$ and $T_{DS}$ be the zone for the same sources and zone for the different sources such that $T_{SS} \cup T_{DS} = T \times T$, and $T_{SS} \cap  T_{DS} = \emptyset$. 
+
+Now, we can define two errors occurring in matching problems using the notation above:
+
+- The same source error: $\pi_X = \pi_g$ and $\pi_Y = \pi_{g'}$ for $g \ne g'$, but $(x,y) \in T_{SS}$;
+- Different source error: $\pi_X = \pi_Y = \pi_g$ for some $g$, but $(x,y) \in T_{DS}$.
+
+It follows that the probabilities of those errors above are given as the following:
+
+- $\pi_X = \pi_g$ and $\pi_Y = \pi_{g'}$ for $g \ne g'$, but $(x,y) \in T_{SS}$: 
+
+    $\begin{aligned}
+    P(\mbox{The same source error}) &= P\left((X,Y) \in T_{SS}|\pi_X \ne \pi_Y\right)P\left(\pi_X \ne \pi_Y \right)\\
+    &= \sum_{g_1 \ne g_2}^G \int_{T_{SS}} f_X(x|\pi_{g_1}) f_Y(y|\pi_{g_2}) p_{g_1}p_{g_2} dx dy \\
+    &= \int_{T_{SS}} \sum_{g_1 \ne g_2}^G f_X(x|\pi_{g_1}) f_Y(y| \pi_{g_2}) p_{g_1}p_{g_2} dx dy,
+    \end{aligned}$
+
+- $\pi_X = \pi_Y = \pi_g$ for some $g$, but $(x,y) \in T_{DS}$:
+
+    $\begin{aligned}
+    P(\mbox{different source error}) &= P\left((X,Y) \in T_{DS}|\pi_X = \pi_Y\right)P\left(\pi_X = \pi_Y \right)\\
+    &= \sum_{g=1}^G \int_{T_{DS}} f_X(x| \pi_{g}) f_Y(y| \pi_{g}) p_g^2 dx dy \\
+    &=\sum_{g=1}^G p_g^2 \int_{T_{DS}} f_X(x| \pi_{g}) f_Y(y| \pi_{g}) dx dy \\
+    &=\sum_{g=1}^G p_g^2 \left[1 - \int_{T_{SS}} f_X(x| \pi_{g}) f_Y(y| \pi_{g}) dx dy \right]\\
+    &=\sum_{g=1}^G p_g^2 - \int_{T_{SS}}\sum_{g=1}^G  f_X(x| \pi_{g})  f_Y(y| \pi_{g}) p_g^2 dx dy. \\
+    \end{aligned}$
+
+Then, the total error probability as the **unweighted** sum of the two probabilities is given as the following:
+
+$\begin{aligned}
+&P(\mbox{total error}) \\
+&= P(\mbox{The same source error}) + P(\mbox{different source error})\\
+&=\int_{T_{SS}} \sum_{g_1 \ne g_2}^G f_X(x|\pi_{g_1}) f_Y(y|\pi_{g_2}) p_{g_1}p_{g_2} dx dy + \sum_{g=1}^G p_g^2 - \int_{T_{SS}}\sum_{g=1}^G  f_X(x|\pi_{g_1}) f_Y(y|\pi_{g_2}) p_g^2 dxdy \\
+&= \int_{T_{SS}} \left[\sum_{g_1 \ne g_2}^G f_X(x|\pi_{g_1}) f_Y(y|\pi_{g_2}) p_{g_1}p_{g_2}\right]  - \left[\sum_{g=1}^G  f_X(x| \pi_{g})  f_Y(y| \pi_{g}) p_g^2\right] dx dy + C \\
+&\mbox{where } C = \sum_{g=1}^G p_g^2 = P(\pi_X = \pi_Y) \mbox{ is a constant over } T_{SS}.
+\end{aligned}$
+
+Recall that $T_{SS} \subset T \times T$ is the set of all pairs of the form of $(x,y)$ from the same sources, called the same source zone, and the optimal rule's mechanism is to minimize the total error probability. Note in the equation above that $P(\mbox{total error})$ attains its minimum with respect to $T_{SS}$ if $T_{SS}$ is the set of all possible $(x,y) \in T \times T$ satisfying the following:
+$$\left[\sum_{g_1 \ne g_2}^G f_X(x|\pi_{g_1}) f_Y(y| \pi_{g_2}) p_{g_1}p_{g_2}\right] - \left[\sum_{g=1}^G  f_X(x| \pi_{g})  f_Y(y| \pi_{g})p_g^2 \right] < 0.$$ 
+That's because such $T_{SS}$ is the collection of all $(x,y)$ such that the intergrand is negative. Therefore, the optimal rule is defined as $$T_{SS}^{Opt} = \left\{(x,y):\ \frac{\sum_{g_1 \ne g_2}^G f_X(x|\pi_{g_1}) f_Y(y| \pi_{g_2}) p_{g_1}p_{g_2}}{\sum_{g=1}^G  f_X(x| \pi_{g})  f_Y(y| \pi_{g}) p_g^2} < 1 \right\}.$$
+
+Additionally, We can also consider the **weighted** total error probability as the **weighted** sum of the two error probabilities: for a given $w \in [0,1]$, 
+$$P(\mbox{weighted total error}) = (1-w)\cdot P(\mbox{The same source error}) + w\cdot P(\mbox{different source error}).$$
+
+It can be shown that $P(\mbox{weighted total error})$ is equal to 
+$\int_{T_{SS}} (1-w)\left[\sum_{g_1 \ne g_2}^G f_X(x|\pi_{g_1}) f_Y(y| \pi_{g_2}) p_{g_1}p_{g_2}\right] - w\left[\sum_{g=1}^G  f_X(x| \pi_{g})  f_Y(y| \pi_{g})p_g^2 \right] dx dy + w\cdot C$.
+
+Therefore, by the same logic, the generalized optimal rule designed to minimize $P(\mbox{weighted total error})$ can be defined as the following:
+$$T_{SS}^{Opt, w} = \left\{(x,y):\ \frac{\sum_{g_1 \ne g_2}^G f_X(x|\pi_{g_1}) f_Y(y| \pi_{g_2}) p_{g_1}p_{g_2}}{\sum_{g=1}^G  f_X(x| \pi_{g})  f_Y(y| \pi_{g})p_g^2} < \frac{w}{1-w} \right\}.$$
+
+
+### Simulation plan
+
+#### Matching techniques
+
+For matching problems, techniques using feature differences have been commonly used. A feature difference as a measure of similarity (discrepancy) can be defined to be the difference between two observations in a pair. Then, traditional classification methods can be applied to the feature differences in order to predict if two observations having such similarity or discrepancy would have belonged to the same sources. In this report, we compare the performance of common classification methods based on feature differences with that of optimal rule. Note here that optimal rule works based on the entire data instead of feature differences. A list of the methods compared is shown below.
+
+- Optimal rule
+
+- Linear discriminant analysis (LDA) based on feature differences
+
+- Quadratic discriminant analysis (QDA) based on feature differences
+
+- Randomforest based on feature differences
+
+
+#### ROC curve for comparison
+
+ROC curve is a diagnostic plot of binary classifiers, and with varying appropriate thresholds for a predictive model, ROC curve can be plotted, which is a great way to figure out predictive performance. The matching techniques we considered above are binary in that their prediction results for each pair of data represent whether the two observations are from the same sources or not rather than which source each observation would have come from. Thus, ROC curve will be used for comparing the matching techniques in this report.
+
+Besides, threshold is different depending on matching methods, and varying threshold values lead to trade-off between true positive rate (TPR), and false positive rate (FPR). For optimal rule, the weight $w$ in $T_{SS}^{Opt, w}$ plays a role of threshold in ROC curve. We use prior probabilities as threshold for LDA and QDA based on feature differences where the prior indicates the probabilities of two groups—the same sources, and different sources—applied to the discriminant rules. Lastly, cutoff values for the two groups are used as threshold for randomforest so that the "winning" group for each pair of observations is the one with the maximum ratio of its vote share to cutoff.
+
+
+
+#### Set-up for simulations
+
+Assume that the conditional distribution, $f(\cdot | \pi_g)$, is a normal distribution for any $g = 1,\ \cdots,\ G$. The distributions will be used to generate data below. They may have different parameters for mean, variance, and covariance by a source, and some of them may share common parameters. For prior probabilities, $p_g = 1/G$ is used so that the number of observations per a source is equal. 
+
+- Step 1: According to the distributions for sources, 50 observations per a source are generated for a training set, and additional 10 observations per a source are generated for a test set. i.e., $50 \times G$ observations in a training set and $10 \times G$ observations in a test set.
+
+- Step 2: Pair all obesrvations in the test set. Hence, there will be the matching results for ${10G \choose 2}$ pairs in the test set so that whether the two observations in each pair would have come from the same sources or not are predicted.
+
+- Step 3: For a matching technique selected, using different thresholds, compute the false positive rate (FPR), and the true positive rate (TPR) based on the prediction results with the test set. Here, FPR indicates the estimated probability of the same source error and TPR indicates 1 minus the estimated probability of the different source error.
+
+- Step 4: By plotting the values of TPR over corresponding values of FPR, a single ROC curve is constructed.
+
+- Step 5: Repeat the step 1 to 4 100 times.
+
+- Step 6: Incorporate 100 ROC curves into a single monotonic ROC curve—e.g., incorporation by averaging out.
+
+
+#### How to average multiple ROC curves
+
+For the step 6, there are some issues of averaging multiple ROC curves by the values of FPR because no matter how densely the coordinates for (FPR, TPR) are formed, some ROC curves may not share common values of FPR. With that approach, the average ROC curve may be non-monotonic ROC curve which is not a desirable property of a ROC curve. The figure below illustrates the result. 
+
+
+<img src="images/foundations/optimal_rule/non-monotonic-ROC.PNG" width = "90%"/>
+
+
+Hence, we consider two differnt ways to average out, and the description and examples are shown below:
+
+- Average of the values of TPRs and FPRs by threshold value
+
+```{r, echo = FALSE, fig.cap="", out.width="95%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/avg-ROC-remedy1.PNG")
+```
+
+- Average of cumulatively largest vause of TPR in each bin for FPR.
+
+```{r, echo = FALSE, fig.cap="", out.width="95%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/avg-ROC-remedy2-1.PNG")
+```
+
+```{r, echo = FALSE, fig.cap="", out.width="47.5%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/avg-ROC-remedy2-2.PNG")
+```
+
+Like above, two types of average ROC curves will be provided for comparing the performance of several methods.
+
+
+
+### Simulation results
+
+
+```{r, echo = FALSE}
+output.f <- function(simulation.title){
+## Simulation info amd times
+ simul.info <-yaml::yaml.load_file(paste("./images/foundations/optimal_rule/",
+                                         simulation.title, ".yaml", sep = ""))
+ if(is.list(simul.info[[2]]) == TRUE & length(unique(simul.info[[2]])) > 1){
+   simul.info[[2]] <- lapply(simul.info[[2]], FUN = function(x) matrix(x, sqrt(length(x))))
+ }
+  
+ if(is.list(simul.info[[2]]) == TRUE & length(unique(simul.info[[2]])) == 1){
+   simul.info[[2]] <- unique(lapply(simul.info[[2]], FUN = function(x) matrix(x, sqrt(length(x)))))
+ }
+ return(simul.info[c(1, 2)])
+}
+
+write_matex <- function(x){
+  begin <- "$$\\begin{bmatrix}"
+  end <- "\\end{bmatrix}$$"
+  X <- paste(begin, 
+             paste(apply(x, 
+                         1, 
+                         function(x) {paste(x, collapse = "&")}), 
+                   collapse = "\\\\"),
+                 end)
+  return(X)
+}
+
+write_vetex <- function(x){
+  begin <- "$$\\begin{bmatrix}"
+  end <- "\\end{bmatrix}\'$$"
+  X <- paste(begin, 
+             paste(x, collapse = "&"),
+             end)
+  return(X)
+}
+
+out.multi <- function(simulation.title){
+Y <- output.f(simulation.title)
+
+if(purrr::vec_depth(Y) == 3){
+Y.mean <- Y$`Group Means` %>%
+  map(~write_vetex(.x))
+Y.var <- Y$`Group Variances` %>%
+  map(~write_matex(.x))
+
+if(length(Y.var) == 1){
+for(i in 2:length(Y.mean)){
+  Y.var[[i]] <- "$$\'\'$$"
+}}
+
+Y.res <- Y.mean %>%
+  map2(Y.var, ~paste(.x, .y, sep = " | ")) %>%
+  map2(1:length(Y.mean), ~paste("| $$", .y, "$$ | ", .x, " |" , sep = ""))
+
+writeLines(c("| $$\\mbox{Source, }g$$ | $$\\mu_g$$ | $$\\Sigma_g$$ |",
+             "|:-:|-|-|",
+             unlist(Y.res)))
+# writeLines(c("| $$\\mbox{Source, }g$$ | $$\\mu_g$$ | $$\\Sigma_g$$ |",
+#              "|----------------------|-----------|--------------|",
+#              unlist(Y.res)))
+}else{
+  uni.Y <- cbind.data.frame(`$$\\mbox{Source, }g$$` = c("$$\\mu$$", "$$\\Sigma_g$$"),
+                          rlist::list.rbind(Y))
+  
+  row.names(uni.Y) <- NULL
+
+  uni.Y %>% 
+    knitr::kable(format = "html", align = 'c') %>%
+    kableExtra::kable_styling(bootstrap_options = "striped",
+                              full_width = FALSE,
+                              position = "left")
+}
+}
+```
+
+
+
+#### Univariate Result 1
+
+```{r, echo = FALSE, results = 'asis'}
+out.multi("uni.Sg.2")
+```
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/uni.Sg.2_simulation.PNG")
+```
+
+
+#### Univariate Result 2
+
+```{r, echo = FALSE, results = 'asis'}
+out.multi("uni.Sg.3")
+```
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/uni.Sg.3_simulation.PNG")
+```
+
+
+#### Univariate Result 3
+
+```{r, echo = FALSE, results = 'asis'}
+out.multi("uni.Sg.5")
+```
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/uni.Sg.5_simulation.PNG")
+```
+
+
+#### Univariate Result 4
+
+```{r, echo = FALSE, results = 'asis'}
+out.multi("uni.Sp.2")
+```
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/uni.Sp.2_simulation.PNG")
+```
+
+
+#### Univariate Result 5
+
+```{r, echo = FALSE, results = 'asis'}
+out.multi("uni.Sp.3")
+```
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/uni.Sp.3_simulation.PNG")
+```
+
+
+#### Univariate Result 6
+
+```{r, echo = FALSE, results = 'asis'}
+out.multi("uni.Sp.5")
+```
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/uni.Sp.5_simulation.PNG")
+```
+
+
+#### Multivariate Result 1; G = 2, N = 2
+
+```{r, echo = FALSE, results = 'asis'}
+out.multi("multi.Sg.2.d2")
+```
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/multi.Sg.2.d2_simulation.PNG")
+```
+
+
+#### Multivariate Result 2
+
+```{r, echo = FALSE, results = 'asis'}
+out.multi("multi.Sg.3.d2")
+```
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/multi.Sg.3.d2_simulation.PNG")
+```
+
+
+#### Multivariate Result 3
+
+```{r, echo = FALSE, results = 'asis'}
+out.multi("multi.Sg.5.d2")
+```
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/multi.Sg.5.d2_simulation.PNG")
+```
+
+
+#### Multivariate Result 4
+
+```{r, echo = FALSE, results = 'asis'}
+out.multi("multi.Sg.3.d3")
+```
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/multi.Sg.3.d3_simulation.PNG")
+```
+
+
+#### Multivariate Result 5
+
+```{r, echo = FALSE, results = 'asis'}
+out.multi("multi.Sg.3.d5")
+```
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/multi.Sg.3.d5_simulation.PNG")
+```
+
+
+#### Multivariate Result 6
+
+```{r, echo = FALSE, results = 'asis'}
+out.multi("multi.Sp.2.d2")
+```
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/multi.Sp.2.d2_simulation.PNG")
+```
+
+
+#### Multivariate Result 7
+
+```{r, echo = FALSE, results = 'asis'}
+out.multi("multi.Sp.3.d2")
+```
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/multi.Sp.3.d2_simulation.PNG")
+```
+
+
+#### Multivariate Result 8
+
+```{r, echo = FALSE, results = 'asis'}
+out.multi("multi.Sp.5.d2")
+```
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/multi.Sp.5.d2_simulation.PNG")
+```
+
+
+#### Multivariate Result 9
+
+```{r, echo = FALSE, results = 'asis'}
+out.multi("multi.Sp.3.d3")
+```
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/multi.Sp.3.d3_simulation.PNG")
+```
+
+
+#### Multivariate Result 10
+
+```{r, echo = FALSE, results = 'asis'}
+out.multi("multi.Sp.3.d5")
+```
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/multi.Sp.3.d5_simulation.PNG")
+```
+
+
+
+### Real data for simulations
+
+For the simulations in the previous section, data were generated from normal distributions, and optimal rule outperformed the other methods under the condition. To examine if it works well in practice, we compare it with the other techniques on the glass data published in this [paper](https://projecteuclid.org/euclid.aoas/1560758438) where the data are referred to as *Dataset* 3.
+
+
+#### Data description
+
+We use the data set consisting of 31 and 17 glass panes (AA, AB, ..., AAQ, AAR / BA, BB, ..., BP, BR) provided from company A and B, and 22 to 24 fragments were randomly sampled frome each source, a glass pane. A single fragment as an observational unit has the average amount of concentration for 18 chemical elements such as Li7, Na23, and Mg25 where the mean was caluated from repeatedly measured values of concentration. Hence, each row of the data at our analysis level is made up of a 18-dimensional vector whose coordinates indicate the average amount of concentration for the 18 chemical elements, and extra information like which source fragments came from. 
+
+
+#### Simulation plan for glass data
+
+The basic scheme is the same as the explanation in [Simulation plan], the section above, but there are some differences. For the glass data, 20 random splits of a dataset will be generated into test sets so that an average ROC curve aggregated from 20 ROC curves can be provided. Specifically, 6 observations per source are assigned to a test set, and the rest is assigned to a training set. Then, 16 to 18 fragments per a source remain in a training set, which is not enough to estimate 18 by 18 covariance matrix for each source, and covariance estimation is a necessary process for optimal rule. Alternatively, we use pooled covariance estimate for optimal rule with the glass data. One way is to use a single pooled covariance across all sources, and another one is apply separate pooled covariance estimate for each company. The latter is based on our prior belief that covariance structure could differ by company, and could be similar within the same company while there is the possibility that a single sample covariance across all sources is more reliable than separate ones. 
+
+Besides, unlike the other methods, randomforest method needs to train its model while the other methods just computes their matching rule based on summary statistics. Since feature differences are calculated from all pairwise observations in a training set, a serious imbalance to the number of pairs from the same sources, and that from different sources happens as the number of sources and the number of observations increase. To address some potential problems due to the imbalance, we also employ downsampling technique to randomforest method where twice the number of pairs from the same sources is randomly selected from different sources instead of utilizing all pairs from different sources.
+
+Lastly, subsets of the whole data will be used to compare mathing techniques where a subset of data is determined by choosing different glass panes. For example, we can apply matching methods to a dataset with 6 different panes (AA, AB, AC, BA, BB, and BC) as the whole data. In this report, a scenario will be based on a subset of the entire glass data, and several scenarios will be presented.
+
+To sum up, two kinds of average of 20 ROC curves will be presented for each scenario: average of the values of TPRs and FPRs by threshold value, and average of cumulatively largest vause of TPR in each bin for FPR. Optimal rule's performance will be compared with LDA, QDA, and randomforest based on feature differences as before, but optimal rule and randomforest have two different scenarios. For optimal rule, one is to apply a single pooled covariance across all sources, and the other is to use separate pooled covariance for each company. Randomforest will present a regualr one without downsampling, and one with downsampling. Consequently, there will be 6 methods compared.
+
+
+### Simulation results using glass data
+
+#### Case 1: 6 sources
+
+Panes used: 
+
+-  AA, AB, AC 
+- BA, BB, BC
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/Sp_dat1_avg_roc.png")
+knitr::include_graphics("images/foundations/optimal_rule/Sp_dat1_max_avg_roc.png")
+```
+
+
+#### Case 2: 6 sources
+
+Panes used: 
+
+-  AAM, AAQ, AAR 
+- BO, BP, BR
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/Sp_dat2_avg_roc.png")
+knitr::include_graphics("images/foundations/optimal_rule/Sp_dat2_max_avg_roc.png")
+```
+
+
+#### Case 3: 10 sources
+
+Panes used: 
+
+-  AD, AE, AF, AG, AH
+- BD, BE, BF, BG, BH
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/Sp_dat3_avg_roc.png")
+knitr::include_graphics("images/foundations/optimal_rule/Sp_dat3_max_avg_roc.png")
+```
+
+
+#### Case 4: 20 sources
+
+Panes used: 
+
+-  AAD, AAF, AAH, AAI, AAJ, AAK, AAL, AAM, AAQ, AAR
+- BH, BI, BJ, BK, BL, BM, BN, BO, BP, BR
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/Sp_dat4_avg_roc.png")
+knitr::include_graphics("images/foundations/optimal_rule/Sp_dat4_max_avg_roc.png")
+```
+
+
+### Contrasting Hypotesis in a court case.

@@ -22,3 +22,17 @@ General book outline:
     - Not drafted. In the writing stage.
 - Chapter 5: Conclusions 
 
+#Chapter on Statistics for Judges 
+
+Project members: 
+- Eryn Blagg
+- Alicia Carriquity 
+
+Topics the Chapter outlines
+- Basic Probability 
+- Collecting Data 
+- Describing Data 
+- Statistical Inference
+- uncertainty 
+
+Status: final edits

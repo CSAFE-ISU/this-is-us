@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-05-28" />
+<meta name="date" content="2020-06-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,6 +50,7 @@
 
 
 
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -243,6 +244,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.5" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#optimal-matching-problem"><i class="fa fa-check"></i><b>8.5</b> Optimal matching problem</a><ul>
 <li class="chapter" data-level="8.5.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#two-groups-case."><i class="fa fa-check"></i><b>8.5.1</b> Two groups case.</a></li>
 <li class="chapter" data-level="8.5.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#topics-needs-exploration"><i class="fa fa-check"></i><b>8.5.2</b> Topics needs exploration</a></li>
+<li class="chapter" data-level="8.5.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#brief-introduction-to-optimal-rule"><i class="fa fa-check"></i><b>8.5.3</b> Brief introduction to optimal rule</a></li>
+<li class="chapter" data-level="8.5.4" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#optimal-rule-for-matching-problems"><i class="fa fa-check"></i><b>8.5.4</b> Optimal rule for matching problems</a></li>
+<li class="chapter" data-level="8.5.5" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#simulation-plan"><i class="fa fa-check"></i><b>8.5.5</b> Simulation plan</a></li>
+<li class="chapter" data-level="8.5.6" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#simulation-results"><i class="fa fa-check"></i><b>8.5.6</b> Simulation results</a></li>
+<li class="chapter" data-level="8.5.7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#real-data-for-simulations"><i class="fa fa-check"></i><b>8.5.7</b> Real data for simulations</a></li>
+<li class="chapter" data-level="8.5.8" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#simulation-results-using-glass-data"><i class="fa fa-check"></i><b>8.5.8</b> Simulation results using glass data</a></li>
+<li class="chapter" data-level="8.5.9" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#contrasting-hypotesis-in-a-court-case."><i class="fa fa-check"></i><b>8.5.9</b> Contrasting Hypotesis in a court case.</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="outreach-activities.html"><a href="outreach-activities.html"><i class="fa fa-check"></i><b>9</b> Outreach activities</a><ul>
@@ -850,6 +858,857 @@ Figure 8.1: Matching regions from the optimal rule (in pink) and the method base
 <li>How to quantify the matching error rates when the training data only inlcude a small part of many potential groups?</li>
 <li>How training errors change as more and more features are collected (dimension <span class="math inline">\(p\)</span> increases), where only a small fraction of those features carry useful signals (feature selection).</li>
 </ul>
+</div>
+<div id="brief-introduction-to-optimal-rule" class="section level3">
+<h3><span class="header-section-number">8.5.3</span> Brief introduction to optimal rule</h3>
+<p>Suppose that there are multiple sources denoted by <span class="math inline">\(\pi_g\)</span> for <span class="math inline">\(g = 1,\ \cdots,\ G\)</span>, and observations from each <span class="math inline">\(\pi_g\)</span> follow a distribution denoted by <span class="math inline">\(f(\cdot|\pi_g)\)</span>. As an example, the figure below shows three different normal distributions by source. Let’s say we have <span class="math inline">\(n\)</span> observations from those souces but do not know which sources they actually belong to. Our goal is to identify if two observations represented by <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> would have come from the same sources or not.</p>
+<p><img src="images/foundations/optimal_rule/source.distribution.PNG" width="60%" style="display: block; margin: auto;" /></p>
+<p>For <span class="math inline">\(n\)</span> independent observations, <span class="math inline">\({n \choose 2}\)</span> pairwise comparisons occur. When we sampled 300 observations from each density in the plot above, the following plot illustrates whether each pair actually come from the same sources or not. Blue dots represent the pairs from the same sources, and red ones indicates the pairs from the different sources. If we can predict the blue area accurately as much as possible, our goal to predict the membership of pairwise observations will be attained.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-300"></span>
+<img src="images/foundations/optimal_rule/plot.true.T.ss.PNG" alt="True membership of pairs" width="60%" />
+<p class="caption">
+Figure 8.2: True membership of pairs
+</p>
+</div>
+<p>The following figure displays the optimal rule’s matching results using the data from the previous plot. Likewise, the blue dots represent the matched zone by optimal rule where the pairs are predicted to be from the same sources, and the red ones represent the unmatched zone by optimal rule where the pairs are predicted to be from different sources.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-301"></span>
+<img src="images/foundations/optimal_rule/plot.optimal.T.ss.PNG" alt="Membership of pairs predicted by optimal rule" width="60%" />
+<p class="caption">
+Figure 8.3: Membership of pairs predicted by optimal rule
+</p>
+</div>
+<p>Now, let <span class="math inline">\(T_{SS}\)</span> and <span class="math inline">\(T_{DS}\)</span> denote the same source zone, and a different source zone, respectively where <span class="math inline">\(T_{SS} \cup T_{DS} = T \times T\)</span>, <span class="math inline">\(T\)</span> is the support of observations, and <span class="math inline">\(T_{SS} \cap T_{DS} = \emptyset\)</span>. With the notation, if a pair, <span class="math inline">\((x,y) \in T_{SS}\)</span>, then they are said to be <strong>matched</strong>. Otherewise, <span class="math inline">\((x,y) \in T_{DS}\)</span>, which means that the pair is not matching, <strong>unmatched</strong>. In addition, let <span class="math inline">\(\pi_X\)</span> and <span class="math inline">\(\pi_Y\)</span> denote the sources for <span class="math inline">\(x\)</span>, and <span class="math inline">\(y\)</span>, two observations in a pair. Our prior belief for sources is denoted by <span class="math inline">\(p_g\)</span> for a source, <span class="math inline">\(\pi_g\)</span>, such that the probability of an observation belonging to <span class="math inline">\(\pi_g\)</span> is equal to <span class="math inline">\(p_g\)</span>, and <span class="math inline">\(\sum_{g=1}^G p_g = 1\)</span> where <span class="math inline">\(G\)</span> is the total number of sources considered.</p>
+<p>Optimal rule is constructed to minimize the total error occuring when matching the memberships of two observations. The total error probability can be written as the following:</p>
+<p><span class="math inline">\(\begin{aligned} &amp;P(\mbox{total error}) \\ &amp;=P(\mbox{Incorrectly matching pairs})\\ &amp;=P(\mbox{A pair of observations matched when they are from different sources}) \ +\\ &amp;\ \ \ \ \ \ \ \  P(\mbox{A pair of observations unmatched when they are from the same sources})\\ &amp;= P\left((X,Y) \in T_{SS}|\pi_X \ne \pi_Y\right)P\left(\pi_X \ne \pi_Y \right) + P\left((X,Y) \in T_{DS}|\pi_X = \pi_Y\right)P\left(\pi_X = \pi_Y \right) \\ &amp;=\int_{T_{SS}} \sum_{g_1 \ne g_2}^G f_X(x|\pi_{g_1}) f_Y(y|\pi_{g_2}) p_{g_1}p_{g_2} dx dy + \sum_{g=1}^G p_g^2 - \int_{T_{SS}}\sum_{g=1}^G f_X(x|\pi_{g_1}) f_Y(y|\pi_{g_2}) p_g^2 dxdy \\ &amp;= \int_{T_{SS}} \left[\sum_{g_1 \ne g_2}^G f_X(x|\pi_{g_1}) f_Y(y|\pi_{g_2}) p_{g_1}p_{g_2}\right] - \left[\sum_{g=1}^G f_X(x| \pi_{g}) f_Y(y| \pi_{g}) p_g^2\right] dx dy + C \\ &amp;\mbox{where } C = \sum_{g=1}^G p_g^2 = P(\pi_X = \pi_Y) \mbox{ is a constant over } T_{SS}. \end{aligned}\)</span></p>
+<p>If we could collect every <span class="math inline">\((x,y) \in T \times T\)</span> such that
+<span class="math display">\[\left[\sum_{g_1 \ne g_2}^G f_X(x|\pi_{g_1}) f_Y(y|\pi_{g_2}) p_{g_1}p_{g_2}\right]  - \left[\sum_{g=1}^G  f_X(x| \pi_{g})  f_Y(y| \pi_{g}) p_g^2\right] &lt; 0,\]</span>
+then over the set denoted by <span class="math inline">\(T_{SS}^{Opt}\)</span>, the intergral will attain its minimum, so does <span class="math inline">\(P(\mbox{total error})\)</span>. That is,
+<span class="math display">\[T_{SS}^{Opt} = \underset{T_{SS}}{\mathrm{argmin}} \ P(\mbox{total error}).\]</span></p>
+<p>Note above that the parameters for true densities are unknown in practice, so parameters will be replaced with sample estimates. (e.g., sample mean, and sample variance)</p>
+</div>
+<div id="optimal-rule-for-matching-problems" class="section level3">
+<h3><span class="header-section-number">8.5.4</span> Optimal rule for matching problems</h3>
+<p>We would like to statistically tell if two observations would have com from the same source or not, which is said to be matching problems. The optimal rule is designed to deal with matching problems, and to minimize the matching error rate defined as the unweighted or weighted sum of the probabilities related to mismatching the memberships of two observations.</p>
+<p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be two independent random variables associated with the observations <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, respectively, and <span class="math inline">\(T\)</span> be the support of them. i.e., <span class="math inline">\(x \in T\)</span>, <span class="math inline">\(y \in T\)</span>, and <span class="math inline">\((x,y)\in T \times T\)</span>. Suppose that there are <span class="math inline">\(G\)</span> known sources denoted by <span class="math inline">\(\pi_1,\ \pi_2,\ \cdots ,\ \pi_G\)</span> with corresponding prior probabilities denoted by <span class="math inline">\(p_g \in (0,1)\)</span> for <span class="math inline">\(g = 1,\ \cdots,\ G\)</span> where <span class="math inline">\(\sum_{g=1}^G p_g = 1\)</span>. Next, let <span class="math inline">\(\pi_X\)</span> and <span class="math inline">\(\pi_Y\)</span> denote the source of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. Then, the conditional pdf of <span class="math inline">\(X\)</span> if it is from a source <span class="math inline">\(\pi_g\)</span> can be defined as <span class="math inline">\(f_X(x|\pi_g)\)</span> with the prior probability, <span class="math inline">\(p_g = P(\pi_X = \pi_g)\)</span>. Likewise, the conditional pdf of <span class="math inline">\(Y\)</span> if it is from a source <span class="math inline">\(\pi_{g&#39;}\)</span> is written as <span class="math inline">\(f_Y(y|\pi_{g&#39;})\)</span> with the prior probability, <span class="math inline">\(p_{g&#39;} = P(\pi_Y = \pi_{g&#39;})\)</span>. Lastly, let <span class="math inline">\(T_{SS}\)</span> and <span class="math inline">\(T_{DS}\)</span> be the zone for the same sources and zone for the different sources such that <span class="math inline">\(T_{SS} \cup T_{DS} = T \times T\)</span>, and <span class="math inline">\(T_{SS} \cap T_{DS} = \emptyset\)</span>.</p>
+<p>Now, we can define two errors occurring in matching problems using the notation above:</p>
+<ul>
+<li>The same source error: <span class="math inline">\(\pi_X = \pi_g\)</span> and <span class="math inline">\(\pi_Y = \pi_{g&#39;}\)</span> for <span class="math inline">\(g \ne g&#39;\)</span>, but <span class="math inline">\((x,y) \in T_{SS}\)</span>;</li>
+<li>Different source error: <span class="math inline">\(\pi_X = \pi_Y = \pi_g\)</span> for some <span class="math inline">\(g\)</span>, but <span class="math inline">\((x,y) \in T_{DS}\)</span>.</li>
+</ul>
+<p>It follows that the probabilities of those errors above are given as the following:</p>
+<ul>
+<li><p><span class="math inline">\(\pi_X = \pi_g\)</span> and <span class="math inline">\(\pi_Y = \pi_{g&#39;}\)</span> for <span class="math inline">\(g \ne g&#39;\)</span>, but <span class="math inline">\((x,y) \in T_{SS}\)</span>:</p>
+<p><span class="math inline">\(\begin{aligned}  P(\mbox{The same source error}) &amp;= P\left((X,Y) \in T_{SS}|\pi_X \ne \pi_Y\right)P\left(\pi_X \ne \pi_Y \right)\\  &amp;= \sum_{g_1 \ne g_2}^G \int_{T_{SS}} f_X(x|\pi_{g_1}) f_Y(y|\pi_{g_2}) p_{g_1}p_{g_2} dx dy \\  &amp;= \int_{T_{SS}} \sum_{g_1 \ne g_2}^G f_X(x|\pi_{g_1}) f_Y(y| \pi_{g_2}) p_{g_1}p_{g_2} dx dy,  \end{aligned}\)</span></p></li>
+<li><p><span class="math inline">\(\pi_X = \pi_Y = \pi_g\)</span> for some <span class="math inline">\(g\)</span>, but <span class="math inline">\((x,y) \in T_{DS}\)</span>:</p>
+<p><span class="math inline">\(\begin{aligned}  P(\mbox{different source error}) &amp;= P\left((X,Y) \in T_{DS}|\pi_X = \pi_Y\right)P\left(\pi_X = \pi_Y \right)\\  &amp;= \sum_{g=1}^G \int_{T_{DS}} f_X(x| \pi_{g}) f_Y(y| \pi_{g}) p_g^2 dx dy \\  &amp;=\sum_{g=1}^G p_g^2 \int_{T_{DS}} f_X(x| \pi_{g}) f_Y(y| \pi_{g}) dx dy \\  &amp;=\sum_{g=1}^G p_g^2 \left[1 - \int_{T_{SS}} f_X(x| \pi_{g}) f_Y(y| \pi_{g}) dx dy \right]\\  &amp;=\sum_{g=1}^G p_g^2 - \int_{T_{SS}}\sum_{g=1}^G f_X(x| \pi_{g}) f_Y(y| \pi_{g}) p_g^2 dx dy. \\  \end{aligned}\)</span></p></li>
+</ul>
+<p>Then, the total error probability as the <strong>unweighted</strong> sum of the two probabilities is given as the following:</p>
+<p><span class="math inline">\(\begin{aligned} &amp;P(\mbox{total error}) \\ &amp;= P(\mbox{The same source error}) + P(\mbox{different source error})\\ &amp;=\int_{T_{SS}} \sum_{g_1 \ne g_2}^G f_X(x|\pi_{g_1}) f_Y(y|\pi_{g_2}) p_{g_1}p_{g_2} dx dy + \sum_{g=1}^G p_g^2 - \int_{T_{SS}}\sum_{g=1}^G f_X(x|\pi_{g_1}) f_Y(y|\pi_{g_2}) p_g^2 dxdy \\ &amp;= \int_{T_{SS}} \left[\sum_{g_1 \ne g_2}^G f_X(x|\pi_{g_1}) f_Y(y|\pi_{g_2}) p_{g_1}p_{g_2}\right] - \left[\sum_{g=1}^G f_X(x| \pi_{g}) f_Y(y| \pi_{g}) p_g^2\right] dx dy + C \\ &amp;\mbox{where } C = \sum_{g=1}^G p_g^2 = P(\pi_X = \pi_Y) \mbox{ is a constant over } T_{SS}. \end{aligned}\)</span></p>
+<p>Recall that <span class="math inline">\(T_{SS} \subset T \times T\)</span> is the set of all pairs of the form of <span class="math inline">\((x,y)\)</span> from the same sources, called the same source zone, and the optimal rule’s mechanism is to minimize the total error probability. Note in the equation above that <span class="math inline">\(P(\mbox{total error})\)</span> attains its minimum with respect to <span class="math inline">\(T_{SS}\)</span> if <span class="math inline">\(T_{SS}\)</span> is the set of all possible <span class="math inline">\((x,y) \in T \times T\)</span> satisfying the following:
+<span class="math display">\[\left[\sum_{g_1 \ne g_2}^G f_X(x|\pi_{g_1}) f_Y(y| \pi_{g_2}) p_{g_1}p_{g_2}\right] - \left[\sum_{g=1}^G  f_X(x| \pi_{g})  f_Y(y| \pi_{g})p_g^2 \right] &lt; 0.\]</span>
+That’s because such <span class="math inline">\(T_{SS}\)</span> is the collection of all <span class="math inline">\((x,y)\)</span> such that the intergrand is negative. Therefore, the optimal rule is defined as <span class="math display">\[T_{SS}^{Opt} = \left\{(x,y):\ \frac{\sum_{g_1 \ne g_2}^G f_X(x|\pi_{g_1}) f_Y(y| \pi_{g_2}) p_{g_1}p_{g_2}}{\sum_{g=1}^G  f_X(x| \pi_{g})  f_Y(y| \pi_{g}) p_g^2} &lt; 1 \right\}.\]</span></p>
+<p>Additionally, We can also consider the <strong>weighted</strong> total error probability as the <strong>weighted</strong> sum of the two error probabilities: for a given <span class="math inline">\(w \in [0,1]\)</span>,
+<span class="math display">\[P(\mbox{weighted total error}) = (1-w)\cdot P(\mbox{The same source error}) + w\cdot P(\mbox{different source error}).\]</span></p>
+<p>It can be shown that <span class="math inline">\(P(\mbox{weighted total error})\)</span> is equal to
+<span class="math inline">\(\int_{T_{SS}} (1-w)\left[\sum_{g_1 \ne g_2}^G f_X(x|\pi_{g_1}) f_Y(y| \pi_{g_2}) p_{g_1}p_{g_2}\right] - w\left[\sum_{g=1}^G f_X(x| \pi_{g}) f_Y(y| \pi_{g})p_g^2 \right] dx dy + w\cdot C\)</span>.</p>
+<p>Therefore, by the same logic, the generalized optimal rule designed to minimize <span class="math inline">\(P(\mbox{weighted total error})\)</span> can be defined as the following:
+<span class="math display">\[T_{SS}^{Opt, w} = \left\{(x,y):\ \frac{\sum_{g_1 \ne g_2}^G f_X(x|\pi_{g_1}) f_Y(y| \pi_{g_2}) p_{g_1}p_{g_2}}{\sum_{g=1}^G  f_X(x| \pi_{g})  f_Y(y| \pi_{g})p_g^2} &lt; \frac{w}{1-w} \right\}.\]</span></p>
+</div>
+<div id="simulation-plan" class="section level3">
+<h3><span class="header-section-number">8.5.5</span> Simulation plan</h3>
+<div id="matching-techniques" class="section level4">
+<h4><span class="header-section-number">8.5.5.1</span> Matching techniques</h4>
+<p>For matching problems, techniques using feature differences have been commonly used. A feature difference as a measure of similarity (discrepancy) can be defined to be the difference between two observations in a pair. Then, traditional classification methods can be applied to the feature differences in order to predict if two observations having such similarity or discrepancy would have belonged to the same sources. In this report, we compare the performance of common classification methods based on feature differences with that of optimal rule. Note here that optimal rule works based on the entire data instead of feature differences. A list of the methods compared is shown below.</p>
+<ul>
+<li><p>Optimal rule</p></li>
+<li><p>Linear discriminant analysis (LDA) based on feature differences</p></li>
+<li><p>Quadratic discriminant analysis (QDA) based on feature differences</p></li>
+<li><p>Randomforest based on feature differences</p></li>
+</ul>
+</div>
+<div id="roc-curve-for-comparison" class="section level4">
+<h4><span class="header-section-number">8.5.5.2</span> ROC curve for comparison</h4>
+<p>ROC curve is a diagnostic plot of binary classifiers, and with varying appropriate thresholds for a predictive model, ROC curve can be plotted, which is a great way to figure out predictive performance. The matching techniques we considered above are binary in that their prediction results for each pair of data represent whether the two observations are from the same sources or not rather than which source each observation would have come from. Thus, ROC curve will be used for comparing the matching techniques in this report.</p>
+<p>Besides, threshold is different depending on matching methods, and varying threshold values lead to trade-off between true positive rate (TPR), and false positive rate (FPR). For optimal rule, the weight <span class="math inline">\(w\)</span> in <span class="math inline">\(T_{SS}^{Opt, w}\)</span> plays a role of threshold in ROC curve. We use prior probabilities as threshold for LDA and QDA based on feature differences where the prior indicates the probabilities of two groups—the same sources, and different sources—applied to the discriminant rules. Lastly, cutoff values for the two groups are used as threshold for randomforest so that the “winning” group for each pair of observations is the one with the maximum ratio of its vote share to cutoff.</p>
+</div>
+<div id="set-up-for-simulations" class="section level4">
+<h4><span class="header-section-number">8.5.5.3</span> Set-up for simulations</h4>
+<p>Assume that the conditional distribution, <span class="math inline">\(f(\cdot | \pi_g)\)</span>, is a normal distribution for any <span class="math inline">\(g = 1,\ \cdots,\ G\)</span>. The distributions will be used to generate data below. They may have different parameters for mean, variance, and covariance by a source, and some of them may share common parameters. For prior probabilities, <span class="math inline">\(p_g = 1/G\)</span> is used so that the number of observations per a source is equal.</p>
+<ul>
+<li><p>Step 1: According to the distributions for sources, 50 observations per a source are generated for a training set, and additional 10 observations per a source are generated for a test set. i.e., <span class="math inline">\(50 \times G\)</span> observations in a training set and <span class="math inline">\(10 \times G\)</span> observations in a test set.</p></li>
+<li><p>Step 2: Pair all obesrvations in the test set. Hence, there will be the matching results for <span class="math inline">\({10G \choose 2}\)</span> pairs in the test set so that whether the two observations in each pair would have come from the same sources or not are predicted.</p></li>
+<li><p>Step 3: For a matching technique selected, using different thresholds, compute the false positive rate (FPR), and the true positive rate (TPR) based on the prediction results with the test set. Here, FPR indicates the estimated probability of the same source error and TPR indicates 1 minus the estimated probability of the different source error.</p></li>
+<li><p>Step 4: By plotting the values of TPR over corresponding values of FPR, a single ROC curve is constructed.</p></li>
+<li><p>Step 5: Repeat the step 1 to 4 100 times.</p></li>
+<li><p>Step 6: Incorporate 100 ROC curves into a single monotonic ROC curve—e.g., incorporation by averaging out.</p></li>
+</ul>
+</div>
+<div id="how-to-average-multiple-roc-curves" class="section level4">
+<h4><span class="header-section-number">8.5.5.4</span> How to average multiple ROC curves</h4>
+<p>For the step 6, there are some issues of averaging multiple ROC curves by the values of FPR because no matter how densely the coordinates for (FPR, TPR) are formed, some ROC curves may not share common values of FPR. With that approach, the average ROC curve may be non-monotonic ROC curve which is not a desirable property of a ROC curve. The figure below illustrates the result.</p>
+<p><img src="images/foundations/optimal_rule/non-monotonic-ROC.png" width = "90%"/></p>
+<p>Hence, we consider two differnt ways to average out, and the description and examples are shown below:</p>
+<ul>
+<li>Average of the values of TPRs and FPRs by threshold value</li>
+</ul>
+<p><img src="images/foundations/optimal_rule/avg-ROC-remedy1.png" width="95%" style="display: block; margin: auto;" /></p>
+<ul>
+<li>Average of cumulatively largest vause of TPR in each bin for FPR.</li>
+</ul>
+<p><img src="images/foundations/optimal_rule/avg-ROC-remedy2-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="images/foundations/optimal_rule/avg-ROC-remedy2-2.png" width="47.5%" style="display: block; margin: auto;" /></p>
+<p>Like above, two types of average ROC curves will be provided for comparing the performance of several methods.</p>
+</div>
+</div>
+<div id="simulation-results" class="section level3">
+<h3><span class="header-section-number">8.5.6</span> Simulation results</h3>
+<div id="univariate-result-1" class="section level4">
+<h4><span class="header-section-number">8.5.6.1</span> Univariate Result 1</h4>
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math display">\[\mbox{Source, }g\]</span>
+</th>
+<th style="text-align:center;">
+1
+</th>
+<th style="text-align:center;">
+2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\mu\]</span>
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\Sigma_g\]</span>
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/foundations/optimal_rule/uni.Sg.2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="univariate-result-2" class="section level4">
+<h4><span class="header-section-number">8.5.6.2</span> Univariate Result 2</h4>
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math display">\[\mbox{Source, }g\]</span>
+</th>
+<th style="text-align:center;">
+1
+</th>
+<th style="text-align:center;">
+2
+</th>
+<th style="text-align:center;">
+3
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\mu\]</span>
+</td>
+<td style="text-align:center;">
+1.00
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\Sigma_g\]</span>
+</td>
+<td style="text-align:center;">
+2.25
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/foundations/optimal_rule/uni.Sg.3_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="univariate-result-3" class="section level4">
+<h4><span class="header-section-number">8.5.6.3</span> Univariate Result 3</h4>
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math display">\[\mbox{Source, }g\]</span>
+</th>
+<th style="text-align:center;">
+1
+</th>
+<th style="text-align:center;">
+2
+</th>
+<th style="text-align:center;">
+3
+</th>
+<th style="text-align:center;">
+4
+</th>
+<th style="text-align:center;">
+5
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\mu\]</span>
+</td>
+<td style="text-align:center;">
+-10
+</td>
+<td style="text-align:center;">
+-5.00
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+4.00
+</td>
+<td style="text-align:center;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\Sigma_g\]</span>
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+2.25
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+6.25
+</td>
+<td style="text-align:center;">
+9
+</td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/foundations/optimal_rule/uni.Sg.5_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="univariate-result-4" class="section level4">
+<h4><span class="header-section-number">8.5.6.4</span> Univariate Result 4</h4>
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math display">\[\mbox{Source, }g\]</span>
+</th>
+<th style="text-align:center;">
+1
+</th>
+<th style="text-align:center;">
+2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\mu\]</span>
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\Sigma_g\]</span>
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/foundations/optimal_rule/uni.Sp.2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="univariate-result-5" class="section level4">
+<h4><span class="header-section-number">8.5.6.5</span> Univariate Result 5</h4>
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math display">\[\mbox{Source, }g\]</span>
+</th>
+<th style="text-align:center;">
+1
+</th>
+<th style="text-align:center;">
+2
+</th>
+<th style="text-align:center;">
+3
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\mu\]</span>
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\Sigma_g\]</span>
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/foundations/optimal_rule/uni.Sp.3_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="univariate-result-6" class="section level4">
+<h4><span class="header-section-number">8.5.6.6</span> Univariate Result 6</h4>
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math display">\[\mbox{Source, }g\]</span>
+</th>
+<th style="text-align:center;">
+1
+</th>
+<th style="text-align:center;">
+2
+</th>
+<th style="text-align:center;">
+3
+</th>
+<th style="text-align:center;">
+4
+</th>
+<th style="text-align:center;">
+5
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\mu\]</span>
+</td>
+<td style="text-align:center;">
+-10
+</td>
+<td style="text-align:center;">
+-7
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\Sigma_g\]</span>
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/foundations/optimal_rule/uni.Sp.5_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="multivariate-result-1-g-2-n-2" class="section level4">
+<h4><span class="header-section-number">8.5.6.7</span> Multivariate Result 1; G = 2, N = 2</h4>
+<table>
+<colgroup>
+<col width="60%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"><span class="math display">\[\mbox{Source, }g\]</span></th>
+<th><span class="math display">\[\mu_g\]</span></th>
+<th><span class="math display">\[\Sigma_g\]</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math display">\[1\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 10&amp;-10 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 16&amp;-4\\-4&amp;25 \end{bmatrix}\]</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math display">\[2\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} -1&amp;1 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 9&amp;4\\4&amp;36 \end{bmatrix}\]</span></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/foundations/optimal_rule/multi.Sg.2.d2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="multivariate-result-2" class="section level4">
+<h4><span class="header-section-number">8.5.6.8</span> Multivariate Result 2</h4>
+<table>
+<colgroup>
+<col width="60%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"><span class="math display">\[\mbox{Source, }g\]</span></th>
+<th><span class="math display">\[\mu_g\]</span></th>
+<th><span class="math display">\[\Sigma_g\]</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math display">\[1\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 10&amp;-10 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 16&amp;-4\\-4&amp;25 \end{bmatrix}\]</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math display">\[2\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} -1&amp;1 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 9&amp;4\\4&amp;36 \end{bmatrix}\]</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math display">\[3\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 20&amp;-20 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 16&amp;-9\\-9&amp;25 \end{bmatrix}\]</span></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/foundations/optimal_rule/multi.Sg.3.d2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="multivariate-result-3" class="section level4">
+<h4><span class="header-section-number">8.5.6.9</span> Multivariate Result 3</h4>
+<table>
+<colgroup>
+<col width="60%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"><span class="math display">\[\mbox{Source, }g\]</span></th>
+<th><span class="math display">\[\mu_g\]</span></th>
+<th><span class="math display">\[\Sigma_g\]</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math display">\[1\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 1&amp;10 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 1&amp;-1\\-1&amp;4 \end{bmatrix}\]</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math display">\[2\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} -1&amp;12 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 1&amp;0.5\\0.5&amp;1 \end{bmatrix}\]</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math display">\[3\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 0&amp;10 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 1&amp;-1.5\\-1.5&amp;4 \end{bmatrix}\]</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math display">\[4\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 2&amp;8 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 1&amp;-0.1\\-0.1&amp;4 \end{bmatrix}\]</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math display">\[5\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} -2&amp;7 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 4&amp;-2\\-2&amp;4 \end{bmatrix}\]</span></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/foundations/optimal_rule/multi.Sg.5.d2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="multivariate-result-4" class="section level4">
+<h4><span class="header-section-number">8.5.6.10</span> Multivariate Result 4</h4>
+<table>
+<colgroup>
+<col width="60%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"><span class="math display">\[\mbox{Source, }g\]</span></th>
+<th><span class="math display">\[\mu_g\]</span></th>
+<th><span class="math display">\[\Sigma_g\]</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math display">\[1\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 3&amp;10&amp;5 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 4&amp;2&amp;-0.3\\2&amp;25&amp;8\\-0.3&amp;8&amp;9 \end{bmatrix}\]</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math display">\[2\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} -1&amp;20&amp;15 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 4&amp;2&amp;-3\\2&amp;49&amp;2\\-3&amp;2&amp;9 \end{bmatrix}\]</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math display">\[3\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} -5&amp;30&amp;25 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 4&amp;1&amp;-0.3\\1&amp;36&amp;1\\-0.3&amp;1&amp;9 \end{bmatrix}\]</span></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/foundations/optimal_rule/multi.Sg.3.d3_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="multivariate-result-5" class="section level4">
+<h4><span class="header-section-number">8.5.6.11</span> Multivariate Result 5</h4>
+<table>
+<colgroup>
+<col width="60%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"><span class="math display">\[\mbox{Source, }g\]</span></th>
+<th><span class="math display">\[\mu_g\]</span></th>
+<th><span class="math display">\[\Sigma_g\]</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math display">\[1\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 10&amp;-10&amp;1&amp;8&amp;5 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 16&amp;-4&amp;3&amp;3&amp;3\\-4&amp;25&amp;3&amp;3&amp;3\\3&amp;3&amp;4&amp;2&amp;-0.3\\3&amp;3&amp;2&amp;25&amp;8\\3&amp;3&amp;-0.3&amp;8&amp;9 \end{bmatrix}\]</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math display">\[2\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} -5&amp;5&amp;-1&amp;12&amp;9 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 9&amp;4&amp;3&amp;3&amp;3\\4&amp;36&amp;3&amp;3&amp;3\\3&amp;3&amp;4&amp;2&amp;-3\\3&amp;3&amp;2&amp;49&amp;2\\3&amp;3&amp;-3&amp;2&amp;9 \end{bmatrix}\]</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math display">\[3\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 4&amp;-4&amp;0&amp;20&amp;2 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 16&amp;-9&amp;3&amp;3&amp;3\\-9&amp;25&amp;3&amp;3&amp;3\\3&amp;3&amp;4&amp;1&amp;-0.3\\3&amp;3&amp;1&amp;36&amp;1\\3&amp;3&amp;-0.3&amp;1&amp;9 \end{bmatrix}\]</span></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/foundations/optimal_rule/multi.Sg.3.d5_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="multivariate-result-6" class="section level4">
+<h4><span class="header-section-number">8.5.6.12</span> Multivariate Result 6</h4>
+<table>
+<colgroup>
+<col width="60%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"><span class="math display">\[\mbox{Source, }g\]</span></th>
+<th><span class="math display">\[\mu_g\]</span></th>
+<th><span class="math display">\[\Sigma_g\]</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math display">\[1\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 10&amp;-10 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 25&amp;-4\\-4&amp;25 \end{bmatrix}\]</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math display">\[2\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} -1&amp;1 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[&#39;&#39;\]</span></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/foundations/optimal_rule/multi.Sp.2.d2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="multivariate-result-7" class="section level4">
+<h4><span class="header-section-number">8.5.6.13</span> Multivariate Result 7</h4>
+<table>
+<colgroup>
+<col width="60%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"><span class="math display">\[\mbox{Source, }g\]</span></th>
+<th><span class="math display">\[\mu_g\]</span></th>
+<th><span class="math display">\[\Sigma_g\]</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math display">\[1\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 10&amp;-10 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 25&amp;-9\\-9&amp;36 \end{bmatrix}\]</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math display">\[2\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} -1&amp;1 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[&#39;&#39;\]</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math display">\[3\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 20&amp;-20 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[&#39;&#39;\]</span></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/foundations/optimal_rule/multi.Sp.3.d2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="multivariate-result-8" class="section level4">
+<h4><span class="header-section-number">8.5.6.14</span> Multivariate Result 8</h4>
+<table>
+<colgroup>
+<col width="60%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"><span class="math display">\[\mbox{Source, }g\]</span></th>
+<th><span class="math display">\[\mu_g\]</span></th>
+<th><span class="math display">\[\Sigma_g\]</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math display">\[1\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} -5&amp;10 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 4&amp;-2\\-2&amp;6 \end{bmatrix}\]</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math display">\[2\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} -1&amp;6 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[&#39;&#39;\]</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math display">\[3\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 0&amp;10 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[&#39;&#39;\]</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math display">\[4\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 2&amp;8 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[&#39;&#39;\]</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math display">\[5\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} -2&amp;7 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[&#39;&#39;\]</span></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/foundations/optimal_rule/multi.Sp.5.d2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="multivariate-result-9" class="section level4">
+<h4><span class="header-section-number">8.5.6.15</span> Multivariate Result 9</h4>
+<table>
+<colgroup>
+<col width="60%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"><span class="math display">\[\mbox{Source, }g\]</span></th>
+<th><span class="math display">\[\mu_g\]</span></th>
+<th><span class="math display">\[\Sigma_g\]</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math display">\[1\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 1&amp;8&amp;5 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 4&amp;0.5&amp;-1\\0.5&amp;9&amp;1\\-1&amp;1&amp;4 \end{bmatrix}\]</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math display">\[2\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} -1&amp;12&amp;9 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[&#39;&#39;\]</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math display">\[3\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 0&amp;20&amp;2 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[&#39;&#39;\]</span></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/foundations/optimal_rule/multi.Sp.3.d3_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="multivariate-result-10" class="section level4">
+<h4><span class="header-section-number">8.5.6.16</span> Multivariate Result 10</h4>
+<table>
+<colgroup>
+<col width="60%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"><span class="math display">\[\mbox{Source, }g\]</span></th>
+<th><span class="math display">\[\mu_g\]</span></th>
+<th><span class="math display">\[\Sigma_g\]</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math display">\[1\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 1&amp;10&amp;1&amp;8&amp;5 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 4&amp;-2&amp;-1&amp;-1&amp;-1\\-2&amp;6&amp;-1&amp;-1&amp;-1\\-1&amp;-1&amp;4&amp;0.5&amp;-0.3\\-1&amp;-1&amp;0.5&amp;25&amp;0.5\\-1&amp;-1&amp;-0.3&amp;0.5&amp;9 \end{bmatrix}\]</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math display">\[2\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 2&amp;8&amp;-1&amp;12&amp;9 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[&#39;&#39;\]</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math display">\[3\]</span></td>
+<td><span class="math display">\[\begin{bmatrix} 1&amp;12&amp;0&amp;20&amp;2 \end{bmatrix}&#39;\]</span></td>
+<td><span class="math display">\[&#39;&#39;\]</span></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/foundations/optimal_rule/multi.Sp.3.d5_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="real-data-for-simulations" class="section level3">
+<h3><span class="header-section-number">8.5.7</span> Real data for simulations</h3>
+<p>For the simulations in the previous section, data were generated from normal distributions, and optimal rule outperformed the other methods under the condition. To examine if it works well in practice, we compare it with the other techniques on the glass data published in this <a href="https://projecteuclid.org/euclid.aoas/1560758438">paper</a> where the data are referred to as <em>Dataset</em> 3.</p>
+<div id="data-description" class="section level4">
+<h4><span class="header-section-number">8.5.7.1</span> Data description</h4>
+<p>We use the data set consisting of 31 and 17 glass panes (AA, AB, …, AAQ, AAR / BA, BB, …, BP, BR) provided from company A and B, and 22 to 24 fragments were randomly sampled frome each source, a glass pane. A single fragment as an observational unit has the average amount of concentration for 18 chemical elements such as Li7, Na23, and Mg25 where the mean was caluated from repeatedly measured values of concentration. Hence, each row of the data at our analysis level is made up of a 18-dimensional vector whose coordinates indicate the average amount of concentration for the 18 chemical elements, and extra information like which source fragments came from.</p>
+</div>
+<div id="simulation-plan-for-glass-data" class="section level4">
+<h4><span class="header-section-number">8.5.7.2</span> Simulation plan for glass data</h4>
+<p>The basic scheme is the same as the explanation in <a href="theoretical-foundations.html#simulation-plan">Simulation plan</a>, the section above, but there are some differences. For the glass data, 20 random splits of a dataset will be generated into test sets so that an average ROC curve aggregated from 20 ROC curves can be provided. Specifically, 6 observations per source are assigned to a test set, and the rest is assigned to a training set. Then, 16 to 18 fragments per a source remain in a training set, which is not enough to estimate 18 by 18 covariance matrix for each source, and covariance estimation is a necessary process for optimal rule. Alternatively, we use pooled covariance estimate for optimal rule with the glass data. One way is to use a single pooled covariance across all sources, and another one is apply separate pooled covariance estimate for each company. The latter is based on our prior belief that covariance structure could differ by company, and could be similar within the same company while there is the possibility that a single sample covariance across all sources is more reliable than separate ones.</p>
+<p>Besides, unlike the other methods, randomforest method needs to train its model while the other methods just computes their matching rule based on summary statistics. Since feature differences are calculated from all pairwise observations in a training set, a serious imbalance to the number of pairs from the same sources, and that from different sources happens as the number of sources and the number of observations increase. To address some potential problems due to the imbalance, we also employ downsampling technique to randomforest method where twice the number of pairs from the same sources is randomly selected from different sources instead of utilizing all pairs from different sources.</p>
+<p>Lastly, subsets of the whole data will be used to compare mathing techniques where a subset of data is determined by choosing different glass panes. For example, we can apply matching methods to a dataset with 6 different panes (AA, AB, AC, BA, BB, and BC) as the whole data. In this report, a scenario will be based on a subset of the entire glass data, and several scenarios will be presented.</p>
+<p>To sum up, two kinds of average of 20 ROC curves will be presented for each scenario: average of the values of TPRs and FPRs by threshold value, and average of cumulatively largest vause of TPR in each bin for FPR. Optimal rule’s performance will be compared with LDA, QDA, and randomforest based on feature differences as before, but optimal rule and randomforest have two different scenarios. For optimal rule, one is to apply a single pooled covariance across all sources, and the other is to use separate pooled covariance for each company. Randomforest will present a regualr one without downsampling, and one with downsampling. Consequently, there will be 6 methods compared.</p>
+</div>
+</div>
+<div id="simulation-results-using-glass-data" class="section level3">
+<h3><span class="header-section-number">8.5.8</span> Simulation results using glass data</h3>
+<div id="case-1-6-sources" class="section level4">
+<h4><span class="header-section-number">8.5.8.1</span> Case 1: 6 sources</h4>
+<p>Panes used:</p>
+<ul>
+<li>AA, AB, AC</li>
+<li>BA, BB, BC</li>
+</ul>
+<p><img src="images/foundations/optimal_rule/Sp_dat1_avg_roc.png" width="100%" style="display: block; margin: auto;" /><img src="images/foundations/optimal_rule/Sp_dat1_max_avg_roc.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="case-2-6-sources" class="section level4">
+<h4><span class="header-section-number">8.5.8.2</span> Case 2: 6 sources</h4>
+<p>Panes used:</p>
+<ul>
+<li>AAM, AAQ, AAR</li>
+<li>BO, BP, BR</li>
+</ul>
+<p><img src="images/foundations/optimal_rule/Sp_dat2_avg_roc.png" width="100%" style="display: block; margin: auto;" /><img src="images/foundations/optimal_rule/Sp_dat2_max_avg_roc.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="case-3-10-sources" class="section level4">
+<h4><span class="header-section-number">8.5.8.3</span> Case 3: 10 sources</h4>
+<p>Panes used:</p>
+<ul>
+<li>AD, AE, AF, AG, AH</li>
+<li>BD, BE, BF, BG, BH</li>
+</ul>
+<p><img src="images/foundations/optimal_rule/Sp_dat3_avg_roc.png" width="100%" style="display: block; margin: auto;" /><img src="images/foundations/optimal_rule/Sp_dat3_max_avg_roc.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="case-4-20-sources" class="section level4">
+<h4><span class="header-section-number">8.5.8.4</span> Case 4: 20 sources</h4>
+<p>Panes used:</p>
+<ul>
+<li>AAD, AAF, AAH, AAI, AAJ, AAK, AAL, AAM, AAQ, AAR</li>
+<li>BH, BI, BJ, BK, BL, BM, BN, BO, BP, BR</li>
+</ul>
+<p><img src="images/foundations/optimal_rule/Sp_dat4_avg_roc.png" width="100%" style="display: block; margin: auto;" /><img src="images/foundations/optimal_rule/Sp_dat4_max_avg_roc.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="contrasting-hypotesis-in-a-court-case." class="section level3">
+<h3><span class="header-section-number">8.5.9</span> Contrasting Hypotesis in a court case.</h3>
 
 </div>
 </div>

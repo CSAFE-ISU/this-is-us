@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-05-28" />
+<meta name="date" content="2020-06-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,6 +50,7 @@
 
 
 
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -243,6 +244,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.5" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#optimal-matching-problem"><i class="fa fa-check"></i><b>8.5</b> Optimal matching problem</a><ul>
 <li class="chapter" data-level="8.5.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#two-groups-case."><i class="fa fa-check"></i><b>8.5.1</b> Two groups case.</a></li>
 <li class="chapter" data-level="8.5.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#topics-needs-exploration"><i class="fa fa-check"></i><b>8.5.2</b> Topics needs exploration</a></li>
+<li class="chapter" data-level="8.5.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#brief-introduction-to-optimal-rule"><i class="fa fa-check"></i><b>8.5.3</b> Brief introduction to optimal rule</a></li>
+<li class="chapter" data-level="8.5.4" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#optimal-rule-for-matching-problems"><i class="fa fa-check"></i><b>8.5.4</b> Optimal rule for matching problems</a></li>
+<li class="chapter" data-level="8.5.5" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#simulation-plan"><i class="fa fa-check"></i><b>8.5.5</b> Simulation plan</a></li>
+<li class="chapter" data-level="8.5.6" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#simulation-results"><i class="fa fa-check"></i><b>8.5.6</b> Simulation results</a></li>
+<li class="chapter" data-level="8.5.7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#real-data-for-simulations"><i class="fa fa-check"></i><b>8.5.7</b> Real data for simulations</a></li>
+<li class="chapter" data-level="8.5.8" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#simulation-results-using-glass-data"><i class="fa fa-check"></i><b>8.5.8</b> Simulation results using glass data</a></li>
+<li class="chapter" data-level="8.5.9" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#contrasting-hypotesis-in-a-court-case."><i class="fa fa-check"></i><b>8.5.9</b> Contrasting Hypotesis in a court case.</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="outreach-activities.html"><a href="outreach-activities.html"><i class="fa fa-check"></i><b>9</b> Outreach activities</a><ul>
@@ -1947,7 +1955,7 @@ Joe 4/20/20 Spotlight: Today I wanted to share some of the final results and con
 </details>
 <details>
 <p><summary>
-Joe 5/28 Update: I’ve been writing and adding more functionality to the cmcR package in the last few weeks. I believe we are close to finishing the R Journal submission and are on the home stretch for finishing the cmcR package.
+Joe 6/1 Update: I’ve been writing the R Journal submission and adding more functionality to the cmcR package in the last few weeks. I believe we are close to finishing the R Journal submission and are on the home stretch for finishing the cmcR package.
 </summary></p>
 <p>I have been working on a lot of the “boring” parts of package writing including adding some functionality, writing tests, and improving documentation. Writing has also taken up a considerable amount of time. For those of you who are new, I thought I would share some exposition for my project and discuss its current condition.</p>
 <p>The back wall of the barrel of the firearm is commonly referred to as the breech face. For a variety of reasons, the breech face of a firearm contains markings that can uniquely identify the firearm. During the firing process, cartridge cases, often colloquially referred to as “bullet casings,” slam into the breech face. The breech face markings are impressed upon the cartridge case when this happens. Two cartridge cases fired from the same firearm can often be matched based on these “breech face impressions.” The plots below show a known match and known non-match pair of cartridge case scans.</p>

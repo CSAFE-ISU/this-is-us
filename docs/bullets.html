@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-06-15" />
+<meta name="date" content="2020-06-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -213,15 +213,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7.3" data-path="shoes.html"><a href="shoes.html#maxclique"><i class="fa fa-check"></i><b>7.3</b> Maximum Clique Matching</a></li>
 <li class="chapter" data-level="7.4" data-path="shoes.html"><a href="shoes.html#cocoa"><i class="fa fa-check"></i><b>7.4</b> Project Tread (formerly Cocoa Powder Citizen Science)</a></li>
-<li class="chapter" data-level="7.5" data-path="shoes.html"><a href="shoes.html#d-shoe-recognition"><i class="fa fa-check"></i><b>7.5</b> 3d Shoe Recognition</a></li>
-<li class="chapter" data-level="7.6" data-path="shoes.html"><a href="shoes.html#shoe-outsole-matching-using-image-descriptors"><i class="fa fa-check"></i><b>7.6</b> Shoe outsole matching using image descriptors</a><ul>
-<li class="chapter" data-level="7.6.1" data-path="shoes.html"><a href="shoes.html#method-1-edge-detection-and-mc-mc-comp"><i class="fa fa-check"></i><b>7.6.1</b> Method 1: Edge detection and MC (MC-COMP)</a></li>
-<li class="chapter" data-level="7.6.2" data-path="shoes.html"><a href="shoes.html#method-2-surf-detection-and-mc-on-degraded-impressions"><i class="fa fa-check"></i><b>7.6.2</b> Method 2: SURF detection and MC on degraded impressions</a></li>
-<li class="chapter" data-level="7.6.3" data-path="shoes.html"><a href="shoes.html#research-1-features"><i class="fa fa-check"></i><b>7.6.3</b> Research 1: Features</a></li>
-<li class="chapter" data-level="7.6.4" data-path="shoes.html"><a href="shoes.html#matching-on-clean-and-full-images-with-several-features"><i class="fa fa-check"></i><b>7.6.4</b> Matching on clean and full images with several features</a></li>
-<li class="chapter" data-level="7.6.5" data-path="shoes.html"><a href="shoes.html#matching-on-degraded-and-partial-images"><i class="fa fa-check"></i><b>7.6.5</b> Matching on degraded and partial images</a></li>
-<li class="chapter" data-level="7.6.6" data-path="shoes.html"><a href="shoes.html#research-2-impact-of-weight-to-outsole-scans-from-everos-2d-scanner"><i class="fa fa-check"></i><b>7.6.6</b> Research 2: Impact of weight to outsole scans from EverOS 2D scanner</a></li>
-<li class="chapter" data-level="7.6.7" data-path="shoes.html"><a href="shoes.html#research-3-mc-cnn"><i class="fa fa-check"></i><b>7.6.7</b> Research 3: MC + CNN</a></li>
+<li class="chapter" data-level="7.5" data-path="shoes.html"><a href="shoes.html#d-shoe-recognition"><i class="fa fa-check"></i><b>7.5</b> 3d Shoe Recognition</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="shoes.html"><a href="shoes.html#method-1-edge-detection-and-mc-mc-comp"><i class="fa fa-check"></i><b>7.5.1</b> Method 1: Edge detection and MC (MC-COMP)</a></li>
+<li class="chapter" data-level="7.5.2" data-path="shoes.html"><a href="shoes.html#method-2-surf-detection-and-mc-on-degraded-impressions"><i class="fa fa-check"></i><b>7.5.2</b> Method 2: SURF detection and MC on degraded impressions</a></li>
+<li class="chapter" data-level="7.5.3" data-path="shoes.html"><a href="shoes.html#research-1-features"><i class="fa fa-check"></i><b>7.5.3</b> Research 1: Features</a></li>
+<li class="chapter" data-level="7.5.4" data-path="shoes.html"><a href="shoes.html#matching-on-clean-and-full-images-with-several-features"><i class="fa fa-check"></i><b>7.5.4</b> Matching on clean and full images with several features</a></li>
+<li class="chapter" data-level="7.5.5" data-path="shoes.html"><a href="shoes.html#matching-on-degraded-and-partial-images"><i class="fa fa-check"></i><b>7.5.5</b> Matching on degraded and partial images</a></li>
+<li class="chapter" data-level="7.5.6" data-path="shoes.html"><a href="shoes.html#research-2-impact-of-weight-to-outsole-scans-from-everos-2d-scanner"><i class="fa fa-check"></i><b>7.5.6</b> Research 2: Impact of weight to outsole scans from EverOS 2D scanner</a></li>
+<li class="chapter" data-level="7.5.7" data-path="shoes.html"><a href="shoes.html#research-3-mc-cnn"><i class="fa fa-check"></i><b>7.5.7</b> Research 3: MC + CNN</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html"><i class="fa fa-check"></i><b>8</b> Theoretical foundations</a><ul>
@@ -1955,38 +1954,54 @@ Joe 4/20/20 Spotlight: Today I wanted to share some of the final results and con
 </details>
 <details>
 <p><summary>
-Joe 6/1 Update: I’ve been writing the R Journal submission and adding more functionality to the cmcR package in the last few weeks. I believe we are close to finishing the R Journal submission and are on the home stretch for finishing the cmcR package.
+Joe 6/22 Spotlight: I think we’ve finally found a tone for the paper that discusses the ambiguity and lack of computational reproducibility in the current CMC literature while not being overly harsh. We’re hoping to use this project as an example to illustrate (1) common patterns in non-reproducible research such as omitting code, parameter settings, etc. and (2) what must be done to implement an algorithm that has only been qualitatively described.
 </summary></p>
-<p>I have been working on a lot of the “boring” parts of package writing including adding some functionality, writing tests, and improving documentation. Writing has also taken up a considerable amount of time. For those of you who are new, I thought I would share some exposition for my project and discuss its current condition.</p>
+<p>First, I wanted to provide some context for those of us who are not familiar with the cartridge case project or the CMC method. This will also give me an opportunity to show-off some visualizations that I’ve spent a good deal of time putting together and incorporating into the cmcR package that I believe illustrates the concepts well.</p>
 <p>The back wall of the barrel of the firearm is commonly referred to as the breech face. For a variety of reasons, the breech face of a firearm contains markings that can uniquely identify the firearm. During the firing process, cartridge cases, often colloquially referred to as “bullet casings,” slam into the breech face. The breech face markings are impressed upon the cartridge case when this happens. Two cartridge cases fired from the same firearm can often be matched based on these “breech face impressions.” The plots below show a known match and known non-match pair of cartridge case scans.</p>
 <div class="figure"><span id="fig:unnamed-chunk-196"></span>
-<img src="images/cartridge_cases/5-28_update/kmPair.png" alt="Known match pair of cartridge cases" width="936" />
+<img src="images/cartridge_cases/6-22_spotlight/kmPair.png" alt="Known match pair of cartridge cases" width="936" />
 <p class="caption">
 Figure 4.84: Known match pair of cartridge cases
 </p>
 </div>
 <div class="figure"><span id="fig:unnamed-chunk-197"></span>
-<img src="images/cartridge_cases/5-28_update/knmPair.png" alt="Known non-match pair of cartridge cases" width="672" />
+<img src="images/cartridge_cases/6-22_spotlight/knmPair.png" alt="Known non-match pair of cartridge cases" width="672" />
 <p class="caption">
 Figure 4.85: Known non-match pair of cartridge cases
 </p>
 </div>
-<p>The Congruent Matching Cells (CMC) method was developed at the National Institute of Standards and Technology to determine whether two cartridge cases match. The method involves partitioning a scan of one cartridge case into a grid of cells. Each of these cells is paired with a counterpart region in the other cartridge case scan. In their “raw” format, two matching cartridge case scans are not necessarily aligned. In particular, one scan may need to be translated and rotated to properly align with the other. These “alignment parameter” values by which two scans will be properly aligned can be estimated for each cell/region pair (I’ll skip over how this is done). The CMC method tries to determine whether a “consensus” exists among the estimated alignment parameter values across cell/region pairs. For a truly matching pair of cartridge cases, we would expect the estimated alignment parameter values to agree with each other (possibly within some tolerance). On the other hand, we would expect the estimated alignment parameter values to vary randomly for a truly <em>non</em>-matching pair of cartridge cases.</p>
-<p>The plots below illustrate the CMC method (now implemented in a function in the cmcR package!). The plot immediately below shows results from a comparison between two known match cartridge case scans. The scans were partitioned into an <span class="math inline">\(8 \times 8\)</span> grid of cells. Cells shown in black have been identified as “Congruent Matching Cells.” Red cells have not been identified as CMCs. Recall that the CMC method uses the estimated alignment parameter (translation and rotation) values to identify matches (we skipped over the finer details). The plot on the right-hand side shows how each cell in the left-hand side plot aligns “best,” where “best” is quantified using the cross-correlation function. 40 cells were identified as CMCs while 3 were not.</p>
+<p>The Congruent Matching Cells (CMC) method was developed at the National Institute of Standards and Technology to determine whether two cartridge cases match. The method involves partitioning a scan of one cartridge case into a grid of cells. Each of these cells is paired with a counterpart region in the other cartridge case scan. In their “raw” format, two matching cartridge case scans are not necessarily aligned. In particular, one scan may need to be translated and rotated to properly align with the other. These “alignment parameter” values by which two scans will be properly aligned can be estimated for each cell/region pair (I’ll skip over how this is done). The CMC method tries to determine whether a “consensus” exists among the estimated alignment parameter values across cell/region pairs. For a truly matching pair of cartridge cases, we would expect the estimated alignment parameter values to agree with each other (possibly within some tolerance). We would also expect the estimated alignment parameter values to vary randomly for a truly <em>non</em>-matching pair of cartridge cases. These are assumptions underlying all methods proposed in the CMC literature. Effectively, the only difference between the various methods is how a “consensus” is determined. We have implemented two methods, the initially proposed method from Song (2013) and the High CMC method from Tong et al. (2015), in the cmcR package (these were the first two versions of the CMC method proposed). I won’t delve into the details of either method here.</p>
+<p>The plots below illustrate the CMC method. The plot immediately below shows results from a comparison between two known match cartridge case scans. The scans were partitioned into an <span class="math inline">\(8 \times 8\)</span> grid of cells. Cells shown in black have been identified as “Congruent Matching Cells.” Red cells have not been identified as CMCs. Recall that the CMC method uses the estimated alignment parameter (translation and rotation) values to identify matches. The plot on the right-hand side shows how each cell in the left-hand side plot aligns best (where “best” is quantified using the cross-correlation function). 40 cells were identified as CMCs while 3 were not.</p>
 <div class="figure"><span id="fig:unnamed-chunk-198"></span>
-<img src="images/cartridge_cases/5-28_update/kmCMCs.png" alt="CMC results for known match pair" width="936" />
+<img src="images/cartridge_cases/6-22_spotlight/kmCMCs.png" alt="CMC results for known match pair" width="936" />
 <p class="caption">
 Figure 4.86: CMC results for known match pair
 </p>
 </div>
 <p>In contrast, the plots below show the results from a comparison between two known <em>non</em>-match cartridge case scans.</p>
 <div class="figure"><span id="fig:unnamed-chunk-199"></span>
-<img src="images/cartridge_cases/5-28_update/knmCMCs.png" alt="CMC results for known non-match pair" width="936" />
+<img src="images/cartridge_cases/6-22_spotlight/knmCMCs.png" alt="CMC results for known non-match pair" width="936" />
 <p class="caption">
 Figure 4.87: CMC results for known non-match pair
 </p>
 </div>
-<p>As I said above, we are close to finishing the R Journal submission as well as the development of the cmcR package. I’m very excited to delve into <em>new</em> ideas that we have for the project and will hopefully have thoughts to share on this in the future.</p>
+<p>A popular cartridge case data set in the CMC literature is from Fadul et al. (2011). This data set contains 63 known match and 717 known non-match cartridge case pairs. We can count the number of CMCs for each of these cartridge case pairs. Obviously, assuming the methods applied are valid, we would expect matching pairs to have more CMCs than non-matching pairs. In particular, we hope that all KM pairs have higher CMC counts than all KNM pairs. The plot below shows the distributions of the CMC counts assigned to all 63 KM and 717 KNM pairs. We can see that there is separation between the two CMC count distributions between 15 and 16 CMCs (vertical line drawn at 15.5).</p>
+<div class="figure"><span id="fig:unnamed-chunk-200"></span>
+<img src="images/cartridge_cases/6-22_spotlight/initialCMC_example.png" alt="Initially proposed CMC method applied to 63 KM and 717 KNM cartridge case pairs" width="936" />
+<p class="caption">
+Figure 4.88: Initially proposed CMC method applied to 63 KM and 717 KNM cartridge case pairs
+</p>
+</div>
+<p>The CMC count distributions based on the High CMC method are shown below for the same data set. Again, we see that there is separation between the two distributions. We’ve observed that both the initially proposed and High CMC methods tend to assign more “false positive” CMCs to non-match pairs than the initially proposed method. The number of non-matching pairs assigned a high false positive CMC count is heavily dependent on the the various parameters that require setting in the method. We hope to provide a deeper discussion on how sensitive the two methods are to various processing decisions than what is currently provided in the CMC literature.</p>
+<div class="figure"><span id="fig:unnamed-chunk-201"></span>
+<img src="images/cartridge_cases/6-22_spotlight/highCMC_example.png" alt="High CMC method applied to 63 KM and 717 KNM cartridge case pairs" width="936" />
+<p class="caption">
+Figure 4.89: High CMC method applied to 63 KM and 717 KNM cartridge case pairs
+</p>
+</div>
+<p>As stated above, I think we’ve found an appropriate tone for the paper that provides a tempered critique of and discussion of the lack of reproducibility in the CMC literature. Reproducibility of results (by other parties) is a necessary, if sometimes overlooked, component of research. For computationally-intensive research (e.g., algorithm development), computational reproducibility is vital. Anything short of the original data and code used to arrive at the results does not equate to full reproducibility.</p>
+<p>We are planning on using the cmcR package as an example of how unreproducibility, specifically computational unreproducibility, manifests in academic literature. This includes ambiguity in how parameters are chosen, using unreplicable processing procedures (e.g., processing data manually), or reliance on proprietary software. The CMC literature is rife with all of these Reproducibility is especially important for algorithms that may affect legal decisions (e.g., suspect’s firearm fired a particular cartridge case). While few would disagree with the need for reproducible research, I believe the cmcR package provides an illustrative example of the typical challenges, failures, and successes that one experiences when implementing a previously closed-source method.</p>
+<p>I have also been adding functionality to the cmcR as ideas come up while writing. For example, the cartridge case pairs and CMC plots shown above were created with functions available in the cmcR package.</p>
 </details>
 </div>
 </div>
@@ -2010,36 +2025,36 @@ Figure 4.87: CMC results for known non-match pair
 <p class="new">
 evaluation: Yawei is going to work through all 626 barrels of knowns to assess similarity scores
 </p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-200"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-202"></span>
 <img src="images/yawei/results-FAU-1.png" alt="Results from assessing scans of barrel FAU 1 similarity." width="50%" />
 <p class="caption">
-Figure 4.88: Results from assessing scans of barrel FAU 1 similarity.
+Figure 4.90: Results from assessing scans of barrel FAU 1 similarity.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-201"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-203"></span>
 <img src="images/yawei/results-FAU-2.png" alt="Results from assessing scans of barrel FAU 2 similarity." width="50%" />
 <p class="caption">
-Figure 4.89: Results from assessing scans of barrel FAU 2 similarity.
+Figure 4.91: Results from assessing scans of barrel FAU 2 similarity.
 </p>
 </div>
 <p>Why some of the cases failed? (181/626 = 30%)</p>
 <p><code>x3p_crosscut_optimize()</code> failed to find the positions to get cross cut for some lands.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-202"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-204"></span>
 <img src="images/yawei/lapd-FAU-3-Bullet-A-land-6.PNG" alt="Land scan for barrel FAU 3 bullet A land 6." width="50%" />
 <p class="caption">
-Figure 4.90: Land scan for barrel FAU 3 bullet A land 6.
+Figure 4.92: Land scan for barrel FAU 3 bullet A land 6.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-203"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-205"></span>
 <img src="images/yawei/lapd-FAU-4-Bullet-C-land-5.PNG" alt="Land scan for barrel FAU 4 bullet C land 5." width="50%" />
 <p class="caption">
-Figure 4.91: Land scan for barrel FAU 4 bullet C land 5.
+Figure 4.93: Land scan for barrel FAU 4 bullet C land 5.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-204"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-206"></span>
 <img src="images/yawei/lapd-FAU-5-Bullet-B-land-5.PNG" alt="Land scan for barrel FAU 5 bullet B land 5." width="50%" />
 <p class="caption">
-Figure 4.92: Land scan for barrel FAU 5 bullet B land 5.
+Figure 4.94: Land scan for barrel FAU 5 bullet B land 5.
 </p>
 </div>
 <p>Assess the land-land comparasion and bullet-bullet comparasion</p>
@@ -2048,101 +2063,101 @@ Figure 4.92: Land scan for barrel FAU 5 bullet B land 5.
 <p>For the known mathches, we have totally 626 x 6 = 3756 for the LAPD data, excluding the comparasions for same bullet.</p>
 <p>For the known non-matches, we don’t have the data in hand. We need to generate the data in a way. We have totally 626 x 625/2 x 16 = 313000 known non-matches. We can only generate a sample from the data.</p>
 <p>We sampled 100 bullet-bullet known non-matches from our 92 cases.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-205"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-207"></span>
 <img src="images/yawei/knmkm.png" alt="KM and KNM" width="50%" />
 <p class="caption">
-Figure 4.93: KM and KNM
+Figure 4.95: KM and KNM
 </p>
 </div>
 <p>Is the SAM(sequence average maximum) a good choice? Need to do a permutation test.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-206"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-208"></span>
 <img src="images/yawei/sam_1.PNG" alt="SAM permutation result" width="50%" />
 <p class="caption">
-Figure 4.94: SAM permutation result
+Figure 4.96: SAM permutation result
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-207"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-209"></span>
 <img src="images/yawei/sam_max_1.PNG" alt="SAM permutation result among maxmum" width="50%" />
 <p class="caption">
-Figure 4.95: SAM permutation result among maxmum
+Figure 4.97: SAM permutation result among maxmum
 </p>
 </div>
 <p>Possible dependence structure in land-land comparasions:</p>
 <p>Assume beta distributions for the ccf for both known mathces and known non-matches. For the real known match cases, we consider a mixture distribution of two/three beta distribution.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-208"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-210"></span>
 <img src="images/yawei/km-three-alldata.png" alt="KM three components for all data" width="50%" />
 <p class="caption">
-Figure 4.96: KM three components for all data
+Figure 4.98: KM three components for all data
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-209"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-211"></span>
 <img src="images/yawei/knm-two-alldata.png" alt="KNM two components for all data" width="50%" />
 <p class="caption">
-Figure 4.97: KNM two components for all data
-</p>
-</div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-210"></span>
-<img src="images/yawei/commoncomp.png" alt="common component" width="50%" />
-<p class="caption">
-Figure 4.98: common component
-</p>
-</div>
-<p>Ten-fold-cross validation (no validation yet), check the model estimator sensibility</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-211"></span>
-<img src="images/yawei/km-two.png" alt="KM ten-fold models for two components" width="50%" />
-<p class="caption">
-Figure 4.99: KM ten-fold models for two components
+Figure 4.99: KNM two components for all data
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-212"></span>
-<img src="images/yawei/km-three.png" alt="KM ten-fold models for three components" width="50%" />
+<img src="images/yawei/commoncomp.png" alt="common component" width="50%" />
 <p class="caption">
-Figure 4.100: KM ten-fold models for three components
+Figure 4.100: common component
 </p>
 </div>
+<p>Ten-fold-cross validation (no validation yet), check the model estimator sensibility</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-213"></span>
-<img src="images/yawei/knm-one.png" alt="KNM ten-fold models for one component" width="50%" />
+<img src="images/yawei/km-two.png" alt="KM ten-fold models for two components" width="50%" />
 <p class="caption">
-Figure 4.101: KNM ten-fold models for one component
+Figure 4.101: KM ten-fold models for two components
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-214"></span>
-<img src="images/yawei/knm-two.png" alt="KNM ten-fold models for two components" width="50%" />
+<img src="images/yawei/km-three.png" alt="KM ten-fold models for three components" width="50%" />
 <p class="caption">
-Figure 4.102: KNM ten-fold models for two components
+Figure 4.102: KM ten-fold models for three components
 </p>
 </div>
-<p>Increasing sample size: 1, 2, 6, 12, … number of barrels</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-215"></span>
-<img src="images/yawei/km-two-cum.png" alt="KM increasing sample models for two components" width="50%" />
+<img src="images/yawei/knm-one.png" alt="KNM ten-fold models for one component" width="50%" />
 <p class="caption">
-Figure 4.103: KM increasing sample models for two components
+Figure 4.103: KNM ten-fold models for one component
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-216"></span>
-<img src="images/yawei/knm-one-cum.png" alt="KNM increasing sample models for one components" width="50%" />
+<img src="images/yawei/knm-two.png" alt="KNM ten-fold models for two components" width="50%" />
 <p class="caption">
-Figure 4.104: KNM increasing sample models for one components
+Figure 4.104: KNM ten-fold models for two components
 </p>
 </div>
+<p>Increasing sample size: 1, 2, 6, 12, … number of barrels</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-217"></span>
+<img src="images/yawei/km-two-cum.png" alt="KM increasing sample models for two components" width="50%" />
+<p class="caption">
+Figure 4.105: KM increasing sample models for two components
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-218"></span>
+<img src="images/yawei/knm-one-cum.png" alt="KNM increasing sample models for one components" width="50%" />
+<p class="caption">
+Figure 4.106: KNM increasing sample models for one components
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-219"></span>
 <img src="images/yawei/km-c1-cum.png" alt="KM increasing sample for first component" width="50%" />
 <p class="caption">
-Figure 4.105: KM increasing sample for first component
+Figure 4.107: KM increasing sample for first component
 </p>
 </div>
 <p>More on the weight</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-218"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-220"></span>
 <img src="images/yawei/priorboxplot.png" alt="Prior weight on components" width="50%" />
 <p class="caption">
-Figure 4.106: Prior weight on components
+Figure 4.108: Prior weight on components
 </p>
 </div>
 <p>More on one barrel case</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-219"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-221"></span>
 <img src="images/yawei/onebarrel.png" alt="KM one barrel model for the frist ten barrels" width="50%" />
 <p class="caption">
-Figure 4.107: KM one barrel model for the frist ten barrels
+Figure 4.109: KM one barrel model for the frist ten barrels
 </p>
 </div>
 <p>Some conclusions from current plots:</p>
@@ -2162,50 +2177,50 @@ Figure 4.107: KM one barrel model for the frist ten barrels
 <li><p>One-barrel KM models and full data KNM model. One-barrel KM models use the first ten barrels.</p></li>
 </ol>
 <p>From the ROC curves, we can easily see how stable our procedure is in terms of the classification performance. Note that those ROC curves start with the y-axis higher than 0.5 (which may be changed later). And the TPR(y-value) goes up steeply to about 0.75 with almost no change in FPR(x-value). Then the curve gradually goes up with different rates. There are two significant points from the ROC curves: 1) the pattern is very stable in the ROC curves across different cases and within each case; 2) the models perform very well. And also note that when we produce ROC curves, we need to get test sets and specify sample size and proportion. Here we generate the test set from the full data randomly, and set KM/KNM ratio as 200/1000. The same set is used in all three ROC plots. We choose such a ratio to make the true positive classification more difficult. If we set KM/KNM as 1000/1000, the curves will be smoother and get rid of those concave regions in current plots and of course, perform a little better in those concave regions but not significantly different in overall performance and pattern.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-220"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-222"></span>
 <img src="images/yawei/roc-cvmodels-new.png" alt="ROC-cv-models" width="50%" />
 <p class="caption">
-Figure 4.108: ROC-cv-models
+Figure 4.110: ROC-cv-models
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-221"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-223"></span>
 <img src="images/yawei/roc-differentsize-new.png" alt="ROC-different-size-models" width="50%" />
 <p class="caption">
-Figure 4.109: ROC-different-size-models
+Figure 4.111: ROC-different-size-models
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-222"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-224"></span>
 <img src="images/yawei/roc-onebarrel-new.png" alt="ROC-one-barrel" width="50%" />
 <p class="caption">
-Figure 4.110: ROC-one-barrel
+Figure 4.112: ROC-one-barrel
 </p>
 </div>
 <p>To summarize the model fits we have, we compare several important parameters in the following tables. We primarily focus on how stable the model we have with fixed sample size and across different sample sizes.</p>
 <p>From the KM-table and KNM-table, we have the following observations: 1) The weight of the components is not stable in terms of large standard errors in both KM and KNM cases with small sample sizes. 2) The mean values of the distributions (parameter mu) are relatively stable, especially for the primary components (first component for KNM and second component for KM). 3) The variance of the estimated distributions (parameter phi) is not stable, which is reasonable because it takes care of the variation of the data in each fit. 4) The variance of the estimated distributions (parameter phi) decreases as sample size increases. To better understand how well the model fit is and how stable it is we should also refer to the actual curves to help us see what those parameters actually mean in the curves. And I would say three barrels may be a safe minimum sample size to get a stable fit across different cases in terms of handling differences and variations existing in data sets but it’s not the minimum sample size required to make good classifications.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-223"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-225"></span>
 <img src="images/yawei/km-table1.PNG" alt="KM-table" width="100%" />
 <p class="caption">
-Figure 4.111: KM-table
+Figure 4.113: KM-table
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-224"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-226"></span>
 <img src="images/yawei/knm-table1.PNG" alt="KNM-table" width="100%" />
 <p class="caption">
-Figure 4.112: KNM-table
+Figure 4.114: KNM-table
 </p>
 </div>
 <p>We’re also interested in the variation of mean values of KM ccf in different barrels. The following boxplot with the global box as the right most one is shown for this comparison. From this plot, the constant mean value assumption may be challenged, however, we must take the practice work of scan and identification into considerations when making such conclusions.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-225"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-227"></span>
 <img src="images/yawei/ccfineachbarrel.png" alt="ccf in each barrel" width="50%" />
 <p class="caption">
-Figure 4.113: ccf in each barrel
+Figure 4.115: ccf in each barrel
 </p>
 </div>
 <p>To show how our model works in a single barrel case, we conduct the model fit as in the real case. We fit the KM and KNM models with three bullet comparisons (18 KM and 135 KNM land-land ccf respectively), and conduct a test on those comparisons with the forth bullet (18 KM and 105 KNM land-land ccf respectively). We conduct the above procedure in a LOO frame work, i.e. to leave one bullet out each time. The ROC curves for two barrels are shown as follows. We can see the classification results are almost as good as the previous ones.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-226"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-228"></span>
 <img src="images/yawei/withinbarrel4256roc-new.png" alt="within barrel ROC for barrel 42 and 56" width="50%" />
 <p class="caption">
-Figure 4.114: within barrel ROC for barrel 42 and 56
+Figure 4.116: within barrel ROC for barrel 42 and 56
 </p>
 </div>
 <p>Error Rate Control and Cutoff</p>
@@ -2214,10 +2229,10 @@ Figure 4.114: within barrel ROC for barrel 42 and 56
 <p><span class="math display">\[T = log(\frac{KM}{KNM})\]</span></p>
 <p>In which case, we reject the null hypohesis that the new bullet is from different source from our testing bullets when we have a large value for <span class="math inline">\(T\)</span>.</p>
 <p>First we have a look at how this log-likelihood ratio statistic changes with respect to the ccf score we calculated.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-227"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-229"></span>
 <img src="images/yawei/loglr-fau42.png" alt="loglr-fau42" width="50%" />
 <p class="caption">
-Figure 4.115: loglr-fau42
+Figure 4.117: loglr-fau42
 </p>
 </div>
 <p>Clearly, there is a potential issue with the log-likelihood ratio since it is not monotone w.r.t ccf, which means a larger ccf may lead to a smaller test statistic sometimes. As we can see when ccf is 0.45, the log-lr is 0.127 &gt; 0, however it goes below 0 when ccf increase to 0.523 (the cutoff with type one error rate as 0.05). We can also find another issue from a different aspect. If we set the type one error as 0.05 (which should be smaller in practice), then we find the ccf with this error rate from KNM (null hypothesis) is 0.523. Then the log-likelihood ratio we calculated at this point is -1.11, which means we have larger likelihood for KNM than KM even with this large enough cutoff in terms of the type one error rate. These two criteria give us contradicted results. The cutoff we set according to the usual type one error rate contradicted with the one indicated by log-likelihood ratio. However, the lower tail of the KM distribution at this cutoff here is 0.12, which is twice as larger as 0.05, which is contradicted with the log-lr again.</p>
@@ -2232,22 +2247,22 @@ Figure 4.115: loglr-fau42
 </ol>
 <p>An additional requirement may be <span class="math display">\[(1-p_2) &gt; Mp_1\]</span> for a large M.</p>
 <p>We are going to compare the above methods next.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-228"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-230"></span>
 <img src="images/yawei/curves.png" alt="two curves" width="50%" />
 <p class="caption">
-Figure 4.116: two curves
+Figure 4.118: two curves
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-229"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-231"></span>
 <img src="images/yawei/oddsratio2.png" alt="odds ratio" width="50%" />
 <p class="caption">
-Figure 4.117: odds ratio
+Figure 4.119: odds ratio
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-230"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-232"></span>
 <img src="images/yawei/comparetable3.PNG" alt="comparison table" width="100%" />
 <p class="caption">
-Figure 4.118: comparison table
+Figure 4.120: comparison table
 </p>
 </div>
 <div id="look-colser-to-the-dependence-structure-of-the-land-engraved-areas" class="section level4">
@@ -2278,10 +2293,10 @@ where, barrel effect, land effect, explosion effect, random effect are respectiv
 <p>We extract markings, locate grooves, align signatures, and generate cross-comparison results. Each step is notified in UI and all steps are logged.</p>
 <p>The scores and results are then communicated through an interactive visualization. We first interact at the top most level where we have bullet-to-bullet scores for all the cross-comparisons presented in a grid. We can select one comparison at a time which would generate a second level of grid visualization that shows the land-to-land scores for all 36 comparisons within a bullet. Interacting with this visualization, we can now pull up score tables, profiles, location of grooves, aligned signatures and raw images.</p>
 <p>The framework of interactions, allows for validation of classification recommended by the RF model as well as gives an opportunity to critically asses, identify the cause and diagnose any problems encountered in the bullet matching pipeline.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-231"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-233"></span>
 <img src="images/bullets/gan-app2_consolidated.png" alt="An instance of the interactive visualizations for communicating results" width="50%" />
 <p class="caption">
-Figure 4.119: An instance of the interactive visualizations for communicating results
+Figure 4.121: An instance of the interactive visualizations for communicating results
 </p>
 </div>
 </div>

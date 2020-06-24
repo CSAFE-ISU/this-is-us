@@ -1134,4 +1134,41 @@ knitr::include_graphics("images/foundations/optimal_rule/Sp_dat4_max_avg_roc.png
 ```
 
 
+#### Case 5: All sources (48)
+
+Panes used: 
+
+-  31 panes from company A
+- 17 panes from company B
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/Sp_dat.all_avg_roc.png")
+knitr::include_graphics("images/foundations/optimal_rule/Sp_dat.all_max_avg_roc.png")
+```
+
+
+#### Case 6: 6 sets of sources combined by dates
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/Sp_dat1.combine_avg_roc.png")
+knitr::include_graphics("images/foundations/optimal_rule/Sp_dat1.combine_max_avg_roc.png")
+```
+
+
+#### Case 7: 10 sets of sources combined by dates
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/Sp_dat2.combine_avg_roc.png")
+knitr::include_graphics("images/foundations/optimal_rule/Sp_dat2.combine_max_avg_roc.png")
+```
+
+
+#### Case 8: All sets (26) of sources combined by dates
+
+```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/Sp_dat.all.combine_avg_roc.png")
+knitr::include_graphics("images/foundations/optimal_rule/Sp_dat.all.combine_max_avg_roc.png")
+```
+
+
 ### Contrasting Hypotesis in a court case.

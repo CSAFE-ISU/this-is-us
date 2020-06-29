@@ -662,9 +662,26 @@ Once the PCA has done the initial alignment, then a secondary alignment needs to
 <img src="images/shoes/3dshoes/ICPall2.png" width="100%"/>
 <img src="images/shoes/3dshoes/ICPall3.png" width="100%"/>
     
-    
-Update 06/12/2020
-We are now taking the shoes that have been scanned using the turn table and collect them into a data package **shoesRus**. 
+Understanding the distance: 
+Using the package *Morpho* we have a glimps at how much alignment is working (using scan 1 and scan 2 of the shoes)
+After centering, we have the mean distance -9.542274 and a max distance of 59.08234. Visually we can see this as: 
+
+<img src="images/shoes/3dshoes/Centereddistance.png" width="100%"/>
+
+Now after PCA, we have the mean distance of 2.801961 and a maximum of 45.37814, visually we can see that there is less variation in the shoes 
+
+<img src="images/shoes/3dshoes/PCdistance.png" width="100%"/>
+
+Now finally after ICP, which does not change the mean or maximum distance of difference between the two shoes: 
+<img src="images/shoes/3dshoes/icpdistance.png" width="100%"/>
+
+Now looking at scan 1 verse scan 6:
+<img src="images/shoes/3dshoes/centered16distance.png" width="100%"/>
+<img src="images/shoes/3dshoes/pca16distance.png" width="100%"/>
+<img src="images/shoes/3dshoes/icp16distance.png" width="100%"/>
+
+
+
 ## Shoe outsole matching using image descriptors
 
 ### Method 1: Edge detection and MC (MC-COMP)

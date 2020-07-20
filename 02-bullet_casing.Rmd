@@ -2755,6 +2755,34 @@ include_graphics(c("images/yawei/oddsratio2.png"))
 include_graphics(c("images/yawei/comparetable3.PNG"))
 ```
 
+We also have a look at the random forest scores for the LAPD sets. Our goal is to specify distributional forms to model the scores for known match (KM) and known non-match (KNM), and reach the estimated underlying theoretical error rates to evaluate the automatic matching algorithms. We would also investigate how this estimated theoretical error rates change with different sample sizes. Particularly, we make use of the LAPD data set which provide large samples to make this evaluation of underlying error rates possible. And we consider the beta distributions and beta-mixture distributions as candidate distributional forms. By consider beta-mixture distributions, we would like to introduce a second component to account for the heavy tail and the potential second mode (for KM particularly) of KM and KNM. We started with the more complex beta-mixture distribution which takes the single beta distributions as simpler cases and determine if the beta-mixture/beta distribution is sufficient to describe the data by conducting the lack of fit test through likelihood which has an asymptotic chi-square distribution. And the error rates will be evaluated under controlled conditions (given threshold selection method) and the effect of sample sizes will also be established based on the this.
+
+This is something partly covered in the previous sections. Currently, We are working to extract from that and form a well organized discussion. Many results will need to be reproduced and more closely scrutinized. One change is that we are trying to transfer to the random forest scores from cross correlations to avoid values less than 0 and catch up with the latest method, however the random forest scores don't perform as expected so far (in terms of the distribution of scores and estimation process) which requires more investigation. And we established more formal statistical inference procedures to do model selection and evaluation. We also control the threshold selection method fixed for the current discussion of error rates (to focus on the underlying model selection) and acknowledge that the threshold selection methods could greatly affect the resulting error rates, which we would like to discuss further in another paper in ideal case.
+
+To start the discussion, have a look at the distributions of the random forest scores for FAU 330 and 
+the full available data. The figure 4.130 was produced for a particular barrel. The curves are estimated by fit beta-mixture distributions for both KNM and KM without bullet A, the rugs are those comparison with bullet A. Just to get some sense how this behaved and how the data look like. We can get the primary observations from the plot...
+
+The figure 4.131 shows beta-mixture models for both KNM and KM for full data. This plot reveals a few serious issues/doubts with the data and the estimation process...
+
+```{r, fig.cap="FAU330: rugs with A, densities without A for RF scores", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/fau330rf.png"))
+```
+
+```{r, fig.cap="Random forest scores and estimated distributions for full data", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/rf_full_2components_estimated.png"))
+```
+
+Currently, we have the following major issues to solve before going further. And these are more of technical issues.
+
+- Evaluate the estimation process, double check the pattern revealed in the full random forest score figure. (with different starting values? and other tuning parameters?)
+
+- Report standard error of estimation (bootstrap or asymptotic normality? Is the package reliable?)
+
+- Conduct lack of fit test for the beta-mixture distribution (what's the saturated model?)
+
+- Refine the writeup
+
+
 #### Look colser to the dependence structure of the land engraved areas
 
 There are some discussions about the existing patterns of dependence in the observed data. Inspired by that, we are trying to build a model to formalize those thoughts.

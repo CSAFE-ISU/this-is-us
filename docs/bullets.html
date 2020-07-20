@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-07-13" />
+<meta name="date" content="2020-07-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -2549,6 +2549,39 @@ Figure 4.128: odds ratio
 Figure 4.129: comparison table
 </p>
 </div>
+<p>We also have a look at the random forest scores for the LAPD sets. Our goal is to specify distributional forms to model the scores for known match (KM) and known non-match (KNM), and reach the estimated underlying theoretical error rates to evaluate the automatic matching algorithms. We would also investigate how this estimated theoretical error rates change with different sample sizes. Particularly, we make use of the LAPD data set which provide large samples to make this evaluation of underlying error rates possible. And we consider the beta distributions and beta-mixture distributions as candidate distributional forms. By consider beta-mixture distributions, we would like to introduce a second component to account for the heavy tail and the potential second mode (for KM particularly) of KM and KNM. We started with the more complex beta-mixture distribution which takes the single beta distributions as simpler cases and determine if the beta-mixture/beta distribution is sufficient to describe the data by conducting the lack of fit test through likelihood which has an asymptotic chi-square distribution. And the error rates will be evaluated under controlled conditions (given threshold selection method) and the effect of sample sizes will also be established based on the this.</p>
+<p>This is something partly covered in the previous sections. Currently, We are working to extract from that and form a well organized discussion. Many results will need to be reproduced and more closely scrutinized. One change is that we are trying to transfer to the random forest scores from cross correlations to avoid values less than 0 and catch up with the latest method, however the random forest scores don’t perform as expected so far (in terms of the distribution of scores and estimation process) which requires more investigation. And we established more formal statistical inference procedures to do model selection and evaluation. We also control the threshold selection method fixed for the current discussion of error rates (to focus on the underlying model selection) and acknowledge that the threshold selection methods could greatly affect the resulting error rates, which we would like to discuss further in another paper in ideal case.</p>
+<p>To start the discussion, have a look at the distributions of the random forest scores for FAU 330 and
+the full available data. The figure 4.130 was produced for a particular barrel. The curves are estimated by fit beta-mixture distributions for both KNM and KM without bullet A, the rugs are those comparison with bullet A. Just to get some sense how this behaved and how the data look like. We can get the primary observations from the plot:</p>
+<ul>
+<li><p>Points for KNM and KM are entirely separated from each other (for rugs which are comparisons with bullet A)</p></li>
+<li><p>The KNM has an unexpected heavy tail</p></li>
+<li><p>The KM has a lot of extreme large values (including 1’s), and the corresponding distribution has infinite probability density at rfscore = 1</p></li>
+</ul>
+<p>The figure 4.131 shows beta-mixture models for both KNM and KM for full data. This plot reveals a few serious issues/doubts with the data and the estimation process:</p>
+<ul>
+<li><p>KNM has two modes, which is unexpected</p></li>
+<li><p>Estimated KM distribution seems to be able to improve, potentially affected by extreme values</p></li>
+</ul>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-245"></span>
+<img src="images/yawei/fau330rf.png" alt="FAU330: rugs with A, densities without A for RF scores" width="50%" />
+<p class="caption">
+Figure 4.130: FAU330: rugs with A, densities without A for RF scores
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-246"></span>
+<img src="images/yawei/rf_full_2components_estimated.png" alt="Random forest scores and estimated distributions for full data" width="50%" />
+<p class="caption">
+Figure 4.131: Random forest scores and estimated distributions for full data
+</p>
+</div>
+<p>Currently, we have the following major issues to solve before going further. And these are more of technical issues.</p>
+<ul>
+<li><p>Evaluate the estimation process, double check the pattern revealed in the full random forest score figure. (with different starting values? and other tuning parameters?)</p></li>
+<li><p>Report standard error of estimation (bootstrap or asymptotic normality? Is the package reliable?)</p></li>
+<li><p>Conduct lack of fit test for the beta-mixture distribution (what’s the saturated model?)</p></li>
+<li><p>Refine the writeup</p></li>
+</ul>
 <div id="look-colser-to-the-dependence-structure-of-the-land-engraved-areas" class="section level4">
 <h4><span class="header-section-number">4.4.1.1</span> Look colser to the dependence structure of the land engraved areas</h4>
 <p>There are some discussions about the existing patterns of dependence in the observed data. Inspired by that, we are trying to build a model to formalize those thoughts.</p>
@@ -2577,10 +2610,10 @@ where, barrel effect, land effect, explosion effect, random effect are respectiv
 <p>We extract markings, locate grooves, align signatures, and generate cross-comparison results. Each step is notified in UI and all steps are logged.</p>
 <p>The scores and results are then communicated through an interactive visualization. We first interact at the top most level where we have bullet-to-bullet scores for all the cross-comparisons presented in a grid. We can select one comparison at a time which would generate a second level of grid visualization that shows the land-to-land scores for all 36 comparisons within a bullet. Interacting with this visualization, we can now pull up score tables, profiles, location of grooves, aligned signatures and raw images.</p>
 <p>The framework of interactions, allows for validation of classification recommended by the RF model as well as gives an opportunity to critically asses, identify the cause and diagnose any problems encountered in the bullet matching pipeline.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-245"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-247"></span>
 <img src="images/bullets/gan-app2_consolidated.png" alt="An instance of the interactive visualizations for communicating results" width="50%" />
 <p class="caption">
-Figure 4.130: An instance of the interactive visualizations for communicating results
+Figure 4.132: An instance of the interactive visualizations for communicating results
 </p>
 </div>
 </div>

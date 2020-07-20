@@ -2760,9 +2760,19 @@ We also have a look at the random forest scores for the LAPD sets. Our goal is t
 This is something partly covered in the previous sections. Currently, We are working to extract from that and form a well organized discussion. Many results will need to be reproduced and more closely scrutinized. One change is that we are trying to transfer to the random forest scores from cross correlations to avoid values less than 0 and catch up with the latest method, however the random forest scores don't perform as expected so far (in terms of the distribution of scores and estimation process) which requires more investigation. And we established more formal statistical inference procedures to do model selection and evaluation. We also control the threshold selection method fixed for the current discussion of error rates (to focus on the underlying model selection) and acknowledge that the threshold selection methods could greatly affect the resulting error rates, which we would like to discuss further in another paper in ideal case.
 
 To start the discussion, have a look at the distributions of the random forest scores for FAU 330 and 
-the full available data. The figure 4.130 was produced for a particular barrel. The curves are estimated by fit beta-mixture distributions for both KNM and KM without bullet A, the rugs are those comparison with bullet A. Just to get some sense how this behaved and how the data look like. We can get the primary observations from the plot...
+the full available data. The figure 4.130 was produced for a particular barrel. The curves are estimated by fit beta-mixture distributions for both KNM and KM without bullet A, the rugs are those comparison with bullet A. Just to get some sense how this behaved and how the data look like. We can get the primary observations from the plot:
 
-The figure 4.131 shows beta-mixture models for both KNM and KM for full data. This plot reveals a few serious issues/doubts with the data and the estimation process...
+- Points for KNM and KM are entirely separated from each other (for rugs which are comparisons with bullet A)
+
+- The KNM has an unexpected heavy tail
+
+- The KM has a lot of extreme large values (including 1's), and the corresponding distribution has infinite probability density at rfscore = 1
+
+The figure 4.131 shows beta-mixture models for both KNM and KM for full data. This plot reveals a few serious issues/doubts with the data and the estimation process: 
+
+- KNM has two modes, which is unexpected
+
+- Estimated KM distribution seems to be able to improve, potentially affected by extreme values
 
 ```{r, fig.cap="FAU330: rugs with A, densities without A for RF scores", out.width="50%", fig.keep="hold", fig.align='center'}
 include_graphics(c("images/yawei/fau330rf.png"))

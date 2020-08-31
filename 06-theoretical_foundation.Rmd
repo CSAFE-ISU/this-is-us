@@ -1171,4 +1171,5 @@ knitr::include_graphics("images/foundations/optimal_rule/Sp_dat.all.combine_max_
 ```
 
 
-### Contrasting Hypotesis in a court case.
+## SRL behaviour and dependence
+

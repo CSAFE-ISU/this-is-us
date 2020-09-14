@@ -2886,11 +2886,16 @@ Connecting survey questions:
 
 ### Measuring Trust and calibration
 
-\begin{figure}
-\includegraphics[width=\columnwidth]{images/bullets/questionnaire.png}
-\caption{\label{comparison} Questionnaire setup with intention of comparing trust in scores}
-\label{fig:questionnaire}
-\end{figure}
+<!-- \begin{figure} -->
+<!-- \includegraphics[width=\columnwidth]{images/bullets/questionnaire.png} -->
+<!-- \caption{\label{comparison} Questionnaire setup with intention of comparing trust in scores} -->
+<!-- \label{fig:questionnaire} -->
+<!-- \end{figure} -->
+
+```{r, fig.cap="Questionnaire setup for comparing trust in scores", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/bullets/questionnaire.png"))
+```
+
 
 
 1. Trust: Means different things to different people

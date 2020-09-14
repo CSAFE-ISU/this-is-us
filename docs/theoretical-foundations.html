@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Theoretical foundations | This is us: making CSAFE stronger each week</title>
   <meta name="description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Theoretical foundations | This is us: making CSAFE stronger each week" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-08-31" />
+<meta name="date" content="2020-09-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,6 +51,9 @@
 
 
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 
 
 <style type="text/css">
@@ -70,7 +73,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(title);
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -165,19 +168,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4.1" data-path="bullets.html"><a href="bullets.html#stability-of-the-analysis-process"><i class="fa fa-check"></i><b>4.4.1</b> Stability of the Analysis Process</a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="bullets.html"><a href="bullets.html#communication-of-results-and-methods"><i class="fa fa-check"></i><b>4.5</b> Communication of Results and Methods</a></li>
-<li class="chapter" data-level="4.6" data-path="bullets.html"><a href="bullets.html#explainable-results-usability-and-trust-survey"><i class="fa fa-check"></i><b>4.6</b> Explainable results: Usability and Trust survey</a></li>
-<li class="chapter" data-level="4.7" data-path="bullets.html"><a href="bullets.html#research-plan-summer"><i class="fa fa-check"></i><b>4.7</b> Research Plan Summer</a><ul>
-<li class="chapter" data-level="4.7.1" data-path="bullets.html"><a href="bullets.html#conference-presentations"><i class="fa fa-check"></i><b>4.7.1</b> Conference Presentations</a></li>
+<li class="chapter" data-level="4.6" data-path="bullets.html"><a href="bullets.html#explainable-results-usability-and-trust-survey"><i class="fa fa-check"></i><b>4.6</b> Explainable results: Usability and Trust survey</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="bullets.html"><a href="bullets.html#measuring-trust-and-calibration"><i class="fa fa-check"></i><b>4.6.1</b> Measuring Trust and calibration</a></li>
+<li class="chapter" data-level="4.6.2" data-path="bullets.html"><a href="bullets.html#conference-presentations"><i class="fa fa-check"></i><b>4.6.2</b> Conference Presentations</a></li>
 </ul></li>
-<li class="chapter" data-level="4.8" data-path="bullets.html"><a href="bullets.html#people-involved"><i class="fa fa-check"></i><b>4.8</b> People involved</a><ul>
-<li class="chapter" data-level="4.8.1" data-path="bullets.html"><a href="bullets.html#faculty"><i class="fa fa-check"></i><b>4.8.1</b> Faculty</a></li>
-<li class="chapter" data-level="4.8.2" data-path="bullets.html"><a href="bullets.html#graduate-students"><i class="fa fa-check"></i><b>4.8.2</b> Graduate Students</a></li>
-<li class="chapter" data-level="4.8.3" data-path="bullets.html"><a href="bullets.html#undergraduates"><i class="fa fa-check"></i><b>4.8.3</b> Undergraduates</a></li>
+<li class="chapter" data-level="4.7" data-path="bullets.html"><a href="bullets.html#people-involved"><i class="fa fa-check"></i><b>4.7</b> People involved</a><ul>
+<li class="chapter" data-level="4.7.1" data-path="bullets.html"><a href="bullets.html#faculty"><i class="fa fa-check"></i><b>4.7.1</b> Faculty</a></li>
+<li class="chapter" data-level="4.7.2" data-path="bullets.html"><a href="bullets.html#graduate-students"><i class="fa fa-check"></i><b>4.7.2</b> Graduate Students</a></li>
+<li class="chapter" data-level="4.7.3" data-path="bullets.html"><a href="bullets.html#undergraduates"><i class="fa fa-check"></i><b>4.7.3</b> Undergraduates</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html"><i class="fa fa-check"></i><b>5</b> Project G: Handwriting (&amp; Signatures)</a><ul>
-<li class="chapter" data-level="5.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#data-collection-1"><i class="fa fa-check"></i><b>5.1</b> Data Collection</a></li>
-<li class="chapter" data-level="5.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#computational-tools-1"><i class="fa fa-check"></i><b>5.2</b> Computational Tools</a><ul>
+<li class="chapter" data-level="5.1" data-path="bullets.html"><a href="bullets.html#data-collection"><i class="fa fa-check"></i><b>5.1</b> Data Collection</a></li>
+<li class="chapter" data-level="5.2" data-path="bullets.html"><a href="bullets.html#computational-tools"><i class="fa fa-check"></i><b>5.2</b> Computational Tools</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#graph-measurements-extracted-in-rcpp-by-james"><i class="fa fa-check"></i><b>5.2.1</b> Graph measurements (extracted in RCpp by James)</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#statistical-analysis"><i class="fa fa-check"></i><b>5.3</b> Statistical Analysis</a><ul>
@@ -191,14 +194,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#talks"><i class="fa fa-check"></i><b>5.4.2</b> Talks</a></li>
 <li class="chapter" data-level="5.4.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#posters"><i class="fa fa-check"></i><b>5.4.3</b> Posters</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#people-involved-1"><i class="fa fa-check"></i><b>5.5</b> People involved</a><ul>
-<li class="chapter" data-level="5.5.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#faculty-1"><i class="fa fa-check"></i><b>5.5.1</b> Faculty</a></li>
-<li class="chapter" data-level="5.5.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#graduate-students-1"><i class="fa fa-check"></i><b>5.5.2</b> Graduate Students</a></li>
-<li class="chapter" data-level="5.5.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#undergraduates-1"><i class="fa fa-check"></i><b>5.5.3</b> Undergraduates</a></li>
+<li class="chapter" data-level="5.5" data-path="bullets.html"><a href="bullets.html#people-involved"><i class="fa fa-check"></i><b>5.5</b> People involved</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="bullets.html"><a href="bullets.html#faculty"><i class="fa fa-check"></i><b>5.5.1</b> Faculty</a></li>
+<li class="chapter" data-level="5.5.2" data-path="bullets.html"><a href="bullets.html#graduate-students"><i class="fa fa-check"></i><b>5.5.2</b> Graduate Students</a></li>
+<li class="chapter" data-level="5.5.3" data-path="bullets.html"><a href="bullets.html#undergraduates"><i class="fa fa-check"></i><b>5.5.3</b> Undergraduates</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="glass.html"><a href="glass.html"><i class="fa fa-check"></i><b>6</b> Glass</a><ul>
-<li class="chapter" data-level="6.1" data-path="glass.html"><a href="glass.html#data-collection-2"><i class="fa fa-check"></i><b>6.1</b> Data collection</a></li>
+<li class="chapter" data-level="6.1" data-path="bullets.html"><a href="bullets.html#data-collection"><i class="fa fa-check"></i><b>6.1</b> Data collection</a></li>
 <li class="chapter" data-level="6.2" data-path="glass.html"><a href="glass.html#data-collection-2.0"><i class="fa fa-check"></i><b>6.2</b> Data collection 2.0</a></li>
 <li class="chapter" data-level="6.3" data-path="glass.html"><a href="glass.html#the-astm-standard-method"><i class="fa fa-check"></i><b>6.3</b> The ASTM standard method</a></li>
 <li class="chapter" data-level="6.4" data-path="glass.html"><a href="glass.html#learning-algorithms-to-evaluate-forensic-glass-evidence"><i class="fa fa-check"></i><b>6.4</b> Learning algorithms to evaluate forensic glass evidence</a></li>
@@ -463,7 +466,7 @@ KL(P(X,Y|A &amp;= a, B = a)||P(X,Y|A = a, B \neq a)) = E_{(X,Y)}\left[ \log \fra
 &amp;= E_{S} \left[ KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a)) \right] + KL(P(S|A = a, B = a)||P(S|A = a, B \neq a)).
 \end{align*}\]</span></p>
 <p>This implies that <span class="math inline">\(KL(P(X,Y|A = a, B = a)||P(X,Y|A = a, B \neq a)) \geq KL(P(S|A = a, B = a)||P(S|A = a, B \neq a))\)</span>.</p>
-<p>An additional consequence is that larger values of <span class="math inline">\(KL(P(S|A = a, B = a)||P(S|A = a, B \neq a))\)</span> imply smaller values of <span class="math inline">\(E_{S} \left[ KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a)) \right]\)</span>. Because <span class="math inline">\(KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a))\)</span> is a nonnegative function in terms of <span class="math inline">\(S\)</span>, small values of <span class="math inline">\(E_{S} \left[ KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a)) \right]\)</span> imply small values (in some sense) of <span class="math inline">\(KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a))\)</span>. For example, if the expectation is zero, then the (conditional) KL divergence is zero almost everywhere. Zero KL divergence implies that <span class="math inline">\(P(Y|S,A = a,B = b) = P(Y|S,A = a,B \neq b)\)</span>, i.e. <span class="math inline">\(S\)</span> is sufficient for the specific source hypothesis.</p>
+<p>An additional consequence is that larger values of <span class="math inline">\(KL(P(S|A = a, B = a)||P(S|A = a, B \neq a))\)</span> imply smaller values of <span class="math inline">\(E_{S} \left[ KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a)) \right]\)</span>. Because <span class="math inline">\(KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a))\)</span> is a nonnegative function in terms of <span class="math inline">\(S\)</span>, small values of <span class="math inline">\(E_{S} \left[ KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a)) \right]\)</span> imply small values (in some sense) of <span class="math inline">\(KL(P(Y|S,A = a,B = b) || P(Y|S, A = a, B \neq a))\)</span>. For example, if the expectation is zero, then the (conditional) KL divergence is zero almost everywhere. Zero KL divergence implies that <span class="math inline">\(P(Y|S,A = a,B = b) = P(Y|S,A = a,B \neq b)\)</span>, i.e. <span class="math inline">\(S\)</span> is sufficient for the specific source hypothesis.</p>
 <p>All of this means that <span class="math inline">\(KL(P(S|A = a, B = a)||P(S|A = a, B \neq a))\)</span> and <span class="math inline">\(KL(P(S|A = a, B \neq a)||P(S|A = a, B = a))\)</span> are measures of the usefulness of the score which have direct ties to sufficiency. Estimates of these are always computable in practice, and they are intuitive targets to maximize. For example, if the score is a predicted class probability for “match”, the more discriminative the classifier, the more sufficient the score.</p>
 </div>
 </div>
@@ -484,7 +487,7 @@ H_A: &amp; e_u \text{ was generated from source } A \\
 H_B: &amp; e_u \text{ was generated from source } B.
 \end{array}\]</span></p>
 <p>In this case, we have <span class="math inline">\(LR_{A,B} = \frac{p(e_A, e_B, e_u|H_A)}{p(e_A, e_B, e_u|H_B)}\)</span>. We make use of <em>all</em> available data in the formulation of the numerator and denominator densities. Under the assumptions that each fragment of evidence is independent under both hypothesis <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> as well as that <span class="math inline">\(p(e_A,e_B|H_A) = p(e_A,e_B|H_B)\)</span>, the LR reduces to <span class="math inline">\(LR_{A,B} = \frac{p(e_u|H_A)}{p(e_u|H_B)}\)</span>. The second assumption is generally acceptable as the source of <span class="math inline">\(e_u\)</span> ought to have no impact on the distribution of the evidence with known source.</p>
-<p>[REFS] then consider possible SLRs for this example. However, they make an assumption that the score is explicitly a function only of two fragments of evidence. That is, assuming the dimension of <span class="math inline">\(e_i\)</span>, <span class="math inline">\(dim(e_i) = k\)</span>, is constant for <span class="math inline">\(i = A,B,u\)</span>, their score maps <span class="math inline">\(s:\mathbb{R}^k \times \mathbb{R}^k \rightarrow \mathbb{R}\)</span>. An common example of such a score is Euclidean distance, i.e. <span class="math inline">\(s(x,y) = \left[ \sum_{i = 1}^{k}(x_i - y_i)^2 \right]^{1/2}\)</span>. Such a score makes perfect sense in a typical specific-source problem context in which only two fragments of evidence are considered: one from the known source and one from the unknown source.</p>
+<p>[REFS] then consider possible SLRs for this example. However, they make an assumption that the score is explicitly a function only of two fragments of evidence. That is, assuming the dimension of <span class="math inline">\(e_i\)</span>, <span class="math inline">\(dim(e_i) = k\)</span>, is constant for <span class="math inline">\(i = A,B,u\)</span>, their score maps <span class="math inline">\(s:\mathbb{R}^k \times \mathbb{R}^k \rightarrow \mathbb{R}\)</span>. An common example of such a score is Euclidean distance, i.e. <span class="math inline">\(s(x,y) = \left[ \sum_{i = 1}^{k}(x_i - y_i)^2 \right]^{1/2}\)</span>. Such a score makes perfect sense in a typical specific-source problem context in which only two fragments of evidence are considered: one from the known source and one from the unknown source.</p>
 <p>However, when one desires to create an SLR based on this score in this particular example, it is tempting to suggest that the natural SLR is <span class="math inline">\(SLR_{A,B} = \frac{p(s(e_A,e_u)|H_A)}{p(s(e_A,e_u)|H_B)}\)</span>. Yet, the natural SLR if the hypotheses were reversed is <span class="math inline">\(SLR_{B,A} = \frac{p(s(e_B,e_u)|H_B)}{p(s(e_B,e_u)|H_A)}\)</span>. Neither of these SLRs is the reciprocal of the other, and so the specific source SLR appears to be “incoherent”.</p>
 <p>This approach, however, should raise a red flag immediately. Why, in the full LR case, do we require that (simplifying model assumptions aside) the numerator and denominator densities be functions of all available data, but the score is not? Furthermore, if we consider these SLRs in the more general context of scores depending on all available data, we see that, in fact, what [REFS] define to be <span class="math inline">\(SLR_{A,B}\)</span> and <span class="math inline">\(SLR_{B,A}\)</span> turn out to be two different SLRs depending on two different scores.</p>
 <p>For clarity, we will use <span class="math inline">\(s(\cdot)\)</span> to denote scores which are explicitly functions of <em>all</em> observed data, and we will use <span class="math inline">\(\delta (\cdot)\)</span> to denote score functions which are only a function of two fragments of evidence/data. Specifically, the score in <span class="math inline">\(SLR_{A,B}\)</span> is <span class="math inline">\(s_1(e_u,e_A,e_B) = \delta(e_u,e_A)\)</span> and the score in <span class="math inline">\(SLR_{B,A}\)</span> is <span class="math inline">\(s_2(e_u,e_A,e_B) = \delta(e_u,e_B)\)</span>. While the functional form of the score in the two SLRs <em>appears</em> to be the same, clearly <span class="math inline">\(s_1(e_u,e_A,e_B) \neq s_2(e_u,e_A,e_B)\)</span>. Thus, the two SLRs are simply two distinct quantities whose relationship needn’t be expected to be related anymore than if one had decided to use two different function forms of <span class="math inline">\(\delta(\cdot,\cdot)\)</span> in the two separate SLRs.</p>
@@ -859,14 +862,14 @@ which is approximately equivalent to
 <p>As an illustration, consider one dimensional feature space. Take <span class="math inline">\(\mu_{1} = 1, \mu_{2} = -1, \Sigma = 1\)</span>, and <span class="math inline">\(p_{1} = p_{2} = 0.5\)</span>. Figure 1 shows the optimal matching rule and the optimal rule based on feature difference.
 We see that in this example the matching region from the feature difference method only overlaps a small fraction of that from the optimal matching rule, and there is a missing alignment for the feature difference method in the two small triangles at the origin.
 We also note that even though most of the pink area and the blue area in Figure 1 don’t overlap, the probabilities that the pair of data <span class="math inline">\((x_{1}, x_{2})\)</span> falling into those non-overlapping regions could be small, especially if the absolute value of either coordinate is large. See the contours of multivariate normal distribution in Figure 1.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-311"></span>
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-311-1.png" alt="Matching regions from the optimal rule (in pink) and the method based on feature difference (in blue). The contours of multivariate normal distribution with means $(1, -1)$ (unmatching case) and $(1, 1)$ (matching case) are marked in black and red, respectively, where the covariance is identity." width="672" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-316"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-316-1.png" alt="Matching regions from the optimal rule (in pink) and the method based on feature difference (in blue). The contours of multivariate normal distribution with means $(1, -1)$ (unmatching case) and $(1, 1)$ (matching case) are marked in black and red, respectively, where the covariance is identity." width="672" />
 <p class="caption">
 Figure 8.1: Matching regions from the optimal rule (in pink) and the method based on feature difference (in blue). The contours of multivariate normal distribution with means <span class="math inline">\((1, -1)\)</span> (unmatching case) and <span class="math inline">\((1, 1)\)</span> (matching case) are marked in black and red, respectively, where the covariance is identity.
 </p>
 </div>
 <p><strong>Comparison with random forest.</strong> We also conducted a small scale simulation to compare the optimal matching rule with the random forest method applied on the feature difference. The traning data include 50 observations from <span class="math inline">\(N(1, 1)\)</span> and <span class="math inline">\(N(-1, 1)\)</span>. There are additional 10 observations from each of the group serving as the testing data. We evaluate the percentage of the matching errors on the pairs of the testing data. We repeated the whole simulation 100 times. The accuracy rates are <strong><em>0.762</em></strong> and <strong><em>0.708</em></strong> for the optimal matching rule and the random forest applied on the differences of the measurements, respectively. 65% out of the 100 repetitions, the former method has higher accuracy than the latter method.</p>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-313-1.png" width="288" /><img src="bookdown-demo_files/figure-html/unnamed-chunk-313-2.png" width="288" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-318-1.png" width="288" /><img src="bookdown-demo_files/figure-html/unnamed-chunk-318-2.png" width="288" /></p>
 </div>
 <div id="topics-needs-exploration" class="section level3">
 <h3><span class="header-section-number">8.5.2</span> Topics needs exploration</h3>
@@ -880,14 +883,14 @@ Figure 8.1: Matching regions from the optimal rule (in pink) and the method base
 <p>Suppose that there are multiple sources denoted by <span class="math inline">\(\pi_g\)</span> for <span class="math inline">\(g = 1,\ \cdots,\ G\)</span>, and observations from each <span class="math inline">\(\pi_g\)</span> follow a distribution denoted by <span class="math inline">\(f(\cdot|\pi_g)\)</span>. As an example, the figure below shows three different normal distributions by source. Let’s say we have <span class="math inline">\(n\)</span> observations from those souces but do not know which sources they actually belong to. Our goal is to identify if two observations represented by <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> would have come from the same sources or not.</p>
 <p><img src="images/foundations/optimal_rule/source.distribution.PNG" width="60%" style="display: block; margin: auto;" /></p>
 <p>For <span class="math inline">\(n\)</span> independent observations, <span class="math inline">\({n \choose 2}\)</span> pairwise comparisons occur. When we sampled 300 observations from each density in the plot above, the following plot illustrates whether each pair actually come from the same sources or not. Blue dots represent the pairs from the same sources, and red ones indicates the pairs from the different sources. If we can predict the blue area accurately as much as possible, our goal to predict the membership of pairwise observations will be attained.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-316"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-321"></span>
 <img src="images/foundations/optimal_rule/plot.true.T.ss.PNG" alt="True membership of pairs" width="60%" />
 <p class="caption">
 Figure 8.2: True membership of pairs
 </p>
 </div>
 <p>The following figure displays the optimal rule’s matching results using the data from the previous plot. Likewise, the blue dots represent the matched zone by optimal rule where the pairs are predicted to be from the same sources, and the red ones represent the unmatched zone by optimal rule where the pairs are predicted to be from different sources.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-317"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-322"></span>
 <img src="images/foundations/optimal_rule/plot.optimal.T.ss.PNG" alt="Membership of pairs predicted by optimal rule" width="60%" />
 <p class="caption">
 Figure 8.3: Membership of pairs predicted by optimal rule
@@ -962,17 +965,17 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 <div id="how-to-average-multiple-roc-curves" class="section level4">
 <h4><span class="header-section-number">8.5.5.4</span> How to average multiple ROC curves</h4>
 <p>For the step 6, there are some issues of averaging multiple ROC curves by the values of FPR because no matter how densely the coordinates for (FPR, TPR) are formed, some ROC curves may not share common values of FPR. With that approach, the average ROC curve may be non-monotonic ROC curve which is not a desirable property of a ROC curve. The figure below illustrates the result.</p>
-<p><img src="images/foundations/optimal_rule/non-monotonic-ROC.png" width = "90%"/></p>
+<p><img src="images/foundations/optimal_rule/non-monotonic-ROC.PNG" width = "90%"/></p>
 <p>Hence, we consider two differnt ways to average out, and the description and examples are shown below:</p>
 <ul>
 <li>Average of the values of TPRs and FPRs by threshold value</li>
 </ul>
-<p><img src="images/foundations/optimal_rule/avg-ROC-remedy1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="images/foundations/optimal_rule/avg-ROC-remedy1.PNG" width="95%" style="display: block; margin: auto;" /></p>
 <ul>
 <li>Average of cumulatively largest vause of TPR in each bin for FPR.</li>
 </ul>
-<p><img src="images/foundations/optimal_rule/avg-ROC-remedy2-1.png" width="95%" style="display: block; margin: auto;" /></p>
-<p><img src="images/foundations/optimal_rule/avg-ROC-remedy2-2.png" width="47.5%" style="display: block; margin: auto;" /></p>
+<p><img src="images/foundations/optimal_rule/avg-ROC-remedy2-1.PNG" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="images/foundations/optimal_rule/avg-ROC-remedy2-2.PNG" width="47.5%" style="display: block; margin: auto;" /></p>
 <p>Like above, two types of average ROC curves will be provided for comparing the performance of several methods.</p>
 </div>
 </div>
@@ -1019,7 +1022,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<p><img src="images/foundations/optimal_rule/uni.Sg.2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="images/foundations/optimal_rule/uni.Sg.2_simulation.PNG" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="univariate-result-2" class="section level4">
 <h4><span class="header-section-number">8.5.6.2</span> Univariate Result 2</h4>
@@ -1071,7 +1074,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<p><img src="images/foundations/optimal_rule/uni.Sg.3_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="images/foundations/optimal_rule/uni.Sg.3_simulation.PNG" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="univariate-result-3" class="section level4">
 <h4><span class="header-section-number">8.5.6.3</span> Univariate Result 3</h4>
@@ -1141,7 +1144,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<p><img src="images/foundations/optimal_rule/uni.Sg.5_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="images/foundations/optimal_rule/uni.Sg.5_simulation.PNG" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="univariate-result-4" class="section level4">
 <h4><span class="header-section-number">8.5.6.4</span> Univariate Result 4</h4>
@@ -1184,7 +1187,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<p><img src="images/foundations/optimal_rule/uni.Sp.2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="images/foundations/optimal_rule/uni.Sp.2_simulation.PNG" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="univariate-result-5" class="section level4">
 <h4><span class="header-section-number">8.5.6.5</span> Univariate Result 5</h4>
@@ -1236,7 +1239,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<p><img src="images/foundations/optimal_rule/uni.Sp.3_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="images/foundations/optimal_rule/uni.Sp.3_simulation.PNG" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="univariate-result-6" class="section level4">
 <h4><span class="header-section-number">8.5.6.6</span> Univariate Result 6</h4>
@@ -1306,7 +1309,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<p><img src="images/foundations/optimal_rule/uni.Sp.5_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="images/foundations/optimal_rule/uni.Sp.5_simulation.PNG" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multivariate-result-1-g-2-n-2" class="section level4">
 <h4><span class="header-section-number">8.5.6.7</span> Multivariate Result 1; G = 2, N = 2</h4>
@@ -1336,7 +1339,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<p><img src="images/foundations/optimal_rule/multi.Sg.2.d2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="images/foundations/optimal_rule/multi.Sg.2.d2_simulation.PNG" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multivariate-result-2" class="section level4">
 <h4><span class="header-section-number">8.5.6.8</span> Multivariate Result 2</h4>
@@ -1371,7 +1374,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<p><img src="images/foundations/optimal_rule/multi.Sg.3.d2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="images/foundations/optimal_rule/multi.Sg.3.d2_simulation.PNG" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multivariate-result-3" class="section level4">
 <h4><span class="header-section-number">8.5.6.9</span> Multivariate Result 3</h4>
@@ -1416,7 +1419,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<p><img src="images/foundations/optimal_rule/multi.Sg.5.d2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="images/foundations/optimal_rule/multi.Sg.5.d2_simulation.PNG" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multivariate-result-4" class="section level4">
 <h4><span class="header-section-number">8.5.6.10</span> Multivariate Result 4</h4>
@@ -1451,7 +1454,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<p><img src="images/foundations/optimal_rule/multi.Sg.3.d3_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="images/foundations/optimal_rule/multi.Sg.3.d3_simulation.PNG" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multivariate-result-5" class="section level4">
 <h4><span class="header-section-number">8.5.6.11</span> Multivariate Result 5</h4>
@@ -1486,7 +1489,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<p><img src="images/foundations/optimal_rule/multi.Sg.3.d5_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="images/foundations/optimal_rule/multi.Sg.3.d5_simulation.PNG" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multivariate-result-6" class="section level4">
 <h4><span class="header-section-number">8.5.6.12</span> Multivariate Result 6</h4>
@@ -1516,7 +1519,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<p><img src="images/foundations/optimal_rule/multi.Sp.2.d2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="images/foundations/optimal_rule/multi.Sp.2.d2_simulation.PNG" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multivariate-result-7" class="section level4">
 <h4><span class="header-section-number">8.5.6.13</span> Multivariate Result 7</h4>
@@ -1551,7 +1554,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<p><img src="images/foundations/optimal_rule/multi.Sp.3.d2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="images/foundations/optimal_rule/multi.Sp.3.d2_simulation.PNG" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multivariate-result-8" class="section level4">
 <h4><span class="header-section-number">8.5.6.14</span> Multivariate Result 8</h4>
@@ -1596,7 +1599,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<p><img src="images/foundations/optimal_rule/multi.Sp.5.d2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="images/foundations/optimal_rule/multi.Sp.5.d2_simulation.PNG" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multivariate-result-9" class="section level4">
 <h4><span class="header-section-number">8.5.6.15</span> Multivariate Result 9</h4>
@@ -1631,7 +1634,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<p><img src="images/foundations/optimal_rule/multi.Sp.3.d3_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="images/foundations/optimal_rule/multi.Sp.3.d3_simulation.PNG" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multivariate-result-10" class="section level4">
 <h4><span class="header-section-number">8.5.6.16</span> Multivariate Result 10</h4>
@@ -1666,7 +1669,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<p><img src="images/foundations/optimal_rule/multi.Sp.3.d5_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
+<pre><code>## Error in knitr::include_graphics(&quot;images/foundations/optimal_rule/multi.Sp.3.d5_simulation.PNG&quot;): Cannot find the file(s): &quot;images/foundations/optimal_rule/multi.Sp.3.d5_simulation.PNG&quot;</code></pre>
 </div>
 </div>
 <div id="real-data-for-simulations" class="section level3">
@@ -1895,7 +1898,7 @@ fragments sampled each we would have <span class="math inline">\(N=50\)</span>.<
 <li>Comparison with LR</li>
 </ul>
 <p>Since our primary goal is to study the behavior of Score likelihood ratio, we can compare each of them computed for any pairs to the LR counterpart described previously.
-Scatter plots have been used previously to compare these results, however, do to the domain of the ratio <span class="math inline">\((0,\infty)\)</span> we follow a discretization for the ratios that follow the scale proposed by Evett et al. (2000).</p>
+Scatter plots have been used previously to compare these results, however, do to the domain of the ratio <span class="math inline">\((0,\infty)\)</span> we follow a discretization for the ratios that follow the scale proposed by Evett et al. (2000).</p>
 <table>
 <thead>
 <tr>
@@ -1974,7 +1977,7 @@ In the distance-based scores, a source of difference is introduced as we use a d
 <p>Next we compute the Rate of misleading evidence for KM and KME. We see that in this case, the RF SLR is closer to the rate of misleading evidence for the LR in the case of the KM and the KNM.</p>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-364">Table 8.1: </span>Rate of Misleading evidence KM
+<span id="tab:unnamed-chunk-369">Table 8.1: </span>Rate of Misleading evidence KM
 </caption>
 <thead>
 <tr>
@@ -2017,7 +2020,7 @@ RME KM LR
 </table>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-364">Table 8.1: </span>Rate of Misleading evidence KNM
+<span id="tab:unnamed-chunk-369">Table 8.1: </span>Rate of Misleading evidence KNM
 </caption>
 <thead>
 <tr>
@@ -2067,7 +2070,7 @@ RME KNM LR
 <p>First we present the RME for each permutatio within this particular sample. We can see that the RME for LR is the same in ‘paired’ permutation since it does not depend on the train-test set.</p>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-365">Table 8.2: </span>Rate of Misleading evidence KM
+<span id="tab:unnamed-chunk-370">Table 8.2: </span>Rate of Misleading evidence KM
 </caption>
 <thead>
 <tr>
@@ -2195,7 +2198,7 @@ RME KM LR
 </table>
 <table>
 <caption>
-<span id="tab:unnamed-chunk-365">Table 8.2: </span>Rate of Misleading evidence KNM
+<span id="tab:unnamed-chunk-370">Table 8.2: </span>Rate of Misleading evidence KNM
 </caption>
 <thead>
 <tr>
@@ -2360,7 +2363,7 @@ In the case of the City distance, for KM most cases fall in groups 5 or 6 wichs 
 <p class="caption">Tiles City</p>
 </div>
 <div class="figure">
-<img src="images/foundations/FV/ALL_SIMU/Tiles_Eucli_all_SIMUL.png" alt="Tiles Euclidean" />
+<img src="images/foundations/FV/ALL_SIMU/Tiles_eucli_all_SIMUL.png" alt="Tiles Euclidean" />
 <p class="caption">Tiles Euclidean</p>
 </div>
 <div class="figure">

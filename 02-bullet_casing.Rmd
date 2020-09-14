@@ -2246,6 +2246,31 @@ I have also been adding functionality to the cmcR as ideas come up while writing
 
 </details>
 
+<details>
+<summary>
+Joe 9/14 Update: We're now putting the finishing touches on the paper and hoping to submit soon! I'm very excited to move onto the next stage of this project. Additionally, I have been thinking a good deal about how we might improve the cartridge case identification procedures while providing more rigorous justification than the current "state-of-the-art" which is effectively guess-and-check what procedures work well. While we can borrow a considerable amount from image processing literature, I believe that cartridge case data pose a distinct case from normal images in the large number of missing values that naturally and structurally occur. I believe we might also be able to leverage some methods from spatial statistics and elsewhere (e.g., EM-type algorithms) to deal with these problems.
+</summary>
+
+The figure below illustrates the new preprocessing pipeline we have used to obtain better results. This new pipeline is semi-automatic, as opposed to the fully-automatic procedure we were previously using, but is much faster and yields considerably better results.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/9-14_update/newPreProcessingPipeline.png")
+```
+
+Below shows an example of the superior results that we obtain from the new preprocessing pipeline. There is considerably more separation between the match and non-match CMC count distributions than previous results.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/9-14_update/newCMCResults.png")
+```
+
+Compare the figure about to an analogous figure in Chen et al. (2017).
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/9-14_update/chen2017_highCMCResults.PNG")
+```
+
+
+</details>
 
 ### Modified Chumbley non-random test
 #### Land-to-land scores

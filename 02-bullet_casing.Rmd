@@ -2884,11 +2884,47 @@ Connecting survey questions:
 2. Linking possible questions to the conceptual cognitive theory
 3. Best set of questionnaires need to be figured out.
 
-## Research Plan Summer
+### Measuring Trust and calibration
 
-1. Trust model
-2. User study design
-3. JSM - Bullet scoring - Adapted Chumbley
+\begin{figure}
+\includegraphics[width=\columnwidth]{images/bullets/questionnaire.png}
+\caption{\label{comparison} Questionnaire setup with intention of comparing trust in scores}
+\label{fig:questionnaire}
+\end{figure}
+
+
+1. Trust: Means different things to different people
+   - Outright questions measuring trust are highly susceptible to prior understanding and bias
+2. Trust in scores with visualizations as explanations 
+   - Pre- questionnaire along with Score without explanations of comparisons
+   - Post- questionnaire after experiencing a methodical array of visualizations (representations) 
+3. Framework design (Literature based):
+   - Optimized design with factors that can influence trust in scores.  
+      Criteria:
+       - Aligned to the steps of the model, present ordered set of visualization, so that the inference from the score, is drawn under the light of the right kind of uncertainty. 
+       - Exploratory understanding of impact of problems
+       - Theoretical arguments defining change of trust within the visualization setup (application) and the interest in change of trust
+         (1) 2- Agent game; 1st Agent [1] - System ; 2nd Agent [2] - Human/ Domain expert
+         (2) For Agent [1]- Trust in Agent [2] meaningless; For Agent [2]- Trust in Agent [1] of concern
+         (3) Each addition of visualization means Agent [2] sequentially always comes 2nd; assesses 
+         the score in the light of new visualization.
+         (4) Leads to a pure prediction problem:: Hence, change in trust + or - within the system.
+(*) These considerations are important as we only look to quantify trust in the light of a change and not in the light of absolute magnitude, which is not trivial.
+
+4. Trust is confusing term before jumping into measuring trust.
+      (1) Need to establish some ground rules that examiners can self-assess (not necessarily explicitly) during the experience.
+      (2) Without this, post- questionnaire based outright questions on trust can have widely unimaginable answers not representing the true calibration of trust.
+      (3) Trust here is identified as a function of uncertainty around scores
+      (4) Trust is a function of a non-zero initial trust in model scores, and a zero trust in model scores if acceptance of facts and reason is possible.
+      (5) Trust a function of facts and implication of fact of scores.
+      (6) In the light of above points, trust is a function of detectable problems in each visualization
+      (7) Probability of causation, argument, brings to light the concept of change in uncertainty around the scores. Seen to be in this light. Fact: Detectable problems
+  
+5. Pre- vs Post- questionnaire as a paired Wilcox ranked sum or paired t- test
+  - Assumptions?
+  - for a difference in mean of 1 need about 15 participants
+  
+6. IRB requisites
 
 ### Conference Presentations  
 

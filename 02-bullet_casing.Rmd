@@ -2283,11 +2283,17 @@ The modified chumbley method [@gkhh] can work with two markings at a time. There
 In this method we extend the modified chumbley non-random method from land-to-land scoring to bullet-to-bullet scoring. In order to do this, first 6 ordered pairs of lands between the two bullets are chosen for comparison. The modified chumbley method is used on these 6 pairwise comparisons. This results in the same-shift and different-shift comparisons from each of the 6 comparisons. We do not need a land-to-land pairwise U-statistics and classification in this method. Instead all the same-shift and different-shift correlations are now aggregated from the 6 comparisons and a new non-parametric U test is used on the aggregated sets. This gives a test statistic at the bullet level and consequently we can compute p-values. This is used with different nominal significance levels to identify bullet level error rates.
 
 ### Congruent Matching Profile Segments
-#### Introduction to CMPS
 
-The Congruent Matching Profile Segments (CMPS) method [cite?], in general, can be used for objective comparison of striated tool marks, but in our examples, we mainly use it for bullet profiles/signatures comparison. The CMPS number is expected to be large if two signatures are similar. So it can also be considered as a feature that measures the similarity of two bullets (yet another bullet feature).
+#### Introduction to CMPS and Algorithm Summary
 
-Right now, we are developing a R package that implements the CMPS method [cite?]. The following sections will provide with a summary of the CMPS algorithm and examples on how to use the package. 
+<details>
+<summary>
+This section provides an introduction and a summary of the Congruent Matching Profile Segments (CMPS) algorithm.
+</summary>
+
+The Congruent Matching Profile Segments (CMPS) method [Chen et al. 2019], in general, can be used for objective comparison of striated tool marks, but in our examples, we mainly use it for bullet profiles/signatures comparison. The CMPS number is expected to be large if two signatures are similar. So it can also be considered as a feature that measures the similarity of two bullets (yet another bullet feature).
+
+Right now, we are developing a R package that implements the CMPS method [Chen et al. 2019]. The following sections will provide with a summary of the CMPS algorithm and examples on how to use the package. 
 
 The development version of the package can be installed from [GitHub](https://github.com/) with:
 
@@ -2295,7 +2301,6 @@ The development version of the package can be installed from [GitHub](https://gi
 # install.packages("devtools")
 devtools::install_github("willju-wangqian/CMPS")
 ```
-#### Algorithm Summary
 
 In this section we use a known match (KM) compasison to illustrate the main ideas of CMPS algorithm. The bullet data used here can be found in Chapter 3.5 of [Open Forensic Science in R](https://sctyner.github.io/OpenForSciR/bullets.html#case-study-1).
 
@@ -2461,7 +2466,14 @@ result$nseg
 # [1] 22
 ```
 
+</details>
+
 #### Full Comparison Between Two Bullets
+
+<details>
+<summary>
+This section provides an example on how to use the CMPS method to make a comparison between two bullets.
+</summary>
 
 `extract_feature_cmps()` can also be used in a pipeline fashion
 
@@ -2544,6 +2556,67 @@ cp1
 # 36   1-6   2-6          1        22
 ```
 
+</details>
+
+#### Apply CMPS to Hamby252
+
+<details>
+<summary>
+Will 09/19 Update: We applied the CMPS method to Hamby252 (the dataset used in the original paper). And now we are able to reproduce the main results qualitatively. Additionally, in order to obtain more reliable bullet signatures and effectively investigate outliers, a shiny app was implemented for `bulletxtrctr`.
+</summary>
+
+##### Hamby252 and Reproduce
+
+On the bullet level, we mainly consider two similarity scores: $\mathrm{CMPS_{max}}$ and $\mathrm{\bar{CMPS}_{max}}$. For Hamby252 each bullet has 6 lands. In order to compare two bullets, we want to compute the CMPS score for all possible land-by-land pairs. In this case, we have 36 pairs in total and thus will have 36 CMPS scores. 
+
+We want to summarize these 36 CMPS scores into a single similarity score at the bullet level.
+
+- $\mathrm{CMPS_{max}}$ is the maximum CMPS score among all 36 scores;  
+  + here is result of the paper[Chen et al. 2019]:
+```{r}
+knitr::include_graphics("images/cmps/sep20/cmpsmax_pp.png", dpi = 100)
+```
+
+  + and here is our result:
+```{r}
+knitr::include_graphics("images/cmps/sep20/cmpsmax_mm.png", dpi=100)
+```
+
+- $\mathrm{\bar{CMPS}_{max}}$: for the CMPS scores belonging to the same phase we compute the average. Since there are 6 phases in total, there would be 6 such averages. $\mathrm{\bar{CMPS}_{max}}$ is the maximum of these averages.
+  + CMPS scores and 6 phases [Chen et al. 2019]
+```{r}
+knitr::include_graphics("images/cmps/sep20/exp_cmpsmaxbar.png", dpi=100)
+```
+
+  + the result of the paper [Chen et al. 2019]
+```{r}
+knitr::include_graphics("images/cmps/sep20/cmpsbar_pp.png", dpi=100)
+```
+
+  + our result:
+```{r}
+knitr::include_graphics("images/cmps/sep20/cmpsmaxbar_mm.png", dpi=100)
+```
+
+- Comments:
+  + We are only able to qualitatively reproduce the results because in the paper the researchers were using different ways of obtaining bullet signatures. But both $\mathrm{CMPS_{max}}$ and $\mathrm{\bar{CMPS}_{max}}$ give us a clear seperation between the known-match and known-non-match comparisons.
+  + `Ukn` is a barrel label used in the Hamby252. Although it's labeled "Unknown", we do have the ground truth of which is which. There are 46 KM comparisons if we include the ground truth. And there are 46 observations for the cluster with higher CMPS score. 
+  + Improving the quality of bullet signatures improves the CMPS scores.
+
+##### Shiny App for Bullet Investigation
+
+If something unusual happened to the `crosscut`, `ccdata`, and `grooves` (all these are important in order to extract reliable bullet signatures), users might want to step in, take a look, and try different values to get a better bullet signature. This shiny app provides a way. 
+
+Users need to have a tibble object in their current environment called `shiny.tt`, which contains `x3p`, `crosscut`, `ccdata`, and `grooves`. 
+
+Use the following code to launch the shiny app.
+
+```{r, echo=TRUE, eval=FALSE}
+bulletxtrctr::runExample()
+```
+
+</details>
+
 #### Future Work
 
 * improve and manage to submit the CMPS package to CRAN
@@ -2551,8 +2624,7 @@ cp1
 * cross-validate some hyper-parameters
 
 * apply CMPS to 
-    + the dataset used in the paper to see if we can reproduce their results
-    + other datasets
+    + Hamby44
 
 
 ## Analysis of Results  

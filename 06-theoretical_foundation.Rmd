@@ -1171,4 +1171,150 @@ knitr::include_graphics("images/foundations/optimal_rule/Sp_dat.all.combine_max_
 ```
 
 
-### Contrasting Hypotesis in a court case.
+### Extension to openset problems
+
+This is motivated to consider the situations where no training data are given for questioned evidence such as glass fragments. In earlier work, we assumed finite known sources corresponding to a closed-set situation. The assumption would break as a questioned evidence does not belong to those known sources. To improve this weakness, and move to openset framework, we used simple hierarchical structure first.
+
+#### Initial set-up
+
+$$X|\mu, Y|\mu \sim N(\mu, \Sigma) \mbox{ where }\mu \sim N(M, V), \ X, Y \mbox{ are conditionally independent}$$
+
+&nbsp;
+
+
+\begin{align*}
+&P(\mbox{the same source error}) \\
+&= \iint_{T_{SS}}\iint_{\mathbb{R}^2} f_X(x|\mu_X)f_Y(y|\mu_Y)h(\mu_X)h(\mu_Y) d\mu_X d\mu_Y dx dy \\
+&= \iint_{T_{SS}}\iint_{\mathbb{R}^2} (2\pi)^{-1}\Sigma^{-1}\exp{\left(-\frac{(x - \mu_X)^2}{2\Sigma}\right)}\exp{\left(-\frac{(y - \mu_Y)^2}{2\Sigma}\right)}\times \\
+&(2\pi)^{-1}V^{-1}\exp{\left(-\frac{(\mu_X - M)^2}{2V}\right)}\exp{\left(-\frac{(\mu_Y - M)^2}{2V}\right)}d\mu_X d\mu_Y dx dy\\
+&= \iint_{T_{SS}} \mbox{MVN}\left(\left(\begin{matrix}M \\ M\end{matrix}\right), \left(\begin{matrix}\Sigma + V & 0 \\ 0 & \Sigma + V \end{matrix} \right) \right) dxdy
+\end{align*}
+
+&nbsp;
+
+\begin{align*}
+&P(\mbox{different source error}) \\
+&=\iint_{T_{DS}}\iint_{\mathbb{R}^2} f_X(x|\mu)f_Y(y|\mu)h(\mu)d\mu d\mu_Y dx dy \\
+&=\iint_{T_{DS}}\iint_{\mathbb{R}^2} (2\pi)^{-1}\Sigma^{-1}\exp{\left(-\frac{(x - \mu)^2}{2\Sigma}\right)}\exp{\left(-\frac{(y - \mu)^2}{2\Sigma}\right)} \times\\
+&(2\pi)^{-1/2}V^{-1/2}\exp{\left(-\frac{(\mu - M)^2}{2V}\right)}d\mu_X d\mu_Y dx dy \\
+&=\iint_{T_{DS}} \mbox{MVN}\left(\left(\begin{matrix}M \\M\end{matrix}\right), \left(\begin{matrix}\Sigma + V & V \\ V & \Sigma + V \end{matrix} \right) \right) dxdy
+\end{align*}
+
+&nbsp;
+
+\begin{align*}
+&P(\mbox{the same source error})(1-w) + P(\mbox{different source error})w\\
+&=\iint_{T_{SS}} \mbox{MVN}\left(\left(\begin{matrix}M \\M\end{matrix}\right), \left(\begin{matrix}\Sigma + V & 0 \\ 0 & \Sigma + V \end{matrix} \right) \right) dxdy (1-w)\\
+&+ \iint_{T_{DS}} \mbox{MVN}\left(\left(\begin{matrix}M \\M\end{matrix}\right), \left(\begin{matrix}\Sigma + V & V \\ V & \Sigma + V \end{matrix} \right) \right) dxdy w \\
+&= \iint_{T_{SS}} \mbox{MVN}\left(\left(\begin{matrix}M \\M\end{matrix}\right), \left(\begin{matrix}\Sigma + V & 0 \\ 0 & \Sigma + V \end{matrix} \right) \right) dxdy (1-w) + \\
+&w - \iint_{T_{SS}} \mbox{MVN}\left(\left(\begin{matrix}M \\M\end{matrix}\right), \left(\begin{matrix}\Sigma + V & V \\ V & \Sigma + V \end{matrix} \right) \right) dxdy w \\
+&= w + \iint_{T_{SS}} \mbox{MVN}\left(\left(\begin{matrix}M \\M\end{matrix}\right), G_1 \right)(1-w) - \mbox{MVN}\left(\left(\begin{matrix}M \\M\end{matrix}\right), G_2 \right) w dxdy\\
+&\mbox{where } G_1 = \left(\begin{matrix}\Sigma + V & 0 \\ 0 & \Sigma + V \end{matrix} \right), G_2 = \left(\begin{matrix}\Sigma + V & V \\ V & \Sigma + V \end{matrix} \right) 
+\end{align*}
+
+&nbsp;
+
+\begin{align*}
+T_{SS}^{Opt} = \left\{(x,y):\ \exp{\left(-\frac{1}{2} \left(\begin{matrix}x - M \\y - M \end{matrix}\right)'\left(G_1^{-1} - G_2^{-1}\right)\right)}\left(\begin{matrix}x - M \\y - M \end{matrix}\right) < \frac{w}{1-w} \left|G_1\right|\left|G_2\right|\right\}
+\end{align*}
+, which is valid for both univariate and multivariate cases.
+
+
+
+
+#### An example based on normal populations
+
+Set-up: $X|\mu, Y|\mu \sim \mbox{N}(\mu, \Sigma = 1)$ where $\mu \sim \mbox{N}(M = 0, V =1)$, which results in $X, Y \sim N(0,2)$.
+
+```{r message = FALSE, echo = FALSE}
+uni.normal.optimal <- function(paired.dat, Sigma, M, V, weight.DS.error){
+  
+  G1 <- matrix(c(Sigma + V, 0, 0, Sigma + V), 2, 2, byrow = T)
+  G2 <- matrix(c(Sigma + V, V, V, Sigma + V), 2, 2, byrow = T)
+  
+  T_SS = apply(paired.dat, 
+               1, 
+               FUN = function(i) {exp(-1/2 * t(i - M) %*% 
+                                        (solve(G1) - solve(G2)) %*% 
+                                        (i - M)) < 
+                   (weight.DS.error/(1-weight.DS.error))*(Sigma + V)*Sigma^(-1/2)*(Sigma + 2*V)^(-1/2)})
+  
+  return(T_SS)
+}
+
+# Theoretical area of T_SS: X, Y ~ N(Mu, Sigma = 1) where Mu ~ N(M = 0, V = 1)
+x <- seq(-3, 3, by = 0.01)
+y <- seq(-3, 3, by = 0.01)
+
+xy <- as.matrix(expand.grid(x = x, y = y))
+
+res <- uni.normal.optimal(xy, Sigma = 1, M = 0, V = 1, weight.DS.error = 0.5)
+
+cbind.data.frame(xy, res) %>%
+  dplyr::filter(res == TRUE) %>%
+  ggplot(aes(x = x, y = y)) + geom_point(size = 0.1)  + coord_fixed(ratio = 1)
+```
+
+
+#### Application to glassdata
+
+Assumption: $$X|\mu, Y|\mu \sim N(\mu, \Sigma) \mbox{ where }\mu \sim N(M, V), \ X, Y \mbox{ are conditionally independent.}$$
+
+Here, $\Sigma$ is replaced with a pooled sample covariance based on training data. For $M$ and $V$, we use the overall sample mean, and the sample covariance of sample means by source based on training data as well. Actually, the sample means and covariance matrices are so different by company that produced glass panes. The names of panes started with letters A, B indicates their production from the company A and B, respectively.
+
+```{r, echo = FALSE, fig.cap="", out.width="60%", fig.keep="hold", fig.align='center',fig.show='hold'}
+knitr::include_graphics("images/foundations/optimal_rule/Openset/panes_by_dates.png")
+```
+
+- Training: AA(1/3), AC(1/4), AE(1/5), AG(1/6)
+- Testset: AB(1/3), AD(1/4), AF(1/5), AH(1/6)
+
+```{r echo = FALSE}
+read.csv("images/foundations/optimal_rule/Openset/ex1.csv") %>%
+  mutate(Method = if_else(X >533, "Optimalrule_close", Method)) %>%
+  arrange(Method, FPR, TPR) %>%
+  ggplot(aes(x = FPR, y = TPR, color = Method)) +
+  geom_line() +
+  xlim(0, 1) + ylim(0, 1)
+
+```
+
+- Training: BA(12/5), BK(12/12), BN(12/15), BP(12/16)
+- Testset: BB(12/5), BL(12/12), BO(12/15), BR(12/16)
+
+```{r echo = FALSE}
+read.csv("images/foundations/optimal_rule/Openset/ex2.csv") %>%
+  mutate(Method = if_else(X >533, "Optimalrule_close", Method)) %>%
+  arrange(Method, FPR, TPR) %>%
+  ggplot(aes(x = FPR, y = TPR, color = Method)) +
+  geom_line() +
+  xlim(0, 1) + ylim(0, 1)
+
+```
+
+
+- Training: AA(1/3), AC(1/4), AE(1/5), AG(1/6)
+- Testset: AI(1/7), AJ(1/7), AK(1/8), AL(1/8)
+                      
+```{r echo = FALSE}
+read.csv("images/foundations/optimal_rule/Openset/ex5.csv") %>%
+  mutate(Method = if_else(X >533, "Optimalrule_close", Method)) %>%
+  arrange(Method, FPR, TPR) %>%
+  ggplot(aes(x = FPR, y = TPR, color = Method)) +
+  geom_line() +
+  xlim(0, 1) + ylim(0, 1)
+```
+
+
+                      
+- Training: AI(1/7), AJ(1/7), AK(1/8), AL(1/8)               
+- Testset: AV(1/13), AY(1/15), AAA(1/16), AAC(1/17)
+
+```{r echo = FALSE}
+read.csv("images/foundations/optimal_rule/Openset/ex6.csv") %>%
+  mutate(Method = if_else(X >533, "Optimalrule_close", Method)) %>%
+  arrange(Method, FPR, TPR) %>%
+  ggplot(aes(x = FPR, y = TPR, color = Method)) +
+  geom_line() +
+  xlim(0, 1) + ylim(0, 1)
+```

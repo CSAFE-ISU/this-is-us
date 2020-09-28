@@ -1307,6 +1307,31 @@ read.csv("images/foundations/optimal_rule/Openset/ex5.csv") %>%
 ```
 
 
+- Training: AA(1/3), AC(1/4), AE(1/5), AG(1/6), BA(12/5), BK(12/12), BN(12/15), BP(12/16)
+- Testset: AB(1/3), AD(1/4), AF(1/5), AH(1/6), BB(12/5), BL(12/12), BO(12/15), BR(12/16)
+
+```{r echo = FALSE}
+read.csv("images/foundations/optimal_rule/Openset/ex3.csv") %>%
+  mutate(Method = if_else(X >533, "Optimalrule_close", Method)) %>%
+  arrange(Method, FPR, TPR) %>%
+  ggplot(aes(x = FPR, y = TPR, color = Method)) +
+  geom_line() +
+  xlim(0, 1) + ylim(0, 1)
+```
+
+
+- Training: AA(1/3),  AC(1/4),   AE(1/5),   AG(1/6))
+- Testset: BA(12/5), BK(12/12), BN(12/15), BP(12/16)
+
+```{r echo = FALSE}
+read.csv("images/foundations/optimal_rule/Openset/ex4.csv") %>%
+  mutate(Method = if_else(X >533, "Optimalrule_close", Method)) %>%
+  arrange(Method, FPR, TPR) %>%
+  ggplot(aes(x = FPR, y = TPR, color = Method)) +
+  geom_line() +
+  xlim(0, 1) + ylim(0, 1)
+```
+
                       
 - Training: AI(1/7), AJ(1/7), AK(1/8), AL(1/8)               
 - Testset: AV(1/13), AY(1/15), AAA(1/16), AAC(1/17)

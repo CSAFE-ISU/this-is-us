@@ -662,9 +662,26 @@ Once the PCA has done the initial alignment, then a secondary alignment needs to
 <img src="images/shoes/3dshoes/ICPall2.png" width="100%"/>
 <img src="images/shoes/3dshoes/ICPall3.png" width="100%"/>
     
-    
-Update 06/12/2020
-We are now taking the shoes that have been scanned using the turn table and collect them into a data package **shoesRus**. 
+Understanding the distance: 
+Using the package *Morpho* we have a glimps at how much alignment is working (using scan 1 and scan 2 of the shoes)
+After centering, we have the mean distance -9.542274 and a max distance of 59.08234. Visually we can see this as: 
+
+<img src="images/shoes/3dshoes/Centereddistance.png" width="100%"/>
+
+Now after PCA, we have the mean distance of 2.801961 and a maximum of 45.37814, visually we can see that there is less variation in the shoes 
+
+<img src="images/shoes/3dshoes/PCdistance.png" width="100%"/>
+
+Now finally after ICP, which does not change the mean or maximum distance of difference between the two shoes: 
+<img src="images/shoes/3dshoes/icpdistance.png" width="100%"/>
+
+Now looking at scan 1 verse scan 6:
+<img src="images/shoes/3dshoes/centered16distance.png" width="100%"/>
+<img src="images/shoes/3dshoes/pca16distance.png" width="100%"/>
+<img src="images/shoes/3dshoes/icp16distance.png" width="100%"/>
+
+
+
 ## Shoe outsole matching using image descriptors
 
 ### Method 1: Edge detection and MC (MC-COMP)
@@ -897,3 +914,112 @@ Non-mates|    9     |       6.43     |   0.1208  |        1.39          |
   2. Calculate similarity features.
   3. Ask CNN to learn similarity features.
   4. Combine 3 and 4. Use ResNet-50 to get a final similarity value. 
+  
+  ### Additional features from descriptors
+
+Much of the outsole matching already done at CSAFE is based primarily on the geometric locations of SURF features. While this is apparently useful, the utility of SURF and other computer vision features (such as BRISK, ORB, and KAZE) can go far beyond location. Most of the work done has also been on images produced using the EverOS 2D scanner. Location features from these images are relatively easy to align, but with different image types -such as those made using fingerprint powder- alignment becomes much more difficult. 
+
+When a SURF (or other feature type) is detected in an image, several features are extracted. Each SURF is a detected “blob” from an image. Features from a SURF include Sign of Laplacian, orientation, location, metric, and a 1x64 vector of descriptors. Essentially these several features describe characteristics of the blob like color intensity, change in intensity, change in pattern, blob direction, etc.
+
+Between two different images if two SURFs have a matching sign of Laplacian, the distance between the two 1x64 descriptor vectors is measured. If the distance is below a specified threshold the two SURFs are considered matching.
+
+**Sign of Laplacian**
+
+<img src="images/shoes/additionalFeatures/signoflaplacian.png" width="50%"/> 
+
+
+
+**64 descriptors**
+![The 64 SURF descriptors come from sums of wavelet responses from 16 subsections of each SURF](images/shoes/additionalFeatures/descriptorexample.png)
+
+When SURFs are matched, a matrix is returned with indices of matching SURFs and the measured distance. Matched features are illustrated here.
+
+
+<img src="images/shoes/additionalFeatures/powd_mate_images.jpg" width="100%"/>
+
+
+<img src="images/shoes/additionalFeatures/init_SURF_match.jpg" width="100%"/>
+
+
+Clearly many of these “matched” SURFs -based on metric- are not actually corresponding parts between images. To make more precise which SURFs match, I use the maximum clique from the shoeprintr packages to align the SURF points based on location. Once aligned, Euclidean distance is used to find the closest point(s) in image 2 to each point in image 1. Now there are two sets of matching indices. The index pairs which overlap between the two sets are considered certain matches.
+
+
+<img src="images/shoes/additionalFeatures/match_plot.png" width="100%"/>
+
+
+<img src="images/shoes/additionalFeatures/certain_SURF_match.png" width="100%"/>
+
+
+The number of “certain” matching SURFs and the metric between SURF descriptors can be used as two additional features for image pair comparison.
+
+**Useable features**
+
+  - Clique Size
+  - Rotation Angle
+  - % Overlap
+  - Median distance of OP
+  - **Certain SURF matches**
+  - **Max SURF match corr**
+
+
+We’ve trained 2 different random forests using these features from image pairs.
+
+The first random forest uses 115 pairs of images using matching soles with the same stepping style and 116 pair of images of the same shoes with different stepping style. The random forest classification accuracy using leave one out cross validation is 92%
+
+**Different step type average variable values**
+
+Class | Clique size | Rotation angle | % Overlap | Median distance of OP| Certain SURF matches | Max SURF match corr |
+------|-------------|----------------|-----------|----------------------|----------------------|---------------------|
+Same steps|    8        |       3.97     |   0.1992  |        1.21          |         13           |         0.9523      |
+Dif steps|    6     |       14.04     |   0.0169  |        0.99          |         0.487        |         0.2236     |
+
+***RF Variable importance***
+
+
+Variable             |Importance Score |
+---------------------|------------------|
+Certain SURF matches |     100.000      |
+% Overlap            |     14.951       |
+Max SURF match corr  |     14.059       |
+Rotation angle       |     4.484        |
+Median distance of OP|     2.359        |
+Clique size          |     0.000        |
+
+The second rf is trained from 115 images of matching shoes with the same stepping style and 116 images of non-matching shoes with the same stepping style. The random forest classification accuracy was also 92%
+
+
+
+**Match v. non-match average variable values**
+
+Class | Clique size | Rotation angle | % Overlap | Median distance of OP| Certain SURF matches | Max SURF match corr |
+------|-------------|----------------|-----------|----------------------|----------------------|---------------------|
+Mates |    8        |       3.97     |   0.1992  |        1.21          |         13           |         0.9523      |
+Non-mates|    6     |       9.26     |   0.0164  |        1.24          |         0.836        |         0.2821      |
+
+**RF Variable importance**
+
+Variable             |Importance Score |
+---------------------|------------------|
+% Overlap            |     100.000      |
+Certain SURF matches |     34.044       |
+Max SURF match corr  |     26.937       |
+Rotation angle       |     2.221        |
+Median distance of OP|     2.213        |
+Clique size          |     0.000        |
+
+
+
+**Improvements to be made**
+
+When two images using fingerprint powder are are from the same shoe and with the same stepping style, the alignment using maximum clique is generally good. However, when the sole images are not mates the alignment is occasionally not good. The alignment is especially poor when the step style changes. 
+
+
+<img src="images/shoes/additionalFeatures/match_dif_step_im.jpg" width="100%"/>
+
+
+<img src="images/shoes/additionalFeatures/dif_step_plot.png" width="100%"/>
+
+
+So far, other existing methods haven't shown any more effectiveness in aligning shoes than the maximum clique. It would be useful if features could be made from the SURF descriptors which could be used to compare shoes without needing to align the images. 
+
+ 

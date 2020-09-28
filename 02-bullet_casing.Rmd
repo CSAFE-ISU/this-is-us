@@ -2246,6 +2246,31 @@ I have also been adding functionality to the cmcR as ideas come up while writing
 
 </details>
 
+<details>
+<summary>
+Joe 9/14 Update: We're now putting the finishing touches on the paper and hoping to submit soon! I'm very excited to move onto the next stage of this project. Additionally, I have been thinking a good deal about how we might improve the cartridge case identification procedures while providing more rigorous justification than the current "state-of-the-art" which is effectively guess-and-check what procedures work well. While we can borrow a considerable amount from image processing literature, I believe that cartridge case data pose a distinct case from normal images in the large number of missing values that naturally and structurally occur. I believe we might also be able to leverage some methods from spatial statistics and elsewhere (e.g., EM-type algorithms) to deal with these problems.
+</summary>
+
+The figure below illustrates the new preprocessing pipeline we have used to obtain better results. This new pipeline is semi-automatic, as opposed to the fully-automatic procedure we were previously using, but is much faster and yields considerably better results.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/9-14_update/newPreProcessingPipeline.png")
+```
+
+Below shows an example of the superior results that we obtain from the new preprocessing pipeline. There is considerably more separation between the match and non-match CMC count distributions than previous results.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/9-14_update/newCMCResults.png")
+```
+
+Compare the figure about to an analogous figure in Chen et al. (2017).
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/9-14_update/chen2017_highCMCResults.PNG")
+```
+
+
+</details>
 
 ### Modified Chumbley non-random test
 #### Land-to-land scores
@@ -2256,6 +2281,351 @@ The modified chumbley method [@gkhh] can work with two markings at a time. There
 #### Bullet-to-bullet scores
 
 In this method we extend the modified chumbley non-random method from land-to-land scoring to bullet-to-bullet scoring. In order to do this, first 6 ordered pairs of lands between the two bullets are chosen for comparison. The modified chumbley method is used on these 6 pairwise comparisons. This results in the same-shift and different-shift comparisons from each of the 6 comparisons. We do not need a land-to-land pairwise U-statistics and classification in this method. Instead all the same-shift and different-shift correlations are now aggregated from the 6 comparisons and a new non-parametric U test is used on the aggregated sets. This gives a test statistic at the bullet level and consequently we can compute p-values. This is used with different nominal significance levels to identify bullet level error rates.
+
+### Congruent Matching Profile Segments
+
+#### Introduction to CMPS and Algorithm Summary
+
+<details>
+<summary>
+This section provides an introduction and a summary of the Congruent Matching Profile Segments (CMPS) algorithm.
+</summary>
+
+The Congruent Matching Profile Segments (CMPS) method [Chen et al. 2019], in general, can be used for objective comparison of striated tool marks, but in our examples, we mainly use it for bullet profiles/signatures comparison. The CMPS number is expected to be large if two signatures are similar. So it can also be considered as a feature that measures the similarity of two bullets (yet another bullet feature).
+
+Right now, we are developing a R package that implements the CMPS method [Chen et al. 2019]. The following sections will provide with a summary of the CMPS algorithm and examples on how to use the package. 
+
+The development version of the package can be installed from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("willju-wangqian/CMPS")
+```
+
+In this section we use a known match (KM) compasison to illustrate the main ideas of CMPS algorithm. The bullet data used here can be found in Chapter 3.5 of [Open Forensic Science in R](https://sctyner.github.io/OpenForSciR/bullets.html#case-study-1).
+
+We can also run the following chunk. In this example, we are taking the signature of the third land engraved area (LEA) of the second bullet as the reference signature and the second LEA of the first bullet as the comparison signature. This is a KM comparison. 
+
+```{r eval=FALSE, echo=TRUE}
+library(CMPS)
+
+data("bullets")
+land23 <- bullets$sigs[bullets$bulletland == "2-3"][[1]]
+land12 <- bullets$sigs[bullets$bulletland == "1-2"][[1]]
+
+x <- land23$sig
+y <- land12$sig
+
+cmps <- extract_feature_cmps(x, y, full_result = TRUE)
+cmps
+
+# $CMPS.score
+# [1] 14
+# 
+# $rec.position
+# [1] -5
+# 
+# $pos.df
+#   position cmps
+# 1       -9   14
+# 2       -8   14
+# 3       -7   14
+# 4       -6   14
+# 5       -5   14
+# 6       -4   14
+# 7       -3   14
+# 8       -2   14
+# 9       -1   14
+# 
+# $nseg
+# [1] 22
+
+```
+
+And we have the plot of `x` and `y`.
+
+```{r, fig.cap="A KM Comparison, x and y", out.width="80%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/cmps/step0.png"))
+```
+
+1. we take the first signature as the reference signature (`x`) and cut it into consecutive and non-overlapping basis segments of the same length. In this case, we have 22 basis segments in total.
+
+```{r, fig.cap="Cut x into consecutive and non-overlapping basis segments of the same length. Only 4 basis segments are shown here", out.width="80%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/cmps/step1_1.png"))
+```
+
+2. for each basis segment, we compute the cross-correlation function (ccf) between the basis segment and the comparison signature (`y`)
+
+```{r, fig.cap="y and 7th basis segment", out.width="80%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/cmps/step2_1.png"))
+```
+
+```{r, fig.cap="the cross-correlation function (ccf) between y and segment 7", out.width="80%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/cmps/step2_2.png"))
+```
+
+* for the `ccf` curve, the `position` represents the shift of the segment. A negative value means a shift to the left, a positive value means a shift to the right, and 0 means no shift (the segment stays at its original position in the reference signature);
+* we are interested in the peaks in the ccf curve and the positions of those peaks (as indicated by the red vertical line in the plot above). In other words, if we shift the segment, which position would give us the "best fit"?
+
+
+3. If two signatures are similar (a KM comparison), most of the basis segments should agree with each other on the position of the best fit. Then these segments are called the "**Congruent Matching Profile Segments**".
+
+```{r, fig.cap="compare y to the basis segments of x", out.width="80%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/cmps/step1_2.png"))
+```
+
+  And ideally, if two signatures are identical, we are expecting the position of the highest peak in the ccf curve remains the same across all ccf curves (we only show 7 segments here);
+
+```{r, fig.cap="ideal case: compare x to itself. The highest peak has value 1 and is marked by the blue dot", out.width="80%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/cmps/step3_1.png"))
+```
+
+  But in the real case, the basis segments might not achieve a final agreement, but we have the majority; 
+
+```{r, fig.cap="real case: compare x to y. The 5 highest peaks are marked by the blue dots", out.width="80%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/cmps/step3_2.png"))
+```
+
+  We mark the 5 highest peaks for each ccf curve because the position of the "highest peak" might not be the best one. 
+
+4. each ccf curve votes for 5 candidate positions, then we ask two questions in order to obtain the CMPS number/score:
+
+* which position receives the most votes? -> the best position (indicated by the red vertical line)
+
+* how many segments have voted for the best position? -> CMPS number
+
+  If we focus on these 7 segments only, and have a very short tolerance zone, the CMPS number is 6.
+  
+  (If we consider all 22 segments, and have a default tolerance zone (+/- 25 units), the CMPS number is 20.)
+
+5. false positive: how can the segments vote more wisely? -> Multi Segment Lengths Strategy
+
+* by increasing the segment length (scale), one can reduce the number of "false positive" peaks
+
+```{r, fig.cap="Multi Segment Lengths Strategy - increasing the segment length could decrease the number of false positive peaks in ccf curves", out.width="80%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/cmps/step5_1.png",
+                   "images/cmps/step5_2.png"))
+```
+
+* we choose 5 peaks at scale 1; 3 peaks at scale 2; 1 peak at scale 3
+
+  the peak shared by all three scales is a **consistent correlation peak** (ccp). And the position of the ccp is our best choice. Sometimes a ccp might not be found. 
+  Trying to identify a ccp for each basis segment is called a "multi segment lengths" strategy.
+  
+* and then, each ccf curve votes for only 1 best condidate position if a ccp can be found; again, we ask two quesitons:
+    + which position receives the most votes?
+    + how many segments have voted for this position? -> CMPS number
+    
+* by default, CMPS algorithm uses the multi-segment lengths strategy. 
+
+6. if we consider all segments and use the multi-segment lengths strategy
+
+* when comparing x and y, a KM comparison, we have 
+
+```{r, echo=TRUE, eval=FALSE}
+extract_feature_cmps(x, y, seg_length = 50, seg_scale_max = 3, Tx = 25, 
+                     npeaks.set = c(5, 3, 1), full_result = TRUE)
+
+# $CMPS.score
+# [1] 14
+# 
+# $rec.position
+# [1] -5
+# 
+# $pos.df
+#   position cmps
+# 1       -9   14
+# 2       -8   14
+# 3       -7   14
+# 4       -6   14
+# 5       -5   14
+# 6       -4   14
+# 7       -3   14
+# 8       -2   14
+# 9       -1   14
+# 
+# $nseg
+# [1] 22
+```
+
+* if we have a KNM (known non-match) comparison, e.g. compare land 2-3 with land 1-3:
+
+```{r, eval=FALSE, echo=TRUE}
+land23 <- bullets$sigs[bullets$bulletland == "2-3"][[1]]
+land13 <- bullets$sigs[bullets$bulletland == "1-3"][[1]]
+
+result <- extract_feature_cmps(land23$sig, land13$sig, seg_length = 50, seg_scale_max = 3, Tx = 25, 
+                     npeaks.set = c(5, 3, 1), full_result = TRUE)
+result$CMPS.score
+# [1] 1
+
+result$rec.position
+# [1] 128
+
+result$nseg
+# [1] 22
+```
+
+</details>
+
+#### Full Comparison Between Two Bullets
+
+<details>
+<summary>
+This section provides an example on how to use the CMPS method to make a comparison between two bullets.
+</summary>
+
+`extract_feature_cmps()` can also be used in a pipeline fashion
+
+```{r eval = FALSE, echo=TRUE}
+library(tidyverse)
+library(bulletxtrctr)
+
+lands <- unique(bullets$bulletland)
+
+comparisons <- data.frame(expand.grid(land1 = lands[1:6], land2 = lands[7:12]), 
+                          stringsAsFactors = FALSE)
+
+comparisons <- comparisons %>% mutate(
+  aligned = purrr::map2(.x = land1, .y = land2, 
+                        .f = function(xx, yy) {
+                          land1 <- bullets$sigs[bullets$bulletland == xx][[1]]
+                          land2 <- bullets$sigs[bullets$bulletland == yy][[1]]
+                          land1$bullet <- "first-land"
+                          land2$bullet <- "second-land"
+                          
+                          sig_align(land1$sig, land2$sig)
+                        }))
+
+comparisons <- comparisons %>% 
+  mutate(cmps = aligned %>% purrr::map(.f = function(a) {
+    extract_feature_cmps(a$lands$sig1, a$lands$sig2, full_result = TRUE)
+  }))
+
+# comparisons.cmps <- comparisons.cmps %>% 
+#   mutate(cmps = aligned %>% purrr::map_dbl(.f = function(a) {
+#     extract_feature_cmps(a$lands$sig1, a$lands$sig2, full_result = FALSE)
+#   }))
+# comparisons.cmps %>% select(land1, land2, cmps) 
+
+comparisons <- comparisons %>% 
+  mutate(
+    cmps_score = sapply(comparisons$cmps, function(x) x$CMPS.score),
+    cmps_nseg = sapply(comparisons$cmps, function(x) x$nseg)
+  )
+
+cp1 <- comparisons %>% select(land1, land2, cmps_score, cmps_nseg)
+cp1
+
+#    land1 land2 cmps_score cmps_nseg
+# 1    1-1   2-1          2        23
+# 2    1-2   2-1          2        22
+# 3    1-3   2-1          1        21
+# 4    1-4   2-1          2        22
+# 5    1-5   2-1          1        23
+# 6    1-6   2-1         14        22
+# 7    1-1   2-2          5        23
+# 8    1-2   2-2          2        22
+# 9    1-3   2-2          1        21
+# 10   1-4   2-2          1        22
+# 11   1-5   2-2          2        23
+# 12   1-6   2-2          2        22
+# 13   1-1   2-3          3        23
+# 14   1-2   2-3         13        22
+# 15   1-3   2-3          2        21
+# 16   1-4   2-3          1        22
+# 17   1-5   2-3          1        23
+# 18   1-6   2-3          2        22
+# 19   1-1   2-4          4        23
+# 20   1-2   2-4          1        22
+# 21   1-3   2-4         11        21
+# 22   1-4   2-4          1        22
+# 23   1-5   2-4          2        23
+# 24   1-6   2-4          2        22
+# 25   1-1   2-5          3        23
+# 26   1-2   2-5          1        22
+# 27   1-3   2-5          2        21
+# 28   1-4   2-5         10        22
+# 29   1-5   2-5          2        23
+# 30   1-6   2-5          1        22
+# 31   1-1   2-6          2        23
+# 32   1-2   2-6          1        22
+# 33   1-3   2-6          2        21
+# 34   1-4   2-6          1        22
+# 35   1-5   2-6         15        23
+# 36   1-6   2-6          1        22
+```
+
+</details>
+
+#### Apply CMPS to Hamby252
+
+<details>
+<summary>
+Will 09/19 Update: We applied the CMPS method to Hamby252 (the dataset used in the original paper). And now we are able to reproduce the main results qualitatively. Additionally, in order to obtain more reliable bullet signatures and effectively investigate outliers, a shiny app was implemented for `bulletxtrctr`.
+</summary>
+
+##### Hamby252 and Reproduce
+
+On the bullet level, we mainly consider two similarity scores: $\mathrm{CMPS_{max}}$ and $\mathrm{\bar{CMPS}_{max}}$. For Hamby252 each bullet has 6 lands. In order to compare two bullets, we want to compute the CMPS score for all possible land-by-land pairs. In this case, we have 36 pairs in total and thus will have 36 CMPS scores. 
+
+We want to summarize these 36 CMPS scores into a single similarity score at the bullet level.
+
+- $\mathrm{CMPS_{max}}$ is the maximum CMPS score among all 36 scores;  
+  + here is result of the paper[Chen et al. 2019]:
+```{r}
+knitr::include_graphics("images/cmps/sep20/cmpsmax_pp.png", dpi = 100)
+```
+
+  + and here is our result:
+```{r}
+knitr::include_graphics("images/cmps/sep20/cmpsmax_mm.png", dpi=100)
+```
+
+- $\mathrm{\bar{CMPS}_{max}}$: for the CMPS scores belonging to the same phase we compute the average. Since there are 6 phases in total, there would be 6 such averages. $\mathrm{\bar{CMPS}_{max}}$ is the maximum of these averages.
+  + CMPS scores and 6 phases [Chen et al. 2019]
+```{r}
+knitr::include_graphics("images/cmps/sep20/exp_cmpsmaxbar.png", dpi=100)
+```
+
+  + the result of the paper [Chen et al. 2019]
+```{r}
+knitr::include_graphics("images/cmps/sep20/cmpsbar_pp.png", dpi=100)
+```
+
+  + our result:
+```{r}
+knitr::include_graphics("images/cmps/sep20/cmpsmaxbar_mm.png", dpi=100)
+```
+
+- Comments:
+  + We are only able to qualitatively reproduce the results because in the paper the researchers were using different ways of obtaining bullet signatures. But both $\mathrm{CMPS_{max}}$ and $\mathrm{\bar{CMPS}_{max}}$ give us a clear seperation between the known-match and known-non-match comparisons.
+  + `Ukn` is a barrel label used in the Hamby252. Although it's labeled "Unknown", we do have the ground truth of which is which. There are 46 KM comparisons if we include the ground truth. And there are 46 observations for the cluster with higher CMPS score. 
+  + Improving the quality of bullet signatures improves the CMPS scores.
+
+##### Shiny App for Bullet Investigation
+
+If something unusual happened to the `crosscut`, `ccdata`, and `grooves` (all these are important in order to extract reliable bullet signatures), users might want to step in, take a look, and try different values to get a better bullet signature. This shiny app provides a way. 
+
+Users need to have a tibble object in their current environment called `shiny.tt`, which contains `x3p`, `crosscut`, `ccdata`, and `grooves`. 
+
+Use the following code to launch the shiny app.
+
+```{r, echo=TRUE, eval=FALSE}
+bulletxtrctr::runExample()
+```
+
+</details>
+
+#### Future Work
+
+* improve and manage to submit the CMPS package to CRAN
+
+* cross-validate some hyper-parameters
+
+* apply CMPS to 
+    + Hamby44
+
 
 ## Analysis of Results  
 
@@ -2482,6 +2852,44 @@ include_graphics(c("images/yawei/oddsratio2.png"))
 include_graphics(c("images/yawei/comparetable3.PNG"))
 ```
 
+We also have a look at the random forest scores for the LAPD sets. Our goal is to specify distributional forms to model the scores for known match (KM) and known non-match (KNM), and reach the estimated underlying theoretical error rates to evaluate the automatic matching algorithms. We would also investigate how this estimated theoretical error rates change with different sample sizes. Particularly, we make use of the LAPD data set which provide large samples to make this evaluation of underlying error rates possible. And we consider the beta distributions and beta-mixture distributions as candidate distributional forms. By consider beta-mixture distributions, we would like to introduce a second component to account for the heavy tail and the potential second mode (for KM particularly) of KM and KNM. We started with the more complex beta-mixture distribution which takes the single beta distributions as simpler cases and determine if the beta-mixture/beta distribution is sufficient to describe the data by conducting the lack of fit test through likelihood which has an asymptotic chi-square distribution. And the error rates will be evaluated under controlled conditions (given threshold selection method) and the effect of sample sizes will also be established based on the this.
+
+This is something partly covered in the previous sections. Currently, We are working to extract from that and form a well organized discussion. Many results will need to be reproduced and more closely scrutinized. One change is that we are trying to transfer to the random forest scores from cross correlations to avoid values less than 0 and catch up with the latest method, however the random forest scores don't perform as expected so far (in terms of the distribution of scores and estimation process) which requires more investigation. And we established more formal statistical inference procedures to do model selection and evaluation. We also control the threshold selection method fixed for the current discussion of error rates (to focus on the underlying model selection) and acknowledge that the threshold selection methods could greatly affect the resulting error rates, which we would like to discuss further in another paper in ideal case.
+
+To start the discussion, have a look at the distributions of the random forest scores for FAU 330 and 
+the full available data. The figure 4.130 was produced for a particular barrel. The curves are estimated by fit beta-mixture distributions for both KNM and KM without bullet A, the rugs are those comparison with bullet A. Just to get some sense how this behaved and how the data look like. We can get the primary observations from the plot:
+
+- Points for KNM and KM are entirely separated from each other (for rugs which are comparisons with bullet A)
+
+- The KNM has an unexpected heavy tail
+
+- The KM has a lot of extreme large values (including 1's), and the corresponding distribution has infinite probability density at rfscore = 1
+
+The figure 4.131 shows beta-mixture models for both KNM and KM for full data. This plot reveals a few serious issues/doubts with the data and the estimation process: 
+
+- KNM has two modes, which is unexpected
+
+- Estimated KM distribution seems to be able to improve, potentially affected by extreme values
+
+```{r, fig.cap="FAU330: rugs with A, densities without A for RF scores", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/fau330rf.png"))
+```
+
+```{r, fig.cap="Random forest scores and estimated distributions for full data", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/rf_full_2components_estimated.png"))
+```
+
+Currently, we have the following major issues to solve before going further. And these are more of technical issues.
+
+- Evaluate the estimation process, double check the pattern revealed in the full random forest score figure. (with different starting values? and other tuning parameters?)
+
+- Report standard error of estimation (bootstrap or asymptotic normality? Is the package reliable?)
+
+- Conduct lack of fit test for the beta-mixture distribution (what's the saturated model?)
+
+- Refine the writeup
+
+
 #### Look colser to the dependence structure of the land engraved areas
 
 There are some discussions about the existing patterns of dependence in the observed data. Inspired by that, we are trying to build a model to formalize those thoughts.
@@ -2548,11 +2956,46 @@ Connecting survey questions:
 2. Linking possible questions to the conceptual cognitive theory
 3. Best set of questionnaires need to be figured out.
 
-## Research Plan Summer
+### Measuring Trust and calibration
 
-1. Trust model
-2. User study design
-3. JSM - Bullet scoring - Adapted Chumbley
+```{r, fig.cap="Questionnaire setup for comparing trust in scores", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/bullets/questionnaire.png"))
+```
+
+
+
+1. Trust: Means different things to different people
+   - Outright questions measuring trust are highly susceptible to prior understanding and bias
+2. Trust in scores with visualizations as explanations 
+   - Pre- questionnaire along with Score without explanations of comparisons
+   - Post- questionnaire after experiencing a methodical array of visualizations (representations) 
+3. Framework design (Literature based):
+   - Optimized design with factors that can influence trust in scores.  
+      Criteria:
+       - Aligned to the steps of the model, present ordered set of visualization, so that the inference from the score, is drawn under the light of the right kind of uncertainty. 
+       - Exploratory understanding of impact of problems
+       - Theoretical arguments defining change of trust within the visualization setup (application) and the interest in change of trust
+         (1) 2- Agent game; 1st Agent [1] - System ; 2nd Agent [2] - Human/ Domain expert
+         (2) For Agent [1]- Trust in Agent [2] meaningless; For Agent [2]- Trust in Agent [1] of concern
+         (3) Each addition of visualization means Agent [2] sequentially always comes 2nd; assesses 
+         the score in the light of new visualization.
+         (4) Leads to a pure prediction problem:: Hence, change in trust + or - within the system.
+(*) These considerations are important as we only look to quantify trust in the light of a change and not in the light of absolute magnitude, which is not trivial.
+
+4. Trust is confusing term before jumping into measuring trust.
+      (1) Need to establish some ground rules that examiners can self-assess (not necessarily explicitly) during the experience.
+      (2) Without this, post- questionnaire based outright questions on trust can have widely unimaginable answers not representing the true calibration of trust.
+      (3) Trust here is identified as a function of uncertainty around scores
+      (4) Trust is a function of a non-zero initial trust in model scores, and a zero trust in model scores if acceptance of facts and reason is possible.
+      (5) Trust a function of facts and implication of fact of scores.
+      (6) In the light of above points, trust is a function of detectable problems in each visualization
+      (7) Probability of causation, argument, brings to light the concept of change in uncertainty around the scores. Seen to be in this light. Fact: Detectable problems
+  
+5. Pre- vs Post- questionnaire as a paired Wilcox ranked sum or paired t- test
+  - Assumptions?
+  - for a difference in mean of 1 need about 15 participants
+  
+6. IRB requisites
 
 ### Conference Presentations  
 
@@ -2613,6 +3056,7 @@ Connecting survey questions:
 - Charlotte Roiger 
 - Joe Zemmels
 - Yawei Ge
+- Wangqian (Will) Ju
 
 
 ### Undergraduates

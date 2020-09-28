@@ -1,7 +1,7 @@
 ---
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 # Theoretical foundations
 
@@ -1171,6 +1171,7 @@ knitr::include_graphics("images/foundations/optimal_rule/Sp_dat.all.combine_max_
 ```
 
 
+
 ### Extension to openset problems
 
 This is motivated to consider the situations where no training data are given for questioned evidence such as glass fragments. In earlier work, we assumed finite known sources corresponding to a closed-set situation. The assumption would break as a questioned evidence does not belong to those known sources. To improve this weakness, and move to openset framework, we used simple hierarchical structure first.
@@ -1318,3 +1319,336 @@ read.csv("images/foundations/optimal_rule/Openset/ex6.csv") %>%
   geom_line() +
   xlim(0, 1) + ylim(0, 1)
 ```
+
+
+
+
+
+
+
+## SRL behaviour and dependence
+Draft: August 2020
+
+```{r , include=FALSE}
+library(kableExtra)
+
+library(readxl)
+Table_cut <- read_excel("images/foundations/FV/Out_tables.xlsx",sheet = "Table")
+
+Out_tablesKM <- read_excel("images/foundations/FV/Out_tables.xlsx",sheet = "KM_1stSIM")
+Out_tablesKNM <- read_excel("images/foundations/FV/Out_tables.xlsx",sheet = "KNM_1stSIM")
+```
+
+### Introduction.
+
+Statistical analysis in forensic science can be used to help guide decision making in a criminal case.
+
+In a general court case, a ruling regarding the innocence of a suspect can be thought as if you are contrasting two hypotheses:
+
+* The prosecutor hypothesis $(H_p)$, that the suspect is guilty of the crime.   
+* The defense hypothesis $(H_d)$,  that the suspect is innocent.
+
+Suppose that some evidence $E$ was found at the crime scene. Formalizing the previous statement, we can think about the two competing hypotheses and how likely they are.  
+
+Using Bayes Theorem, we can compute: 
+
+
+\begin{equation}
+\label{eq:LR}
+\frac{P(H_p/E)}{P(H_d/E)}= \underbrace{\frac{P(E/H_p) }{P(E/H_d) }}_{\text{Likelihood ratio}}     \underbrace{\frac{P(H_p)}{P(H_d)}}_{\text{Prior odds}} 
+\end{equation}
+
+The first component is the **ratio of competing hypothesis**. Following cite{Stern2017} and cite{Cook1998}, it should be noted that decision regarding guilt or innocence is something that is up to the judge and potentially outside of the scope of expertise of the forensic expert.
+
+In general, forensic testimony would concern lower level proposition, addressing, for instance, the common source hypothesis. Reframing under this tier of propositions, we will address the hypothesis that the trace found in the crime scene $(E_x)$ is a match with the suspect $(E_y)$ $(H_p)$ or that evidence came from a different source $(H_d)$.
+
+The **Prior odds** reflects a pre evidence belief, and the **Likelihood ratio** or **Bayes factor** acts as an update of those beliefs into posterior probabilities. 
+
+In essence, the likelihood ratio allows us to assess the relative probability of observing the evidence under the competing hypothesis. It is a means to quantifying the strength of the evidence.
+
+Consider the following example of DNA trace from cite{Stern2017}. DNA was found in a crime scene $(E_x)$, a suspect $S$ is arrested and we can obtain a sample from the suspect ($E_y$). The likelihood ratio can be written as:
+
+
+\begin{equation}
+\label{eq:LR_DNA2}
+LR= \frac{Pr(E_x,E_y|H_p)}{Pr(E_x,E_y|H_d)}.
+\end{equation}
+
+In the case of DNA trace, under some simplifying assumptions, the calculation for the numerator and denominator can be performed studying the match at each j location in a DNA profile. And the denominator can be interpreted as the probability of a random match or that a random person shares the same DNA profile, this refers to the different source hypothesis. 
+
+
+Note that the previous calculation required a thorough knowledge of the population frequencies and some simplifying assumptions. In most cases, this information might not be available, or constructing formal probability models can be challenging, so a similarity score can be used instead. SRL has been featured in statistical forensic work with different degrees of emphasis (e.g.: handwriting cite{Hepler2012},cite{Davis2012},firearms: cite{Dong2019},cite{Riva2017},...).
+
+Suppose there is a method to compute the similarity between the crime scene evidence and the one collected from the suspect $S$, $S(E_x,E_y)$, (e.g., RF score, Cross-correlation, CMS).
+Then, the likelihood ratio can be written as,
+
+
+\begin{equation}
+SLR= \frac{Pr(S(E_x,E_y)=s|H_p)}{Pr(S(E_x,E_y)=s|H_d)}
+\end{equation}
+
+Now we can interpret the numerator as the likelihood that the scores being $s$ under the prosecutor hypothesis and the denominator the likelihood $s$ under the defense hypothesis
+As noted by cite{Stern2017}, the distribution will depend on the evidence found at the crime scene $(E_x)$ so we can formalize this by: 
+
+\begin{equation}
+SLR= \frac{Pr(S(E_x,E_y)=s|E_x,H_p)}{Pr(S(E_x,E_y)=s|E_x,H_d)}.
+\end{equation}
+
+SRL allows to use a univariate distribution instead of a more complex probability model that might depend on multiple parameters. Even if the probability model can be formulated, the true parameters are unknown and likely challenging to estimate cite{Hepler2012}
+
+To find an estimated value of the SRL ($\hat{SLR}$) we can implement a **two-step** approach that has been used in the literature before cite{...}.
+
+
+1. Find $\hat{Pr}(S(E_x,E_y)|E_x,H_p)$ ,  $\hat{Pr}(S(E_x,E_y)|E_x,H_d)$ 
+2. Evaluate $\hat{Pr}(S(E_x,E_y)=s|E_x,H_p)$ and  $\hat{Pr}(S(E_x,E_y)=s|E_x,H_d)$ at $s$ observed to determine which one is more likely.
+
+For the first steps, researchers have used dataset of pairwise comparison or similarity scores. If the hypothesis that the empirical distribution follows a known unimodal distribution cannot be rejected, this distribution is used, and its parameters are estimated using the data.   Alternatively, KDE has been used to get an estimate of the PDF.
+
+In the literature, $\hat{Pr}(S(E_x,E_y)|E_x,H_p)$ has also been denoted as within score and $\hat{Pr}(S(E_x,E_y)|E_x,H_d)$ as between scores. 
+
+Different issues regarding the use of Score Likelihood ratio in forensic have been discuses in the literature cite{Garton, others}. In particular, we are interested in the results obtained from these techniques are different compared to their LR counterparts, how dependent are the results to the training data, and if there exist other dependence structures. 
+
+
+
+### A pipeline for testing forensic algorithm.
+
+The following sections address a simulation approach to assess empirically the SLR and their behavior. The first section describes the step for simulating realistic data, then the steps implemented to construct LR and SLR, and tools for comparison.  
+
+### Simulating realistic data.
+
+### Forensic set up
+For assessing the behavior of our SRL under realistic data, we begin with data glass data collected by Dr. Joan Buscaglia, which is publicly available and has been previously used in related analysis cite{Aitken and lucy, Ommen}.  The data set provides the elemental composition of 62 windows pane, 5 fragments each, evaluation of the composition of 4 elements. Calcium (CA), Potassium (K), Silicone (Si) and Iron (Fe). As previously noted cite{..}, the features provided are actually the log ratio of elements, hence for each window fragment, we have actually 3 features $log(CA/K)$,$log(CA/SI)$,$log(CA/Fe)$. In their database, the windows pane are organized in 3 groups, 16 window pane in groups 1 and 2, 30 on group 3. This grouping will provide the starting point for the pipeline. 
+
+To set up the forensic experiment, suppose, a crime has been committed, and a glass fragment was recovered from the crime scene. We assume the fragment comes from a particular window $W_1$. A suspect is arrested and a second fragment is found on their clothing, the fragments are assumed to come from window $W_2$.
+
+Under the prosecutor and defense hypothesis framework, the prosecutor hypothesis or $H_p$ states that the fragments share the same source, meaning that $W_1$ and $W_2$ are the same window. On the other hand, the defense states that the windows are not the same. 
+
+Note that we assume that only one fragment is found in the crime scene and another on the suspect for simplicity at first.
+
+### Model set up
+
+We will also assume that the following random effects model generated the data.
+
+$y_{ijk}=\mu_k+a_{ik}+w_{ijk}$
+
+Where  $y_{ijk}$  denotes the 3 dimensional vector of features measured for the $j^{th}$ fragment of the $i^{th}$ window on group $k$. Within each group we have $m$  ($i=1,...,m$) windows and $n$ fragments ($j=1,...,n$), in total the group size would be $N=nm$. For example, if we have 10 window panes, with 5 
+fragments sampled each we would have $N=50$. 
+
+In the previous model $\mu_k$ is the population mean for group $k$, and $a_{ik}$ is a random effect associated with the window $i$ in group $k$,
+$w_{ikj}$ is the RE associated for glass fragment.  Assuming that the RE follows a  3 dimensional Gaussian distribution, $a_{ik} \sim N(0,\Sigma_b)$ and $w_{ijk} \sim N(0,\Sigma_w)$ where $\Sigma_b$ is the between source covariance matrix and $\Sigma_w$ is the within source covariance matrix, 
+
+Hence we will have the following parameter to estimate, $\mu_k$ , $\Sigma_W$ and $\Sigma_b$. Aitken and Lucy proposed the following way to estimate the parameters.
+
+For each group we can compute the mean vector for the features as,
+
+$$\bar{y}_{..k}= \frac{1}{mn} \sum_{j=1}^{n}  \sum_{i=1}^{m}  y_{ijk},$$
+
+
+Under this model, we assume that there is two source of variation. The variation that is *between* the sources or windows, and the variation among the fragments of the same window or in other word *within* source variation. Lucy and aitken propose a way to compute them when there is only one group, to make our notation consistent suppose that we are dealing with only one group $k$ for now,
+
+We can compute the within-group covariance matrix $\hat{\Sigma}_{wk}=U_k$ using as:,
+
+ $$U_{k}=S_{wk}/(N-m),$$
+ 
+
+
+where $S_{wk}= \sum_{i=1}^{m} \sum_{j=1}^{n} (y_{ijk}-\bar{y}_{.ik}) (y_{ijk}-\bar{y}_{.ik})'$
+
+
+The between group covariance matrix $\hat{\Sigma}_{bk}=C_k$ can be estimated by
+
+$$C_k=S_k^*/(m-1)-S_{wk}/n(N-m),$$
+
+with $S_k^*=\sum_{i=1}^m (\bar{y}_{.ik}-\bar{y}_{y}) (\bar{X_{i}}-\bar{X})'$,
+
+Since we have 3 groups, we used the previous steps to find  $\hat{U}_{k}$ and $\hat{C_k}$ and compute the average to find $\hat{\Sigma}_{w}$ and $\hat{\Sigma}_{b}$ that is going to be used in the following steps.
+
+
+### Simulation basics.
+
+After estimating $\hat{\mu}_k$ $(k=1,2,3)$, $\hat{\Sigma}_{b}$ and $\hat{\Sigma}_{w}$ we can simulate 3 groups as follows.
+
+1. For k=1 to 3.
+2. Select   number of windows $m$ and fragment $n$ within the window
+3. We first sample $m$ sources $z_{ik} \sim N(\hat{\mu}_k,\hat{\Sigma}_{b})$
+4. We sample $n$ fragments from each source $y_{ijk} \sim N(z_{ik},\hat{\Sigma}_{w})$
+
+For our simulation study, we choose $m=10$ and $n=5$ hence each group will have 50 total fragments, and 150 rows will compose our database.
+
+The following plots show the distribution for just one sample, where each point is a fragment within a window and group. The shape of the point denotes the group of origin and the color the Source ID within the group. 
+
+![](images/foundations/FV/pairs.png){width=60%}
+
+### SLR. 
+
+Different scores have been proposed to measures similarity between all pairwise comparisons of trace evidence, in our case, the fragments. 
+
+BolcK Ni and Lopakta (2015) used distances for measuring different impurities in drugs. Suppose you are making comparisons of two elements, $x$, and $y$, then if you measure $p$ characteristics, the following distances are used. 
+
+* Euclidean: $s_e=\sqrt{ \sum_{i=1}^{p}(x_i-y_i)^2}$
+* City : $s_c= \sum_{i=1}^{p}|x_i-y_i|$
+
+
+In forensic glass data analysis, Random Forest (RF) generated scores have been proposed as a way to address the same source problem cite{Carriquiry Park}, cite{Park}. Beginning from all possible pairwise combinations in a data frame, we took the absolute difference for each ratio as our features. The pair of fragments are designated as a known match (KM) if they come from the same windows and non-match (KNM) if not. Since the KM observation clearly outnumber the KNM observations, we use downsampling during the training stage to improve the performance of the classifier as proposed by Carriquiry and Park
+
+The prediction of this trained RF is the third score $s_{RF}$ we compare in this document.
+
+
+
+### LR
+
+Since we know the source of the simulated data for each pair, we can compute the common source LR
+
+$$\lambda_{CS}=\frac{f(u_x,u_y|\theta_a,M_p)} {f(u_x|\theta_a,M_d)f(u_y|\theta_a,M_d)}$$
+
+
+$u_x$ is the vector of features for the first item in the pair, and $u_y$ the vector for the second item.
+
+Since we sample from a multivariate normal distribution, we use $f$ the density of a multivariate normal whose parameters are $\theta_a=\{\hat{\mu_k},\hat{\Sigma_b},\hat{\Sigma_w}\}$.
+
+Under the prosecutor hypothesis the two items share the same source, while in the defense hypotesis has different source. 
+
+Details of *Block covariance*...
+
+
+
+
+
+### Train- Test - Validation.
+
+Previous papers have used the same data for training their SLR, comparing them to LR. Inspired by machine learning k-fold, we follow a train-test-Validation validation approach as follows.
+
+1. In the Traing Group: Train a RF using Downsampling.
+2. Compute the following scores over the Test set: RF score, Euclidean distance, City Distance.
+3. For the KM in the Test set, estimate the KDE of each score.
+4. For the KNM in the Test set, estimate the KDE of each score.
+5. Compute the following scores over the Validation set: RF score, Euclidean distance, City Distance.
+6. Plug in the Scores in the KDE found in step 3. This will act as the numerator in each SLR
+7. Plug in the Scores in the KDE found in step 4. This will act as the denominator in each SLR
+8. Compute the ratio of points 6 and 7. This will act as the SLR.
+9. Compute the true LR that will serve as a basis for comparison.
+
+
+The assignment of groups 1,2 or 3 into training, testing and validation set allows to do 3-fold validation permutating the order in which they were assigned, hence for each simulation, we have actually 6 permutations. This allows us to compare the sensitivity of using different training and testing set over the validation results.
+
+![Permutation order](images/foundations/FV/Diagram_1.png){width=50%}
+
+
+### Metrics for comparing results
+Cite(Meuwly _2017) address different evaluation metric.
+
+* Rate of misleading evidence.
+  
+Recall that the LR is used to update the prior belief of the decision-maker, a ratio larger than 1 would indicate that the evidence leans towards prosecutor hypothesis, that the traces compare belong to the same source. On the opposite direction, a ratio smaller than 1 would support the defense hypothesis.
+
+Since our validation process tracks the pairs that genuinely belong to the same source  (KM)and those who do not (KNM), we can assess if the ratios found could potentially be misleading.
+
+In the case of a KNM, we would expect the ratio to be smaller than 1. The rate of misleading evidence for KNM is then the percentage of pairs that present a ratio larger than 1 but are actually KNM.
+
+In the case of a KM, we would expect the opposite, that the ratio is bigger that 1 supporting the prosecutor hypothesis. The rate of misleading evidence for KNM is then the percentage of pairs that present a ratio smaller than 1 but are actually KM.
+
+* Comparison with LR
+
+Since our primary goal is to study the behavior of Score likelihood ratio, we can compare each of them computed for any pairs to the LR counterpart described previously. 
+Scatter plots have been used previously to compare these results, however, do to the domain of the ratio $(0,\infty)$ we follow a discretization for the ratios that follow the scale proposed by Evett et al. (2000).
+
+
+```{r ,echo=F}
+kable(Table_cut)
+
+```
+
+cite{Garton}, defines the following collections of set as a way to compare the ratios.
+
+$$B=\{(0,10^{-4}),(10^{-4},10^{-3}),...,(1,10),...,(10^4,\infty) \} $$
+
+From this discretization, we create a tile plot, mapping the number of times a pair fall in one of the bins for the LR and the corresponding SLR. Ideally, we expect that the values fall within the diagonal showing an agreement between the LR and the SLR
+
+* Agreements between Validation sets.
+
+The Train Test Validation followed allows for testing the agreement between different permutations that have the same groups as Validation set. Consider, for instance the first permutation and the third, although the validation set is the same, we are using different train and test sets. In this case the LR will agree since they do not depend on the train and test, however, we can potentially see difference in the SLR scores.
+In the distance-based scores, a source of difference is introduced as we use a different Test set to get the KDE. While the RF we exchange the order in which the train and test set are used. Note that also, a third source of difference is introducing in the RF case since we are also implementing a downsampling step.
+
+As in the previous comparison, we introduce the following collection of sets as a way to study the difference. 
+
+$$D=\{(-\infty,-10^4),...,(-10,0),(0,10),...,(10^4,\infty) \} $$
+
+If the difference belongs to the 5 or 6 sets, meaning that the difference is close to 0, we can say that the score agrees between the different permutations.
+
+### Results
+
+### From a single permutation within a simulation
+The following only illustrates partial results for the first permutation to discuss the challenges faced by the algorithms.
+
+First, we report the RF OOB for this permutation is 8.5%, the specific class error is 8% for the KM and 9% for the KNM in the training set. The KDE over the test Set also allows to assess the performance of the RF in discriminating between the two populations.
+
+We also present the KDE over the Test set using the Euclidean and the City distance. It shows that a smaller distance is more likely to be observed if we are dealing with a KM pair, although some overlapping is seen.
+
+
+![](images/foundations/FV/RF_KDE.png){width=30%} ![](images/foundations/FV/Eucli_KDE.png){width=30%} ![](images/foundations/FV/City_KDE.png){width=30%}
+
+Next we compute the Rate of misleading evidence for KM and KME. We see that in this case, the RF SLR is closer to the rate of misleading evidence for the LR in the case of the KM and the KNM.
+
+```{r ,echo=F}
+kable(Out_tablesKM[1,],caption = "Rate of Misleading evidence KM")
+kable(Out_tablesKNM[1,],caption = "Rate of Misleading evidence KNM")
+```
+
+
+![](images/foundations/FV/Tile_City.png){width=50%} 
+![](images/foundations/FV/Tile_Eucli.png){width=50%} 
+![](images/foundations/FV/Tile_RF.png){width=50%}
+
+
+
+
+### From all  permutation in simulation
+
+First we present the RME for each permutatio within this particular sample. We can see that the RME for LR is the same in 'paired' permutation since it does not depend on the train-test set.
+
+```{r ,echo=F}
+kable(Out_tablesKM,caption = "Rate of Misleading evidence KM")
+kable(Out_tablesKNM,caption = "Rate of Misleading evidence KNM")
+```
+
+Next, the following plot shows the difference between the 'paired' permutation. All the difference for the LR belongs to group '5' since the difference is 0 as previously mentioned. 
+
+In this particular sample, the distance-based SLR shows that most cases fall within groups 5 or 6, meaning the difference is small. This is true for both KM and KNM.
+
+In the case of the RF SLR, in this particular sample, the difference is not symmetric. Leaning towards negative values. It is interesting to note that in the KM, the larger percentage does not fall in group 5.
+ 
+![Difference in 1st Sample](images/foundations/FV/Diff_1stV.png)
+
+### From all  permutation in all simulation
+
+The following results are for 500 samples, and in each one we have 6 permutations.
+
+First, we present the boxplot for RME for each sample X permutation, approximately 3000 rates for each ratio. (note some "NA" present)
+
+LR is the smaller as expected, followed by RF, their range reasonably similar. 
+However, it should be noted that in the case of KM RF present large outliers.
+
+![Boxplot RME](images/foundations/FV/ALL_SIMU/BOX_RME_all_SIMUL.png)
+
+The next plot shows the differences between 'paired' permutations across all 500 samples. 
+In the case of the City distance, for KM most cases fall in groups 5 or 6 wichs suggest low sensitivity to changes in train and test sets.
+
+On the other hand, RF shows the opposite behavior suggesting that this score based likelihood ratio is more sensitive to changes in train and test sets.    
+
+![Difference City](images/foundations/FV/ALL_SIMU/Diff_all_SIMUL_V1.png)
+
+
+![Difference Euclidean](images/foundations/FV/ALL_SIMU/Diff_all_SIMUL_V3.png)
+
+![Difference RF](images/foundations/FV/ALL_SIMU/Diff_all_SIMUL_V2.png)
+
+
+Regarding the match between the LR and the SLR...
+
+![Tiles City](images/foundations/FV/ALL_SIMU/Tiles_city_all_SIMUL.png)
+
+![Tiles Euclidean](images/foundations/FV/ALL_SIMU/Tiles_eucli_all_SIMUL.png)
+
+![Tiles RF](images/foundations/FV/ALL_SIMU/Tiles_RF_all_SIMUL.png)
+
+

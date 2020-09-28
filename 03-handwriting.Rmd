@@ -12,6 +12,7 @@ The handwriting project has four major focuses:
       a. glyph clustering
       b. closed set modeling for writer identification
       c. Alexandra's project
+      d. open set modeling for writer identification from distribution of glyphs in clusters
   4. communication of results
 
 ## Data Collection
@@ -691,6 +692,55 @@ knitr::include_graphics(c("images/handwriting/amy/wolfgang_miss2.png"))
 ### Ali's project
 
 :)
+
+### Open Set Modeling for Writer Identification from Distribution of Glyphs in Clusters
+The next step in this research extends the scope of potential sources of handwriting samples to an open set. So if there are two handwriting samples, are what is the probability they are from the same writer or different writer without the neccesary assumption of knowing all of the potential sources. The distribution of glyphs assigned to clusters in a document is can be used to explore the authorship because it is hypothesized that a particular writer would have their own writing style resulting in similar distributions of glyphs in each cluster over time across many different writing samples.
+
+Instead of comparing multinomial distributions, the proportions of total glyphs in each cluster can be compared with two Dirichlet distributions. If there are two different samples where the length of the documents differ the expected number of glyphs per cluster would also differ. For example, if samples of handwriting were found at two different scenes and the goal is to compare the two documents, it would be expected that the number of glyphs in each cluster would vary unless they happened to write the exact same thing in both. Dirichlet distributions would compare the proportions instead of the counts of glyphs per cluster.
+
+To start we will look at a dirichlet with three proportions, which would correspond to only having three clusters, and calculate the euclidean distance. 
+
+KDE (kernel density estimation) can be used to estimate the behavior of the distributions when the random variables are indeed from the distribution with the same parameters and when they are drawn from the distribution with different parameters.   
+
+```{r}
+knitr::include_graphics(c("images/handwriting/mattie/both.png"))
+```
+
+These density estimates can be used to calculate score-based likelihood ratios (SLRs) using leave-one-out of another simulated dataset. We would expect SLRs that are greater than 1 to be associated with the distance measures from the same distribution.
+
+This process was conducted with just the euclidean distance to start. Next, it is possible to assess how well a random forest with multiple distance measures (euclidean distance and the absolute difference between each of the clusters) can correctly identify if two dirichlet random variables are from a distribution with the same parameters or different parameters.
+
+To do this, 10,000 random variables were simulated for two dirichlet with the parameters (5,10,25) and one dirichlet with parameters (6,12,22) as a training set. The distance measures were calculated between the two dirichlet from the same parameters and also between different parameters. These distance measures were added to a dataset along with an indicator if the distance measures were from the same or different dirichlet.
+
+Next, a random forest was trained to predict the if the distance measures were from the same or different dirichlet.
+
+A testing dataset was simulated in the same way as before and the random forest was applied. The random forest returns a value between 0 and 1 which is the proportion of trees in the forest that predicts the distance measures are from the same dirichlet. 
+
+The training dataset was split into those that were actually from the same and different parameters. The `stat::density()` uses kernel density estimation with a Gaussian kernel to estimate the probability density function of the proportions that predicted the dirichlet were simulated from the distrution with the same parameters after defining the range of the pdf to be between 0 and 1.
+
+Using the leave-one-out method, 1 observation was excluded from the dataset and then KDE was performed. 
+
+```{r}
+knitr::include_graphics(c("images/handwriting/mattie/kernel_bothplot.png"))
+```
+
+The ratio of the KDE estimate for the curve if the excluded point was from the distribution with the same parameters to different parameters is computed. The SLRs are compared for those that are actually from the same vs different and we would expect there to be little overlap.
+
+```{r}
+knitr::include_graphics(c("images/handwriting/mattie/loo_slrs_plot.png"))
+```
+
+The same process that was conducted with 3 clusters was repeated with 40 clusters. A random forest was trained on simulated data with 40 clusters with randomly simulated parameters drawn from a uniform distribution. There appears to be little overlap between the kernel density estimates that were drawn from the same distribution compared to those from different distributions.
+
+```{r}
+knitr::include_graphics(c("images/handwriting/mattie/kernel_bothplot_40.png"))
+```
+
+While the small SLRs are based on the distance measures from dirichlet with different parameters and larger SLRs are from the same as expected, the score likelihood ratios computed using the leave-one-out method are not as distinct of those from the same compared to different dirichlet distributions as we would expect.
+
+```{r}
+knitr::include_graphics(c("images/handwriting/mattie/slrs_40.png"))
+```
 
 ## Communication of Results  
 Presenting author is in bold.

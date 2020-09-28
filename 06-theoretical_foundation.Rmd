@@ -1216,7 +1216,7 @@ $$X|\mu, Y|\mu \sim N(\mu, \Sigma) \mbox{ where }\mu \sim N(M, V), \ X, Y \mbox{
 &nbsp;
 
 \begin{align*}
-T_{SS}^{Opt} = \left\{(x,y):\ \exp{\left(-\frac{1}{2} \left(\begin{matrix}x - M \\y - M \end{matrix}\right)'\left(G_1^{-1} - G_2^{-1}\right)\right)}\left(\begin{matrix}x - M \\y - M \end{matrix}\right) < \frac{w}{1-w} \left|G_1\right|\left|G_2\right|\right\}
+T_{SS}^{Opt} = \left\{(x,y):\ \exp{\left(-\frac{1}{2} \left(\begin{matrix}x - M \\y - M \end{matrix}\right)'\left(G_1^{-1} - G_2^{-1}\right)\right)}\left(\begin{matrix}x - M \\y - M \end{matrix}\right) < \frac{w}{1-w} \left|G_1\right|^{1/2}\left|G_2\right|^{-1/2}\right\}
 \end{align*}
 , which is valid for both univariate and multivariate cases.
 

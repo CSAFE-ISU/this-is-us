@@ -2248,25 +2248,47 @@ I have also been adding functionality to the cmcR as ideas come up while writing
 
 <details>
 <summary>
-Joe 9/14 Update: We're now putting the finishing touches on the paper and hoping to submit soon! I'm very excited to move onto the next stage of this project. Additionally, I have been thinking a good deal about how we might improve the cartridge case identification procedures while providing more rigorous justification than the current "state-of-the-art" which is effectively guess-and-check what procedures work well. While we can borrow a considerable amount from image processing literature, I believe that cartridge case data pose a distinct case from normal images in the large number of missing values that naturally and structurally occur. I believe we might also be able to leverage some methods from spatial statistics and elsewhere (e.g., EM-type algorithms) to deal with these problems.
+Joe 10/5 Spotlight: We are currently fine tuning aspects of the paper and hoping to submit soon! I'm very excited to move onto the next stage of this project. Additionally, I have been thinking a good deal about how we might improve the cartridge case identification procedures while providing more rigorous justification than the current "state-of-the-art" which is effectively guess-and-check what procedures work well. I am surprised how little the literature borrows from state-of-the-art techniques in image processing (MRI imaging, etc.) and I believe that there is a lot of untapped potential in using such methods.
 </summary>
 
-The figure below illustrates the new preprocessing pipeline we have used to obtain better results. This new pipeline is semi-automatic, as opposed to the fully-automatic procedure we were previously using, but is much faster and yields considerably better results.
+The paper is methodically coming along. We are to the point of finely tuning aspects of the paper, specifically sections that explain the CMC methodology, to make it clearer how/why the procedures work. The original algorithm descriptions are incomplete in many respects. As such, we are not only introducing our particular implementation of the procedures, but also trying to provide an unambiguous description of the methods themselves. This has proven to be a time-intensive, frustrating process and often feels like we are patching holes caused by others. The figure shown below illustrates one way in which we are trying to clarify the CMC methodology. It shows 3 cartridge cases and the results obtained from their comparisons. Fadul 1-1 and Fadul 1-2 are a matching pair while Fadul 1-1 and Fadul 2-1 are non-matching. The gray cells in Fadul 1-2 and Fadul 2-1 represent where the Fadul 1-1 cells "align" based on the maximum cross-correlation. So each cell in Fadul 1-2 and Fadul 2-1 has an associated horizontal/vertical translation, a rotation, and a cross-correlation score based on those transformations. These are visually depicted as histograms below below each scan. The purple bars represent user-defined thresholds used to classify a particular value as "congruent" or not. We can see that, in general, more values tend to be classified as congruent for the matching pair than for the non-matching pair. Interestingly, however, we can see that the CCF scores are not as "well-behaved" in that a good deal of non-matching cells have "congruent" CCF scores (based on this particular set of thresholds, at least). In order for an entire *cell* to be classified as congruent, each of its associated values (translation, rotation, and CCF) need to be classified as congruent. This is how the originally proposed CMC method works (from Song (2013)). We have also implemented one of the descendants of the original method, but are still brainstorming illustrative visualizations.
 
 ```{r}
-knitr::include_graphics("images/cartridge_cases/9-14_update/newPreProcessingPipeline.png")
+knitr::include_graphics("images/cartridge_cases/10-5-20-Spotlight/originalMethod_sideBySide_thirdDraft.png")
 ```
 
-Below shows an example of the superior results that we obtain from the new preprocessing pipeline. There is considerably more separation between the match and non-match CMC count distributions than previous results.
+On top of introducing the implementation, we are also trying to abstract the process we went through in its creation to a larger discussion on reproducibility in computational research. In particular, we focus on why/how computational research should/can be rendered reproducible and use this particular CMC project as an illustrative example. The example shown above effectively skips over 2 of the 3 critical steps to the CMC procedure: the preprocessing and feature extraction. Both of these steps require a good deal of user input and little has been done in the CMC literature to create a principled approach to making informed decisions. This is one aspect of the project that I hope to focus on after we're done with this paper.
+
+The figure below illustrates the new preprocessing pipeline we have used to obtain better results. This new pipeline is semi-automatic, as opposed to the fully-automatic procedure we were previously using, but is much faster and yields considerably better results. The downside to the current version of this procedure is that it requires the user to specify the radii of the two circles between which the observations are kept (everything is handled automatically). Optimally we would use a fully automatic way to remove the undesired observations on the exterior and in the center of the scan. I would be happy to hear any ideas. Steps 2 and 3 are of our design. There is no discussion in the CMC literature concerning whether the breech face surfaces are leveled (step 3). I will discuss the ramifications of *not* leveling the surfaces below. Step 4, applying a Gaussian filter, is common in the CMC literature. However, inexplicably, different types of Gaussian filters (band-pass, low-pass, regression, robust regression, etc.) are used between CMC papers which compounds our inability to actually compare published results. Apart from it being a common tool in some domains, it's unclear why even a Gaussian filter is used -- this is something I would like to explore in the future.
 
 ```{r}
-knitr::include_graphics("images/cartridge_cases/9-14_update/newCMCResults.png")
+knitr::include_graphics("images/cartridge_cases/10-5-20-Spotlight/newPreProcessingPipeline.png")
 ```
 
-Compare the figure about to an analogous figure in Chen et al. (2017).
+The figure belows shows an example of the superior results that we obtain from the new preprocessing pipeline. The number of cells that are deemed "congruent" under the CMC method can be used as a similarity score between a cartridge case pair. We anticipate matching cartridge case pairs to have a higher "CMC count" than non-matching cartridge cases in general. Each plot below shows the CMC counts for a set of 63 matching and 717 non-matching cartridge case pairs. How these plots differ is in the set of translation and CCF thresholds used to classify each cell as "congruent." We would like to see a large amount of separation between the distribution of matching and non-matching CMC counts. The AUCs are calculated based on varying the minimum CMC count used to declare a cartridge case pair "matching." AUCs equal to 1 indicate perfect separation between the matching and non-matching distributions. As we can see, numerous combinations result in perfect separation. As such, we introduced a simple diagnostic to further differentiate these threshold combinations based on the fact that we would prefer large separation between the matching and non-matching distributions:
+
+$$
+\text{Var. Ratio} = \frac{\frac{1}{n_1 + n_2 - 1} \sum_{i=1}^2 \sum_{j=1}^{n_i} \left(\text{CMC}_{i,j_i} - \overline{\text{CMC}}\right)^2}{\frac{1}{2} \sum_{i=1}^2 \frac{1}{n_i - 1}\sum_{j=1}^{n_i} \left(\text{CMC}_{i,j_i} - \overline{\text{CMC}}_i\right)^2}
+$$
+
+The diagnostic is the ratio between the "total" sample variance of the CMC counts, irrespective of match or non-match group membership, divided by the average within-group sample variance. Larger values of the simple diagnostic are preferred.
 
 ```{r}
-knitr::include_graphics("images/cartridge_cases/9-14_update/chen2017_highCMCResults.PNG")
+knitr::include_graphics("images/cartridge_cases/10-5-20-Spotlight/cmcDistribution.png")
+```
+
+Compare the figure about to an analogous figure in Chen et al. (2017). Again, no justification for this particular set of thresholds is given.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/10-5-20-Spotlight/chen2017_highCMCResults.PNG")
+```
+
+Compared to previous results we've obtained, there is considerably more separation between the match and non-match CMC count distributions using this new preprocessing scheme. However, this plot also uncovers another important point that we want to emphasize in the paper: the sensitivity of the method to various processing decisions. Method sensitivity has never been described in the CMC literature. Rather, authors seem to share what "looks good" on the Fadul dataset.
+
+Consider what happens to the CMC distributions if we skip the surface-leveling (step 3) in the preprocessing above. The issue with keeping such information in the scans is that the "tilt" visible in the preprocessing pipeline in steps 1 and 2 aren't consistent across cartridge cases fired from the same firearm. The CCF, being a non-robust similarity metric, gravitates towards large-scale information such as a tilt in the height values. However, we specifically want to make classifications based on small, intricate details of the two scans. Thus, not removing information such as a large-scale tilt causes the CCF to be smaller for matching scans that don't have the same tilt and larger for non-matching that do have the same tilt. We use such examples to illustrate why the tenants of reproducibility need to be adhered to, especially when they apply to forensic methods.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/10-5-20-Spotlight/cmcDistribution_noLevel.png")
 ```
 
 

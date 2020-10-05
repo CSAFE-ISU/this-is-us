@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 10 Reproducibility in Research | This is us: making CSAFE stronger each week</title>
   <meta name="description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 10 Reproducibility in Research | This is us: making CSAFE stronger each week" />
   <meta property="og:type" content="book" />
@@ -50,13 +50,16 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -65,16 +68,14 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -83,9 +84,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -307,14 +308,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We are working on improving CSAFE’s reproducibility in research.</p>
 <div id="computational-reproducibility" class="section level2">
 <h2><span class="header-section-number">10.1</span> Computational Reproducibility</h2>
-<p>CSAFE’s work is driven by a goal of providing open-source research, including open-source data and open-source algorithms. We believe in transparency and honesty in research, and allowing others to see ``under the hood" of algorithms that may be used to analyze evidence.</p>
+<p>CSAFE’s work is driven by a goal of providing open-source research, including open-source data and open-source algorithms. We believe in transparency and honesty in research, and allowing others to see ``under the hood&quot; of algorithms that may be used to analyze evidence.</p>
 <p>In the process of furthering that goal, many of our researchers implement methods and data analysis in R, an open-source scripting language often used in data science and statistics. R and python are both languages which encourage (and rely on) user-developed packages to enhance the language’s ability to perform specific data manipulation and modeling tasks.</p>
 <p>Many software packages are still under development; that is, functions and methods that exist in a package are subject to changes over time by the developers. This affects our work as statistics researchers in three major ways:<br />
 - Code to run data analyses and obtain quantitative results may be affected by package updates. This can lead to differing quantitative results and lack of reproducibility of a method.
 - Researchers’ own packages in development (e.g., bullet pipeline, shoe analysis pipeline) are vulnerable to changes in any package dependencies.<br />
 - Group collaboration efforts on a developing package can lead to miscommunications, including changes in code that affect others’ results (sorry again, Charlotte!)</p>
 <p>So, how does this practically affect CSAFE’s research teams, and how can we manage it?</p>
-<p>For example, consider the bullet analysis ``pipeline" and some of the R packages that are involved at different steps of the process (this is not exhaustive):</p>
+<p>For example, consider the bullet analysis ``pipeline&quot; and some of the R packages that are involved at different steps of the process (this is not exhaustive):</p>
 <p><img src="images/reproducibility/pipeline_small_bullets_packages.png" width = "90%"/></p>
 <p>Just to go from a two raw x3p files to a quantitative result of a similarity score between the two bullet LEAs, we need a lot of R packages. When something in those packages change (e.g., default requirements for a <code>tidyverse</code> function), it can break our code! In addition, different people on the project may be running the same script to analyze bullets but be using different versions of packages.</p>
 <p>Because packages like <code>bulletxtrctr</code> and the methodology for different steps (e.g., groove ID, crosscut ID) are still changing and new approaches are being added, we need to be thoughtful and careful about reporting results and working to make sure our results are reproducible by other team members and outside users.</p>
@@ -325,7 +326,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="computational-reproducibility-in-team-based-collaboration" class="section level3">
 <h3><span class="header-section-number">10.1.1</span> Computational Reproducibility in Team-based Collaboration</h3>
 <p>In order to investigate just how vulnerable our teams are to differences in code across machines, we can perform a small case study of the CSAFE bullet team and each team member’s package inventories.</p>
-<p>I asked each member of the bullet project to use the <code>manager</code> tools we have developed to take an inventory of their package versions when they use the <code>bulletxtrctr</code> package (<code>take_inventory(packages = c("bulletxtrctr"))</code>), and send me their inventory.</p>
+<p>I asked each member of the bullet project to use the <code>manager</code> tools we have developed to take an inventory of their package versions when they use the <code>bulletxtrctr</code> package (<code>take_inventory(packages = c(&quot;bulletxtrctr&quot;))</code>), and send me their inventory.</p>
 <p>I received:</p>
 <ul>
 <li>9 total inventories<br />

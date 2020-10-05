@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Shoes | This is us: making CSAFE stronger each week</title>
   <meta name="description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.20.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Shoes | This is us: making CSAFE stronger each week" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-09-28" />
+<meta name="date" content="2020-10-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,16 +50,13 @@
 
 
 
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
-<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -68,14 +65,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -84,9 +83,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -339,11 +338,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><summary>Rough Alignment of Template Mask and Image: Clean images, do a rough alignment between the image and the corresponding shoe mask (per model and size). </summary></p>
 <ol style="list-style-type: decimal">
 <li><p>Rotationally align image and mask using principal components on the non-background pixels in the image</p></li>
-<li>Gross align the non-background pixels in the image and mask
+<li><p>Gross align the non-background pixels in the image and mask</p>
 <ul>
-<li>Use a “mask-ified” version of the shoe print that encloses most of the shoe region in a single region (see below for explanation)</li>
+<li><p>Use a “mask-ified” version of the shoe print that encloses most of the shoe region in a single region (see below for explanation)</p></li>
 <li><p>Default to trimming the actual print by 5% on each dimension to minimize the effect of page borders and creases</p></li>
-<li>Alignment method options:
+<li><p>Alignment method options:</p>
 <ul>
 <li>center of mass - this fails if a print does not account for the whole shoe</li>
 <li>center of narrowest width - ideally, this is approximately the arch of the shoe.<br />
@@ -408,7 +407,7 @@ Aligning each image to the template corresponding to the shoe model and size pro
 <details>
 <p><summary> Fine Alignment of two images using RNiftyReg
 </summary></p>
-<p>The <code>RNiftyReg</code> package is intended for alignment of brain scans and other MRI data and uses a symmetric block-matching approach<span class="citation">(Modat et al. <a href="#ref-modatGlobalImageRegistration2014">2014</a>)</span>. It only allows for registration of images up to 2048x2048, though, which means we will have to align images at a lower resolution and then modify the transformation matrix accordingly. One definite positive feature is that it allows for provision of a mask for both the source and target images so that only pixels within the mask are used for alignment. <!-- This means that we could be using the original images and just providing the mask to ensure alignment --></p>
+<p>The <code>RNiftyReg</code> package is intended for alignment of brain scans and other MRI data and uses a symmetric block-matching approach<span class="citation">(Modat et al. <a href="#ref-modatGlobalImageRegistration2014" role="doc-biblioref">2014</a>)</span>. It only allows for registration of images up to 2048x2048, though, which means we will have to align images at a lower resolution and then modify the transformation matrix accordingly. One definite positive feature is that it allows for provision of a mask for both the source and target images so that only pixels within the mask are used for alignment. <!-- This means that we could be using the original images and just providing the mask to ensure alignment --></p>
 <p><em>Affine transformations</em> are a type of image transformation that encompasses translation, resizing, rotation, and skew operations. Affine transformations preserve collinearity and ratios of distances: parallel lines remain parallel after the transformation. A subset of affine transformations are so-called “rigid body” transformations, which only allow translation and rotation.</p>
 <p><img src="images/shoes/longitudinal/affine_transformations.png" width = "100%"/></p>
 <p>RNiftyReg allows for linear (rigid-body, affine), and nonlinear transformations, but for the moment, we are only interested in rigid-body transformations - while the shoes may have some slight distortion due to the wearer and kinematics of walking, this is minor and should not interfere too greatly with a gross alignment.</p>
@@ -521,11 +520,11 @@ This is necessary because Fourier transforms assume images go on forever, so abr
 <p><img src="images/shoes/longitudinal/FFT_Demo_Hann.png" width = "25%"/></p>
 <ul>
 <li>The strength of the Hann function can be adjusted by a power argument<br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-325-1.png" width="672" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-327-1.png" width="672" /></li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
 <li>Use the Fast Fourier Transform on each image. Center the FFT’d images so that low frequencies are in the center (exchange top left quadrant with bottom right, and top right quadrant with bottom left). Call the FFT’d, centered images <span class="math inline">\(F(A)\)</span> and <span class="math inline">\(F(B)\)</span><br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-326-1.png" width="50%" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-328-1.png" width="50%" /></li>
 </ol>
 <p><img src="images/shoes/longitudinal/FFT_Demo_FFT1.png" width = "50%"/></p>
 <ol start="4" style="list-style-type: decimal">
@@ -543,7 +542,7 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 <ol start="5" style="list-style-type: decimal">
 <li><p>Recover the shift between the two images:</p>
 <ol style="list-style-type: lower-alpha">
-<li><p>Compute the cross-power spectrum: <span class="math inline">\(S = F(A) \times F(\tilde{B}_\theta)*\)</span>, where <span class="math inline">\(F(x)*\)</span> is the complex conjugate of <span class="math inline">\(F(x)\)</span> (e.g. <span class="math inline">\(a + bi\)</span> becomes <span class="math inline">\(a - bi\)</span>)</p></li>
+<li><p>Compute the cross-power spectrum: <span class="math inline">\(S = F(A) \times F(\tilde{B}_\theta)*\)</span>, where <span class="math inline">\(F(x)*\)</span> is the complex conjugate of <span class="math inline">\(F(x)\)</span> (e.g. <span class="math inline">\(a + bi\)</span> becomes <span class="math inline">\(a - bi\)</span>)</p></li>
 <li><p>Compute the magnitude of the cross-power spectrum: <span class="math inline">\(|S| = \sqrt{S \times S*}\)</span></p></li>
 <li><p>Use (a) and (b) to get the normalized cross power spectrum: <span class="math inline">\(S/|S|\)</span></p></li>
 <li><p>Take the inverse FFT of <span class="math inline">\(S/|S|\)</span>: <span class="math inline">\(A = F^{-1}(S/|S|)\)</span></p></li>
@@ -633,7 +632,7 @@ Alignment Success:</p>
 </ul>
 <p>Proof of concept (with awful image scaling to 120x120 px… sorry)</p>
 <div class="figure">
-<img src="images/shoes/neuralnets/enhancement.PNG" alt="Low light enhancement with CNNs" />
+<img src="images/shoes/neuralnets/enhancement.PNG" alt="" />
 <p class="caption">Low light enhancement with CNNs</p>
 </div>
 </div>
@@ -861,7 +860,7 @@ Alignment Success:</p>
 <ul>
 <li>Materials
 <ul>
-<li>Used 1/4 - 1/2 tsp of cocoa powder, not a “dime-size”&quot;</li>
+<li>Used 1/4 - 1/2 tsp of cocoa powder, not a “dime-size”"</li>
 <li>Test/specify cocoa powder vs hot chocolate powder</li>
 </ul></li>
 <li>Procedure

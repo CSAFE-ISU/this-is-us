@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Glass | This is us: making CSAFE stronger each week</title>
   <meta name="description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.20.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Glass | This is us: making CSAFE stronger each week" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-09-28" />
+<meta name="date" content="2020-10-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,16 +50,13 @@
 
 
 
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
-<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -68,14 +65,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -84,9 +83,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -327,10 +326,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="data-collection-2.0" class="section level2">
 <h2><span class="header-section-number">6.2</span> Data collection 2.0</h2>
 <ul>
-<li>We are starting a second set of data collection of the float glass samples.</li>
-<li>Float glass samples were donated from two glass industries which are the same companies that we had for the first collection.</li>
-<li>Company A and B sent samples that were manufactured from July to September in 2019.</li>
-<li>We continue to collaborate with Chemistry lab in the University of Iowa. We sent the first 30 samples and the second 30 samples. The measurement process is ongoing by LA-ICP-MS.</li>
+<li><p>We are starting a second set of data collection of the float glass samples.</p></li>
+<li><p>Float glass samples were donated from two glass industries which are the same companies that we had for the first collection.</p></li>
+<li><p>Company A and B sent samples that were manufactured from July to September in 2019.</p></li>
+<li><p>We continue to collaborate with Chemistry lab in the University of Iowa. We sent the first 30 samples and the second 30 samples. The measurement process is ongoing by LA-ICP-MS.</p></li>
 <li><p>They sent us the first six sample measurements from company A.</p>
 <ul>
 <li>Company A 0800 R 072219 - A1</li>
@@ -341,11 +340,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Company A 0800 R 080919 - A5</li>
 <li>Company A 0800 L 081819 - A6</li>
 </ul></li>
-<li>We keep the same sampling procedure to sample 24 fragments from each pane: 3 fragments measured 20 times and rest of them measured 5 times.</li>
+<li><p>We keep the same sampling procedure to sample 24 fragments from each pane: 3 fragments measured 20 times and rest of them measured 5 times.</p></li>
 <li><p>Each time of measurement, we will have 18 chemical elements observations.</p></li>
 <li><p>Box plots of means from the fragments within the pane: red colors are the first data collection and blues are new samples.<br />
 <img src="images/glass/Boxes_new_6.png" width="100%"/></p></li>
-<li>RSD (Relative Standard Deviation, 100 <span class="math inline">\(\times\)</span> SD / abs(Mean)) plots. Black lines are the interval of 25% and 75% quantile of within fragment RSD. Red dot is the pane RSD, from the means of fragments within the pane. Blue line is the manufacturer RSD, using the means of panes within the manufacturer.</li>
+<li><p>RSD (Relative Standard Deviation, 100 <span class="math inline">\(\times\)</span> SD / abs(Mean)) plots. Black lines are the interval of 25% and 75% quantile of within fragment RSD. Red dot is the pane RSD, from the means of fragments within the pane. Blue line is the manufacturer RSD, using the means of panes within the manufacturer.</p></li>
 <li><p>RSDs in the pink background are from the new samples.</p></li>
 </ul>
 <p><img src="images/glass/RSD_new_6.png" width="100%"/></p>
@@ -366,7 +365,7 @@ the known fragments. Denote this value by <span class="math inline">\(\sigma_{Ki
 <li>Compute an interval for each <span class="math inline">\(i\)</span>: <span class="math inline">\(\bar{y}_{Ki\cdot\cdot}\)</span> <span class="math inline">\(\pm\)</span>
 4 <span class="math inline">\(\times\)</span> <span class="math inline">\(\max(\sigma_{Ki}, 0.03\cdot \bar{y}_{Ki\cdot\cdot})\)</span>.
 This is also known as the <span class="math inline">\(4\sigma\)</span> interval in the literature
-(cf.~Weis et al. (2011)).</li>
+(cf.~Weis et al. (2011)).</li>
 <li>Calculate the mean concentration of each element <span class="math inline">\(i = 1, \dots, p\)</span>
 in the questioned fragment(s), denoted <span class="math inline">\(\bar{y}_{Qi\cdot\cdot}\)</span>.</li>
 <li>Compare the value <span class="math inline">\(\bar{y}_{Qi\cdot\cdot}\)</span> to the <span class="math inline">\(4\sigma\)</span>

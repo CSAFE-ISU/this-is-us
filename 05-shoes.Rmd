@@ -662,23 +662,87 @@ Once the PCA has done the initial alignment, then a secondary alignment needs to
 <img src="images/shoes/3dshoes/ICPall2.png" width="100%"/>
 <img src="images/shoes/3dshoes/ICPall3.png" width="100%"/>
     
+
+Measuring Distances
+
+
+
+
+
+
+Automated Alignment: 
+
+In order to align the shoes through an automatized process, we need to use the following steps. 
+
+1. We begin with the two mesh objects of the same shoe at different time points, say time i and time j.Then using the barycenter, or center of mass, we center the shoes on the same x,y,z, coordinate system.
+
+<img src="images/shoes/3dshoes/Centeredshoes.png" width="100%"/>
+
+2. After the shoes are then centered, they are transformed into a point cloud made up of the verities of the triangle mesh object.
+
+
+3. Using these two coordinate systems. Principal component analysis is performed. This gives us a 3X3 rotation matrix in which to transform the original mesh object by the PCA rotation matrix.
+
+
+|   |      PC1     |    PC2        |       PC3     |
+|---|--------------|---------------|---------------|
+| x | 0.5603136    |   -0.2618793  |   0.78579127  |
+| y | 0.3038740    |   0.9475434   |   0.09910676  |
+| z | 0.7705253    |  -0.1832507   |   -0.61049973 |
+|   |              |               |               |
+
+
+
+
+
+4. Due to the nature of PCA, the rotation matrix that we are using is not unique. Further more it often times has a negative determinate. If this happens, we need to rotate the mesh shoe object by a matrix whose diaginal is (1,1,-1). Leaving us with a positive determinate.
+
+5. After this is done, there is no guarantee that the two shoes although sharing the same space in x,y,z where x is the length of the shoe, y the width and z the depth, will be in the same direction. 
+
+<img src="images/shoes/3dshoes/scan1and2afterPCA.png" width="100%"/>
+
+In order to correct for this we need to rotate the shoes by 180 degrees in x,y,z or a combination of those directions. There are 8 possibilities of those rotations:
+
+  1. rotation around the x-axis 180 degrees 
+  2. rotation around the y-axis 180 degrees
+  3. rotation around the z-axis 180 degrees
+  4. rotation around the x-axis 180 degrees and the y-axis 180 degrees
+  5. rotation around the x-axis 180 degrees and the z-axis 180 degrees
+  6. rotation around the y-axis 180 degrees and the z-axis 180 degrees
+  7. rotation around the x-axis 180 degrees and the y-axis 180 degrees and the z-axis 180 degrees
+  8. No rotation is needed 
+    
+there are only 4 unique matrices to deal with 
+<details> <summary> Matrix Rotations </summary>
+<img src="images/shoes/3dshoes/rotationmatrix.png" width="80%"/>
+
+</details>
+
+In order to choose which one of these matrices, the first shoe scan in time is set as the base scan. Then each of the four matrices described above is applied to second scan. After each rotation, the distance between the first and second scan is measured. The matrix with the smallest distance is used as the rotation matrix, and is applied to the second shoe. For example, with scan 1 and scan 2, the four matrices lead to the following 4 distances:  2.153458, 9.124214, 9.117095, and 6.234845. Thus scan 2 is rotated by the matrix of the diag(1,1,1). 
+
+
+6. Once the shoes are initially alligned, ICP is applied with an iteration of the aligners choosing. Once ICP has been performed, the distance is again measured and recorded.
+
+<img src="images/shoes/3dshoes/A1.png" width="80%"/>
+<img src="images/shoes/3dshoes/A2.png" width="80%"/>
+
+Here the final distance is 0.9791678 cm
+
 Understanding the distance: 
-Using the package *Morpho* we have a glimps at how much alignment is working (using scan 1 and scan 2 of the shoes)
-After centering, we have the mean distance -9.542274 and a max distance of 59.08234. Visually we can see this as: 
 
-<img src="images/shoes/3dshoes/Centereddistance.png" width="100%"/>
+Once we have the distance, we want to understand where the wear is occuring, plotting the distance on the base scan of scan 1, we see the distance to scan 2 looks like the following: 
 
-Now after PCA, we have the mean distance of 2.801961 and a maximum of 45.37814, visually we can see that there is less variation in the shoes 
 
-<img src="images/shoes/3dshoes/PCdistance.png" width="100%"/>
 
-Now finally after ICP, which does not change the mean or maximum distance of difference between the two shoes: 
-<img src="images/shoes/3dshoes/icpdistance.png" width="100%"/>
 
-Now looking at scan 1 verse scan 6:
-<img src="images/shoes/3dshoes/centered16distance.png" width="100%"/>
-<img src="images/shoes/3dshoes/pca16distance.png" width="100%"/>
-<img src="images/shoes/3dshoes/icp16distance.png" width="100%"/>
+
+
+
+
+
+
+
+
 
 
 

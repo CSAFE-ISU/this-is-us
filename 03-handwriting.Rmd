@@ -742,6 +742,78 @@ While the small SLRs are based on the distance measures from dirichlet with diff
 knitr::include_graphics(c("images/handwriting/mattie/slrs_40.png"))
 ```
 
+Application to CSAFE Database
+
+The data provided in the CSAFE database consist of writing samples from 90 writers who repeated three prompts three times throughout three sessions for a total of 9 writing samples per writer. The three prompts varied in length. "The London Letter" is the longest and has been used in other handwriting analyses because it includes all of the letters upper and lowercase and numbers. The second is an excerpt from "The Wizard of Oz" book. The last prompt is the short phrase: "The early bird may get the worm, but the second mouse gets the cheese"(Crawford, et al.). This initial test on the data only includes the documents from the first session.
+
+We repeated the process of evaluating the score-based likelihoods calculated from the kernel density estimates of the output a random forest previsouly applied to simulated data to the CSAFE handwriting data. We used 4 different prompts: London Letter, Wizard of Oz, short phrase, and all prompts per writer per repetition combined. The combined document is longer and would be expected to be more representative of the writing style of each writer in the study.
+
+For each data set, a random sample of 80% of the writers was drawn. The distance measures between all pairs of documents were calculated (absolute difference between each glyph and euchlidean distance) from sample. The number of distances from the same source were counted and the same number of different source distances were down sampled. This created a training set that includes an equal number of distances between same and different sources to train the random forest. The resulting random forest was trained using the remaining 20% of the writers not initially sampled for the training data set. As before with the simulated data, distributions of the output from the random forest by source was estimated using kernel density estimation with a Gaussian kernel with bounds between 0 and 1. SLRs were computed using the leave-one-out method as before.
+
+The first prompt is the short phrase.
+
+```{r varimp-p}
+knitr::include_graphics(c("images/handwriting/mattie/varimportanceplot_p.png"))
+```
+
+```{r kde-p}
+knitr::include_graphics(c("images/handwriting/mattie/kde_data_p.png"))
+```
+
+```{r slr-p}
+knitr::include_graphics(c("images/handwriting/mattie/slr_data_p.png"))
+```
+
+The next prompt is an excerpt from "The Wizard of Oz".
+
+```{r varimp-woz}
+knitr::include_graphics(c("images/handwriting/mattie/varimportanceplot_woz.png"))
+```
+
+```{r kde-woz}
+knitr::include_graphics(c("images/handwriting/mattie/kde_data_woz.png"))
+```
+
+```{r slr-woz}
+knitr::include_graphics(c("images/handwriting/mattie/slr_data_woz.png"))
+```
+
+The third prompt is the "London Letter".
+
+```{r varimp-ll}
+knitr::include_graphics(c("images/handwriting/mattie/varimportanceplot.png"))
+```
+
+```{r kde-ll}
+knitr::include_graphics(c("images/handwriting/mattie/kde_data.png"))
+```
+
+```{r slr-ll}
+knitr::include_graphics(c("images/handwriting/mattie/slr_data.png"))
+```
+
+Lastly, all three documents are combined into one large template per writer.
+
+```{r varimp-c}
+knitr::include_graphics(c("images/handwriting/mattie/varimportanceplot_mega.png"))
+```
+
+```{r kde-c}
+knitr::include_graphics(c("images/handwriting/mattie/kde_data_mega.png"))
+```
+
+```{r slr-c}
+knitr::include_graphics(c("images/handwriting/mattie/slr_data_mega.png"))
+```
+
+Comparing all four implementations of the process, the method did the best at correctly classifying same vs. different source with longer documents. The euclidean distance was the most important variable according to the mean decrease in Gini index. Additionally, when comparing the absolute difference by cluster, some clusters appear to be more influential across prompts, such as cluster 31 (Figure \@ref(fig:varimp-p), Figure \@ref(fig:varimp-woz), Figure \@ref(fig:varimp-ll), Figure \@ref(fig:varimp-c)).    
+
+The kernel density estimates for the shortest prompt are not well separated (Figure \@ref(fig:kde-p)). As the length of the writing sample increases, the KDEs between same and different sources become more distinct (Figure \@ref(fig:kde-c)).
+
+It is important to note that the training set did down sample the number of different source differences, but the testing set did not so the number of SLRs in that are from different sources will be more than from the same (a pattern not seen in the simulated data).
+
+
+
 ## Communication of Results  
 Presenting author is in bold.
 

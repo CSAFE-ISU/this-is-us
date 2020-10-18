@@ -806,9 +806,9 @@ knitr::include_graphics(c("images/handwriting/mattie/kde_data_mega.png"))
 knitr::include_graphics(c("images/handwriting/mattie/slr_data_mega.png"))
 ```
 
-Comparing all four implementations of the process, the method did the best at correctly classifying same vs. different source with longer documents. The euclidean distance was the most important variable according to the mean decrease in Gini index. Additionally, when comparing the absolute difference by cluster, some clusters appear to be more influential across prompts, such as cluster 31 (Figure \@ref(fig:varimp-p), Figure \@ref(fig:varimp-woz), Figure \@ref(fig:varimp-ll), Figure \@ref(fig:varimp-c)).    
+Comparing all four implementations of the process, the method did the best at correctly classifying same vs. different source with longer documents. The euclidean distance was the most important variable according to the mean decrease in Gini index. Additionally, when comparing the absolute difference by cluster, some clusters appear to be more influential across prompts, such as cluster 31.    
 
-The kernel density estimates for the shortest prompt are not well separated (Figure \@ref(fig:kde-p)). As the length of the writing sample increases, the KDEs between same and different sources become more distinct (Figure \@ref(fig:kde-c)).
+The kernel density estimates for the shortest prompt are not well separated. As the length of the writing sample increases, the KDEs between same and different sources become more distinct.
 
 It is important to note that the training set did down sample the number of different source differences, but the testing set did not so the number of SLRs in that are from different sources will be more than from the same (a pattern not seen in the simulated data).
 

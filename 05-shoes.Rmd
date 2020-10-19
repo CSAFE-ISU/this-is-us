@@ -736,11 +736,11 @@ Each point is then pair with the closest euclidean distance corresponding point.
 $$ \sqrt(\sum^n_{i=1}(q_i-p_i)^2) $$ 
 
 
-This is repeated for the set iterations, or until epsilon is deemed small enough. Each time the distance is measured, but the K-D tree sectioning remains the same through the process. This gives us N distances for the number of iterations. We return the final N iteration's distances from each set of verities. The mean of these distances is then computed, giving us a distance metric. This is used to find the magnitude of the distance between the two shoes. Then taking the mean of these distances, we can get the direction of the differences. 
+This is repeated for the set iterations, or until epsilon is deemed small enough. Each time the distance is measured, but the K-D tree sectioning remains the same through the process. This gives us N distances for the number of iterations. We return the final N iteration's distances from each set of verities. The mean of these distances is then computed, giving us a distance metric. This is used to find the magnitude of the distance between the two shoes. This distance is consistent for each processing of two shoes (i.e. if you run scan 1 and scan 2 through this process, you will still get the same distance of 0.98. However, if you switch the positions of the shoe, making scan 2 the base you will get a different result, 2.243478) 
 
 Understanding the distance: 
 
-Once we have the distance, we want to understand where the wear is occuring, plotting the distance on the base scan of scan 1, we see the distance to scan 2 looks like the following: 
+Once we have the distance, we want to understand where the wear is occurring, plotting the distance on the base scan of scan 1, we see the distance to scan 2 looks like the following: 
 
 
 
@@ -756,7 +756,7 @@ Some Issues through the process:
 1. Inconsistency of scans: As we have seen the cropping of the scan is inconsistent, i.e. where the scans were cut 
 
 2. How ICP is being measured: 
-  It is unclear how much ICP is changing after each iteration. For example, in our scan1 vs scan 2 shoes if we take the mean distance after 1 iteration, then 2, up to 20 iterations we get the same mean. (next step is to go further out to see if it changes, or look at the distribution of distances after each iteration and not just the mean, to see if the tails are changing.)
+  It is unclear how much ICP is changing after each iteration. For example, in our scan1 vs scan 2 shoes if we take the mean distance after 1 iteration, then 2, up to 20 iterations we get the same mean. (next step is to go further out to see if it changes, or look at the distribution of distances after each iteration and not just the mean, to see if the tails are changing.) 
 
 
 

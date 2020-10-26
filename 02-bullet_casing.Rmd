@@ -30,6 +30,23 @@ Those are:
 
 ## Data Collection
 
+### Breech face images
+
+**cartridge cases **
+
+  - DFSC (about 2000) taken with the Sensofar S-neox
+  - Cartridges for CSAFE persistence labelled for barrels 1 through 9.
+  - Cadre TopMatch Scanner
+
+Some images from Cadre:
+
+![](images/cartridge_cases/heike/0001_3.1.png)
+![](images/cartridge_cases/heike/0001_4.1.png)
+![](images/cartridge_cases/heike/0001_3.3.png)
+
+
+### Scans from land engraved areas on fired bullets
+
 Overview in numbers:
 
 **scans from bullet lands (about 25,000 total)**
@@ -43,10 +60,6 @@ Overview in numbers:
   - St Louis persistence: 2 barrels with 192 fired bullets each
   - most of the CSAFE persistence study 
     
-**and cartridge cases**
-
-  - DFSC (about 2000)
-  - getting ready to scan cartridges for CSAFE persistence
 
 
 ### LAPD

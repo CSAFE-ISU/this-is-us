@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-10-19" />
+<meta name="date" content="2020-10-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -863,6 +863,7 @@ which is approximately equivalent to
 <p>As an illustration, consider one dimensional feature space. Take <span class="math inline">\(\mu_{1} = 1, \mu_{2} = -1, \Sigma = 1\)</span>, and <span class="math inline">\(p_{1} = p_{2} = 0.5\)</span>. Figure 1 shows the optimal matching rule and the optimal rule based on feature difference.
 We see that in this example the matching region from the feature difference method only overlaps a small fraction of that from the optimal matching rule, and there is a missing alignment for the feature difference method in the two small triangles at the origin.
 We also note that even though most of the pink area and the blue area in Figure 1 don’t overlap, the probabilities that the pair of data <span class="math inline">\((x_{1}, x_{2})\)</span> falling into those non-overlapping regions could be small, especially if the absolute value of either coordinate is large. See the contours of multivariate normal distribution in Figure 1.</p>
+<pre><code>## Warning: package &#39;mvtnorm&#39; was built under R version 4.0.2</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-329"></span>
 <img src="bookdown-demo_files/figure-html/unnamed-chunk-329-1.png" alt="Matching regions from the optimal rule (in pink) and the method based on feature difference (in blue). The contours of multivariate normal distribution with means $(1, -1)$ (unmatching case) and $(1, 1)$ (matching case) are marked in black and red, respectively, where the covariance is identity." width="672" />
 <p class="caption">
@@ -966,17 +967,17 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 <div id="how-to-average-multiple-roc-curves" class="section level4">
 <h4><span class="header-section-number">8.5.5.4</span> How to average multiple ROC curves</h4>
 <p>For the step 6, there are some issues of averaging multiple ROC curves by the values of FPR because no matter how densely the coordinates for (FPR, TPR) are formed, some ROC curves may not share common values of FPR. With that approach, the average ROC curve may be non-monotonic ROC curve which is not a desirable property of a ROC curve. The figure below illustrates the result.</p>
-<p><img src="images/foundations/optimal_rule/non-monotonic-ROC.PNG" width = "90%"/></p>
+<p><img src="images/foundations/optimal_rule/non-monotonic-ROC.png" width = "90%"/></p>
 <p>Hence, we consider two differnt ways to average out, and the description and examples are shown below:</p>
 <ul>
 <li>Average of the values of TPRs and FPRs by threshold value</li>
 </ul>
-<pre><code>## Error in knitr::include_graphics(&quot;images/foundations/optimal_rule/avg-ROC-remedy1.PNG&quot;): Cannot find the file(s): &quot;images/foundations/optimal_rule/avg-ROC-remedy1.PNG&quot;</code></pre>
+<p><img src="images/foundations/optimal_rule/avg-ROC-remedy1.png" width="95%" style="display: block; margin: auto;" /></p>
 <ul>
 <li>Average of cumulatively largest vause of TPR in each bin for FPR.</li>
 </ul>
-<pre><code>## Error in knitr::include_graphics(&quot;images/foundations/optimal_rule/avg-ROC-remedy2-1.PNG&quot;): Cannot find the file(s): &quot;images/foundations/optimal_rule/avg-ROC-remedy2-1.PNG&quot;</code></pre>
-<pre><code>## Error in knitr::include_graphics(&quot;images/foundations/optimal_rule/avg-ROC-remedy2-2.PNG&quot;): Cannot find the file(s): &quot;images/foundations/optimal_rule/avg-ROC-remedy2-2.PNG&quot;</code></pre>
+<p><img src="images/foundations/optimal_rule/avg-ROC-remedy2-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="images/foundations/optimal_rule/avg-ROC-remedy2-2.png" width="47.5%" style="display: block; margin: auto;" /></p>
 <p>Like above, two types of average ROC curves will be provided for comparing the performance of several methods.</p>
 </div>
 </div>
@@ -985,32 +986,32 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 <div id="univariate-result-1" class="section level4">
 <h4><span class="header-section-number">8.5.6.1</span> Univariate Result 1</h4>
 <pre><code>## Error in loadNamespace(name): there is no package called &#39;rlist&#39;</code></pre>
-<pre><code>## Error in knitr::include_graphics(&quot;images/foundations/optimal_rule/uni.Sg.2_simulation.PNG&quot;): Cannot find the file(s): &quot;images/foundations/optimal_rule/uni.Sg.2_simulation.PNG&quot;</code></pre>
+<p><img src="images/foundations/optimal_rule/uni.Sg.2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="univariate-result-2" class="section level4">
 <h4><span class="header-section-number">8.5.6.2</span> Univariate Result 2</h4>
 <pre><code>## Error in loadNamespace(name): there is no package called &#39;rlist&#39;</code></pre>
-<pre><code>## Error in knitr::include_graphics(&quot;images/foundations/optimal_rule/uni.Sg.3_simulation.PNG&quot;): Cannot find the file(s): &quot;images/foundations/optimal_rule/uni.Sg.3_simulation.PNG&quot;</code></pre>
+<p><img src="images/foundations/optimal_rule/uni.Sg.3_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="univariate-result-3" class="section level4">
 <h4><span class="header-section-number">8.5.6.3</span> Univariate Result 3</h4>
 <pre><code>## Error in loadNamespace(name): there is no package called &#39;rlist&#39;</code></pre>
-<pre><code>## Error in knitr::include_graphics(&quot;images/foundations/optimal_rule/uni.Sg.5_simulation.PNG&quot;): Cannot find the file(s): &quot;images/foundations/optimal_rule/uni.Sg.5_simulation.PNG&quot;</code></pre>
+<p><img src="images/foundations/optimal_rule/uni.Sg.5_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="univariate-result-4" class="section level4">
 <h4><span class="header-section-number">8.5.6.4</span> Univariate Result 4</h4>
 <pre><code>## Error in loadNamespace(name): there is no package called &#39;rlist&#39;</code></pre>
-<pre><code>## Error in knitr::include_graphics(&quot;images/foundations/optimal_rule/uni.Sp.2_simulation.PNG&quot;): Cannot find the file(s): &quot;images/foundations/optimal_rule/uni.Sp.2_simulation.PNG&quot;</code></pre>
+<p><img src="images/foundations/optimal_rule/uni.Sp.2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="univariate-result-5" class="section level4">
 <h4><span class="header-section-number">8.5.6.5</span> Univariate Result 5</h4>
 <pre><code>## Error in loadNamespace(name): there is no package called &#39;rlist&#39;</code></pre>
-<pre><code>## Error in knitr::include_graphics(&quot;images/foundations/optimal_rule/uni.Sp.3_simulation.PNG&quot;): Cannot find the file(s): &quot;images/foundations/optimal_rule/uni.Sp.3_simulation.PNG&quot;</code></pre>
+<p><img src="images/foundations/optimal_rule/uni.Sp.3_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="univariate-result-6" class="section level4">
 <h4><span class="header-section-number">8.5.6.6</span> Univariate Result 6</h4>
 <pre><code>## Error in loadNamespace(name): there is no package called &#39;rlist&#39;</code></pre>
-<pre><code>## Error in knitr::include_graphics(&quot;images/foundations/optimal_rule/uni.Sp.5_simulation.PNG&quot;): Cannot find the file(s): &quot;images/foundations/optimal_rule/uni.Sp.5_simulation.PNG&quot;</code></pre>
+<p><img src="images/foundations/optimal_rule/uni.Sp.5_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multivariate-result-1-g-2-n-2" class="section level4">
 <h4><span class="header-section-number">8.5.6.7</span> Multivariate Result 1; G = 2, N = 2</h4>
@@ -1040,7 +1041,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<pre><code>## Error in knitr::include_graphics(&quot;images/foundations/optimal_rule/multi.Sg.2.d2_simulation.PNG&quot;): Cannot find the file(s): &quot;images/foundations/optimal_rule/multi.Sg.2.d2_simulation.PNG&quot;</code></pre>
+<p><img src="images/foundations/optimal_rule/multi.Sg.2.d2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multivariate-result-2" class="section level4">
 <h4><span class="header-section-number">8.5.6.8</span> Multivariate Result 2</h4>
@@ -1075,7 +1076,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<pre><code>## Error in knitr::include_graphics(&quot;images/foundations/optimal_rule/multi.Sg.3.d2_simulation.PNG&quot;): Cannot find the file(s): &quot;images/foundations/optimal_rule/multi.Sg.3.d2_simulation.PNG&quot;</code></pre>
+<p><img src="images/foundations/optimal_rule/multi.Sg.3.d2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multivariate-result-3" class="section level4">
 <h4><span class="header-section-number">8.5.6.9</span> Multivariate Result 3</h4>
@@ -1120,7 +1121,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<pre><code>## Error in knitr::include_graphics(&quot;images/foundations/optimal_rule/multi.Sg.5.d2_simulation.PNG&quot;): Cannot find the file(s): &quot;images/foundations/optimal_rule/multi.Sg.5.d2_simulation.PNG&quot;</code></pre>
+<p><img src="images/foundations/optimal_rule/multi.Sg.5.d2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multivariate-result-4" class="section level4">
 <h4><span class="header-section-number">8.5.6.10</span> Multivariate Result 4</h4>
@@ -1155,7 +1156,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<pre><code>## Error in knitr::include_graphics(&quot;images/foundations/optimal_rule/multi.Sg.3.d3_simulation.PNG&quot;): Cannot find the file(s): &quot;images/foundations/optimal_rule/multi.Sg.3.d3_simulation.PNG&quot;</code></pre>
+<p><img src="images/foundations/optimal_rule/multi.Sg.3.d3_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multivariate-result-5" class="section level4">
 <h4><span class="header-section-number">8.5.6.11</span> Multivariate Result 5</h4>
@@ -1190,7 +1191,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<pre><code>## Error in knitr::include_graphics(&quot;images/foundations/optimal_rule/multi.Sg.3.d5_simulation.PNG&quot;): Cannot find the file(s): &quot;images/foundations/optimal_rule/multi.Sg.3.d5_simulation.PNG&quot;</code></pre>
+<p><img src="images/foundations/optimal_rule/multi.Sg.3.d5_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multivariate-result-6" class="section level4">
 <h4><span class="header-section-number">8.5.6.12</span> Multivariate Result 6</h4>
@@ -1220,7 +1221,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<pre><code>## Error in knitr::include_graphics(&quot;images/foundations/optimal_rule/multi.Sp.2.d2_simulation.PNG&quot;): Cannot find the file(s): &quot;images/foundations/optimal_rule/multi.Sp.2.d2_simulation.PNG&quot;</code></pre>
+<p><img src="images/foundations/optimal_rule/multi.Sp.2.d2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multivariate-result-7" class="section level4">
 <h4><span class="header-section-number">8.5.6.13</span> Multivariate Result 7</h4>
@@ -1255,7 +1256,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<pre><code>## Error in knitr::include_graphics(&quot;images/foundations/optimal_rule/multi.Sp.3.d2_simulation.PNG&quot;): Cannot find the file(s): &quot;images/foundations/optimal_rule/multi.Sp.3.d2_simulation.PNG&quot;</code></pre>
+<p><img src="images/foundations/optimal_rule/multi.Sp.3.d2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multivariate-result-8" class="section level4">
 <h4><span class="header-section-number">8.5.6.14</span> Multivariate Result 8</h4>
@@ -1300,7 +1301,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<pre><code>## Error in knitr::include_graphics(&quot;images/foundations/optimal_rule/multi.Sp.5.d2_simulation.PNG&quot;): Cannot find the file(s): &quot;images/foundations/optimal_rule/multi.Sp.5.d2_simulation.PNG&quot;</code></pre>
+<p><img src="images/foundations/optimal_rule/multi.Sp.5.d2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multivariate-result-9" class="section level4">
 <h4><span class="header-section-number">8.5.6.15</span> Multivariate Result 9</h4>
@@ -1335,7 +1336,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<pre><code>## Error in knitr::include_graphics(&quot;images/foundations/optimal_rule/multi.Sp.3.d3_simulation.PNG&quot;): Cannot find the file(s): &quot;images/foundations/optimal_rule/multi.Sp.3.d3_simulation.PNG&quot;</code></pre>
+<p><img src="images/foundations/optimal_rule/multi.Sp.3.d3_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multivariate-result-10" class="section level4">
 <h4><span class="header-section-number">8.5.6.16</span> Multivariate Result 10</h4>
@@ -1370,7 +1371,7 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 </tr>
 </tbody>
 </table>
-<pre><code>## Error in knitr::include_graphics(&quot;images/foundations/optimal_rule/multi.Sp.3.d5_simulation.PNG&quot;): Cannot find the file(s): &quot;images/foundations/optimal_rule/multi.Sp.3.d5_simulation.PNG&quot;</code></pre>
+<p><img src="images/foundations/optimal_rule/multi.Sp.3.d5_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="real-data-for-simulations" class="section level3">
@@ -2145,7 +2146,7 @@ In the case of the City distance, for KM most cases fall in groups 5 or 6 wichs 
 <p class="caption">Tiles City</p>
 </div>
 <div class="figure">
-<img src="images/foundations/FV/ALL_SIMU/Tiles_eucli_all_SIMUL.png" alt="" />
+<img src="images/foundations/FV/ALL_SIMU/Tiles_Eucli_all_SIMUL.png" alt="" />
 <p class="caption">Tiles Euclidean</p>
 </div>
 <div class="figure">

@@ -2278,32 +2278,57 @@ The figure below illustrates the new preprocessing pipeline we have used to obta
 knitr::include_graphics("images/cartridge_cases/10-5-20-Spotlight/newPreProcessingPipeline.png")
 ```
 
-The figure belows shows an example of the superior results that we obtain from the new preprocessing pipeline. The number of cells that are deemed "congruent" under the CMC method can be used as a similarity score between a cartridge case pair. We anticipate matching cartridge case pairs to have a higher "CMC count" than non-matching cartridge cases in general. Each plot below shows the CMC counts for a set of 63 matching and 717 non-matching cartridge case pairs. How these plots differ is in the set of translation and CCF thresholds used to classify each cell as "congruent." We would like to see a large amount of separation between the distribution of matching and non-matching CMC counts. The AUCs are calculated based on varying the minimum CMC count used to declare a cartridge case pair "matching." AUCs equal to 1 indicate perfect separation between the matching and non-matching distributions. As we can see, numerous combinations result in perfect separation. As such, we introduced a simple diagnostic to further differentiate these threshold combinations based on the fact that we would prefer large separation between the matching and non-matching distributions:
+</details>
+
+<details>
+<summary>
+Joe 11/16 Spotlight: We learned (after the last spotlight) that the R Journal requires that packages be accepted to CRAN before the associated paper is accepted. This gave us a reason to perform a major overhaul of the package's structure to make it better align with the points we made in our paper and make it CRAN-ready. The new structure of the CMC method is entirely pipe-friendly and works well with common dplyr functions. This aligns with one of the major points we discuss in the paper that modularizing an algorithm into discrete steps makes it easier to experiment with, understand, and scrutinize.
+</summary>
+
+It will be easiest to explain the new cmcR package functionality/structure by looking at the README available on the [package Github repo](https://github.com/CSAFE-ISU/cmcR).
+
+The major benefit of modularizing the procedure as we have done in the cmcR package is that experimentation of different processing conditions involves literally just commenting out certain parts of code. For example, if we want to see how results change when the trend is not removed from the scans during preprocessing (something that is not explicitly covered in the CMC literature), we can simply remove this function call from the pipeline like so:
+
+```{r eval=FALSE,echo=TRUE}
+x3p %>%
+  preProcess_crop(region = "exterior") %>%
+  preProcess_crop(region = "interior") %>%
+  # preProcess_removeTrend(statistic = "quantile",
+  #                                tau = .5,
+  #                                method = "fn") %>%
+  preProcess_gaussFilter() %>%
+  x3ptools::sample_x3p() %>%
+  ... #continue pipeline
+```
+
+
+The number of cells that are deemed "congruent" under the CMC method can be used as a similarity score between a cartridge case pair. We anticipate matching cartridge case pairs to have a higher "CMC count" than non-matching cartridge cases in general. Each plot below shows the CMC counts for a set of 63 matching and 717 non-matching cartridge case pairs. How these plots differ is in the set of translation and CCF thresholds used to classify each cell as "congruent." We would like to see a large amount of separation between the distribution of matching and non-matching CMC counts. The AUCs are calculated based on varying the minimum CMC count used to declare a cartridge case pair "matching." AUCs equal to 1 indicate perfect separation between the matching and non-matching distributions. As we can see, numerous combinations result in perfect separation. As such, we introduced a simple diagnostic to further differentiate these threshold combinations based on the fact that we would prefer large separation between the matching and non-matching distributions:
 
 $$
-\text{Var. Ratio} = \frac{\frac{1}{n_1 + n_2 - 1} \sum_{i=1}^2 \sum_{j=1}^{n_i} \left(\text{CMC}_{i,j_i} - \overline{\text{CMC}}\right)^2}{\frac{1}{2} \sum_{i=1}^2 \frac{1}{n_i - 1}\sum_{j=1}^{n_i} \left(\text{CMC}_{i,j_i} - \overline{\text{CMC}}_i\right)^2}
+r = \frac{\sum_{i=1}^2 \left(\overline{\text{CMC}}_{i} - \overline{\text{CMC}}\right)^2}{\sum_{i=1}^2 \frac{1}{n_i - 1}\sum_{j=1}^{n_i} \left(\text{CMC}_{i,j} - \overline{\text{CMC}}_i\right)^2}
 $$
 
-The diagnostic is the ratio between the "total" sample variance of the CMC counts, irrespective of match or non-match group membership, divided by the average within-group sample variance. Larger values of the simple diagnostic are preferred.
+where $\overline{\text{CMC}}_i$ represents the within-group (i.e., match or non-match) mean CMC count and $\overline{\text{CMC}}$ represents the grand mean CMC count. This ratio attempts to quantify the between- and within-group variability.
 
-```{r}
-knitr::include_graphics("images/cartridge_cases/10-5-20-Spotlight/cmcDistribution.png")
+```{r, out.width=500,fig.align="center"}
+knitr::include_graphics("images/cartridge_cases/11-15-20 Spotlight/decisionRule_comparison.png")
 ```
 
-Compare the figure about to an analogous figure in Chen et al. (2017). Again, no justification for this particular set of thresholds is given.
+This plot also uncovers another important point that we want to emphasize in the paper: the sensitivity of the method to various processing decisions. Method sensitivity has never been described in the CMC literature. Rather, authors seem to share what "looks good" on the Fadul dataset. Based on our experimentation, processing decisions have a major impact on the effectiveness of the CMC method are:
 
-```{r}
-knitr::include_graphics("images/cartridge_cases/10-5-20-Spotlight/chen2017_highCMCResults.PNG")
+- the decision rule used,
+
+- whether the global trend is removed during preprocessing, and
+
+- the choice of congruency thresholds $T_x, T_y, T_\theta$, and $T_{\text{CCF}}$.
+
+If we consider larger variance ratios as an indication of a more "promising" set of processing conditions, then the following plot can be used to select an optimal set (or at least range) of parameter settings.
+
+```{r, out.width=500,fig.align="center"}
+knitr::include_graphics("images/cartridge_cases/11-15-20 Spotlight/varianceRatioDotPlot.png")
 ```
 
-Compared to previous results we've obtained, there is considerably more separation between the match and non-match CMC count distributions using this new preprocessing scheme. However, this plot also uncovers another important point that we want to emphasize in the paper: the sensitivity of the method to various processing decisions. Method sensitivity has never been described in the CMC literature. Rather, authors seem to share what "looks good" on the Fadul dataset.
-
-Consider what happens to the CMC distributions if we skip the surface-leveling (step 3) in the preprocessing above. The issue with keeping such information in the scans is that the "tilt" visible in the preprocessing pipeline in steps 1 and 2 aren't consistent across cartridge cases fired from the same firearm. The CCF, being a non-robust similarity metric, gravitates towards large-scale information such as a tilt in the height values. However, we specifically want to make classifications based on small, intricate details of the two scans. Thus, not removing information such as a large-scale tilt causes the CCF to be smaller for matching scans that don't have the same tilt and larger for non-matching that do have the same tilt. We use such examples to illustrate why the tenants of reproducibility need to be adhered to, especially when they apply to forensic methods.
-
-```{r}
-knitr::include_graphics("images/cartridge_cases/10-5-20-Spotlight/cmcDistribution_noLevel.png")
-```
-
+For example, consider what happens to the CMC distributions if we skip the surface-leveling (step 3) in the preprocessing above. The issue with keeping such information in the scans is that the "tilt" visible in the preprocessing pipeline in steps 1 and 2 aren't consistent across cartridge cases fired from the same firearm. The CCF, being a non-robust similarity metric, gravitates towards large-scale information such as a tilt in the height values. However, we specifically want to make classifications based on small, intricate details of the two scans. Thus, not removing information such as a large-scale tilt causes the CCF to be smaller for matching scans that don't have the same tilt and larger for non-matching that do have the same tilt. We use such examples to illustrate why the principles of reproducibility need to be adhered to, especially when they apply to forensic methods.
 
 </details>
 

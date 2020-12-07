@@ -2340,6 +2340,13 @@ For example, consider what happens to the CMC distributions if we skip the surfa
 
 </details>
 
+<details>
+<summary>
+Joe 12/7: I've spent a good deal of time getting the cmcR paper ready for submission to the ASA Statistical Computing and Statistical Graphics paper competition. The limit is 6 pages for the competition while our most recent draft of the R Journal submission is 24 pages. It has been challenging to trim the paper to the required page limit while maintaining our original message. On top of this, I have also been studying Markov Random Field theory and its application to image processing. I believe MRFs can provide a more "principled" structure for performing cartridge case comparisons than the current "state-of-the-art" in cartridge case comparisons. I have at least one lead on a method for performing estimation on MRFs that is novel to image processing at large.
+</summary>
+
+</details>
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
 The moified Chumbley non-random algorithm is a statistical non-paramaetric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segement to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 

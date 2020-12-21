@@ -2347,6 +2347,35 @@ Joe 12/7: I've spent a good deal of time getting the cmcR paper ready for submis
 
 </details>
 
+<details>
+<summary>
+Joe 12/21: The cmcR package has officially been accepted onto CRAN! It has been a challenging process to say the least, but I think we have a solid foundation upon which we can now start improving the cartridge case comparison procedures. I have some directions that I am interested in taking the project already, but still have a good deal of exploration to do. My current goal is to approach the problem of cartridge case classification from the perspective of texture classification.
+</summary>
+
+I have determined a fast method to align two scans based on estimating the firing pin impression hole and using a polar transformed version of the image to identify the aligning rotation. The plot below shows how the alignment works between the known match pair Fadul 1-1 and Fadul 1-2 and the known non-match pair Fadul 1-1 and Fadul 2-1. Additionally, we can remove all pixels that are NA in either one of the scans, thus only considering the "intersection" of the two breech face impressions. Depending on what we choose to model, this may be considered a "complete case" analysis, which often results in biased (variance?) estimators. On the other hand, certain parts of the scans are not a part of the actual breech face impressions, per se, which is ultimately what we want to model. This includes the firing pin impression region in the center. Thus, removal of these observations may be still be theoretically appropriate to avoid the complete case issues.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/12-21-20_update/alignedImage.png")
+```
+
+A model that I believe has promise for the texture approach I hope to take is called the iFRAME ([i]nhomogeneous [F]ilters, [R]andom Field, [A]nd [M]aximum [E]ntropy) model. 
+
+For an image $I$, the iFRAME model assumes that the pixel intensities behave according to an inhomogeneous (i.e., dependent on the pixel index) random field model governed by a set of basis functions such as Gabor wavelets. Functionally, this model attempts to identify the set of basis functions that best explain a particular image by using "basis pursuit," which is an algorithm that estimates a basis that most effectively explains a set of data (such as an image). An example of the simulated images based on different stages of the basis pursuit algorithm for an image of a cat is shown below. The fact that images can be simulated means that this model is "generative." The authors of the paper from which the images were taken use Hamiltonian Monte Carlo to simulate these images. Also, the code is [freely available](http://www.stat.ucla.edu/~jxie/sparseFRAME.html) for download!
+
+```{r, out.width=100}
+knitr::include_graphics(c("images/cartridge_cases/12-21-20_update/1a.jpg",
+                          "images/cartridge_cases/12-21-20_update/ReconstructedImg_img_1_sketch_1.png",
+                          "images/cartridge_cases/12-21-20_update/ReconstructedImg_img_1_sketch_30.png",
+                          "images/cartridge_cases/12-21-20_update/ReconstructedImg_img_1_sketch_60.png",
+                          "images/cartridge_cases/12-21-20_update/ReconstructedImg_img_1_sketch_90.png",
+                          "images/cartridge_cases/12-21-20_update/ReconstructedImg_img_1_sketch_200.png",
+                          "images/cartridge_cases/12-21-20_update/ReconstructedImg_img_1_sketch_400.png"))
+```
+
+Applying this to cartridge cases, my current hypotheses are that the identifying breech face markings (1) can be found only on subsets of the cartridge case scan and (2) can be described using a small set of appropriately chosen, textural basis functions (e.g., Gabor functions/wavelets). The first hypothesis is essentially the hypothesis motivating the CMC method, so it aligns with commonly-held beliefs. This hypothesis plays-out in the iFRAME model in that the basis functions considered are small wavelet functions of dimension smaller than the cartridge case scan matrix. The second hypothesis has not been explored nearly as much as the first, so it will require some justification. If it holds true, I envision using the extracted basis functions as features in a classification algorithm (e.g., a random forest - the iFRAME authors compare logistic regression and SVM). When it comes to choosing a classifier, we may need to worry about the fact that we have fewer cartridge case scans than other types of data.
+
+</details>
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
 The moified Chumbley non-random algorithm is a statistical non-paramaetric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segement to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 

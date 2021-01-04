@@ -2764,8 +2764,6 @@ knitr::include_graphics("images/cmps/jan3/Hamby44_cmps_maxbar_plot.png", dpi=100
 
 * cross-validate some hyper-parameters
 
-* apply CMPS to 
-    + Hamby44
 
 
 ## Analysis of Results  

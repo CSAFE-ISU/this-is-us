@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2020-11-16" />
+<meta name="date" content="2021-01-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1956,6 +1956,22 @@ r = \frac{\sum_{i=1}^2 \left(\overline{\text{CMC}}_{i} - \overline{\text{CMC}}\r
 <p><img src="images/cartridge_cases/11-15-20%20Spotlight/varianceRatioDotPlot.png" width="700" style="display: block; margin: auto;" /></p>
 <p>For example, consider what happens to the CMC distributions if we skip the surface-leveling (step 3) in the preprocessing above. The issue with keeping such information in the scans is that the “tilt” visible in the preprocessing pipeline in steps 1 and 2 aren’t consistent across cartridge cases fired from the same firearm. The CCF, being a non-robust similarity metric, gravitates towards large-scale information such as a tilt in the height values. However, we specifically want to make classifications based on small, intricate details of the two scans. Thus, not removing information such as a large-scale tilt causes the CCF to be smaller for matching scans that don’t have the same tilt and larger for non-matching that do have the same tilt. We use such examples to illustrate why the principles of reproducibility need to be adhered to, especially when they apply to forensic methods.</p>
 </details>
+<details>
+<p><summary>
+Joe 12/7: I’ve spent a good deal of time getting the cmcR paper ready for submission to the ASA Statistical Computing and Statistical Graphics paper competition. The limit is 6 pages for the competition while our most recent draft of the R Journal submission is 24 pages. It has been challenging to trim the paper to the required page limit while maintaining our original message. On top of this, I have also been studying Markov Random Field theory and its application to image processing. I believe MRFs can provide a more “principled” structure for performing cartridge case comparisons than the current “state-of-the-art” in cartridge case comparisons. I have at least one lead on a method for performing estimation on MRFs that is novel to image processing at large.
+</summary></p>
+</details>
+<details>
+<p><summary>
+Joe 12/21: The cmcR package has officially been accepted onto CRAN! It has been a challenging process to say the least, but I think we have a solid foundation upon which we can now start improving the cartridge case comparison procedures. I have some directions that I am interested in taking the project already, but still have a good deal of exploration to do. My current goal is to approach the problem of cartridge case classification from the perspective of texture classification.
+</summary></p>
+<p>I have determined a fast method to align two scans based on estimating the firing pin impression hole and using a polar transformed version of the image to identify the aligning rotation. The plot below shows how the alignment works between the known match pair Fadul 1-1 and Fadul 1-2 and the known non-match pair Fadul 1-1 and Fadul 2-1. Additionally, we can remove all pixels that are NA in either one of the scans, thus only considering the “intersection” of the two breech face impressions. Depending on what we choose to model, this may be considered a “complete case” analysis, which often results in biased (variance?) estimators. On the other hand, certain parts of the scans are not a part of the actual breech face impressions, per se, which is ultimately what we want to model. This includes the firing pin impression region in the center. Thus, removal of these observations may be still be theoretically appropriate to avoid the complete case issues.</p>
+<p><img src="images/cartridge_cases/12-21-20_update/alignedImage.png" width="1050" /></p>
+<p>A model that I believe has promise for the texture approach I hope to take is called the iFRAME ([i]nhomogeneous [F]ilters, [R]andom Field, [A]nd [M]aximum [E]ntropy) model.</p>
+<p>For an image <span class="math inline">\(I\)</span>, the iFRAME model assumes that the pixel intensities behave according to an inhomogeneous (i.e., dependent on the pixel index) random field model governed by a set of basis functions such as Gabor wavelets. Functionally, this model attempts to identify the set of basis functions that best explain a particular image by using “basis pursuit,” which is an algorithm that estimates a basis that most effectively explains a set of data (such as an image). An example of the simulated images based on different stages of the basis pursuit algorithm for an image of a cat is shown below. The fact that images can be simulated means that this model is “generative.” The authors of the paper from which the images were taken use Hamiltonian Monte Carlo to simulate these images. Also, the code is <a href="http://www.stat.ucla.edu/~jxie/sparseFRAME.html">freely available</a> for download!</p>
+<p><img src="images/cartridge_cases/12-21-20_update/1a.jpg" width="100" /><img src="images/cartridge_cases/12-21-20_update/ReconstructedImg_img_1_sketch_1.png" width="100" /><img src="images/cartridge_cases/12-21-20_update/ReconstructedImg_img_1_sketch_30.png" width="100" /><img src="images/cartridge_cases/12-21-20_update/ReconstructedImg_img_1_sketch_60.png" width="100" /><img src="images/cartridge_cases/12-21-20_update/ReconstructedImg_img_1_sketch_90.png" width="100" /><img src="images/cartridge_cases/12-21-20_update/ReconstructedImg_img_1_sketch_200.png" width="100" /><img src="images/cartridge_cases/12-21-20_update/ReconstructedImg_img_1_sketch_400.png" width="100" /></p>
+<p>Applying this to cartridge cases, my current hypotheses are that the identifying breech face markings (1) can be found only on subsets of the cartridge case scan and (2) can be described using a small set of appropriately chosen, textural basis functions (e.g., Gabor functions/wavelets). The first hypothesis is essentially the hypothesis motivating the CMC method, so it aligns with commonly-held beliefs. This hypothesis plays-out in the iFRAME model in that the basis functions considered are small wavelet functions of dimension smaller than the cartridge case scan matrix. The second hypothesis has not been explored nearly as much as the first, so it will require some justification. If it holds true, I envision using the extracted basis functions as features in a classification algorithm (e.g., a random forest - the iFRAME authors compare logistic regression and SVM). When it comes to choosing a classifier, we may need to worry about the fact that we have fewer cartridge case scans than other types of data.</p>
+</details>
 </div>
 </div>
 <div id="modified-chumbley-non-random-test" class="section level3">
@@ -2018,7 +2034,7 @@ This section provides an introduction and a summary of the Congruent Matching Pr
 <span id="cb88-31"><a href="bullets.html#cb88-31"></a><span class="co"># $nseg</span></span>
 <span id="cb88-32"><a href="bullets.html#cb88-32"></a><span class="co"># [1] 22</span></span></code></pre></div>
 <p>And we have the plot of <code>x</code> and <code>y</code>.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-210"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-212"></span>
 <img src="images/cmps/step0.png" alt="A KM Comparison, x and y" width="80%" />
 <p class="caption">
 Figure 4.65: A KM Comparison, x and y
@@ -2027,7 +2043,7 @@ Figure 4.65: A KM Comparison, x and y
 <ol style="list-style-type: decimal">
 <li>we take the first signature as the reference signature (<code>x</code>) and cut it into consecutive and non-overlapping basis segments of the same length. In this case, we have 22 basis segments in total.</li>
 </ol>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-211"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-213"></span>
 <img src="images/cmps/step1_1.png" alt="Cut x into consecutive and non-overlapping basis segments of the same length. Only 4 basis segments are shown here" width="80%" />
 <p class="caption">
 Figure 4.66: Cut x into consecutive and non-overlapping basis segments of the same length. Only 4 basis segments are shown here
@@ -2036,13 +2052,13 @@ Figure 4.66: Cut x into consecutive and non-overlapping basis segments of the sa
 <ol start="2" style="list-style-type: decimal">
 <li>for each basis segment, we compute the cross-correlation function (ccf) between the basis segment and the comparison signature (<code>y</code>)</li>
 </ol>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-212"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-214"></span>
 <img src="images/cmps/step2_1.png" alt="y and 7th basis segment" width="80%" />
 <p class="caption">
 Figure 4.67: y and 7th basis segment
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-213"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-215"></span>
 <img src="images/cmps/step2_2.png" alt="the cross-correlation function (ccf) between y and segment 7" width="80%" />
 <p class="caption">
 Figure 4.68: the cross-correlation function (ccf) between y and segment 7
@@ -2055,21 +2071,21 @@ Figure 4.68: the cross-correlation function (ccf) between y and segment 7
 <ol start="3" style="list-style-type: decimal">
 <li>If two signatures are similar (a KM comparison), most of the basis segments should agree with each other on the position of the best fit. Then these segments are called the “<strong>Congruent Matching Profile Segments</strong>”.</li>
 </ol>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-214"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-216"></span>
 <img src="images/cmps/step1_2.png" alt="compare y to the basis segments of x" width="80%" />
 <p class="caption">
 Figure 4.69: compare y to the basis segments of x
 </p>
 </div>
 <p>And ideally, if two signatures are identical, we are expecting the position of the highest peak in the ccf curve remains the same across all ccf curves (we only show 7 segments here);</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-215"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-217"></span>
 <img src="images/cmps/step3_1.png" alt="ideal case: compare x to itself. The highest peak has value 1 and is marked by the blue dot" width="80%" />
 <p class="caption">
 Figure 4.70: ideal case: compare x to itself. The highest peak has value 1 and is marked by the blue dot
 </p>
 </div>
 <p>But in the real case, the basis segments might not achieve a final agreement, but we have the majority;</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-216"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-218"></span>
 <img src="images/cmps/step3_2.png" alt="real case: compare x to y. The 5 highest peaks are marked by the blue dots" width="80%" />
 <p class="caption">
 Figure 4.71: real case: compare x to y. The 5 highest peaks are marked by the blue dots
@@ -2091,13 +2107,13 @@ Figure 4.71: real case: compare x to y. The 5 highest peaks are marked by the bl
 <ul>
 <li>by increasing the segment length (scale), one can reduce the number of “false positive” peaks</li>
 </ul>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-217-1"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-219-1"></span>
 <img src="images/cmps/step5_1.png" alt="Multi Segment Lengths Strategy - increasing the segment length could decrease the number of false positive peaks in ccf curves" width="80%" />
 <p class="caption">
 Figure 4.72: Multi Segment Lengths Strategy - increasing the segment length could decrease the number of false positive peaks in ccf curves
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-217-2"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-219-2"></span>
 <img src="images/cmps/step5_2.png" alt="Multi Segment Lengths Strategy - increasing the segment length could decrease the number of false positive peaks in ccf curves" width="80%" />
 <p class="caption">
 Figure 4.73: Multi Segment Lengths Strategy - increasing the segment length could decrease the number of false positive peaks in ccf curves
@@ -2290,15 +2306,43 @@ Will 09/19 Update: We applied the CMPS method to Hamby252 (the dataset used in t
 </details>
 </div>
 </div>
+<div id="apply-cmps-to-hamby44" class="section level4">
+<h4><span class="header-section-number">4.3.4.4</span> Apply CMPS to Hamby44</h4>
+<details>
+<p><summary>
+Will 01/03 Update: present the results of applying the CMPS method to Hamby44 set. And a brief demo of the current version of <code>bulletinvestigatR</code>
+</summary></p>
+<p>For results below we have excluded damaged/deformed bullet scans in Hamby set 44 using the shiny app <code>bulletinvestigatR</code>.</p>
+<ul>
+<li><p>First, we show the distribution of <span class="math inline">\(\mathrm{CMPS_{max}}\)</span>
+<img src="images/cmps/jan3/Hamby44_cmps_max_plot.png" width="920" />
+We can see a separation located at 8 and 9. In total the plot shows 595 bullet-by-bullet comparisons (since we have 35 bullets). 549 comparisons have <span class="math inline">\(\mathrm{CMPS_{max}}\)</span> lower than 8; 46 comparisons have <span class="math inline">\(\mathrm{CMPS_{max}}\)</span> higher than 9.</p></li>
+<li><p>As for the distribution of <span class="math inline">\(\mathrm{\bar{CMPS}_{max}}\)</span>, we have
+<img src="images/cmps/jan3/Hamby44_cmps_maxbar_plot.png" width="920" />
+We can see that the separation of the distribution of <span class="math inline">\(\mathrm{\bar{CMPS}_{max}}\)</span> is lower than that of <span class="math inline">\(\mathrm{CMPS_{max}}\)</span> (as expected), which is at 5 and 6. And for the separation, 549 comparisons are lower than 5, and 46 comparisons are higher than 6.</p></li>
+<li><p>Comments:</p>
+<ul>
+<li>We have label “Unknown” in these plots because part of the original scans are labeled with “Unknown”s. And we have not yet included the groundtruth of these “Unknown” scans into these results.</li>
+<li>It would be better if we could have a wider separation in these results. I’m still looking for solutions that could further improve these results. One possible direction is to check the parameters used in the computation. For these Hamby44 results, we are using the same parameters as we used for Hamby252 results. But since these two sets have different scan resolution, we might need different sets of parameters.</li>
+</ul></li>
+</ul>
+<div id="demo-bulletinvestigatr" class="section level5">
+<h5><span class="header-section-number">4.3.4.4.1</span> demo: bulletinvestigatR</h5>
+<ul>
+<li>added features:
+<ul>
+<li>exported csv file can now include more info about bullet scans</li>
+<li>code section now shows different prompts according to how the users upload their data</li>
+</ul></li>
+</ul>
+</details>
+</div>
+</div>
 <div id="future-work" class="section level4">
-<h4><span class="header-section-number">4.3.4.4</span> Future Work</h4>
+<h4><span class="header-section-number">4.3.4.5</span> Future Work</h4>
 <ul>
 <li><p>improve and manage to submit the CMPS package to CRAN</p></li>
 <li><p>cross-validate some hyper-parameters</p></li>
-<li><p>apply CMPS to</p>
-<ul>
-<li>Hamby44</li>
-</ul></li>
 </ul>
 </div>
 </div>
@@ -2310,13 +2354,13 @@ Will 09/19 Update: We applied the CMPS method to Hamby252 (the dataset used in t
 <p class="new">
 evaluation: Yawei is going to work through all 626 barrels of knowns to assess similarity scores
 </p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-227"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-231"></span>
 <img src="images/yawei/results-FAU-1.png" alt="Results from assessing scans of barrel FAU 1 similarity." width="50%" />
 <p class="caption">
 Figure 4.74: Results from assessing scans of barrel FAU 1 similarity.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-228"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-232"></span>
 <img src="images/yawei/results-FAU-2.png" alt="Results from assessing scans of barrel FAU 2 similarity." width="50%" />
 <p class="caption">
 Figure 4.75: Results from assessing scans of barrel FAU 2 similarity.
@@ -2324,19 +2368,19 @@ Figure 4.75: Results from assessing scans of barrel FAU 2 similarity.
 </div>
 <p>Why some of the cases failed? (181/626 = 30%)</p>
 <p><code>x3p_crosscut_optimize()</code> failed to find the positions to get cross cut for some lands.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-229"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-233"></span>
 <img src="images/yawei/lapd-FAU-3-Bullet-A-land-6.PNG" alt="Land scan for barrel FAU 3 bullet A land 6." width="50%" />
 <p class="caption">
 Figure 4.76: Land scan for barrel FAU 3 bullet A land 6.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-230"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-234"></span>
 <img src="images/yawei/lapd-FAU-4-Bullet-C-land-5.PNG" alt="Land scan for barrel FAU 4 bullet C land 5." width="50%" />
 <p class="caption">
 Figure 4.77: Land scan for barrel FAU 4 bullet C land 5.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-231"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-235"></span>
 <img src="images/yawei/lapd-FAU-5-Bullet-B-land-5.PNG" alt="Land scan for barrel FAU 5 bullet B land 5." width="50%" />
 <p class="caption">
 Figure 4.78: Land scan for barrel FAU 5 bullet B land 5.
@@ -2348,20 +2392,20 @@ Figure 4.78: Land scan for barrel FAU 5 bullet B land 5.
 <p>For the known mathches, we have totally 626 x 6 = 3756 for the LAPD data, excluding the comparasions for same bullet.</p>
 <p>For the known non-matches, we don’t have the data in hand. We need to generate the data in a way. We have totally 626 x 625/2 x 16 = 313000 known non-matches. We can only generate a sample from the data.</p>
 <p>We sampled 100 bullet-bullet known non-matches from our 92 cases.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-232"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-236"></span>
 <img src="images/yawei/knmkm.png" alt="KM and KNM" width="50%" />
 <p class="caption">
 Figure 4.79: KM and KNM
 </p>
 </div>
 <p>Is the SAM(sequence average maximum) a good choice? Need to do a permutation test.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-233"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-237"></span>
 <img src="images/yawei/sam_1.PNG" alt="SAM permutation result" width="50%" />
 <p class="caption">
 Figure 4.80: SAM permutation result
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-234"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-238"></span>
 <img src="images/yawei/sam_max_1.PNG" alt="SAM permutation result among maxmum" width="50%" />
 <p class="caption">
 Figure 4.81: SAM permutation result among maxmum
@@ -2369,77 +2413,77 @@ Figure 4.81: SAM permutation result among maxmum
 </div>
 <p>Possible dependence structure in land-land comparasions:</p>
 <p>Assume beta distributions for the ccf for both known mathces and known non-matches. For the real known match cases, we consider a mixture distribution of two/three beta distribution.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-235"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-239"></span>
 <img src="images/yawei/km-three-alldata.png" alt="KM three components for all data" width="50%" />
 <p class="caption">
 Figure 4.82: KM three components for all data
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-236"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-240"></span>
 <img src="images/yawei/knm-two-alldata.png" alt="KNM two components for all data" width="50%" />
 <p class="caption">
 Figure 4.83: KNM two components for all data
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-237"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-241"></span>
 <img src="images/yawei/commoncomp.png" alt="common component" width="50%" />
 <p class="caption">
 Figure 4.84: common component
 </p>
 </div>
 <p>Ten-fold-cross validation (no validation yet), check the model estimator sensibility</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-238"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-242"></span>
 <img src="images/yawei/km-two.png" alt="KM ten-fold models for two components" width="50%" />
 <p class="caption">
 Figure 4.85: KM ten-fold models for two components
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-239"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-243"></span>
 <img src="images/yawei/km-three.png" alt="KM ten-fold models for three components" width="50%" />
 <p class="caption">
 Figure 4.86: KM ten-fold models for three components
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-240"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-244"></span>
 <img src="images/yawei/knm-one.png" alt="KNM ten-fold models for one component" width="50%" />
 <p class="caption">
 Figure 4.87: KNM ten-fold models for one component
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-241"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-245"></span>
 <img src="images/yawei/knm-two.png" alt="KNM ten-fold models for two components" width="50%" />
 <p class="caption">
 Figure 4.88: KNM ten-fold models for two components
 </p>
 </div>
 <p>Increasing sample size: 1, 2, 6, 12, … number of barrels</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-242"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-246"></span>
 <img src="images/yawei/km-two-cum.png" alt="KM increasing sample models for two components" width="50%" />
 <p class="caption">
 Figure 4.89: KM increasing sample models for two components
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-243"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-247"></span>
 <img src="images/yawei/knm-one-cum.png" alt="KNM increasing sample models for one components" width="50%" />
 <p class="caption">
 Figure 4.90: KNM increasing sample models for one components
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-244"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-248"></span>
 <img src="images/yawei/km-c1-cum.png" alt="KM increasing sample for first component" width="50%" />
 <p class="caption">
 Figure 4.91: KM increasing sample for first component
 </p>
 </div>
 <p>More on the weight</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-245"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-249"></span>
 <img src="images/yawei/priorboxplot.png" alt="Prior weight on components" width="50%" />
 <p class="caption">
 Figure 4.92: Prior weight on components
 </p>
 </div>
 <p>More on one barrel case</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-246"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-250"></span>
 <img src="images/yawei/onebarrel.png" alt="KM one barrel model for the frist ten barrels" width="50%" />
 <p class="caption">
 Figure 4.93: KM one barrel model for the frist ten barrels
@@ -2462,19 +2506,19 @@ Figure 4.93: KM one barrel model for the frist ten barrels
 <li><p>One-barrel KM models and full data KNM model. One-barrel KM models use the first ten barrels.</p></li>
 </ol>
 <p>From the ROC curves, we can easily see how stable our procedure is in terms of the classification performance. Note that those ROC curves start with the y-axis higher than 0.5 (which may be changed later). And the TPR(y-value) goes up steeply to about 0.75 with almost no change in FPR(x-value). Then the curve gradually goes up with different rates. There are two significant points from the ROC curves: 1) the pattern is very stable in the ROC curves across different cases and within each case; 2) the models perform very well. And also note that when we produce ROC curves, we need to get test sets and specify sample size and proportion. Here we generate the test set from the full data randomly, and set KM/KNM ratio as 200/1000. The same set is used in all three ROC plots. We choose such a ratio to make the true positive classification more difficult. If we set KM/KNM as 1000/1000, the curves will be smoother and get rid of those concave regions in current plots and of course, perform a little better in those concave regions but not significantly different in overall performance and pattern.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-247"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-251"></span>
 <img src="images/yawei/roc-cvmodels-new.png" alt="ROC-cv-models" width="50%" />
 <p class="caption">
 Figure 4.94: ROC-cv-models
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-248"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-252"></span>
 <img src="images/yawei/roc-differentsize-new.png" alt="ROC-different-size-models" width="50%" />
 <p class="caption">
 Figure 4.95: ROC-different-size-models
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-249"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-253"></span>
 <img src="images/yawei/roc-onebarrel-new.png" alt="ROC-one-barrel" width="50%" />
 <p class="caption">
 Figure 4.96: ROC-one-barrel
@@ -2482,27 +2526,27 @@ Figure 4.96: ROC-one-barrel
 </div>
 <p>To summarize the model fits we have, we compare several important parameters in the following tables. We primarily focus on how stable the model we have with fixed sample size and across different sample sizes.</p>
 <p>From the KM-table and KNM-table, we have the following observations: 1) The weight of the components is not stable in terms of large standard errors in both KM and KNM cases with small sample sizes. 2) The mean values of the distributions (parameter mu) are relatively stable, especially for the primary components (first component for KNM and second component for KM). 3) The variance of the estimated distributions (parameter phi) is not stable, which is reasonable because it takes care of the variation of the data in each fit. 4) The variance of the estimated distributions (parameter phi) decreases as sample size increases. To better understand how well the model fit is and how stable it is we should also refer to the actual curves to help us see what those parameters actually mean in the curves. And I would say three barrels may be a safe minimum sample size to get a stable fit across different cases in terms of handling differences and variations existing in data sets but it’s not the minimum sample size required to make good classifications.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-250"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-254"></span>
 <img src="images/yawei/km-table1.PNG" alt="KM-table" width="100%" />
 <p class="caption">
 Figure 4.97: KM-table
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-251"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-255"></span>
 <img src="images/yawei/knm-table1.PNG" alt="KNM-table" width="100%" />
 <p class="caption">
 Figure 4.98: KNM-table
 </p>
 </div>
 <p>We’re also interested in the variation of mean values of KM ccf in different barrels. The following boxplot with the global box as the right most one is shown for this comparison. From this plot, the constant mean value assumption may be challenged, however, we must take the practice work of scan and identification into considerations when making such conclusions.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-252"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-256"></span>
 <img src="images/yawei/ccfineachbarrel.png" alt="ccf in each barrel" width="50%" />
 <p class="caption">
 Figure 4.99: ccf in each barrel
 </p>
 </div>
 <p>To show how our model works in a single barrel case, we conduct the model fit as in the real case. We fit the KM and KNM models with three bullet comparisons (18 KM and 135 KNM land-land ccf respectively), and conduct a test on those comparisons with the forth bullet (18 KM and 105 KNM land-land ccf respectively). We conduct the above procedure in a LOO frame work, i.e. to leave one bullet out each time. The ROC curves for two barrels are shown as follows. We can see the classification results are almost as good as the previous ones.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-253"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-257"></span>
 <img src="images/yawei/withinbarrel4256roc-new.png" alt="within barrel ROC for barrel 42 and 56" width="50%" />
 <p class="caption">
 Figure 4.100: within barrel ROC for barrel 42 and 56
@@ -2514,7 +2558,7 @@ Figure 4.100: within barrel ROC for barrel 42 and 56
 <p><span class="math display">\[T = log(\frac{KM}{KNM})\]</span></p>
 <p>In which case, we reject the null hypohesis that the new bullet is from different source from our testing bullets when we have a large value for <span class="math inline">\(T\)</span>.</p>
 <p>First we have a look at how this log-likelihood ratio statistic changes with respect to the ccf score we calculated.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-254"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-258"></span>
 <img src="images/yawei/loglr-fau42.png" alt="loglr-fau42" width="50%" />
 <p class="caption">
 Figure 4.101: loglr-fau42
@@ -2532,19 +2576,19 @@ Figure 4.101: loglr-fau42
 </ol>
 <p>An additional requirement may be <span class="math display">\[(1-p_2) &gt; Mp_1\]</span> for a large M.</p>
 <p>We are going to compare the above methods next.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-255"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-259"></span>
 <img src="images/yawei/curves.png" alt="two curves" width="50%" />
 <p class="caption">
 Figure 4.102: two curves
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-256"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-260"></span>
 <img src="images/yawei/oddsratio2.png" alt="odds ratio" width="50%" />
 <p class="caption">
 Figure 4.103: odds ratio
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-257"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-261"></span>
 <img src="images/yawei/comparetable3.PNG" alt="comparison table" width="100%" />
 <p class="caption">
 Figure 4.104: comparison table
@@ -2564,13 +2608,13 @@ the full available data. The figure 4.130 was produced for a particular barrel. 
 <li><p>KNM has two modes, which is unexpected</p></li>
 <li><p>Estimated KM distribution seems to be able to improve, potentially affected by extreme values</p></li>
 </ul>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-258"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-262"></span>
 <img src="images/yawei/fau330rf.png" alt="FAU330: rugs with A, densities without A for RF scores" width="50%" />
 <p class="caption">
 Figure 4.105: FAU330: rugs with A, densities without A for RF scores
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-259"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-263"></span>
 <img src="images/yawei/rf_full_2components_estimated.png" alt="Random forest scores and estimated distributions for full data" width="50%" />
 <p class="caption">
 Figure 4.106: Random forest scores and estimated distributions for full data
@@ -2611,7 +2655,7 @@ where, barrel effect, land effect, explosion effect, random effect are respectiv
 <p>We extract markings, locate grooves, align signatures, and generate cross-comparison results. Each step is notified in UI and all steps are logged.</p>
 <p>The scores and results are then communicated through an interactive visualization. We first interact at the top most level where we have bullet-to-bullet scores for all the cross-comparisons presented in a grid. We can select one comparison at a time which would generate a second level of grid visualization that shows the land-to-land scores for all 36 comparisons within a bullet. Interacting with this visualization, we can now pull up score tables, profiles, location of grooves, aligned signatures and raw images.</p>
 <p>The framework of interactions, allows for validation of classification recommended by the RF model as well as gives an opportunity to critically asses, identify the cause and diagnose any problems encountered in the bullet matching pipeline.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-260"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-264"></span>
 <img src="images/bullets/gan-app2_consolidated.png" alt="An instance of the interactive visualizations for communicating results" width="50%" />
 <p class="caption">
 Figure 4.107: An instance of the interactive visualizations for communicating results
@@ -2638,7 +2682,7 @@ Figure 4.107: An instance of the interactive visualizations for communicating re
 3. Best set of questionnaires need to be figured out.</p>
 <div id="measuring-trust-and-calibration" class="section level3">
 <h3><span class="header-section-number">4.6.1</span> Measuring Trust and calibration</h3>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-261"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-265"></span>
 <img src="images/bullets/questionnaire.png" alt="Questionnaire setup for comparing trust in scores" width="50%" />
 <p class="caption">
 Figure 4.108: Questionnaire setup for comparing trust in scores

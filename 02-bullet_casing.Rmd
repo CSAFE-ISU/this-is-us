@@ -2764,6 +2764,11 @@ knitr::include_graphics("images/cmps/jan3/Hamby44_cmps_maxbar_plot.png", dpi=100
 
 * cross-validate some hyper-parameters
 
+## Assessing Quality of Scans
+
+Setting up a CNN to assess scan quality
+
+XXX Andy, this is you
 
 
 ## Analysis of Results  

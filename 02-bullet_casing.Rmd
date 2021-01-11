@@ -2770,14 +2770,54 @@ bulletxtrctr::runExample()
 
 </details>
 
+#### Apply CMPS to Hamby44
+
+<details>
+<summary>
+Will 01/03 Update: present the results of applying the CMPS method to Hamby44 set. And a brief demo of the current version of `bulletinvestigatR`
+</summary>
+
+For results below we have excluded damaged/deformed bullet scans in Hamby set 44 using the shiny app `bulletinvestigatR`.
+
+- First, we show the distribution of $\mathrm{CMPS_{max}}$
+```{r}
+knitr::include_graphics("images/cmps/jan3/Hamby44_cmps_max_plot.png", dpi=100)
+```
+  We can see a separation located at 8 and 9. In total the plot shows 595 bullet-by-bullet comparisons (since we have 35 bullets). 549 comparisons have $\mathrm{CMPS_{max}}$ lower than 8;  46 comparisons have $\mathrm{CMPS_{max}}$ higher than 9. 
+  
+- As for the distribution of $\mathrm{\bar{CMPS}_{max}}$, we have 
+```{r}
+knitr::include_graphics("images/cmps/jan3/Hamby44_cmps_maxbar_plot.png", dpi=100)
+```
+  We can see that the separation of the distribution of $\mathrm{\bar{CMPS}_{max}}$ is lower than that of $\mathrm{CMPS_{max}}$ (as expected), which is at 5 and 6. And for the separation, 549 comparisons are lower than 5, and 46 comparisons are higher than 6.
+  
+- Comments:
+  + We have label "Unknown" in these plots because part of the original scans are labeled with "Unknown"s. And we have not yet included the groundtruth of these "Unknown" scans into these results. 
+  + It would be better if we could have a wider separation in these results. I'm still looking for solutions that could further improve these results. One possible direction is to check the parameters used in the computation. For these Hamby44 results, we are using the same parameters as we used for Hamby252 results. But since these two sets have different scan resolution, we might need different sets of parameters.
+
+
+##### demo: bulletinvestigatR
+
+- added features:
+  + exported csv file can now include more info about bullet scans
+  + code section now shows different prompts according to how the users upload their data
+
+
+</details>
+
+
+
 #### Future Work
 
 * improve and manage to submit the CMPS package to CRAN
 
 * cross-validate some hyper-parameters
 
-* apply CMPS to 
-    + Hamby44
+## Assessing Quality of Scans
+
+Setting up a CNN to assess scan quality
+
+XXX Andy, this is you
 
 
 ## Analysis of Results  

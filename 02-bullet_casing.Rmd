@@ -844,25 +844,25 @@ Joe 9/5/19 Update: Explanation of missing value problem when calculating cross-c
 Below is a series of images that illustrate how we might compare a cell in one image to a region of another image.
 
 ```{r, fig.cap="Comparing a cell in image 1 to a larger region in image 2. We wish to find the translations of the image 1 cell that yield the highest correlation within the image 2 region.", out.width="50%", fig.keep="hold", fig.align='center'}
-knitr::include_graphics("images/cartridge_cases/im1_im2_cellComparison.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/im1_im2_cellComparison.png")
 ```
 
 For the sake of an example, let's focus on the blue outlined cell in image 1. Our goal is to use the image 1 cell to "search" a corresponding larger region in image 2 for the horizontal/vertical translations needed to produce the highest correlation. Below is a zoomed-in version of the blue outlined image 1 cell on the left and the larger image 2 region (approximately: I made the gridded image above by-hand outside of R while the images below are from R). The image 1 cell may look larger than the image 2 region, but we can see from the axes that the image 2 region is indeed larger. Any white pixels in the two images are NA values that need to be dealt with in some way before we can use FFTs to calculate the cross-correlation.
 
 ```{r, fig.cap="(Left) A cell from image 1. (Right) A region from image 2 centered in the same location as the image 1 cell, yet quadruple the area.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/im1_split.png","images/cartridge_cases/im2_split.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/im1_split.png","images/cartridge_cases/joe_oldImages/im2_split.png"))
 ```
 
 As already discussed above, one "solution" is to replace the NA values with the average pixel value of each image. However, to avoid creating a stronger artificial signal than necessary, we can crop-out the NA rows and columns from the two images above. Below is the cropped version of the two images. The cropping doesn't produce signficantly different images in this case, but you could imagine other examples in which a cell has captured only small amount of breechface in the corner. Such examples are fairly common and cropping signficantly changes the resulting correlation values.
 
-```{r, fig.cap="The same images as above after cropping NA rows/columns.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
+```{r, eval=FALSE,fig.cap="The same images as above after cropping NA rows/columns.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
 knitr::include_graphics(c("images/cartridge_cases/im1_splitFilteredCropped.png","images/cartridge_cases/im2_splitFilteredCropped.png"))
 ```
 
 The last step before calculating correlation for these cells is to replace the remaining NAs with the average pixel value. This is shown below.
 
 ```{r, fig.cap="The NA-cropped images with remaining NAs replaced with the image's average pixel values.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/im1_splitShifted.png","images/cartridge_cases/im2_splitShifted.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/im1_splitShifted.png","images/cartridge_cases/joe_oldImages/im2_splitShifted.png"))
 ```
 
 The cross-correlation is then calculated between these two images via a standard fast fourier transform process (see [Cross-Correlation Theorem](http://mathworld.wolfram.com/Cross-CorrelationTheorem.html)). The benefit of using such a process is that (as the name suggests) it's faster than calculating the raw correlation between the two images. Also, the translations that produce the highest correlation between the image 1 cell and the image 2 region fall out of the calculation for free.
@@ -880,7 +880,7 @@ Joe 9/5/19 Update (cont'd): A brief introduction to a congruent matching "tori" 
 As discussed above, dealing with missing values is provign to be a pain. The good news is that the currently-implemented CMC as described above yields results very similar to those published in Song et al. (2015) that originally describes that CMC algorithm. While our results seem to agree with currently published results, it would be nice if we could avoid needing to artifically replace missing values. We can do so if, rather than breaking up the circular breech face impression scans into disjoint squares, we break up the breech face impression into donut-shaped regions containing only breech face impression. Below is an example of such a toroidal region.
 
 ```{r, fig.cap="(Left) The original breech face impression scan image. (Right) A donut-shaped region cut out of the original image.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/im1_original.png","images/cartridge_cases/im1_toroidalRegion.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/im1_original.png","images/cartridge_cases/joe_oldImages/im1_toroidalRegion.png"))
 ```
 
 By comparing such regions instead of the square cells, we would presumably only need to fill in a few missing value "holes" in the breech face impression scan rather than completely replacing a non-existent signal with an artificial one. In the near-future, I hope to finish up the pre-processing needed for this Congruent Matching Tori method by performing a polar transformation on these images to make them into strips that can easily be compared via an FFT.
@@ -894,19 +894,19 @@ Joe 9/12/19 Update: Explanation of some of the pre-processing steps needed to ma
 Before carving out toroidal regions from the two images we wish to compare, a fair amount of pre-processing needs to be completed. For example, the scans we work with begin with a considerable amount of auxiliary information, for example the firing pin impression, that we don't want to use in our comparisons. This isn't to say that firing pin impressions aren't useful to determine a match between two cartridge cases. In fact there is quite a lot of published research on how to compare two firing pin impressions. Rather, it is common practice to compare breech face impressions and firing pin impressions separately since it is difficult to scan both simultaneously. Thus, there are regions of a breech face impression scan that we want to remove so that the breech face impressions are more easily comparable. Below is an example of two breech face impression scans before processing.
 
 ```{r, fig.cap="Two cartridge case scans before pre-processing.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/im1_fullScan.png","images/cartridge_cases/im2_fullScan.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/im1_fullScan.png","images/cartridge_cases/joe_oldImages/im2_fullScan.png"))
 ```
 
 There are a variety of techniques to segment an image into various parts. In image processing, common techniques are the Canny edge detector, which identifies edges of shapes in an image using image gradient techniques, and the Hough Transform, which can detect a variety of geometrical shapes in an image. The Hough Transform is what is used to segment the cartridge case images used in the previous section. However, we've found that the use of a Hough Transform doesn't extract the "breech face signal" from an image as other techniques. Namely, the breech face can be effectively extracted using the RANSAC (Random sample consensus) method that iteratively fits a plane to a set of data until it settles upon a consensus-based "bulk" of the data. In the case of these cartridge case scans, the bulk of the data should predominantely be distributed around the mode height value. That is, the breech face impression. Once we've fit this plane to the breech face impression, we can extract the residuals of the fit to better accentuate the markings left in the cartridge case base by a firearm's breech face. Below is an example of the residuals left after fitting a RANSAC plane to two cartridge case scans above. In the example below, we grab any residuals less than 20 microns in magnitude.
 
 ```{r, fig.cap="Residual values of a RANSAC plane fit to the two cartridge case scans shown above.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/im1_ransacResiduals.png","images/cartridge_cases/im2_ransacResiduals.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/im1_ransacResiduals.png","images/cartridge_cases/joe_oldImages/im2_ransacResiduals.png"))
 ```
 
 Although these two images are of two different cartridge cases, you can hopefully see that one looks very much like a rotated version of the other. These two cartridge case scans are in fact fired from the same gun (known matches), so it's a good thing that they look so similar. We've now removed quite a bit of the unwanted regions of the original scans. However, there are still some areas of the image (e.g., the faint circular region of pixels in the center of the breech face scan) that just so happened to be close to the fitted plane and thus were brought along in the residual extraction. There are a few ways that we can clean up these last few areas. One is to use two Hough Transforms to detect the inner and outer circles of the breech face impression and filter out any pixels outside of the region between these two circles. The biggest issue with using a Hough Transform is that it must be given the radius of the circle that it is to search for in the image as an argument. That is, we need to know the radius of the breech face impression that we haven't yet identified in order to identify the breech face impression. Instead, we can dilate/erode (or vice-versa) the pixels in the image to remove the remaining "speckle" in the image. Below is an example of of the breech face impressions cleaned via a dilation/erosion procedure.
 
 ```{r, fig.cap="The selected breech face impressions based on dilation and erosion.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/im1_maskFiltered.png","images/cartridge_cases/im2_maskFiltered.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/im1_maskFiltered.png","images/cartridge_cases/joe_oldImages/im2_maskFiltered.png"))
 ```
 
 The final step in the pre-processing is to align the two images in some consistent fashion. Luckily, the firing pin impression ring that's left after performing the above dilation/erosion provides us with some idea of how to align the breech face impressions. The location of the firing ring impression in the breech face impression provides us with an indicator of where the cartridge case was located relative to the firing pin when it was sitting in the barrel. So aligning two cartridge cases so that their firing pin impression rings align will ensure that, at the very least, the breech face impression left on the cartridge case is horizontally/vertically aligned if not rotationally aligned.
@@ -922,13 +922,13 @@ To automatically detect the radius of a given breech face impression, we can cou
 We can see below an example of the non-NA pixel row sums plotted against the row indices (starting from the top of the image and moving down). You can hopefully see that the raw row sums are rather "noisy". As such, we can pass a moving average smoother over the row sum values so that the local maxima are easier to identify. This may not be the most robust way to determine the local maxima. I hope to investigate the use of b-splines fit over the row sum values to see if these would be more effective at finding local maxima
 
 ```{r, fig.cap="Non-NA pixel row counts and moving average-smoothed row count values plotted against row index.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/nonNA_rowSums.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/nonNA_rowSums.png"))
 ```
 
 However, because firing pin impression circles have somewhat perforated edges, performing one pass through the image may not yield a particularly accurate estimate. As such, we can repeat the process of finding the distance between local maxima for both the row and column non-NA pixel counts. We can also rotate the image by a few degrees and perform the same process. I am currently rotating the image 0, 15, 30, 45, 60, and 75 degrees and calculating row and column diameter estimates per rotation. Obviously we can apply whatever aggregation function we desire to these estimates to determine a final estimate. Below we see what the Hough Transform selects as the breech face for 4 different radii values. In particular, for circles of radius 210, 213, 216, and 219.
 
 ```{r, fig.cap="Hough Transform selected circles (red) of radius (1) 210, (2) 213, (3) 216, and (4) 219.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/houghTransformGridSearch.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/houghTransformGridSearch.png"))
 ```
 </details>
 
@@ -940,25 +940,25 @@ Joe 9/25/18 Update: Dilation and erosion of the breech face impression image see
 When trying to select the breech face impression out of an image such as the one below (this is a slice of the original scan based on the RANSAC method-selected breech face impression z-value), we're really just interesting in obtaining a yes/no answer for each pixel to the question: "Are you a part of the breech face impression?" As such, rather than looking at the considering the raw pixel values, we can binarize the image to a 1/0 (equivalently, non-NA/NA) pixel representation. Such a representation is below.
 
 ```{r, fig.cap="(Left) Residual values of a RANSAC plane fit to a cartridge case scan. (Right) Binarized non-NA/NA image for segmentation.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/im1_ransacResiduals.png","images/cartridge_cases/breechFaceIndicator.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/im1_ransacResiduals.png","images/cartridge_cases/joe_oldImages/breechFaceIndicator.png"))
 ```
 
 Using this "indicator image", the beginning/end of the breech face impression should be much more obvious to, say, a Canny edge detector. Below is the output of such a Canny edge detector.
 
 ```{r, fig.cap="The edges of the binarized image above via a Canny edge detector. ", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/watershedPriorityMap.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/watershedPriorityMap.png"))
 ```
 
 From here, we can use a Watershed image segmentation procedure to identify various regions within this image. The Watershed algorithm needs to be given a set of pixel locations that the user believes to be within distinct regions of the image. With these "seed" pixels, the algorithm then searches neighboring pixels and attempts to identify them as within/without the same region. Almost as if a water source turned on at the given seed pixel and water began to spread to as many neighboring pixels as it could. The water should "stop" at the black lines in the image above, thus defining the boundary of a seed pixel's region. An example of the above image post-segmentation is given below. The 5 seed pixels I used were the 4 corners and center of the image. As we can, the watershed algorithm "overflowed" into the breech face impression, but segmented the firing pin impression circle from the rest of the image. Because most of the minutiae that we want to remove is in within this firing pin impression circle, this is not a problem for our purposes. With 5 seed images, there are technically 5 segments represented in the image below (although it's hard to see where the outer segments begin/end). So as shown below, we can just binarize the segments as being a part of the firing pin impression circle or not.
 
 ```{r, fig.cap="(Left) Watershed segmentation of the Canny edge image above. (Right) The firing pin impression circle binarization of the Watershed segmentation image.", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/watershedFiringPin_segments.png","images/cartridge_cases/watershedFiringPin_binarized.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/watershedFiringPin_segments.png","images/cartridge_cases/joe_oldImages/watershedFiringPin_binarized.png"))
 ```
 
 Finally, now that we've identified where the firing pin impression circle is in the original image, we can simply replace any pixel values within this circle with NAs. The final filtered image is shown below.
 
 ```{r, fig.cap="Final filtered image.", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/watershedFinalFiltered.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/watershedFinalFiltered.png"))
 ```
 
 </details>
@@ -971,21 +971,21 @@ Joe 10/3/18 Update: Determined a fairly computationally intensive yet (seemingly
 We can find a rough estimate for the firing pin radius estimate using a variety of methods. The one that I've found to be fairly consistent in the few examples I've worked with (detailed in the in the 9/18/19 update) is by counting the number of non-NA pixels in each row/column of the image and identifying the distance between the two largest local maxima in this non-NA count sequence. We can pass a grid of radius values centered on this estimate to a Hough Transform and determine which radius picks out the firing pin impression circle most effectively. The difficulty is in how we quantify "effective" using the output of the Hough Transform. Below you can see the original image including the "minutiae" within the firing pin impression circle that we hope to filter out. You can also see the result of filtering out the firing pin impression circle based on the original radius estimate (210 pixels) obtained from the "local maxima" method.
 
 ```{r, fig.cap="(Left) Original breech face impression image. (Right) The breech face impression image after filtering based on a Hough Transform-selected circle of radius 210 pixels.", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/breechFaceIndicator.png",
-                          "images/cartridge_cases/firingPinImpressionFiltered_radius210.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/breechFaceIndicator.png",
+                          "images/cartridge_cases/joe_oldImages/firingPinImpressionFiltered_radius210.png"))
 ```
 
 As already discussed, we can test a variety of radius values around the 210 estimate to determine which is best. Below is a gif animating the result of filtering based on a Hough Transform for radius values ranging from 190 to 230. Although a radius of 210 does a decent job of filtering out the minutiae, a slightly smaller radius may be preferred as larger circles tend to cut into the breech face impression. We obviously want to retain as much of the breech face impression as possible for our later analysis.
 
 ```{r, fig.cap="Gif showing the result of filtering based on Hough Transform circles of various radii. ", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/cartridge_cases/houghTransformFilter.gif")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/houghTransformFilter.gif")
 ```
 
 Using the output of the Hough Transform-selected circles shown above we would like to determine an optimal radius with which to filter out the firing pin impression circle. I explored a few ways of quantifying how "effective" a given radius is at filtering out the firing pin impression minutiae while simulataneously retaining as much of the breech face impression surface as possible. For example, it seemed logical to me to count the number of non-NA pixels we would be throwing out if we filtered based on a particular radius value. As you can see from the gif above, larger radii end up chewing into the breech face impression surface while smaller radii appear to sort of bounce around inside of the firing pin impression circle. We may be able to look at the count of filtered non-NA pixel values for each radius and determine a threshold in which the circles become large enough to start chewing into the breech face impression. Unfortunately, that is not the case. You can see from the plot below on the left that the number of filtered non-NA pixels increased fairly steadily. There isn't an obvious location along the curve signalling when the circles are getting to be too large (the differences between successive counts are also shown). Since that metric didn't end up being fruitful, I had to explore alternatives. One alternative that isn't obvious from just visualizing which pixels are filtered by each radius is called the "Hough score" which essentially quantifies how confident the Hough Transform is that it indeed found the circle that it was told to find in the image. The plot on the right below shows the top Hough scores for each radius value. We can see that there is some variability depending on the radius value. However, there are a range of radius values starting at 210 in which the Hough Transform is consistently rather confident in its circle detection. In fact, we can see from the gif above that radius values between 201 and 206 indeed do a good job of filtering out the firing pin impression circle. Currently, I am basing my final firing pin radius estimate on the radius value in the middle of the longest-running sequence of high-confidence radius values. In both example breech face impressions that I've been working with (same type, fired from the same firearm), this final estimate ended up being 203. This is obviously promising, but I would like to spend time to verify that my current method is generalizable to other cartridge case scans.
 
 ```{r, fig.cap="(Left) The number of non-NA pixels filtered out by the Hough Transform-selected circles for different radius values. (Right) The Hough score curve used to determine the firing pin radius estimate.", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/nonNA_filteredPixelCounts.png",
-                          "images/cartridge_cases/houghScorePlot.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/nonNA_filteredPixelCounts.png",
+                          "images/cartridge_cases/joe_oldImages/houghScorePlot.png"))
 ```
 </details>
 
@@ -1002,40 +1002,40 @@ Now that the skeleton of the algorithm has, for the most part, been fleshed-out,
 </summary>
 
 ```{r, fig.cap=" ",out.width="50%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/fadul1_im1_beforeRotation.png",
-                          "images/cartridge_cases/fadul1_im2_beforeRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/fadul1_im1_beforeRotation.png",
+                          "images/cartridge_cases/joe_oldImages/fadul1_im2_beforeRotation.png"))
 
-knitr::include_graphics(c("images/cartridge_cases/fadul2_im1_beforeRotation.png",
-                          "images/cartridge_cases/fadul2_im2_beforeRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/fadul2_im1_beforeRotation.png",
+                          "images/cartridge_cases/joe_oldImages/fadul2_im2_beforeRotation.png"))
 
-knitr::include_graphics(c("images/cartridge_cases/fadul3_im1_beforeRotation.png",
-                          "images/cartridge_cases/fadul3_im2_beforeRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/fadul3_im1_beforeRotation.png",
+                          "images/cartridge_cases/joe_oldImages/fadul3_im2_beforeRotation.png"))
 
-knitr::include_graphics(c("images/cartridge_cases/fadul4_im1_beforeRotation.png",
-                          "images/cartridge_cases/fadul4_im2_beforeRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/fadul4_im1_beforeRotation.png",
+                          "images/cartridge_cases/joe_oldImages/fadul4_im2_beforeRotation.png"))
 
-knitr::include_graphics(c("images/cartridge_cases/fadul5_im1_beforeRotation.png",
-                          "images/cartridge_cases/fadul5_im2_beforeRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/fadul5_im1_beforeRotation.png",
+                          "images/cartridge_cases/joe_oldImages/fadul5_im2_beforeRotation.png"))
 ```
 </details>
 
 One iteration of the CMC algorithm was already discussed in-detail in the 9/5/19 Update above, so I won't go into detail about that here (I'm saving it for my Spotlight in November). Instead, we can see a gif that shows which cells from image A and image B we compare when calculating the cross-correlation. Recall that the image A cells are 100x100 and image B cells are 200x200, which is why the cells on the right appear to cover more of the breech face impression than the cells on the left.
 
 ```{r, fig.cap="(Left) 100x100 cells from Image A. (Right) 200x200 cells from Image B.", out.width="50%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/im1_standardCells.gif",
-                          "images/cartridge_cases/im2_largerCells.gif"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/im1_standardCells.gif",
+                          "images/cartridge_cases/joe_oldImages/im2_largerCells.gif"))
 ```
 
 As we can clearly see from the 5 pairs above, we need to perform rotations to properly align one with the other. We perform the cross-correlation calculation for 43 different rotation angles (of image B) to determine which rotation angle yields the highest correlation ($\theta \in [-179.5,180]$ by $2.5^\circ$). However, because we have broken up our images into cells, each cell in image A gets to "vote" for the theta value for which it had the highest correlation with its paired cell in image B. Below, we see the distribution of such theta values (referred to as the "registration angle" in Tong et al. (2015)). The histogram shows that the many of the cells tend to vote for theta values in a relatively small range, which bodes well for us in determining the optimal rotation angle.
 
 ```{r, fig.cap="Histogram of the registration angle of highest correlation for each of the 5 pairs of breech face impressions.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/highestCorrelationRegistrationAngleHistogram.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/highestCorrelationRegistrationAngleHistogram.png"))
 ```
 
 Since we clearly have a region of popular theta values for each pair, we can perform a finer search around these theta values to arrive at a more precise estimate. The histogram for this finer grid search is shown below. According to Tong et al. (2015), the minimum number of cells that must agree upon a theta value (up to some margin) for two breech face impressions to be called a "match" is 6. We can clearly see from the histogram below that this criterion is met. There are other criteria that Tong et al. discuss including how far we need to shift each cell in image A to achieve the highest correlation with the neighboring cell in image B. Those criteria also seem to be met on the examples I've looked at.
 
 ```{r, fig.cap="A finer grid search histogram of the registration angle of highest correlation for each of the 5 pairs of breech face impressions.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/finerGridHighestCorrRegistrationAngleHistogram.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/finerGridHighestCorrRegistrationAngleHistogram.png"))
 ```
 
 <details>
@@ -1043,20 +1043,20 @@ knitr::include_graphics(c("images/cartridge_cases/finerGridHighestCorrRegistrati
 **Finally, we can pick the most popular rotation angle for each firearm pair and visually compare how well the two breech face impressions match up. This is done so below. We can see that the algorithm has indeed selected good rotation values for each pair.**
 </summary>
 ```{r, fig.cap=" ",out.width="50%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/fadul1_im1_afterRotation.png",
-                          "images/cartridge_cases/fadul1_im2_afterRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/fadul1_im1_afterRotation.png",
+                          "images/cartridge_cases/joe_oldImages/fadul1_im2_afterRotation.png"))
 
-knitr::include_graphics(c("images/cartridge_cases/fadul2_im1_afterRotation.png",
-                          "images/cartridge_cases/fadul2_im2_afterRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/fadul2_im1_afterRotation.png",
+                          "images/cartridge_cases/joe_oldImages/fadul2_im2_afterRotation.png"))
 
-knitr::include_graphics(c("images/cartridge_cases/fadul3_im1_afterRotation.png",
-                          "images/cartridge_cases/fadul3_im2_afterRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/fadul3_im1_afterRotation.png",
+                          "images/cartridge_cases/joe_oldImages/fadul3_im2_afterRotation.png"))
 
-knitr::include_graphics(c("images/cartridge_cases/fadul4_im1_afterRotation.png",
-                          "images/cartridge_cases/fadul4_im2_afterRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/fadul4_im1_afterRotation.png",
+                          "images/cartridge_cases/joe_oldImages/fadul4_im2_afterRotation.png"))
 
-knitr::include_graphics(c("images/cartridge_cases/fadul5_im1_afterRotation.png",
-                          "images/cartridge_cases/fadul5_im2_afterRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/fadul5_im1_afterRotation.png",
+                          "images/cartridge_cases/joe_oldImages/fadul5_im2_afterRotation.png"))
 ```
 </details>
 
@@ -1070,21 +1070,21 @@ Continued testing the CMC algorithm on more known match and known non-match pair
 I've continued to run the algorithm on a number of known match pairs of cartridge cases. Although the algorithm seems to work well for the majority of known match pairs, it isn't perfect at picking the correct rotation angle. I haven't yet determined the cause of when the algorithm fails to pick the correct rotation angle.
 
 ```{r, fig.cap="A pair of known match cartridge cases that start off as rotationally mis-aligned.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/Fadul8-2_FadulX_beforeRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/Fadul8-2_FadulX_beforeRotation.png"))
 ```
 
 ```{r, fig.cap="The same pair as above after being correctly aligned via the CMC algorithm.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/Fadul8-2_FadulX_afterRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/Fadul8-2_FadulX_afterRotation.png"))
 ```
 
 Below is an example of a pair for which the algorithm does a poor job of choosing the correct rotation to align the two images.
 
 ```{r, fig.cap="A pair of known match cartridge cases that start off as rotationally mis-aligned.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/FadulC_FadulM_beforeRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/FadulC_FadulM_beforeRotation.png"))
 ```
 
 ```{r, fig.cap="The same pair as above after being incorrectly aligned via the CMC algorithm.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/FadulC_FadulM_afterRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/FadulC_FadulM_afterRotation.png"))
 ```
 
 While running code, I've also been working on putting all of my working functions into a package. I should hopefully have something resembling a structured package by my spotlight in November.
@@ -1096,32 +1096,32 @@ Our current goal is to demonstrate that the current form of the package produces
 Below we can see the known match cartridge case pair in their raw format before pre-processing. In this state, it's difficult to make any comparisons between the two breech faces. The first step is to process these images to both remove as much of the non-breech face region of the image as possible and accentuate the breech face impression markings left on the cartridge case.
 
 ```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/cartridge_cases/fadul1_pair_raw.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/fadul1_pair_raw.png")
 ```
 
 We can see the results of the pre-processing below. It will hopefully look to you as if one of the images is simply a rotated copy of the other. Our goal is to automatically detect what the correct rotation value is to properly align the two images.
 
 ```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/cartridge_cases/fadul1_pair_processed.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/fadul1_pair_processed.png")
 ```
 
 In order to find the correct rotational value to align the two images, we divide the first image (fadul1-1) into a 7x7 grid of cells. For each cell in image 1, we select a similarly located, wider region in image 2 and calculate the cross-correlation between the image 1 cell and the larger image 2 region. Below is an image that illustrates this for a particular cell.
 
 ```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/cartridge_cases/im1_im2_cellComparison.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/im1_im2_cellComparison.png")
 ```
 
 Below is a gif showing an example of cell/region pairs for which the CCF is computed.
 
 ```{r, fig.cap="(Left) 100x100 cells from Image 1. (Right) 200x200 cells from Image 2.", out.width="50%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/im1_standardCells.gif",
-                          "images/cartridge_cases/im2_largerCells.gif"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/im1_standardCells.gif",
+                          "images/cartridge_cases/joe_oldImages/im2_largerCells.gif"))
 ```
 
 Once we calculate the CCF for each cell/region pair, we rotate image 2 by a few degrees, say 3 degrees, and repeat the process. We can obviously keep track of the correlation values for each rotation and determine for which rotation values a particular image 1 cell attains its maximum CCF. If two cartridge cases are genuine matches, then we would expect there to be some consensus among the cells for which theta value they attain their max CCF. For example, below we see a histogram of theta values for which the cells in the fadul1-1 attain highest correlation in their associated fadul1-2 regions. We can see a peak around -20 degrees. In particular, the consensus-based theta value turns out to be -21 degrees.
 
 ```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/cartridge_cases/fadul1_fadul2_thetaHistogram.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/fadul1_fadul2_thetaHistogram.png")
 ```
 
 If we then consider the CCF values at the -21 degree rotation comparison, we see there are quite a few cells that could be classified as "highly correlated". Tong et al. discuss various criteria they use to define a cell as a "Congruent Matching Cell." For example, they set a minimum CCF value of .25. Based on the criteria that they set, we can see in the table below that there are 14 cells that can be defined as CMCs. In their original paper, the number of CMCs they found was 15. The discrepancy likely comes from the fact that they perform different pre-processing steps than we do but don't discuss what those pre-processing steps are.
@@ -1146,13 +1146,13 @@ If we then consider the CCF values at the -21 degree rotation comparison, we see
 We can visualize which cells in fadul1-1 are classified as CMCs. The image below shows the fadul1-1 CMCs as well as fadul1-2 rotated by -21 degrees (the consensus-based theta value chosen from before). We can see that most of the regions with the most obvious visual similarity between the two cartridge cases (in particular, the linear markings in the bottom-right of each image) are indeed classified as CMCs.
 
 ```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/cartridge_cases/fadu1_pair_CMCs.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/fadu1_pair_CMCs.png")
 ```
 
 We are currently running into issues where the correlations values we get out between the two images are not nearly as high as they appear to be in the Tong paper (although we don't really know since they didn't provide much context). Below is an example of a pair of known match cells. The two breech faces have already been rotationally aligned (by hand), so these should have very high correlation (apparantely something north of .55 according the the Tong paper). We can certainly see a mode in the correlation (red spot), but it is hard for me to interpret exactly what that mode represents. I believe it represents the shift needed to align the second, larger image with the first image. I need to do some more digging into what is actually happening with FFTs and cross-correlation implementations to know for sure.
 
 ```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/cartridge_cases/cellCCFMap.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/cellCCFMap.png")
 ```
 
 <details>
@@ -1164,19 +1164,19 @@ For each of these examples, the image on the left is the "reference" image that 
 In the first example below, the image on the right just has the box shifted down 30 pixels and right 10 pixels. If we were to overlay the two images with their centers aligned, the correlation "map" that accompanies this pair provides instructions for how to shift the right image to correctly match up with the left image. We see from the location of the largest correlation value (of 1 at (-10,30)) that the CCF indeed detected the correct shift.
 
 ```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/cartridge_cases/examplePerfectCCFMap.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/examplePerfectCCFMap.png")
 ```
 
 In the second example, the 0-values pixels in the right image are replaced with randomly generated $\mu = 0$ and $\sigma = 50$ white noise. We see that the max correlation value still occurs at the right location, but with a smaller magnitude. We also see that the rest of the correlation map isn't all 0 as it was in the 0-pixel example above.
 
 ```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/cartridge_cases/exampleWN_CCFMap.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/exampleWN_CCFMap.png")
 ```
 
 Lastly, we have an example where the second image contains a smaller square of side-length 10 pixels. We see that, again, the correlation value maximum occurs at the correct location yet with a magnitude well below 1. 
 
 ```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/cartridge_cases/exampleWNSmallerSquare_CCFMap.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/exampleWNSmallerSquare_CCFMap.png")
 ```
 </details>
 
@@ -1300,19 +1300,19 @@ Joe 12/5 Update: I believe we've finally cracked the issue that we've been runni
 Below, I have three examples showing the raw correlation values between pairs of cells. Any pair with a correlation above .55 we would call "highly correlated" under the Tong paper's criteria. The first example below shows a best-case scenario in which we have two images containing a lot of observed values and those observed values have a fairly high correlation (high enough to meet the arbitrary .55 threshold, at least).
 
 ```{r}
-include_graphics("images/cartridge_cases/highlyCorrelatedCellPair_largeProportionOfImage.png")
+include_graphics("images/cartridge_cases/joe_oldImages/highlyCorrelatedCellPair_largeProportionOfImage.png")
 ```
 
 However, the second example shows a not-so-great scenario in which we don't have a lot of observed values in the two images, but they are still highly correlated. We should be less confident that such examples indicate that the overall breech face impressions are "true matches" than we are in the example above, but the Tong paper doesn't seem to make such a distinction.
 
 ```{r}
-include_graphics("images/cartridge_cases/highlyCorrelatedCellPair_smallProportionOfImage.png")
+include_graphics("images/cartridge_cases/joe_oldImages/highlyCorrelatedCellPair_smallProportionOfImage.png")
 ```
 
 Lastly, I have an example of two images that certainly have many observed value that visually look like they should be fairly highly correlated. However, we can see by the raw correlation value that they, in fact, wouldn't pass the threshold to be "highly correlated." As such, we wouldn't include them when we count the number of highly correlated pairs between the two images. I wanted this example to demonstrate that our eyes don't always necessarily pick up on subtleties as strongly as a computer might.
 
 ```{r}
-include_graphics("images/cartridge_cases/lowCorrelatedCellPair_largeProportionOfImage.png")
+include_graphics("images/cartridge_cases/joe_oldImages/lowCorrelatedCellPair_largeProportionOfImage.png")
 ```
 
 </details>
@@ -1325,20 +1325,20 @@ Joe 12/12 Update: I have been trying to implement the Tong paper's criteria for 
 To recap, the CMC algorithm attempts to match two breech face impression images by breaking the image up into "cells" and counting the number of cells that are highly similar between the two images. So for each pair of images, we get a congruent matching cell count indicating how similar the overall images are. For the Fadul data that the Tong paper uses, there are 63 known match pairs. The bar chart on the left shows the various CMC counts for these 63 known match pairs as determined by our implementation in the algorithm. In contrast, the CMC count distribution as reported in the Tong paper is on the right (known matches in gold). We can see that our histogram is qualititatively similar to the gold distribution on the right.
 
 ```{r}
-include_graphics(c("images/cartridge_cases/kmCMCDistribution.png",
-                 "images/cartridge_cases/CMCDistribution_Tong.PNG"))
+include_graphics(c("images/cartridge_cases/joe_oldImages/kmCMCDistribution.png",
+                 "images/cartridge_cases/joe_oldImages/CMCDistribution_Tong.PNG"))
 ```
 
 There are two pairs that seem to be giving us trouble in the histogram above (we expect all of the known match pairs to have a large number of "highly similar" cells). Below shows the se two pairs. Hopefully it's clear to see that the first pair, while known matches, look fairly different. There are many regions in the image on the left that are missing from the image on the right. These differences possibly provide some justification as to why the current implementation of the algorithm fails to identify these two images as matches.
 
 ```{r}
-include_graphics("images/cartridge_cases/lowCMCCount_example1.png")
+include_graphics("images/cartridge_cases/joe_oldImages/lowCMCCount_example1.png")
 ```
 
 The troubling example is below. It's visually obvious that these two images are very similar to each other. However, the algorithm does not identify these as matches. Our current hunch is that the way we preprocess the images has a dramatic effect on the results we ultimately observe. We have a few ideas to tweak the preprocessing to hopefully fix such issues. Unfortunately, the Tong paper never describes how they preprocess the 3D scans, so we have no way of truly replicating their results. All we can hope for is qualitatively similar results, which appears to be the case for the most part.
 
 ```{r}
-include_graphics("images/cartridge_cases/lowCMCCount_example2.png")
+include_graphics("images/cartridge_cases/joe_oldImages/lowCMCCount_example2.png")
 ```
 </details>
 
@@ -1421,7 +1421,7 @@ Joe 1/27 Update: I've been starting to write up an article that we hope to submi
 </summary>
 
 ```{r}
-knitr::include_graphics("images/cartridge_cases/paperHeader.PNG")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/paperHeader.PNG")
 ```
 
 
@@ -1434,25 +1434,25 @@ Each of the following plots were subject to the same criteria and are based on t
 This is an example from Chen et al. (2017) that the rest of the plots are trying to emulate. This plot was made using reportedly images downsampled to size 600x600 and an 8x8 grid of cells. Again, it's unclear how this downsampling was performed since the raw surface data often have dimensions near 600x600, but never perfectly 600x600. The plots following include various resizing/padding techniques used to try to get this nominal 600x600 image size.
 
 ```{r}
-knitr::include_graphics("images/cartridge_cases/kmCMCs_Chen.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/kmCMCs_Chen.png")
 ```
 
 This is a plot based on images that were resized to 560x560 (the image size specified by Tong et al. (2015)) using linear interpolation.
 
 ```{r}
-knitr::include_graphics("images/cartridge_cases/kmCMCs_560x560_linearInterp.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/kmCMCs_560x560_linearInterp.png")
 ```
 
 This is a plot based on images that were resized to 600x600 (the image size specified by Chen et al. (2017)) using the `x3ptools::resize_x3p()` function followed by padding the image with NAs until it reaches a size of 600x600.
 
 ```{r}
-knitr::include_graphics("images/cartridge_cases/kmCMCs_600x600_sample_x3p.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/kmCMCs_600x600_sample_x3p.png")
 ```
 
 This final distribution is the most promising of the ones I've made. This distribution is also based on images that were resized using `x3ptools::resize_x3p()`. However, rather than padding the exterior of the image with NA rows/cols until it achieves the nominal 600x600 size, the image is first split into an 8x8 grid of cells and each cell is individually padded until it reaches dimension 75x75.
 
 ```{r}
-knitr::include_graphics("images/cartridge_cases/kmCMCs_originalSize_downSampled.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/kmCMCs_originalSize_downSampled.png")
 ```
 
 </details>
@@ -1642,7 +1642,7 @@ Joe 2/17 Update: Not too much to report today. I've mainly working on the cmcR p
 </summary>
 
 ```{r}
-knitr::include_graphics("images/cartridge_cases/ccfDiagnosticMap.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/ccfDiagnosticMap.png")
 ```
 
 
@@ -2358,7 +2358,7 @@ I have determined a fast method to align two scans based on estimating the firin
 knitr::include_graphics("images/cartridge_cases/12-21-20_update/alignedImage.png")
 ```
 
-A model that I believe has promise for the texture approach I hope to take is called the iFRAME ([i]nhomogeneous [F]ilters, [R]andom Field, [A]nd [M]aximum [E]ntropy) model. 
+A model that I believe has promise for the texture approach is called the iFRAME ([i]nhomogeneous [F]ilters, [R]andom Field, [A]nd [M]aximum [E]ntropy) model. 
 
 For an image $I$, the iFRAME model assumes that the pixel intensities behave according to an inhomogeneous (i.e., dependent on the pixel index) random field model governed by a set of basis functions such as Gabor wavelets. Functionally, this model attempts to identify the set of basis functions that best explain a particular image by using "basis pursuit," which is an algorithm that estimates a basis that most effectively explains a set of data (such as an image). An example of the simulated images based on different stages of the basis pursuit algorithm for an image of a cat is shown below. The fact that images can be simulated means that this model is "generative." The authors of the paper from which the images were taken use Hamiltonian Monte Carlo to simulate these images. Also, the code is [freely available](http://www.stat.ucla.edu/~jxie/sparseFRAME.html) for download!
 
@@ -2376,6 +2376,57 @@ Applying this to cartridge cases, my current hypotheses are that the identifying
 
 </details>
 
+<details>
+<summary>
+Joe 1/11/21: The current "lowest hanging" fruit that we want to explore is applying the CMC method (or something like it) to polar transformed versions of the scans. This makes it easier to ensure that the square cells into which we partition the scans contain mostly observed values as opposed to the non-transformed scans' cells which often contain only pieces of the circular breech face surface.
+</summary>
+
+We had the idea some time ago that partitioning a circular cartridge case surface into square cells doesn't make a ton of sense. What would make more sense would be divide the scans into sort-of "pie pieces" or annular segments to be compared. This would, at the very least, avoid needing to replace as many missing values as we do in the current CMC method. The obvious problem with dividing a square matrix into annular segments is that result wouldn't be a square matrix. This makes it then challenging to apply matrix-based algorithms. To get around this, we can consider polar transformed versions of the scans.
+
+```{r, out.width="70%",fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/1-11-21 Spotlight/cmc_illustration.PNG")
+```
+
+
+Rectangular and polar transformed versions of the Fadul 1-1 cartridge case are shown below. We use nearest-neighbor interpolation to fit the polar-transformed values into a square matrix. 
+
+```{r, out.width="30%"}
+knitr::include_graphics(c("images/cartridge_cases/1-11-21 Spotlight/fadul1-1_processedRectangular.png",
+                          "images/cartridge_cases/1-11-21 Spotlight/fadul1-1_processedPolar.png"))
+```
+
+Performing the "correct" polar transformation involves identifying the center of the firing pin impression and centering the surface matrix on this center (by padding). The plots below show two examples of cartridge cases centered on their estimated firing pin impression centers. The polar transformation then involves populating a new matrix by interpolating values from the original. To preserve as many of the "raw" scan values as possible, we will choose nearest-neighbor interpolation (as opposed to performing local averaging of values, which is more often used when transforming images where the raw pixel values aren't as precious).
+
+```{r,out.width="60%"}
+knitr::include_graphics("images/cartridge_cases/1-11-21 Spotlight/fadul1_centered.png")
+```
+
+Once the scans are centered on their firing pin impression centers, we can then calculate the CCF to identify the optimal translations to align the two scans. In the polar domain, a vertical translation of the two images below corresponds to a rotation in the rectangular domain. An example of the CCF matrix is shown below. We can consider the index at which the CCF achieves its maximum as the estimated "optimal" translation and determine the estimated rotation angle from this. The estimated rotation angle of 24 degrees shown below agrees with the estimation performed using the CMC method on the rectangular scans.
+
+```{r, out.width="20%"}
+knitr::include_graphics(c("images/cartridge_cases/1-11-21 Spotlight/fadul1-1_polar.png",
+                                  "images/cartridge_cases/1-11-21 Spotlight/fadul1-2_correctPolar.png",
+                                  "images/cartridge_cases/1-11-21 Spotlight/ccf_correctPolar.png"))
+```
+
+However, because the effectiveness of the polar transformation is dependent on *estimating* the firing pin hole center, we also want to to consider how the CCF may behave if the firing pin hole center estimation is off. The plots below show what happens when the estimated firing pin hole center estimated above is pushed left and down 40 pixels. We can see that (1) the CCF matrix is less "certain" of the location of the maximum value as evidenced by the wide crest in the values and (2) the estimated rotation is far from the correct value. This means that we need to be extra cautious that the firing pin center is accurately estimated.
+
+```{r, out.width="20%"}
+knitr::include_graphics(c("images/cartridge_cases/1-11-21 Spotlight/fadul1-1_polar.png",
+                                  "images/cartridge_cases/1-11-21 Spotlight/fadul1-2_wrongPolar.png",
+                                  "images/cartridge_cases/1-11-21 Spotlight/ccf_wrongPolar.png"))
+```
+
+Using the polar transformed matrices, we can first see how the "classical" CMC method performs. We perform a cell-based comparison on the 63 matching and 717 non-matching pairs in the Fadul data set and consider the distribution of CMCs. In general, the CMC method does not perform under the chosen set of processing conditions in the polar domain as well as it does in the rectangular domain. There are a few changes to the processing conditions that can be made that may improve the classification. However, in applying the polar transformation, we lose some of the features that are used in the classical CMC method to make classifications. For example, some CMC methods use the distribution of the estimated translation values across various rotations of the target scan to identify the rotation at which the translation values reach a "convergence." Using such information is not possible to consider here as rotating the polar transformed scans doesn't have a coherent interpretation in the rectangular domain.
+
+```{r,out.width="80%"}
+knitr::include_graphics(c("images/cartridge_cases/1-11-21 Spotlight/corrThreshPt55_numCells36.png"))
+```
+
+Even with tweaks made to the processing conditions to improve the CMC classification rate, we still run into the issue that I've discussed in the past of needing to choose a "correct" set of processing conditions. Methods like Matching Pursuit can be thought of as "automated," model-based versions of the CMC method where cells are identified based on how informative they are to describing the overall scan. In particular, we can construct a "dictionary" of cells that can be used to (approximately) reconstruct a scan.
+
+</details>
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
 The moified Chumbley non-random algorithm is a statistical non-paramaetric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segement to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 
@@ -2385,8 +2436,6 @@ The modified chumbley method [@gkhh] can work with two markings at a time. There
 #### Bullet-to-bullet scores
 
 In this method we extend the modified chumbley non-random method from land-to-land scoring to bullet-to-bullet scoring. In order to do this, first 6 ordered pairs of lands between the two bullets are chosen for comparison. The modified chumbley method is used on these 6 pairwise comparisons. This results in the same-shift and different-shift comparisons from each of the 6 comparisons. We do not need a land-to-land pairwise U-statistics and classification in this method. Instead all the same-shift and different-shift correlations are now aggregated from the 6 comparisons and a new non-parametric U test is used on the aggregated sets. This gives a test statistic at the bullet level and consequently we can compute p-values. This is used with different nominal significance levels to identify bullet level error rates.
-
-### Congruent Matching Profile Segments
 
 #### Introduction to CMPS and Algorithm Summary
 

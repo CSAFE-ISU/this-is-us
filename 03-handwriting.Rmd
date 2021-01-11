@@ -891,6 +891,13 @@ Presenting author is in bold.
     - Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry
     - CSAFE Annual All-Hands Meeting in Ames, IA
     
+- <strong>"Quantitative Support for Forensic Document Examination in an Open Set using Random Forests"</strong>
+    - February 2021
+    - Authors: Madeline Q. Johnson, Danica Ommen, and Alicia Carriquiry
+    - American Academy of Forensic Sciences, Virtual
+    - <details><summary>Click for Poster Image</summary>
+    ![Poster given at AAFS 2021 Meeting](images/handwriting/mattie/Johnson_AAFS_2021.png)</details>
+    
 
 ## People involved
 

@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2021-01-24" />
+<meta name="date" content="2021-01-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -163,8 +163,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.1" data-path="bullets.html"><a href="bullets.html#bullet-lands"><i class="fa fa-check"></i><b>4.3.1</b> Bullet Lands</a></li>
 <li class="chapter" data-level="4.3.2" data-path="bullets.html"><a href="bullets.html#cartridge-cases"><i class="fa fa-check"></i><b>4.3.2</b> Cartridge Cases</a></li>
 <li class="chapter" data-level="4.3.3" data-path="bullets.html"><a href="bullets.html#modified-chumbley-non-random-test"><i class="fa fa-check"></i><b>4.3.3</b> Modified Chumbley non-random test</a></li>
+<li class="chapter" data-level="4.3.4" data-path="bullets.html"><a href="bullets.html#cmps-algorithm"><i class="fa fa-check"></i><b>4.3.4</b> CMPS Algorithm</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="bullets.html"><a href="bullets.html#assessing-quality-of-scans"><i class="fa fa-check"></i><b>4.4</b> Assessing Quality of Scans</a></li>
+<li class="chapter" data-level="4.4" data-path="bullets.html"><a href="bullets.html#assessing-quality-of-scans"><i class="fa fa-check"></i><b>4.4</b> Assessing Quality of Scans</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="bullets.html"><a href="bullets.html#current-data-processing-procedures"><i class="fa fa-check"></i><b>4.4.1</b> Current Data Processing Procedures</a></li>
+<li class="chapter" data-level="4.4.2" data-path="bullets.html"><a href="bullets.html#convolutional-neural-networks"><i class="fa fa-check"></i><b>4.4.2</b> Convolutional Neural Networks</a></li>
+</ul></li>
 <li class="chapter" data-level="4.5" data-path="bullets.html"><a href="bullets.html#analysis-of-results"><i class="fa fa-check"></i><b>4.5</b> Analysis of Results</a><ul>
 <li class="chapter" data-level="4.5.1" data-path="bullets.html"><a href="bullets.html#stability-of-the-analysis-process"><i class="fa fa-check"></i><b>4.5.1</b> Stability of the Analysis Process</a></li>
 </ul></li>
@@ -229,6 +233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.6.6" data-path="shoes.html"><a href="shoes.html#research-2-impact-of-weight-to-outsole-scans-from-everos-2d-scanner"><i class="fa fa-check"></i><b>7.6.6</b> Research 2: Impact of weight to outsole scans from EverOS 2D scanner</a></li>
 <li class="chapter" data-level="7.6.7" data-path="shoes.html"><a href="shoes.html#research-3-mc-cnn"><i class="fa fa-check"></i><b>7.6.7</b> Research 3: MC + CNN</a></li>
 </ul></li>
+<li class="chapter" data-level="7.7" data-path="shoes.html"><a href="shoes.html#matching-shoe-prints-with-ccf"><i class="fa fa-check"></i><b>7.7</b> Matching shoe prints with ccf</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html"><i class="fa fa-check"></i><b>8</b> Theoretical foundations</a><ul>
 <li class="chapter" data-level="8.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#explaining-slr-behavior"><i class="fa fa-check"></i><b>8.1</b> Explaining SLR behavior</a></li>
@@ -2140,8 +2145,11 @@ Joe 1/11/21: The current “lowest hanging” fruit that we want to explore is a
 <h4><span class="header-section-number">4.3.3.2</span> Bullet-to-bullet scores</h4>
 <p>In this method we extend the modified chumbley non-random method from land-to-land scoring to bullet-to-bullet scoring. In order to do this, first 6 ordered pairs of lands between the two bullets are chosen for comparison. The modified chumbley method is used on these 6 pairwise comparisons. This results in the same-shift and different-shift comparisons from each of the 6 comparisons. We do not need a land-to-land pairwise U-statistics and classification in this method. Instead all the same-shift and different-shift correlations are now aggregated from the 6 comparisons and a new non-parametric U test is used on the aggregated sets. This gives a test statistic at the bullet level and consequently we can compute p-values. This is used with different nominal significance levels to identify bullet level error rates.</p>
 </div>
+</div>
+<div id="cmps-algorithm" class="section level3">
+<h3><span class="header-section-number">4.3.4</span> CMPS Algorithm</h3>
 <div id="introduction-to-cmps-and-algorithm-summary" class="section level4">
-<h4><span class="header-section-number">4.3.3.3</span> Introduction to CMPS and Algorithm Summary</h4>
+<h4><span class="header-section-number">4.3.4.1</span> Introduction to CMPS and Algorithm Summary</h4>
 <details>
 <p><summary>
 This section provides an introduction and a summary of the Congruent Matching Profile Segments (CMPS) algorithm.
@@ -2330,7 +2338,7 @@ Trying to identify a ccp for each basis segment is called a “multi segment len
 </details>
 </div>
 <div id="full-comparison-between-two-bullets" class="section level4">
-<h4><span class="header-section-number">4.3.3.4</span> Full Comparison Between Two Bullets</h4>
+<h4><span class="header-section-number">4.3.4.2</span> Full Comparison Between Two Bullets</h4>
 <details>
 <p><summary>
 This section provides an example on how to use the CMPS method to make a comparison between two bullets.
@@ -2414,14 +2422,14 @@ This section provides an example on how to use the CMPS method to make a compari
 <span id="cb36-76"><a href="bullets.html#cb36-76"></a><span class="co"># 36   1-6   2-6          1        22</span></span></code></pre></div>
 </details>
 </div>
-<div id="apply-cmps-to-hamby252" class="section level4">
-<h4><span class="header-section-number">4.3.3.5</span> Apply CMPS to Hamby252</h4>
+<div id="apply-cmps-to-hamby252-and-hamby44" class="section level4">
+<h4><span class="header-section-number">4.3.4.3</span> Apply CMPS to Hamby252 and Hamby44</h4>
 <details>
 <p><summary>
 Will 09/19 Update: We applied the CMPS method to Hamby252 (the dataset used in the original paper). And now we are able to reproduce the main results qualitatively. Additionally, in order to obtain more reliable bullet signatures and effectively investigate outliers, a shiny app was implemented for <code>bulletxtrctr</code>.
 </summary></p>
 <div id="hamby252-and-reproduce" class="section level5">
-<h5><span class="header-section-number">4.3.3.5.1</span> Hamby252 and Reproduce</h5>
+<h5><span class="header-section-number">4.3.4.3.1</span> Hamby252 and Reproduce</h5>
 <p>On the bullet level, we mainly consider two similarity scores: <span class="math inline">\(\mathrm{CMPS_{max}}\)</span> and <span class="math inline">\(\mathrm{\bar{CMPS}_{max}}\)</span>. For Hamby252 each bullet has 6 lands. In order to compare two bullets, we want to compute the CMPS score for all possible land-by-land pairs. In this case, we have 36 pairs in total and thus will have 36 CMPS scores.</p>
 <p>We want to summarize these 36 CMPS scores into a single similarity score at the bullet level.</p>
 <ul>
@@ -2450,16 +2458,12 @@ Will 09/19 Update: We applied the CMPS method to Hamby252 (the dataset used in t
 </ul>
 </div>
 <div id="shiny-app-for-bullet-investigation" class="section level5">
-<h5><span class="header-section-number">4.3.3.5.2</span> Shiny App for Bullet Investigation</h5>
+<h5><span class="header-section-number">4.3.4.3.2</span> Shiny App for Bullet Investigation</h5>
 <p>If something unusual happened to the <code>crosscut</code>, <code>ccdata</code>, and <code>grooves</code> (all these are important in order to extract reliable bullet signatures), users might want to step in, take a look, and try different values to get a better bullet signature. This shiny app provides a way.</p>
 <p>Users need to have a tibble object in their current environment called <code>shiny.tt</code>, which contains <code>x3p</code>, <code>crosscut</code>, <code>ccdata</code>, and <code>grooves</code>.</p>
 <p>Use the following code to launch the shiny app.</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="bullets.html#cb37-1"></a>bulletxtrctr<span class="op">::</span><span class="kw">runExample</span>()</span></code></pre></div>
 </details>
-</div>
-</div>
-<div id="apply-cmps-to-hamby44" class="section level4">
-<h4><span class="header-section-number">4.3.3.6</span> Apply CMPS to Hamby44</h4>
 <details>
 <p><summary>
 Will 01/03 Update: present the results of applying the CMPS method to Hamby44 set. And a brief demo of the current version of <code>bulletinvestigatR</code>
@@ -2477,21 +2481,38 @@ We can see that the separation of the distribution of <span class="math inline">
 <li>We have label “Unknown” in these plots because part of the original scans are labeled with “Unknown”s. And we have not yet included the groundtruth of these “Unknown” scans into these results.</li>
 <li>It would be better if we could have a wider separation in these results. I’m still looking for solutions that could further improve these results. One possible direction is to check the parameters used in the computation. For these Hamby44 results, we are using the same parameters as we used for Hamby252 results. But since these two sets have different scan resolution, we might need different sets of parameters.</li>
 </ul></li>
-</ul>
-<div id="demo-bulletinvestigatr" class="section level5">
-<h5><span class="header-section-number">4.3.3.6.1</span> demo: bulletinvestigatR</h5>
+<li><p>demo: bulletinvestigatR</p>
 <ul>
 <li>added features:
 <ul>
 <li>exported csv file can now include more info about bullet scans</li>
 <li>code section now shows different prompts according to how the users upload their data</li>
 </ul></li>
+</ul></li>
+</ul>
+</details>
+<details>
+<p><summary>
+Will 01/24 Update: present the results that are used in the CMPS package paper. For both Hamby set 252 and Hamby set 44, the CMPS algorithm is able to distinguish KM comparisons from KNM comparisons. And the UI of <code>bulletinvestigatR</code> has been redesigned.</p>
+<p></summary></p>
+<p>In the following plots, we are showing the distributions of <span class="math inline">\(\mathrm{CMPS_{max}}\)</span> and <span class="math inline">\(\mathrm{\overline{CMPS}_{max}}\)</span>, the two similarity metrics for bullet-level comparisons.</p>
+<p><img src="images/cmps/jan24/hamby252_025_075.png" width="996" /></p>
+<ul>
+<li>For the two plots in the first row, parameters of getting bullet signatures are <code>span1=0.25</code> and <code>span2=0.03</code> in <code>cc_get_signature</code>; signature outliers are removed; the parameters of getting the CMPS score are <code>seg_length=61</code>, <code>Tx=30</code>, <code>npeaks.set=c(5, 3, 1)</code></li>
+<li>For the two plots in the second row, parameters of getting bullet signatures are <code>span1=0.75</code> and <code>span2=0.03</code> in <code>cc_get_signature</code>; signature outliers are removed; the parameters of getting the CMPS score are <code>seg_length=61</code>, <code>Tx=30</code>, <code>npeaks.set=c(10, 6, 1)</code></li>
+</ul>
+<p><img src="images/cmps/jan24/hamby44_025_075.png" width="996" /></p>
+<ul>
+<li><p>For the two plots in the first row, parameters of getting bullet signatures are <code>span1=0.25</code> and <code>span2=0.03</code> in <code>cc_get_signature</code>; signature outliers are removed; the parameters of getting the CMPS score are <code>seg_length=61</code>, <code>Tx=30</code>, <code>npeaks.set=c(5, 3, 1)</code></p></li>
+<li><p>For the two plots in the second row, parameters of getting bullet signatures are <code>span1=0.75</code> and <code>span2=0.03</code> in <code>cc_get_signature</code>; signature outliers are removed; the parameters of getting the CMPS score are <code>seg_length=61</code>, <code>Tx=30</code>, <code>npeaks.set=c(10, 6, 1)</code></p></li>
+<li><p>Hamby set 44 has not yet introduced groundtruth of the Unknown bullets</p></li>
+<li><p>For the CMPS algorithm, increasing the number of accepted peaks at the first and second scales can largely increase the CMPS score of KM comparisons, while it has less effects on CMPS scores of KNM comparisons.</p></li>
 </ul>
 </details>
 </div>
 </div>
 <div id="future-work" class="section level4">
-<h4><span class="header-section-number">4.3.3.7</span> Future Work</h4>
+<h4><span class="header-section-number">4.3.4.4</span> Future Work</h4>
 <ul>
 <li><p>improve and manage to submit the CMPS package to CRAN</p></li>
 <li><p>cross-validate some hyper-parameters</p></li>
@@ -2502,7 +2523,86 @@ We can see that the separation of the distribution of <span class="math inline">
 <div id="assessing-quality-of-scans" class="section level2">
 <h2><span class="header-section-number">4.4</span> Assessing Quality of Scans</h2>
 <p>Setting up a CNN to assess scan quality</p>
-<p>XXX Andy, this is you</p>
+<p>The goal for this project is to be able to take the current CSAFE manually identified land engraved areas data and use that data to train a 3d convolutional neural network. Once the 3d convolutional neural network has been trained, we plan to use the model to automate the identification process of land engraved area scans.</p>
+<p>Currently an operator can take a land engraved area scan, which is stored as an x3p file, and upload that file to the fix3p google chrome extension. Once the land engraved area scan is uploaded to fix3p, an operator can manually paint areas of the scan to identify the regions.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-239"></span>
+<img src="images/andy_temp/show_and_tell_3.PNG" alt="Title coming soon." width="40%" />
+<p class="caption">
+Figure 4.101: Title coming soon.
+</p>
+</div>
+<div id="current-data-processing-procedures" class="section level3">
+<h3><span class="header-section-number">4.4.1</span> Current Data Processing Procedures</h3>
+<p>We read in the manually identified land engraved areas into R using the read_x3p function and store each .x3p as a row in a tibble style dataframe.</p>
+<p>There are a lot of missing values contained in the surface matrix for each LEA scan. Missing element values are currently being interpolated by taking the average of a missing element’s 8 neighbors, if they exist.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-240"></span>
+<img src="images/andy_temp/Missing_Values_Interpolation_Facet_2.png" alt="Title coming soon." width="40%" />
+<p class="caption">
+Figure 4.102: Title coming soon.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-241-1"></span>
+<img src="images/andy_temp/Missing_Values_Interpolation_1.png" alt="Title coming soon." width="40%" />
+<p class="caption">
+Figure 4.103: Title coming soon.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-241-2"></span>
+<img src="images/andy_temp/Missing_Values_Interpolation_3.png" alt="Title coming soon." width="40%" />
+<p class="caption">
+Figure 4.104: Title coming soon.
+</p>
+</div>
+<p>Next, we take each x3p file containing a masked LEA scan, crop, and store each 128x128 resolution grid of the original scan as a new x3p.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-242"></span>
+<img src="images/andy_temp/csafe_21_noNA_x3p.PNG" alt="Title coming soon." width="40%" />
+<p class="caption">
+Figure 4.105: Title coming soon.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-243-1"></span>
+<img src="images/andy_temp/csafe_21_nostriae_2.PNG" alt="Title coming soon." width="10%" />
+<p class="caption">
+Figure 4.106: Title coming soon.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-243-2"></span>
+<img src="images/andy_temp/csafe_21_vert_2.PNG" alt="Title coming soon." width="10%" />
+<p class="caption">
+Figure 4.107: Title coming soon.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-243-3"></span>
+<img src="images/andy_temp/csafe_21_groove_2.PNG" alt="Title coming soon." width="10%" />
+<p class="caption">
+Figure 4.108: Title coming soon.
+</p>
+</div>
+<p>3d convolutional neural networks take data as 5D tensors with shape (samples, conv_dim1, conv_dim2, conv_dim3, channels), where samples(also known as batch_shape) are the number of observations to be trained, the dimensions are our width, height, and depth values, and channels represent the color scale(=1 for greyscale and =3 for RGB color scale). Another way to think of a 5D tensor is just to think of a 5 dimensional array.</p>
+<p>We take the surface martix associated with each cropped x3p, transform each surface matrix to a (x, y, 1, 1) array, a 4d array or a 4d tensor. Then we can bind each surface matrix together creating a (n, x, y, 1, 1) array, a 5d array or a 5d tensor. n represents the batch_shape, x and y represent the width and height dimensions, the first “1” represents the elements contained in each surface matrix and the last “1” represents the color scale, greyscale.</p>
+</div>
+<div id="convolutional-neural-networks" class="section level3">
+<h3><span class="header-section-number">4.4.2</span> Convolutional Neural Networks</h3>
+<p class="new">
+Previous work will be added in the near future.
+</p>
+<p><strong>Current Results:</strong></p>
+<ul>
+<li><p>30 Layer 3d Convolutional Residual Network</p></li>
+<li><p>Skip Connections are used to allow for a deeper and more complex model.</p></li>
+<li><p>Standard concatenation of layers(Previous Layer + Residual Layer) when feature maps for both layers are the same dimensions.</p></li>
+<li><p>When two layers feature maps differ, a linear projection is used for the would be residual layer(1x1 convolutions, stride = 2, batch normalization, and no relu activation)</p></li>
+<li><p>This new residual network is twice as fast as the current shallow network 3d cnn.</p></li>
+<li><p>Residual network also performs better at multiclassification compared to the shallow network 3d cnn.</p></li>
+<li><p>Residual Network also performs well on new never seen before data. 6 label validation classification ~ 84%</p></li>
+</ul>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-244"></span>
+<img src="images/andy_temp/ResNet_3D_CNN_Performance.png" alt="Title coming soon." width="50%" />
+<p class="caption">
+Figure 4.109: Title coming soon.
+</p>
+</div>
+</div>
 </div>
 <div id="analysis-of-results" class="section level2">
 <h2><span class="header-section-number">4.5</span> Analysis of Results</h2>
@@ -2511,36 +2611,36 @@ We can see that the separation of the distribution of <span class="math inline">
 <p class="new">
 evaluation: Yawei is going to work through all 626 barrels of knowns to assess similarity scores
 </p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-237"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-245"></span>
 <img src="images/yawei/results-FAU-1.png" alt="Results from assessing scans of barrel FAU 1 similarity." width="50%" />
 <p class="caption">
-Figure 4.101: Results from assessing scans of barrel FAU 1 similarity.
+Figure 4.110: Results from assessing scans of barrel FAU 1 similarity.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-238"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-246"></span>
 <img src="images/yawei/results-FAU-2.png" alt="Results from assessing scans of barrel FAU 2 similarity." width="50%" />
 <p class="caption">
-Figure 4.102: Results from assessing scans of barrel FAU 2 similarity.
+Figure 4.111: Results from assessing scans of barrel FAU 2 similarity.
 </p>
 </div>
 <p>Why some of the cases failed? (181/626 = 30%)</p>
 <p><code>x3p_crosscut_optimize()</code> failed to find the positions to get cross cut for some lands.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-239"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-247"></span>
 <img src="images/yawei/lapd-FAU-3-Bullet-A-land-6.PNG" alt="Land scan for barrel FAU 3 bullet A land 6." width="50%" />
 <p class="caption">
-Figure 4.103: Land scan for barrel FAU 3 bullet A land 6.
+Figure 4.112: Land scan for barrel FAU 3 bullet A land 6.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-240"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-248"></span>
 <img src="images/yawei/lapd-FAU-4-Bullet-C-land-5.PNG" alt="Land scan for barrel FAU 4 bullet C land 5." width="50%" />
 <p class="caption">
-Figure 4.104: Land scan for barrel FAU 4 bullet C land 5.
+Figure 4.113: Land scan for barrel FAU 4 bullet C land 5.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-241"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-249"></span>
 <img src="images/yawei/lapd-FAU-5-Bullet-B-land-5.PNG" alt="Land scan for barrel FAU 5 bullet B land 5." width="50%" />
 <p class="caption">
-Figure 4.105: Land scan for barrel FAU 5 bullet B land 5.
+Figure 4.114: Land scan for barrel FAU 5 bullet B land 5.
 </p>
 </div>
 <p>Assess the land-land comparasion and bullet-bullet comparasion</p>
@@ -2549,101 +2649,101 @@ Figure 4.105: Land scan for barrel FAU 5 bullet B land 5.
 <p>For the known mathches, we have totally 626 x 6 = 3756 for the LAPD data, excluding the comparasions for same bullet.</p>
 <p>For the known non-matches, we don’t have the data in hand. We need to generate the data in a way. We have totally 626 x 625/2 x 16 = 313000 known non-matches. We can only generate a sample from the data.</p>
 <p>We sampled 100 bullet-bullet known non-matches from our 92 cases.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-242"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-250"></span>
 <img src="images/yawei/knmkm.png" alt="KM and KNM" width="50%" />
 <p class="caption">
-Figure 4.106: KM and KNM
+Figure 4.115: KM and KNM
 </p>
 </div>
 <p>Is the SAM(sequence average maximum) a good choice? Need to do a permutation test.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-243"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-251"></span>
 <img src="images/yawei/sam_1.PNG" alt="SAM permutation result" width="50%" />
 <p class="caption">
-Figure 4.107: SAM permutation result
+Figure 4.116: SAM permutation result
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-244"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-252"></span>
 <img src="images/yawei/sam_max_1.PNG" alt="SAM permutation result among maxmum" width="50%" />
 <p class="caption">
-Figure 4.108: SAM permutation result among maxmum
+Figure 4.117: SAM permutation result among maxmum
 </p>
 </div>
 <p>Possible dependence structure in land-land comparasions:</p>
 <p>Assume beta distributions for the ccf for both known mathces and known non-matches. For the real known match cases, we consider a mixture distribution of two/three beta distribution.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-245"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-253"></span>
 <img src="images/yawei/km-three-alldata.png" alt="KM three components for all data" width="50%" />
 <p class="caption">
-Figure 4.109: KM three components for all data
-</p>
-</div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-246"></span>
-<img src="images/yawei/knm-two-alldata.png" alt="KNM two components for all data" width="50%" />
-<p class="caption">
-Figure 4.110: KNM two components for all data
-</p>
-</div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-247"></span>
-<img src="images/yawei/commoncomp.png" alt="common component" width="50%" />
-<p class="caption">
-Figure 4.111: common component
-</p>
-</div>
-<p>Ten-fold-cross validation (no validation yet), check the model estimator sensibility</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-248"></span>
-<img src="images/yawei/km-two.png" alt="KM ten-fold models for two components" width="50%" />
-<p class="caption">
-Figure 4.112: KM ten-fold models for two components
-</p>
-</div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-249"></span>
-<img src="images/yawei/km-three.png" alt="KM ten-fold models for three components" width="50%" />
-<p class="caption">
-Figure 4.113: KM ten-fold models for three components
-</p>
-</div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-250"></span>
-<img src="images/yawei/knm-one.png" alt="KNM ten-fold models for one component" width="50%" />
-<p class="caption">
-Figure 4.114: KNM ten-fold models for one component
-</p>
-</div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-251"></span>
-<img src="images/yawei/knm-two.png" alt="KNM ten-fold models for two components" width="50%" />
-<p class="caption">
-Figure 4.115: KNM ten-fold models for two components
-</p>
-</div>
-<p>Increasing sample size: 1, 2, 6, 12, … number of barrels</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-252"></span>
-<img src="images/yawei/km-two-cum.png" alt="KM increasing sample models for two components" width="50%" />
-<p class="caption">
-Figure 4.116: KM increasing sample models for two components
-</p>
-</div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-253"></span>
-<img src="images/yawei/knm-one-cum.png" alt="KNM increasing sample models for one components" width="50%" />
-<p class="caption">
-Figure 4.117: KNM increasing sample models for one components
+Figure 4.118: KM three components for all data
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-254"></span>
+<img src="images/yawei/knm-two-alldata.png" alt="KNM two components for all data" width="50%" />
+<p class="caption">
+Figure 4.119: KNM two components for all data
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-255"></span>
+<img src="images/yawei/commoncomp.png" alt="common component" width="50%" />
+<p class="caption">
+Figure 4.120: common component
+</p>
+</div>
+<p>Ten-fold-cross validation (no validation yet), check the model estimator sensibility</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-256"></span>
+<img src="images/yawei/km-two.png" alt="KM ten-fold models for two components" width="50%" />
+<p class="caption">
+Figure 4.121: KM ten-fold models for two components
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-257"></span>
+<img src="images/yawei/km-three.png" alt="KM ten-fold models for three components" width="50%" />
+<p class="caption">
+Figure 4.122: KM ten-fold models for three components
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-258"></span>
+<img src="images/yawei/knm-one.png" alt="KNM ten-fold models for one component" width="50%" />
+<p class="caption">
+Figure 4.123: KNM ten-fold models for one component
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-259"></span>
+<img src="images/yawei/knm-two.png" alt="KNM ten-fold models for two components" width="50%" />
+<p class="caption">
+Figure 4.124: KNM ten-fold models for two components
+</p>
+</div>
+<p>Increasing sample size: 1, 2, 6, 12, … number of barrels</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-260"></span>
+<img src="images/yawei/km-two-cum.png" alt="KM increasing sample models for two components" width="50%" />
+<p class="caption">
+Figure 4.125: KM increasing sample models for two components
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-261"></span>
+<img src="images/yawei/knm-one-cum.png" alt="KNM increasing sample models for one components" width="50%" />
+<p class="caption">
+Figure 4.126: KNM increasing sample models for one components
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-262"></span>
 <img src="images/yawei/km-c1-cum.png" alt="KM increasing sample for first component" width="50%" />
 <p class="caption">
-Figure 4.118: KM increasing sample for first component
+Figure 4.127: KM increasing sample for first component
 </p>
 </div>
 <p>More on the weight</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-255"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-263"></span>
 <img src="images/yawei/priorboxplot.png" alt="Prior weight on components" width="50%" />
 <p class="caption">
-Figure 4.119: Prior weight on components
+Figure 4.128: Prior weight on components
 </p>
 </div>
 <p>More on one barrel case</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-256"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-264"></span>
 <img src="images/yawei/onebarrel.png" alt="KM one barrel model for the frist ten barrels" width="50%" />
 <p class="caption">
-Figure 4.120: KM one barrel model for the frist ten barrels
+Figure 4.129: KM one barrel model for the frist ten barrels
 </p>
 </div>
 <p>Some conclusions from current plots:</p>
@@ -2663,50 +2763,50 @@ Figure 4.120: KM one barrel model for the frist ten barrels
 <li><p>One-barrel KM models and full data KNM model. One-barrel KM models use the first ten barrels.</p></li>
 </ol>
 <p>From the ROC curves, we can easily see how stable our procedure is in terms of the classification performance. Note that those ROC curves start with the y-axis higher than 0.5 (which may be changed later). And the TPR(y-value) goes up steeply to about 0.75 with almost no change in FPR(x-value). Then the curve gradually goes up with different rates. There are two significant points from the ROC curves: 1) the pattern is very stable in the ROC curves across different cases and within each case; 2) the models perform very well. And also note that when we produce ROC curves, we need to get test sets and specify sample size and proportion. Here we generate the test set from the full data randomly, and set KM/KNM ratio as 200/1000. The same set is used in all three ROC plots. We choose such a ratio to make the true positive classification more difficult. If we set KM/KNM as 1000/1000, the curves will be smoother and get rid of those concave regions in current plots and of course, perform a little better in those concave regions but not significantly different in overall performance and pattern.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-257"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-265"></span>
 <img src="images/yawei/roc-cvmodels-new.png" alt="ROC-cv-models" width="50%" />
 <p class="caption">
-Figure 4.121: ROC-cv-models
+Figure 4.130: ROC-cv-models
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-258"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-266"></span>
 <img src="images/yawei/roc-differentsize-new.png" alt="ROC-different-size-models" width="50%" />
 <p class="caption">
-Figure 4.122: ROC-different-size-models
+Figure 4.131: ROC-different-size-models
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-259"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-267"></span>
 <img src="images/yawei/roc-onebarrel-new.png" alt="ROC-one-barrel" width="50%" />
 <p class="caption">
-Figure 4.123: ROC-one-barrel
+Figure 4.132: ROC-one-barrel
 </p>
 </div>
 <p>To summarize the model fits we have, we compare several important parameters in the following tables. We primarily focus on how stable the model we have with fixed sample size and across different sample sizes.</p>
 <p>From the KM-table and KNM-table, we have the following observations: 1) The weight of the components is not stable in terms of large standard errors in both KM and KNM cases with small sample sizes. 2) The mean values of the distributions (parameter mu) are relatively stable, especially for the primary components (first component for KNM and second component for KM). 3) The variance of the estimated distributions (parameter phi) is not stable, which is reasonable because it takes care of the variation of the data in each fit. 4) The variance of the estimated distributions (parameter phi) decreases as sample size increases. To better understand how well the model fit is and how stable it is we should also refer to the actual curves to help us see what those parameters actually mean in the curves. And I would say three barrels may be a safe minimum sample size to get a stable fit across different cases in terms of handling differences and variations existing in data sets but it’s not the minimum sample size required to make good classifications.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-260"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-268"></span>
 <img src="images/yawei/km-table1.PNG" alt="KM-table" width="100%" />
 <p class="caption">
-Figure 4.124: KM-table
+Figure 4.133: KM-table
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-261"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-269"></span>
 <img src="images/yawei/knm-table1.PNG" alt="KNM-table" width="100%" />
 <p class="caption">
-Figure 4.125: KNM-table
+Figure 4.134: KNM-table
 </p>
 </div>
 <p>We’re also interested in the variation of mean values of KM ccf in different barrels. The following boxplot with the global box as the right most one is shown for this comparison. From this plot, the constant mean value assumption may be challenged, however, we must take the practice work of scan and identification into considerations when making such conclusions.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-262"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-270"></span>
 <img src="images/yawei/ccfineachbarrel.png" alt="ccf in each barrel" width="50%" />
 <p class="caption">
-Figure 4.126: ccf in each barrel
+Figure 4.135: ccf in each barrel
 </p>
 </div>
 <p>To show how our model works in a single barrel case, we conduct the model fit as in the real case. We fit the KM and KNM models with three bullet comparisons (18 KM and 135 KNM land-land ccf respectively), and conduct a test on those comparisons with the forth bullet (18 KM and 105 KNM land-land ccf respectively). We conduct the above procedure in a LOO frame work, i.e. to leave one bullet out each time. The ROC curves for two barrels are shown as follows. We can see the classification results are almost as good as the previous ones.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-263"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-271"></span>
 <img src="images/yawei/withinbarrel4256roc-new.png" alt="within barrel ROC for barrel 42 and 56" width="50%" />
 <p class="caption">
-Figure 4.127: within barrel ROC for barrel 42 and 56
+Figure 4.136: within barrel ROC for barrel 42 and 56
 </p>
 </div>
 <p>Error Rate Control and Cutoff</p>
@@ -2715,10 +2815,10 @@ Figure 4.127: within barrel ROC for barrel 42 and 56
 <p><span class="math display">\[T = log(\frac{KM}{KNM})\]</span></p>
 <p>In which case, we reject the null hypohesis that the new bullet is from different source from our testing bullets when we have a large value for <span class="math inline">\(T\)</span>.</p>
 <p>First we have a look at how this log-likelihood ratio statistic changes with respect to the ccf score we calculated.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-264"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-272"></span>
 <img src="images/yawei/loglr-fau42.png" alt="loglr-fau42" width="50%" />
 <p class="caption">
-Figure 4.128: loglr-fau42
+Figure 4.137: loglr-fau42
 </p>
 </div>
 <p>Clearly, there is a potential issue with the log-likelihood ratio since it is not monotone w.r.t ccf, which means a larger ccf may lead to a smaller test statistic sometimes. As we can see when ccf is 0.45, the log-lr is 0.127 &gt; 0, however it goes below 0 when ccf increase to 0.523 (the cutoff with type one error rate as 0.05). We can also find another issue from a different aspect. If we set the type one error as 0.05 (which should be smaller in practice), then we find the ccf with this error rate from KNM (null hypothesis) is 0.523. Then the log-likelihood ratio we calculated at this point is -1.11, which means we have larger likelihood for KNM than KM even with this large enough cutoff in terms of the type one error rate. These two criteria give us contradicted results. The cutoff we set according to the usual type one error rate contradicted with the one indicated by log-likelihood ratio. However, the lower tail of the KM distribution at this cutoff here is 0.12, which is twice as larger as 0.05, which is contradicted with the log-lr again.</p>
@@ -2733,22 +2833,22 @@ Figure 4.128: loglr-fau42
 </ol>
 <p>An additional requirement may be <span class="math display">\[(1-p_2) &gt; Mp_1\]</span> for a large M.</p>
 <p>We are going to compare the above methods next.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-265"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-273"></span>
 <img src="images/yawei/curves.png" alt="two curves" width="50%" />
 <p class="caption">
-Figure 4.129: two curves
+Figure 4.138: two curves
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-266"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-274"></span>
 <img src="images/yawei/oddsratio2.png" alt="odds ratio" width="50%" />
 <p class="caption">
-Figure 4.130: odds ratio
+Figure 4.139: odds ratio
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-267"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-275"></span>
 <img src="images/yawei/comparetable3.PNG" alt="comparison table" width="100%" />
 <p class="caption">
-Figure 4.131: comparison table
+Figure 4.140: comparison table
 </p>
 </div>
 <p>We also have a look at the random forest scores for the LAPD sets. Our goal is to specify distributional forms to model the scores for known match (KM) and known non-match (KNM), and reach the estimated underlying theoretical error rates to evaluate the automatic matching algorithms. We would also investigate how this estimated theoretical error rates change with different sample sizes. Particularly, we make use of the LAPD data set which provide large samples to make this evaluation of underlying error rates possible. And we consider the beta distributions and beta-mixture distributions as candidate distributional forms. By consider beta-mixture distributions, we would like to introduce a second component to account for the heavy tail and the potential second mode (for KM particularly) of KM and KNM. We started with the more complex beta-mixture distribution which takes the single beta distributions as simpler cases and determine if the beta-mixture/beta distribution is sufficient to describe the data by conducting the lack of fit test through likelihood which has an asymptotic chi-square distribution. And the error rates will be evaluated under controlled conditions (given threshold selection method) and the effect of sample sizes will also be established based on the this.</p>
@@ -2765,16 +2865,16 @@ the full available data. The figure 4.130 was produced for a particular barrel. 
 <li><p>KNM has two modes, which is unexpected</p></li>
 <li><p>Estimated KM distribution seems to be able to improve, potentially affected by extreme values</p></li>
 </ul>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-268"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-276"></span>
 <img src="images/yawei/fau330rf.png" alt="FAU330: rugs with A, densities without A for RF scores" width="50%" />
 <p class="caption">
-Figure 4.132: FAU330: rugs with A, densities without A for RF scores
+Figure 4.141: FAU330: rugs with A, densities without A for RF scores
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-269"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-277"></span>
 <img src="images/yawei/rf_full_2components_estimated.png" alt="Random forest scores and estimated distributions for full data" width="50%" />
 <p class="caption">
-Figure 4.133: Random forest scores and estimated distributions for full data
+Figure 4.142: Random forest scores and estimated distributions for full data
 </p>
 </div>
 <p>Currently, we have the following major issues to solve before going further. And these are more of technical issues.</p>
@@ -2812,10 +2912,10 @@ where, barrel effect, land effect, explosion effect, random effect are respectiv
 <p>We extract markings, locate grooves, align signatures, and generate cross-comparison results. Each step is notified in UI and all steps are logged.</p>
 <p>The scores and results are then communicated through an interactive visualization. We first interact at the top most level where we have bullet-to-bullet scores for all the cross-comparisons presented in a grid. We can select one comparison at a time which would generate a second level of grid visualization that shows the land-to-land scores for all 36 comparisons within a bullet. Interacting with this visualization, we can now pull up score tables, profiles, location of grooves, aligned signatures and raw images.</p>
 <p>The framework of interactions, allows for validation of classification recommended by the RF model as well as gives an opportunity to critically asses, identify the cause and diagnose any problems encountered in the bullet matching pipeline.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-270"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-278"></span>
 <img src="images/bullets/gan-app2_consolidated.png" alt="An instance of the interactive visualizations for communicating results" width="50%" />
 <p class="caption">
-Figure 4.134: An instance of the interactive visualizations for communicating results
+Figure 4.143: An instance of the interactive visualizations for communicating results
 </p>
 </div>
 </div>
@@ -2839,10 +2939,10 @@ Figure 4.134: An instance of the interactive visualizations for communicating re
 3. Best set of questionnaires need to be figured out.</p>
 <div id="measuring-trust-and-calibration" class="section level3">
 <h3><span class="header-section-number">4.7.1</span> Measuring Trust and calibration</h3>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-271"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-279"></span>
 <img src="images/bullets/questionnaire.png" alt="Questionnaire setup for comparing trust in scores" width="50%" />
 <p class="caption">
-Figure 4.135: Questionnaire setup for comparing trust in scores
+Figure 4.144: Questionnaire setup for comparing trust in scores
 </p>
 </div>
 <ol style="list-style-type: decimal">

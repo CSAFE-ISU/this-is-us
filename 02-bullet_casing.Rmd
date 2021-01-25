@@ -2829,7 +2829,13 @@ knitr::include_graphics("images/cmps/jan3/Hamby44_cmps_maxbar_plot.png", dpi=100
 
 Setting up a CNN to assess scan quality
 
-XXX Andy, this is you
+The goal for this project is to be able to take the current CSAFE manually identified land engraved areas data and use that data to train a 3d convolutional neural network. Once the 3d convolutional neural network has been trained, we plan to use the model to automate the identification process of land engraved area scans.
+
+Currently an operator can take a land engraved area scan, which is stored as an x3p file, and upload that file to the fix3p google chrome extension.  Once the land engraved area scan is uploaded to fix3p, an operator can manually paint areas of the scan to identify the regions.
+
+```{r, fig.cap="Results from assessing scans of barrel FAU 1 similarity.", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/andy_temp/show_and_tell_3.png"))
+```
 
 
 ## Analysis of Results  

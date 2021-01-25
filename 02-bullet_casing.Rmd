@@ -36,13 +36,25 @@ Those are:
 
   - DFSC (about 2000) taken with the Sensofar S-neox
   - Cartridges for CSAFE persistence labelled for barrels 1 through 9.
-  - Cadre TopMatch Scanner
+  - Cadre TopMatch Scanner: when taking scans of breech face images, we are following NIBIN protocol as losely as possible.
 
-Some images from Cadre:
+Some sample scans using the Cadre TopMatch scanner. Figure \@ref(fig:topmatch) shows two breech face impressions from the same firearm:
 
-![](images/cartridge_cases/heike/0001_3.1.png)
-![](images/cartridge_cases/heike/0001_4.1.png)
-![](images/cartridge_cases/heike/0001_3.3.png)
+```{r topmatch, fig.cap="TopMatch scans of two breech face impressions from the same source.", , fig.show="hold", out.width="50%"}
+knitr::include_graphics(c("images/cartridge_cases/heike/0001_3.1.png", "images/cartridge_cases/heike/0001_4.1.png"))
+```
+
+When re-taking scans of previously taken breech faces, we noticed that the original data (exported as dat file)  did not match the screen shot taken at the same time as the scan, see figure \@ref(fig:screenshot).
+
+```{r screenshot, fig.cap="Screenshot of Sensofar scan of breech face #K004dD1."}
+knitr::include_graphics("images/cartridge_cases/heike/Study=DFSC-Group=K004-SET=d-Num=1-Code=K004dD1-SCOPE=Sneox2-Obj=10x-Light=A2_autoX1.5-TH=2-RES=4-User=Allison_Mark.png")
+```
+
+After (re-)exporting x3p files for the corresponding scans, we can reconcile the scans. Figure \@ref(fig:sidebyside) shows the scans from Sensofar (left) and TopMatch (right) side by side. Comparisons of these scans will be tricky but possible :)
+
+```{r sidebyside, fig.cap="Side-by-side renderings of breech face #K004dD1 from Sensofar (left) and TopMatch (right).", fig.show="hold", out.width="50%"}
+knitr::include_graphics(c("images/cartridge_cases/heike/senso-p13.png", "images/cartridge_cases/heike/topmatch.png"))
+```
 
 
 ### Scans from land engraved areas on fired bullets

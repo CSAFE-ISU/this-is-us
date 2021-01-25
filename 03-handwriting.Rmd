@@ -915,3 +915,5 @@ Presenting author is in bold.
 
 - Anyesha Ray (data collection)
 - James Taylor (feature extraction)
+
+## Deep Learning Methods

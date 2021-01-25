@@ -917,3 +917,5 @@ Presenting author is in bold.
 - James Taylor (feature extraction)
 
 ## Deep Learning Methods
+
+We are currently researching ways in which we can use convolutional neural networks to classify pieces of handwriting by their author. One potential approach is to use a Siamese neural network which uses the same weights and CNN architecture to train two images and output a metric noting their similarity. With a focus on offline signatures, we are investigating the architectures of different CNNs used for other handwriting datasets to use as a baseline for constructing our own CNN to train and evaluate our handwriting datasets. 

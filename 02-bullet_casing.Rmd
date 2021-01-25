@@ -2869,14 +2869,13 @@ knitr::include_graphics("images/cmps/jan24/hamby252_025_075.png", dpi=100)
 - For the two plots in the second row, parameters of getting bullet signatures are `span1=0.75` and `span2=0.03` in `cc_get_signature`; signature outliers are removed; the parameters of getting the CMPS score are `seg_length=61`, `Tx=30`, `npeaks.set=c(10, 6, 1)`
 
 ```{r}
-knitr::include_graphics("images/cmps/jan24/hamby44_025_075.png", dpi=100)
+knitr::include_graphics("images/cmps/jan24/hamby44_gt.png", dpi=100)
 ```
 
 - For the two plots in the first row, parameters of getting bullet signatures are `span1=0.25` and `span2=0.03` in `cc_get_signature`; signature outliers are removed; the parameters of getting the CMPS score are `seg_length=61`, `Tx=30`, `npeaks.set=c(5, 3, 1)`
 - For the two plots in the second row, parameters of getting bullet signatures are `span1=0.75` and `span2=0.03` in `cc_get_signature`; signature outliers are removed; the parameters of getting the CMPS score are `seg_length=61`, `Tx=30`, `npeaks.set=c(10, 6, 1)`
 
 
-- Hamby set 44 has not yet introduced groundtruth of the Unknown bullets
 - For the CMPS algorithm, increasing the number of accepted peaks at the first and second scales can largely increase the CMPS score of KM comparisons, while it has less effects on CMPS scores of KNM comparisons.  
 
 </details>

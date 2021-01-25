@@ -36,13 +36,25 @@ Those are:
 
   - DFSC (about 2000) taken with the Sensofar S-neox
   - Cartridges for CSAFE persistence labelled for barrels 1 through 9.
-  - Cadre TopMatch Scanner
+  - Cadre TopMatch Scanner: when taking scans of breech face images, we are following NIBIN protocol as losely as possible.
 
-Some images from Cadre:
+Some sample scans using the Cadre TopMatch scanner. Figure \@ref(fig:topmatch) shows two breech face impressions from the same firearm:
 
-![](images/cartridge_cases/heike/0001_3.1.png)
-![](images/cartridge_cases/heike/0001_4.1.png)
-![](images/cartridge_cases/heike/0001_3.3.png)
+```{r topmatch, fig.cap="TopMatch scans of two breech face impressions from the same source.", , fig.show="hold", out.width="50%"}
+knitr::include_graphics(c("images/cartridge_cases/heike/0001_3.1.png", "images/cartridge_cases/heike/0001_4.1.png"))
+```
+
+When re-taking scans of previously taken breech faces, we noticed that the original data (exported as dat file)  did not match the screen shot taken at the same time as the scan, see figure \@ref(fig:screenshot).
+
+```{r screenshot, fig.cap="Screenshot of Sensofar scan of breech face #K004dD1."}
+knitr::include_graphics("images/cartridge_cases/heike/Study=DFSC-Group=K004-SET=d-Num=1-Code=K004dD1-SCOPE=Sneox2-Obj=10x-Light=A2_autoX1.5-TH=2-RES=4-User=Allison_Mark.png")
+```
+
+After (re-)exporting x3p files for the corresponding scans, we can reconcile the scans. Figure \@ref(fig:sidebyside) shows the scans from Sensofar (left) and TopMatch (right) side by side. Comparisons of these scans will be tricky but possible :)
+
+```{r sidebyside, fig.cap="Side-by-side renderings of breech face #K004dD1 from Sensofar (left) and TopMatch (right).", fig.show="hold", out.width="50%"}
+knitr::include_graphics(c("images/cartridge_cases/heike/senso-p13.png", "images/cartridge_cases/heike/topmatch.png"))
+```
 
 
 ### Scans from land engraved areas on fired bullets
@@ -2473,6 +2485,8 @@ The modified chumbley method [@gkhh] can work with two markings at a time. There
 
 In this method we extend the modified chumbley non-random method from land-to-land scoring to bullet-to-bullet scoring. In order to do this, first 6 ordered pairs of lands between the two bullets are chosen for comparison. The modified chumbley method is used on these 6 pairwise comparisons. This results in the same-shift and different-shift comparisons from each of the 6 comparisons. We do not need a land-to-land pairwise U-statistics and classification in this method. Instead all the same-shift and different-shift correlations are now aggregated from the 6 comparisons and a new non-parametric U test is used on the aggregated sets. This gives a test statistic at the bullet level and consequently we can compute p-values. This is used with different nominal significance levels to identify bullet level error rates.
 
+
+### CMPS Algorithm
 #### Introduction to CMPS and Algorithm Summary
 
 <details>
@@ -2747,7 +2761,7 @@ cp1
 
 </details>
 
-#### Apply CMPS to Hamby252
+#### Apply CMPS to Hamby252 and Hamby44
 
 <details>
 <summary>
@@ -2806,7 +2820,6 @@ bulletxtrctr::runExample()
 
 </details>
 
-#### Apply CMPS to Hamby44
 
 <details>
 <summary>
@@ -2832,15 +2845,41 @@ knitr::include_graphics("images/cmps/jan3/Hamby44_cmps_maxbar_plot.png", dpi=100
   + It would be better if we could have a wider separation in these results. I'm still looking for solutions that could further improve these results. One possible direction is to check the parameters used in the computation. For these Hamby44 results, we are using the same parameters as we used for Hamby252 results. But since these two sets have different scan resolution, we might need different sets of parameters.
 
 
-##### demo: bulletinvestigatR
-
-- added features:
-  + exported csv file can now include more info about bullet scans
-  + code section now shows different prompts according to how the users upload their data
+- demo: bulletinvestigatR
+  + added features:
+    - exported csv file can now include more info about bullet scans
+    - code section now shows different prompts according to how the users upload their data
 
 
 </details>
 
+<details>
+<summary>
+Will 01/24 Update: present the results that are used in the CMPS package paper. For both Hamby set 252 and Hamby set 44, the CMPS algorithm is able to distinguish KM comparisons from KNM comparisons. And the UI of `bulletinvestigatR` has been redesigned.
+
+</summary>
+  
+  In the following plots, we are showing the distributions of $\mathrm{CMPS_{max}}$ and $\mathrm{\overline{CMPS}_{max}}$, the two similarity metrics for bullet-level comparisons. 
+
+```{r}
+knitr::include_graphics("images/cmps/jan24/hamby252_025_075.png", dpi=100)
+```
+
+- For the two plots in the first row, parameters of getting bullet signatures are `span1=0.25` and `span2=0.03` in `cc_get_signature`; signature outliers are removed; the parameters of getting the CMPS score are `seg_length=61`, `Tx=30`, `npeaks.set=c(5, 3, 1)`
+- For the two plots in the second row, parameters of getting bullet signatures are `span1=0.75` and `span2=0.03` in `cc_get_signature`; signature outliers are removed; the parameters of getting the CMPS score are `seg_length=61`, `Tx=30`, `npeaks.set=c(10, 6, 1)`
+
+```{r}
+knitr::include_graphics("images/cmps/jan24/hamby44_025_075.png", dpi=100)
+```
+
+- For the two plots in the first row, parameters of getting bullet signatures are `span1=0.25` and `span2=0.03` in `cc_get_signature`; signature outliers are removed; the parameters of getting the CMPS score are `seg_length=61`, `Tx=30`, `npeaks.set=c(5, 3, 1)`
+- For the two plots in the second row, parameters of getting bullet signatures are `span1=0.75` and `span2=0.03` in `cc_get_signature`; signature outliers are removed; the parameters of getting the CMPS score are `seg_length=61`, `Tx=30`, `npeaks.set=c(10, 6, 1)`
+
+
+- Hamby set 44 has not yet introduced groundtruth of the Unknown bullets
+- For the CMPS algorithm, increasing the number of accepted peaks at the first and second scales can largely increase the CMPS score of KM comparisons, while it has less effects on CMPS scores of KNM comparisons.  
+
+</details>
 
 
 #### Future Work
@@ -2853,7 +2892,65 @@ knitr::include_graphics("images/cmps/jan3/Hamby44_cmps_maxbar_plot.png", dpi=100
 
 Setting up a CNN to assess scan quality
 
-XXX Andy, this is you
+The goal for this project is to be able to take the current CSAFE manually identified land engraved areas data and use that data to train a 3d convolutional neural network. Once the 3d convolutional neural network has been trained, we plan to use the model to automate the identification process of land engraved area scans.
+
+Currently an operator can take a land engraved area scan, which is stored as an x3p file, and upload that file to the fix3p google chrome extension.  Once the land engraved area scan is uploaded to fix3p, an operator can manually paint areas of the scan to identify the regions.
+
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="40%"}
+knitr::include_graphics(c("images/andy_temp/show_and_tell_3.png"))
+```
+
+### Current Data Processing Procedures 
+
+We read in the manually identified land engraved areas into R using the read_x3p function and store each .x3p as a row in a tibble style dataframe.
+
+There are a lot of missing values contained in the surface matrix for each LEA scan. Missing element values are currently being interpolated by taking the average of a missing element’s 8 neighbors, if they exist.
+
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="40%"}
+knitr::include_graphics(c("images/andy_temp/Missing_Values_Interpolation_Facet_2.png"))
+```
+
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="40%"}
+knitr::include_graphics(c("images/andy_temp/Missing_Values_Interpolation_1.png", "images/andy_temp/Missing_Values_Interpolation_3.png"))
+```
+
+Next, we take each x3p file containing a masked LEA scan, crop, and store each 128x128 resolution grid of the original scan as a new x3p.
+
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="40%"}
+knitr::include_graphics(c("images/andy_temp/csafe_21_noNA_x3p.png"))
+```
+
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="10%"}
+knitr::include_graphics(c("images/andy_temp/csafe_21_nostriae_2.png", "images/andy_temp/csafe_21_vert_2.png", "images/andy_temp/csafe_21_groove_2.png"))
+```
+
+3d convolutional neural networks take data as 5D tensors with shape (samples, conv_dim1, conv_dim2, conv_dim3, channels), where samples(also known as batch_shape) are the number of observations to be trained, the dimensions are our width, height, and depth values, and channels represent the color scale(=1 for greyscale and =3 for RGB color scale). Another way to think of a 5D tensor is just to think of a 5 dimensional array.
+
+We take the surface martix associated with each cropped x3p, transform each surface matrix to a (x, y, 1, 1) array, a 4d array or a 4d tensor. Then we can bind each surface matrix together creating a (n, x, y, 1, 1) array, a 5d array or a 5d tensor. n represents the batch_shape, x and y represent the width and height dimensions, the first “1” represents the elements contained in each surface matrix and the last “1” represents the color scale, greyscale.
+
+### Convolutional Neural Networks
+
+<p class="new">Previous work will be added in the near future.</p>
+
+**Current Results:**
+
+- 30 Layer 3d Convolutional Residual Network
+
+- Skip Connections are used to allow for a deeper and more complex model.
+
+- Standard concatenation of layers(Previous Layer + Residual Layer)  when feature maps for both layers are the same dimensions.
+
+- When two layers feature maps differ, a linear projection is used for the would be residual layer(1x1 convolutions, stride = 2, batch normalization, and no relu activation)
+
+- This new residual network is twice as fast as the current shallow network 3d cnn.
+
+- Residual network also performs better at multiclassification compared to the shallow network 3d cnn. 
+
+- Residual Network also performs well on new never seen before data.  6 label validation classification ~ 84%
+
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="50%"}
+knitr::include_graphics(c("images/andy_temp/ResNet_3D_CNN_Performance.png"))
+```
 
 
 ## Analysis of Results  
@@ -3118,6 +3215,7 @@ Currently, we have the following major issues to solve before going further. And
 
 - Refine the writeup
 
+testing
 
 #### Look colser to the dependence structure of the land engraved areas
 
@@ -3225,6 +3323,43 @@ include_graphics(c("images/bullets/questionnaire.png"))
   - for a difference in mean of 1 need about 15 participants
   
 6. IRB requisites
+
+### Survey Methods : Pre- vs Post 
+
+1. Explainability in Machine Learning - Fairly new field 
+2. Score based decision-making - Even lesser information available
+3. Existing surveys and scales with explainability and trust in mind
+4. Psychometric evaluation of survey questions:
+  a. Scale validity: Content Validity Ratio
+  b. Scale validity: Discriminant Validity
+5. System definition: Score Evaluation System
+   1. Decision-making revolving scores
+   2. Domain knowledge + Essential Processing Information + Comparative scoring with score uncertainty coming from (a) Presence of all scores (b) Reasoning based on "prior" (domain + model pipeline process information) knowledge  
+    VS
+     Domain knowledge + Essential Processing Information + Comparative scoring with score uncertainty coming from (a) Presence of all scores (b) Reasoning based on "prior" (domain + model pipeline process information) knowledge + Pipeline Stage specific and comparison specific information from each comparison made by model to generate scores.
+     
+6. Pros of such an explanation setup
+   (a) Evaluation is purely about scores and the understanding gathered about the uncertainty around it
+   (b) Provides a good setup to minimize pre-existing biased/ unyielding concepts of trust in algorithmic scoring models - machine learning or not.
+   
+Instructions for participants:
+ Vital instructions with goals of keeping post-experience inference being minimally affected by strong prior-beliefs about algorithmic pattern matching vs human pattern recognition:
+   (a) Heavy reliance on quality of definition of the system, and communication of the "score" based goals of the explanation system.
+   (b) Presentation of the system as solely a "score explanation system", and evaluation of inference drawn from "scores" in the presence of inter-pipeline explanations and in the absence of it.
+   
+#### Setup:
+Need multiple instances for conducting the survey - different cases for assessing different attributes
+Week of January 18th 
+ 1. Setting up instances for multiple sessions for survey. Fixing errors in script for pre-processing, generating modules for cases.
+ 2. Evaluating the qualtrics survey setup
+ 3. Reviewing existing work
+ 
+Week of January 25th
+ 1. Continuing work on setting up the visualizations and interactive interface instances.
+ 2. Choosing and finalizing different cases as modules. (for testing different attributes in the survey) 
+ 3. Mock setup for execution of the survey
+ 
+
 
 ### Conference Presentations  
 

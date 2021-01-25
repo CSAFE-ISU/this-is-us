@@ -2833,8 +2833,8 @@ The goal for this project is to be able to take the current CSAFE manually ident
 
 Currently an operator can take a land engraved area scan, which is stored as an x3p file, and upload that file to the fix3p google chrome extension.  Once the land engraved area scan is uploaded to fix3p, an operator can manually paint areas of the scan to identify the regions.
 
-```{r, fig.cap="Title coming soon.", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/andy_temp/show_and_tell_3.png"))
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="40%"}
+knitr::include_graphics(c("images/andy_temp/show_and_tell_3.png"))
 ```
 
 ### Current Data Processing Procedures 
@@ -2843,22 +2843,22 @@ We read in the manually identified land engraved areas into R using the read_x3p
 
 There are a lot of missing values contained in the surface matrix for each LEA scan. Missing element values are currently being interpolated by taking the average of a missing element’s 8 neighbors, if they exist.
 
-```{r, fig.cap="Title coming soon.", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/andy_temp/Missing_Values_Interpolation_Facet_2.png"))
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="40%"}
+knitr::include_graphics(c("images/andy_temp/Missing_Values_Interpolation_Facet_2.png"))
 ```
 
-```{r, fig.cap="Title coming soon.", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/andy_temp/Missing_Values_Interpolation_1.png", "images/andy_temp/Missing_Values_Interpolation_3.png"))
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="40%"}
+knitr::include_graphics(c("images/andy_temp/Missing_Values_Interpolation_1.png", "images/andy_temp/Missing_Values_Interpolation_3.png"))
 ```
 
 Next, we take each x3p file containing a masked LEA scan, crop, and store each 128x128 resolution grid of the original scan as a new x3p.
 
-```{r, fig.cap="Title coming soon.", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/andy_temp/csafe_21_noNA_x3p.png"))
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="40%"}
+knitr::include_graphics(c("images/andy_temp/csafe_21_noNA_x3p.png"))
 ```
 
-```{r, fig.cap="Title coming soon.", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/andy_temp/csafe_21_nostriae_2.png", "images/andy_temp/csafe_21_vert_2.png", "images/andy_temp/csafe_21_groove_2.png"))
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="10%"}
+knitr::include_graphics(c("images/andy_temp/csafe_21_nostriae_2.png", "images/andy_temp/csafe_21_vert_2.png", "images/andy_temp/csafe_21_groove_2.png"))
 ```
 
 3d convolutional neural networks take data as 5D tensors with shape (samples, conv_dim1, conv_dim2, conv_dim3, channels), where samples(also known as batch_shape) are the number of observations to be trained, the dimensions are our width, height, and depth values, and channels represent the color scale(=1 for greyscale and =3 for RGB color scale). Another way to think of a 5D tensor is just to think of a 5 dimensional array.
@@ -2885,8 +2885,8 @@ We take the surface martix associated with each cropped x3p, transform each surf
 
 - Residual Network also performs well on new never seen before data.  6 label validation classification ~ 84%
 
-```{r, fig.cap="Title coming soon.", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/andy_temp/ResNet_3D_CNN_Performance.png"))
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="50%"}
+knitr::include_graphics(c("images/andy_temp/ResNet_3D_CNN_Performance.png"))
 ```
 
 

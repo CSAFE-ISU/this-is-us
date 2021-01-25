@@ -2449,6 +2449,8 @@ The modified chumbley method [@gkhh] can work with two markings at a time. There
 
 In this method we extend the modified chumbley non-random method from land-to-land scoring to bullet-to-bullet scoring. In order to do this, first 6 ordered pairs of lands between the two bullets are chosen for comparison. The modified chumbley method is used on these 6 pairwise comparisons. This results in the same-shift and different-shift comparisons from each of the 6 comparisons. We do not need a land-to-land pairwise U-statistics and classification in this method. Instead all the same-shift and different-shift correlations are now aggregated from the 6 comparisons and a new non-parametric U test is used on the aggregated sets. This gives a test statistic at the bullet level and consequently we can compute p-values. This is used with different nominal significance levels to identify bullet level error rates.
 
+
+### CMPS Algorithm
 #### Introduction to CMPS and Algorithm Summary
 
 <details>
@@ -2723,7 +2725,7 @@ cp1
 
 </details>
 
-#### Apply CMPS to Hamby252
+#### Apply CMPS to Hamby252 and Hamby44
 
 <details>
 <summary>
@@ -2782,7 +2784,6 @@ bulletxtrctr::runExample()
 
 </details>
 
-#### Apply CMPS to Hamby44
 
 <details>
 <summary>
@@ -2808,15 +2809,41 @@ knitr::include_graphics("images/cmps/jan3/Hamby44_cmps_maxbar_plot.png", dpi=100
   + It would be better if we could have a wider separation in these results. I'm still looking for solutions that could further improve these results. One possible direction is to check the parameters used in the computation. For these Hamby44 results, we are using the same parameters as we used for Hamby252 results. But since these two sets have different scan resolution, we might need different sets of parameters.
 
 
-##### demo: bulletinvestigatR
-
-- added features:
-  + exported csv file can now include more info about bullet scans
-  + code section now shows different prompts according to how the users upload their data
+- demo: bulletinvestigatR
+  + added features:
+    - exported csv file can now include more info about bullet scans
+    - code section now shows different prompts according to how the users upload their data
 
 
 </details>
 
+<details>
+<summary>
+Will 01/24 Update: present the results that are used in the CMPS package paper. For both Hamby set 252 and Hamby set 44, the CMPS algorithm is able to distinguish KM comparisons from KNM comparisons. And the UI of `bulletinvestigatR` has been redesigned.
+
+</summary>
+  
+  In the following plots, we are showing the distributions of $\mathrm{CMPS_{max}}$ and $\mathrm{\overline{CMPS}_{max}}$, the two similarity metrics for bullet-level comparisons. 
+
+```{r}
+knitr::include_graphics("images/cmps/jan24/hamby252_025_075.png", dpi=100)
+```
+
+- For the two plots in the first row, parameters of getting bullet signatures are `span1=0.25` and `span2=0.03` in `cc_get_signature`; signature outliers are removed; the parameters of getting the CMPS score are `seg_length=61`, `Tx=30`, `npeaks.set=c(5, 3, 1)`
+- For the two plots in the second row, parameters of getting bullet signatures are `span1=0.75` and `span2=0.03` in `cc_get_signature`; signature outliers are removed; the parameters of getting the CMPS score are `seg_length=61`, `Tx=30`, `npeaks.set=c(10, 6, 1)`
+
+```{r}
+knitr::include_graphics("images/cmps/jan24/hamby44_025_075.png", dpi=100)
+```
+
+- For the two plots in the first row, parameters of getting bullet signatures are `span1=0.25` and `span2=0.03` in `cc_get_signature`; signature outliers are removed; the parameters of getting the CMPS score are `seg_length=61`, `Tx=30`, `npeaks.set=c(5, 3, 1)`
+- For the two plots in the second row, parameters of getting bullet signatures are `span1=0.75` and `span2=0.03` in `cc_get_signature`; signature outliers are removed; the parameters of getting the CMPS score are `seg_length=61`, `Tx=30`, `npeaks.set=c(10, 6, 1)`
+
+
+- Hamby set 44 has not yet introduced groundtruth of the Unknown bullets
+- For the CMPS algorithm, increasing the number of accepted peaks at the first and second scales can largely increase the CMPS score of KM comparisons, while it has less effects on CMPS scores of KNM comparisons.  
+
+</details>
 
 
 #### Future Work

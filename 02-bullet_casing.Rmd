@@ -2865,6 +2865,31 @@ include_graphics(c("images/andy_temp/csafe_21_nostriae_2.png", "images/andy_temp
 
 We take the surface martix associated with each cropped x3p, transform each surface matrix to a (x, y, 1, 1) array, a 4d array or a 4d tensor. Then we can bind each surface matrix together creating a (n, x, y, 1, 1) array, a 5d array or a 5d tensor. n represents the batch_shape, x and y represent the width and height dimensions, the first “1” represents the elements contained in each surface matrix and the last “1” represents the color scale, greyscale.
 
+### Convolutional Neural Networks
+
+<p class="new">Previous work will be added in the near future.</p>
+
+**Current Results:**
+
+- 30 Layer 3d Convolutional Residual Network
+
+- Skip Connections are used to allow for a deeper and more complex model.
+
+- Standard concatenation of layers(Previous Layer + Residual Layer)  when feature maps for both layers are the same dimensions.
+
+- When two layers feature maps differ, a linear projection is used for the would be residual layer(1x1 convolutions, stride = 2, batch normalization, and no relu activation)
+
+- This new residual network is twice as fast as the current shallow network 3d cnn.
+
+- Residual network also performs better at multiclassification compared to the shallow network 3d cnn. 
+
+- Residual Network also performs well on new never seen before data.  6 label validation classification ~ 84%
+
+```{r, fig.cap="Title coming soon.", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/andy_temp/ResNet_3D_CNN_Performance.png"))
+```
+
+
 ## Analysis of Results  
 
 ### Stability of the Analysis Process

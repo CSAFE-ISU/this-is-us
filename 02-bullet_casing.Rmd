@@ -3288,6 +3288,43 @@ include_graphics(c("images/bullets/questionnaire.png"))
   
 6. IRB requisites
 
+### Survey Methods : Pre- vs Post 
+
+1. Explainability in Machine Learning - Fairly new field 
+2. Score based decision-making - Even lesser information available
+3. Existing surveys and scales with explainability and trust in mind
+4. Psychometric evaluation of survey questions:
+  a. Scale validity: Content Validity Ratio
+  b. Scale validity: Discriminant Validity
+5. System definition: Score Evaluation System
+   1. Decision-making revolving scores
+   2. Domain knowledge + Essential Processing Information + Comparative scoring with score uncertainty coming from (a) Presence of all scores (b) Reasoning based on "prior" (domain + model pipeline process information) knowledge  
+    VS
+     Domain knowledge + Essential Processing Information + Comparative scoring with score uncertainty coming from (a) Presence of all scores (b) Reasoning based on "prior" (domain + model pipeline process information) knowledge + Pipeline Stage specific and comparison specific information from each comparison made by model to generate scores.
+     
+6. Pros of such an explanation setup
+   (a) Evaluation is purely about scores and the understanding gathered about the uncertainty around it
+   (b) Provides a good setup to minimize pre-existing biased/ unyielding concepts of trust in algorithmic scoring models - machine learning or not.
+   
+Instructions for participants:
+ Vital instructions with goals of keeping post-experience inference being minimally affected by strong prior-beliefs about algorithmic pattern matching vs human pattern recognition:
+   (a) Heavy reliance on quality of definition of the system, and communication of the "score" based goals of the explanation system.
+   (b) Presentation of the system as solely a "score explanation system", and evaluation of inference drawn from "scores" in the presence of inter-pipeline explanations and in the absence of it.
+   
+#### Setup:
+Need multiple instances for conducting the survey - different cases for assessing different attributes
+Week of January 18th 
+ 1. Setting up instances for multiple sessions for survey. Fixing errors in script for pre-processing, generating modules for cases.
+ 2. Evaluating the qualtrics survey setup
+ 3. Reviewing existing work
+ 
+Week of January 25th
+ 1. Continuing work on setting up the visualizations and interactive interface instances.
+ 2. Choosing and finalizing different cases as modules. (for testing different attributes in the survey) 
+ 3. Mock setup for execution of the survey
+ 
+
+
 ### Conference Presentations  
 
 #### American Academy of Forensic Sciences  

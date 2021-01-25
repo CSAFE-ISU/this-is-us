@@ -2427,6 +2427,42 @@ Even with tweaks made to the processing conditions to improve the CMC classifica
 
 </details>
 
+<details>
+<summary>
+Joe 1/24/21: I've been working on exploring more of applying the CMC method in the polar domain. In particular, considering how changing the pre-processing procedures affects the final results.
+</summary>
+
+Transforming a "rectangular domain" cartridge case scan into the polar domain requires interpolation if we desire the result to also be a square matrix. To keep as many of the "raw" values in the scans as possible, we can use Nearest Neighbor interpolation wherein values are populated in polar transformed matrix using whichever single value is closest in the rectangular domain matrix (as opposed to locally averaging rectangular domain pixels to populate a single polar transformed pixel). This transformation necessarily causes distortion (e.g., certain pixels closer to the matrix center may be sampled more than once while those near the edges may not be sampled at all) since it depends on choosing a rotational resolution (e.g., the distance between adjacent pixel indices represents 1 degree). When making cartridge case comparisons in the polar domain, it's important to consider if/how this distortion affects final results. This is what I have recently explored.
+
+The following shows the rectangular and polar-transformed versions of simulated scans created by Dr. VanderPlas. The polar transformation interpolation is affected by how the rectangular domain matrices are initially padded.
+
+```{r, out.width="150%"}
+knitr::include_graphics(c("images/cartridge_cases/1-24-21_update/simulatedScan_rectangular.png"))
+```
+
+```{r, out.width="150%"}
+knitr::include_graphics(c("images/cartridge_cases/1-24-21_update/simulatedScan_polar.png"))
+```
+
+
+One way to ensure that the interpolation (and thus distortion) affects two scans in the exact same way is to translationally align them on the same center pixel. I have created a series of functions to automatically perform this alignment. I wanted to determine how pre-aligning two scans before performing a comparison would affect the final CMC results. To determine whether the classification ability of the CMC method improved by pre-aligning, I considered a statistic that quantifies the between vs. within-group variability of the CMC counts assigned to the "match" and "non-match" groups of the form:
+$$
+r = \frac{\sum_{i=1}^2 \left(\overline{\text{CMC}}_{i} - \overline{\text{CMC}}\right)^2}{\sum_{i=1}^2 \frac{1}{n_i - 1}\sum_{j=1}^{n_i} \left(\text{CMC}_{i,j} - \overline{\text{CMC}}_i\right)^2}
+$$
+where $\overline{\text{CMC}}_i$ denotes the within-group (match or non-match) CMC count average and $\overline{\text{CMC}}$ denotes the grand CMC count average. 
+Greater separation between and less variability within the match and non-match CMC count distributions will yield larger $r$ values. 
+As such, larger values of $r$ are preferred.
+
+I considered the value of $r$ across a variety of processing conditions, most notably whether each pair of scans were translationally aligned before comparison. The values of $r$ are shown below. Each point corresponds to a particular set of processing conditions. We can see that, in fact, translationally aligning each pair of scans before comparisons seems to *worsen* the classification ability (as quantified by $r$). This is contrary to what I had initially hypothesized. 
+
+```{r, out.width="150%"}
+knitr::include_graphics("images/cartridge_cases/1-24-21_update/polarVarianceRatios.png")
+```
+
+One possible explanation is that, because the known match cartridge cases were consecutively fired, it can be observed that the firing pin impression holes are in approximately the same position for all known match pairs. Additionally, it is commonly *assumed* in the cartridge case comparison literature that truly matching cartridge cases only need to be rotated between -30 to 30 degrees to be rotationally aligned. This means that, even without translational pre-alignment, the distortion of truly matching scans may be similar when transformed to the polar domain. The same cannot be said about non-matches since their firing pin holes may be in completely different locations, the "aligning" rotation may be outside of the -30 to 30 range, etc. In short, the CMC method may implicitly rely on the location of the firing pin impression as a feature when performing comparisons. It's unclear whether the firing pin impressions from cartridge cases fired at (perhaps considerably) different times by the same firearm would still be similarly located.
+
+</details>
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
 The moified Chumbley non-random algorithm is a statistical non-paramaetric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segement to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 

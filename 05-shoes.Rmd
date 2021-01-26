@@ -1103,4 +1103,272 @@ When two images using fingerprint powder are are from the same shoe and with the
 
 So far, other existing methods haven't shown any more effectiveness in aligning shoes than the maximum clique. It would be useful if features could be made from the SURF descriptors which could be used to compare shoes without needing to align the images. 
 
- 
+
+
+## Matching shoe prints with ccf
+
+#### Steps to match two shoe scans
+
+```{r echo = FALSE, message = FALSE}
+library(tidyverse)
+library(imager)
+Img.dir.rep1 <- cbind.data.frame(img.no = 1:10, rep = 1) %>%
+  mutate(img.file = paste("images/shoes/ccf/Images12_png/Img",
+                          img.no, "_", rep, ".png", sep = "")) 
+
+Img.dir.rep2 <- cbind.data.frame(img.no = 1:10, rep = 2) %>%
+  mutate(img.file = paste("images/shoes/ccf/Images12_png/Img",
+                          img.no, "_", rep, ".png", sep = "")) 
+
+Img.dir.pairwise.transformed <- cbind.data.frame(moving.Img.no = rep(1:10, each = 10),
+                 fixed.Img.no = rep(1:10, times = 10)) %>%
+  mutate(moving.Img.rep = 1,
+         fixed.Img.rep = if_else(moving.Img.no == fixed.Img.no, 2, 1),
+         transformed.Img.name = paste("Img", moving.Img.no, "_", moving.Img.rep,
+                                      "toImg", fixed.Img.no, "_", fixed.Img.rep, sep = ""),
+         transformed.Img.dir = paste("images/shoes/ccf/Images12_transformed/",
+                                     transformed.Img.name, ".png", sep = "")) %>%
+  mutate(fixed.Img.name = paste("Img", fixed.Img.no, "_", fixed.Img.rep, sep = ""),
+         fixed.Img.dir = paste("images/shoes/ccf/Images12_png/",
+                               fixed.Img.name, ".png", sep = ""))
+Img.list.pairwise.transformed <- as.list(Img.dir.pairwise.transformed$transformed.Img.dir)[1:3] %>%
+  map(~load.image(.x)) #Each image has width of 1595 and height of 4179
+Img.list.pairwise.transformed.fixed <- as.list(Img.dir.pairwise.transformed$fixed.Img.dir)[1:3] %>%
+  map(~load.image(.x))
+```
+
+1. Training/Test sets
+
+- Training set: Shoe scans from 10 shoes that have size 7 and were scanned twice at visit1. Then, 10 matching pairs and 90 non-matching pairs are made. e.g., a matching pair is scan1 and scan2 from the same shoes; a non-matching pair is scan1 from one shoe and scan1 from another shoe. 
+
+- Test set: Shoe scans from 10 shoes that have size 7.5 and were scanned twice at visit1. Then, 10 matching pairs and 90 non-matching pairs are made.
+
+
+2. Align each matching/non-matching pair in training and test sets using Matlab. For each pair, one is reference image and the other is moving image to be aligned with the reference image. For example,
+
+- Ex1: A matching pair: scan1 (left; reference) and scan2 (right; moving) from shoe1
+
+```{r echo = FALSE}
+imappend(list(Img.list.pairwise.transformed.fixed[[1]], 
+                      Img.list.pairwise.transformed[[1]]), "x") %>%
+  plot()
+```
+
+- Ex2: A non-matching pair: scan1 (left; reference) from shoe2 and scan1 (right; moving) from shoe1
+
+```{r echo = FALSE}
+imappend(list(Img.list.pairwise.transformed.fixed[[2]], 
+                      Img.list.pairwise.transformed[[2]]), "x") %>%
+  plot()
+```
+
+- Ex3: A non-matching pair: scan1 (left; reference) from shoe3 and scan1 (right; moving) from shoe1
+
+```{r echo = FALSE}
+imappend(list(Img.list.pairwise.transformed.fixed[[3]], 
+                      Img.list.pairwise.transformed[[3]]), "x") %>%
+  plot()
+```
+
+3. Determine 600px by 600px square coordinate for all of the reference images; the location of square is the same for each reference image. For example, the bottom left corner is at (601, 1001) and the top right corner is at (1200, 1600).
+
+- Ex1: A matching pair: scan1 (left; reference) and scan2 (right; moving) from shoe1
+
+```{r echo = FALSE}
+imappend(list(Img.list.pairwise.transformed.fixed[[1]], 
+                      Img.list.pairwise.transformed[[1]]), "x") %>%
+  plot()
+rect(601, 1001, 1200, 1600, col = "transparent", border = "red") # coloured
+rect(2196, 1001, 2795, 1600, col = "transparent", border = "red") # coloured
+```
+
+- Ex2: A non-matching pair: scan1 (left; reference) from shoe2 and scan1 (right; moving) from shoe1
+
+```{r echo = FALSE}
+imappend(list(Img.list.pairwise.transformed.fixed[[2]], 
+                      Img.list.pairwise.transformed[[2]]), "x") %>%
+  plot()
+rect(601, 1001, 1200, 1600, col = "transparent", border = "red") # coloured
+rect(2196, 1001, 2795, 1600, col = "transparent", border = "red") # coloured
+```
+
+- Ex3: A non-matching pair: scan1 (left; reference) from shoe3 and scan1 (right; moving) from shoe1
+
+```{r echo = FALSE}
+imappend(list(Img.list.pairwise.transformed.fixed[[3]], 
+                      Img.list.pairwise.transformed[[3]]), "x") %>%
+  plot()
+rect(601, 1001, 1200, 1600, col = "transparent", border = "red") # coloured
+rect(2196, 1001, 2795, 1600, col = "transparent", border = "red") # coloured
+```
+
+4. Extract the 600px by 600px square from both reference and moving images in each matching/non-matching pair, and then split each square into 36 smaller squares that are 100px by 100px. As a result, there are 36 100px by 100px squares are obtained from the reference and moving images, respectively, in each pair.
+
+- Ex1:
+
+```{r echo = FALSE}
+par(mfrow = c(1, 2))
+Img.list.pairwise.transformed.fixed[[1]] %>%
+ imsub(x>600 & x<1200) %>%
+         imsub(y>1000 & y <1600) %>%
+  plot()
+rect(1, 1, 600, 600, col = "transparent", border = "red", lwd = 3)
+abline(h = c(100, 200, 300, 400, 500),
+       v = c(100, 200, 300, 400, 500),
+       col = "blue")
+
+Img.list.pairwise.transformed[[1]] %>%
+ imsub(x>600 & x<1200) %>%
+         imsub(y>1000 & y <1600) %>%
+  plot()
+rect(1, 1, 600, 600, col = "transparent", border = "red", lwd = 3)
+abline(h = c(100, 200, 300, 400, 500),
+       v = c(100, 200, 300, 400, 500),
+       col = "blue")
+```
+
+- Ex2:
+
+```{r echo = FALSE}
+par(mfrow = c(1, 2))
+Img.list.pairwise.transformed.fixed[[2]] %>%
+ imsub(x>600 & x<1200) %>%
+         imsub(y>1000 & y <1600) %>%
+  plot()
+rect(1, 1, 600, 600, col = "transparent", border = "red", lwd = 3)
+abline(h = c(100, 200, 300, 400, 500),
+       v = c(100, 200, 300, 400, 500),
+       col = "blue")
+
+Img.list.pairwise.transformed[[2]] %>%
+ imsub(x>600 & x<1200) %>%
+         imsub(y>1000 & y <1600) %>%
+  plot()
+rect(1, 1, 600, 600, col = "transparent", border = "red", lwd = 3)
+abline(h = c(100, 200, 300, 400, 500),
+       v = c(100, 200, 300, 400, 500),
+       col = "blue")
+```
+
+- Ex3:
+
+```{r echo = FALSE}
+par(mfrow = c(1, 2))
+Img.list.pairwise.transformed.fixed[[3]] %>%
+ imsub(x>600 & x<1200) %>%
+         imsub(y>1000 & y <1600) %>%
+  plot()
+rect(1, 1, 600, 600, col = "transparent", border = "red", lwd = 3)
+abline(h = c(100, 200, 300, 400, 500),
+       v = c(100, 200, 300, 400, 500),
+       col = "blue")
+
+Img.list.pairwise.transformed[[3]] %>%
+ imsub(x>600 & x<1200) %>%
+         imsub(y>1000 & y <1600) %>%
+  plot()
+rect(1, 1, 600, 600, col = "transparent", border = "red", lwd = 3)
+abline(h = c(100, 200, 300, 400, 500),
+       v = c(100, 200, 300, 400, 500),
+       col = "blue")
+```
+
+5. Compute maximum cross correlation function from a small square of a reference image and its corresponding small square of the moving image. Consequently, there are 36 maximum ccf and their (dx, dy) obtained from each matching/nonmatching pair. Summarize ccf, dx, and dy so that only a single set of features from them is made from each pair.
+
+```{r echo = FALSE}
+training.dat.ex <- read.table("images/shoes/ccf/summary.by.paired.images.csv", 
+                           header = TRUE, sep = ",")
+head(training.dat.ex)
+```
+
+6. Train randomforest based on the features of ccf, dx, and dy from the training set, and predict whether each pair in the test set is matching or non-matching.
+
+```{r echo = FALSE, message = FALSE}
+library(randomForest)
+# write.table(summary.by.paired.images,
+#             "~/Shoe/Footwear_2D_longitudinal/summary.by.paired.images.csv", sep = ",")
+# write.table(Test.summary.by.paired.images,
+#             "~/Shoe/Footwear_2D_longitudinal/Test.summary.by.paired.images.csv", sep = ",")
+training.dat <- read.table("images/shoes/ccf/summary.by.paired.images.csv", 
+                           header = TRUE, sep = ",")
+test.dat <- read.table("images/shoes/ccf/Test.summary.by.paired.images.csv", 
+                           header = TRUE, sep = ",")
+rf.matching <- randomForest(x = training.dat %>%
+                              dplyr::select(fft_ccf_mean, fft_ccf_sd, fft_ccf_range,
+                                            x_mean, x_sd, x_range,
+                                            y_mean, y_sd, y_range),
+                            y = factor(training.dat$actual.matching),
+                            ntree = 100)
+
+rf.predicted <- predict(rf.matching, 
+                        newdata = test.dat %>%
+                          dplyr::select(fft_ccf_mean, fft_ccf_sd, fft_ccf_range,
+                                        x_mean, x_sd, x_range,
+                                        y_mean, y_sd, y_range)) # The matching result should be one for 1, 12, 23, 34, 45, 56, 67, 78, 89, 100, and otherwise, zero.
+
+
+
+rf.matching.reversed <- randomForest(x = test.dat %>%
+                              dplyr::select(fft_ccf_mean, fft_ccf_sd, fft_ccf_range,
+                                            x_mean, x_sd, x_range,
+                                            y_mean, y_sd, y_range),
+                            y = factor(test.dat$actual.matching),
+                            ntree = 100)
+
+rf.predicted.reversed <- predict(rf.matching.reversed, 
+                        newdata = training.dat %>%
+                          dplyr::select(fft_ccf_mean, fft_ccf_sd, fft_ccf_range,
+                                        x_mean, x_sd, x_range,
+                                        y_mean, y_sd, y_range)) # The matching result should be one for 1, 45, 56, 78, 89, 100, and otherwise, zero.
+```
+
+```{r}
+rf.predicted[c(1, 12, 23, 34, 45, 56, 67, 78, 89, 100)] # Actual matching pair
+
+rf.predicted[-c(1, 12, 23, 34, 45, 56, 67, 78, 89, 100)] # Actual non-matching pair
+```
+
+
+
+
+
+
+
+
+
+
+
+#### Massive matching pairs added to training set
+
+```{r echo = FALSE, message = FALSE}
+library(randomForest)
+# write.table(summary.by.paired.images,
+#             "~/Shoe/Footwear_2D_longitudinal/summary.by.paired.images.csv", sep = ",")
+# write.table(Test.summary.by.paired.images,
+#             "~/Shoe/Footwear_2D_longitudinal/Test.summary.by.paired.images.csv", sep = ",")
+training.dat <- read.table("images/shoes/ccf/summary.by.paired.images.csv", 
+                           header = TRUE, sep = ",") %>%
+  dplyr::select(!c(moving.Img.no, fixed.Img.no))
+extra.training.dat <- read.table("images/shoes/ccf/Extra.summary.by.paired.images.csv", 
+                           header = TRUE, sep = ",") 
+training.dat <- rbind(training.dat, extra.training.dat)
+test.dat <- read.table("images/shoes/ccf/Test.summary.by.paired.images.csv", 
+                           header = TRUE, sep = ",")
+rf.matching <- randomForest(x = training.dat %>%
+                              dplyr::select(fft_ccf_mean, fft_ccf_sd, fft_ccf_range,
+                                            x_mean, x_sd, x_range,
+                                            y_mean, y_sd, y_range),
+                            y = factor(training.dat$actual.matching),
+                            ntree = 100)
+
+rf.predicted <- predict(rf.matching, 
+                        newdata = test.dat %>%
+                          dplyr::select(fft_ccf_mean, fft_ccf_sd, fft_ccf_range,
+                                        x_mean, x_sd, x_range,
+                                        y_mean, y_sd, y_range))
+
+rf.predicted[c(1, 12, 23, 34, 45, 56, 67, 78, 89, 100)] # Actual matching pair
+
+rf.predicted[-c(1, 12, 23, 34, 45, 56, 67, 78, 89, 100)] # Actual non-matching pair
+
+```

@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2021-01-24" />
+<meta name="date" content="2021-01-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,44 +50,72 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -135,6 +163,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.3.1" data-path="bullets.html"><a href="bullets.html#bullet-lands"><i class="fa fa-check"></i><b>4.3.1</b> Bullet Lands</a></li>
 <li class="chapter" data-level="4.3.2" data-path="bullets.html"><a href="bullets.html#cartridge-cases"><i class="fa fa-check"></i><b>4.3.2</b> Cartridge Cases</a></li>
 <li class="chapter" data-level="4.3.3" data-path="bullets.html"><a href="bullets.html#modified-chumbley-non-random-test"><i class="fa fa-check"></i><b>4.3.3</b> Modified Chumbley non-random test</a></li>
+<li class="chapter" data-level="4.3.4" data-path="bullets.html"><a href="bullets.html#cmps-algorithm"><i class="fa fa-check"></i><b>4.3.4</b> CMPS Algorithm</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="bullets.html"><a href="bullets.html#assessing-quality-of-scans"><i class="fa fa-check"></i><b>4.4</b> Assessing Quality of Scans</a><ul>
 <li class="chapter" data-level="4.4.1" data-path="bullets.html"><a href="bullets.html#current-data-processing-procedures"><i class="fa fa-check"></i><b>4.4.1</b> Current Data Processing Procedures</a></li>
@@ -146,7 +175,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.6" data-path="bullets.html"><a href="bullets.html#communication-of-results-and-methods"><i class="fa fa-check"></i><b>4.6</b> Communication of Results and Methods</a></li>
 <li class="chapter" data-level="4.7" data-path="bullets.html"><a href="bullets.html#explainable-results-usability-and-trust-survey"><i class="fa fa-check"></i><b>4.7</b> Explainable results: Usability and Trust survey</a><ul>
 <li class="chapter" data-level="4.7.1" data-path="bullets.html"><a href="bullets.html#measuring-trust-and-calibration"><i class="fa fa-check"></i><b>4.7.1</b> Measuring Trust and calibration</a></li>
-<li class="chapter" data-level="4.7.2" data-path="bullets.html"><a href="bullets.html#conference-presentations"><i class="fa fa-check"></i><b>4.7.2</b> Conference Presentations</a></li>
+<li class="chapter" data-level="4.7.2" data-path="bullets.html"><a href="bullets.html#survey-methods-pre--vs-post"><i class="fa fa-check"></i><b>4.7.2</b> Survey Methods : Pre- vs Post</a></li>
+<li class="chapter" data-level="4.7.3" data-path="bullets.html"><a href="bullets.html#conference-presentations"><i class="fa fa-check"></i><b>4.7.3</b> Conference Presentations</a></li>
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="bullets.html"><a href="bullets.html#people-involved"><i class="fa fa-check"></i><b>4.8</b> People involved</a><ul>
 <li class="chapter" data-level="4.8.1" data-path="bullets.html"><a href="bullets.html#faculty"><i class="fa fa-check"></i><b>4.8.1</b> Faculty</a></li>
@@ -163,7 +193,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.3.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#clustering"><i class="fa fa-check"></i><b>5.3.1</b> Clustering</a></li>
 <li class="chapter" data-level="5.3.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#statistical-modeling"><i class="fa fa-check"></i><b>5.3.2</b> Statistical Modeling</a></li>
 <li class="chapter" data-level="5.3.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#interesting-documents"><i class="fa fa-check"></i><b>5.3.3</b> Interesting documents</a></li>
-<li class="chapter" data-level="5.3.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#alis-project"><i class="fa fa-check"></i><b>5.3.4</b> Ali's project</a></li>
+<li class="chapter" data-level="5.3.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#alis-project"><i class="fa fa-check"></i><b>5.3.4</b> Ali’s project</a></li>
 <li class="chapter" data-level="5.3.5" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#open-set-modeling-for-writer-identification-from-distribution-of-glyphs-in-clusters"><i class="fa fa-check"></i><b>5.3.5</b> Open Set Modeling for Writer Identification from Distribution of Glyphs in Clusters</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#communication-of-results"><i class="fa fa-check"></i><b>5.4</b> Communication of Results</a><ul>
@@ -176,6 +206,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.5.2" data-path="bullets.html"><a href="bullets.html#graduate-students"><i class="fa fa-check"></i><b>5.5.2</b> Graduate Students</a></li>
 <li class="chapter" data-level="5.5.3" data-path="bullets.html"><a href="bullets.html#undergraduates"><i class="fa fa-check"></i><b>5.5.3</b> Undergraduates</a></li>
 </ul></li>
+<li class="chapter" data-level="5.6" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#deep-learning-methods"><i class="fa fa-check"></i><b>5.6</b> Deep Learning Methods</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="glass.html"><a href="glass.html"><i class="fa fa-check"></i><b>6</b> Glass</a><ul>
 <li class="chapter" data-level="6.1" data-path="bullets.html"><a href="bullets.html#data-collection"><i class="fa fa-check"></i><b>6.1</b> Data collection</a></li>
@@ -214,7 +245,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.2.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#other-notions-of-information"><i class="fa fa-check"></i><b>8.2.3</b> Other notions of information</a></li>
 <li class="chapter" data-level="8.2.4" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#information-theoretic-specific-source-score-sufficiency-metric"><i class="fa fa-check"></i><b>8.2.4</b> Information Theoretic Specific Source Score Sufficiency Metric</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#score-based-likelihood-ratios-are-not-fundamentally-incoherent"><i class="fa fa-check"></i><b>8.3</b> Score-based Likelihood Ratios are not Fundamentally &quot;Incoherent&quot;</a><ul>
+<li class="chapter" data-level="8.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#score-based-likelihood-ratios-are-not-fundamentally-incoherent"><i class="fa fa-check"></i><b>8.3</b> Score-based Likelihood Ratios are not Fundamentally “Incoherent”</a><ul>
 <li class="chapter" data-level="8.3.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#coherence"><i class="fa fa-check"></i><b>8.3.1</b> Coherence</a></li>
 <li class="chapter" data-level="8.3.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#problems-with-arguments-showing-slrs-are-incoherent"><i class="fa fa-check"></i><b>8.3.2</b> Problems with arguments showing SLRs are incoherent</a></li>
 <li class="chapter" data-level="8.3.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#example-of-a-coherent-slr-in-the-two-source-problem"><i class="fa fa-check"></i><b>8.3.3</b> Example of a coherent SLR in the two source problem</a></li>
@@ -307,19 +338,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="lss-paper-analysis-film" class="section level5 unnumbered">
 <h5>Film and Powder Images</h5>
-<p>The images are challenging to do basic statistical analysis on because the shoe print is made up of tiny particles (e.g. it is not a solid object), and there are areas of smudged particles outside the image (fingerprints, etc.) that can be hard to automatically remove. In addition, the film backing has subtle variations in color.</p>
+<p>The images are challenging to do basic statistical analysis on because the shoe print is made up of tiny particles (e.g. it is not a solid object), and there are areas of smudged particles outside the image (fingerprints, etc.) that can be hard to automatically remove. In addition, the film backing has subtle variations in color.</p>
 <p>The prints are not rotationally aligned, that is, they are taken at a variety of angles (usually <span class="math inline">\(\pm 15^\circ\)</span> from vertical) which vary due to individual differences in walking style, the orientation of the film, and changes in experimental protocol.</p>
 <p>Experimental protocol changes included resolution changes for the scans over time: the resolution of the last set of images is about 2 times higher than the resolution of the first 3 check-ins worth of images. Thus, parameters need to be automatically selected based on the resolution of the image.</p>
 <p>The initial use of templates to clean up the image requires addressing the alignment of the print and the template. As this experiment contains 8 total shoe model and size combinations, it is possible to create a template for each shoe model and use that template to isolate the region of the image which contains a set of features most likely to be a shoe (rather than random noise).</p>
 <p>Solving the template problem by aligning the mask and template yields an additional benefit: the resulting cleaned up image is roughly aligned relative to the template and, presumably, to other images.</p>
-<p><details> <summary>Rough Alignment of Template Mask and Image: Clean images, do a rough alignment between the image and the corresponding shoe mask (per model and size). </summary></p>
+<details>
+<p><summary>Rough Alignment of Template Mask and Image: Clean images, do a rough alignment between the image and the corresponding shoe mask (per model and size). </summary></p>
 <ol style="list-style-type: decimal">
 <li><p>Rotationally align image and mask using principal components on the non-background pixels in the image</p></li>
-<li>Gross align the non-background pixels in the image and mask
+<li><p>Gross align the non-background pixels in the image and mask</p>
 <ul>
-<li>Use a &quot;mask-ified&quot; version of the shoe print that encloses most of the shoe region in a single region (see below for explanation)</li>
+<li><p>Use a “mask-ified” version of the shoe print that encloses most of the shoe region in a single region (see below for explanation)</p></li>
 <li><p>Default to trimming the actual print by 5% on each dimension to minimize the effect of page borders and creases</p></li>
-<li>Alignment method options:
+<li><p>Alignment method options:</p>
 <ul>
 <li>center of mass - this fails if a print does not account for the whole shoe</li>
 <li>center of narrowest width - ideally, this is approximately the arch of the shoe.<br />
@@ -333,12 +365,16 @@ This works better than center of mass in most cases, but occasionally computatio
 <img src="images/shoes/longitudinal/PCA_Rotate_and_Center_Shift_Before.png" width = "100%"/></p>
 <p>After:<br />
 <img src="images/shoes/longitudinal/PCA_Rotate_and_Center_Shift_After.png" width = "100%"/></p>
-<p>These steps are wrapped into the <code>rough_align</code> function in the <code>ShoeScrubR</code> package. </details> <details><summary>Cleaning the image and exaggerating into a mask</summary> In several of the methods applied to this data, it has been useful to have an exaggerated version of the image to function as a mask - this exaggerated image has a center of mass similar to the actual mask, for instance.</p>
+These steps are wrapped into the <code>rough_align</code> function in the <code>ShoeScrubR</code> package.
+</details>
+<details>
+<p><summary>Cleaning the image and exaggerating into a mask</summary>
+In several of the methods applied to this data, it has been useful to have an exaggerated version of the image to function as a mask - this exaggerated image has a center of mass similar to the actual mask, for instance.</p>
 <p>Creating this mask requires parameter tuning (done the old way); a new method was developed in order to reduce the number of parameters which depended on image resolution and other similar items.</p>
 <p>In the old method, there were several parameters necessary - gaussian blur diameter for image cleaning, threshold for binarization, gaussian blur diameter for mask creation, threshold for image cleaning, diameter for opening the mask, diameter for closing the mask.</p>
 <p>The new steps are as follows:</p>
 <ol style="list-style-type: decimal">
-<li>Use the EM algorithm to cluster the intensities of the points into three normally distributed categories: signal, intermediate, and background. The normality assumption is highly questionable, but the method works pretty well. Use the calculated pdf values for each point to construct a likelihood ratio of P(signal)/P(intermediate + background). Binarize based on the value of this likelihood ratio - if it's over 10, the pixel is signal.
+<li>Use the EM algorithm to cluster the intensities of the points into three normally distributed categories: signal, intermediate, and background. The normality assumption is highly questionable, but the method works pretty well. Use the calculated pdf values for each point to construct a likelihood ratio of P(signal)/P(intermediate + background). Binarize based on the value of this likelihood ratio - if it’s over 10, the pixel is signal.
 <ul>
 <li>Each shoe is shown in three separate images, corresponding to the pdf value for each point based on the EM algorithm clustering distribution fitted values. White pixels are highly likely to belong to the group in question - signal, intermediate, and noise.<br />
 <img src="images/shoes/longitudinal/EM_pixsets.png" width = "80%"/><br />
@@ -350,7 +386,8 @@ This works better than center of mass in most cases, but occasionally computatio
 <ul>
 <li>Initial cleaning - dilation and erosion at very small pixel values<br />
 <img src="images/shoes/longitudinal/EM_LR10_clean.png" width = "100%"/></li>
-<li>Labeling disjoint regions (different colors indicate different regions) <img src="images/shoes/longitudinal/EM_LR10_label.png" width = "100%"/></li>
+<li>Labeling disjoint regions (different colors indicate different regions)
+<img src="images/shoes/longitudinal/EM_LR10_label.png" width = "100%"/></li>
 <li>Removing any blobs which are in the 50px square corner region and which do not involve more than 10% of the image.<br />
 <img src="images/shoes/longitudinal/EM_LR10_corner_clean.png" width = "100%"/><br />
 At this point we can use the mask to clean the image:<br />
@@ -364,21 +401,26 @@ At this point we can use the mask to clean the image:<br />
 <img src="images/shoes/longitudinal/EM_LR10_blur_thresh.png" width = "100%"/></li>
 <li>All disjoint regions are labeled<br />
 <img src="images/shoes/longitudinal/EM_LR10_blur_label.png" width = "100%"/></li>
-<li>The largest region is selected as the best mask for the shoe <img src="images/shoes/longitudinal/EM_LR10_exag_mask.png" width = "100%"/></li>
+<li>The largest region is selected as the best mask for the shoe
+<img src="images/shoes/longitudinal/EM_LR10_exag_mask.png" width = "100%"/></li>
 <li>Some cleaning is done to this mask - any holes are filled in and then it is opened by a diameter of approximately <span class="math inline">\(s\)</span>/5 (must be odd)<br />
 <img src="images/shoes/longitudinal/EM_LR10_mask_final.png" width = "100%"/></li>
 </ul></li>
 </ol>
-<p>At this point we can use the mask to get a &quot;clean&quot; image:<br />
+<p>At this point we can use the mask to get a “clean” image:<br />
 <img src="images/shoes/longitudinal/EM_LR10_image_mask_final.png" width = "100%"/></p>
 <p>And proceed with the alignment as normal:</p>
-<p><img src="images/shoes/longitudinal/EM_LR10_alignment.png" width = "100%"/> </details></p>
-<p>Aligning each image to the template corresponding to the shoe model and size provides a good first step towards aligning the images to one another, but additional work is necessary in order to ensure that we can compare two images from the same shoe (or two images from different shoes). <details> <summary> Fine Alignment of two images using RNiftyReg </summary></p>
-<p>The <code>RNiftyReg</code> package is intended for alignment of brain scans and other MRI data and uses a symmetric block-matching approach<span class="citation">(Modat et al. <a href="#ref-modatGlobalImageRegistration2014">2014</a>)</span>. It only allows for registration of images up to 2048x2048, though, which means we will have to align images at a lower resolution and then modify the transformation matrix accordingly. One definite positive feature is that it allows for provision of a mask for both the source and target images so that only pixels within the mask are used for alignment. <!-- This means that we could be using the original images and just providing the mask to ensure alignment --></p>
-<p><em>Affine transformations</em> are a type of image transformation that encompasses translation, resizing, rotation, and skew operations. Affine transformations preserve collinearity and ratios of distances: parallel lines remain parallel after the transformation. A subset of affine transformations are so-called &quot;rigid body&quot; transformations, which only allow translation and rotation.</p>
+<img src="images/shoes/longitudinal/EM_LR10_alignment.png" width = "100%"/>
+</details>
+Aligning each image to the template corresponding to the shoe model and size provides a good first step towards aligning the images to one another, but additional work is necessary in order to ensure that we can compare two images from the same shoe (or two images from different shoes).
+<details>
+<p><summary> Fine Alignment of two images using RNiftyReg
+</summary></p>
+<p>The <code>RNiftyReg</code> package is intended for alignment of brain scans and other MRI data and uses a symmetric block-matching approach<span class="citation">(Modat et al. <a href="#ref-modatGlobalImageRegistration2014" role="doc-biblioref">2014</a>)</span>. It only allows for registration of images up to 2048x2048, though, which means we will have to align images at a lower resolution and then modify the transformation matrix accordingly. One definite positive feature is that it allows for provision of a mask for both the source and target images so that only pixels within the mask are used for alignment. <!-- This means that we could be using the original images and just providing the mask to ensure alignment --></p>
+<p><em>Affine transformations</em> are a type of image transformation that encompasses translation, resizing, rotation, and skew operations. Affine transformations preserve collinearity and ratios of distances: parallel lines remain parallel after the transformation. A subset of affine transformations are so-called “rigid body” transformations, which only allow translation and rotation.</p>
 <p><img src="images/shoes/longitudinal/affine_transformations.png" width = "100%"/></p>
 <p>RNiftyReg allows for linear (rigid-body, affine), and nonlinear transformations, but for the moment, we are only interested in rigid-body transformations - while the shoes may have some slight distortion due to the wearer and kinematics of walking, this is minor and should not interfere too greatly with a gross alignment.</p>
-<p>RNiftyReg's <code>niftyreg.linear</code> function returns a 4x4 transformation matrix describing the composition of multiple image transformation operations. A 3x3 matrix is necessary for 3-dimensional image rotation, resizing, and skew operations; it is then augmented by a row of zeros on the bottom and a column ending with a 1 that describes the x, y, and z translation coordinates. In this way, a 4x4 matrix can represent the composition of all relevant image transformation operations in 3 dimensions. In two dimensions, many of the cells in this matrix are 0.</p>
+<p>RNiftyReg’s <code>niftyreg.linear</code> function returns a 4x4 transformation matrix describing the composition of multiple image transformation operations. A 3x3 matrix is necessary for 3-dimensional image rotation, resizing, and skew operations; it is then augmented by a row of zeros on the bottom and a column ending with a 1 that describes the x, y, and z translation coordinates. In this way, a 4x4 matrix can represent the composition of all relevant image transformation operations in 3 dimensions. In two dimensions, many of the cells in this matrix are 0.</p>
 <table>
 <tbody>
 <tr class="odd">
@@ -408,7 +450,7 @@ At this point we can use the mask to clean the image:<br />
 </tbody>
 </table>
 <p>Cells 1, 2, 5, 6 describe the <a href="https://en.wikipedia.org/wiki/Rotation_matrix">rotation operation</a>; the angle of rotation can be recovered using trigonometry.</p>
-<p>Cells 4, 8 describe the translation operation, e.g. the row (4) and column(8) offset from one matrix to another.</p>
+<p>Cells 4, 8 describe the translation operation, e.g. the row (4) and column(8) offset from one matrix to another.</p>
 <p>For 2D rigid transformations, these are the only cells which matter. Cells 11 and 16 are 1, and 3, 7, 9, 10, 12, 13, 14, 15 are all 0 under these constraints.</p>
 <p>In order to use <code>RNiftyReg</code> for registration of the original-size images, we have to scale cells 4 and 8, but the rest of the cells remain unscaled.</p>
 <p>Note that <code>EBImage</code> uses what is essentially the transposed version of the matrix used by <code>RNiftyReg</code>, reduced to elements 1, 2, 5, 6, 4, 8 in a 3 row by 2 column matrix.</p>
@@ -428,7 +470,7 @@ At this point we can use the mask to clean the image:<br />
 </tr>
 </tbody>
 </table>
-<p>Starting with a set of 6 shoes observed at 3 timepoints each, with 2 different &quot;modes&quot; of print capture, we can align both prints taken on the same date for each shoe.</p>
+<p>Starting with a set of 6 shoes observed at 3 timepoints each, with 2 different “modes” of print capture, we can align both prints taken on the same date for each shoe.</p>
 <p>The original images: (1 and 2 are taken at the same time point, 3 and 4, etc. 1-6 are the same physical shoe over time and so on)</p>
 <p><img src="images/shoes/longitudinal/Alignment_Orig_files.png" width = "100%"/></p>
 <p>The images are first aligned to masks, which are used to clean the images to reduce noise.</p>
@@ -466,34 +508,37 @@ At this point we can use the mask to clean the image:<br />
 <p>The coordinates in bold have been scaled according to the size reduction, so that they can be applied to the full-size images.</p>
 <p><img src="images/shoes/longitudinal/Alignment_Result.png" width = "100%"/></p>
 <p>The resulting aligned images are shown above; black pixels are areas where both images agree; pink and blue pixels represent areas found in one image but not the other. Some images which have many bubbles (air between the film and backing) or which contain blurred or double prints do not align accurately; this is really not avoidable with automatic alignment solutions.</p>
-<p>The alignment process itself (without any image preprocessing) is extremely fast, about 1s per image pair, and seems to be similar even when image size is increased by a factor of 16. Due to the scaling process and necessary modification of the transformation matrix, the alignments may be off by 1-5 pixels in some cases. <span class="new"><del>This might be handled by aligning a smaller subset of the image at full resolution.</del> Efforts to align sub-images produced less accurate alignments, likely due to the kinematic distortion of the sole during the walking process, resulting in situations where the local alignment estimate is not a good estimate of the global alignment. New attempts to find consensus alignment might include keypoint-based alignment methods, trying to identify the shoe border precisely to align that, and possibly use of Hough transforms to identify specific reproducible features that might serve as global keypoints. </span></p>
-<p></details></p>
+<p>The alignment process itself (without any image preprocessing) is extremely fast, about 1s per image pair, and seems to be similar even when image size is increased by a factor of 16. Due to the scaling process and necessary modification of the transformation matrix, the alignments may be off by 1-5 pixels in some cases. <span class="new"><del>This might be handled by aligning a smaller subset of the image at full resolution.</del> Efforts to align sub-images produced less accurate alignments, likely due to the kinematic distortion of the sole during the walking process, resulting in situations where the local alignment estimate is not a good estimate of the global alignment. New attempts to find consensus alignment might include keypoint-based alignment methods, trying to identify the shoe border precisely to align that, and possibly use of Hough transforms to identify specific reproducible features that might serve as global keypoints.
+</span></p>
+</details>
 <p>Given how well RNiftyReg works, the next question is whether all of the preprocessing is even necessary.</p>
-<p>In the image below, the first row is alignment with the full image, the second is alignment with a binarized version of the output image (so masked + thresholded), and the third is automatically cropped around the mask which is aligned to the image using the rough-align process. The third row maintains most of the information and produces better alignments than the other rows; thus, we can conclude that it's necessary to combine the preprocessing and rough alignment in order to get the best results from RNiftyReg.</p>
+<p>In the image below, the first row is alignment with the full image, the second is alignment with a binarized version of the output image (so masked + thresholded), and the third is automatically cropped around the mask which is aligned to the image using the rough-align process. The third row maintains most of the information and produces better alignments than the other rows; thus, we can conclude that it’s necessary to combine the preprocessing and rough alignment in order to get the best results from RNiftyReg.</p>
 <p><img src="images/shoes/longitudinal/Combining_Prints_Consensus_Images.png" width="100%"/></p>
-<p><details> <summary> Fine Alignment of two images using FFT </summary> Basic Process:</p>
+<details>
+<p><summary> Fine Alignment of two images using FFT </summary>
+Basic Process:</p>
 <p><img src="images/shoes/longitudinal/FFT_Demo_Orig.png" width = "50%"/></p>
 <ol style="list-style-type: decimal">
-<li>Pad images so they're the same size (Let's say that <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are the two images)</li>
+<li>Pad images so they’re the same size (Let’s say that <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are the two images)</li>
 </ol>
 <p><img src="images/shoes/longitudinal/FFT_Demo_Pad.png" width = "25%"/></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Downweight the edges of the images using a <a href="https://en.wikipedia.org/wiki/Hann_function">Hann function</a><br />
-This is necessary because Fourier transforms assume images go on forever, so abrupt changes (e.g. edges) don't work out that well. Computationally, the image is &quot;wrapped&quot; around itself to be considered &quot;infinite&quot;.</li>
+This is necessary because Fourier transforms assume images go on forever, so abrupt changes (e.g. edges) don’t work out that well. Computationally, the image is “wrapped” around itself to be considered “infinite”.</li>
 </ol>
 <p><img src="images/shoes/longitudinal/FFT_Demo_Hann.png" width = "25%"/></p>
 <ul>
 <li>The strength of the Hann function can be adjusted by a power argument<br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-2-1.png" width="672" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-349-1.png" width="672" /></li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
-<li>Use the Fast Fourier Transform on each image. Center the FFT'd images so that low frequencies are in the center (exchange top left quadrant with bottom right, and top right quadrant with bottom left). Call the FFT'd, centered images <span class="math inline">\(F(A)\)</span> and <span class="math inline">\(F(B)\)</span><br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-3-1.png" width="50%" /></li>
+<li>Use the Fast Fourier Transform on each image. Center the FFT’d images so that low frequencies are in the center (exchange top left quadrant with bottom right, and top right quadrant with bottom left). Call the FFT’d, centered images <span class="math inline">\(F(A)\)</span> and <span class="math inline">\(F(B)\)</span><br />
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-350-1.png" width="50%" /></li>
 </ol>
 <p><img src="images/shoes/longitudinal/FFT_Demo_FFT1.png" width = "50%"/></p>
 <ol start="4" style="list-style-type: decimal">
 <li><p>Recover the angle between the two images:<br />
-In Fourier space, a rotated image produces the same signal in Fourier space, but rotated. To recover this information, we can use the <strong>magnitude</strong> of the FFT'd images as a new image. Call these images <span class="math inline">\(|F(A)|\)</span> and <span class="math inline">\(|F(B)|\)</span>. Then,</p>
+In Fourier space, a rotated image produces the same signal in Fourier space, but rotated. To recover this information, we can use the <strong>magnitude</strong> of the FFT’d images as a new image. Call these images <span class="math inline">\(|F(A)|\)</span> and <span class="math inline">\(|F(B)|\)</span>. Then,</p>
 <ol style="list-style-type: lower-alpha">
 <li>Polar transform the image, so that a rotation of the original image is a linear shift of the transformed image (<span class="math inline">\(P(|F(A)|)\)</span> and <span class="math inline">\(P(|F(B)|)\)</span>). Apply Hann functions to the polar-transformed images.</li>
 </ol></li>
@@ -506,7 +551,7 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 <ol start="5" style="list-style-type: decimal">
 <li><p>Recover the shift between the two images:</p>
 <ol style="list-style-type: lower-alpha">
-<li><p>Compute the cross-power spectrum: <span class="math inline">\(S = F(A) \times F(\tilde{B}_\theta)*\)</span>, where <span class="math inline">\(F(x)*\)</span> is the complex conjugate of <span class="math inline">\(F(x)\)</span> (e.g. <span class="math inline">\(a + bi\)</span> becomes <span class="math inline">\(a - bi\)</span>)</p></li>
+<li><p>Compute the cross-power spectrum: <span class="math inline">\(S = F(A) \times F(\tilde{B}_\theta)*\)</span>, where <span class="math inline">\(F(x)*\)</span> is the complex conjugate of <span class="math inline">\(F(x)\)</span> (e.g. <span class="math inline">\(a + bi\)</span> becomes <span class="math inline">\(a - bi\)</span>)</p></li>
 <li><p>Compute the magnitude of the cross-power spectrum: <span class="math inline">\(|S| = \sqrt{S \times S*}\)</span></p></li>
 <li><p>Use (a) and (b) to get the normalized cross power spectrum: <span class="math inline">\(S/|S|\)</span></p></li>
 <li><p>Take the inverse FFT of <span class="math inline">\(S/|S|\)</span>: <span class="math inline">\(A = F^{-1}(S/|S|)\)</span></p></li>
@@ -518,28 +563,35 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 <li>Apply the shift to image <span class="math inline">\(\tilde{B}_\theta\)</span> to get <span class="math inline">\(\tilde{B}_{\theta,\Delta x, \Delta y}\)</span>.</li>
 </ol>
 <p><img src="images/shoes/longitudinal/FFT_Demo_FFT5_Shift.png" width = "25%"/></p>
-<p>There are some fiddly details (e.g. converting shifts which are most of the image into negative shifts), but FFT-based alignment works pretty well (and pretty quickly) for shoes.</p>
+<p>There are some fiddly details (e.g. converting shifts which are most of the image into negative shifts), but FFT-based alignment works pretty well (and pretty quickly) for shoes.</p>
 <p>Original Images:</p>
 <p><img src="images/shoes/longitudinal/FFT_Alignment_Orig_20191031.png" width = "100%"/></p>
 <p>Angle-aligned Images:</p>
 <p><img src="images/shoes/longitudinal/FFT_Alignment_Angle_Only_20191031.png" width = "100%"/></p>
 <p>FFT-Aligned Result: (still working out the kinks)</p>
 <p><img src="images/shoes/longitudinal/FFT_Alignment_20191031.png" width = "100%"/></p>
-<p></details></p>
-<p><details><summary>Combining information from multiple images</summary></p>
-<p>With aligned images, we can then combine the information in each of the two prints taken at the same timepoint to get more reliable images. Because the methodology for acquiring the prints changed from timepoint to timepoint, the analysis of each type of print doesn't make sense - it is completely conflated with the observation date. However, the multiple prints aren't wasted, because while each print may be missing information, the combination of both of the prints (when properly aligned) provides a much more reliable assessment of the shoe (and the wear of that shoe at the proper timepoint). There are at least 3 options to combine these images (note that white = 1, black = 0):</p>
+</details>
+<details>
+<p><summary>Combining information from multiple images</summary></p>
+<p>With aligned images, we can then combine the information in each of the two prints taken at the same timepoint to get more reliable images. Because the methodology for acquiring the prints changed from timepoint to timepoint, the analysis of each type of print doesn’t make sense - it is completely conflated with the observation date. However, the multiple prints aren’t wasted, because while each print may be missing information, the combination of both of the prints (when properly aligned) provides a much more reliable assessment of the shoe (and the wear of that shoe at the proper timepoint). There are at least 3 options to combine these images (note that white = 1, black = 0):</p>
 <ul>
-<li>Take the pixel-by-pixel minimum: this keeps all the noise from both images (but there's relatively little noise in the cropped images, so that may not matter too much). If images are misaligned, this results in a &quot;double&quot; print (or smeared print). This method is also sensitive to the lightness of the print - a complete print would still be ignored if the &quot;dark&quot; part of the print was lighter than the &quot;light&quot; part of the second print.<br />
+<li>Take the pixel-by-pixel minimum: this keeps all the noise from both images (but there’s relatively little noise in the cropped images, so that may not matter too much). If images are misaligned, this results in a “double” print (or smeared print). This method is also sensitive to the lightness of the print - a complete print would still be ignored if the “dark” part of the print was lighter than the “light” part of the second print.<br />
 <img src="images/shoes/longitudinal/Combining_Prints_Consensus_min.png" width="100%"/></li>
 <li>Take the pixel-by-pixel maximum: this keeps only points which appear strongly in both images (losing a lot of data but also a lot of noise in the process)<br />
 <img src="images/shoes/longitudinal/Combining_Prints_Consensus_max.png" width="100%"/></li>
-<li>Take the pixel-by-pixel mean: This would result in lighter regions where one image has &quot;gaps&quot; but would reduce noise and make it clear where there is less sure information. <img src="images/shoes/longitudinal/Combining_Prints_Consensus_mean.png" width="100%"/></li>
+<li>Take the pixel-by-pixel mean: This would result in lighter regions where one image has “gaps” but would reduce noise and make it clear where there is less sure information.
+<img src="images/shoes/longitudinal/Combining_Prints_Consensus_mean.png" width="100%"/></li>
 </ul>
 <p>Of these options, the first seems like the best, but the last provides some idea of whether the alignment was decent to begin with.</p>
 <p>The alignment method seems to fail more frequently when one of the images is very light. It may be advantageous to invest more effort into adaptive histogram normalization.</p>
 <p>Alignment Fails:</p>
-<p><img src="images/shoes/longitudinal/020574R_20180411_5_x_1_boekhoff_pashek_kruse.png" width = "45%"/> <img src="images/shoes/longitudinal/007961L_20180411_5_x_1_kruse_zwart_kruse.png" width = "45%"/> <br/> Alignment Success:</p>
-<p><img src="images/shoes/longitudinal/074093L_20180207_5_x_1_csafe_boekhoff_boekhoff_hanrahan.png" width = "45%"/> <img src="images/shoes/longitudinal/087354L_20180425_5_x_1_boekhoff_Kruse_kruse.png" width = "45%"/> </details></p>
+<p><img src="images/shoes/longitudinal/020574R_20180411_5_x_1_boekhoff_pashek_kruse.png" width = "45%"/>
+<img src="images/shoes/longitudinal/007961L_20180411_5_x_1_kruse_zwart_kruse.png" width = "45%"/>
+<br/>
+Alignment Success:</p>
+<img src="images/shoes/longitudinal/074093L_20180207_5_x_1_csafe_boekhoff_boekhoff_hanrahan.png" width = "45%"/>
+<img src="images/shoes/longitudinal/087354L_20180425_5_x_1_boekhoff_Kruse_kruse.png" width = "45%"/>
+</details>
 </div>
 <div id="lss-paper-analysis-wear" class="section level5 unnumbered">
 <h5>Wear Characterization</h5>
@@ -564,7 +616,7 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 <li>Fiberglass in the ground being hydro-tested</li>
 <li>Big mold - modified concrete, comes out of the mold tomorrow morning (2020-06-02)</li>
 <li>Indoor ramp constructed - can hold 900 lbs safely</li>
-<li>Electronics - waiting on plexiglass - proximity sensors aren't working in daylight with reg plexiglass. New plexiglass ordered wednesday to diffuse top-light better</li>
+<li>Electronics - waiting on plexiglass - proximity sensors aren’t working in daylight with reg plexiglass. New plexiglass ordered wednesday to diffuse top-light better</li>
 </ul>
 </div>
 <div id="software" class="section level4">
@@ -576,18 +628,20 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 <li>Explore the use of RCNNs for whole-shoe object detection</li>
 </ul>
 <p>Preliminary results (using ~1000 previously classified images to train and then predict several thousand other images in a semi-supervised approach):</p>
-<p><img src="images/shoes/neuralnets/prediction_1.png" alt="Model prediction" /> <img src="images/shoes/neuralnets/actual_1.png" alt="Actual annotations" /></p>
-<p><img src="images/shoes/neuralnets/prediction_2.png" alt="Model Prediction" /> <img src="images/shoes/neuralnets/actual_2.png" alt="Actual annotation" /></p>
+<p><img src="images/shoes/neuralnets/prediction_1.png" alt="Model prediction" />
+<img src="images/shoes/neuralnets/actual_1.png" alt="Actual annotations" /></p>
+<p><img src="images/shoes/neuralnets/prediction_2.png" alt="Model Prediction" />
+<img src="images/shoes/neuralnets/actual_2.png" alt="Actual annotation" /></p>
 </div>
 <div id="restoring-shoe-images" class="section level5 new">
 <h5><span class="header-section-number">7.2.1.2.2</span> Restoring Shoe Images</h5>
 <p><strong>Overview</strong></p>
 <ul>
-<li>Use CNNs to &quot;upsample&quot; manually degraded shoe images (or pairs of ideal and realistic images), restoring as much of the original pattern as possible.</li>
+<li>Use CNNs to “upsample” manually degraded shoe images (or pairs of ideal and realistic images), restoring as much of the original pattern as possible.</li>
 </ul>
-<p>Proof of concept (with awful image scaling to 120x120 px... sorry)</p>
+<p>Proof of concept (with awful image scaling to 120x120 px… sorry)</p>
 <div class="figure">
-<img src="images/shoes/neuralnets/enhancement.PNG" alt="Low light enhancement with CNNs" />
+<img src="images/shoes/neuralnets/enhancement.PNG" alt="" />
 <p class="caption">Low light enhancement with CNNs</p>
 </div>
 </div>
@@ -595,7 +649,8 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 </div>
 <div id="connor-convolutional-neural-network-for-outsole-recognition" class="section level3">
 <h3><span class="header-section-number">7.2.2</span> CoNNOR: Convolutional Neural Network for Outsole Recognition</h3>
-<p><details> <strong>Project Overview</strong></p>
+<details>
+<p><strong>Project Overview</strong></p>
 <ul>
 <li>Label images of shoes according to geometric classification scheme</li>
 <li>Use convolutional base of pretrained CNN VGG16 and train a new classifier on labeled features</li>
@@ -609,7 +664,7 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 <ul>
 <li>Could replace fully connected layers of neural net as classifier</li>
 <li>Importance score can filter/reduce the number of features</li>
-<li><em>Training the random forest requires too much memory for Bigfoot (CSAFE server), and still takes over two weeks on the HPC. We're setting this goal aside for now, but could try subsampling the features for a random forest in the future.</em></li>
+<li><em>Training the random forest requires too much memory for Bigfoot (CSAFE server), and still takes over two weeks on the HPC. We’re setting this goal aside for now, but could try subsampling the features for a random forest in the future.</em></li>
 </ul></li>
 <li><em>Spatial integration</em>
 <ul>
@@ -625,22 +680,25 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 </ul>
 <p><strong>References for CNNs and FCNs</strong></p>
 <p><a href="https://stats.stackexchange.com/questions/266075/patch-wise-training-and-fully-convolutional-training-in-fully-convolutional-neur">Stack Exchange post explaining patchwise training</a></p>
-<p><a href="https://ieeexplore.ieee.org/abstract/document/6338939">&quot;Learning Hierarchical Features for Scene Labeling&quot;</a>: describes an application of multi-scale CNNs and image pyramids</p>
-<p><a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.56.8646">&quot;Pyramid methods in image processing&quot;</a>: classic paper from 1984 explaining pyramid methods</p>
-<p><a href="https://people.eecs.berkeley.edu/~jonlong/long_shelhamer_fcn.pdf">&quot;Fully Convolutional Networks for Semantic Segmentation&quot;</a></p>
-<p><a href="https://arxiv.org/pdf/1711.08506.pdf">&quot;W-Net: A Deep Model for Fully Unsupervised Image Segmentation&quot;</a></p>
+<p><a href="https://ieeexplore.ieee.org/abstract/document/6338939">“Learning Hierarchical Features for Scene Labeling”</a>: describes an application of multi-scale CNNs and image pyramids</p>
+<p><a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.56.8646">“Pyramid methods in image processing”</a>: classic paper from 1984 explaining pyramid methods</p>
+<p><a href="https://people.eecs.berkeley.edu/~jonlong/long_shelhamer_fcn.pdf">“Fully Convolutional Networks for Semantic Segmentation”</a></p>
+<p><a href="https://arxiv.org/pdf/1711.08506.pdf">“W-Net: A Deep Model for Fully Unsupervised Image Segmentation”</a></p>
 <div id="spatial-integration" class="section level4">
 <h4><span class="header-section-number">7.2.2.1</span> Spatial integration</h4>
 <p>The overhead costs of going fully convolutional are high; CNN papers are opaque, and many supervised techniques require fully labeled data for semantic segmentation (i.e., label every pixel). Moreover, complex models (for both supervised and unsupervised tequniques) are often only available in Python, and there are a large number of GitHub repositories of mixed quality and reliability. Filtering for quality, understanding code structures, and implementing them on HPC are all enormous tasks on their own.</p>
 <p>In the meantime, it is much easier (relatively speaking) to use our existing framework of 256x256 square pixel images, for which we have generated thousands of labeled images and have already trained and improved domain-specific models. Currently, I have code working to automatically crop image borders, chop the image into 256x256 pixels (padding the image when appropriate) and equalize the contrast on the individual images.</p>
 <p><strong>Pad the left and top of the image with a pre-specified offset, then chop the image into 256x256 pixel pieces</strong><br />
 <img src="images/shoes/neuralnets/chop.PNG" width = "100%"/></p>
-<p><strong>Equalize the contrast channel for each piece of the image</strong> <img src="images/shoes/neuralnets/equalize.PNG" width = "100%"/></p>
-<p><strong>Use the trained model to predict each piece of the image for each class</strong> <img src="images/shoes/neuralnets/predict.PNG" width = "100%"/></p>
-<p><strong>Repeat the above process for different cuts of the original image, and aggregate predictions</strong> <img src="images/shoes/neuralnets/predict_rect.PNG" width = "100%"/></p>
+<p><strong>Equalize the contrast channel for each piece of the image</strong>
+<img src="images/shoes/neuralnets/equalize.PNG" width = "100%"/></p>
+<p><strong>Use the trained model to predict each piece of the image for each class</strong>
+<img src="images/shoes/neuralnets/predict.PNG" width = "100%"/></p>
+<p><strong>Repeat the above process for different cuts of the original image, and aggregate predictions</strong>
+<img src="images/shoes/neuralnets/predict_rect.PNG" width = "100%"/></p>
 <p><strong>Updates/In progress:</strong></p>
 <ul>
-<li>Presented on CoNNOR at <a href="https://www.grad-college.iastate.edu/three-minute-thesis/">ISU's 3-Minute Thesis competition</a>
+<li>Presented on CoNNOR at <a href="https://www.grad-college.iastate.edu/three-minute-thesis/">ISU’s 3-Minute Thesis competition</a>
 <ul>
 <li>Preliminaries: 8 heats with 10-12 participants each</li>
 <li>Runner up to a guy making better yogurt</li>
@@ -653,14 +711,16 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 <li>Improving spatial integration process
 <ul>
 <li>Remove predictions for blank (and mostly blank) edge images</li>
-<li>Smooth predictions for overlapping image pieces</li>
+<li>Smooth predictions for overlapping image pieces
+<ul>
 <li>geom_density2d(), stat_contour(), creating brush overlay with EBImage</li>
+</ul></li>
 </ul></li>
 </ul>
 <div class="new">
 <p><strong>Shiny app demo</strong></p>
 </div>
-<p></details></p>
+</details>
 </div>
 </div>
 </div>
@@ -669,7 +729,7 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 </div>
 <div id="cocoa" class="section level2">
 <h2><span class="header-section-number">7.4</span> Project Tread (formerly Cocoa Powder Citizen Science)</h2>
-<p>Project Tread, modified from <a href="https://www.dundee.ac.uk/leverhulme/citizenscience/details/sole-searching.php">Leverhulme Institute's Sole Searching</a>, is a developing CSAFE project with the goals of engaging community participation in forensic research and acquiring shoe print data that may be useful in future analyses.</p>
+<p>Project Tread, modified from <a href="https://www.dundee.ac.uk/leverhulme/citizenscience/details/sole-searching.php">Leverhulme Institute’s Sole Searching</a>, is a developing CSAFE project with the goals of engaging community participation in forensic research and acquiring shoe print data that may be useful in future analyses.</p>
 <p>In progress:</p>
 <ul>
 <li>Review <a href="https://forensicstats.org/project-tread/">procedures</a> and IRB documents written by James</li>
@@ -690,19 +750,19 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 </thead>
 <tbody>
 <tr class="odd">
-<td>'Before' Views</td>
+<td>‘Before’ Views</td>
 <td>4 per shoe</td>
 <td>5 per shoe</td>
 <td>2 per shoe</td>
 </tr>
 <tr class="even">
-<td>'Before' Pictures</td>
+<td>‘Before’ Pictures</td>
 <td>1 per view</td>
 <td>3 per view</td>
 <td>1 per view</td>
 </tr>
 <tr class="odd">
-<td>Total 'before' pics</td>
+<td>Total ‘before’ pics</td>
 <td>4 per shoe</td>
 <td>15 per shoe</td>
 <td>2 per shoe</td>
@@ -738,7 +798,7 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 <td>3 per action</td>
 </tr>
 <tr class="odd">
-<td>'After' Pictures</td>
+<td>‘After’ Pictures</td>
 <td>1 pic per rep.</td>
 <td>3 pics per rep.</td>
 <td>1 pic per rep.</td>
@@ -789,7 +849,7 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 </table>
 <p><strong>Recommended procedure modifications:</strong></p>
 <ul>
-<li>Ask for one high-quality image of each shoe angle ('before') and print ('after'), instead of three replicate images of each
+<li>Ask for one high-quality image of each shoe angle (‘before’) and print (‘after’), instead of three replicate images of each
 <ul>
 <li>If Project Tread submission website will be set up like current CSSM system (which takes community submissions for environmental images), intermediate quality control can help filter out bad images</li>
 </ul></li>
@@ -809,23 +869,23 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 <ul>
 <li>Materials
 <ul>
-<li>Used 1/4 - 1/2 tsp of cocoa powder, not a &quot;dime-size&quot;&quot;</li>
+<li>Used 1/4 - 1/2 tsp of cocoa powder, not a “dime-size”"</li>
 <li>Test/specify cocoa powder vs hot chocolate powder</li>
 </ul></li>
 <li>Procedure
 <ul>
 <li>Sift cocoa powder onto paper (brushing damages print)</li>
 <li>More pictures of what things should look like</li>
-<li>Fewer &quot;before&quot; pictures: bottom and side only</li>
-<li>Mention won't see oil if done correctly</li>
-<li>Don't stack completed prints until after imaging/scanning</li>
+<li>Fewer “before” pictures: bottom and side only</li>
+<li>Mention won’t see oil if done correctly</li>
+<li>Don’t stack completed prints until after imaging/scanning</li>
 </ul></li>
 <li>Analysis
 <ul>
 <li>Use printable scale/ruler for later alignment of images</li>
 <li>QR code (like handwriting study) to identify action/replicate/meta info</li>
 <li>Collect shoe demographics (brand, size, measurements of length/width)</li>
-<li>Get &quot;mask&quot; by tracing around shoe</li>
+<li>Get “mask” by tracing around shoe</li>
 </ul></li>
 </ul>
 </div>
@@ -838,46 +898,85 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 </div>
 <div id="d-shoe-recognition" class="section level2">
 <h2><span class="header-section-number">7.5</span> 3d Shoe Recognition</h2>
-<p>Some background info: Shoe impressions are often left at crime scenes. In an ideal investigation, an impression left atthe scene of the crime is matched to the suspect’s shoe, placing them at the scene. However, it is not always that easy. An additional problem when dealing with shoes in the forensic discipline isshoes wear over time. When time elapses between the crime and recovery of the shoe, this processmay be more difficult: identifying marks may have worn away, or new marks may have been acquired due to additional wear. In order to understand the changes to an outsole of a shoe that may occur during the wear process, it is necessary to collect longitudinal data from across the shoe's lifetime. These studies are needed to establish statistical models for shoe wear patterns and accumulated damage. In order to analyze data collected from these studies, it is imperative to develop a statistical pipeline to align and compare successive 3D scans over time. Manual alignment methods are time consuming, and do not scale effectively to large studies, because it is necessary to align hundreds of scans, observed at multiple time points, before any statistical analysis or modeling can be performed. To practically use longitudinal studies, the best approach is to develop statistical tools, to provide a pipeline in which to align and analyze two shoe scans.</p>
+<p>Some background info: Shoe impressions are often left at crime scenes. In an ideal investigation, an impression left atthe scene of the crime is matched to the suspect’s shoe, placing them at the scene. However, it is not always that easy. An additional problem when dealing with shoes in the forensic discipline isshoes wear over time. When time elapses between the crime and recovery of the shoe, this processmay be more difficult: identifying marks may have worn away, or new marks may have been acquired due to additional wear. In order to understand the changes to an outsole of a shoe that may occur during the wear process, it is necessary to collect longitudinal data from across the shoe’s lifetime. These studies are needed to establish statistical models for shoe wear patterns and accumulated damage. In order to analyze data collected from these studies, it is imperative to develop a statistical pipeline to align and compare successive 3D scans over time. Manual alignment methods are time consuming, and do not scale effectively to large studies, because it is necessary to align hundreds of scans, observed at multiple time points, before any statistical analysis or modeling can be performed. To practically use longitudinal studies, the best approach is to develop statistical tools, to provide a pipeline in which to align and analyze two shoe scans.</p>
 <p>The set up:</p>
 <p>Ititally, the idea of the of the study was to use the data from the longitudial study in order to determine if one could predict wear, given pressure point matts and amount of steps and so on that was all part of the longitutidal data collection done previously. This idea has someone shifted. There is a large difference between the scans of the longitudial study that were conducted by hand scanning and those conducted using the turn table. The hand scan soles of the shoes have a wide variation not only on quality, but also on amount of shoe and direction of the scan. In order to simplify the inital processes and determining a pipeline for alignment, instead of the longitudinal shoe scans, the processes below are using a shoe that is scanned soly using the turn table to have some consistancy in the processing as we start to have a pipe line for at least alignment, then later using the longitudinal study add the extra information into the processing; amount of steps, weight,ect.</p>
-<p>Steps: <img src="images/shoes/3dshoes/Part1.png" width="100%"/> <img src="images/shoes/3dshoes/Part2.png" width="100%"/></p>
-<p><details> <summary> The shoe scans start as an stl file, however R does not work with stl files directly so they need to be transformed into a mesh object, in this specific case a triangle mesh object: </summary></p>
+<p>Steps:
+<img src="images/shoes/3dshoes/Part1.png" width="100%"/>
+<img src="images/shoes/3dshoes/Part2.png" width="100%"/></p>
+<details>
+<p><summary>
+The shoe scans start as an stl file, however R does not work with stl files directly so they need to be transformed into a mesh object, in this specific case a triangle mesh object: </summary></p>
 <p>Mesh Objects: A triangle mesh object is made up of the following parts, sufaces, polygons, faces, edges and vertices.</p>
 <p><img src="images/shoes/3dshoes/describing_mesh.jpeg" width="100%"/></p>
 <p>Looking at a mesh object at first:</p>
 <p><img src="images/shoes/3dshoes/MeshObject.png" width="100%"/></p>
-<p></details></p>
-<p>Some background: At first we wanted to try to simplify the mesh object to just the basic shape in order have simplicity when aligning. The idea of allignment is to take the most basic features, allign them, then by adding complexity of the soul, further allign the two different shoes. The idea is that we want to take a lower detail scan of shoe, allign it, then by adding complexity we can further allign the shoes. However the problem was realized that we are using a prediction to allign rather than the shoe, which ran into some quick problems. The next &quot;attempt&quot; at alignment came from a package called morph. In order to use this package, we needed to transform the data from a mesh object into a plane of points. In order to do this, we greated the function <em>shoe_coord</em>. This function takes a triangle mesh object, and looks at the vertices that make up each triangle. With a specific amount of vertices specified using the specification vert, <em>shoe_coord</em>, takes these vertices and maps them onto a x,y,z coordinate plane. Then using this coordinate plane, the allignment process began. <details> <summary> When working with coordinate systems, there was still not aligning, as each shoe was set on its own coordinate plane </summary></p>
-<p>Some attempts that have not really turned out well - Transforming the mesh objects to points aligned by the center of mass to overlay them detecting difference. <img src="images/shoes/3dshoes/AlignShoeTest.png" width="100%"/> - Problems - Isnt aligning properly as you can see </details></p>
-<p>Principal Component Analysis: The basic idea of principal component analysis is to take a dataset with many variables, and simplify that dataset by turning the original variables into a smaller number of &quot;Principal Components&quot;. These principal components are the underlying structure in the data. Taking that data and giving a vector in directions where there is the most variance. Taking these egienvectors as the data, we can get a &quot;flattened&quot; version of our origianl shoe. This is done using singular decomposition: If the <span class="math inline">\(N \times p\)</span> matrix X has rank r then it has a so-called singular value decomposition as <span class="math inline">\(X_{N \times p} = U_{N\times r} D_{r \times r} V&#39;_{r\times p}\)</span> where U has orthonormal columns spanning the column space of X, V has orthonormal columns spanning the colum space of X' and D is a diaginal matrix of singular values. For ordinary principal components, the columns of V are called the principal component directions in <span class="math inline">\(\Re^3\)</span> .</p>
+</details>
+Some background:
+At first we wanted to try to simplify the mesh object to just the basic shape in order have simplicity when aligning. The idea of allignment is to take the most basic features, allign them, then by adding complexity of the soul, further allign the two different shoes. The idea is that we want to take a lower detail scan of shoe, allign it, then by adding complexity we can further allign the shoes. However the problem was realized that we are using a prediction to allign rather than the shoe, which ran into some quick problems. The next “attempt” at alignment came from a package called morph. In order to use this package, we needed to transform the data from a mesh object into a plane of points. In order to do this, we greated the function <em>shoe_coord</em>. This function takes a triangle mesh object, and looks at the vertices that make up each triangle. With a specific amount of vertices specified using the specification vert, <em>shoe_coord</em>, takes these vertices and maps them onto a x,y,z coordinate plane. Then using this coordinate plane, the allignment process began.
+<details>
+<p><summary>
+When working with coordinate systems, there was still not aligning, as each shoe was set on its own coordinate plane </summary></p>
+Some attempts that have not really turned out well
+- Transforming the mesh objects to points aligned by the center of mass to overlay them detecting difference.
+<img src="images/shoes/3dshoes/AlignShoeTest.png" width="100%"/>
+- Problems
+- Isnt aligning properly as you can see
+</details>
+<p>Principal Component Analysis:
+The basic idea of principal component analysis is to take a dataset with many variables, and simplify that dataset by turning the original variables into a smaller number of “Principal Components”. These principal components are the underlying structure in the data. Taking that data and giving a vector in directions where there is the most variance. Taking these egienvectors as the data, we can get a “flattened” version of our origianl shoe. This is done using singular decomposition: If the <span class="math inline">\(N \times p\)</span> matrix X has rank r then it has a so-called singular value decomposition as <span class="math inline">\(X_{N \times p} = U_{N\times r} D_{r \times r} V&#39;_{r\times p}\)</span> where U has orthonormal columns spanning the column space of X, V has orthonormal columns spanning the colum space of X’ and D is a diaginal matrix of singular values. For ordinary principal components, the columns of V are called the principal component directions in <span class="math inline">\(\Re^3\)</span> .</p>
 <p>Once a shoe has been turned into coordinates from the verticies of a mesh object, we can use the function <em>prcomp</em> to get a transformation matrix.</p>
-<p><details> <summary>Some notes on this:</summary></p>
+<details>
+<p><summary>Some notes on this:</summary></p>
 <ul>
 <li>use vertices of 7 to decrease amount of points to match</li>
 <li>if you have too few points also doesnt work</li>
 <li>turn table works the best</li>
-<li><p>Sony are the best matches (the shoes I personally have scanned) </details> <details> <summary> Point cloud alignment </summary></p></li>
-<li><p>First looking at shoes with all vertices included: <img src="images/shoes/3dshoes/PACwithallpoints.png" width="100%"/></p></li>
+<li>Sony are the best matches (the shoes I personally have scanned)</li>
+</ul>
+</details>
+<details>
+<p><summary> Point cloud alignment </summary></p>
+<ul>
+<li>First looking at shoes with all vertices included:
+<img src="images/shoes/3dshoes/PACwithallpoints.png" width="100%"/></li>
 </ul>
 <p><img src="images/shoes/3dshoes/SidePCAwithallpoints.png" width="100%"/></p>
 <ul>
-<li>Now the same shoe with fewer vertices included in the allignment <img src="images/shoes/3dshoes/SonyPACside.png" width="100%"/></li>
+<li>Now the same shoe with fewer vertices included in the allignment
+<img src="images/shoes/3dshoes/SonyPACside.png" width="100%"/></li>
 </ul>
 <p><img src="images/shoes/3dshoes/SonyPAC.png" width="100%"/></p>
 <p>With these point clous alignments, the next step is to take the rotation matrix given by <em>prcomp</em> and apply it to the original mesh object since rather than comparing points that may or may not exsisit in comparison to each other shoes, as the vertices are not exactly the same on a mesh object from scan to scan of even the same shoe. <em>prcomp</em> gives a matrix that can be applied to a mesh object using a function called <em>transform3d</em></p>
 <p><img src="images/shoes/3dshoes/prcompwithoutcenter.png" width="100%"/></p>
-<p></details></p>
-<p>Once this was tried, it seems that the function <em>prcomp</em> isnt actually centering the data, although according to the code it should. So in order to overcome this issue when initially turning the stl file into a mesh object, a centering is performed using the barycenter of the shoe scan. In astronomy, the barycenter is the center of mass of two or more bodies that orbit one another and is the point about which the bodies orbit, since we are obviously only dealing with one object, the barycenter can be thought of as the center of mass for the shoe scan (the center of mass of a distribution of mass in space is the unique point where the weighted relative position of the distributed mass sums to zero). This puts the point (0,0,0) in the center of the shoe rather than the center being close to the 300s as before <details><summary> Centering </summary> <img src="images/shoes/3dshoes/centeredvsnoncentered.png" width="100%"/></p>
-<p>The blue shoe is the original shoe grab, where the green shoe is now the shoe that has been centered on the center of mass. Now we can start with two shoes that at least have the same &quot;center&quot; point before principal component analysis is completed:</p>
-<p><img src="images/shoes/3dshoes/Centeredshoes.png" width="100%"/> </details></p>
-<p>Once the shoes themselves have been centered, then PCA can be compleated on the shoes themselves: <details> <summary> PCA after centering </summary> <img src="images/shoes/3dshoes/AfterPCA.png" width="100%"/></p>
-<p>The Green shoe is the original shoe grab centered, where the red shoe is now after PCA has been applied. Then using the PCA for both of the two scans we can get the following map of the two shoes with their given principal component rotation matrix applied: <img src="images/shoes/3dshoes/RotatedShoes.png" width="100%"/></p>
+</details>
+Once this was tried, it seems that the function <em>prcomp</em> isnt actually centering the data, although according to the code it should. So in order to overcome this issue when initially turning the stl file into a mesh object, a centering is performed using the barycenter of the shoe scan. In astronomy, the barycenter is the center of mass of two or more bodies that orbit one another and is the point about which the bodies orbit, since we are obviously only dealing with one object, the barycenter can be thought of as the center of mass for the shoe scan (the center of mass of a distribution of mass in space is the unique point where the weighted relative position of the distributed mass sums to zero). This puts the point (0,0,0) in the center of the shoe rather than the center being close to the 300s as before
+<details>
+<p><summary> Centering </summary>
+<img src="images/shoes/3dshoes/centeredvsnoncentered.png" width="100%"/></p>
+<p>The blue shoe is the original shoe grab, where the green shoe is now the shoe that has been centered on the center of mass. Now we can start with two shoes that at least have the same “center” point before principal component analysis is completed:</p>
+<img src="images/shoes/3dshoes/Centeredshoes.png" width="100%"/>
+</details>
+Once the shoes themselves have been centered, then PCA can be compleated on the shoes themselves:
+<details>
+<p><summary> PCA after centering </summary>
+<img src="images/shoes/3dshoes/AfterPCA.png" width="100%"/></p>
+<p>The Green shoe is the original shoe grab centered, where the red shoe is now after PCA has been applied. Then using the PCA for both of the two scans we can get the following map of the two shoes with their given principal component rotation matrix applied:
+<img src="images/shoes/3dshoes/RotatedShoes.png" width="100%"/></p>
 <p>As you can see although they are on the same plane, they are not exactly allign. In order to get them aligned a matrix of 1s and -1 needs to be applied in some order, minimizing the RMSE</p>
-<p><img src="images/shoes/3dshoes/Applingmatrixes.png" width="100%"/> <img src="images/shoes/3dshoes/initalAlignment.png" width="100%"/> </details></p>
+<img src="images/shoes/3dshoes/Applingmatrixes.png" width="100%"/>
+<img src="images/shoes/3dshoes/initalAlignment.png" width="100%"/>
+</details>
 <p>Once the PCA has done the initial alignment, then a secondary alignment needs to be done using Itterative Closest Point, to do this a landmark must be established. One cant just use the PCA, the way that the initial scans are only of the soles, which change as they wear, so we are trying to allign something that is not there anymore. The idea landmark will give a spot in the shoe that will not change, the arch or a large indent, in order to find a proposed landmark, we are attempting to use the maximum distance in z.</p>
-<p><details><summary> </summary> <img src="images/shoes/3dshoes/ICP1.png" width="100%"/> <img src="images/shoes/3dshoes/ICP2.png" width="100%"/> <img src="images/shoes/3dshoes/ICPzoom.png" width="100%"/> </details></p>
-<p><img src="images/shoes/3dshoes/ICPall1.png" width="100%"/> <img src="images/shoes/3dshoes/ICPall2.png" width="100%"/> <img src="images/shoes/3dshoes/ICPall3.png" width="100%"/></p>
+<details>
+<summary> </summary>
+<img src="images/shoes/3dshoes/ICP1.png" width="100%"/>
+<img src="images/shoes/3dshoes/ICP2.png" width="100%"/>
+<img src="images/shoes/3dshoes/ICPzoom.png" width="100%"/>
+</details>
+<p><img src="images/shoes/3dshoes/ICPall1.png" width="100%"/>
+<img src="images/shoes/3dshoes/ICPall2.png" width="100%"/>
+<img src="images/shoes/3dshoes/ICPall3.png" width="100%"/></p>
 <p>Automated Alignment:</p>
 <p>In order to align the shoes through an automatized process, we need to use the following steps.</p>
 <ol style="list-style-type: decimal">
@@ -940,26 +1039,34 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 <li>rotation around the x-axis 180 degrees and the y-axis 180 degrees and the z-axis 180 degrees</li>
 <li>No rotation is needed</li>
 </ol>
-<p>there are only 4 unique matrices to deal with <details> <summary> Matrix Rotations </summary> <img src="images/shoes/3dshoes/rotationmatrix.png" width="80%"/></p>
-<p></details></p>
+there are only 4 unique matrices to deal with
+<details>
+<p><summary> Matrix Rotations </summary>
+<img src="images/shoes/3dshoes/rotationmatrix.png" width="80%"/></p>
+</details>
 <p>In order to choose which one of these matrices, the first shoe scan in time is set as the base scan. Then each of the four matrices described above is applied to second scan. After each rotation, the distance between the first and second scan is measured. The matrix with the smallest distance is used as the rotation matrix, and is applied to the second shoe. For example, with scan 1 and scan 2, the four matrices lead to the following 4 distances: 2.153458, 9.124214, 9.117095, and 6.234845. Thus scan 2 is rotated by the matrix of the diag(1,1,1).</p>
 <ol start="6" style="list-style-type: decimal">
 <li>Once the shoes are initially alligned, ICP is applied with an iteration of the aligners choosing. Once ICP has been performed, the distance is again measured and recorded.</li>
 </ol>
-<p><img src="images/shoes/3dshoes/A1.png" width="80%"/> <img src="images/shoes/3dshoes/A2.png" width="80%"/></p>
+<p><img src="images/shoes/3dshoes/A1.png" width="80%"/>
+<img src="images/shoes/3dshoes/A2.png" width="80%"/></p>
 <p>Here the final distance is 0.9791678 cm</p>
-<p>How distance is being measured: In this process, we set the first scan as a base scan (here scan 1). This scan does not move through the process. Once this scan is set, using a K-D tree method the shoe is divided up into sections until there is only one vertex in each section. This process is done to the second shoe as well.</p>
+<p>How distance is being measured:
+In this process, we set the first scan as a base scan (here scan 1). This scan does not move through the process. Once this scan is set, using a K-D tree method the shoe is divided up into sections until there is only one vertex in each section. This process is done to the second shoe as well.</p>
 <p><img src="images/shoes/3dshoes/KdTree.png" width="100%"/></p>
 <p>K-D construction is as follows divide the points in half by a line perpendicular to one of the axes, in each tree. Then recursively construct k-d trees for the two sets of points, the two points corresponding to the verities of the triangles. Think of it as this, we first choose a shoe to be set. In this case shoe scan 1. Then for each one of the verticies of a triangle we draw a ball with radius then we start epsilon to be 0 and expand it till you hit the closest section with a specified point.</p>
-<p>Each point is then pair with the closest euclidean distance corresponding point.For two vectors or two vectors (x_1,y_1,z_1) and (x_2,y_2,z_2), the euclidean distance is found by: <span class="math display">\[ \sqrt(\sum^n_{i=1}(q_i-p_i)^2) \]</span></p>
-<p>This is repeated for the set iterations, or until epsilon is deemed small enough. Each time the distance is measured, but the K-D tree sectioning remains the same through the process. This gives us N distances for the number of iterations. We return the final N iteration's distances from each set of verities. The mean of these distances is then computed, giving us a distance metric. This is used to find the magnitude of the distance between the two shoes. This distance is consistent for each processing of two shoes (i.e. if you run scan 1 and scan 2 through this process, you will still get the same distance of 0.98. However, if you switch the positions of the shoe, making scan 2 the base you will get a different result, 2.243478)</p>
+<p>Each point is then pair with the closest euclidean distance corresponding point.For two vectors or two vectors (x_1,y_1,z_1) and (x_2,y_2,z_2), the euclidean distance is found by:
+<span class="math display">\[ \sqrt(\sum^n_{i=1}(q_i-p_i)^2) \]</span></p>
+<p>This is repeated for the set iterations, or until epsilon is deemed small enough. Each time the distance is measured, but the K-D tree sectioning remains the same through the process. This gives us N distances for the number of iterations. We return the final N iteration’s distances from each set of verities. The mean of these distances is then computed, giving us a distance metric. This is used to find the magnitude of the distance between the two shoes. This distance is consistent for each processing of two shoes (i.e. if you run scan 1 and scan 2 through this process, you will still get the same distance of 0.98. However, if you switch the positions of the shoe, making scan 2 the base you will get a different result, 2.243478)</p>
 <p>Understanding the distance:</p>
 <p>Once we have the distance, we want to understand where the wear is occurring, plotting the distance on the base scan of scan 1, we see the distance to scan 2 looks like the following:</p>
-<p><img src="images/shoes/3dshoes/Dist1.png" width="80%"/> <img src="images/shoes/3dshoes/Dist2.png" width="80%"/></p>
+<p><img src="images/shoes/3dshoes/Dist1.png" width="80%"/>
+<img src="images/shoes/3dshoes/Dist2.png" width="80%"/></p>
 <p>Some Issues through the process:</p>
 <ol style="list-style-type: decimal">
-<li><p>Inconsistency of scans: As we have seen the cropping of the scan is inconsistent, i.e. where the scans were cut</p></li>
-<li><p>How ICP is being measured: It is unclear how much ICP is changing after each iteration. For example, in our scan1 vs scan 2 shoes if we take the mean distance after 1 iteration, then 2, up to 20 iterations we get the same mean. (next step is to go further out to see if it changes, or look at the distribution of distances after each iteration and not just the mean, to see if the tails are changing.)</p></li>
+<li><p>Inconsistency of scans: As we have seen the cropping of the scan is inconsistent, i.e. where the scans were cut</p></li>
+<li><p>How ICP is being measured:
+It is unclear how much ICP is changing after each iteration. For example, in our scan1 vs scan 2 shoes if we take the mean distance after 1 iteration, then 2, up to 20 iterations we get the same mean. (next step is to go further out to see if it changes, or look at the distribution of distances after each iteration and not just the mean, to see if the tails are changing.)</p></li>
 </ol>
 </div>
 <div id="shoe-outsole-matching-using-image-descriptors" class="section level2">
@@ -979,10 +1086,10 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 </div>
 <div id="method-2-surf-detection-and-mc-on-degraded-impressions" class="section level3">
 <h3><span class="header-section-number">7.6.2</span> Method 2: SURF detection and MC on degraded impressions</h3>
-<p>Accepted by <em>Statistical Analysis and Data Mining</em> in Feb. 2020.</p>
+<p>Accepted by <em>Statistical Analysis and Data Mining</em> in Feb. 2020.</p>
 <p><strong>Comments by reviewers</strong></p>
 <ol style="list-style-type: decimal">
-<li>Generalization (Fingerprints, Photos of faces, ... )</li>
+<li>Generalization (Fingerprints, Photos of faces, … )</li>
 <li>Other classifiers, besides the random forest.</li>
 <li>Variable importance</li>
 </ol>
@@ -1064,10 +1171,14 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 <h3><span class="header-section-number">7.6.5</span> Matching on degraded and partial images</h3>
 <p><strong>Example of degraded images</strong>:</p>
 <p><img src="images/shoes/Features/deg_full_ex.jpg" width="100%"/></p>
-<p><strong>Example crime-scene like images on dust from the data by Speir's group</strong>: <img src="images/shoes/Features/dust_CS.png" width="30%"/></p>
-<p><strong>Density of mates and non-mates by features</strong>: <img src="images/shoes/Features/den_features_10.png" width="100%"/></p>
-<p><strong>ROC curves by features</strong>: <img src="images/shoes/Features/ROC_degs.png" width="100%"/></p>
-<p><strong>AUC values by features</strong>: <img src="images/shoes/Features/AUC_deg.png" width="100%"/></p>
+<p><strong>Example crime-scene like images on dust from the data by Speir’s group</strong>:
+<img src="images/shoes/Features/dust_CS.png" width="30%"/></p>
+<p><strong>Density of mates and non-mates by features</strong>:
+<img src="images/shoes/Features/den_features_10.png" width="100%"/></p>
+<p><strong>ROC curves by features</strong>:
+<img src="images/shoes/Features/ROC_degs.png" width="100%"/></p>
+<p><strong>AUC values by features</strong>:
+<img src="images/shoes/Features/AUC_deg.png" width="100%"/></p>
 <p><strong>Relationship among similarities (% Overlap) by feature-types</strong></p>
 <ul>
 <li>Overlap feature (% overlap after the alignment) in the degradation level, 0</li>
@@ -1080,8 +1191,10 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 <p><strong>Random forest training for the variable importance</strong></p>
 <ul>
 <li><p>Trained the RF, in the degradatino level of 0 and 10, on the class with the variables of all similarities by each feature type.</p></li>
-<li><p>Degradation level 0 <img src="images/shoes/Features/varimp_deg0.png" width="100%"/></p></li>
-<li><p>Degradation level 10 <img src="images/shoes/Features/varimp_deg10.png" width="100%"/></p></li>
+<li><p>Degradation level 0
+<img src="images/shoes/Features/varimp_deg0.png" width="100%"/></p></li>
+<li><p>Degradation level 10
+<img src="images/shoes/Features/varimp_deg10.png" width="100%"/></p></li>
 </ul>
 </div>
 <div id="research-2-impact-of-weight-to-outsole-scans-from-everos-2d-scanner" class="section level3">
@@ -1109,7 +1222,7 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 </ul>
 <p><img src="images/shoes/Features/density_w2_w4.png" width="100%"/></p>
 <p><strong>Discrimination among groups</strong></p>
-<p>Let's simplify the question; <strong>Is the person effect significant?</strong></p>
+<p>Let’s simplify the question; <strong>Is the person effect significant?</strong></p>
 <p><img src="images/shoes/Features/vest-w2w4.png" width="100%"/></p>
 <ul>
 <li>Initial analysis
@@ -1146,7 +1259,8 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 <p>Between two different images if two SURFs have a matching sign of Laplacian, the distance between the two 1x64 descriptor vectors is measured. If the distance is below a specified threshold the two SURFs are considered matching.</p>
 <p><strong>Sign of Laplacian</strong></p>
 <p><img src="images/shoes/additionalFeatures/signoflaplacian.png" width="50%"/></p>
-<p><strong>64 descriptors</strong> <img src="images/shoes/additionalFeatures/descriptorexample.png" alt="The 64 SURF descriptors come from sums of wavelet responses from 16 subsections of each SURF" /></p>
+<p><strong>64 descriptors</strong>
+<img src="images/shoes/additionalFeatures/descriptorexample.png" alt="The 64 SURF descriptors come from sums of wavelet responses from 16 subsections of each SURF" /></p>
 <p>When SURFs are matched, a matrix is returned with indices of matching SURFs and the measured distance. Matched features are illustrated here.</p>
 <p><img src="images/shoes/additionalFeatures/powd_mate_images.jpg" width="100%"/></p>
 <p><img src="images/shoes/additionalFeatures/init_SURF_match.jpg" width="100%"/></p>
@@ -1171,7 +1285,7 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 <col width="5%" />
 <col width="11%" />
 <col width="14%" />
-<col width="10%" />
+<col width="9%" />
 <col width="19%" />
 <col width="19%" />
 <col width="18%" />
@@ -1250,7 +1364,7 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 <col width="5%" />
 <col width="11%" />
 <col width="14%" />
-<col width="10%" />
+<col width="9%" />
 <col width="19%" />
 <col width="19%" />
 <col width="18%" />
@@ -1326,13 +1440,14 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 <p>When two images using fingerprint powder are are from the same shoe and with the same stepping style, the alignment using maximum clique is generally good. However, when the sole images are not mates the alignment is occasionally not good. The alignment is especially poor when the step style changes.</p>
 <p><img src="images/shoes/additionalFeatures/match_dif_step_im.jpg" width="100%"/></p>
 <p><img src="images/shoes/additionalFeatures/dif_step_plot.png" width="100%"/></p>
-<p>So far, other existing methods haven't shown any more effectiveness in aligning shoes than the maximum clique. It would be useful if features could be made from the SURF descriptors which could be used to compare shoes without needing to align the images.</p>
+<p>So far, other existing methods haven’t shown any more effectiveness in aligning shoes than the maximum clique. It would be useful if features could be made from the SURF descriptors which could be used to compare shoes without needing to align the images.</p>
 </div>
 </div>
 <div id="matching-shoe-prints-with-ccf" class="section level2">
 <h2><span class="header-section-number">7.7</span> Matching shoe prints with ccf</h2>
 <div id="steps-to-match-two-shoe-scans" class="section level4">
 <h4><span class="header-section-number">7.7.0.1</span> Steps to match two shoe scans</h4>
+<pre><code>## Warning: package &#39;imager&#39; was built under R version 4.0.2</code></pre>
 <ol style="list-style-type: decimal">
 <li>Training/Test sets</li>
 </ol>
@@ -1346,45 +1461,45 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 <ul>
 <li>Ex1: A matching pair: scan1 (left; reference) and scan2 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-352-1.png" width="672" /></p>
 <ul>
 <li>Ex2: A non-matching pair: scan1 (left; reference) from shoe2 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-353-1.png" width="672" /></p>
 <ul>
 <li>Ex3: A non-matching pair: scan1 (left; reference) from shoe3 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-354-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Determine 600px by 600px square coordinate for all of the reference images; the location of square is the same for each reference image. For example, the bottom left corner is at (601, 1001) and the top right corner is at (1200, 1600).</li>
 </ol>
 <ul>
 <li>Ex1: A matching pair: scan1 (left; reference) and scan2 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-355-1.png" width="672" /></p>
 <ul>
 <li>Ex2: A non-matching pair: scan1 (left; reference) from shoe2 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-356-1.png" width="672" /></p>
 <ul>
 <li>Ex3: A non-matching pair: scan1 (left; reference) from shoe3 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-357-1.png" width="672" /></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Extract the 600px by 600px square from both reference and moving images in each matching/non-matching pair, and then split each square into 36 smaller squares that are 100px by 100px. As a result, there are 36 100px by 100px squares are obtained from the reference and moving images, respectively, in each pair.</li>
 </ol>
 <ul>
 <li>Ex1:</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-358-1.png" width="672" /></p>
 <ul>
 <li>Ex2:</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-359-1.png" width="672" /></p>
 <ul>
 <li>Ex3:</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-360-1.png" width="672" /></p>
 <ol start="5" style="list-style-type: decimal">
 <li>Compute maximum cross correlation function from a small square of a reference image and its corresponding small square of the moving image. Consequently, there are 36 maximum ccf and their (dx, dy) obtained from each matching/nonmatching pair. Summarize ccf, dx, and dy so that only a single set of features from them is made from each pair.</li>
 </ol>
@@ -1405,11 +1520,10 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 <ol start="6" style="list-style-type: decimal">
 <li>Train randomforest based on the features of ccf, dx, and dy from the training set, and predict whether each pair in the test set is matching or non-matching.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rf.predicted[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">12</span>, <span class="dv">23</span>, <span class="dv">34</span>, <span class="dv">45</span>, <span class="dv">56</span>, <span class="dv">67</span>, <span class="dv">78</span>, <span class="dv">89</span>, <span class="dv">100</span>)] <span class="co"># Actual matching pair</span></code></pre></div>
+<pre><code>## Warning: package &#39;randomForest&#39; was built under R version 4.0.2</code></pre>
 <pre><code>##   1  12  23  34  45  56  67  78  89 100 
 ##   1   0   1   1   0   1   0   1   1   1 
 ## Levels: 0 1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rf.predicted[<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">12</span>, <span class="dv">23</span>, <span class="dv">34</span>, <span class="dv">45</span>, <span class="dv">56</span>, <span class="dv">67</span>, <span class="dv">78</span>, <span class="dv">89</span>, <span class="dv">100</span>)] <span class="co"># Actual non-matching pair</span></code></pre></div>
 <pre><code>##  2  3  4  5  6  7  8  9 10 11 13 14 15 16 17 18 19 20 21 22 24 25 26 27 28 29 
 ##  0  0  0  0  0  0  0  0  0  0  0  1  0  0  0  0  0  0  0  0  1  0  0  0  0  0 
 ## 30 31 32 33 35 36 37 38 39 40 41 42 43 44 46 47 48 49 50 51 52 53 54 55 57 58 
@@ -1426,11 +1540,11 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 ##   1   1   1   1   1   1   1   1   1   1 
 ## Levels: 0 1</code></pre>
 <pre><code>##  2  3  4  5  6  7  8  9 10 11 13 14 15 16 17 18 19 20 21 22 24 25 26 27 28 29 
-##  0  0  0  0  0  0  0  0  0  0  0  1  0  0  0  0  0  0  0  0  1  0  1  0  0  0 
+##  0  0  0  0  0  0  0  1  0  0  0  1  0  0  0  0  0  0  0  0  1  0  1  0  0  0 
 ## 30 31 32 33 35 36 37 38 39 40 41 42 43 44 46 47 48 49 50 51 52 53 54 55 57 58 
 ##  0  0  1  1  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  1  1  0  0  0  0 
 ## 59 60 61 62 63 64 65 66 68 69 70 71 72 73 74 75 76 77 79 80 81 82 83 84 85 86 
-##  0  1  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  1  0  0  0  0  0 
+##  0  1  0  1  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  1  0  0  0  0  0 
 ## 87 88 90 91 92 93 94 95 96 97 98 99 
 ##  0  0  0  0  0  0  0  0  0  0  0  0 
 ## Levels: 0 1</code></pre>
@@ -1441,7 +1555,7 @@ c. Discard $\rho$ and keep $\theta$. Transform the original image (not the FFT&#
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-modatGlobalImageRegistration2014">
-<p>Modat, Marc, David M. Cash, Pankaj Daga, Gavin P. Winston, John S. Duncan, and Sébastien Ourselin. 2014. “Global Image Registration Using a Symmetric Block-Matching Approach.” <em>Journal of Medical Imaging (Bellingham, Wash.)</em> 1 (2). doi:<a href="https://doi.org/10.1117/1.JMI.1.2.024003">10.1117/1.JMI.1.2.024003</a>.</p>
+<p>Modat, Marc, David M. Cash, Pankaj Daga, Gavin P. Winston, John S. Duncan, and Sébastien Ourselin. 2014. “Global Image Registration Using a Symmetric Block-Matching Approach.” <em>Journal of Medical Imaging (Bellingham, Wash.)</em> 1 (2). <a href="https://doi.org/10.1117/1.JMI.1.2.024003">https://doi.org/10.1117/1.JMI.1.2.024003</a>.</p>
 </div>
 </div>
             </section>
@@ -1505,7 +1619,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))

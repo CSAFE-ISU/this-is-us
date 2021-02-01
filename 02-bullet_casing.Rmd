@@ -2475,9 +2475,40 @@ One possible explanation is that, because the known match cartridge cases were c
 
 </details>
 
+<details>
+<summary>
+Joe 2/1/21: I ran the CMC method on the Fadul scans that were translationally pre-aligned on the center of the firing pin impression and have some interesting results to share from this experiment. Additionally, I've been working on tweaking some of the processing procedures to work with new scans. Finally, I have made some headway into transferring a similarity scoring method developed by Chumbley et al. (2010) for comparing two 1D toolmarks to our 2D scans.
+</summary>
+
+I have experimented with translationally aligning two scans on their firing pin impression centers prior to performing the CMC method. Intuitively, if two truly matching scans were aligned by their firing pin impressions before applying the CMC method, we would expect the CMC method be able to estimate the rotation value at which the scans align. That is to say, the breech face markings should obviously align at a single rotation value if we were to first translationally align the scans such that the firing pin impression centers match up. 
+
+For two truly matching scans that aren't first translationally aligned, we still would expect the CMC method to be somewhat effective at estimating the correct translation. This is because many cells should all "agree" upon the translation values at which the scans are best aligned. In contrast, for two non-matching scans, we would anticipate the estimated translation values to vary randomly across the various cells (i.e., an "agreement" wouldn't be reached). It is well-documented, however, that the degree to which the CMC method is "effective" at estimating the correct translation is contingent on a variety of user-defined processing conditions, thresholds, etc. In short, we should be able to lighten the burden placed on the CMC method to estimate estimate the correct rotation and translations if we first translationally align by the firing pin impression. This is illustrated by the image below.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/2-1-21_update/alignmentComparison.png")
+```
+
+To compare the effectiveness of the CMC method for pre-aligned vs. non pre-aligned scans, we will use the same variance ratio I've discussed in the past:
+$$
+r = \frac{\sum_{i=1}^2 \left(\overline{\text{CMC}}_{i} - \overline{\text{CMC}}\right)^2}{\sum_{i=1}^2 \frac{1}{n_i - 1}\sum_{j=1}^{n_i} \left(\text{CMC}_{i,j} - \overline{\text{CMC}}_i\right)^2}
+$$
+where $\overline{\text{CMC}}_i$ denotes the within-group (match or non-match) CMC count average, $\overline{\text{CMC}}$ denotes the grand CMC count average, and $CMC_{i,j}$ represents the CMC count associated with the $j$th cartridge case pair in the $i$th group, $i = 1,2$, $n_1 = 63$, $n_2 = 717$.
+Greater separation between and less variability within the match and non-match CMC count distributions will yield larger $r$ values. 
+As such, larger values of $r$ are preferred.
+
+Interestingly, it appears that pre-aligning two scans by their firing pin impression does not improve the performance of the CMC method, as measured by the variance ratio statistic. This is evidenced by the plot below.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/2-1-21_update/rectangularDomainPreAlignedVarianceRatios.png")
+```
+
+This seems to agree with the findings I discussed last week of the applying the CMC method to polar transformed scans that had/had not been translationally pre-aligned.
+
+</details>
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
-The moified Chumbley non-random algorithm is a statistical non-paramaetric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segement to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 
+The moified Chumbley non-random algorithm is a statistical non-parametric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segement to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 
 
 The modified chumbley method [@gkhh] can work with two markings at a time. Therefore the method can be used for comparing signatures from one land to signature from another land. The land-to-land comparison was performed for Hamby 44 dataset from [@nist] and CSAFE [@gkhh] and associated error rates were computed for these comparisons.
 
@@ -2877,6 +2908,73 @@ knitr::include_graphics("images/cmps/jan24/hamby44_gt.png", dpi=100)
 
 
 - For the CMPS algorithm, increasing the number of accepted peaks at the first and second scales can largely increase the CMPS score of KM comparisons, while it has less effects on CMPS scores of KNM comparisons.  
+
+</details>
+
+<details>
+<summary>
+Will 02/01 Update: In the past week, I mainly focused on the writing of the CMPS package paper. So in this update, I will talk about the graphing tools we recently included in the CMPS package. We made two functions, `cmps_signature_plot` and `cmps_segment_plot`, that take a "CMPS result" generated by the main function `extract_feature_cmps` and output plots that can help users visualize and better understand the CMPS results.
+
+</summary>
+
+The example below shows how to use these two graphing functions. Note that in order to generate informative plots, `cmps_signature_plot` and `cmps_segment_plot` need more information beyond the `CMPS.score`, so we need to have `extract_feature_cmps(..., include = "full_result")`
+
+```{r, eval=FALSE, echo=TRUE}
+library(CMPS)
+data(bullets)
+
+land2_3 <- bullets$sigs[bullets$bulletland == "2-5"][[1]]
+land1_2 <- bullets$sigs[bullets$bulletland == "1-4"][[1]]
+
+cmps.result <- extract_feature_cmps(land2_3$sig,
+                                    land1_2$sig,
+                                    npeaks.set = c(5, 3, 1),
+                                    include = "full_result")
+
+sig.plot <- cmps_signature_plot(cmps.result)
+
+seg.plot <- cmps_segment_plot(cmps.result, seg.idx = 6)
+```
+
+Then we can take a look at those plotting results.
+
++ `sig.plot$segment_shift_plot` highlights basis segments that agree with the congruent registration position and hides other basis segments. In other words, we are highlighting the congruent matching profile segments. 
+
+```{r, eval=FALSE, echo=TRUE}
+sig.plot$segment_shift_plot
+```
+
+```{r}
+knitr::include_graphics("images/cmps/feb01/sigplot1.png", dpi=100)
+```
+
++ `sig.plot$signature_shift_plot` highlights the congruent matching profile segments on the reference profile.
+
+```{r, eval=FALSE, echo=TRUE}
+sig.plot$signature_shift_plot
+```
+
+```{r}
+knitr::include_graphics("images/cmps/feb01/sigplot2.png", dpi=100)
+```
+
++ `seg.plot <- cmps_segment_plot(cmps.result, seg.idx = 6)` generates plots for the 6th basis segment. `seg.plot` contains plots of cross-correlation functions (ccf) at every scale/level of the basis segment. 
+
+```{r, eval=FALSE, echo=TRUE}
+library(ggpubr)
+ggarrange(plotlist = unlist(seg.plot, recursive = FALSE),
+          ncol = 2, nrow = 3)
+```
+
+```{r}
+knitr::include_graphics("images/cmps/feb01/segplot3.png", dpi=100)
+```
+
++ The red vertical dashed line indicates the congruent registration position. We can see that the segment 6 does obtain a peak near to the congruent registration position at scale two and scale three, respectively; however, this position doesn't give one of the five highest peaks at scale one. As a result, segment 6 fails to identify the consistent correlation peak (ccp) and fails to become one of the congruent matching profile segments according to the multi segment lengths strategy. 
+
++ Similarly, we can generate `seg.plot` of other basis segments if we want to know why it is or it isn't a congruent matching profile segment.
+
+
 
 </details>
 

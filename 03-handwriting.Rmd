@@ -810,8 +810,13 @@ Comparing all four implementations of the process, the method did the best at co
 
 The kernel density estimates for the shortest prompt are not well separated. As the length of the writing sample increases, the KDEs between same and different sources become more distinct.
 
-It is important to note that the training set did down sample the number of different source differences, but the testing set did not so the number of SLRs in that are from different sources will be more than from the same (a pattern not seen in the simulated data).
+The discrimination of source using SLRs can be quantified using AUC by prompt as 0.6447, 0.7293, 0.9692, and 0.961 for the short phrase, Wizard of Oz, London Letter, and all prompts combined, respectively.
 
+```{r slr-c2}
+knitr::include_graphics(c("images/handwriting/mattie/roc_plots.png"))
+```
+
+It is important to note that the training set did down sample the number of different source differences, but the testing set did not so the number of SLRs in that are from different sources will be more than from the same (a pattern not seen in the simulated data).
 
 
 ## Communication of Results  
@@ -915,3 +920,10 @@ Presenting author is in bold.
 
 - Anyesha Ray (data collection)
 - James Taylor (feature extraction)
+
+## Deep Learning Methods
+
+We are currently researching ways in which we can use convolutional neural networks to classify pieces of handwriting by their author. Similar ideas have and are being used in applications to to face recognition and shoe print comparisons in forensics. Identifying key differences in particular features in handwriting authorship and other applications will help determine artchitectural advantages and disadvantages in different CNNs to optimize success in the classification of an author's handwriting. 
+
+One potential approach we are investigating is using a Siamese neural network which uses the same weights and CNN architecture to train two images and output a metric noting their similarity. An outputted metric could be utilized to obtain a likelihood score that would then be used to classify similar images. With a focus on offline signatures, we are investigating the architectures of different CNNs used for other handwriting datasets to use as a baseline for constructing our own CNN to train and evaluate our handwriting datasets. 
+

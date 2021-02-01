@@ -2964,7 +2964,20 @@ Figure 4.142: Random forest scores and estimated distributions for full data
 <li><p>Conduct lack of fit test for the beta-mixture distribution (what’s the saturated model?)</p></li>
 <li><p>Refine the writeup</p></li>
 </ul>
-<p>testing</p>
+<p>Feb/2021 starts here</p>
+<p>See how the parameter (bulletxtrctr::x3p_crosscut_optimize()) selection will affect the crosscut locations. It is clear that the larger the “distance” the higher position the crosscut is located.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-290"></span>
+<img src="images/yawei/compare-cc-fig1.png" alt="Boxplot: compare the crosscut locations for distance set as 10 and 15" width="50%" />
+<p class="caption">
+Figure 4.143: Boxplot: compare the crosscut locations for distance set as 10 and 15
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-291"></span>
+<img src="images/yawei/compare-cc-fig2.png" alt="Scatter plot: compare the crosscut locations for distance set as 10 and 15" width="50%" />
+<p class="caption">
+Figure 4.144: Scatter plot: compare the crosscut locations for distance set as 10 and 15
+</p>
+</div>
 <div id="look-colser-to-the-dependence-structure-of-the-land-engraved-areas" class="section level4">
 <h4><span class="header-section-number">4.5.1.1</span> Look colser to the dependence structure of the land engraved areas</h4>
 <p>There are some discussions about the existing patterns of dependence in the observed data. Inspired by that, we are trying to build a model to formalize those thoughts.</p>
@@ -2993,10 +3006,10 @@ where, barrel effect, land effect, explosion effect, random effect are respectiv
 <p>We extract markings, locate grooves, align signatures, and generate cross-comparison results. Each step is notified in UI and all steps are logged.</p>
 <p>The scores and results are then communicated through an interactive visualization. We first interact at the top most level where we have bullet-to-bullet scores for all the cross-comparisons presented in a grid. We can select one comparison at a time which would generate a second level of grid visualization that shows the land-to-land scores for all 36 comparisons within a bullet. Interacting with this visualization, we can now pull up score tables, profiles, location of grooves, aligned signatures and raw images.</p>
 <p>The framework of interactions, allows for validation of classification recommended by the RF model as well as gives an opportunity to critically asses, identify the cause and diagnose any problems encountered in the bullet matching pipeline.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-290"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-292"></span>
 <img src="images/bullets/gan-app2_consolidated.png" alt="An instance of the interactive visualizations for communicating results" width="50%" />
 <p class="caption">
-Figure 4.143: An instance of the interactive visualizations for communicating results
+Figure 4.145: An instance of the interactive visualizations for communicating results
 </p>
 </div>
 </div>
@@ -3020,10 +3033,10 @@ Figure 4.143: An instance of the interactive visualizations for communicating re
 3. Best set of questionnaires need to be figured out.</p>
 <div id="measuring-trust-and-calibration" class="section level3">
 <h3><span class="header-section-number">4.7.1</span> Measuring Trust and calibration</h3>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-291"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-293"></span>
 <img src="images/bullets/questionnaire.png" alt="Questionnaire setup for comparing trust in scores" width="50%" />
 <p class="caption">
-Figure 4.144: Questionnaire setup for comparing trust in scores
+Figure 4.146: Questionnaire setup for comparing trust in scores
 </p>
 </div>
 <ol style="list-style-type: decimal">

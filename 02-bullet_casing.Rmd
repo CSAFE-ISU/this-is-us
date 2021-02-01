@@ -3312,7 +3312,18 @@ Currently, we have the following major issues to solve before going further. And
 
 - Refine the writeup
 
-testing
+Feb/2021 starts here
+
+See how the parameter (bulletxtrctr::x3p_crosscut_optimize()) selection will affect the crosscut locations. It is clear that the larger the "distance" the higher position the crosscut is located.
+
+```{r, fig.cap="Boxplot: compare the crosscut locations for distance set as 10 and 15", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/compare-cc-fig1.png"))
+```
+
+```{r, fig.cap="Scatter plot: compare the crosscut locations for distance set as 10 and 15", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/compare-cc-fig2.png"))
+```
+
 
 #### Look colser to the dependence structure of the land engraved areas
 

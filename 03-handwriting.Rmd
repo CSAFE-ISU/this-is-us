@@ -818,6 +818,8 @@ knitr::include_graphics(c("images/handwriting/mattie/roc_plots.png"))
 
 It is important to note that the training set did down sample the number of different source differences, but the testing set did not so the number of SLRs in that are from different sources will be more than from the same (a pattern not seen in the simulated data).
 
+##Relationship Between Rotation Angle and Demographic Features
+
 
 ## Communication of Results  
 Presenting author is in bold.

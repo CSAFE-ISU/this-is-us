@@ -3499,7 +3499,16 @@ Week of January 25th
  2. Choosing and finalizing different cases as modules. (for testing different attributes in the survey) 
  3. Mock setup for execution of the survey
  
+February Week 1  
 
+ - Algorithmic/ AI Explainability, Trust, Fairness: Field is moving very fast  
+ - Comparing in depth one recently published work in ACM FAccT by IBM Research, with my work on Explainability and trust in AI. Almost unbelievable!  
+ - Mapping other very recently published work, implications/ similarity to my current work.  
+
+Feb
+ - Identifying modifications, work needed and duration to completion/ submission of this work.
+ - Completing case setups
+ 
 
 ### Conference Presentations  
 

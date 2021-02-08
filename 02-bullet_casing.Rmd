@@ -137,6 +137,19 @@ Breech face data for knowns are scanned and available on a private github reposi
 
 evaluation
 
+### Rotation stage
+
+We are currently evaluating a 4-axis Sensofar stage meant to capture a full 360 degree of scans.
+
+Standard bullet SRM 2400:
+
+```{r, fig.cap="Images from a 360 degree rotation",  fig.keep="hold", fig.align='center', fig.show="hold", out.width="20%"}
+include_graphics(sprintf( "images/bullets/SRM2400-360/P%04d.png", c(1:12, 14:26)))
+```
+There are 40 scans taken at steps of 9 degrees. Each scan is taken at 20 fold magnification at a nominal resolution of 0.645 microns per pixel. 
+Each scan is of dimension 1360 x 1024 pixels, covering a secant length of 877.2 microns.
+
+
 ## Computational Tools
 
 ### x3ptools

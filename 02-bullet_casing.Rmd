@@ -3505,9 +3505,11 @@ February Week 1
  - Comparing in depth one recently published work in ACM FAccT by IBM Research, with my work on Explainability and trust in AI. Almost unbelievable!  
  - Mapping other very recently published work, implications/ similarity to my current work.  
 
-Feb
+Feb wee
  - Identifying modifications, work needed and duration to completion/ submission of this work.
  - Completing case setups
+ - Modifying paper to account for recent work
+ - Finalize, test mock visual app interaction setup  and survey
  
 
 ### Conference Presentations  

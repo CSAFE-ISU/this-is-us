@@ -3346,16 +3346,11 @@ Currently, we have the following major issues to solve before going further. And
 
 Feb/2021 starts here
 
-See how the parameter (bulletxtrctr::x3p_crosscut_optimize()) selection will affect the crosscut locations. It is clear that the larger the "distance" the higher position the crosscut is located.
+Crosscut locations for 325 "bad" LEAs with Will's app. They are all really bad LEAs, and if there is a screening procedure, these might be those to be excluded. A "special" one as shown in the following:
 
-```{r, fig.cap="Boxplot: compare the crosscut locations for distance set as 10 and 15", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/compare-cc-fig1.png"))
+```{r, fig.cap="A special LEA", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/specialscan.PNG"))
 ```
-
-```{r, fig.cap="Scatter plot: compare the crosscut locations for distance set as 10 and 15", out.width="50%", fig.keep="hold", fig.align='center'}
-include_graphics(c("images/yawei/compare-cc-fig2.png"))
-```
-
 
 #### Look colser to the dependence structure of the land engraved areas
 

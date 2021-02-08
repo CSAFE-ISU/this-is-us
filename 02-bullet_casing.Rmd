@@ -2506,6 +2506,20 @@ This seems to agree with the findings I discussed last week of the applying the 
 
 </details>
 
+<details>
+<summary>
+Joe 2/8/21: I applied the CMC method to the Sensofar data that we recently collected. Using these data, we hope to develop some more robust/generalizable methods to identify an optimal set of processing conditions than the current method - which is essentially hunt-and-peck.
+</summary>
+
+The plot below shows the results of the CMC method on the Sensofar data for a particular set of thresholds. Interestingly, one scan, G4-09, doesn't have a very high CMC score. This requires further investigation. Additionally, it should be noted that there are matching pairs of cartridge case scans here (that I don't know), yet none of the pairwise CMC scores are particularly large. This indicates that some changes to the processing procedures should be explored. This is what I plan on exploring in the upcoming weeks.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/2-8-21_update/sensofarGroup4Comparisons.png")
+```
+
+
+</details>
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
 The moified Chumbley non-random algorithm is a statistical non-parametric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segement to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 

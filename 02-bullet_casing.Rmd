@@ -2979,6 +2979,25 @@ knitr::include_graphics("images/cmps/feb01/segplot3.png", dpi=100)
 </details>
 
 
+<details>
+<summary>
+Will 02/07 Update: In the past week, we finished the first draft of the CMPS package paper. A figure was made to explain the workflow of obtaining bullet signatures using `x3ptools` and `bulletxtrctr`.
+
+</summary>
+
+```{r}
+knitr::include_graphics("images/cmps/feb07/figure1.png", dpi=100)
+```
+
++ (a) shows a front view of a bullet land impression. The white horizontal line indicates a crosscut position identified by `bulletxtrctr::x3p_crosscut_optimize`
++ (b) shows the cross-section at the crosscut position
++ (c) shows a plot of the crosscut data (`ccdata`) computated by `bulletxtrctr::x3p_crosscut`. The blue vertical lines show groove locations identified by `bulletxtrctr::cc_locate_grooves`
++ (d) the raw data after chopping off the grooves
++ (e) shows the curvature fitted by a LOESS regression
++ (f) shows the obtained bullet signature after removing the curvature
+
+</details>
+
 #### Future Work
 
 * improve and manage to submit the CMPS package to CRAN

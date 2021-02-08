@@ -1322,10 +1322,21 @@ rf.predicted.reversed <- predict(rf.matching.reversed,
                                         y_mean, y_sd, y_range)) # The matching result should be one for 1, 45, 56, 78, 89, 100, and otherwise, zero.
 ```
 
-```{r}
-rf.predicted[c(1, 12, 23, 34, 45, 56, 67, 78, 89, 100)] # Actual matching pair
+```{r echo = FALSE, message = FALSE}
+#install.packages("pROC")
+rf.predicted.prob <- predict(rf.matching, 
+                        newdata = test.dat %>%
+                          dplyr::select(fft_ccf_mean, fft_ccf_sd, fft_ccf_range,
+                                        x_mean, x_sd, x_range,
+                                        y_mean, y_sd, y_range),
+                        type = "prob")
 
-rf.predicted[-c(1, 12, 23, 34, 45, 56, 67, 78, 89, 100)] # Actual non-matching pair
+pROC::ggroc(pROC::roc(test.dat$actual.matching,
+               as.vector(rf.predicted.prob[,2])))
+
+# rf.predicted[c(1, 12, 23, 34, 45, 56, 67, 78, 89, 100)] # Actual matching pair
+# 
+# rf.predicted[-c(1, 12, 23, 34, 45, 56, 67, 78, 89, 100)] # Actual non-matching pair
 ```
 
 
@@ -1367,8 +1378,20 @@ rf.predicted <- predict(rf.matching,
                                         x_mean, x_sd, x_range,
                                         y_mean, y_sd, y_range))
 
-rf.predicted[c(1, 12, 23, 34, 45, 56, 67, 78, 89, 100)] # Actual matching pair
+rf.predicted.prob <- predict(rf.matching, 
+                        newdata = test.dat %>%
+                          dplyr::select(fft_ccf_mean, fft_ccf_sd, fft_ccf_range,
+                                        x_mean, x_sd, x_range,
+                                        y_mean, y_sd, y_range),
+                        type = "prob")
 
-rf.predicted[-c(1, 12, 23, 34, 45, 56, 67, 78, 89, 100)] # Actual non-matching pair
+pROC::ggroc(pROC::roc(test.dat$actual.matching,
+               as.vector(rf.predicted.prob[,2])))
+
+# rf.predicted[c(1, 12, 23, 34, 45, 56, 67, 78, 89, 100)] # Actual matching pair
+# 
+# rf.predicted[-c(1, 12, 23, 34, 45, 56, 67, 78, 89, 100)] # Actual non-matching pair
+
+
 
 ```

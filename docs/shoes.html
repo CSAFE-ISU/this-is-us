@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2021-01-31" />
+<meta name="date" content="2021-02-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -153,6 +153,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1.6" data-path="bullets.html"><a href="bullets.html#houston-persistence"><i class="fa fa-check"></i><b>4.1.6</b> Houston Persistence</a></li>
 <li class="chapter" data-level="4.1.7" data-path="bullets.html"><a href="bullets.html#st-louis-persistence"><i class="fa fa-check"></i><b>4.1.7</b> St Louis persistence</a></li>
 <li class="chapter" data-level="4.1.8" data-path="bullets.html"><a href="bullets.html#dfsc-cartridge-cases"><i class="fa fa-check"></i><b>4.1.8</b> DFSC Cartridge cases</a></li>
+<li class="chapter" data-level="4.1.9" data-path="bullets.html"><a href="bullets.html#rotation-stage"><i class="fa fa-check"></i><b>4.1.9</b> Rotation stage</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="bullets.html"><a href="bullets.html#computational-tools"><i class="fa fa-check"></i><b>4.2</b> Computational Tools</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="bullets.html"><a href="bullets.html#x3ptools"><i class="fa fa-check"></i><b>4.2.1</b> x3ptools</a></li>
@@ -529,11 +530,11 @@ This is necessary because Fourier transforms assume images go on forever, so abr
 <p><img src="images/shoes/longitudinal/FFT_Demo_Hann.png" width = "25%"/></p>
 <ul>
 <li>The strength of the Hann function can be adjusted by a power argument<br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-349-1.png" width="672" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-361-1.png" width="672" /></li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
 <li>Use the Fast Fourier Transform on each image. Center the FFT’d images so that low frequencies are in the center (exchange top left quadrant with bottom right, and top right quadrant with bottom left). Call the FFT’d, centered images <span class="math inline">\(F(A)\)</span> and <span class="math inline">\(F(B)\)</span><br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-350-1.png" width="50%" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-362-1.png" width="50%" /></li>
 </ol>
 <p><img src="images/shoes/longitudinal/FFT_Demo_FFT1.png" width = "50%"/></p>
 <ol start="4" style="list-style-type: decimal">
@@ -1461,45 +1462,45 @@ It is unclear how much ICP is changing after each iteration. For example, in our
 <ul>
 <li>Ex1: A matching pair: scan1 (left; reference) and scan2 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-352-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-364-1.png" width="672" /></p>
 <ul>
 <li>Ex2: A non-matching pair: scan1 (left; reference) from shoe2 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-353-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-365-1.png" width="672" /></p>
 <ul>
 <li>Ex3: A non-matching pair: scan1 (left; reference) from shoe3 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-354-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-366-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Determine 600px by 600px square coordinate for all of the reference images; the location of square is the same for each reference image. For example, the bottom left corner is at (601, 1001) and the top right corner is at (1200, 1600).</li>
 </ol>
 <ul>
 <li>Ex1: A matching pair: scan1 (left; reference) and scan2 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-355-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-367-1.png" width="672" /></p>
 <ul>
 <li>Ex2: A non-matching pair: scan1 (left; reference) from shoe2 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-356-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-368-1.png" width="672" /></p>
 <ul>
 <li>Ex3: A non-matching pair: scan1 (left; reference) from shoe3 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-357-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-369-1.png" width="672" /></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Extract the 600px by 600px square from both reference and moving images in each matching/non-matching pair, and then split each square into 36 smaller squares that are 100px by 100px. As a result, there are 36 100px by 100px squares are obtained from the reference and moving images, respectively, in each pair.</li>
 </ol>
 <ul>
 <li>Ex1:</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-358-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-370-1.png" width="672" /></p>
 <ul>
 <li>Ex2:</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-359-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-371-1.png" width="672" /></p>
 <ul>
 <li>Ex3:</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-360-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-372-1.png" width="672" /></p>
 <ol start="5" style="list-style-type: decimal">
 <li>Compute maximum cross correlation function from a small square of a reference image and its corresponding small square of the moving image. Consequently, there are 36 maximum ccf and their (dx, dy) obtained from each matching/nonmatching pair. Summarize ccf, dx, and dy so that only a single set of features from them is made from each pair.</li>
 </ol>
@@ -1521,33 +1522,11 @@ It is unclear how much ICP is changing after each iteration. For example, in our
 <li>Train randomforest based on the features of ccf, dx, and dy from the training set, and predict whether each pair in the test set is matching or non-matching.</li>
 </ol>
 <pre><code>## Warning: package &#39;randomForest&#39; was built under R version 4.0.2</code></pre>
-<pre><code>##   1  12  23  34  45  56  67  78  89 100 
-##   1   0   1   1   0   1   0   1   1   1 
-## Levels: 0 1</code></pre>
-<pre><code>##  2  3  4  5  6  7  8  9 10 11 13 14 15 16 17 18 19 20 21 22 24 25 26 27 28 29 
-##  0  0  0  0  0  0  0  0  0  0  0  1  0  0  0  0  0  0  0  0  1  0  0  0  0  0 
-## 30 31 32 33 35 36 37 38 39 40 41 42 43 44 46 47 48 49 50 51 52 53 54 55 57 58 
-##  0  0  1  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 
-## 59 60 61 62 63 64 65 66 68 69 70 71 72 73 74 75 76 77 79 80 81 82 83 84 85 86 
-##  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 
-## 87 88 90 91 92 93 94 95 96 97 98 99 
-##  0  0  1  0  0  0  0  0  0  0  0  0 
-## Levels: 0 1</code></pre>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-375-1.png" width="672" /></p>
 </div>
 <div id="massive-matching-pairs-added-to-training-set" class="section level4">
 <h4><span class="header-section-number">7.7.0.2</span> Massive matching pairs added to training set</h4>
-<pre><code>##   1  12  23  34  45  56  67  78  89 100 
-##   1   1   1   1   1   1   1   1   1   1 
-## Levels: 0 1</code></pre>
-<pre><code>##  2  3  4  5  6  7  8  9 10 11 13 14 15 16 17 18 19 20 21 22 24 25 26 27 28 29 
-##  0  0  0  0  0  0  0  1  0  0  0  1  0  0  0  0  0  0  0  0  1  0  1  0  0  0 
-## 30 31 32 33 35 36 37 38 39 40 41 42 43 44 46 47 48 49 50 51 52 53 54 55 57 58 
-##  0  0  1  1  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  1  0  0  0  0 
-## 59 60 61 62 63 64 65 66 68 69 70 71 72 73 74 75 76 77 79 80 81 82 83 84 85 86 
-##  0  1  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  1  0  0  0  0  0 
-## 87 88 90 91 92 93 94 95 96 97 98 99 
-##  0  0  1  0  0  0  0  0  0  0  0  0 
-## Levels: 0 1</code></pre>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-376-1.png" width="672" /></p>
 
 </div>
 </div>

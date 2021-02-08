@@ -137,6 +137,19 @@ Breech face data for knowns are scanned and available on a private github reposi
 
 evaluation
 
+### Rotation stage
+
+We are currently evaluating a 4-axis Sensofar stage meant to capture a full 360 degree of scans.
+
+Standard bullet SRM 2400:
+
+```{r, fig.cap="Images from a 360 degree rotation",  fig.keep="hold", fig.align='center', fig.show="hold", out.width="20%"}
+include_graphics(sprintf( "images/bullets/SRM2400-360/P%04d.png", c(1:12, 14:26)))
+```
+There are 40 scans taken at steps of 9 degrees. Each scan is taken at 20 fold magnification at a nominal resolution of 0.645 microns per pixel. 
+Each scan is of dimension 1360 x 1024 pixels, covering a secant length of 877.2 microns.
+
+
 ## Computational Tools
 
 ### x3ptools
@@ -2993,6 +3006,25 @@ knitr::include_graphics("images/cmps/feb01/segplot3.png", dpi=100)
 </details>
 
 
+<details>
+<summary>
+Will 02/07 Update: In the past week, we finished the first draft of the CMPS package paper. A figure was made to explain the workflow of obtaining bullet signatures using `x3ptools` and `bulletxtrctr`.
+
+</summary>
+
+```{r}
+knitr::include_graphics("images/cmps/feb07/figure1.png", dpi=100)
+```
+
++ (a) shows a front view of a bullet land impression. The white horizontal line indicates a crosscut position identified by `bulletxtrctr::x3p_crosscut_optimize`
++ (b) shows the cross-section at the crosscut position
++ (c) shows a plot of the crosscut data (`ccdata`) computated by `bulletxtrctr::x3p_crosscut`. The blue vertical lines show groove locations identified by `bulletxtrctr::cc_locate_grooves`
++ (d) the raw data after chopping off the grooves
++ (e) shows the curvature fitted by a LOESS regression
++ (f) shows the obtained bullet signature after removing the curvature
+
+</details>
+
 #### Future Work
 
 * improve and manage to submit the CMPS package to CRAN
@@ -3326,7 +3358,13 @@ Currently, we have the following major issues to solve before going further. And
 
 - Refine the writeup
 
-testing
+Feb/2021 starts here
+
+Crosscut locations for 325 "bad" LEAs with Will's app. They are all really bad LEAs, and if there is a screening procedure, these might be those to be excluded. A "special" one as shown in the following:
+
+```{r, fig.cap="A special LEA", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/specialscan.PNG"))
+```
 
 #### Look colser to the dependence structure of the land engraved areas
 
@@ -3470,7 +3508,18 @@ Week of January 25th
  2. Choosing and finalizing different cases as modules. (for testing different attributes in the survey) 
  3. Mock setup for execution of the survey
  
+February Week 1  
 
+ - Algorithmic/ AI Explainability, Trust, Fairness: Field is moving very fast  
+ - Comparing in depth one recently published work in ACM FAccT by IBM Research, with my work on Explainability and trust in AI. Almost unbelievable!  
+ - Mapping other very recently published work, implications/ similarity to my current work.  
+
+Feb wee
+ - Identifying modifications, work needed and duration to completion/ submission of this work.
+ - Completing case setups
+ - Modifying paper to account for recent work
+ - Finalize, test mock visual app interaction setup  and survey
+ 
 
 ### Conference Presentations  
 

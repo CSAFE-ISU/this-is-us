@@ -1395,3 +1395,7 @@ pROC::ggroc(pROC::roc(test.dat$actual.matching,
 
 
 ```
+
+## Hana's update on 2/15
+
+- Evaluated the performance of matching using ccf with and without maximum clique method. Unfortunately, the ccf features were not helpful to increase the accuracy of maximum clique method.

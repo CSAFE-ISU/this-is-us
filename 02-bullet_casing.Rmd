@@ -3034,6 +3034,16 @@ knitr::include_graphics("images/cmps/feb07/figure1.png", dpi=100)
 
 </details>
 
+<details>
+<summary>
+Will 02/07 Update: In the past week I mainly focused on the writing. Now we are making revisions paragraph by paragraph, adding figure captions, and adding citations.
+
+</summary>
+
+</details>
+
+
+
 #### Future Work
 
 * improve and manage to submit the CMPS package to CRAN

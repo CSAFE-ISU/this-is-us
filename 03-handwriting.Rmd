@@ -941,3 +941,5 @@ We are currently researching ways in which we can use convolutional neural netwo
 
 One potential approach we are investigating is using a Siamese neural network which uses the same weights and CNN architecture to train two images and output a metric noting their similarity. An outputted metric could be utilized to obtain a likelihood score that would then be used to classify similar images. With a focus on offline signatures, we are investigating the architectures of different CNNs used for other handwriting datasets to use as a baseline for constructing our own CNN to train and evaluate our handwriting datasets. 
 
+In constructing a CNN we consider the following processes used in previous research for offline signatures: Decorrelation, normalization, aggregation of local features, extraction of selected local versus global features.
+

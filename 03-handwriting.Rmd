@@ -943,3 +943,5 @@ One potential approach we are investigating is using a Siamese neural network wh
 
 In constructing a CNN we consider the following processes used in previous research for offline signatures: Decorrelation, normalization, aggregation of local features, extraction of selected local versus global features.
 
+Programming neural networks using well-known data sets like MNIST and IMDB to gain an understanding of the fundamental process in the algorithms.
+

@@ -2542,6 +2542,54 @@ Among other things, it seems that automatically identifying the breech face impr
 
 </details>
 
+<details>
+<summary>
+Joe 2/22/21: I will be discussing some of the recent results of applying the CMC method to our newly-collected Sensofar and TopMatch data. Additionally, I would like to show the Shiny app I've developed for processing cartridge cases and applying the CMC-method procedure.
+</summary>
+
+The preprocessing procedures continue to be a major hurdle in our handling of the Sensofar and TopMatch scans. The automatic procedures that work well for the popular Fadul data set don't seem to generalize well to these new data. As such, we have changed to manually identifying the breech face regions. The results seem to have improved with this manual identification.
+
+We can see an example of a matching pair between the Sensofar and TopMatch scans. It is hopefully clear that these scans share distinctive markings.
+
+```{r,out.width="49%",fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/2-22-21_spotlight/sensofar01.png",
+                          "images/cartridge_cases/2-22-21_spotlight/topmatchB1.png"))
+```
+
+On the other hand, the two scanning procedures seem to represent "extreme" markings in different ways. Below is an example demonstrating this, where the markings at the top of each scan, while perhaps visually similar when compared to each other, are clearly two different representations of the marking.
+
+```{r,out.width="49%",fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/2-22-21_spotlight/sensofar14.png",
+                          "images/cartridge_cases/2-22-21_spotlight/topmatchD2.png"))
+```
+
+We are interested in determining both how well the CMC method classifies matches within scanning group (i.e., within Sensofar and within TopMatch), but also between scanning group. The plots below summarize some experimental results. We can see, at a bare minimum, that the two decision rules implemented so far in cmcR package, the Original Method of Song (2013) and the High CMC method of Tong (2015), can identify when a cartridge case is compared to itself. Additionally, we can see that High CMC method tends to assign higher CMC scores to cartridge case pairs. Note that the Original Method is an asymmetric comparison method (i.e., comparing scan A to scan B may result in a different number of CMCs than the comparison of B to A) while the High CMC method is symmetric (in that it combines the comparison results from both directions).
+
+```{r,out.width="100%",fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/2-22-21_spotlight/sensofarOriginalMethodCMCs.png",
+                          "images/cartridge_cases/2-22-21_spotlight/sensofarHighCMCs.png"))
+```
+
+A similar story is told for the TopMatch cartridge cases. It should be noted that the identical cartridge cases between the Sensofar and TopMatch groups are not indexed identically (so cartridge case P0001 from Sensofar is not necessarily cartridge case A1 from TopMatch). Interestingly, there appear to be more non-zero CMC scores assigned within the TopMatch group than within the Sensofar group.
+
+```{r,out.width="100%",fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/2-22-21_spotlight/topMatchOriginalMethodCMCs.png",
+                          "images/cartridge_cases/2-22-21_spotlight/topMatchHighCMCs.png"))
+```
+
+
+Comparing cross-group, we can see that both the Original Method and the High CMC method are able to pick-out pairs of similar cartridge cases. For example, G4-01 from Sensofar and B1 from TopMatch are true matches and this pairing is assigned a relatively high CMC count under both the Original Method and the High CMC method.
+
+```{r,out.width="100%",fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/2-22-21_spotlight/allOriginalMethodCMCs.png")
+```
+
+```{r,out.width="100%",fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/2-22-21_spotlight/allHighCMCs.png")
+```
+
+</details>
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
 The moified Chumbley non-random algorithm is a statistical non-parametric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segment to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 

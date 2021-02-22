@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2021-02-08" />
+<meta name="date" content="2021-02-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -530,11 +530,11 @@ This is necessary because Fourier transforms assume images go on forever, so abr
 <p><img src="images/shoes/longitudinal/FFT_Demo_Hann.png" width = "25%"/></p>
 <ul>
 <li>The strength of the Hann function can be adjusted by a power argument<br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-362-1.png" width="672" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-365-1.png" width="672" /></li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
 <li>Use the Fast Fourier Transform on each image. Center the FFT’d images so that low frequencies are in the center (exchange top left quadrant with bottom right, and top right quadrant with bottom left). Call the FFT’d, centered images <span class="math inline">\(F(A)\)</span> and <span class="math inline">\(F(B)\)</span><br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-363-1.png" width="50%" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-366-1.png" width="50%" /></li>
 </ol>
 <p><img src="images/shoes/longitudinal/FFT_Demo_FFT1.png" width = "50%"/></p>
 <ol start="4" style="list-style-type: decimal">
@@ -1462,21 +1462,6 @@ It is unclear how much ICP is changing after each iteration. For example, in our
 <ul>
 <li>Ex1: A matching pair: scan1 (left; reference) and scan2 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-365-1.png" width="672" /></p>
-<ul>
-<li>Ex2: A non-matching pair: scan1 (left; reference) from shoe2 and scan1 (right; moving) from shoe1</li>
-</ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-366-1.png" width="672" /></p>
-<ul>
-<li>Ex3: A non-matching pair: scan1 (left; reference) from shoe3 and scan1 (right; moving) from shoe1</li>
-</ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-367-1.png" width="672" /></p>
-<ol start="3" style="list-style-type: decimal">
-<li>Determine 600px by 600px square coordinate for all of the reference images; the location of square is the same for each reference image. For example, the bottom left corner is at (601, 1001) and the top right corner is at (1200, 1600).</li>
-</ol>
-<ul>
-<li>Ex1: A matching pair: scan1 (left; reference) and scan2 (right; moving) from shoe1</li>
-</ul>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-368-1.png" width="672" /></p>
 <ul>
 <li>Ex2: A non-matching pair: scan1 (left; reference) from shoe2 and scan1 (right; moving) from shoe1</li>
@@ -1486,21 +1471,36 @@ It is unclear how much ICP is changing after each iteration. For example, in our
 <li>Ex3: A non-matching pair: scan1 (left; reference) from shoe3 and scan1 (right; moving) from shoe1</li>
 </ul>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-370-1.png" width="672" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Determine 600px by 600px square coordinate for all of the reference images; the location of square is the same for each reference image. For example, the bottom left corner is at (601, 1001) and the top right corner is at (1200, 1600).</li>
+</ol>
+<ul>
+<li>Ex1: A matching pair: scan1 (left; reference) and scan2 (right; moving) from shoe1</li>
+</ul>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-371-1.png" width="672" /></p>
+<ul>
+<li>Ex2: A non-matching pair: scan1 (left; reference) from shoe2 and scan1 (right; moving) from shoe1</li>
+</ul>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-372-1.png" width="672" /></p>
+<ul>
+<li>Ex3: A non-matching pair: scan1 (left; reference) from shoe3 and scan1 (right; moving) from shoe1</li>
+</ul>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-373-1.png" width="672" /></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Extract the 600px by 600px square from both reference and moving images in each matching/non-matching pair, and then split each square into 36 smaller squares that are 100px by 100px. As a result, there are 36 100px by 100px squares are obtained from the reference and moving images, respectively, in each pair.</li>
 </ol>
 <ul>
 <li>Ex1:</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-371-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-374-1.png" width="672" /></p>
 <ul>
 <li>Ex2:</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-372-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-375-1.png" width="672" /></p>
 <ul>
 <li>Ex3:</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-373-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-376-1.png" width="672" /></p>
 <ol start="5" style="list-style-type: decimal">
 <li>Compute maximum cross correlation function from a small square of a reference image and its corresponding small square of the moving image. Consequently, there are 36 maximum ccf and their (dx, dy) obtained from each matching/nonmatching pair. Summarize ccf, dx, and dy so that only a single set of features from them is made from each pair.</li>
 </ol>
@@ -1522,11 +1522,23 @@ It is unclear how much ICP is changing after each iteration. For example, in our
 <li>Train randomforest based on the features of ccf, dx, and dy from the training set, and predict whether each pair in the test set is matching or non-matching.</li>
 </ol>
 <pre><code>## Warning: package &#39;randomForest&#39; was built under R version 4.0.2</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-376-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-379-1.png" width="672" /></p>
 </div>
 <div id="massive-matching-pairs-added-to-training-set" class="section level4">
 <h4><span class="header-section-number">7.7.0.2</span> Massive matching pairs added to training set</h4>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-377-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-380-1.png" width="672" /></p>
+</div>
+<div id="hanas-update-on-215" class="section level4">
+<h4><span class="header-section-number">7.7.0.3</span> Hana’s update on 2/15</h4>
+<ul>
+<li>Evaluated the performance of matching using ccf with and without maximum clique method. Unfortunately, the ccf features were not helpful to increase the accuracy of maximum clique method.</li>
+</ul>
+<p>####Round Robin Updates</p>
+<p><em>February 8th,2020 Matias Ibarburu</em>
+I finished creating data sets for Nike shoes. I created 6 dataframes, one for each shoe image and visit comparison. These are better than my prior Nike data frames because they only compare shoes of the same size. These data frames also have the advantage that each shoe size has the same proportion in each data frame, and is the same proportion that each size appears in the longitudinal study. The matched comparisons and the non-matched comparisons have equal representation in each dataset.</p>
+<p><em>February 15th 2020, Matias Ibarburu</em>
+I am in the process of analyzing and writing up the datasets I have created for Nike.
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; 0989cca177ea9071a47e746629402a58cb9a7a6a</p>
 
 </div>
 </div>

@@ -1395,3 +1395,21 @@ pROC::ggroc(pROC::roc(test.dat$actual.matching,
 
 
 ```
+
+#### Hana's update on 2/15
+
+- Evaluated the performance of matching using ccf with and without maximum clique method. Unfortunately, the ccf features were not helpful to increase the accuracy of maximum clique method.
+
+
+
+
+
+####Round Robin Updates
+
+*February 8th,2020 Matias Ibarburu*
+I finished creating data sets for Nike shoes. I created 6 dataframes, one for each shoe image and visit comparison. These are better than my prior Nike data frames because they only compare shoes of the same size. These data frames also have the advantage that each shoe size has the same proportion in each data frame, and is the same proportion that each size appears in the longitudinal study. The matched comparisons and the non-matched comparisons have equal representation in each dataset. 
+
+
+*February 15th 2020, Matias Ibarburu*
+I am in the process of analyzing and writing up the datasets I have created for Nike. 
+>>>>>>> 0989cca177ea9071a47e746629402a58cb9a7a6a

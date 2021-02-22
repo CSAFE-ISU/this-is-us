@@ -3082,6 +3082,40 @@ knitr::include_graphics("images/cmps/feb07/figure1.png", dpi=100)
 
 </details>
 
+<details>
+<summary>
+Will 02/14 Update: In the past week I mainly focused on the writing. Now we are making revisions paragraph by paragraph, adding figure captions, and adding citations.
+
+</summary>
+
+</details>
+
+<details>
+<summary>
+Will 02/21 Update: In the past week my focus was on the paper writing. Moreover, the shiny app `bulletInspectR` was wrapped up as an `R` package.
+
+</summary>
+
+This is the updated version of the figure presented last week. 
+
+```{r, fig.cap="(a) front view of a scanned land engraved area (LEA). The optimized crosscut location is indicated by the white line. (b) view of the cross-section of the land engraved area at the white line in (a). (c) the crosscut data plotted in 2D; blue vertical lines indicate the position of left and right grooves (d) the crosscut data after chopping the left and right grooves (e) the fitted curvature using LOESS (f) after removing the curvature from the crosscut data, the bullet signature is obtained"}
+knitr::include_graphics("images/cmps/feb07/figure1_v2.PNG", dpi=100)
+```
+
+The shiny app `bulletInspectR` is available on [GitHub](https://github.com/willju-wangqian/bulletInspectR). And people can install the development version of the package by 
+
+```{r, echo=TRUE, eval=FALSE}
+devtools::install_github("willju-wangqian/bulletInspectR")
+```
+
+Currently, the app is having a bug on quitting. An error message related to package `later` would pop up and Rstudio would enter `browser` mode automatically. This happens on Windows machine, but have not yet been observed on Mac. And I'm still looking for solutions. 
+
+The next step of the app is to add more instructions on its usage, add more helping information, and make it give more feedback to users when something goes wrong.
+
+</details>
+
+
+
 #### Future Work
 
 * improve and manage to submit the CMPS package to CRAN
@@ -3096,7 +3130,18 @@ The goal for this project is to be able to take the current CSAFE manually ident
 
 Currently an operator can take a land engraved area scan, which is stored as an x3p file, and upload that file to the fix3p google chrome extension.  Once the land engraved area scan is uploaded to fix3p, an operator can manually paint areas of the scan to identify the regions.
 
-```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="40%"}
+#### The regions to annotate are as follows: 
+
+    1. Groove engraved areas are painted dark blue for the left groove and neon green for the right groove.
+    2. Break-off region, located at the bottom heel of a scan are painted in pink.
+    3. Damaged regions are painted using the color white.
+    4. Areas without striation marks are painted in light blue. 
+    5. Striation marks with a secondary pattern are painted in light yellow. 
+    6. Finally, all areas with well expressed striation marks are left unpainted. 
+    
+After all the regions have been correctly annotated and saved, the x3p file should contain a land engraved area scan with additional data known as a “mask.”
+
+    ```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="40%"}
 knitr::include_graphics(c("images/andy_temp/show_and_tell_3.png"))
 ```
 
@@ -3114,7 +3159,7 @@ knitr::include_graphics(c("images/andy_temp/Missing_Values_Interpolation_Facet_2
 knitr::include_graphics(c("images/andy_temp/Missing_Values_Interpolation_1.png", "images/andy_temp/Missing_Values_Interpolation_3.png"))
 ```
 
-Next, we take each x3p file containing a masked LEA scan, crop, and store each 128x128 resolution grid of the original scan as a new x3p.
+After the data has been read and stored into R’s global environment, we propose a data preprocessing procedure that increases the amount of data we currently have. We take each x3p file containing a masked LEA scan, crop, and store each 128x128 resolution grid of the original scan and store it as a new x3p. This allows us to increase the amount of data being fed into our 3d CNN model by 224 to 240 times the amount of our original data based on the original x3p resolution size. To do this we use the x3p_crop function from the x3ptools R programming package
 
 ```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="40%"}
 knitr::include_graphics(c("images/andy_temp/csafe_21_noNA_x3p.png"))
@@ -3124,9 +3169,19 @@ knitr::include_graphics(c("images/andy_temp/csafe_21_noNA_x3p.png"))
 knitr::include_graphics(c("images/andy_temp/csafe_21_nostriae_2.png", "images/andy_temp/csafe_21_vert_2.png", "images/andy_temp/csafe_21_groove_2.png"))
 ```
 
+
+Next, we extract the annotations associated with each cropped x3p file. These 7 types of annotations will serve as our predictor variables for our 3d convolutional neural network to learn on. Each cropped x3p can contain multiple annotations. Notice that the image of the cropped section of the right groove has two annotations associated with it, one annotation is the right groove and the other annotation is well expressed striae. A cropped x3p usually has one to four annotations associated with it, where one to two annotations are the most common.  For each cropped x3p we assign one annotation based on a ratio of 80% or a maximum majority.  We do not distinguish between left and right groove and assign them as the same annotation. Annotations are stored as a list and unlisted, given us 1 annotation per observation. Annotations are then one-hot encoded resulting in a matrix of size (n x 6).e
+
+
 3d convolutional neural networks take data as 5D tensors with shape (samples, conv_dim1, conv_dim2, conv_dim3, channels), where samples(also known as batch_shape) are the number of observations to be trained, the dimensions are our width, height, and depth values, and channels represent the color scale(=1 for greyscale and =3 for RGB color scale). Another way to think of a 5D tensor is just to think of a 5 dimensional array.
 
 We take the surface martix associated with each cropped x3p, transform each surface matrix to a (x, y, 1, 1) array, a 4d array or a 4d tensor. Then we can bind each surface matrix together creating a (n, x, y, 1, 1) array, a 5d array or a 5d tensor. n represents the batch_shape, x and y represent the width and height dimensions, the first “1” represents the elements contained in each surface matrix and the last “1” represents the color scale, greyscale.
+
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="10%"}
+knitr::include_graphics(c("images/andy_temp/Pipeline_summary.png"))
+```
+
+
 
 ### Convolutional Neural Networks
 

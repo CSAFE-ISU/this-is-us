@@ -3584,6 +3584,16 @@ Feb wee
  - Modifying paper to account for recent work
  - Finalize, test mock visual app interaction setup  and survey
  
+Feb week 3
+- Connecting recent literature in AI trust
+- Implications to Examiner-ML trust
+- Literature review: reading papers, salient aspects and connections
+
+Feb week 4
+- Project: Class based differences in RF scores, features and metrics, perurbations and implications to uncertainty, accuracy, decision making, model scores
+- Literature review: general summaries, historic directions and consolidation, absorbing and modifications to theoretical work.
+
+ 
 
 ### Conference Presentations  
 

@@ -1091,6 +1091,8 @@ Figure 5.54: A training sample from the other writer with off-diagonal assignmen
 <p>The kernel density estimates for the shortest prompt are not well separated. As the length of the writing sample increases, the KDEs between same and different sources become more distinct.</p>
 <p>The discrimination of source using SLRs can be quantified using AUC by prompt as 0.6447, 0.7293, 0.9692, and 0.961 for the short phrase, Wizard of Oz, London Letter, and all prompts combined, respectively.</p>
 <p><img src="images/handwriting/mattie/roc_plots.png" width="488" /></p>
+<p>Tippett plots are an additional way to visualize the behavior of the SLRs under the prosecution and defense hypotheses.</p>
+<pre><code>## Error in knitr::include_graphics(c(&quot;images/handwriting/mattie/tippett.png&quot;)): Cannot find the file(s): &quot;images/handwriting/mattie/tippett.png&quot;</code></pre>
 <p>It is important to note that the training set did down sample the number of different source differences, but the testing set did not so the number of SLRs in that are from different sources will be more than from the same (a pattern not seen in the simulated data).</p>
 <p>##Relationship Between Rotation Angle and Demographic Features
 So this part of the research looks specifically at rotation angles (the slant of handwriting). We are seeing if there is a relationship between slant of a writer and demographic features. We looked at demographic features such as the participant’s handedness, age group, gender, and location of third-grade education.We then fit a regression with the demographic information as explanatory variables and the average rotation angles as the response. Because rotation angles live on a circle, the regression model is based on a probability model appropriate for this type of data.</p>
@@ -1255,6 +1257,7 @@ Here are circular package Results:</p>
 <p>We are currently researching ways in which we can use convolutional neural networks to classify pieces of handwriting by their author. Similar ideas have and are being used in applications to to face recognition and shoe print comparisons in forensics. Identifying key differences in particular features in handwriting authorship and other applications will help determine artchitectural advantages and disadvantages in different CNNs to optimize success in the classification of an author’s handwriting.</p>
 <p>One potential approach we are investigating is using a Siamese neural network which uses the same weights and CNN architecture to train two images and output a metric noting their similarity. An outputted metric could be utilized to obtain a likelihood score that would then be used to classify similar images. With a focus on offline signatures, we are investigating the architectures of different CNNs used for other handwriting datasets to use as a baseline for constructing our own CNN to train and evaluate our handwriting datasets.</p>
 <p>In constructing a CNN we consider the following processes used in previous research for offline signatures: Decorrelation, normalization, aggregation of local features, extraction of selected local versus global features.</p>
+<p>Programming neural networks using well-known data sets like MNIST and IMDB to gain an understanding of the fundamental process in the algorithms.</p>
 
 </div>
 </div>

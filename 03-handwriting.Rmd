@@ -816,6 +816,12 @@ The discrimination of source using SLRs can be quantified using AUC by prompt as
 knitr::include_graphics(c("images/handwriting/mattie/roc_plots.png"))
 ```
 
+Tippett plots are an additional way to visualize the behavior of the SLRs under the prosecution and defense hypotheses.
+
+```{r}
+knitr::include_graphics(c("images/handwriting/mattie/tippett.png"))
+```
+
 It is important to note that the training set did down sample the number of different source differences, but the testing set did not so the number of SLRs in that are from different sources will be more than from the same (a pattern not seen in the simulated data).
 
 ##Relationship Between Rotation Angle and Demographic Features

@@ -3042,6 +3042,30 @@ Will 02/14 Update: In the past week I mainly focused on the writing. Now we are 
 
 </details>
 
+<details>
+<summary>
+Will 02/21 Update: In the past week my focus was on the paper writing. Moreover, the shiny app `bulletInspectR` was wrapped up as an `R` package.
+
+</summary>
+
+This is the updated version of the figure presented last week. 
+
+```{r, fig.cap="(a) front view of a scanned land engraved area (LEA). The optimized crosscut location is indicated by the white line. (b) view of the cross-section of the land engraved area at the white line in (a). (c) the crosscut data plotted in 2D; blue vertical lines indicate the position of left and right grooves (d) the crosscut data after chopping the left and right grooves (e) the fitted curvature using LOESS (f) after removing the curvature from the crosscut data, the bullet signature is obtained"}
+knitr::include_graphics("images/cmps/feb07/figure1_v2.PNG", dpi=100)
+```
+
+The shiny app `bulletInspectR` is available on [GitHub](https://github.com/willju-wangqian/bulletInspectR). And people can install the development version of the package by 
+
+```{r, echo=TRUE, eval=FALSE}
+devtools::install_github("willju-wangqian/bulletInspectR")
+```
+
+Currently, the app is having a bug on quitting. An error message related to package `later` would pop up and Rstudio would enter `browser` mode automatically. This happens on Windows machine, but have not yet been observed on Mac. And I'm still looking for solutions. 
+
+The next step of the app is to add more instructions on its usage, add more helping information, and make it give more feedback to users when something goes wrong.
+
+</details>
+
 
 
 #### Future Work

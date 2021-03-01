@@ -3446,7 +3446,7 @@ Since I only used 442 barrels out of the 626 total barrels in the LAPD bullet da
 
 3. Now we are using 612 barrels out of the 626 barrels, which is a big improvement.
 
-4. For the remaining unused data, there are some issues like: units mistake (solved now), bullets not 4 (reached an agreement to solve), lands not 6 (reached an agreement to solve). For some used data, there are also issue like: inconsistent names (lands and barrels),  mislabeling (same land shown up twice). Those are all identified to my best.
+4. For the remaining unused data, there are some issues like: units mistake (solved now), bullets not 4 (reached an agreement to solve), lands not 6 (reached an agreement to solve). For some used data, there are also issues like: inconsistent names (lands and barrels),  mislabeling (same land shown up twice). Those are all identified to my best.
 
 5. Re-run the process and re-fit the model of my paper, and the results seem to be very similar from the previous. There are some other sections following that to be re-done.
 

@@ -3066,7 +3066,13 @@ The next step of the app is to add more instructions on its usage, add more help
 
 </details>
 
+<details>
+<summary>
+Will 02/28 Update: Started to work on bullet signature pasting. For the same section of a LEA (land engraved area), different scans result in similar but not identical signatures. Ideally, different scans should give highly similar description (bullet signatures) of the same section of the scan. More plots would be added. 
+</summary>
 
+
+</details>
 
 #### Future Work
 

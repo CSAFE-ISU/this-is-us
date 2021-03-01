@@ -943,11 +943,13 @@ Presenting author is in bold.
 
 ## Deep Learning Methods
 
-We are currently researching ways in which we can use convolutional neural networks to classify pieces of handwriting by their author. Similar ideas have and are being used in applications to to face recognition and shoe print comparisons in forensics. Identifying key differences in particular features in handwriting authorship and other applications will help determine artchitectural advantages and disadvantages in different CNNs to optimize success in the classification of an author's handwriting. 
+We are currently researching ways in which we can use convolutional neural networks (CNN) to classify pieces of handwriting by their author. Similar ideas have and are being used in applications to to face recognition and shoe print comparisons in forensics. Identifying key differences in particular features in handwriting authorship and other applications will help determine artchitectural advantages and disadvantages in different CNNs to optimize success in the classification of an author's handwriting. 
 
 One potential approach we are investigating is using a Siamese neural network which uses the same weights and CNN architecture to train two images and output a metric noting their similarity. An outputted metric could be utilized to obtain a likelihood score that would then be used to classify similar images. With a focus on offline signatures, we are investigating the architectures of different CNNs used for other handwriting datasets to use as a baseline for constructing our own CNN to train and evaluate our handwriting datasets. 
 
 In constructing a CNN we consider the following processes used in previous research for offline signatures: Decorrelation, normalization, aggregation of local features, extraction of selected local versus global features.
 
-Programming neural networks using well-known data sets like MNIST and IMDB to gain an understanding of the fundamental process in the algorithms.
+We programmed neural networks using data sets in keras (MNIST,IMDB,Reuters) to gain an understanding of the fundamental process in the algorithms. 
+
+Currently implementing a version of the TinyResNet Siamese CNN architecture, which was the best performing CNN in the paper *Siamese Convolutional Neural Networks for Authorship Verification by Du W., Fang M., Shen M.* Fully scanned pages of handwritten were broken down into lines to be used as the data inputted in the model. First we will use the model on the [IAM](https://fki.tic.heia-fr.ch/databases/iam-handwriting-database) handwriting data set broken down by line. Consists of 13,353 isolated and labeled text lines.
 

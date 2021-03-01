@@ -2590,6 +2590,15 @@ knitr::include_graphics("images/cartridge_cases/2-22-21_spotlight/allHighCMCs.pn
 
 </details>
 
+<details>
+<summary>
+Joe 3/1/21: I have been working on tweaking aspects of the CMC algorithm applied to the Sensofar and TopMatch data.
+</summary>
+
+I have been working on tweaking aspects of the CMC algorithm applied to the Sensofar and TopMatch data. This includes exploring changes to the Gaussian filter used during the preprocessing stage. We discussed in my spotlight last week that the current preprocessing procedures might be "overfitting" individual scans. I am currently exploring filters that automatically estimate parameters by solving, for example, a penalized least squares problem (e.g., the Wiener filter). This is one change among others that I am interested in exploring.
+
+</details>
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
 The moified Chumbley non-random algorithm is a statistical non-parametric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segment to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 

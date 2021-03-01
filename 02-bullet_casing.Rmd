@@ -3202,6 +3202,59 @@ knitr::include_graphics(c("images/andy_temp/Pipeline_summary.png"))
 
 <p class="new">Previous work will be added in the near future.</p>
 
+Convolutional layers are used as filters for our 5d input tensor resulting in an activation.  These layers produce feature maps that indicate the locations and strengths of our annotations.
+
+3d zero padding, padding allows us to keep the information at the borders of our cropped x3p scans, without padding we could potentially be losing important information regarding scans that have more than one annotation.
+
+Max pooling selects the maximum element covered by the filters, resulting in a feature map containing the most prominent features, max pooling also reduces the computational cost by reducing the number of parameters used to learn.
+
+Batch Normalization normalizes the output of each previous activation layer by subtracting the batch mean and dividing by the batch standard deviation.  Batch Normalization is essentially a scaling feature, making sure each activation in each layer isn't too low or too high.
+
+Dropout is used to prevent/reduce overfitting in our model and is typically used along with batch normalization.  Dropout is also referred to as dilution, thining the weights of the neural network, or it can be thought of as model averaging.
+
+**Previous Work:**
+
+We trained a shallow 3d convolutional neural network on 100 epochs **(epoch refers to one cycle through the full training data)** resulting in an overall accuracy of 76.2 percent.  Class weights were not adjusted for Class Imbalance Issue. 
+
+Total True Positives: 3610
+
+Overall Accuracy: 76.22 %
+
+**Breakoff** (Precision: 0.59, Recall: 0.27, F1-Score: 0.37)
+
+**Damage** (Precision: 0.48, Recall: 0.045, F1-Score: 0.081)
+
+**Grooves** (Precision: 0.72, Recall: 0.67, F1-Score: 0.69)
+
+**No Striations** (Precision: 0.75, Recall: 0.87, F1-Score: 0.80)
+
+**Well Expressed Striations** (Precision: 0.78, Recall: 0.83, F1-Score: 0.80)
+
+**Vertical Striations** (Precision: 0, Recall: 0, F1-Score: 0)
+
+We Re-run the 3d convolutional neural network on 200 epochs and adjust class weights by the frequency of classes throughout the training data set.
+
+Total True Positives: 3171
+
+Overall Accuracy: 67 %
+
+**Breakoff** (Precision: 0.34, Recall: 0.52, F1-Score: 0.41)
+
+**Damage** (Precision: 0.38, Recall: 0.40, F1-Score: 0.39)
+
+**Grooves** (Precision: 0.60, Recall: 0.84, F1-Score: 0.70)
+
+**No Striations** (Precision: 0.67, Recall: 0.89, F1-Score: 0.76)
+
+**Well Expressed Striations** (Precision: 0.86, Recall: 0.56, F1-Score: 0.68)
+
+**Vertical Striations** (Precision: 0.017, Recall: 0.14, F1-Score: 0.030)
+
+The model using adjusted class weights performs slightly worse overall but does a better job in classifying minority classes.  
+
+The training loss is still decreasing while validation loss has not started to increase.  This suggest running the model using more epochs.
+
+
 **Current Results:**
 
 - 30 Layer 3d Convolutional Residual Network

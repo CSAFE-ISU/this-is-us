@@ -3438,7 +3438,7 @@ include_graphics(c("images/yawei/specialscan.PNG"))
 
 The inspection of the LAPD data set (Show&Tell Mar/01):
 
-Since I only used 442 barrels out of 626 total barrels in the LAPD bullet data set, we started a review process to check those "problematic" LEA scans. Some of the work done and findings are listed below:
+Since I only used 442 barrels out of the 626 total barrels in the LAPD bullet data set, we started a review process to check those "problematic" LEA scans. Some of the work done and findings are listed below:
 
 1. Identified 325 LEAs with bad scans that will fail to produce crosscut locations with default Bulletxtrctr method.
 
@@ -3450,7 +3450,7 @@ Since I only used 442 barrels out of 626 total barrels in the LAPD bullet data s
 
 5. Re-run the process and re-fit the model of my paper, and the results seem to be very similar from the previous. There are some other sections following that to be re-done.
 
-Besides, I also did some writing which is the main part to do for time from now.
+Besides, I also did some writing which is also the main part to do for some time from now.
 
 
 

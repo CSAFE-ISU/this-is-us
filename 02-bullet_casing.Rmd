@@ -3192,7 +3192,7 @@ Next, we extract the annotations associated with each cropped x3p file. These 7 
 
 We take the surface martix associated with each cropped x3p, transform each surface matrix to a (x, y, 1, 1) array, a 4d array or a 4d tensor. Then we can bind each surface matrix together creating a (n, x, y, 1, 1) array, a 5d array or a 5d tensor. n represents the batch_shape, x and y represent the width and height dimensions, the first “1” represents the elements contained in each surface matrix and the last “1” represents the color scale, greyscale.
 
-```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="10%"}
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="50%"}
 knitr::include_graphics(c("images/andy_temp/Pipeline_summary.png"))
 ```
 

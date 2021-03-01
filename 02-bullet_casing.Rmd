@@ -3430,11 +3430,33 @@ Currently, we have the following major issues to solve before going further. And
 
 Feb/2021 starts here
 
-Crosscut locations for 325 "bad" LEAs with Will's app. They are all really bad LEAs, and if there is a screening procedure, these might be those to be excluded. A "special" one as shown in the following:
+A "special" LEA scan as shown in the following:
 
 ```{r, fig.cap="A special LEA", out.width="50%", fig.keep="hold", fig.align='center'}
 include_graphics(c("images/yawei/specialscan.PNG"))
 ```
+
+The inspection of the LAPD data set (Show&Tell Mar/01):
+
+Since I only used 442 barrels out of 626 total barrels in the LAPD bullet data set, we started a review process to check those "problematic" LEA scans. Some of the work done and findings are listed below:
+
+1. Identified 325 LEAs with bad scans that will fail to produce crosscut locations with default Bulletxtrctr method.
+
+2. Manually check the bad scans, and locate the crosscuts and GEAs. But those scans are all really bad and if there is a screening procedure, these might be excluded.
+
+3. Now we are using 612 barrels out of the 626 barrels, which is a big improvement.
+
+4. For the remaining unused data, there are some issues like: units mistake (solved now), bullets not 4 (reached an agreement to solve), lands not 6 (reached an agreement to solve). For some used data, there are also issue like: inconsistent names (lands and barrels),  mislabeling (same land shown up twice). Those are all identified to my best.
+
+5. Re-run the process and re-fit the model of my paper, and the results seem to be very similar from the previous. There are some other sections following that to be re-done.
+
+Besides, I also did some writing which is the main part to do for time from now.
+
+
+
+
+
+
 
 #### Look colser to the dependence structure of the land engraved areas
 

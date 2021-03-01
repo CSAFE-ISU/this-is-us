@@ -148,7 +148,7 @@ fig:unnamed-chunk-302
 fig:unnamed-chunk-303
 fig:unnamed-chunk-304
 fig:unnamed-chunk-305
-fig:unnamed-chunk-308
+fig:unnamed-chunk-306
 fig:unnamed-chunk-309
 fig:unnamed-chunk-310
 fig:unnamed-chunk-311
@@ -158,7 +158,7 @@ fig:unnamed-chunk-314
 fig:unnamed-chunk-315
 fig:unnamed-chunk-316
 fig:unnamed-chunk-317
-fig:unnamed-chunk-319
+fig:unnamed-chunk-318
 fig:unnamed-chunk-320
 fig:unnamed-chunk-321
 fig:unnamed-chunk-322
@@ -175,13 +175,13 @@ fig:unnamed-chunk-332
 fig:unnamed-chunk-333
 fig:unnamed-chunk-334
 fig:unnamed-chunk-335
-fig:unnamed-chunk-337
+fig:unnamed-chunk-336
 fig:unnamed-chunk-338
 fig:unnamed-chunk-339
 fig:unnamed-chunk-340
 fig:unnamed-chunk-341
 fig:unnamed-chunk-342
-fig:unnamed-chunk-344
+fig:unnamed-chunk-343
 fig:unnamed-chunk-345
 fig:unnamed-chunk-346
 fig:unnamed-chunk-347
@@ -191,7 +191,7 @@ fig:unnamed-chunk-350
 fig:unnamed-chunk-351
 fig:unnamed-chunk-352
 fig:unnamed-chunk-353
-fig:unnamed-chunk-355
+fig:unnamed-chunk-354
 fig:unnamed-chunk-356
 fig:unnamed-chunk-357
 fig:unnamed-chunk-358
@@ -201,9 +201,10 @@ fig:unnamed-chunk-361
 fig:unnamed-chunk-362
 fig:unnamed-chunk-363
 fig:unnamed-chunk-364
-fig:unnamed-chunk-388
-fig:unnamed-chunk-393
+fig:unnamed-chunk-365
+fig:unnamed-chunk-389
 fig:unnamed-chunk-394
+fig:unnamed-chunk-395
 prerequisites
 setting-up-the-repository
 contributions-to-the-repository

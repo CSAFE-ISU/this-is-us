@@ -1601,79 +1601,21 @@ $$D=\{(-\infty,-10^4),...,(-10,0),(0,10),...,(10^4,\infty) \} $$
 If the difference belongs to the 5 or 6 sets, meaning that the difference is close to 0, we can say that the score agrees between the different permutations.
 
 ### Results
-
-### From a single permutation within a simulation
-The following only illustrates partial results for the first permutation to discuss the challenges faced by the algorithms.
-
-First, we report the RF OOB for this permutation is 8.5%, the specific class error is 8% for the KM and 9% for the KNM in the training set. The KDE over the test Set also allows to assess the performance of the RF in discriminating between the two populations.
-
-We also present the KDE over the Test set using the Euclidean and the City distance. It shows that a smaller distance is more likely to be observed if we are dealing with a KM pair, although some overlapping is seen.
+See Poster Below
 
 
-![](images/foundations/FV/RF_KDE.png){width=30%} ![](images/foundations/FV/Eucli_KDE.png){width=30%} ![](images/foundations/FV/City_KDE.png){width=30%}
+## SRL behaviour and dependence: Extended simulation.
 
-Next we compute the Rate of misleading evidence for KM and KME. We see that in this case, the RF SLR is closer to the rate of misleading evidence for the LR in the case of the KM and the KNM.
+A
 
-```{r ,echo=F}
-kable(Out_tablesKM[1,],caption = "Rate of Misleading evidence KM")
-kable(Out_tablesKNM[1,],caption = "Rate of Misleading evidence KNM")
-```
+## Communication of Results  
+### Poster
 
-
-![](images/foundations/FV/Tile_City.png){width=50%} 
-![](images/foundations/FV/Tile_Eucli.png){width=50%} 
-![](images/foundations/FV/Tile_RF.png){width=50%}
-
-
-
-
-### From all  permutation in simulation
-
-First we present the RME for each permutatio within this particular sample. We can see that the RME for LR is the same in 'paired' permutation since it does not depend on the train-test set.
-
-```{r ,echo=F}
-kable(Out_tablesKM,caption = "Rate of Misleading evidence KM")
-kable(Out_tablesKNM,caption = "Rate of Misleading evidence KNM")
-```
-
-Next, the following plot shows the difference between the 'paired' permutation. All the difference for the LR belongs to group '5' since the difference is 0 as previously mentioned. 
-
-In this particular sample, the distance-based SLR shows that most cases fall within groups 5 or 6, meaning the difference is small. This is true for both KM and KNM.
-
-In the case of the RF SLR, in this particular sample, the difference is not symmetric. Leaning towards negative values. It is interesting to note that in the KM, the larger percentage does not fall in group 5.
- 
-![Difference in 1st Sample](images/foundations/FV/Diff_1stV.png)
-
-### From all  permutation in all simulation
-
-The following results are for 500 samples, and in each one we have 6 permutations.
-
-First, we present the boxplot for RME for each sample X permutation, approximately 3000 rates for each ratio. (note some "NA" present)
-
-LR is the smaller as expected, followed by RF, their range reasonably similar. 
-However, it should be noted that in the case of KM RF present large outliers.
-
-![Boxplot RME](images/foundations/FV/ALL_SIMU/BOX_RME_all_SIMUL.png)
-
-The next plot shows the differences between 'paired' permutations across all 500 samples. 
-In the case of the City distance, for KM most cases fall in groups 5 or 6 wichs suggest low sensitivity to changes in train and test sets.
-
-On the other hand, RF shows the opposite behavior suggesting that this score based likelihood ratio is more sensitive to changes in train and test sets.    
-
-![Difference City](images/foundations/FV/ALL_SIMU/Diff_all_SIMUL_V1.png)
-
-
-![Difference Euclidean](images/foundations/FV/ALL_SIMU/Diff_all_SIMUL_V3.png)
-
-![Difference RF](images/foundations/FV/ALL_SIMU/Diff_all_SIMUL_V2.png)
-
-
-Regarding the match between the LR and the SLR...
-
-![Tiles City](images/foundations/FV/ALL_SIMU/Tiles_city_all_SIMUL.png)
-
-![Tiles Euclidean](images/foundations/FV/ALL_SIMU/Tiles_eucli_all_SIMUL.png)
-
-![Tiles RF](images/foundations/FV/ALL_SIMU/Tiles_RF_all_SIMUL.png)
-
+- <strong>"An evaluation of score-based likelihood ratios for glass data."</strong>
+    - February 2021
+    - Authors: Federico Veneri and Danica Ommen
+    - American Academy of Forensic Sciences, Virtual
+    - <details><summary>Click for Poster Image</summary>
+    ![Poster AAFS 2021](images/foundations/FV/Poster_Veneri_Ommen.jpg)</details>
+    
 

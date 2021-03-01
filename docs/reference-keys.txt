@@ -330,6 +330,8 @@ matching-shoe-prints-with-ccf
 steps-to-match-two-shoe-scans
 massive-matching-pairs-added-to-training-set
 hanas-update-on-215
+hanas-update-on-222
+hanas-update-on-31
 theoretical-foundations
 explaining-slr-behavior
 common-source-vs-specific-source-comparison-via-information-theory

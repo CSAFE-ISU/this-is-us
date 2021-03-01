@@ -3222,6 +3222,10 @@ knitr::include_graphics(c("images/andy_temp/Pipeline_summary.png"))
 knitr::include_graphics(c("images/andy_temp/ResNet_3D_CNN_Performance.png"))
 ```
 
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="50%"}
+knitr::include_graphics(c("images/andy_temp/Resnet_CFMatrix.png"))
+```
+
 
 ## Analysis of Results  
 

@@ -1598,7 +1598,8 @@ As in the previous comparison, we introduce the following collection of sets as 
 
 $$D=\{(-\infty,-10^4),...,(-10,0),(0,10),...,(10^4,\infty) \} $$
 
-If the difference belongs to the 5 or 6 sets, meaning that the difference is close to 0, we can say that the score agrees between the different permutations.
+
+## Evaluation metrics.
 
 ### Results
 See Poster Below

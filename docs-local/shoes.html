@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2021-02-23" />
+<meta name="date" content="2021-03-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,6 +53,10 @@
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 
 
 <style type="text/css">
@@ -281,9 +285,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.6.9" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#train--test---validation."><i class="fa fa-check"></i><b>8.6.9</b> Train- Test - Validation.</a></li>
 <li class="chapter" data-level="8.6.10" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#metrics-for-comparing-results"><i class="fa fa-check"></i><b>8.6.10</b> Metrics for comparing results</a></li>
 <li class="chapter" data-level="8.6.11" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#results"><i class="fa fa-check"></i><b>8.6.11</b> Results</a></li>
-<li class="chapter" data-level="8.6.12" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#from-a-single-permutation-within-a-simulation"><i class="fa fa-check"></i><b>8.6.12</b> From a single permutation within a simulation</a></li>
-<li class="chapter" data-level="8.6.13" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#from-all-permutation-in-simulation"><i class="fa fa-check"></i><b>8.6.13</b> From all permutation in simulation</a></li>
-<li class="chapter" data-level="8.6.14" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#from-all-permutation-in-all-simulation"><i class="fa fa-check"></i><b>8.6.14</b> From all permutation in all simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#srl-behaviour-and-dependence-extended-simulation."><i class="fa fa-check"></i><b>8.7</b> SRL behaviour and dependence: Extended simulation.</a></li>
+<li class="chapter" data-level="8.8" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#communication-of-results-1"><i class="fa fa-check"></i><b>8.8</b> Communication of Results</a><ul>
+<li class="chapter" data-level="8.8.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#poster"><i class="fa fa-check"></i><b>8.8.1</b> Poster</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="outreach-activities.html"><a href="outreach-activities.html"><i class="fa fa-check"></i><b>9</b> Outreach activities</a><ul>
@@ -533,11 +538,11 @@ This is necessary because Fourier transforms assume images go on forever, so abr
 <p><img src="images/shoes/longitudinal/FFT_Demo_Hann.png" width = "25%"/></p>
 <ul>
 <li>The strength of the Hann function can be adjusted by a power argument<br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-366-1.png" width="672" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-373-1.png" width="672" /></li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
 <li>Use the Fast Fourier Transform on each image. Center the FFT’d images so that low frequencies are in the center (exchange top left quadrant with bottom right, and top right quadrant with bottom left). Call the FFT’d, centered images <span class="math inline">\(F(A)\)</span> and <span class="math inline">\(F(B)\)</span><br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-367-1.png" width="50%" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-374-1.png" width="50%" /></li>
 </ol>
 <p><img src="images/shoes/longitudinal/FFT_Demo_FFT1.png" width = "50%"/></p>
 <ol start="4" style="list-style-type: decimal">
@@ -1465,45 +1470,45 @@ It is unclear how much ICP is changing after each iteration. For example, in our
 <ul>
 <li>Ex1: A matching pair: scan1 (left; reference) and scan2 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-369-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-376-1.png" width="672" /></p>
 <ul>
 <li>Ex2: A non-matching pair: scan1 (left; reference) from shoe2 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-370-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-377-1.png" width="672" /></p>
 <ul>
 <li>Ex3: A non-matching pair: scan1 (left; reference) from shoe3 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-371-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-378-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Determine 600px by 600px square coordinate for all of the reference images; the location of square is the same for each reference image. For example, the bottom left corner is at (601, 1001) and the top right corner is at (1200, 1600).</li>
 </ol>
 <ul>
 <li>Ex1: A matching pair: scan1 (left; reference) and scan2 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-372-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-379-1.png" width="672" /></p>
 <ul>
 <li>Ex2: A non-matching pair: scan1 (left; reference) from shoe2 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-373-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-380-1.png" width="672" /></p>
 <ul>
 <li>Ex3: A non-matching pair: scan1 (left; reference) from shoe3 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-374-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-381-1.png" width="672" /></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Extract the 600px by 600px square from both reference and moving images in each matching/non-matching pair, and then split each square into 36 smaller squares that are 100px by 100px. As a result, there are 36 100px by 100px squares are obtained from the reference and moving images, respectively, in each pair.</li>
 </ol>
 <ul>
 <li>Ex1:</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-375-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-382-1.png" width="672" /></p>
 <ul>
 <li>Ex2:</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-376-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-383-1.png" width="672" /></p>
 <ul>
 <li>Ex3:</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-377-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-384-1.png" width="672" /></p>
 <ol start="5" style="list-style-type: decimal">
 <li>Compute maximum cross correlation function from a small square of a reference image and its corresponding small square of the moving image. Consequently, there are 36 maximum ccf and their (dx, dy) obtained from each matching/nonmatching pair. Summarize ccf, dx, and dy so that only a single set of features from them is made from each pair.</li>
 </ol>
@@ -1525,16 +1530,29 @@ It is unclear how much ICP is changing after each iteration. For example, in our
 <li>Train randomforest based on the features of ccf, dx, and dy from the training set, and predict whether each pair in the test set is matching or non-matching.</li>
 </ol>
 <pre><code>## Warning: package &#39;randomForest&#39; was built under R version 4.0.2</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-380-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-387-1.png" width="672" /></p>
 </div>
 <div id="massive-matching-pairs-added-to-training-set" class="section level4">
 <h4><span class="header-section-number">7.7.0.2</span> Massive matching pairs added to training set</h4>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-381-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-388-1.png" width="672" /></p>
 </div>
 <div id="hanas-update-on-215" class="section level4">
 <h4><span class="header-section-number">7.7.0.3</span> Hana’s update on 2/15</h4>
 <ul>
 <li>Evaluated the performance of matching using ccf with and without maximum clique method. Unfortunately, the ccf features were not helpful to increase the accuracy of maximum clique method.</li>
+</ul>
+</div>
+<div id="hanas-update-on-222" class="section level4">
+<h4><span class="header-section-number">7.7.0.4</span> Hana’s update on 2/22</h4>
+<ul>
+<li>Worked on the algorithm to extract circular features from echo shoes. It was processed mostly well, but there is much room to develop like removing non-circle features automatically, and not missing circular features.</li>
+</ul>
+</div>
+<div id="hanas-update-on-31" class="section level4">
+<h4><span class="header-section-number">7.7.0.5</span> Hana’s update on 3/1</h4>
+<ul>
+<li><p>Evaluated the performance of matching using ccf with and without maximum clique method based on degraded scans because maximum clique’s performance has been poor on degraded images. One thing to note was that aligning degraded shoe scans were not processed well eveon in Matlab. For example, two scans from the same shoe at a degraded level were not aligned properly sometimes. Two scans from the same shoe at two different levels were unlikely to be aligned.</p></li>
+<li><p>We still want to see the potential of CCF method, so plan to align degraded scans manually and then to apply CCF method to improve the matching performance of maximum clique method with CCF features added.</p></li>
 </ul>
 <p>####Round Robin Updates</p>
 <p><em>February 8th,2020 Matias Ibarburu</em>

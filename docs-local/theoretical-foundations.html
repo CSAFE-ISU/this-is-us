@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2021-02-23" />
+<meta name="date" content="2021-03-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,6 +53,10 @@
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 
 
 <style type="text/css">
@@ -281,9 +285,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.6.9" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#train--test---validation."><i class="fa fa-check"></i><b>8.6.9</b> Train- Test - Validation.</a></li>
 <li class="chapter" data-level="8.6.10" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#metrics-for-comparing-results"><i class="fa fa-check"></i><b>8.6.10</b> Metrics for comparing results</a></li>
 <li class="chapter" data-level="8.6.11" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#results"><i class="fa fa-check"></i><b>8.6.11</b> Results</a></li>
-<li class="chapter" data-level="8.6.12" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#from-a-single-permutation-within-a-simulation"><i class="fa fa-check"></i><b>8.6.12</b> From a single permutation within a simulation</a></li>
-<li class="chapter" data-level="8.6.13" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#from-all-permutation-in-simulation"><i class="fa fa-check"></i><b>8.6.13</b> From all permutation in simulation</a></li>
-<li class="chapter" data-level="8.6.14" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#from-all-permutation-in-all-simulation"><i class="fa fa-check"></i><b>8.6.14</b> From all permutation in all simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#srl-behaviour-and-dependence-extended-simulation."><i class="fa fa-check"></i><b>8.7</b> SRL behaviour and dependence: Extended simulation.</a></li>
+<li class="chapter" data-level="8.8" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#communication-of-results-1"><i class="fa fa-check"></i><b>8.8</b> Communication of Results</a><ul>
+<li class="chapter" data-level="8.8.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#poster"><i class="fa fa-check"></i><b>8.8.1</b> Poster</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="outreach-activities.html"><a href="outreach-activities.html"><i class="fa fa-check"></i><b>9</b> Outreach activities</a><ul>
@@ -877,14 +882,14 @@ which is approximately equivalent to
 We see that in this example the matching region from the feature difference method only overlaps a small fraction of that from the optimal matching rule, and there is a missing alignment for the feature difference method in the two small triangles at the origin.
 We also note that even though most of the pink area and the blue area in Figure 1 don’t overlap, the probabilities that the pair of data <span class="math inline">\((x_{1}, x_{2})\)</span> falling into those non-overlapping regions could be small, especially if the absolute value of either coordinate is large. See the contours of multivariate normal distribution in Figure 1.</p>
 <pre><code>## Warning: package &#39;mvtnorm&#39; was built under R version 4.0.2</code></pre>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-382"></span>
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-382-1.png" alt="Matching regions from the optimal rule (in pink) and the method based on feature difference (in blue). The contours of multivariate normal distribution with means $(1, -1)$ (unmatching case) and $(1, 1)$ (matching case) are marked in black and red, respectively, where the covariance is identity." width="672" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-389"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-389-1.png" alt="Matching regions from the optimal rule (in pink) and the method based on feature difference (in blue). The contours of multivariate normal distribution with means $(1, -1)$ (unmatching case) and $(1, 1)$ (matching case) are marked in black and red, respectively, where the covariance is identity." width="672" />
 <p class="caption">
 Figure 8.1: Matching regions from the optimal rule (in pink) and the method based on feature difference (in blue). The contours of multivariate normal distribution with means <span class="math inline">\((1, -1)\)</span> (unmatching case) and <span class="math inline">\((1, 1)\)</span> (matching case) are marked in black and red, respectively, where the covariance is identity.
 </p>
 </div>
 <p><strong>Comparison with random forest.</strong> We also conducted a small scale simulation to compare the optimal matching rule with the random forest method applied on the feature difference. The traning data include 50 observations from <span class="math inline">\(N(1, 1)\)</span> and <span class="math inline">\(N(-1, 1)\)</span>. There are additional 10 observations from each of the group serving as the testing data. We evaluate the percentage of the matching errors on the pairs of the testing data. We repeated the whole simulation 100 times. The accuracy rates are <strong><em>0.762</em></strong> and <strong><em>0.708</em></strong> for the optimal matching rule and the random forest applied on the differences of the measurements, respectively. 65% out of the 100 repetitions, the former method has higher accuracy than the latter method.</p>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-384-1.png" width="288" /><img src="bookdown-demo_files/figure-html/unnamed-chunk-384-2.png" width="288" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-391-1.png" width="288" /><img src="bookdown-demo_files/figure-html/unnamed-chunk-391-2.png" width="288" /></p>
 </div>
 <div id="topics-needs-exploration" class="section level3">
 <h3><span class="header-section-number">8.5.2</span> Topics needs exploration</h3>
@@ -898,14 +903,14 @@ Figure 8.1: Matching regions from the optimal rule (in pink) and the method base
 <p>Suppose that there are multiple sources denoted by <span class="math inline">\(\pi_g\)</span> for <span class="math inline">\(g = 1,\ \cdots,\ G\)</span>, and observations from each <span class="math inline">\(\pi_g\)</span> follow a distribution denoted by <span class="math inline">\(f(\cdot|\pi_g)\)</span>. As an example, the figure below shows three different normal distributions by source. Let’s say we have <span class="math inline">\(n\)</span> observations from those souces but do not know which sources they actually belong to. Our goal is to identify if two observations represented by <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> would have come from the same sources or not.</p>
 <p><img src="images/foundations/optimal_rule/source.distribution.PNG" width="60%" style="display: block; margin: auto;" /></p>
 <p>For <span class="math inline">\(n\)</span> independent observations, <span class="math inline">\({n \choose 2}\)</span> pairwise comparisons occur. When we sampled 300 observations from each density in the plot above, the following plot illustrates whether each pair actually come from the same sources or not. Blue dots represent the pairs from the same sources, and red ones indicates the pairs from the different sources. If we can predict the blue area accurately as much as possible, our goal to predict the membership of pairwise observations will be attained.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-387"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-394"></span>
 <img src="images/foundations/optimal_rule/plot.true.T.ss.PNG" alt="True membership of pairs" width="60%" />
 <p class="caption">
 Figure 8.2: True membership of pairs
 </p>
 </div>
 <p>The following figure displays the optimal rule’s matching results using the data from the previous plot. Likewise, the blue dots represent the matched zone by optimal rule where the pairs are predicted to be from the same sources, and the red ones represent the unmatched zone by optimal rule where the pairs are predicted to be from different sources.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-388"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-395"></span>
 <img src="images/foundations/optimal_rule/plot.optimal.T.ss.PNG" alt="Membership of pairs predicted by optimal rule" width="60%" />
 <p class="caption">
 Figure 8.3: Membership of pairs predicted by optimal rule
@@ -998,32 +1003,332 @@ That’s because such <span class="math inline">\(T_{SS}\)</span> is the collect
 <h3><span class="header-section-number">8.5.6</span> Simulation results</h3>
 <div id="univariate-result-1" class="section level4">
 <h4><span class="header-section-number">8.5.6.1</span> Univariate Result 1</h4>
-<pre><code>## Error in loadNamespace(name): there is no package called &#39;rlist&#39;</code></pre>
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math display">\[\mbox{Source, }g\]</span>
+</th>
+<th style="text-align:center;">
+1
+</th>
+<th style="text-align:center;">
+2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\mu\]</span>
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\Sigma_g\]</span>
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+</tbody>
+</table>
 <p><img src="images/foundations/optimal_rule/uni.Sg.2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="univariate-result-2" class="section level4">
 <h4><span class="header-section-number">8.5.6.2</span> Univariate Result 2</h4>
-<pre><code>## Error in loadNamespace(name): there is no package called &#39;rlist&#39;</code></pre>
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math display">\[\mbox{Source, }g\]</span>
+</th>
+<th style="text-align:center;">
+1
+</th>
+<th style="text-align:center;">
+2
+</th>
+<th style="text-align:center;">
+3
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\mu\]</span>
+</td>
+<td style="text-align:center;">
+1.00
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\Sigma_g\]</span>
+</td>
+<td style="text-align:center;">
+2.25
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+</tbody>
+</table>
 <p><img src="images/foundations/optimal_rule/uni.Sg.3_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="univariate-result-3" class="section level4">
 <h4><span class="header-section-number">8.5.6.3</span> Univariate Result 3</h4>
-<pre><code>## Error in loadNamespace(name): there is no package called &#39;rlist&#39;</code></pre>
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math display">\[\mbox{Source, }g\]</span>
+</th>
+<th style="text-align:center;">
+1
+</th>
+<th style="text-align:center;">
+2
+</th>
+<th style="text-align:center;">
+3
+</th>
+<th style="text-align:center;">
+4
+</th>
+<th style="text-align:center;">
+5
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\mu\]</span>
+</td>
+<td style="text-align:center;">
+-10
+</td>
+<td style="text-align:center;">
+-5.00
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+4.00
+</td>
+<td style="text-align:center;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\Sigma_g\]</span>
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+2.25
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+6.25
+</td>
+<td style="text-align:center;">
+9
+</td>
+</tr>
+</tbody>
+</table>
 <p><img src="images/foundations/optimal_rule/uni.Sg.5_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="univariate-result-4" class="section level4">
 <h4><span class="header-section-number">8.5.6.4</span> Univariate Result 4</h4>
-<pre><code>## Error in loadNamespace(name): there is no package called &#39;rlist&#39;</code></pre>
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math display">\[\mbox{Source, }g\]</span>
+</th>
+<th style="text-align:center;">
+1
+</th>
+<th style="text-align:center;">
+2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\mu\]</span>
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\Sigma_g\]</span>
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+</tbody>
+</table>
 <p><img src="images/foundations/optimal_rule/uni.Sp.2_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="univariate-result-5" class="section level4">
 <h4><span class="header-section-number">8.5.6.5</span> Univariate Result 5</h4>
-<pre><code>## Error in loadNamespace(name): there is no package called &#39;rlist&#39;</code></pre>
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math display">\[\mbox{Source, }g\]</span>
+</th>
+<th style="text-align:center;">
+1
+</th>
+<th style="text-align:center;">
+2
+</th>
+<th style="text-align:center;">
+3
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\mu\]</span>
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\Sigma_g\]</span>
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+</tbody>
+</table>
 <p><img src="images/foundations/optimal_rule/uni.Sp.3_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="univariate-result-6" class="section level4">
 <h4><span class="header-section-number">8.5.6.6</span> Univariate Result 6</h4>
-<pre><code>## Error in loadNamespace(name): there is no package called &#39;rlist&#39;</code></pre>
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math display">\[\mbox{Source, }g\]</span>
+</th>
+<th style="text-align:center;">
+1
+</th>
+<th style="text-align:center;">
+2
+</th>
+<th style="text-align:center;">
+3
+</th>
+<th style="text-align:center;">
+4
+</th>
+<th style="text-align:center;">
+5
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\mu\]</span>
+</td>
+<td style="text-align:center;">
+-10
+</td>
+<td style="text-align:center;">
+-7
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math display">\[\Sigma_g\]</span>
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+</tbody>
+</table>
 <p><img src="images/foundations/optimal_rule/uni.Sp.5_simulation.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multivariate-result-1-g-2-n-2" class="section level4">
@@ -1503,7 +1808,7 @@ T_{SS}^{Opt} = \left\{(x,y):\ \exp{\left(-\frac{1}{2} \left(\begin{matrix}x - M 
 <div id="an-example-based-on-normal-populations" class="section level4">
 <h4><span class="header-section-number">8.5.9.2</span> An example based on normal populations</h4>
 <p>Set-up: <span class="math inline">\(X|\mu, Y|\mu \sim \mbox{N}(\mu, \Sigma = 1)\)</span> where <span class="math inline">\(\mu \sim \mbox{N}(M = 0, V =1)\)</span>, which results in <span class="math inline">\(X, Y \sim N(0,2)\)</span>.</p>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-433-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-440-1.png" width="672" /></p>
 </div>
 <div id="application-to-glassdata" class="section level4">
 <h4><span class="header-section-number">8.5.9.3</span> Application to glassdata</h4>
@@ -1514,33 +1819,33 @@ T_{SS}^{Opt} = \left\{(x,y):\ \exp{\left(-\frac{1}{2} \left(\begin{matrix}x - M 
 <li>Training: AA(1/3), AC(1/4), AE(1/5), AG(1/6)</li>
 <li>Testset: AB(1/3), AD(1/4), AF(1/5), AH(1/6)</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-435-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-442-1.png" width="672" /></p>
 <ul>
 <li>Training: BA(12/5), BK(12/12), BN(12/15), BP(12/16)</li>
 <li>Testset: BB(12/5), BL(12/12), BO(12/15), BR(12/16)</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-436-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-443-1.png" width="672" /></p>
 <ul>
 <li>Training: AA(1/3), AC(1/4), AE(1/5), AG(1/6)</li>
 <li>Testset: AI(1/7), AJ(1/7), AK(1/8), AL(1/8)</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-437-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-444-1.png" width="672" /></p>
 <ul>
 <li>Training: AA(1/3), AC(1/4), AE(1/5), AG(1/6), BA(12/5), BK(12/12), BN(12/15), BP(12/16)</li>
 <li>Testset: AB(1/3), AD(1/4), AF(1/5), AH(1/6), BB(12/5), BL(12/12), BO(12/15), BR(12/16)</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-438-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-445-1.png" width="672" /></p>
 <ul>
 <li>Training: AA(1/3), AC(1/4), AE(1/5), AG(1/6))</li>
 <li>Testset: BA(12/5), BK(12/12), BN(12/15), BP(12/16)</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-439-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-446-1.png" width="672" /></p>
 <ul>
 <li>Training: AI(1/7), AJ(1/7), AK(1/8), AL(1/8)<br />
 </li>
 <li>Testset: AV(1/13), AY(1/15), AAA(1/16), AAC(1/17)</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-440-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-447-1.png" width="672" /></p>
 </div>
 </div>
 </div>
@@ -1763,409 +2068,29 @@ In the distance-based scores, a source of difference is introduced as we use a d
 </div>
 <div id="results" class="section level3">
 <h3><span class="header-section-number">8.6.11</span> Results</h3>
-</div>
-<div id="from-a-single-permutation-within-a-simulation" class="section level3">
-<h3><span class="header-section-number">8.6.12</span> From a single permutation within a simulation</h3>
-<p>The following only illustrates partial results for the first permutation to discuss the challenges faced by the algorithms.</p>
-<p>First, we report the RF OOB for this permutation is 8.5%, the specific class error is 8% for the KM and 9% for the KNM in the training set. The KDE over the test Set also allows to assess the performance of the RF in discriminating between the two populations.</p>
-<p>We also present the KDE over the Test set using the Euclidean and the City distance. It shows that a smaller distance is more likely to be observed if we are dealing with a KM pair, although some overlapping is seen.</p>
-<p><img src="images/foundations/FV/RF_KDE.png" style="width:30.0%" /> <img src="images/foundations/FV/Eucli_KDE.png" style="width:30.0%" /> <img src="images/foundations/FV/City_KDE.png" style="width:30.0%" /></p>
-<p>Next we compute the Rate of misleading evidence for KM and KME. We see that in this case, the RF SLR is closer to the rate of misleading evidence for the LR in the case of the KM and the KNM.</p>
-<table>
-<caption>
-<span id="tab:unnamed-chunk-443">Table 8.1: </span>Rate of Misleading evidence KM
-</caption>
-<thead>
-<tr>
-<th style="text-align:right;">
-Permutation
-</th>
-<th style="text-align:right;">
-RME KM Euclidean
-</th>
-<th style="text-align:right;">
-RME KM City
-</th>
-<th style="text-align:right;">
-RME KM RF
-</th>
-<th style="text-align:right;">
-RME KM LR
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>
-<span id="tab:unnamed-chunk-443">Table 8.1: </span>Rate of Misleading evidence KNM
-</caption>
-<thead>
-<tr>
-<th style="text-align:right;">
-Permutation
-</th>
-<th style="text-align:right;">
-RME KNM Euclidean
-</th>
-<th style="text-align:right;">
-RME KNM City
-</th>
-<th style="text-align:right;">
-RME KNM RF
-</th>
-<th style="text-align:right;">
-RME KNM LR
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-20.5
-</td>
-<td style="text-align:right;">
-18.7
-</td>
-<td style="text-align:right;">
-6.58
-</td>
-<td style="text-align:right;">
-6.58
-</td>
-</tr>
-</tbody>
-</table>
-<p><img src="images/foundations/FV/Tile_City.png" style="width:50.0%" />
-<img src="images/foundations/FV/Tile_Eucli.png" style="width:50.0%" />
-<img src="images/foundations/FV/Tile_RF.png" style="width:50.0%" /></p>
-</div>
-<div id="from-all-permutation-in-simulation" class="section level3">
-<h3><span class="header-section-number">8.6.13</span> From all permutation in simulation</h3>
-<p>First we present the RME for each permutatio within this particular sample. We can see that the RME for LR is the same in ‘paired’ permutation since it does not depend on the train-test set.</p>
-<table>
-<caption>
-<span id="tab:unnamed-chunk-444">Table 8.2: </span>Rate of Misleading evidence KM
-</caption>
-<thead>
-<tr>
-<th style="text-align:right;">
-Permutation
-</th>
-<th style="text-align:right;">
-RME KM Euclidean
-</th>
-<th style="text-align:right;">
-RME KM City
-</th>
-<th style="text-align:right;">
-RME KM RF
-</th>
-<th style="text-align:right;">
-RME KM LR
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-7
-</td>
-<td style="text-align:right;">
-7
-</td>
-<td style="text-align:right;">
-14
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-13
-</td>
-<td style="text-align:right;">
-7
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption>
-<span id="tab:unnamed-chunk-444">Table 8.2: </span>Rate of Misleading evidence KNM
-</caption>
-<thead>
-<tr>
-<th style="text-align:right;">
-Permutation
-</th>
-<th style="text-align:right;">
-RME KNM Euclidean
-</th>
-<th style="text-align:right;">
-RME KNM City
-</th>
-<th style="text-align:right;">
-RME KNM RF
-</th>
-<th style="text-align:right;">
-RME KNM LR
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-20.50
-</td>
-<td style="text-align:right;">
-18.70
-</td>
-<td style="text-align:right;">
-6.580
-</td>
-<td style="text-align:right;">
-6.58
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-12.60
-</td>
-<td style="text-align:right;">
-10.20
-</td>
-<td style="text-align:right;">
-0.444
-</td>
-<td style="text-align:right;">
-1.16
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-14.30
-</td>
-<td style="text-align:right;">
-9.96
-</td>
-<td style="text-align:right;">
-7.640
-</td>
-<td style="text-align:right;">
-6.58
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-13.70
-</td>
-<td style="text-align:right;">
-9.07
-</td>
-<td style="text-align:right;">
-1.070
-</td>
-<td style="text-align:right;">
-1.78
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-8.89
-</td>
-<td style="text-align:right;">
-7.64
-</td>
-<td style="text-align:right;">
-1.510
-</td>
-<td style="text-align:right;">
-1.16
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:right;">
-13.20
-</td>
-<td style="text-align:right;">
-9.60
-</td>
-<td style="text-align:right;">
-4.440
-</td>
-<td style="text-align:right;">
-1.78
-</td>
-</tr>
-</tbody>
-</table>
-<p>Next, the following plot shows the difference between the ‘paired’ permutation. All the difference for the LR belongs to group ‘5’ since the difference is 0 as previously mentioned.</p>
-<p>In this particular sample, the distance-based SLR shows that most cases fall within groups 5 or 6, meaning the difference is small. This is true for both KM and KNM.</p>
-<p>In the case of the RF SLR, in this particular sample, the difference is not symmetric. Leaning towards negative values. It is interesting to note that in the KM, the larger percentage does not fall in group 5.</p>
-<div class="figure">
-<img src="images/foundations/FV/Diff_1stV.png" alt="" />
-<p class="caption">Difference in 1st Sample</p>
+<p>See Poster Below</p>
 </div>
 </div>
-<div id="from-all-permutation-in-all-simulation" class="section level3">
-<h3><span class="header-section-number">8.6.14</span> From all permutation in all simulation</h3>
-<p>The following results are for 500 samples, and in each one we have 6 permutations.</p>
-<p>First, we present the boxplot for RME for each sample X permutation, approximately 3000 rates for each ratio. (note some “NA” present)</p>
-<p>LR is the smaller as expected, followed by RF, their range reasonably similar.
-However, it should be noted that in the case of KM RF present large outliers.</p>
-<div class="figure">
-<img src="images/foundations/FV/ALL_SIMU/BOX_RME_all_SIMUL.png" alt="" />
-<p class="caption">Boxplot RME</p>
+<div id="srl-behaviour-and-dependence-extended-simulation." class="section level2">
+<h2><span class="header-section-number">8.7</span> SRL behaviour and dependence: Extended simulation.</h2>
+<p>A</p>
 </div>
-<p>The next plot shows the differences between ‘paired’ permutations across all 500 samples.
-In the case of the City distance, for KM most cases fall in groups 5 or 6 wichs suggest low sensitivity to changes in train and test sets.</p>
-<p>On the other hand, RF shows the opposite behavior suggesting that this score based likelihood ratio is more sensitive to changes in train and test sets.</p>
-<div class="figure">
-<img src="images/foundations/FV/ALL_SIMU/Diff_all_SIMUL_V1.png" alt="" />
-<p class="caption">Difference City</p>
-</div>
-<div class="figure">
-<img src="images/foundations/FV/ALL_SIMU/Diff_all_SIMUL_V3.png" alt="" />
-<p class="caption">Difference Euclidean</p>
-</div>
-<div class="figure">
-<img src="images/foundations/FV/ALL_SIMU/Diff_all_SIMUL_V2.png" alt="" />
-<p class="caption">Difference RF</p>
-</div>
-<p>Regarding the match between the LR and the SLR…</p>
-<div class="figure">
-<img src="images/foundations/FV/ALL_SIMU/Tiles_city_all_SIMUL.png" alt="" />
-<p class="caption">Tiles City</p>
-</div>
-<div class="figure">
-<img src="images/foundations/FV/ALL_SIMU/Tiles_Eucli_all_SIMUL.png" alt="" />
-<p class="caption">Tiles Euclidean</p>
-</div>
-<div class="figure">
-<img src="images/foundations/FV/ALL_SIMU/Tiles_RF_all_SIMUL.png" alt="" />
-<p class="caption">Tiles RF</p>
-</div>
+<div id="communication-of-results-1" class="section level2">
+<h2><span class="header-section-number">8.8</span> Communication of Results</h2>
+<div id="poster" class="section level3">
+<h3><span class="header-section-number">8.8.1</span> Poster</h3>
+<ul>
+<li><strong>“An evaluation of score-based likelihood ratios for glass data.”</strong>
+<ul>
+<li>February 2021</li>
+<li>Authors: Federico Veneri and Danica Ommen</li>
+<li>American Academy of Forensic Sciences, Virtual</li>
+<li><details>
+<summary>Click for Poster Image</summary>
+<img src="images/foundations/FV/Poster_Veneri_Ommen.jpg" alt="Poster AAFS 2021" />
+</details></li>
+</ul></li>
+</ul>
 
 </div>
 </div>

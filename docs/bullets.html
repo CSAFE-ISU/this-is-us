@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2021-03-01" />
+<meta name="date" content="2021-03-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,6 +53,10 @@
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 
 
 <style type="text/css">
@@ -2776,7 +2780,7 @@ Figure 4.109: Title coming soon.
 <p>3d convolutional neural networks take data as 5D tensors with shape (samples, conv_dim1, conv_dim2, conv_dim3, channels), where samples(also known as batch_shape) are the number of observations to be trained, the dimensions are our width, height, and depth values, and channels represent the color scale(=1 for greyscale and =3 for RGB color scale). Another way to think of a 5D tensor is just to think of a 5 dimensional array.</p>
 <p>We take the surface martix associated with each cropped x3p, transform each surface matrix to a (x, y, 1, 1) array, a 4d array or a 4d tensor. Then we can bind each surface matrix together creating a (n, x, y, 1, 1) array, a 5d array or a 5d tensor. n represents the batch_shape, x and y represent the width and height dimensions, the first “1” represents the elements contained in each surface matrix and the last “1” represents the color scale, greyscale.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-267"></span>
-<img src="images/andy_temp/Pipeline_summary.PNG" alt="Title coming soon." width="10%" />
+<img src="images/andy_temp/Pipeline_summary.PNG" alt="Title coming soon." width="50%" />
 <p class="caption">
 Figure 4.110: Title coming soon.
 </p>
@@ -2787,6 +2791,32 @@ Figure 4.110: Title coming soon.
 <p class="new">
 Previous work will be added in the near future.
 </p>
+<p>Convolutional layers are used as filters for our 5d input tensor resulting in an activation. These layers produce feature maps that indicate the locations and strengths of our annotations.</p>
+<p>3d zero padding, padding allows us to keep the information at the borders of our cropped x3p scans, without padding we could potentially be losing important information regarding scans that have more than one annotation.</p>
+<p>Max pooling selects the maximum element covered by the filters, resulting in a feature map containing the most prominent features, max pooling also reduces the computational cost by reducing the number of parameters used to learn.</p>
+<p>Batch Normalization normalizes the output of each previous activation layer by subtracting the batch mean and dividing by the batch standard deviation. Batch Normalization is essentially a scaling feature, making sure each activation in each layer isn’t too low or too high.</p>
+<p>Dropout is used to prevent/reduce overfitting in our model and is typically used along with batch normalization. Dropout is also referred to as dilution, thining the weights of the neural network, or it can be thought of as model averaging.</p>
+<p><strong>Previous Work:</strong></p>
+<p>We trained a shallow 3d convolutional neural network on 100 epochs <strong>(epoch refers to one cycle through the full training data)</strong> resulting in an overall accuracy of 76.2 percent. Class weights were not adjusted for Class Imbalance Issue.</p>
+<p>Total True Positives: 3610</p>
+<p>Overall Accuracy: 76.22 %</p>
+<p><strong>Breakoff</strong> (Precision: 0.59, Recall: 0.27, F1-Score: 0.37)</p>
+<p><strong>Damage</strong> (Precision: 0.48, Recall: 0.045, F1-Score: 0.081)</p>
+<p><strong>Grooves</strong> (Precision: 0.72, Recall: 0.67, F1-Score: 0.69)</p>
+<p><strong>No Striations</strong> (Precision: 0.75, Recall: 0.87, F1-Score: 0.80)</p>
+<p><strong>Well Expressed Striations</strong> (Precision: 0.78, Recall: 0.83, F1-Score: 0.80)</p>
+<p><strong>Vertical Striations</strong> (Precision: 0, Recall: 0, F1-Score: 0)</p>
+<p>We Re-run the 3d convolutional neural network on 200 epochs and adjust class weights by the frequency of classes throughout the training data set.</p>
+<p>Total True Positives: 3171</p>
+<p>Overall Accuracy: 67 %</p>
+<p><strong>Breakoff</strong> (Precision: 0.34, Recall: 0.52, F1-Score: 0.41)</p>
+<p><strong>Damage</strong> (Precision: 0.38, Recall: 0.40, F1-Score: 0.39)</p>
+<p><strong>Grooves</strong> (Precision: 0.60, Recall: 0.84, F1-Score: 0.70)</p>
+<p><strong>No Striations</strong> (Precision: 0.67, Recall: 0.89, F1-Score: 0.76)</p>
+<p><strong>Well Expressed Striations</strong> (Precision: 0.86, Recall: 0.56, F1-Score: 0.68)</p>
+<p><strong>Vertical Striations</strong> (Precision: 0.017, Recall: 0.14, F1-Score: 0.030)</p>
+<p>The model using adjusted class weights performs slightly worse overall but does a better job in classifying minority classes.</p>
+<p>The training loss is still decreasing while validation loss has not started to increase. This suggest running the model using more epochs.</p>
 <p><strong>Current Results:</strong></p>
 <ul>
 <li><p>30 Layer 3d Convolutional Residual Network</p></li>

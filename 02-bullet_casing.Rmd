@@ -36,7 +36,7 @@ Those are:
 
   - DFSC (about 2000) taken with the Sensofar S-neox
   - Cartridges for CSAFE persistence labelled for barrels 1 through 9.
-  - Cadre TopMatch Scanner: when taking scans of breech face images, we are following NIBIN protocol as losely as possible.
+  - Cadre TopMatch Scanner: when taking scans of breech face images, we are following NIBIN protocol as closely as possible.
 
 Some sample scans using the Cadre TopMatch scanner. Figure \@ref(fig:topmatch) shows two breech face impressions from the same firearm:
 
@@ -79,9 +79,9 @@ Overview in numbers:
 All bullets are collected by Srinivasan Rathinam, LAPD. 
 
 #### Main study
-4 bullets per barrel for  626  Beretta 92 F/FS firearms , ammunition used are 9 mm Luger Winchester 115 grain with a Copper surface.
+4 bullets per barrel for  626  Beretta 92 F/FS firearms, ammunition used are 9 mm Luger Winchester 115 grain with a Copper surface.
 
-scans are on Raven.
+scans are on Raven in the folder LAPD.
 
 
 
@@ -149,6 +149,67 @@ include_graphics(sprintf( "images/bullets/SRM2400-360/P%04d.png", c(1:12, 14:26)
 There are 40 scans taken at steps of 9 degrees. Each scan is taken at 20 fold magnification at a nominal resolution of 0.645 microns per pixel. 
 Each scan is of dimension 1360 x 1024 pixels, covering a secant length of 877.2 microns.
 
+#### Comparison of scans taken under different angles 
+
+In our protocol for capturing land-engraved areas we take three focal views from left to right, as shown in the image below. During the capturing process, the stage shifts to place the microscope's lens center stage above the three areas of the land-engraved area.
+
+![](images/cartridge_cases/heike/focal-views-standard.png)
+In order to investigate the impact of the angle under which a land engraved area is taken, we rotate the land engraved area manually, such that the lens is capturing the area orthogonally, as shown in the image below.
+
+![](images/cartridge_cases/heike/focal-views-rotated.png)
+The set of images below shows crosscuts for the three focal views of one land engraved area using both the standard protocol and under the rotation:
+
+```{r, fig.keep="hold", fig.align='center',  warning=FALSE, message=FALSE}
+library(dplyr)
+library(ggplot2)
+views <- readRDS("code/views-wo-x3p.rds")
+
+p1 <- views$ccdata[[1]] %>% 
+  ggplot(aes(x = x*10^6, y = value)) + geom_line(aes(colour = "standard")) +
+  geom_line(aes(colour = "rotated"), data = views$ccdata[[1+18]]) +
+  ggtitle("Land 1a") + 
+  coord_equal() + 
+  xlab("x") +
+  theme(legend.position="none")
+
+p2 <- views$ccdata[[2]] %>% 
+  ggplot(aes(x = x*10^6, y = value)) + geom_line(aes(colour = "standard")) +
+  geom_line(aes(colour = "rotated"), data = views$ccdata[[2+18]]) +
+  ggtitle("Land 1b") + 
+  coord_equal() +
+  xlab("x") +
+  theme(legend.position="bottom")
+
+p3 <- views$ccdata[[3]] %>% 
+  ggplot(aes(x = x*10^6, y = value)) + geom_line(aes(colour = "standard")) +
+  geom_line(aes(colour = "rotated"), data = views$ccdata[[3+18]]) +
+  ggtitle("Land 1c") + 
+  coord_equal() +
+  xlab("x") +
+  theme(legend.position="none")
+
+gridExtra::grid.arrange(p1,p2,p3, nrow=1)
+```
+Signatures of the same focal views from rotated and standard alignment. While most peaks between the signatures can be identified based on their horizontal location, the height of these peaks between the signatures is quite different.
+```{r warning = FALSE}
+library(purrr)
+comparisons <- readRDS("code/comparisons.rds")
+
+showAligned <- function(land1Chr , land2Chr) {
+  comparisons %>% filter(land1==land1Chr, land2==land2Chr) %>% pluck("aligned", 1, "lands") %>%
+    tidyr::pivot_longer(names_to="sigs", values_to="value", cols=sig1:sig2) %>%
+    mutate(
+      landID = ifelse(sigs=="sig1", land1Chr, land2Chr)
+    )%>%
+    ggplot(aes(x = x, y = value, colour = landID)) +
+    geom_line() +
+    theme_bw() +
+    scale_color_brewer(palette = "Dark2")
+}
+
+showAligned("1-A-std", "1-A-rot")
+showAligned("2-A-std", "2-A-rot")
+```
 
 ## Computational Tools
 

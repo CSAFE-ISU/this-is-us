@@ -1598,7 +1598,37 @@ As in the previous comparison, we introduce the following collection of sets as 
 
 $$D=\{(-\infty,-10^4),...,(-10,0),(0,10),...,(10^4,\infty) \} $$
 
-If the difference belongs to the 5 or 6 sets, meaning that the difference is close to 0, we can say that the score agrees between the different permutations.
+
+## Evaluation metrics.
+Update march 7: Added new metrics 
+
+CCLR
+
+\begin{eqnarray}
+C_{LLR_{KM}} &=&  \frac{1}{n_{KM}} \sum_{t=1}^{T} y_t  log_2(1+\frac{1}{SLR_t})    \\ 
+C_{LLR_{KNM}} &=& \frac{1}{n_{KNM}}  \sum_{t=1}^{T} (1-y_t)  log_2(1+SLR_t)   \\ 
+C_{LLR} &=&   \frac{1}{2}(C_{LLR_{KM}}+C_{LLR_{KNM}})  
+\end{eqnarray}
+
+
+    
+![Permutation order](images/foundations/FV/Original Cost.png){width=50%}
+
+RME:
+
+\begin{eqnarray}
+RME_{KM} &=& \frac{\sum_t^{T} y_t \one_{\{SLR_t<1\}}}{\sum_t^{T}y_t} =  \frac{\sum_t^{T} y_t \one_{\{SLR_t<1\}}}{n_{KM}}  \\ 
+RME_{KNM} &=& \frac{\sum_t^{T} (1-y_t) \one_{\{SLR_t>1\}}}{\sum_t^{T} (1-y_t)} =\frac{\sum_t^{T} (1-y_t) \one_{\{SLR_t>1\}}}{n_{KNM}}   
+\end{eqnarray}
+
+Discriminatory power:
+
+\begin{eqnarray}
+D_p_{{KM}} &=& \frac{\sum_t^{T} y_t \one_{\{SLR_t\geq C_{KM}\}} }{\sum_t^{T}y_t} =  \frac{\sum_t^{T} y_t \one_{\{SLR_t\geq C_{KM}\}}}{n_{KM}}  \\ 
+D_p_{{KNM}} &=& \frac{\sum_t^{T} (1-y_t) \one_{\{SLR_t\leq C_{KNM}\}} }{\sum_t^{T} (1-y_t)} =\frac{\sum_t^{T} (1-y_t) \one_{\{SLR_t\leq C_{KNM}\}} }{n_{KNM}}   
+\end{eqnarray}
+
+
 
 ### Results
 See Poster Below

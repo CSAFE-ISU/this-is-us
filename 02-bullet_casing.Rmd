@@ -201,14 +201,19 @@ showAligned <- function(land1Chr , land2Chr) {
     mutate(
       landID = ifelse(sigs=="sig1", land1Chr, land2Chr)
     )%>%
-    ggplot(aes(x = x, y = value, colour = landID)) +
-    geom_line() +
+    ggplot(aes(x = x, y = value)) +
+    geom_line(aes(colour = landID)) +
     theme_bw() +
     scale_color_brewer(palette = "Dark2")
 }
 
 showAligned("1-A-std", "1-A-rot")
-showAligned("2-A-std", "2-A-rot")
+
+stylus <- readRDS("code/stylus.rds")
+
+showAligned("2-A-std", "2-A-rot") +
+  geom_line(data = na.omit(stylus$sig[[3]]), aes(x=x-1220, y = sig, colour="stylus")) + xlim(c(0,1300))
+
 ```
 
 #### Generating a signature from consecutive scans

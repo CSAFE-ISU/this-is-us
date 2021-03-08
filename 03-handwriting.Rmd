@@ -824,6 +824,8 @@ knitr::include_graphics(c("images/handwriting/mattie/tippett.png"))
 
 It is important to note that the training set did down sample the number of different source differences, but the testing set did not so the number of SLRs in that are from different sources will be more than from the same (a pattern not seen in the simulated data).
 
+Hepler et al detail score-based likelihood ratios by specific source instead of common source. The three specific source SLRs are general match, source anchored, and trace anchored. To compare the behavior of each with the CSAFE handwriting database, we extracted 3 writers ("sources") by ordering the all of the Euclidean distances, ordering the sum of distances by each writer, selecting the smallest, middle, and largest value. 
+
 ##Relationship Between Rotation Angle and Demographic Features
 So this part of the research looks specifically at rotation angles (the slant of handwriting). We are seeing if there is a relationship between slant of a writer and demographic features. We looked at demographic features such as the participant's handedness, age group, gender, and location of third-grade education.We then fit a regression with the demographic information as explanatory variables and the average rotation angles as the response. Because rotation angles live on a circle, the regression model is based on a probability model appropriate for this type of data.
 

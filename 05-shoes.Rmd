@@ -1412,7 +1412,11 @@ pROC::ggroc(pROC::roc(test.dat$actual.matching,
 
 - We still want to see the potential of CCF method, so plan to align degraded scans manually and then to apply CCF method to improve the matching performance of maximum clique method with CCF features added.
 
+#### Hana's update on 3/7
 
+- Not much for shoes
+
+- Compared the performance of likelihood ratio based on forensic hypotheses to that of optimal matching rule through simulation study where normal populations were assumed. Likelihood ratios, ROC curve, and prediction accuracy (overall accuracy, sensitivity, and specificiy) at the optimal thresholds were fairly close but there was subtle difference. We wanted to distingush optimal matching rule from forensic likelihood ratio method as well as classification discriminant. This simulation result will be discussed with Dr.Ommen soon once I finalize this simulation. 
 
 ####Round Robin Updates
 
@@ -1422,4 +1426,4 @@ I finished creating data sets for Nike shoes. I created 6 dataframes, one for ea
 
 *February 15th 2020, Matias Ibarburu*
 I am in the process of analyzing and writing up the datasets I have created for Nike. 
->>>>>>> 0989cca177ea9071a47e746629402a58cb9a7a6a
+

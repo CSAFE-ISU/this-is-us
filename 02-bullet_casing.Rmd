@@ -3249,6 +3249,13 @@ The next step of the app is to add more instructions on its usage, add more help
 Will 02/28 Update: Started to work on bullet signature pasting. For the same section of a LEA (land engraved area), different scans result in similar but not identical signatures. Ideally, different scans should give highly similar description (bullet signatures) of the same section of the scan. More plots would be added. 
 </summary>
 
+</details>
+
+<details>
+<summary>
+Will 03/14 Update: In the past week I mainly focused on the paper revising and literature review. We are now looking for ideas that could be used to improve the performance of the CMPS method. 
+</summary>
+
 
 </details>
 

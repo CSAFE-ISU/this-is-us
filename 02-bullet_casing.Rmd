@@ -201,15 +201,66 @@ showAligned <- function(land1Chr , land2Chr) {
     mutate(
       landID = ifelse(sigs=="sig1", land1Chr, land2Chr)
     )%>%
-    ggplot(aes(x = x, y = value, colour = landID)) +
-    geom_line() +
+    ggplot(aes(x = x, y = value)) +
+    geom_line(aes(colour = landID)) +
     theme_bw() +
     scale_color_brewer(palette = "Dark2")
 }
 
 showAligned("1-A-std", "1-A-rot")
-showAligned("2-A-std", "2-A-rot")
+
+stylus <- readRDS("code/stylus.rds")
+
+showAligned("2-A-std", "2-A-rot") +
+  geom_line(data = na.omit(stylus$sig[[3]]), aes(x=x-1220, y = sig, colour="stylus")) + xlim(c(0,1300))
+
 ```
+
+#### Generating a signature from consecutive scans
+
+<details>
+
+<summary>
+Will 03/07 update: added plots that could explain the current workflow of generating a signature using consecutive scans
+</summary>
+
+Here we are taking scan 5, 6, and 7 as an example to illustrate the current workflow. These three scans combined together provide a complete scan of the third land engraved area (LEA) of the examined bullet. The final goal is to use these three scans to generate a complete bullet signature of bullet land 3. 
+
+**Pre-processing** - we firstly remove the grooves by finding dividing line between a groove and a land.
+
+```{r, fig.cap="ccdata at crosscut = 50; the jump position between a groove and a land or the end position of a scan is identified and stored in R object grooves"}
+knitr::include_graphics("images/cmps/rotations/ccdata_plot.png", dpi=100)
+```
+
+```{r, fig.cap="using cc_get_signature(span1=0.25, span2=0.03) to smooth out the curvature and obtain the signature; this plot shows the fitted value of the curvature"}
+knitr::include_graphics("images/cmps/rotations/ccdata_smoothed.png", dpi=100)
+```
+
+```{r, fig.cap="using cc_get_signature(span1=0.25, span2=0.03) to smooth out the curvature and obtain the signature; this plot shows the obtained signatures"}
+knitr::include_graphics("images/cmps/rotations/ccdata_sigs.png", dpi=100)
+```
+
+**Finding the overlap** - here we work on scan 5 and scan 6 first. We applied the CMPS algorithm on signatures of scan 5 (reference) and scan 6 (comparison), then focused on the very last segment (segment 23) of scan 5. This segment is at the right end of scan 5, so it should be shared by both scans and be identified by the CMPS algorithm. 
+
+```{r, fig.cap="the segment analysis plot of segment 23. It shows that segment 23 does find a consistent correlation peak on position -741, which suggests that the reference profile should shift to the left by 741 units."}
+knitr::include_graphics("images/cmps/rotations/segment_plot23.png", dpi=100)
+```
+
+The figure above shows that, segment 23 is suggesting to shift the reference profile to the left by 741 units. So we shift it accordingly.
+
+```{r, fig.cap="this plot shows the shifted reference profile and the comparison profile."}
+knitr::include_graphics("images/cmps/rotations/alignment_cmps.png", dpi=100)
+```
+
+According to the overlapping part, we could see that the shift is reasonable. Then we take a closer look at the overlapping part:
+
+```{r, fig.cap="a closer look at the above plot"}
+knitr::include_graphics("images/cmps/rotations/alignment_cmps_close.png", dpi=100)
+```
+
+We can see that the alignment at the overlapping part isn't perfect. It looks like that the signature of scan 5 is compressed to some extent. This might be reflecting the impact of the angles during the scanning process.
+
+</details>
 
 ## Computational Tools
 
@@ -3205,6 +3256,13 @@ The next step of the app is to add more instructions on its usage, add more help
 Will 02/28 Update: Started to work on bullet signature pasting. For the same section of a LEA (land engraved area), different scans result in similar but not identical signatures. Ideally, different scans should give highly similar description (bullet signatures) of the same section of the scan. More plots would be added. 
 </summary>
 
+</details>
+
+<details>
+<summary>
+Will 03/14 Update: In the past week I mainly focused on the paper revising and literature review. We are now looking for ideas that could be used to improve the performance of the CMPS method. 
+</summary>
+
 
 </details>
 
@@ -3811,6 +3869,25 @@ Feb week 3
 Feb week 4
 - Project: Class based differences in RF scores, features and metrics, perurbations and implications to uncertainty, accuracy, decision making, model scores
 - Literature review: general summaries, historic directions and consolidation, absorbing and modifications to theoretical work.
+
+March:  
+
+- Moving to OOB predicitons vs new predictions
+
+
+```{r, fig.cap="Questionnaire setup for comparing trust in scores", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/bullets/G/oob_vs_new.png"))
+```
+
+
+```{r, fig.cap="Questionnaire setup for comparing trust in scores", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/bullets/G/oob_1500_vs_500.png"))
+```
+
+
+```{r, fig.cap="Questionnaire setup for comparing trust in scores", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/bullets/G/new_1500_vs_500.png"))
+```
 
  
 

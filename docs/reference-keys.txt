@@ -208,9 +208,9 @@ fig:unnamed-chunk-370
 fig:unnamed-chunk-371
 fig:unnamed-chunk-372
 fig:unnamed-chunk-373
-fig:unnamed-chunk-397
-fig:unnamed-chunk-402
-fig:unnamed-chunk-403
+fig:unnamed-chunk-400
+fig:unnamed-chunk-405
+fig:unnamed-chunk-406
 prerequisites
 setting-up-the-repository
 contributions-to-the-repository

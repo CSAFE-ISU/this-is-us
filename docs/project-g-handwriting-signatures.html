@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2021-03-08" />
+<meta name="date" content="2021-03-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1105,6 +1105,11 @@ Figure 5.54: A training sample from the other writer with off-diagonal assignmen
 <pre><code>## Error in knitr::include_graphics(c(&quot;images/handwriting/mattie/tippett.png&quot;)): Cannot find the file(s): &quot;images/handwriting/mattie/tippett.png&quot;</code></pre>
 <p>It is important to note that the training set did down sample the number of different source differences, but the testing set did not so the number of SLRs in that are from different sources will be more than from the same (a pattern not seen in the simulated data).</p>
 <p>Hepler et al detail score-based likelihood ratios by specific source instead of common source. The three specific source SLRs are general match, source anchored, and trace anchored. To compare the behavior of each with the CSAFE handwriting database, we extracted 3 writers (“sources”) by ordering the all of the Euclidean distances, ordering the sum of distances by each writer, selecting the smallest, middle, and largest value.</p>
+<p>The numerator value is constructed by combining all documents written by each writer to create a “template”. This template is randomly split into 2 “pseudo-documents” 1000 times. The distance measures are calculated between each pair and used in the trained random forest to find dissimilarity scores.</p>
+<p><img src="images/handwriting/mattie/hepler_num_splits.png" width="1160" /></p>
+<p>The three SLRs denominators are defined by which documents are compared.</p>
+<p><img src="images/handwriting/mattie/trace_source_general.png" width="1906" /></p>
+<p><img src="images/handwriting/mattie/log_hepler_slr.png" width="1163" /></p>
 <p>##Relationship Between Rotation Angle and Demographic Features
 So this part of the research looks specifically at rotation angles (the slant of handwriting). We are seeing if there is a relationship between slant of a writer and demographic features. We looked at demographic features such as the participant’s handedness, age group, gender, and location of third-grade education.We then fit a regression with the demographic information as explanatory variables and the average rotation angles as the response. Because rotation angles live on a circle, the regression model is based on a probability model appropriate for this type of data.</p>
 <p>First we looked at ANOVAs using circular package in R.
@@ -1270,6 +1275,7 @@ Here are circular package Results:</p>
 <p>In constructing a CNN we consider the following processes used in previous research for offline signatures: Decorrelation, normalization, aggregation of local features, extraction of selected local versus global features.</p>
 <p>We programmed neural networks using data sets in keras (MNIST,IMDB,Reuters) to gain an understanding of the fundamental process in the algorithms.</p>
 <p>Currently implementing a version of the TinyResNet Siamese CNN architecture, which was the best performing CNN in the paper <em>Siamese Convolutional Neural Networks for Authorship Verification by Du W., Fang M., Shen M.</em> Fully scanned pages of handwritten were broken down into lines to be used as the data inputted in the model. First we will use the model on the <a href="https://fki.tic.heia-fr.ch/databases/iam-handwriting-database">IAM</a> handwriting data set broken down by line. Consists of 13,353 isolated and labeled text lines.</p>
+<p>We used the ResNet CNN architecture to train a model on the IAM dataset to classify writers on the images in our own database.</p>
 
 </div>
 </div>

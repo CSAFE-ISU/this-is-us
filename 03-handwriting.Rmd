@@ -971,3 +971,4 @@ We programmed neural networks using data sets in keras (MNIST,IMDB,Reuters) to g
 
 Currently implementing a version of the TinyResNet Siamese CNN architecture, which was the best performing CNN in the paper *Siamese Convolutional Neural Networks for Authorship Verification by Du W., Fang M., Shen M.* Fully scanned pages of handwritten were broken down into lines to be used as the data inputted in the model. First we will use the model on the [IAM](https://fki.tic.heia-fr.ch/databases/iam-handwriting-database) handwriting data set broken down by line. Consists of 13,353 isolated and labeled text lines.
 
+We used the ResNet CNN architecture to train a model on the IAM dataset to classify writers on the images in our own database.

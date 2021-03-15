@@ -3863,6 +3863,25 @@ Feb week 4
 - Project: Class based differences in RF scores, features and metrics, perurbations and implications to uncertainty, accuracy, decision making, model scores
 - Literature review: general summaries, historic directions and consolidation, absorbing and modifications to theoretical work.
 
+March:  
+
+- Moving to OOB predicitons vs new predictions
+
+
+```{r, fig.cap="Questionnaire setup for comparing trust in scores", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/bullets/G/oob_vs_new.png"))
+```
+
+
+```{r, fig.cap="Questionnaire setup for comparing trust in scores", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/bullets/G/oob_1500_vs_500.png"))
+```
+
+
+```{r, fig.cap="Questionnaire setup for comparing trust in scores", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/bullets/G/new_1500_vs_500.png"))
+```
+
  
 
 ### Conference Presentations  

@@ -3954,17 +3954,17 @@ March:
 - Moving to OOB predicitons vs new predictions
 
 
-```{r, fig.cap="Questionnaire setup for comparing trust in scores", out.width="50%", fig.keep="hold", fig.align='center'}
+```{r, fig.cap="Out-of-bag prediction vs predicition using new data", out.width="50%", fig.keep="hold", fig.align='center'}
 include_graphics(c("images/bullets/G/oob_vs_new.png"))
 ```
 
 
-```{r, fig.cap="Questionnaire setup for comparing trust in scores", out.width="50%", fig.keep="hold", fig.align='center'}
+```{r, fig.cap="Out-of-bag prediction 1500 trees vs 500 trees", out.width="50%", fig.keep="hold", fig.align='center'}
 include_graphics(c("images/bullets/G/oob_1500_vs_500.png"))
 ```
 
 
-```{r, fig.cap="Questionnaire setup for comparing trust in scores", out.width="50%", fig.keep="hold", fig.align='center'}
+```{r, fig.cap="Prediction for 1500 trees vs 500 trees", out.width="50%", fig.keep="hold", fig.align='center'}
 include_graphics(c("images/bullets/G/new_1500_vs_500.png"))
 ```
 

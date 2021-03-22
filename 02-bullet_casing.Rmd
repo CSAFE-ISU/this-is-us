@@ -3449,8 +3449,25 @@ knitr::include_graphics(c("images/andy_temp/ResNet_3D_CNN_Performance.png"))
 
 ### Post Analysis
 
+We take three LEA scans and predict each set of cropped LEAs for those original LEA scans using our current trained neural network.
+
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/post_test.png"))
+```
+
+Looking at the confusion matrix we can see that the model was not able to correctly classify any cases of damage nor any cases of vertical change in striations. There were a total of 712 training samples and 74 samples were misclassified.  Out of those 74 misclassified samples, 38 of them were vertical change in striations.  We are interested in the misclassified labels. 
 
 
+
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Compare_label_pred_1.png"))
+```
+
+
+
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Compare_label_pred_2.png"))
+```
 
 ## Analysis of Results  
 

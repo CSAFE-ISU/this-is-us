@@ -3266,6 +3266,14 @@ Will 03/14 Update: In the past week I mainly focused on the paper revising and l
 
 </details>
 
+<details>
+<summary>
+Will 03/21 Update: Continued the work of the previous week; we are now checking out the U-statistics to see if we would be able to utilize that instead of using a "kind of" arbitrary threshold for the CMPS score.
+</summary>
+
+
+</details>
+
 #### Future Work
 
 * improve and manage to submit the CMPS package to CRAN

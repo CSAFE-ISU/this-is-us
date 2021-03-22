@@ -3467,15 +3467,32 @@ Looking at the confusion matrix we can see that the model was not able to correc
 
 
 
-```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="100%"}
+```{r, fig.cap="Misclassified Crops", fig.keep="hold", fig.align='center', out.width="100%"}
 knitr::include_graphics(c("images/andy_temp/Compare_label_pred_1.png"))
 ```
 
 
 
-```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="100%"}
+```{r, fig.cap="Misclassified Crops: Vertical Change in Striations", fig.keep="hold", fig.align='center', out.width="100%"}
 knitr::include_graphics(c("images/andy_temp/Compare_label_pred_2.png"))
 ```
+
+
+
+We are also able to take the predicted cropped LEAs and make a full land engraved area scan with a new associated mask. 
+
+
+```{r, fig.cap="Land Engraved Area Scan with assigned labels", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/square_1.png"))
+```
+
+
+
+```{r, fig.cap="Land Engraved Area Scan with predicted labels", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/sqaure_2.png"))
+```
+
+What's next?  We wish to study the correctly classified areas of well expressed striation marks.  Allowing for a better choice of location when deciding where to extract a crosscut from an land engraved area scan.  We are interested to see if this will reduce the variance on the signatures.
 
 ## Analysis of Results  
 

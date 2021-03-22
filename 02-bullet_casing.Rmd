@@ -3968,7 +3968,11 @@ include_graphics(c("images/bullets/G/oob_1500_vs_500.png"))
 include_graphics(c("images/bullets/G/new_1500_vs_500.png"))
 ```
 
- 
+
+- Looking into the forest - variable splitting, dependence modeling, variable importance
+- Prediction intervals for forests
+- parallel plots for density and bounds: pdp and pbp
+
 
 ### Conference Presentations  
 

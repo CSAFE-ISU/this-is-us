@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2021-03-15" />
+<meta name="date" content="2021-03-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1110,6 +1110,8 @@ Figure 5.54: A training sample from the other writer with off-diagonal assignmen
 <p>The three SLRs denominators are defined by which documents are compared.</p>
 <p><img src="images/handwriting/mattie/trace_source_general.png" width="1906" /></p>
 <p><img src="images/handwriting/mattie/log_hepler_slr.png" width="1163" /></p>
+<p>The discrimination of the three SLRs across the three selected writers within the CSAFE database can be visually compared across the three selected writers with ROC curves.</p>
+<p><img src="images/handwriting/mattie/hepler_plots_rocs.png" width="1642" /></p>
 <p>##Relationship Between Rotation Angle and Demographic Features
 So this part of the research looks specifically at rotation angles (the slant of handwriting). We are seeing if there is a relationship between slant of a writer and demographic features. We looked at demographic features such as the participant’s handedness, age group, gender, and location of third-grade education.We then fit a regression with the demographic information as explanatory variables and the average rotation angles as the response. Because rotation angles live on a circle, the regression model is based on a probability model appropriate for this type of data.</p>
 <p>First we looked at ANOVAs using circular package in R.

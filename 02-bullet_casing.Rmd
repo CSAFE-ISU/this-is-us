@@ -3299,7 +3299,7 @@ Currently an operator can take a land engraved area scan, which is stored as an 
     
 After all the regions have been correctly annotated and saved, the x3p file should contain a land engraved area scan with additional data known as a “mask.”
 
-    ```{r, fig.cap="Labeled Land Engraved Area Scan using fix3p", fig.keep="hold", fig.align='center', out.width="80%"}
+```{r, fig.cap="Labeled Land Engraved Area Scan using fix3p", fig.keep="hold", fig.align='center', out.width="80%"}
 knitr::include_graphics(c("images/andy_temp/show_and_tell_3.png"))
 ```
 

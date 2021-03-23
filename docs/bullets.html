@@ -2809,10 +2809,12 @@ Will 03/21 Update: Continued the work of the previous week; we are now checking 
 5. Striation marks with a secondary pattern are painted in light yellow. 
 6. Finally, all areas with well expressed striation marks are left unpainted. </code></pre>
 <p>After all the regions have been correctly annotated and saved, the x3p file should contain a land engraved area scan with additional data known as a “mask.”</p>
-<pre><code>&lt;div class=&quot;figure&quot; style=&quot;text-align: center&quot;&gt;
-&lt;img src=&quot;images/andy_temp/show_and_tell_3.png&quot; alt=&quot;Labeled Land Engraved Area Scan using fix3p&quot; width=&quot;80%&quot; /&gt;
-&lt;p class=&quot;caption&quot;&gt;(\#fig:unnamed-chunk-270)Labeled Land Engraved Area Scan using fix3p&lt;/p&gt;
-&lt;/div&gt;</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-270"></span>
+<img src="images/andy_temp/show_and_tell_3.PNG" alt="Labeled Land Engraved Area Scan using fix3p" width="80%" />
+<p class="caption">
+Figure 4.109: Labeled Land Engraved Area Scan using fix3p
+</p>
+</div>
 </div>
 <div id="current-data-processing-procedures" class="section level3">
 <h3><span class="header-section-number">4.4.1</span> Current Data Processing Procedures</h3>
@@ -2821,44 +2823,44 @@ Will 03/21 Update: Continued the work of the previous week; we are now checking 
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-271"></span>
 <img src="images/andy_temp/Missing_Values_Interpolation_Facet_2.png" alt="Faceted Annotations Plot" width="80%" />
 <p class="caption">
-Figure 4.109: Faceted Annotations Plot
+Figure 4.110: Faceted Annotations Plot
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-272"></span>
 <img src="images/andy_temp/Missing_Values_Interpolation_1.png" alt="Missing Values Plot" width="80%" />
 <p class="caption">
-Figure 4.110: Missing Values Plot
+Figure 4.111: Missing Values Plot
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-273"></span>
 <img src="images/andy_temp/Missing_Values_Interpolation_3.png" alt="Interpolated Values Plot" width="80%" />
 <p class="caption">
-Figure 4.111: Interpolated Values Plot
+Figure 4.112: Interpolated Values Plot
 </p>
 </div>
 <p>After the data has been read and stored into R’s global environment, we propose a data preprocessing procedure that increases the amount of data we currently have. We take each x3p file containing a masked LEA scan, crop, and store each 128x128 resolution grid of the original scan and store it as a new x3p. This allows us to increase the amount of data being fed into our 3d CNN model by 224 to 240 times the amount of our original data based on the original x3p resolution size. To do this we use the x3p_crop function from the x3ptools R programming package</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-274"></span>
 <img src="images/andy_temp/csafe_21_noNA_x3p.PNG" alt="Example boundaries for cropping" width="80%" />
 <p class="caption">
-Figure 4.112: Example boundaries for cropping
+Figure 4.113: Example boundaries for cropping
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-275-1"></span>
 <img src="images/andy_temp/csafe_21_nostriae_2.PNG" alt="Title coming soon." width="30%" />
 <p class="caption">
-Figure 4.113: Title coming soon.
+Figure 4.114: Title coming soon.
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-275-2"></span>
 <img src="images/andy_temp/csafe_21_vert_2.PNG" alt="Title coming soon." width="30%" />
 <p class="caption">
-Figure 4.114: Title coming soon.
+Figure 4.115: Title coming soon.
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-275-3"></span>
 <img src="images/andy_temp/csafe_21_groove_2.PNG" alt="Title coming soon." width="30%" />
 <p class="caption">
-Figure 4.115: Title coming soon.
+Figure 4.116: Title coming soon.
 </p>
 </div>
 <p>Next, we extract the annotations associated with each cropped x3p file. These 7 types of annotations will serve as our predictor variables for our 3d convolutional neural network to learn on. Each cropped x3p can contain multiple annotations. Notice that the image of the cropped section of the right groove has two annotations associated with it, one annotation is the right groove and the other annotation is well expressed striae. A cropped x3p usually has one to four annotations associated with it, where one to two annotations are the most common. For each cropped x3p we assign one annotation based on a ratio of 80% or a maximum majority. We do not distinguish between left and right groove and assign them as the same annotation. Annotations are stored as a list and unlisted, given us 1 annotation per observation. Annotations are then one-hot encoded resulting in a matrix of size (n x 6).e</p>
@@ -2867,7 +2869,7 @@ Figure 4.115: Title coming soon.
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-276"></span>
 <img src="images/andy_temp/Pipeline_summary.PNG" alt="Data Processing Summary" width="100%" />
 <p class="caption">
-Figure 4.116: Data Processing Summary
+Figure 4.117: Data Processing Summary
 </p>
 </div>
 </div>
@@ -2901,13 +2903,13 @@ Overall Accuracy: 76.22 %
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-277"></span>
 <img src="images/andy_temp/cnn_best_cm.PNG" alt="100 epoch run confusion matrix" width="100%" />
 <p class="caption">
-Figure 4.117: 100 epoch run confusion matrix
+Figure 4.118: 100 epoch run confusion matrix
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-278"></span>
 <img src="images/andy_temp/100_epoch%20modek.PNG" alt="100 epoch run plot" width="100%" />
 <p class="caption">
-Figure 4.118: 100 epoch run plot
+Figure 4.119: 100 epoch run plot
 </p>
 </div>
 <p>We Re-run the 3d convolutional neural network on 200 epochs and adjust class weights by the frequency of classes throughout the training data set.</p>
@@ -2929,13 +2931,13 @@ Overall Accuracy: 67 %
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-279"></span>
 <img src="images/andy_temp/cnn_cm_class_weights.PNG" alt="200 epoch run confusion matrix" width="100%" />
 <p class="caption">
-Figure 4.119: 200 epoch run confusion matrix
+Figure 4.120: 200 epoch run confusion matrix
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-280"></span>
 <img src="images/andy_temp/CNN_class_weights.PNG" alt="200 epoch run adjusted class weights plot" width="100%" />
 <p class="caption">
-Figure 4.120: 200 epoch run adjusted class weights plot
+Figure 4.121: 200 epoch run adjusted class weights plot
 </p>
 </div>
 <p>The model using adjusted class weights performs slightly worse overall but does a better job in classifying minority classes.</p>
@@ -2953,19 +2955,19 @@ Figure 4.120: 200 epoch run adjusted class weights plot
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-281"></span>
 <img src="images/andy_temp/resnet_arch.png" alt="Title coming soon." width="294" height="30%" />
 <p class="caption">
-Figure 4.121: Title coming soon.
+Figure 4.122: Title coming soon.
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-282"></span>
 <img src="images/andy_temp/Resnet_CFMatrix.PNG" alt="Title coming soon." width="100%" />
 <p class="caption">
-Figure 4.122: Title coming soon.
+Figure 4.123: Title coming soon.
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-283"></span>
 <img src="images/andy_temp/ResNet_3D_CNN_Performance.png" alt="Title coming soon." width="100%" />
 <p class="caption">
-Figure 4.123: Title coming soon.
+Figure 4.124: Title coming soon.
 </p>
 </div>
 </div>
@@ -2975,33 +2977,33 @@ Figure 4.123: Title coming soon.
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-284"></span>
 <img src="images/andy_temp/post_test.PNG" alt="Title coming soon." width="100%" />
 <p class="caption">
-Figure 4.124: Title coming soon.
+Figure 4.125: Title coming soon.
 </p>
 </div>
 <p>Looking at the confusion matrix we can see that the model was not able to correctly classify any cases of damage nor any cases of vertical change in striations. There were a total of 712 training samples and 74 samples were misclassified. Out of those 74 misclassified samples, 38 of them were vertical change in striations. We are interested in the misclassified labels.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-285"></span>
 <img src="images/andy_temp/Compare_label_pred_1.PNG" alt="Misclassified Crops" width="100%" />
 <p class="caption">
-Figure 4.125: Misclassified Crops
+Figure 4.126: Misclassified Crops
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-286"></span>
 <img src="images/andy_temp/Compare_label_pred_2.PNG" alt="Misclassified Crops: Vertical Change in Striations" width="100%" />
 <p class="caption">
-Figure 4.126: Misclassified Crops: Vertical Change in Striations
+Figure 4.127: Misclassified Crops: Vertical Change in Striations
 </p>
 </div>
 <p>We are also able to take the predicted cropped LEAs and make a full land engraved area scan with a new associated mask.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-287"></span>
 <img src="images/andy_temp/square_1.PNG" alt="Land Engraved Area Scan with assigned labels" width="100%" />
 <p class="caption">
-Figure 4.127: Land Engraved Area Scan with assigned labels
+Figure 4.128: Land Engraved Area Scan with assigned labels
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-288"></span>
 <img src="images/andy_temp/sqaure_2.PNG" alt="Land Engraved Area Scan with predicted labels" width="100%" />
 <p class="caption">
-Figure 4.128: Land Engraved Area Scan with predicted labels
+Figure 4.129: Land Engraved Area Scan with predicted labels
 </p>
 </div>
 <p>What’s next? We wish to study the correctly classified areas of well expressed striation marks. Allowing for a better choice of location when deciding where to extract a crosscut from an land engraved area scan. We are interested to see if this will reduce the variance on the signatures.</p>
@@ -3017,13 +3019,13 @@ evaluation: Yawei is going to work through all 626 barrels of knowns to assess s
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-289"></span>
 <img src="images/yawei/results-FAU-1.png" alt="Results from assessing scans of barrel FAU 1 similarity." width="50%" />
 <p class="caption">
-Figure 4.129: Results from assessing scans of barrel FAU 1 similarity.
+Figure 4.130: Results from assessing scans of barrel FAU 1 similarity.
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-290"></span>
 <img src="images/yawei/results-FAU-2.png" alt="Results from assessing scans of barrel FAU 2 similarity." width="50%" />
 <p class="caption">
-Figure 4.130: Results from assessing scans of barrel FAU 2 similarity.
+Figure 4.131: Results from assessing scans of barrel FAU 2 similarity.
 </p>
 </div>
 <p>Why some of the cases failed? (181/626 = 30%)</p>
@@ -3031,19 +3033,19 @@ Figure 4.130: Results from assessing scans of barrel FAU 2 similarity.
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-291"></span>
 <img src="images/yawei/lapd-FAU-3-Bullet-A-land-6.PNG" alt="Land scan for barrel FAU 3 bullet A land 6." width="50%" />
 <p class="caption">
-Figure 4.131: Land scan for barrel FAU 3 bullet A land 6.
+Figure 4.132: Land scan for barrel FAU 3 bullet A land 6.
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-292"></span>
 <img src="images/yawei/lapd-FAU-4-Bullet-C-land-5.PNG" alt="Land scan for barrel FAU 4 bullet C land 5." width="50%" />
 <p class="caption">
-Figure 4.132: Land scan for barrel FAU 4 bullet C land 5.
+Figure 4.133: Land scan for barrel FAU 4 bullet C land 5.
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-293"></span>
 <img src="images/yawei/lapd-FAU-5-Bullet-B-land-5.PNG" alt="Land scan for barrel FAU 5 bullet B land 5." width="50%" />
 <p class="caption">
-Figure 4.133: Land scan for barrel FAU 5 bullet B land 5.
+Figure 4.134: Land scan for barrel FAU 5 bullet B land 5.
 </p>
 </div>
 <p>Assess the land-land comparasion and bullet-bullet comparasion</p>
@@ -3055,20 +3057,20 @@ Figure 4.133: Land scan for barrel FAU 5 bullet B land 5.
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-294"></span>
 <img src="images/yawei/knmkm.png" alt="KM and KNM" width="50%" />
 <p class="caption">
-Figure 4.134: KM and KNM
+Figure 4.135: KM and KNM
 </p>
 </div>
 <p>Is the SAM(sequence average maximum) a good choice? Need to do a permutation test.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-295"></span>
 <img src="images/yawei/sam_1.PNG" alt="SAM permutation result" width="50%" />
 <p class="caption">
-Figure 4.135: SAM permutation result
+Figure 4.136: SAM permutation result
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-296"></span>
 <img src="images/yawei/sam_max_1.PNG" alt="SAM permutation result among maxmum" width="50%" />
 <p class="caption">
-Figure 4.136: SAM permutation result among maxmum
+Figure 4.137: SAM permutation result among maxmum
 </p>
 </div>
 <p>Possible dependence structure in land-land comparasions:</p>
@@ -3076,77 +3078,77 @@ Figure 4.136: SAM permutation result among maxmum
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-297"></span>
 <img src="images/yawei/km-three-alldata.png" alt="KM three components for all data" width="50%" />
 <p class="caption">
-Figure 4.137: KM three components for all data
+Figure 4.138: KM three components for all data
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-298"></span>
 <img src="images/yawei/knm-two-alldata.png" alt="KNM two components for all data" width="50%" />
 <p class="caption">
-Figure 4.138: KNM two components for all data
+Figure 4.139: KNM two components for all data
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-299"></span>
 <img src="images/yawei/commoncomp.png" alt="common component" width="50%" />
 <p class="caption">
-Figure 4.139: common component
+Figure 4.140: common component
 </p>
 </div>
 <p>Ten-fold-cross validation (no validation yet), check the model estimator sensibility</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-300"></span>
 <img src="images/yawei/km-two.png" alt="KM ten-fold models for two components" width="50%" />
 <p class="caption">
-Figure 4.140: KM ten-fold models for two components
+Figure 4.141: KM ten-fold models for two components
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-301"></span>
 <img src="images/yawei/km-three.png" alt="KM ten-fold models for three components" width="50%" />
 <p class="caption">
-Figure 4.141: KM ten-fold models for three components
+Figure 4.142: KM ten-fold models for three components
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-302"></span>
 <img src="images/yawei/knm-one.png" alt="KNM ten-fold models for one component" width="50%" />
 <p class="caption">
-Figure 4.142: KNM ten-fold models for one component
+Figure 4.143: KNM ten-fold models for one component
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-303"></span>
 <img src="images/yawei/knm-two.png" alt="KNM ten-fold models for two components" width="50%" />
 <p class="caption">
-Figure 4.143: KNM ten-fold models for two components
+Figure 4.144: KNM ten-fold models for two components
 </p>
 </div>
 <p>Increasing sample size: 1, 2, 6, 12, … number of barrels</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-304"></span>
 <img src="images/yawei/km-two-cum.png" alt="KM increasing sample models for two components" width="50%" />
 <p class="caption">
-Figure 4.144: KM increasing sample models for two components
+Figure 4.145: KM increasing sample models for two components
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-305"></span>
 <img src="images/yawei/knm-one-cum.png" alt="KNM increasing sample models for one components" width="50%" />
 <p class="caption">
-Figure 4.145: KNM increasing sample models for one components
+Figure 4.146: KNM increasing sample models for one components
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-306"></span>
 <img src="images/yawei/km-c1-cum.png" alt="KM increasing sample for first component" width="50%" />
 <p class="caption">
-Figure 4.146: KM increasing sample for first component
+Figure 4.147: KM increasing sample for first component
 </p>
 </div>
 <p>More on the weight</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-307"></span>
 <img src="images/yawei/priorboxplot.png" alt="Prior weight on components" width="50%" />
 <p class="caption">
-Figure 4.147: Prior weight on components
+Figure 4.148: Prior weight on components
 </p>
 </div>
 <p>More on one barrel case</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-308"></span>
 <img src="images/yawei/onebarrel.png" alt="KM one barrel model for the frist ten barrels" width="50%" />
 <p class="caption">
-Figure 4.148: KM one barrel model for the frist ten barrels
+Figure 4.149: KM one barrel model for the frist ten barrels
 </p>
 </div>
 <p>Some conclusions from current plots:</p>
@@ -3169,19 +3171,19 @@ Figure 4.148: KM one barrel model for the frist ten barrels
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-309"></span>
 <img src="images/yawei/roc-cvmodels-new.png" alt="ROC-cv-models" width="50%" />
 <p class="caption">
-Figure 4.149: ROC-cv-models
+Figure 4.150: ROC-cv-models
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-310"></span>
 <img src="images/yawei/roc-differentsize-new.png" alt="ROC-different-size-models" width="50%" />
 <p class="caption">
-Figure 4.150: ROC-different-size-models
+Figure 4.151: ROC-different-size-models
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-311"></span>
 <img src="images/yawei/roc-onebarrel-new.png" alt="ROC-one-barrel" width="50%" />
 <p class="caption">
-Figure 4.151: ROC-one-barrel
+Figure 4.152: ROC-one-barrel
 </p>
 </div>
 <p>To summarize the model fits we have, we compare several important parameters in the following tables. We primarily focus on how stable the model we have with fixed sample size and across different sample sizes.</p>
@@ -3189,27 +3191,27 @@ Figure 4.151: ROC-one-barrel
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-312"></span>
 <img src="images/yawei/km-table1.PNG" alt="KM-table" width="100%" />
 <p class="caption">
-Figure 4.152: KM-table
+Figure 4.153: KM-table
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-313"></span>
 <img src="images/yawei/knm-table1.PNG" alt="KNM-table" width="100%" />
 <p class="caption">
-Figure 4.153: KNM-table
+Figure 4.154: KNM-table
 </p>
 </div>
 <p>We’re also interested in the variation of mean values of KM ccf in different barrels. The following boxplot with the global box as the right most one is shown for this comparison. From this plot, the constant mean value assumption may be challenged, however, we must take the practice work of scan and identification into considerations when making such conclusions.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-314"></span>
 <img src="images/yawei/ccfineachbarrel.png" alt="ccf in each barrel" width="50%" />
 <p class="caption">
-Figure 4.154: ccf in each barrel
+Figure 4.155: ccf in each barrel
 </p>
 </div>
 <p>To show how our model works in a single barrel case, we conduct the model fit as in the real case. We fit the KM and KNM models with three bullet comparisons (18 KM and 135 KNM land-land ccf respectively), and conduct a test on those comparisons with the forth bullet (18 KM and 105 KNM land-land ccf respectively). We conduct the above procedure in a LOO frame work, i.e. to leave one bullet out each time. The ROC curves for two barrels are shown as follows. We can see the classification results are almost as good as the previous ones.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-315"></span>
 <img src="images/yawei/withinbarrel4256roc-new.png" alt="within barrel ROC for barrel 42 and 56" width="50%" />
 <p class="caption">
-Figure 4.155: within barrel ROC for barrel 42 and 56
+Figure 4.156: within barrel ROC for barrel 42 and 56
 </p>
 </div>
 <p>Error Rate Control and Cutoff</p>
@@ -3221,7 +3223,7 @@ Figure 4.155: within barrel ROC for barrel 42 and 56
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-316"></span>
 <img src="images/yawei/loglr-fau42.png" alt="loglr-fau42" width="50%" />
 <p class="caption">
-Figure 4.156: loglr-fau42
+Figure 4.157: loglr-fau42
 </p>
 </div>
 <p>Clearly, there is a potential issue with the log-likelihood ratio since it is not monotone w.r.t ccf, which means a larger ccf may lead to a smaller test statistic sometimes. As we can see when ccf is 0.45, the log-lr is 0.127 &gt; 0, however it goes below 0 when ccf increase to 0.523 (the cutoff with type one error rate as 0.05). We can also find another issue from a different aspect. If we set the type one error as 0.05 (which should be smaller in practice), then we find the ccf with this error rate from KNM (null hypothesis) is 0.523. Then the log-likelihood ratio we calculated at this point is -1.11, which means we have larger likelihood for KNM than KM even with this large enough cutoff in terms of the type one error rate. These two criteria give us contradicted results. The cutoff we set according to the usual type one error rate contradicted with the one indicated by log-likelihood ratio. However, the lower tail of the KM distribution at this cutoff here is 0.12, which is twice as larger as 0.05, which is contradicted with the log-lr again.</p>
@@ -3239,19 +3241,19 @@ Figure 4.156: loglr-fau42
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-317"></span>
 <img src="images/yawei/curves.png" alt="two curves" width="50%" />
 <p class="caption">
-Figure 4.157: two curves
+Figure 4.158: two curves
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-318"></span>
 <img src="images/yawei/oddsratio2.png" alt="odds ratio" width="50%" />
 <p class="caption">
-Figure 4.158: odds ratio
+Figure 4.159: odds ratio
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-319"></span>
 <img src="images/yawei/comparetable3.PNG" alt="comparison table" width="100%" />
 <p class="caption">
-Figure 4.159: comparison table
+Figure 4.160: comparison table
 </p>
 </div>
 <p>We also have a look at the random forest scores for the LAPD sets. Our goal is to specify distributional forms to model the scores for known match (KM) and known non-match (KNM), and reach the estimated underlying theoretical error rates to evaluate the automatic matching algorithms. We would also investigate how this estimated theoretical error rates change with different sample sizes. Particularly, we make use of the LAPD data set which provide large samples to make this evaluation of underlying error rates possible. And we consider the beta distributions and beta-mixture distributions as candidate distributional forms. By consider beta-mixture distributions, we would like to introduce a second component to account for the heavy tail and the potential second mode (for KM particularly) of KM and KNM. We started with the more complex beta-mixture distribution which takes the single beta distributions as simpler cases and determine if the beta-mixture/beta distribution is sufficient to describe the data by conducting the lack of fit test through likelihood which has an asymptotic chi-square distribution. And the error rates will be evaluated under controlled conditions (given threshold selection method) and the effect of sample sizes will also be established based on the this.</p>
@@ -3271,13 +3273,13 @@ the full available data. The figure 4.130 was produced for a particular barrel. 
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-320"></span>
 <img src="images/yawei/fau330rf.png" alt="FAU330: rugs with A, densities without A for RF scores" width="50%" />
 <p class="caption">
-Figure 4.160: FAU330: rugs with A, densities without A for RF scores
+Figure 4.161: FAU330: rugs with A, densities without A for RF scores
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-321"></span>
 <img src="images/yawei/rf_full_2components_estimated.png" alt="Random forest scores and estimated distributions for full data" width="50%" />
 <p class="caption">
-Figure 4.161: Random forest scores and estimated distributions for full data
+Figure 4.162: Random forest scores and estimated distributions for full data
 </p>
 </div>
 <p>Currently, we have the following major issues to solve before going further. And these are more of technical issues.</p>
@@ -3292,7 +3294,7 @@ Figure 4.161: Random forest scores and estimated distributions for full data
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-322"></span>
 <img src="images/yawei/specialscan.PNG" alt="A special LEA" width="50%" />
 <p class="caption">
-Figure 4.162: A special LEA
+Figure 4.163: A special LEA
 </p>
 </div>
 <p>The inspection of the LAPD data set (Show&amp;Tell Mar/01):</p>
@@ -3336,7 +3338,7 @@ where, barrel effect, land effect, explosion effect, random effect are respectiv
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-323"></span>
 <img src="images/bullets/gan-app2_consolidated.png" alt="An instance of the interactive visualizations for communicating results" width="50%" />
 <p class="caption">
-Figure 4.163: An instance of the interactive visualizations for communicating results
+Figure 4.164: An instance of the interactive visualizations for communicating results
 </p>
 </div>
 </div>
@@ -3363,7 +3365,7 @@ Figure 4.163: An instance of the interactive visualizations for communicating re
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-324"></span>
 <img src="images/bullets/questionnaire.png" alt="Questionnaire setup for comparing trust in scores" width="50%" />
 <p class="caption">
-Figure 4.164: Questionnaire setup for comparing trust in scores
+Figure 4.165: Questionnaire setup for comparing trust in scores
 </p>
 </div>
 <ol style="list-style-type: decimal">
@@ -3482,19 +3484,19 @@ Week of January 18th
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-325"></span>
 <img src="images/bullets/G/oob_vs_new.png" alt="Out-of-bag prediction vs predicition using new data" width="50%" />
 <p class="caption">
-Figure 4.165: Out-of-bag prediction vs predicition using new data
+Figure 4.166: Out-of-bag prediction vs predicition using new data
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-326"></span>
 <img src="images/bullets/G/oob_1500_vs_500.png" alt="Out-of-bag prediction 1500 trees vs 500 trees" width="50%" />
 <p class="caption">
-Figure 4.166: Out-of-bag prediction 1500 trees vs 500 trees
+Figure 4.167: Out-of-bag prediction 1500 trees vs 500 trees
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-327"></span>
 <img src="images/bullets/G/new_1500_vs_500.png" alt="Prediction for 1500 trees vs 500 trees" width="50%" />
 <p class="caption">
-Figure 4.167: Prediction for 1500 trees vs 500 trees
+Figure 4.168: Prediction for 1500 trees vs 500 trees
 </p>
 </div>
 <ul>

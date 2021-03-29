@@ -3274,6 +3274,15 @@ Will 03/21 Update: Continued the work of the previous week; we are now checking 
 
 </details>
 
+
+<details>
+<summary>
+Will 03/28 Update: Continued the work of the previous week + midterms.
+</summary>
+
+
+</details>
+
 #### Future Work
 
 * improve and manage to submit the CMPS package to CRAN

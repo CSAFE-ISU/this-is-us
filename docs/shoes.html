@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Shoes | This is us: making CSAFE stronger each week</title>
   <meta name="description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21.6 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Shoes | This is us: making CSAFE stronger each week" />
   <meta property="og:type" content="book" />
@@ -51,6 +51,12 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 
 
 <style type="text/css">
@@ -116,6 +122,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -459,7 +488,7 @@ Aligning each image to the template corresponding to the shoe model and size pro
 <summary>
 Fine Alignment of two images using RNiftyReg
 </summary>
-<p>The <code>RNiftyReg</code> package is intended for alignment of brain scans and other MRI data and uses a symmetric block-matching approach<span class="citation">(<a href="references.html#ref-modatGlobalImageRegistration2014" role="doc-biblioref">Modat et al. 2014</a>)</span>. It only allows for registration of images up to 2048x2048, though, which means we will have to align images at a lower resolution and then modify the transformation matrix accordingly. One definite positive feature is that it allows for provision of a mask for both the source and target images so that only pixels within the mask are used for alignment. <!-- This means that we could be using the original images and just providing the mask to ensure alignment --></p>
+<p>The <code>RNiftyReg</code> package is intended for alignment of brain scans and other MRI data and uses a symmetric block-matching approach<span class="citation">(<a href="#ref-modatGlobalImageRegistration2014" role="doc-biblioref">Modat et al. 2014</a>)</span>. It only allows for registration of images up to 2048x2048, though, which means we will have to align images at a lower resolution and then modify the transformation matrix accordingly. One definite positive feature is that it allows for provision of a mask for both the source and target images so that only pixels within the mask are used for alignment. <!-- This means that we could be using the original images and just providing the mask to ensure alignment --></p>
 <p><em>Affine transformations</em> are a type of image transformation that encompasses translation, resizing, rotation, and skew operations. Affine transformations preserve collinearity and ratios of distances: parallel lines remain parallel after the transformation. A subset of affine transformations are so-called “rigid body” transformations, which only allow translation and rotation.</p>
 <p><img src="images/shoes/longitudinal/affine_transformations.png" width = "100%"/></p>
 <p>RNiftyReg allows for linear (rigid-body, affine), and nonlinear transformations, but for the moment, we are only interested in rigid-body transformations - while the shoes may have some slight distortion due to the wearer and kinematics of walking, this is minor and should not interfere too greatly with a gross alignment.</p>
@@ -1507,6 +1536,7 @@ It is unclear how much ICP is changing after each iteration. For example, in our
 <h2><span class="header-section-number">7.7</span> Matching shoe prints with ccf</h2>
 <div id="steps-to-match-two-shoe-scans" class="section level4" number="7.7.0.1">
 <h4><span class="header-section-number">7.7.0.1</span> Steps to match two shoe scans</h4>
+<pre><code>## Warning: package &#39;imager&#39; was built under R version 4.0.2</code></pre>
 <ol style="list-style-type: decimal">
 <li>Training/Test sets</li>
 </ol>
@@ -1579,6 +1609,7 @@ It is unclear how much ICP is changing after each iteration. For example, in our
 <ol start="6" style="list-style-type: decimal">
 <li>Train randomforest based on the features of ccf, dx, and dy from the training set, and predict whether each pair in the test set is matching or non-matching.</li>
 </ol>
+<pre><code>## Warning: package &#39;randomForest&#39; was built under R version 4.0.2</code></pre>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-413-1.png" width="672" /></p>
 </div>
 <div id="massive-matching-pairs-added-to-training-set" class="section level4" number="7.7.0.2">
@@ -1736,6 +1767,12 @@ I finished creating data sets for Nike shoes. I created 6 dataframes, one for ea
 I am in the process of analyzing and writing up the datasets I have created for Nike.</p>
 
 </div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-modatGlobalImageRegistration2014" class="csl-entry">
+Modat, Marc, David M. Cash, Pankaj Daga, Gavin P. Winston, John S. Duncan, and Sébastien Ourselin. 2014. <span>“Global Image Registration Using a Symmetric Block-Matching Approach.”</span> <em>Journal of Medical Imaging (Bellingham, Wash.)</em> 1 (2). <a href="https://doi.org/10.1117/1.JMI.1.2.024003">https://doi.org/10.1117/1.JMI.1.2.024003</a>.
 </div>
 </div>
             </section>

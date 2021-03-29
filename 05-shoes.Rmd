@@ -1418,8 +1418,8 @@ Actual Comparisons:By keeping time comparisons and image types separate, we crea
 **Average of Variables by Category Image Type 1**
 Category | Clique Size| Rotation Angle|M-E-D  |Overlap|
 ---------|------------|---------------|-------|-------|
-match----|17.03       |	2.94		      |0.83   |	0.52  |
-non-match|	11.08     |	4.71	        |1.29	  | 0.23  |
+match    |17.03       |	2.94		  |0.83   |	0.52  |
+non-match|	11.08     |	4.71	      |1.29	  | 0.23  |
 
 
 
@@ -1427,21 +1427,21 @@ non-match|	11.08     |	4.71	        |1.29	  | 0.23  |
 **Average of Variables by Category Image Type 2**
 Category--| Clique Size| Rotation Angle| M-E-D| Overlap|
 ----------|------------|---------------|------|--------|
-match-----|17.45       |2.85           |	0.82|  0.498 |
-non-match-|	11.19      |	4.2          | 1.32 |  	0.21 |
+match     |17.45       |2.85           |  0.82|  0.498 |
+non-match |	11.19      |	4.2        | 1.32 |   0.21 |
 
 
 
 **P-value of Anova Tests Comparing Category**
-Variable---------| Image Type 1| Image Type 2|
+Variable         | Image Type 1| Image Type 2|
 -----------------|-------------|-------------|
-Clique Size------|≈0           |≈0           |
+Clique Size      |≈0           |≈0           |
 -----------------|-------------|-------------|
 Reference Overlap|≈0           |≈0           |
 -----------------|-------------|-------------|
-M-E_D------------|≈0           |≈0           |
+M-E_D            |≈0           |≈0           |
 -----------------|-------------|-------------|
-Rotation Angle---|≈0           |≈0           |
+Rotation Angle   |≈0           |≈0           |
 
 
 
@@ -1450,11 +1450,11 @@ Rotation Angle---|≈0           |≈0           |
 Full data set contained all time comparisons for image type one. Data was split into 80%(1073 observations) training, 20% testing(269 observations). 
 
 **Confusion Matrix; Testing Set** 
----------|-----Predicted-----|
+         | Predicted         |
 -----------------------------|
-Observed-|   match| non-match|
+Observed |   Match| Non-match|
 ---------|--------|----------|
-Match----|   124  |       15 |
+Match    |   124  |       15 |
 ---------|--------|----------|  
 Non-Match|   8    |   122    |
 
@@ -1464,12 +1464,12 @@ RF model has an accuracy of 91.4%
 
 **RF Variable Importance**
 
-Variable-----------------| Mean Decrease Gini|
+Variable                 | Mean Decrease Gini|
 -------------------------|-------------------|
-Clique Size--------------| 96.52512----------|
-Rotation Angle-----------| 18.91749----------|
-Reference Overlap--------| 266.33528---------|
-Median Euclidean Distance| 52.46551----------|
+Clique Size              | 96.52512          |
+Rotation Angle           | 18.91749          |
+Overlap  %               | 266.33528         |
+Median Euclidean Distance| 52.46551          |
 
 
 
@@ -1477,11 +1477,11 @@ Median Euclidean Distance| 52.46551----------|
 
 Full data set used contained all time comparisons for image type two. Data was split into 80%(1043 observations) training, 20% testing(261 observations). 
 
----------|---Predicted---|
+         |   Predicted   |
 ---------|---------------|
-Observed-|match|non-match|
+Observed |match|non-match|
 ---------|-----|---------|
-match----| 127 |   7     |
+match    | 127 |   7     |
 ---------|-----|---------|
 non-match| 5   |  122    |
 

@@ -980,3 +980,5 @@ Currently implementing a version of the TinyResNet Siamese CNN architecture, whi
 We used the ResNet CNN architecture to train a model on the IAM dataset to classify writers on the images in our own database.
 
 Working on preprocessing images to work with the ResNet architecture as images need to be grayscaled and scaled to be square images. Two methods are to add padding to the top and bottom of a scanned line image, or break up a line into smaller parts essentially tiling the original image.
+
+Matched input scale for ResNet50 architecture with preprocessed images.

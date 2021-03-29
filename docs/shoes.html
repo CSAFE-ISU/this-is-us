@@ -1631,31 +1631,31 @@ Matched Shoes: When the scans of the same shoes from different time periods are 
 <p><strong>Average of Variables by Category Image Type 1</strong>
 Category | Clique Size| Rotation Angle|M-E-D |Overlap|
 ———|————|—————|——-|——-|
-match—-|17.03 | 2.94 |0.83 | 0.52 |
+match |17.03 | 2.94 |0.83 | 0.52 |
 non-match| 11.08 | 4.71 |1.29 | 0.23 |</p>
 <p><strong>Average of Variables by Category Image Type 2</strong>
 Category–| Clique Size| Rotation Angle| M-E-D| Overlap|
 ———-|————|—————|——|——–|
-match—–|17.45 |2.85 | 0.82| 0.498 |
-non-match-| 11.19 | 4.2 | 1.32 | 0.21 |</p>
+match |17.45 |2.85 | 0.82| 0.498 |
+non-match | 11.19 | 4.2 | 1.32 | 0.21 |</p>
 <p><strong>P-value of Anova Tests Comparing Category</strong>
-Variable———| Image Type 1| Image Type 2|
+Variable | Image Type 1| Image Type 2|
 —————–|————-|————-|
-Clique Size——|≈0 |≈0 |
+Clique Size |≈0 |≈0 |
 —————–|————-|————-|
 Reference Overlap|≈0 |≈0 |
 —————–|————-|————-|
-M-E_D————|≈0 |≈0 |
+M-E_D |≈0 |≈0 |
 —————–|————-|————-|
-Rotation Angle—|≈0 |≈0 |</p>
+Rotation Angle |≈0 |≈0 |</p>
 <p><strong>Random Forest for Image Type One</strong></p>
 <p>Full data set contained all time comparisons for image type one. Data was split into 80%(1073 observations) training, 20% testing(269 observations).</p>
 <p><strong>Confusion Matrix; Testing Set</strong>
-———|—–Predicted—–|
+| Predicted |
 —————————–|
-Observed-| match| non-match|
+Observed | Match| Non-match|
 ———|——–|———-|
-Match—-| 124 | 15 |
+Match | 124 | 15 |
 ———|——–|———-|<br />
 Non-Match| 8 | 122 |</p>
 <p>RF model has an accuracy of 91.4%</p>
@@ -1663,61 +1663,38 @@ Non-Match| 8 | 122 |</p>
 <table>
 <thead>
 <tr class="header">
-<th>Variable—————–</th>
+<th>Variable</th>
 <th>Mean Decrease Gini</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Clique Size————–</td>
-<td>96.52512———-</td>
+<td>Clique Size</td>
+<td>96.52512</td>
 </tr>
 <tr class="even">
-<td>Rotation Angle———–</td>
-<td>18.91749———-</td>
+<td>Rotation Angle</td>
+<td>18.91749</td>
 </tr>
 <tr class="odd">
-<td>Reference Overlap——–</td>
-<td>266.33528———</td>
+<td>Overlap %</td>
+<td>266.33528</td>
 </tr>
 <tr class="even">
 <td>Median Euclidean Distance</td>
-<td>52.46551———-</td>
+<td>52.46551</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Random Forest Model for Image Type 2</strong></p>
 <p>Full data set used contained all time comparisons for image type two. Data was split into 80%(1043 observations) training, 20% testing(261 observations).</p>
-<table>
-<thead>
-<tr class="header">
-<th>———</th>
-<th>—Predicted—</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Observed-</td>
-<td>match</td>
-</tr>
-<tr class="even">
-<td>———</td>
-<td>—–</td>
-</tr>
-<tr class="odd">
-<td>match—-</td>
-<td>127</td>
-</tr>
-<tr class="even">
-<td>———</td>
-<td>—–</td>
-</tr>
-<tr class="odd">
-<td>non-match</td>
-<td>5</td>
-</tr>
-</tbody>
-</table>
+<pre><code>     |   Predicted   |</code></pre>
+<p>———|—————|
+Observed |match|non-match|
+———|—–|———|
+match | 127 | 7 |
+———|—–|———|
+non-match| 5 | 122 |</p>
 <p>The RF model has an classification accuracy of 95.4%</p>
 </div>
 <div id="hanas-update-on-215" class="section level4" number="7.7.0.3">

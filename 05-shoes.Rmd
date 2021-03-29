@@ -1424,6 +1424,14 @@ pROC::ggroc(pROC::roc(test.dat$actual.matching,
 
 - Added the simulation results including the likelihood ratio method to the manuscript for optimal matching rule.
 
+#### Hana's update on 3/29
+
+- Aligning degraded scans using ccf didn't go well while aligning them was not acheived by Matlab and Susan's R packages with me. Instead, I modified 'boosted_clique' function in Soyoung's shoeprintr package so that it uses the rigid transformation since it relies on the affine transformation. By doing so, it seems that aligning surf points from degraded shoe scans works well with the modified function. As a next step, I will apply the resulting rigid transformation based on surf points to the original degraded scans, and use ccf to identify the source of shoes based on the aligned scans.
+
+- For the project of shoe deformation, I plan to find 4 more points from each circle group with the center so that those 4 points are chosen to have the shortest distance to the nearest circle's center, which is free from the alignment of shoe scans. This is just an idea, and will try soon.
+
+- Edited the manuscript for optimal matching rule by adding the simulation results including LR, and making plots more visible, and color-consistent.
+
 
 ####Round Robin Updates
 

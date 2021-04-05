@@ -3600,6 +3600,8 @@ knitr::include_graphics(c("images/andy_temp/sqaure_2.png"))
 
 What's next?  We wish to study the correctly classified areas of well expressed striation marks.  Allowing for a better choice of location when deciding where to extract a crosscut from an land engraved area scan.  We are interested to see if this will reduce the variance on the signatures.
 
+Update(04/05/2021): Processing data including missing values as a label for land engraved area scans.
+
 ## Analysis of Results  
 
 ### Stability of the Analysis Process

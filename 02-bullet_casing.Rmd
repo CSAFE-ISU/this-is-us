@@ -2727,6 +2727,37 @@ Joe 3/15/21: I have been working on coming up with different diagnostics for det
 
 </details>
 
+<details>
+<summary>
+Joe 4/5/21: We have been exploring issues related to the CMC method. In particular, we are interested in deriving diagnostic tools to determine when/how the CMC method will fail to accurately identify matching/non-matching cartridge case pairs.
+</summary>
+
+One of the ways we thought the CMC method could be made more "robust" would be to run the algorithm on downsampled copies of cartridge case scans. Presumably, the CMC score assigned to these downsampled copies would be approximately equal. Additionally, the CMC method *should* be able to estimate the "optimal" translation and rotation to align the two scans. This estimated alignment should also be consistent across the different downsampled copies. This does not appear to be necessarily true, as shown below.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-5_update/P0001_P0002_originalMethod.png")
+```
+
+```{r}
+knitr::kable(data.frame("Downsampling.Offset" = c("No Offset","Col Offset","Row Offset","Col + Row Offset"),
+           "Rotation.Deg" = c(6,7.5,7.5,9),
+           "Horizontal.px" = c(13,2.5,11.5,9),
+           "Vertical.px" = c(18.5,18.5,19,19)))
+```
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-5_update/noOffset_similarityFeatures.png")
+
+knitr::include_graphics("images/cartridge_cases/4-5_update/colOffset_similarityFeatures.png")
+
+knitr::include_graphics("images/cartridge_cases/4-5_update/rowOffset_similarityFeatures.png")
+
+knitr::include_graphics("images/cartridge_cases/4-5_update/colRowOffset_similarityFeatures.png")
+```
+
+
+</details>
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
 The moified Chumbley non-random algorithm is a statistical non-parametric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segment to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 

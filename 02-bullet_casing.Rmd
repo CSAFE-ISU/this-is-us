@@ -3314,6 +3314,72 @@ Will 03/28 Update: Continued the work of the previous week + midterms.
 
 </details>
 
+<details>
+<summary>
+Will 04/04 Update: some TODO work for the CMPS package paper and an idea of how to combine the CMPS algorithm with Chumbley's algorithm. 
+</summary>
+
+[TODO] - CMPS package paper
+
+-   Complete a small example in "Conceptual idea of CMPS" 
+
+-   Parameter names in "Implementation"
+
+-   add zebra-striped rectangles in the background of the segment plot
+
+**Combine the CMPS algorithm with Chumbley's algorithm**
+
+##### Chumbley's algorithm:
+
+Select a window size;
+
+Then:
+
+1.  Optimization: find the window position that results in the highest R-value (cross-correlation value)
+
+2.  Validation: 2 sets R-values
+
+    -   "common random rigid-shifts from their respective regions of best agreement"
+
+    -   "the independently selected windows"
+
+3.  Apply a nonparametric Mann--Whitney U-statistic to these 2 sets of R-values
+
+Another things worth noting:
+
+-   a K-fold cross-validation using 95% one-sided Bayes credible intervals
+
+-   A Markov Chain-Monte Carlo simulation was used to determine potential error rates
+
+##### A possible way to apply it to CMPS
+
+Since we have results of CMPS algorithm, we don't really need the optimization step. We could try to incorporate the idea of "Validation"
+
+The first set of R-values comes from "common random rigid-shifts", we could utilize the "congruent registration position". For each basis segment, we find the R-value of the congruent registration position. Then a question is: which segment scale should we use for these R-values?
+
+-   if a consistent correlation peak (ccp) is identified, use the R-value of the lowest scale
+
+    -   if we have three scale levels, the R-values for three different scales could be, for example, 0.95, 0.8, 0.7; the idea is to record 0.95 instead of 0.7 in order to obtain a possible larger separation. (1)
+
+-   if not, use the R-value of the highest scale
+
+The second set of R-values comes from randomly and independently selected windows. Then we could apply the same idea here: we can make the window size equal to the largest segment scale, then randomly obtain the R-values.
+
+Some thoughts:
+
+-   The purpose of the second set is to provide a baseline. So choosing the largest segment scale is intentionally pushing the baseline down.
+
+-   if we have a true non-match, we would expect a small number of basis segments with a consistent correlation peak identified (the congruent matching profile segments). Then most basis segments in the first set would use large segment scale, which is the same for the baseline.
+
+-   if we have a true match, we would expect some number of cmp segments. The more cmp segments we have, the more differences we have in the distributions of these two sets of R-values, the stronger evidence we would obtain.
+
+-   If the idea in (1) doesn't work well, we could try to use the largest scale. Or at least make some comparisons between these two ways.
+
+The link to U-statistics: <https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test>
+
+
+</details>
+
 #### Future Work
 
 * improve and manage to submit the CMPS package to CRAN

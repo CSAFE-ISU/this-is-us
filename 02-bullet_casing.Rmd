@@ -3297,6 +3297,23 @@ Will 03/14 Update: In the past week I mainly focused on the paper revising and l
 
 </details>
 
+<details>
+<summary>
+Will 03/21 Update: Continued the work of the previous week; we are now checking out the U-statistics to see if we would be able to utilize that instead of using a "kind of" arbitrary threshold for the CMPS score.
+</summary>
+
+
+</details>
+
+
+<details>
+<summary>
+Will 03/28 Update: Continued the work of the previous week + midterms.
+</summary>
+
+
+</details>
+
 #### Future Work
 
 * improve and manage to submit the CMPS package to CRAN
@@ -3322,7 +3339,7 @@ Currently an operator can take a land engraved area scan, which is stored as an 
     
 After all the regions have been correctly annotated and saved, the x3p file should contain a land engraved area scan with additional data known as a “mask.”
 
-    ```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="40%"}
+```{r, fig.cap="Labeled Land Engraved Area Scan using fix3p", fig.keep="hold", fig.align='center', out.width="80%"}
 knitr::include_graphics(c("images/andy_temp/show_and_tell_3.png"))
 ```
 
@@ -3332,21 +3349,25 @@ We read in the manually identified land engraved areas into R using the read_x3p
 
 There are a lot of missing values contained in the surface matrix for each LEA scan. Missing element values are currently being interpolated by taking the average of a missing element’s 8 neighbors, if they exist.
 
-```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="40%"}
+```{r, fig.cap="Faceted Annotations Plot", fig.keep="hold", fig.align='center', out.width="80%"}
 knitr::include_graphics(c("images/andy_temp/Missing_Values_Interpolation_Facet_2.png"))
 ```
 
-```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="40%"}
-knitr::include_graphics(c("images/andy_temp/Missing_Values_Interpolation_1.png", "images/andy_temp/Missing_Values_Interpolation_3.png"))
+```{r, fig.cap="Missing Values Plot", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/Missing_Values_Interpolation_1.png"))
+```
+
+```{r, fig.cap="Interpolated Values Plot", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/Missing_Values_Interpolation_3.png"))
 ```
 
 After the data has been read and stored into R’s global environment, we propose a data preprocessing procedure that increases the amount of data we currently have. We take each x3p file containing a masked LEA scan, crop, and store each 128x128 resolution grid of the original scan and store it as a new x3p. This allows us to increase the amount of data being fed into our 3d CNN model by 224 to 240 times the amount of our original data based on the original x3p resolution size. To do this we use the x3p_crop function from the x3ptools R programming package
 
-```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="40%"}
+```{r, fig.cap="Example boundaries for cropping", fig.keep="hold", fig.align='center', out.width="80%"}
 knitr::include_graphics(c("images/andy_temp/csafe_21_noNA_x3p.png"))
 ```
 
-```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="10%"}
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="30%"}
 knitr::include_graphics(c("images/andy_temp/csafe_21_nostriae_2.png", "images/andy_temp/csafe_21_vert_2.png", "images/andy_temp/csafe_21_groove_2.png"))
 ```
 
@@ -3358,7 +3379,7 @@ Next, we extract the annotations associated with each cropped x3p file. These 7 
 
 We take the surface martix associated with each cropped x3p, transform each surface matrix to a (x, y, 1, 1) array, a 4d array or a 4d tensor. Then we can bind each surface matrix together creating a (n, x, y, 1, 1) array, a 5d array or a 5d tensor. n represents the batch_shape, x and y represent the width and height dimensions, the first “1” represents the elements contained in each surface matrix and the last “1” represents the color scale, greyscale.
 
-```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="50%"}
+```{r, fig.cap="Data Processing Summary", fig.keep="hold", fig.align='center', out.width="100%"}
 knitr::include_graphics(c("images/andy_temp/Pipeline_summary.png"))
 ```
 
@@ -3368,53 +3389,70 @@ knitr::include_graphics(c("images/andy_temp/Pipeline_summary.png"))
 
 <p class="new">Previous work will be added in the near future.</p>
 
-Convolutional layers are used as filters for our 5d input tensor resulting in an activation.  These layers produce feature maps that indicate the locations and strengths of our annotations.
+**Convolutional layers** are used as filters for our 5d input tensor resulting in an activation.  These layers produce feature maps that indicate the locations and strengths of our annotations.
 
-3d zero padding, padding allows us to keep the information at the borders of our cropped x3p scans, without padding we could potentially be losing important information regarding scans that have more than one annotation.
+**3d zero padding**: padding allows us to keep the information at the borders of our cropped x3p scans, without padding we could potentially be losing important information regarding scans that have more than one annotation.
 
-Max pooling selects the maximum element covered by the filters, resulting in a feature map containing the most prominent features, max pooling also reduces the computational cost by reducing the number of parameters used to learn.
+**Max pooling** selects the maximum element covered by the filters, resulting in a feature map containing the most prominent features, max pooling also reduces the computational cost by reducing the number of parameters used to learn.
 
-Batch Normalization normalizes the output of each previous activation layer by subtracting the batch mean and dividing by the batch standard deviation.  Batch Normalization is essentially a scaling feature, making sure each activation in each layer isn't too low or too high.
+**Batch Normalization** normalizes the output of each previous activation layer by subtracting the batch mean and dividing by the batch standard deviation.  Batch Normalization is essentially a scaling feature, making sure each activation in each layer isn't too low or too high.
 
-Dropout is used to prevent/reduce overfitting in our model and is typically used along with batch normalization.  Dropout is also referred to as dilution, thining the weights of the neural network, or it can be thought of as model averaging.
+**Dropout** is used to prevent/reduce overfitting in our model and is typically used along with batch normalization.  Dropout is also referred to as dilution, thining the weights of the neural network, or it can be thought of as model averaging.
 
 **Previous Work:**
 
 We trained a shallow 3d convolutional neural network on 100 epochs **(epoch refers to one cycle through the full training data)** resulting in an overall accuracy of 76.2 percent.  Class weights were not adjusted for Class Imbalance Issue. 
 
-Total True Positives: 3610
+    Total True Positives: 3610
 
-Overall Accuracy: 76.22 %
+    Overall Accuracy: 76.22 %
 
-**Breakoff** (Precision: 0.59, Recall: 0.27, F1-Score: 0.37)
+    **Breakoff** (Precision: 0.59, Recall: 0.27, F1-Score: 0.37)
 
-**Damage** (Precision: 0.48, Recall: 0.045, F1-Score: 0.081)
+    **Damage** (Precision: 0.48, Recall: 0.045, F1-Score: 0.081)
 
-**Grooves** (Precision: 0.72, Recall: 0.67, F1-Score: 0.69)
+    **Grooves** (Precision: 0.72, Recall: 0.67, F1-Score: 0.69)
 
-**No Striations** (Precision: 0.75, Recall: 0.87, F1-Score: 0.80)
+    **No Striations** (Precision: 0.75, Recall: 0.87, F1-Score: 0.80)
 
-**Well Expressed Striations** (Precision: 0.78, Recall: 0.83, F1-Score: 0.80)
+    **Well Expressed Striations** (Precision: 0.78, Recall: 0.83, F1-Score: 0.80)
 
-**Vertical Striations** (Precision: 0, Recall: 0, F1-Score: 0)
+    **Vertical Striations** (Precision: 0, Recall: 0, F1-Score: 0)
+    
+    
+```{r, fig.cap="100 epoch run confusion matrix", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/cnn_best_cm.png"))
+```
+    
+```{r, fig.cap="100 epoch run plot", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/100_epoch modek.png"))
+```
 
 We Re-run the 3d convolutional neural network on 200 epochs and adjust class weights by the frequency of classes throughout the training data set.
 
-Total True Positives: 3171
+    Total True Positives: 3171
 
-Overall Accuracy: 67 %
+    Overall Accuracy: 67 %
 
-**Breakoff** (Precision: 0.34, Recall: 0.52, F1-Score: 0.41)
+    **Breakoff** (Precision: 0.34, Recall: 0.52, F1-Score: 0.41)
 
-**Damage** (Precision: 0.38, Recall: 0.40, F1-Score: 0.39)
+    **Damage** (Precision: 0.38, Recall: 0.40, F1-Score: 0.39)
 
-**Grooves** (Precision: 0.60, Recall: 0.84, F1-Score: 0.70)
+    **Grooves** (Precision: 0.60, Recall: 0.84, F1-Score: 0.70)
 
-**No Striations** (Precision: 0.67, Recall: 0.89, F1-Score: 0.76)
+    **No Striations** (Precision: 0.67, Recall: 0.89, F1-Score: 0.76)
 
-**Well Expressed Striations** (Precision: 0.86, Recall: 0.56, F1-Score: 0.68)
+    **Well Expressed Striations** (Precision: 0.86, Recall: 0.56, F1-Score: 0.68)
 
-**Vertical Striations** (Precision: 0.017, Recall: 0.14, F1-Score: 0.030)
+    **Vertical Striations** (Precision: 0.017, Recall: 0.14, F1-Score: 0.030)
+    
+```{r, fig.cap="200 epoch run confusion matrix", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/cnn_cm_class_weights.png"))
+```
+    
+```{r, fig.cap="200 epoch run adjusted class weights plot", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/CNN_class_weights.png"))
+```
 
 The model using adjusted class weights performs slightly worse overall but does a better job in classifying minority classes.  
 
@@ -3437,14 +3475,64 @@ The training loss is still decreasing while validation loss has not started to i
 
 - Residual Network also performs well on new never seen before data.  6 label validation classification ~ 84%
 
-```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="50%"}
-knitr::include_graphics(c("images/andy_temp/ResNet_3D_CNN_Performance.png"))
+
+
+
+
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.height="30%"}
+
+knitr::include_graphics(c("images/andy_temp/resnet_arch.png"))
+
 ```
 
-```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="50%"}
+
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="100%"}
 knitr::include_graphics(c("images/andy_temp/Resnet_CFMatrix.png"))
 ```
 
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/ResNet_3D_CNN_Performance.png"))
+```
+
+
+### Post Analysis
+
+We take three LEA scans and predict each set of cropped LEAs for those original LEA scans using our current trained neural network.
+
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/post_test.png"))
+```
+
+Looking at the confusion matrix we can see that the model was not able to correctly classify any cases of damage nor any cases of vertical change in striations. There were a total of 712 training samples and 74 samples were misclassified.  Out of those 74 misclassified samples, 38 of them were vertical change in striations.  We are interested in the misclassified labels. 
+
+
+
+```{r, fig.cap="Misclassified Crops", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Compare_label_pred_1.png"))
+```
+
+
+
+```{r, fig.cap="Misclassified Crops: Vertical Change in Striations", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Compare_label_pred_2.png"))
+```
+
+
+
+We are also able to take the predicted cropped LEAs and make a full land engraved area scan with a new associated mask. 
+
+
+```{r, fig.cap="Land Engraved Area Scan with assigned labels", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/square_1.png"))
+```
+
+
+
+```{r, fig.cap="Land Engraved Area Scan with predicted labels", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/sqaure_2.png"))
+```
+
+What's next?  We wish to study the correctly classified areas of well expressed striation marks.  Allowing for a better choice of location when deciding where to extract a crosscut from an land engraved area scan.  We are interested to see if this will reduce the variance on the signatures.
 
 ## Analysis of Results  
 
@@ -3906,21 +3994,29 @@ March:
 - Moving to OOB predicitons vs new predictions
 
 
-```{r, fig.cap="Questionnaire setup for comparing trust in scores", out.width="50%", fig.keep="hold", fig.align='center'}
+```{r, fig.cap="Out-of-bag prediction vs predicition using new data", out.width="50%", fig.keep="hold", fig.align='center'}
 include_graphics(c("images/bullets/G/oob_vs_new.png"))
 ```
 
 
-```{r, fig.cap="Questionnaire setup for comparing trust in scores", out.width="50%", fig.keep="hold", fig.align='center'}
+```{r, fig.cap="Out-of-bag prediction 1500 trees vs 500 trees", out.width="50%", fig.keep="hold", fig.align='center'}
 include_graphics(c("images/bullets/G/oob_1500_vs_500.png"))
 ```
 
 
-```{r, fig.cap="Questionnaire setup for comparing trust in scores", out.width="50%", fig.keep="hold", fig.align='center'}
+```{r, fig.cap="Prediction for 1500 trees vs 500 trees", out.width="50%", fig.keep="hold", fig.align='center'}
 include_graphics(c("images/bullets/G/new_1500_vs_500.png"))
 ```
 
- 
+
+March 29th
+- Looking into the forest - variable splitting, dependence modeling, variable importance
+- Testing prediction intervals, proximity, confidence intervals
+- Testing on Hamby and LAPD : end-splits
+- Working on density and interval plots
+
+
+
 
 ### Conference Presentations  
 

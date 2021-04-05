@@ -1395,6 +1395,101 @@ pROC::ggroc(pROC::roc(test.dat$actual.matching,
 
 
 ```
+####Shoe Comparisons through Time
+####NIKE
+
+**Definitions:**
+Matched Shoes: When the scans of the same shoes from different time periods are compared 
+
+Non-matched shoes: When scans of different shoes from different time periods are compared. 
+
+Time Comparison: The visits that are being compared; for example: Visit one compared to visit two. 6 time comparisons in total. 
+
+Image Type: The process of how the image was taken. Either the shoe is "stomped" onto the scanner,  or the shoe is "rolled" onto the scanner.  
+
+Actual Comparisons:By keeping time comparisons and image types separate, we create in total 12 separate groups.
+
+**Setup:**
+1. Create a data frame of matched shoes by creating a data set for each combination of time comparison and image type and then joining all of them together.Used function "matching" to create the data sets.  
+
+2. To create the data frame for non-matches I used the number of observations for each combination of time comparison and image type in matched data  as n for each corresponding group on non-matched data. Used a stratified random sample design to get the non-matched comparisons using shoe size as the discriminating variable. Allocation of n was proportional. 
+
+
+**Average of Variables by Category Image Type 1**
+Category | Clique Size| Rotation Angle|M-E-D  |Overlap|
+---------|------------|---------------|-------|-------|
+match    |17.03       |	2.94		  |0.83   |	0.52  |
+non-match|	11.08     |	4.71	      |1.29	  | 0.23  |
+
+
+
+
+**Average of Variables by Category Image Type 2**
+Category--| Clique Size| Rotation Angle| M-E-D| Overlap|
+----------|------------|---------------|------|--------|
+match     |17.45       |2.85           |  0.82|  0.498 |
+non-match |	11.19      |	4.2        | 1.32 |   0.21 |
+
+
+
+**P-value of Anova Tests Comparing Category**
+Variable         | Image Type 1| Image Type 2|
+-----------------|-------------|-------------|
+Clique Size      |≈0           |≈0           |
+-----------------|-------------|-------------|
+Reference Overlap|≈0           |≈0           |
+-----------------|-------------|-------------|
+M-E_D            |≈0           |≈0           |
+-----------------|-------------|-------------|
+Rotation Angle   |≈0           |≈0           |
+
+
+
+**Random Forest for Image Type One**
+
+Full data set contained all time comparisons for image type one. Data was split into 80%(1073 observations) training, 20% testing(269 observations). 
+
+**Confusion Matrix; Testing Set** 
+         | Predicted         |
+-----------------------------|
+Observed |   Match| Non-match|
+---------|--------|----------|
+Match    |   124  |       15 |
+---------|--------|----------|  
+Non-Match|   8    |   122    |
+
+RF model has an accuracy of 91.4%
+
+
+
+**RF Variable Importance**
+
+Variable                 | Mean Decrease Gini|
+-------------------------|-------------------|
+Clique Size              | 96.52512          |
+Rotation Angle           | 18.91749          |
+Overlap  %               | 266.33528         |
+Median Euclidean Distance| 52.46551          |
+
+
+
+**Random Forest Model for Image Type 2**
+
+Full data set used contained all time comparisons for image type two. Data was split into 80%(1043 observations) training, 20% testing(261 observations). 
+
+         |   Predicted   |
+---------|---------------|
+Observed |match|non-match|
+---------|-----|---------|
+match    | 127 |   7     |
+---------|-----|---------|
+non-match| 5   |  122    |
+
+
+
+The RF model has an classification accuracy of 95.4% 
+
+
 
 #### Hana's update on 2/15
 
@@ -1417,6 +1512,21 @@ pROC::ggroc(pROC::roc(test.dat$actual.matching,
 - Not much for shoes
 
 - Compared the performance of likelihood ratio based on forensic hypotheses to that of optimal matching rule through simulation study where normal populations were assumed. Likelihood ratios, ROC curve, and prediction accuracy (overall accuracy, sensitivity, and specificiy) at the optimal thresholds were fairly close but there was subtle difference. We wanted to distingush optimal matching rule from forensic likelihood ratio method as well as classification discriminant. This simulation result will be discussed with Dr.Ommen soon once I finalize this simulation. 
+
+#### Hana's update on 3/22
+
+- I am trying to use ccf to align the degraded shoe scans.
+
+- Added the simulation results including the likelihood ratio method to the manuscript for optimal matching rule.
+
+#### Hana's update on 3/29
+
+- Aligning degraded scans using ccf didn't go well while aligning them was not acheived by Matlab and Susan's R packages with me. Instead, I modified 'boosted_clique' function in Soyoung's shoeprintr package so that it uses the rigid transformation since it relies on the affine transformation. By doing so, it seems that aligning surf points from degraded shoe scans works well with the modified function. As a next step, I will apply the resulting rigid transformation based on surf points to the original degraded scans, and use ccf to identify the source of shoes based on the aligned scans.
+
+- For the project of shoe deformation, I plan to find 4 more points from each circle group with the center so that those 4 points are chosen to have the shortest distance to the nearest circle's center, which is free from the alignment of shoe scans. This is just an idea, and will try soon.
+
+- Edited the manuscript for optimal matching rule by adding the simulation results including LR, and making plots more visible, and color-consistent.
+
 
 ####Round Robin Updates
 

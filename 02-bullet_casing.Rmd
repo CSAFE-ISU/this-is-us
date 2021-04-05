@@ -4081,6 +4081,12 @@ March 29th
 - Testing on Hamby and LAPD : end-splits
 - Working on density and interval plots
 
+April:
+- Categorizing shifts in LAPD compared to Hamby sets
+- Shift problems leading to threshold issues in the scale-invariant random forest
+- Regularization for distributional similarity
+- High-dimensional visualizations
+
 
 
 

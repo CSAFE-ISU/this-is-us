@@ -3329,7 +3329,7 @@ Will 04/04 Update: some TODO work for the CMPS package paper and an idea of how 
 
 **Combine the CMPS algorithm with Chumbley's algorithm**
 
-##### Chumbley's algorithm:
+**(1) Chumbley's algorithm**:
 
 Select a window size;
 
@@ -3351,7 +3351,7 @@ Another things worth noting:
 
 -   A Markov Chain-Monte Carlo simulation was used to determine potential error rates
 
-##### A possible way to apply it to CMPS
+**(2) A possible way to apply it to CMPS**
 
 Since we have results of CMPS algorithm, we don't really need the optimization step. We could try to incorporate the idea of "Validation"
 
@@ -3379,6 +3379,21 @@ The link to U-statistics: <https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_
 
 
 </details>
+
+
+<details>
+<summary>
+Will 04/11 Update: finished the TODO part from the previous week on the CMPS project. The `signature_shift_plot` now has an updated version.
+</summary>
+  
+The updated version of `signature_shift_plot`. The zebra-striped background is added to indicate locations of each basis segment. 
+
+```{r}
+knitr::include_graphics("images/cmps/zebra_striped_example.png", dpi=100)
+```
+
+</details>
+
 
 #### Future Work
 

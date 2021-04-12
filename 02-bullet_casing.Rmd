@@ -3416,7 +3416,8 @@ Currently an operator can take a land engraved area scan, which is stored as an 
     3. Damaged regions are painted using the color white.
     4. Areas without striation marks are painted in light blue. 
     5. Striation marks with a secondary pattern are painted in light yellow. 
-    6. Finally, all areas with well expressed striation marks are left unpainted. 
+    6. Finally, all areas with well expressed striation marks are left unpainted.
+    7. Missing values in a LEA scan are painted Black
     
 After all the regions have been correctly annotated and saved, the x3p file should contain a land engraved area scan with additional data known as a “mask.”
 
@@ -3616,6 +3617,99 @@ knitr::include_graphics(c("images/andy_temp/sqaure_2.png"))
 What's next?  We wish to study the correctly classified areas of well expressed striation marks.  Allowing for a better choice of location when deciding where to extract a crosscut from an land engraved area scan.  We are interested to see if this will reduce the variance on the signatures.
 
 Update(04/05/2021): Processing data including missing values as a label for land engraved area scans.
+
+Update(04/12/2021): Processed 800 Land Engraved Area Scans from scanner (Megan)
+
+```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Left_Groove_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Right_Groove_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/damage_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/No_Striations_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/vertical_change_in_striations_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/breakoff_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Left_Groove_1-100_Density_pointplot.png"))
+```
+
+```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Right_Groove_Density_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/damage_Density_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/No_Striations_Density_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/vertical_change_in_striations_Density_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/missing_value_1-100_Density_pointplot.png"))
+```
+
+```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/breakoff_1-100_Density_pointplot.png"))
+```
+
+### Summary Statistics
+
+Summary Statistics were derived using 100 Land Engraved Area Scans from scanner(Megan)
+
+```{r, fig.cap="LEA Labeled Region Summary Statistics", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Resnet_latest_summary_statistics.png"))
+```
+
+```{r, fig.cap="LEA Labeled Region Boxplot", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Annotation_boxplot.png"))
+```
+
+### Training Neural Net using data from Scanner(Megan)
+
+We Re-run the 3d convolutional neural network on 100 epochs using Megan's data for the training data set.
+
+```{r, fig.cap="Training ResNet using LEAs 1-100 scanner(Megan)", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Resnet_Latest.png"))
+```
+
+```{r, fig.cap="Confusion Matrix using LEAs 1-100 scanner(Megan)", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Resnet_latest_cm_1.png"))
+```
+
+
+
+
+
+```{r, fig.cap="Land Engraved Area Scan with assigned labels", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Resnet_latest_assigned_label.png"))
+```
+
+
+
+```{r, fig.cap="Land Engraved Area Scan with predicted labels", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Resnet_latest_prediction.png"))
+```
+
 
 ## Analysis of Results  
 

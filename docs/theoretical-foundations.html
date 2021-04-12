@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2021-03-29" />
+<meta name="date" content="2021-04-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -206,6 +206,8 @@ div.csl-indent {
 <li class="chapter" data-level="4.4.1" data-path="bullets.html"><a href="bullets.html#current-data-processing-procedures"><i class="fa fa-check"></i><b>4.4.1</b> Current Data Processing Procedures</a></li>
 <li class="chapter" data-level="4.4.2" data-path="bullets.html"><a href="bullets.html#convolutional-neural-networks"><i class="fa fa-check"></i><b>4.4.2</b> Convolutional Neural Networks</a></li>
 <li class="chapter" data-level="4.4.3" data-path="bullets.html"><a href="bullets.html#post-analysis"><i class="fa fa-check"></i><b>4.4.3</b> Post Analysis</a></li>
+<li class="chapter" data-level="4.4.4" data-path="bullets.html"><a href="bullets.html#summary-statistics"><i class="fa fa-check"></i><b>4.4.4</b> Summary Statistics</a></li>
+<li class="chapter" data-level="4.4.5" data-path="bullets.html"><a href="bullets.html#training-neural-net-using-data-from-scannermegan"><i class="fa fa-check"></i><b>4.4.5</b> Training Neural Net using data from Scanner(Megan)</a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="bullets.html"><a href="bullets.html#analysis-of-results"><i class="fa fa-check"></i><b>4.5</b> Analysis of Results</a>
 <ul>
@@ -341,9 +343,10 @@ div.csl-indent {
 <li class="chapter" data-level="8.7.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#results"><i class="fa fa-check"></i><b>8.7.1</b> Results</a></li>
 </ul></li>
 <li class="chapter" data-level="8.8" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#srl-behaviour-and-dependence-extended-simulation."><i class="fa fa-check"></i><b>8.8</b> SRL behaviour and dependence: Extended simulation.</a></li>
-<li class="chapter" data-level="8.9" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#communication-of-results-1"><i class="fa fa-check"></i><b>8.9</b> Communication of Results</a>
+<li class="chapter" data-level="8.9" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#small-updates"><i class="fa fa-check"></i><b>8.9</b> Small updates:</a></li>
+<li class="chapter" data-level="8.10" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#communication-of-results-1"><i class="fa fa-check"></i><b>8.10</b> Communication of Results</a>
 <ul>
-<li class="chapter" data-level="8.9.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#poster"><i class="fa fa-check"></i><b>8.9.1</b> Poster</a></li>
+<li class="chapter" data-level="8.10.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#poster"><i class="fa fa-check"></i><b>8.10.1</b> Poster</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="outreach-activities.html"><a href="outreach-activities.html"><i class="fa fa-check"></i><b>9</b> Outreach activities</a>
@@ -356,6 +359,10 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="10.1.1" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html#computational-reproducibility-in-team-based-collaboration"><i class="fa fa-check"></i><b>10.1.1</b> Computational Reproducibility in Team-based Collaboration</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="toolmarks.html"><a href="toolmarks.html"><i class="fa fa-check"></i><b>11</b> Toolmarks</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="toolmarks.html"><a href="toolmarks.html#next-steps-experimental-setup"><i class="fa fa-check"></i><b>11.1</b> Next Steps: experimental setup</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -940,14 +947,14 @@ which is approximately equivalent to
 We see that in this example the matching region from the feature difference method only overlaps a small fraction of that from the optimal matching rule, and there is a missing alignment for the feature difference method in the two small triangles at the origin.
 We also note that even though most of the pink area and the blue area in Figure 1 don’t overlap, the probabilities that the pair of data <span class="math inline">\((x_{1}, x_{2})\)</span> falling into those non-overlapping regions could be small, especially if the absolute value of either coordinate is large. See the contours of multivariate normal distribution in Figure 1.</p>
 <pre><code>## Warning: package &#39;mvtnorm&#39; was built under R version 4.0.2</code></pre>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-415"></span>
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-415-1.png" alt="Matching regions from the optimal rule (in pink) and the method based on feature difference (in blue). The contours of multivariate normal distribution with means $(1, -1)$ (unmatching case) and $(1, 1)$ (matching case) are marked in black and red, respectively, where the covariance is identity." width="672" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-438"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-438-1.png" alt="Matching regions from the optimal rule (in pink) and the method based on feature difference (in blue). The contours of multivariate normal distribution with means $(1, -1)$ (unmatching case) and $(1, 1)$ (matching case) are marked in black and red, respectively, where the covariance is identity." width="672" />
 <p class="caption">
 Figure 8.1: Matching regions from the optimal rule (in pink) and the method based on feature difference (in blue). The contours of multivariate normal distribution with means <span class="math inline">\((1, -1)\)</span> (unmatching case) and <span class="math inline">\((1, 1)\)</span> (matching case) are marked in black and red, respectively, where the covariance is identity.
 </p>
 </div>
 <p><strong>Comparison with random forest.</strong> We also conducted a small scale simulation to compare the optimal matching rule with the random forest method applied on the feature difference. The traning data include 50 observations from <span class="math inline">\(N(1, 1)\)</span> and <span class="math inline">\(N(-1, 1)\)</span>. There are additional 10 observations from each of the group serving as the testing data. We evaluate the percentage of the matching errors on the pairs of the testing data. We repeated the whole simulation 100 times. The accuracy rates are <strong><em>0.762</em></strong> and <strong><em>0.708</em></strong> for the optimal matching rule and the random forest applied on the differences of the measurements, respectively. 65% out of the 100 repetitions, the former method has higher accuracy than the latter method.</p>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-417-1.png" width="288" /><img src="bookdown-demo_files/figure-html/unnamed-chunk-417-2.png" width="288" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-440-1.png" width="288" /><img src="bookdown-demo_files/figure-html/unnamed-chunk-440-2.png" width="288" /></p>
 </div>
 <div id="topics-needs-exploration" class="section level3" number="8.5.2">
 <h3><span class="header-section-number">8.5.2</span> Topics needs exploration</h3>
@@ -961,14 +968,14 @@ Figure 8.1: Matching regions from the optimal rule (in pink) and the method base
 <p>Suppose that there are multiple sources denoted by <span class="math inline">\(\pi_g\)</span> for <span class="math inline">\(g = 1,\ \cdots,\ G\)</span>, and observations from each <span class="math inline">\(\pi_g\)</span> follow a distribution denoted by <span class="math inline">\(f(\cdot|\pi_g)\)</span>. As an example, the figure below shows three different normal distributions by source. Let’s say we have <span class="math inline">\(n\)</span> observations from those souces but do not know which sources they actually belong to. Our goal is to identify if two observations represented by <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> would have come from the same sources or not.</p>
 <p><img src="images/foundations/optimal_rule/source.distribution.PNG" width="60%" style="display: block; margin: auto;" /></p>
 <p>For <span class="math inline">\(n\)</span> independent observations, <span class="math inline">\({n \choose 2}\)</span> pairwise comparisons occur. When we sampled 300 observations from each density in the plot above, the following plot illustrates whether each pair actually come from the same sources or not. Blue dots represent the pairs from the same sources, and red ones indicates the pairs from the different sources. If we can predict the blue area accurately as much as possible, our goal to predict the membership of pairwise observations will be attained.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-420"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-443"></span>
 <img src="images/foundations/optimal_rule/plot.true.T.ss.PNG" alt="True membership of pairs" width="60%" />
 <p class="caption">
 Figure 8.2: True membership of pairs
 </p>
 </div>
 <p>The following figure displays the optimal rule’s matching results using the data from the previous plot. Likewise, the blue dots represent the matched zone by optimal rule where the pairs are predicted to be from the same sources, and the red ones represent the unmatched zone by optimal rule where the pairs are predicted to be from different sources.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-421"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-444"></span>
 <img src="images/foundations/optimal_rule/plot.optimal.T.ss.PNG" alt="Membership of pairs predicted by optimal rule" width="60%" />
 <p class="caption">
 Figure 8.3: Membership of pairs predicted by optimal rule
@@ -1866,7 +1873,7 @@ T_{SS}^{Opt} = \left\{(x,y):\ \exp{\left(-\frac{1}{2} \left(\begin{matrix}x - M 
 <div id="an-example-based-on-normal-populations" class="section level4" number="8.5.9.2">
 <h4><span class="header-section-number">8.5.9.2</span> An example based on normal populations</h4>
 <p>Set-up: <span class="math inline">\(X|\mu, Y|\mu \sim \mbox{N}(\mu, \Sigma = 1)\)</span> where <span class="math inline">\(\mu \sim \mbox{N}(M = 0, V =1)\)</span>, which results in <span class="math inline">\(X, Y \sim N(0,2)\)</span>.</p>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-466-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-489-1.png" width="672" /></p>
 </div>
 <div id="application-to-glassdata" class="section level4" number="8.5.9.3">
 <h4><span class="header-section-number">8.5.9.3</span> Application to glassdata</h4>
@@ -1877,33 +1884,33 @@ T_{SS}^{Opt} = \left\{(x,y):\ \exp{\left(-\frac{1}{2} \left(\begin{matrix}x - M 
 <li>Training: AA(1/3), AC(1/4), AE(1/5), AG(1/6)</li>
 <li>Testset: AB(1/3), AD(1/4), AF(1/5), AH(1/6)</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-468-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-491-1.png" width="672" /></p>
 <ul>
 <li>Training: BA(12/5), BK(12/12), BN(12/15), BP(12/16)</li>
 <li>Testset: BB(12/5), BL(12/12), BO(12/15), BR(12/16)</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-469-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-492-1.png" width="672" /></p>
 <ul>
 <li>Training: AA(1/3), AC(1/4), AE(1/5), AG(1/6)</li>
 <li>Testset: AI(1/7), AJ(1/7), AK(1/8), AL(1/8)</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-470-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-493-1.png" width="672" /></p>
 <ul>
 <li>Training: AA(1/3), AC(1/4), AE(1/5), AG(1/6), BA(12/5), BK(12/12), BN(12/15), BP(12/16)</li>
 <li>Testset: AB(1/3), AD(1/4), AF(1/5), AH(1/6), BB(12/5), BL(12/12), BO(12/15), BR(12/16)</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-471-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-494-1.png" width="672" /></p>
 <ul>
 <li>Training: AA(1/3), AC(1/4), AE(1/5), AG(1/6))</li>
 <li>Testset: BA(12/5), BK(12/12), BN(12/15), BP(12/16)</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-472-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-495-1.png" width="672" /></p>
 <ul>
 <li>Training: AI(1/7), AJ(1/7), AK(1/8), AL(1/8)<br />
 </li>
 <li>Testset: AV(1/13), AY(1/15), AAA(1/16), AAC(1/17)</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-473-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-496-1.png" width="672" /></p>
 </div>
 </div>
 </div>
@@ -2154,12 +2161,15 @@ D_p_{{KNM}} &amp;=&amp; \frac{\sum_t^{T} (1-y_t) \one_{\{SLR_t\leq C_{KNM}\}} }{
 </div>
 <div id="srl-behaviour-and-dependence-extended-simulation." class="section level2" number="8.8">
 <h2><span class="header-section-number">8.8</span> SRL behaviour and dependence: Extended simulation.</h2>
-<p>A</p>
 </div>
-<div id="communication-of-results-1" class="section level2" number="8.9">
-<h2><span class="header-section-number">8.9</span> Communication of Results</h2>
-<div id="poster" class="section level3" number="8.9.1">
-<h3><span class="header-section-number">8.9.1</span> Poster</h3>
+<div id="small-updates" class="section level2" number="8.9">
+<h2><span class="header-section-number">8.9</span> Small updates:</h2>
+<p>04/05/2021 – For the last week I focus on writing CC document and preparing presentation.</p>
+</div>
+<div id="communication-of-results-1" class="section level2" number="8.10">
+<h2><span class="header-section-number">8.10</span> Communication of Results</h2>
+<div id="poster" class="section level3" number="8.10.1">
+<h3><span class="header-section-number">8.10.1</span> Poster</h3>
 <ul>
 <li><strong>“An evaluation of score-based likelihood ratios for glass data.”</strong>
 <ul>

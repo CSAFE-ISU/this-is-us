@@ -3373,6 +3373,87 @@ Will 03/28 Update: Continued the work of the previous week + midterms.
 
 </details>
 
+<details>
+<summary>
+Will 04/04 Update: some TODO work for the CMPS package paper and an idea of how to combine the CMPS algorithm with Chumbley's algorithm. 
+</summary>
+
+[TODO] - CMPS package paper
+
+-   Complete a small example in "Conceptual idea of CMPS" 
+
+-   Parameter names in "Implementation"
+
+-   add zebra-striped rectangles in the background of the segment plot
+
+**Combine the CMPS algorithm with Chumbley's algorithm**
+
+**(1) Chumbley's algorithm**:
+
+Select a window size;
+
+Then:
+
+1.  Optimization: find the window position that results in the highest R-value (cross-correlation value)
+
+2.  Validation: 2 sets R-values
+
+    -   "common random rigid-shifts from their respective regions of best agreement"
+
+    -   "the independently selected windows"
+
+3.  Apply a nonparametric Mann--Whitney U-statistic to these 2 sets of R-values
+
+Another things worth noting:
+
+-   a K-fold cross-validation using 95% one-sided Bayes credible intervals
+
+-   A Markov Chain-Monte Carlo simulation was used to determine potential error rates
+
+**(2) A possible way to apply it to CMPS**
+
+Since we have results of CMPS algorithm, we don't really need the optimization step. We could try to incorporate the idea of "Validation"
+
+The first set of R-values comes from "common random rigid-shifts", we could utilize the "congruent registration position". For each basis segment, we find the R-value of the congruent registration position. Then a question is: which segment scale should we use for these R-values?
+
+-   if a consistent correlation peak (ccp) is identified, use the R-value of the lowest scale
+
+    -   if we have three scale levels, the R-values for three different scales could be, for example, 0.95, 0.8, 0.7; the idea is to record 0.95 instead of 0.7 in order to obtain a possible larger separation. (1)
+
+-   if not, use the R-value of the highest scale
+
+The second set of R-values comes from randomly and independently selected windows. Then we could apply the same idea here: we can make the window size equal to the largest segment scale, then randomly obtain the R-values.
+
+Some thoughts:
+
+-   The purpose of the second set is to provide a baseline. So choosing the largest segment scale is intentionally pushing the baseline down.
+
+-   if we have a true non-match, we would expect a small number of basis segments with a consistent correlation peak identified (the congruent matching profile segments). Then most basis segments in the first set would use large segment scale, which is the same for the baseline.
+
+-   if we have a true match, we would expect some number of cmp segments. The more cmp segments we have, the more differences we have in the distributions of these two sets of R-values, the stronger evidence we would obtain.
+
+-   If the idea in (1) doesn't work well, we could try to use the largest scale. Or at least make some comparisons between these two ways.
+
+The link to U-statistics: <https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test>
+
+
+</details>
+
+
+<details>
+<summary>
+Will 04/11 Update: finished the TODO part from the previous week on the CMPS project. The `signature_shift_plot` now has an updated version.
+</summary>
+  
+The updated version of `signature_shift_plot`. The zebra-striped background is added to indicate locations of each basis segment. 
+
+```{r}
+knitr::include_graphics("images/cmps/zebra_striped_example.png", dpi=100)
+```
+
+</details>
+
+
 #### Future Work
 
 * improve and manage to submit the CMPS package to CRAN
@@ -3394,7 +3475,8 @@ Currently an operator can take a land engraved area scan, which is stored as an 
     3. Damaged regions are painted using the color white.
     4. Areas without striation marks are painted in light blue. 
     5. Striation marks with a secondary pattern are painted in light yellow. 
-    6. Finally, all areas with well expressed striation marks are left unpainted. 
+    6. Finally, all areas with well expressed striation marks are left unpainted.
+    7. Missing values in a LEA scan are painted Black
     
 After all the regions have been correctly annotated and saved, the x3p file should contain a land engraved area scan with additional data known as a “mask.”
 
@@ -3592,6 +3674,117 @@ knitr::include_graphics(c("images/andy_temp/sqaure_2.png"))
 ```
 
 What's next?  We wish to study the correctly classified areas of well expressed striation marks.  Allowing for a better choice of location when deciding where to extract a crosscut from an land engraved area scan.  We are interested to see if this will reduce the variance on the signatures.
+
+Update(04/05/2021): Processing data including missing values as a label for land engraved area scans.
+
+Update(04/12/2021): Processed 800 Land Engraved Area Scans from scanner (Megan)
+
+```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Left_Groove_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Right_Groove_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/damage_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/No_Striations_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/vertical_change_in_striations_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/breakoff_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/left_groove_Density_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/right_groove_Density_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/damage_Density_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/No_Striations_Density_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/vertical_change_in_striations_Density_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/missing_value_Density_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/breakoff_Density_1-100_pointplot.png"))
+```
+
+### Summary Statistics
+
+Summary Statistics were derived using 100 Land Engraved Area Scans from scanner(Megan)
+
+```{r, fig.cap="LEA Labeled Region Summary Statistics", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Resnet_latest_summary_statistics.png"))
+```
+
+```{r, fig.cap="LEA Labeled Region Boxplot", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Annotation_boxplot.png"))
+```
+
+### Training Neural Net using data from Scanner(Megan)
+
+We Re-run the 3d convolutional neural network on 100 epochs using Megan's data for the training data set.
+
+```{r, fig.cap="Training ResNet using LEAs 1-100 scanner(Megan)", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Resnet_Latest.png"))
+```
+
+```{r, fig.cap="Confusion Matrix using LEAs 1-100 scanner(Megan)", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Resnet_latest_cm_1.png"))
+```
+
+    Total True Positives: 3940
+
+    Overall Accuracy: 83.19 %
+
+    **Breakoff** (Precision: 0.27, Recall: 0.10, F1-Score: 0.15)
+
+    **Damage** (Precision: 0.0, Recall: 0.0, F1-Score: 0.0)
+
+    **Grooves** (Precision: 0.78, Recall: 0.87, F1-Score: 0.82)
+    
+    **Missing Values** (Precision: 0.76, Recall: 0.87, F1-Score: 0.81)
+
+    **No Striations** (Precision: 0.89, Recall: 0.89, F1-Score: 0.89)
+
+    **Well Expressed Striations** (Precision: 0.84, Recall: 0.91, F1-Score: 0.87)
+
+    **Vertical Striations** (Precision: 0.0, Recall: 0.0, F1-Score: 0.0)
+
+
+
+```{r, fig.cap="Land Engraved Area Scan with assigned labels", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Resnet_latest_assigned_label.png"))
+```
+
+
+
+```{r, fig.cap="Land Engraved Area Scan with predicted labels", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Resnet_latest_prediction.png"))
+```
+
 
 ## Analysis of Results  
 
@@ -4073,6 +4266,12 @@ March 29th
 - Testing prediction intervals, proximity, confidence intervals
 - Testing on Hamby and LAPD : end-splits
 - Working on density and interval plots
+
+April:
+- Categorizing shifts in LAPD compared to Hamby sets
+- Shift problems leading to threshold issues in the scale-invariant random forest
+- Regularization for distributional similarity
+- High-dimensional visualizations
 
 
 

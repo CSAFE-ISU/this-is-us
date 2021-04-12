@@ -3329,7 +3329,7 @@ Will 04/04 Update: some TODO work for the CMPS package paper and an idea of how 
 
 **Combine the CMPS algorithm with Chumbley's algorithm**
 
-##### Chumbley's algorithm:
+**(1) Chumbley's algorithm**:
 
 Select a window size;
 
@@ -3351,7 +3351,7 @@ Another things worth noting:
 
 -   A Markov Chain-Monte Carlo simulation was used to determine potential error rates
 
-##### A possible way to apply it to CMPS
+**(2) A possible way to apply it to CMPS**
 
 Since we have results of CMPS algorithm, we don't really need the optimization step. We could try to incorporate the idea of "Validation"
 

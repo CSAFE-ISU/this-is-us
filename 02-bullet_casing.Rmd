@@ -2758,6 +2758,65 @@ knitr::include_graphics("images/cartridge_cases/4-5_update/colRowOffset_similari
 
 </details>
 
+<details>
+<summary>
+Joe 4/12/21: We have been running some experiments to determine how well the CMC method can estimate the alignment of exact-matching or near-exact-matching scans for which we know the ground truth alignment.
+</summary>
+
+Exact copy, synthetic rotation results: The randomly generated, synthetic rotations are estimated well.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-12-21_update/estimatedAngles_sensofarGroup4.png")
+```
+
+CMC count distribution for this experiment:
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-12-21_update/cmcCountDistributions_selfComparisons_randomRotation.png")
+```
+
+
+Downsampling scheme:
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-12-21_update/samplingScheme_illustration.PNG")
+```
+
+Downsampled, no rotation comparison: True angle (0 degrees) is well-estimated here.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-12-21_update/estimatedAngles_sensofarGroup4_offsetCopies_noRotation.png")
+```
+
+CMC count distribution for this experiment (little difference from above)
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-12-21_update/cmcCountDistributions_offsetCopies_noRotation.png")
+```
+
+
+Downsampled, synthetically rotated comparison: Synthetic angles are well-estimated here.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-12-21_update/estimatedAngles_sensofarGroup4_offsetCopies_randomRotation.png")
+```
+
+CMC count distribution for this experiment (again, very little change from 2 previous CMC count distributions).
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-12-21_update/cmcCountDistributions_selfComparisons_randomRotation.png")
+```
+
+
+The plot below shows relationship between the CMC similarity score and the estimated rotation error. There is a slight negative relationship (not statistically significant, however) that is most noticable for the original method's CMC counts. We would anticipate such a negative relationship (i.e., poorly aligned scans should not have large CMC counts).
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-12-21_update/cmcCount_on_rotationError_scatterplot.png")
+```
+
+
+</details>
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
 The moified Chumbley non-random algorithm is a statistical non-parametric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segment to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 

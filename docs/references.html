@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>References | This is us: making CSAFE stronger each week</title>
   <meta name="description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21.6 and GitBook 2.6.7" />
 
   <meta property="og:title" content="References | This is us: making CSAFE stronger each week" />
   <meta property="og:type" content="book" />
@@ -24,14 +24,14 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2021-03-29" />
+<meta name="date" content="2021-04-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="reproducibility-in-research.html"/>
+<link rel="prev" href="toolmarks.html"/>
 
 <script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
@@ -51,6 +51,12 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 
 
 <style type="text/css">
@@ -118,6 +124,29 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -177,6 +206,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4.1" data-path="bullets.html"><a href="bullets.html#current-data-processing-procedures"><i class="fa fa-check"></i><b>4.4.1</b> Current Data Processing Procedures</a></li>
 <li class="chapter" data-level="4.4.2" data-path="bullets.html"><a href="bullets.html#convolutional-neural-networks"><i class="fa fa-check"></i><b>4.4.2</b> Convolutional Neural Networks</a></li>
 <li class="chapter" data-level="4.4.3" data-path="bullets.html"><a href="bullets.html#post-analysis"><i class="fa fa-check"></i><b>4.4.3</b> Post Analysis</a></li>
+<li class="chapter" data-level="4.4.4" data-path="bullets.html"><a href="bullets.html#summary-statistics"><i class="fa fa-check"></i><b>4.4.4</b> Summary Statistics</a></li>
+<li class="chapter" data-level="4.4.5" data-path="bullets.html"><a href="bullets.html#training-neural-net-using-data-from-scannermegan"><i class="fa fa-check"></i><b>4.4.5</b> Training Neural Net using data from Scanner(Megan)</a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="bullets.html"><a href="bullets.html#analysis-of-results"><i class="fa fa-check"></i><b>4.5</b> Analysis of Results</a>
 <ul>
@@ -312,9 +343,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.7.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#results"><i class="fa fa-check"></i><b>8.7.1</b> Results</a></li>
 </ul></li>
 <li class="chapter" data-level="8.8" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#srl-behaviour-and-dependence-extended-simulation."><i class="fa fa-check"></i><b>8.8</b> SRL behaviour and dependence: Extended simulation.</a></li>
-<li class="chapter" data-level="8.9" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#communication-of-results-1"><i class="fa fa-check"></i><b>8.9</b> Communication of Results</a>
+<li class="chapter" data-level="8.9" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#small-updates"><i class="fa fa-check"></i><b>8.9</b> Small updates:</a></li>
+<li class="chapter" data-level="8.10" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#communication-of-results-1"><i class="fa fa-check"></i><b>8.10</b> Communication of Results</a>
 <ul>
-<li class="chapter" data-level="8.9.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#poster"><i class="fa fa-check"></i><b>8.9.1</b> Poster</a></li>
+<li class="chapter" data-level="8.10.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#poster"><i class="fa fa-check"></i><b>8.10.1</b> Poster</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="outreach-activities.html"><a href="outreach-activities.html"><i class="fa fa-check"></i><b>9</b> Outreach activities</a>
@@ -328,6 +360,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.1.1" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html#computational-reproducibility-in-team-based-collaboration"><i class="fa fa-check"></i><b>10.1.1</b> Computational Reproducibility in Team-based Collaboration</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="11" data-path="toolmarks.html"><a href="toolmarks.html"><i class="fa fa-check"></i><b>11</b> Toolmarks</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -353,25 +386,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1>References</h1>
 
 <div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-chu_jfs" class="csl-entry">
+<div class="csl-entry">
 Chu, Wei, T. Song, J. Vorburger, J. Yen, S. Ballou, and B. Bacharach. 2010. <span>“<span class="nocase">Pilot study of automated bullet signature identification based on topography measurements and correlations</span>.”</span> <em>Journal of Forensic Sciences</em> 55 (2): 341–47.
 </div>
-<div id="ref-aoas" class="csl-entry">
+<div class="csl-entry">
 Hare, Eric, Heike Hofmann, and Alicia Carriquiry. 2016. <span>“<span class="nocase">Automatic Matching of Bullet Lands</span>.”</span> <em>ArXiv e-Prints</em>, January. <a href="http://arxiv.org/abs/1601.05788">http://arxiv.org/abs/1601.05788</a>.
 </div>
-<div id="ref-gkhh" class="csl-entry">
+<div class="csl-entry">
 Krishnan, Ganesh, and Heike Hofmann. 2019. <span>“Adapting the Chumbley Score to Match Striae on Land Engraved Areas (LEAs) of Bullets.”</span> <em>Journal of Forensic Sciences</em> 64 (3): 728–40. <a href="https://doi.org/10.1111/1556-4029.13950">https://doi.org/10.1111/1556-4029.13950</a>.
 </div>
-<div id="ref-modatGlobalImageRegistration2014" class="csl-entry">
+<div class="csl-entry">
 Modat, Marc, David M. Cash, Pankaj Daga, Gavin P. Winston, John S. Duncan, and Sébastien Ourselin. 2014. <span>“Global Image Registration Using a Symmetric Block-Matching Approach.”</span> <em>Journal of Medical Imaging (Bellingham, Wash.)</em> 1 (2). <a href="https://doi.org/10.1117/1.JMI.1.2.024003">https://doi.org/10.1117/1.JMI.1.2.024003</a>.
 </div>
-<div id="ref-xie2015" class="csl-entry">
+<div class="csl-entry">
 Xie, Yihui. 2015. <em>Dynamic Documents with <span>R</span> and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.
 </div>
-<div id="ref-R-bookdown" class="csl-entry">
-———. 2020. <em>Bookdown: Authoring Books and Technical Documents with r Markdown</em>. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.
+<div class="csl-entry">
+———. 2021. <em>Bookdown: Authoring Books and Technical Documents with r Markdown</em>. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.
 </div>
-<div id="ref-nist" class="csl-entry">
+<div class="csl-entry">
 Zheng, Xiaoyu Alan. 2016. <span>“<span>NIST Ballistics Toolmark Research Database (NBTRB)</span>.”</span> <a href="https://tsapps.nist.gov/NRBTD">https://tsapps.nist.gov/NRBTD</a>.
 </div>
 </div>
@@ -390,7 +423,7 @@ Zheng, Xiaoyu Alan. 2016. <span>“<span>NIST Ballistics Toolmark Research Datab
           </div>
         </div>
       </div>
-<a href="reproducibility-in-research.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="toolmarks.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
@@ -422,7 +455,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/09-references.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/ZZZ-references.Rmd",
 "text": "Edit"
 },
 "history": {

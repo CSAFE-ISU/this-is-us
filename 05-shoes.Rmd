@@ -1395,6 +1395,60 @@ pROC::ggroc(pROC::roc(test.dat$actual.matching,
 
 
 ```
+
+
+##### Hana's update on 2/15
+
+- Evaluated the performance of matching using ccf with and without maximum clique method. Unfortunately, the ccf features were not helpful to increase the accuracy of maximum clique method.
+
+
+##### Hana's update on 2/22
+
+- Worked on the algorithm to extract circular features from echo shoes. It was processed mostly well, but there is much room to develop like removing non-circle features automatically, and not missing circular features.
+
+
+##### Hana's update on 3/1
+
+- Evaluated the performance of matching using ccf with and without maximum clique method based on degraded scans because maximum clique's performance has been poor on degraded images. One thing to note was that aligning degraded shoe scans were not processed well eveon in Matlab. For example, two scans from the same shoe at a degraded level were not aligned properly sometimes. Two scans from the same shoe at two different levels were unlikely to be aligned.
+
+- We still want to see the potential of CCF method, so plan to align degraded scans manually and then to apply CCF method to improve the matching performance of maximum clique method with CCF features added.
+
+##### Hana's update on 3/7
+
+- Not much for shoes
+
+- Compared the performance of likelihood ratio based on forensic hypotheses to that of optimal matching rule through simulation study where normal populations were assumed. Likelihood ratios, ROC curve, and prediction accuracy (overall accuracy, sensitivity, and specificiy) at the optimal thresholds were fairly close but there was subtle difference. We wanted to distingush optimal matching rule from forensic likelihood ratio method as well as classification discriminant. This simulation result will be discussed with Dr.Ommen soon once I finalize this simulation. 
+
+##### Hana's update on 3/22
+
+- I am trying to use ccf to align the degraded shoe scans.
+
+- Added the simulation results including the likelihood ratio method to the manuscript for optimal matching rule.
+
+##### Hana's update on 3/29
+
+- Aligning degraded scans using ccf didn't go well while aligning them was not acheived by Matlab and Susan's R packages with me. Instead, I modified 'boosted_clique' function in Soyoung's shoeprintr package so that it uses the rigid transformation since it relies on the affine transformation. By doing so, it seems that aligning surf points from degraded shoe scans works well with the modified function. As a next step, I will apply the resulting rigid transformation based on surf points to the original degraded scans, and use ccf to identify the source of shoes based on the aligned scans.
+
+- For the project of shoe deformation, I plan to find 4 more points from each circle group with the center so that those 4 points are chosen to have the shortest distance to the nearest circle's center, which is free from the alignment of shoe scans. This is just an idea, and will try soon.
+
+- Edited the manuscript for optimal matching rule by adding the simulation results including LR, and making plots more visible, and color-consistent.
+
+##### Hana's update on 4/11
+
+- Made slides about my progress in shoe project to discuss it with Dr.Qiu. -> Will study the (cross) correlation's characteristics.
+
+- Realized the ideo for the shoe deformation. I found three points arond the center of each circle that lie toward the centers of the nearest 3 circles. The distance from those three points to the center is determined by the radius of the original circle. Picutre is shown below. Next, I'll compute the length of the edges conscructed by Delaunay triangulation on the center point and three additional points around it for each circle on ECCO shoes. 
+
+<img src="images/shoes/deformation_hana/points4_for_triangulation.png" width = "80%"/>
+
+<img src="images/shoes/deformation_hana/Delaunay_triangulation.png" width = "80%"/>
+
+
+
+
+
+
+
 ####Shoe Comparisons through Time
 ####NIKE
 
@@ -1418,8 +1472,8 @@ Actual Comparisons:By keeping time comparisons and image types separate, we crea
 **Average of Variables by Category Image Type 1**
 Category | Clique Size| Rotation Angle|M-E-D  |Overlap|
 ---------|------------|---------------|-------|-------|
-match----|17.03       |	2.94		      |0.83   |	0.52  |
-non-match|	11.08     |	4.71	        |1.29	  | 0.23  |
+match    |17.03       |	2.94		  |0.83   |	0.52  |
+non-match|	11.08     |	4.71	      |1.29	  | 0.23  |
 
 
 
@@ -1427,21 +1481,21 @@ non-match|	11.08     |	4.71	        |1.29	  | 0.23  |
 **Average of Variables by Category Image Type 2**
 Category--| Clique Size| Rotation Angle| M-E-D| Overlap|
 ----------|------------|---------------|------|--------|
-match-----|17.45       |2.85           |	0.82|  0.498 |
-non-match-|	11.19      |	4.2          | 1.32 |  	0.21 |
+match     |17.45       |2.85           |  0.82|  0.498 |
+non-match |	11.19      |	4.2        | 1.32 |   0.21 |
 
 
 
 **P-value of Anova Tests Comparing Category**
-Variable---------| Image Type 1| Image Type 2|
+Variable         | Image Type 1| Image Type 2|
 -----------------|-------------|-------------|
-Clique Size------|≈0           |≈0           |
+Clique Size      |≈0           |≈0           |
 -----------------|-------------|-------------|
 Reference Overlap|≈0           |≈0           |
 -----------------|-------------|-------------|
-M-E_D------------|≈0           |≈0           |
+M-E_D            |≈0           |≈0           |
 -----------------|-------------|-------------|
-Rotation Angle---|≈0           |≈0           |
+Rotation Angle   |≈0           |≈0           |
 
 
 
@@ -1450,11 +1504,11 @@ Rotation Angle---|≈0           |≈0           |
 Full data set contained all time comparisons for image type one. Data was split into 80%(1073 observations) training, 20% testing(269 observations). 
 
 **Confusion Matrix; Testing Set** 
----------|-----Predicted-----|
+         | Predicted         |
 -----------------------------|
-Observed-|   match| non-match|
+Observed |   Match| Non-match|
 ---------|--------|----------|
-Match----|   124  |       15 |
+Match    |   124  |       15 |
 ---------|--------|----------|  
 Non-Match|   8    |   122    |
 
@@ -1464,12 +1518,12 @@ RF model has an accuracy of 91.4%
 
 **RF Variable Importance**
 
-Variable-----------------| Mean Decrease Gini|
+Variable                 | Mean Decrease Gini|
 -------------------------|-------------------|
-Clique Size--------------| 96.52512----------|
-Rotation Angle-----------| 18.91749----------|
-Reference Overlap--------| 266.33528---------|
-Median Euclidean Distance| 52.46551----------|
+Clique Size              | 96.52512          |
+Rotation Angle           | 18.91749          |
+Overlap  %               | 266.33528         |
+Median Euclidean Distance| 52.46551          |
 
 
 
@@ -1477,11 +1531,11 @@ Median Euclidean Distance| 52.46551----------|
 
 Full data set used contained all time comparisons for image type two. Data was split into 80%(1043 observations) training, 20% testing(261 observations). 
 
----------|---Predicted---|
+         |   Predicted   |
 ---------|---------------|
-Observed-|match|non-match|
+Observed |match|non-match|
 ---------|-----|---------|
-match----| 127 |   7     |
+match    | 127 |   7     |
 ---------|-----|---------|
 non-match| 5   |  122    |
 
@@ -1491,41 +1545,6 @@ The RF model has an classification accuracy of 95.4%
 
 
 
-#### Hana's update on 2/15
-
-- Evaluated the performance of matching using ccf with and without maximum clique method. Unfortunately, the ccf features were not helpful to increase the accuracy of maximum clique method.
-
-
-#### Hana's update on 2/22
-
-- Worked on the algorithm to extract circular features from echo shoes. It was processed mostly well, but there is much room to develop like removing non-circle features automatically, and not missing circular features.
-
-
-#### Hana's update on 3/1
-
-- Evaluated the performance of matching using ccf with and without maximum clique method based on degraded scans because maximum clique's performance has been poor on degraded images. One thing to note was that aligning degraded shoe scans were not processed well eveon in Matlab. For example, two scans from the same shoe at a degraded level were not aligned properly sometimes. Two scans from the same shoe at two different levels were unlikely to be aligned.
-
-- We still want to see the potential of CCF method, so plan to align degraded scans manually and then to apply CCF method to improve the matching performance of maximum clique method with CCF features added.
-
-#### Hana's update on 3/7
-
-- Not much for shoes
-
-- Compared the performance of likelihood ratio based on forensic hypotheses to that of optimal matching rule through simulation study where normal populations were assumed. Likelihood ratios, ROC curve, and prediction accuracy (overall accuracy, sensitivity, and specificiy) at the optimal thresholds were fairly close but there was subtle difference. We wanted to distingush optimal matching rule from forensic likelihood ratio method as well as classification discriminant. This simulation result will be discussed with Dr.Ommen soon once I finalize this simulation. 
-
-#### Hana's update on 3/22
-
-- I am trying to use ccf to align the degraded shoe scans.
-
-- Added the simulation results including the likelihood ratio method to the manuscript for optimal matching rule.
-
-#### Hana's update on 3/29
-
-- Aligning degraded scans using ccf didn't go well while aligning them was not acheived by Matlab and Susan's R packages with me. Instead, I modified 'boosted_clique' function in Soyoung's shoeprintr package so that it uses the rigid transformation since it relies on the affine transformation. By doing so, it seems that aligning surf points from degraded shoe scans works well with the modified function. As a next step, I will apply the resulting rigid transformation based on surf points to the original degraded scans, and use ccf to identify the source of shoes based on the aligned scans.
-
-- For the project of shoe deformation, I plan to find 4 more points from each circle group with the center so that those 4 points are chosen to have the shortest distance to the nearest circle's center, which is free from the alignment of shoe scans. This is just an idea, and will try soon.
-
-- Edited the manuscript for optimal matching rule by adding the simulation results including LR, and making plots more visible, and color-consistent.
 
 
 ####Round Robin Updates

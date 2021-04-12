@@ -1636,7 +1636,9 @@ See Poster Below
 
 ## SRL behaviour and dependence: Extended simulation.
 
-A
+
+## Small updates:
+04/05/2021 – For the last week I focus on writing CC document and preparing presentation. 
 
 ## Communication of Results  
 ### Poster

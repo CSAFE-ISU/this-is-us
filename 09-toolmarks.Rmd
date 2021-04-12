@@ -6,6 +6,11 @@ library(knitr)
 opts_chunk$set(echo=FALSE, warning =FALSE)
 ```
 
+```{r toolmarks, fig.cap="Tool and its corresponding marks from the Color Atlas of Forensic Toolmark Identification (Petraco, 2010).", , fig.show="hold", out.width="100%"}
+knitr::include_graphics("images/toolmarks/initial/Same tool, different iterations, from Atlas of toolmarks.png")
+```
+
+
 ```{r screwdriver, fig.cap="Screwdriver and its tip.", , fig.show="hold", out.width="50%"}
 knitr::include_graphics(c("images/toolmarks/initial/screwdriver.png", "images/toolmarks/initial/tooltip.png"))
 ```
@@ -41,4 +46,12 @@ knitr::include_graphics(c("images/toolmarks/initial/sensofar-tip.png"))
   knitr::include_graphics(c("images/toolmarks/initial/aligned-signatures.png"))
 ```
 
+## Next Steps: experimental setup
 
+```{r toolmark-angle, fig.cap="Striation marks from the same tool under different angles.", , fig.show="hold", out.width="80%"}
+  knitr::include_graphics(c("images/toolmarks/initial/bailker-identify-angle.png"))
+```
+
+```{r rig, fig.cap="Rig setup to control pressure and  angle.", , fig.show="hold", out.width="80%"}
+  knitr::include_graphics(c("images/toolmarks/initial/rig.png"))
+```

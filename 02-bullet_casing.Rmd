@@ -3475,6 +3475,12 @@ knitr::include_graphics("images/cmps/zebra_striped_example.png", dpi=100)
 
 </details>
 
+<details>
+<summary>
+Will 04/18 Update: modified the zebra-striped `signature_shift_plot` and `segment_shift_plot`; prepared for the reading group discussion
+</summary>
+
+</details>
 
 #### Future Work
 

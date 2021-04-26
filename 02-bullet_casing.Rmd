@@ -3726,6 +3726,7 @@ knitr::include_graphics(c("images/andy_temp/Resnet_latest_assigned_label.png"))
 knitr::include_graphics(c("images/andy_temp/Resnet_latest_prediction.png"))
 ```
 
+Update(04/26/2021): Scripts used for Data Processing were converted to functions, with more features and user controls. 
 
 ## Analysis of Results  
 

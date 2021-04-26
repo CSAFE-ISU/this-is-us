@@ -241,9 +241,9 @@ fig:unnamed-chunk-417
 fig:unnamed-chunk-418
 fig:unnamed-chunk-419
 fig:unnamed-chunk-420
-fig:unnamed-chunk-448
-fig:unnamed-chunk-453
+fig:unnamed-chunk-449
 fig:unnamed-chunk-454
+fig:unnamed-chunk-455
 fig:toolmarks
 fig:screwdriver
 fig:tip-sensofar

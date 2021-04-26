@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2021-04-12" />
+<meta name="date" content="2021-04-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -360,7 +360,10 @@ div.csl-indent {
 <li class="chapter" data-level="10.1.1" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html#computational-reproducibility-in-team-based-collaboration"><i class="fa fa-check"></i><b>10.1.1</b> Computational Reproducibility in Team-based Collaboration</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="toolmarks.html"><a href="toolmarks.html"><i class="fa fa-check"></i><b>11</b> Toolmarks</a></li>
+<li class="chapter" data-level="11" data-path="toolmarks.html"><a href="toolmarks.html"><i class="fa fa-check"></i><b>11</b> Toolmarks</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="toolmarks.html"><a href="toolmarks.html#next-steps-experimental-setup"><i class="fa fa-check"></i><b>11.1</b> Next Steps: experimental setup</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -607,11 +610,11 @@ This is necessary because Fourier transforms assume images go on forever, so abr
 <p><img src="images/shoes/longitudinal/FFT_Demo_Hann.png" width = "25%"/></p>
 <ul>
 <li>The strength of the Hann function can be adjusted by a power argument<br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-422-1.png" width="672" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-433-1.png" width="672" /></li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
 <li>Use the Fast Fourier Transform on each image. Center the FFT’d images so that low frequencies are in the center (exchange top left quadrant with bottom right, and top right quadrant with bottom left). Call the FFT’d, centered images <span class="math inline">\(F(A)\)</span> and <span class="math inline">\(F(B)\)</span><br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-423-1.png" width="50%" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-434-1.png" width="50%" /></li>
 </ol>
 <p><img src="images/shoes/longitudinal/FFT_Demo_FFT1.png" width = "50%"/></p>
 <ol start="4" style="list-style-type: decimal">
@@ -1554,45 +1557,45 @@ It is unclear how much ICP is changing after each iteration. For example, in our
 <ul>
 <li>Ex1: A matching pair: scan1 (left; reference) and scan2 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-425-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-436-1.png" width="672" /></p>
 <ul>
 <li>Ex2: A non-matching pair: scan1 (left; reference) from shoe2 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-426-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-437-1.png" width="672" /></p>
 <ul>
 <li>Ex3: A non-matching pair: scan1 (left; reference) from shoe3 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-427-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-438-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Determine 600px by 600px square coordinate for all of the reference images; the location of square is the same for each reference image. For example, the bottom left corner is at (601, 1001) and the top right corner is at (1200, 1600).</li>
 </ol>
 <ul>
 <li>Ex1: A matching pair: scan1 (left; reference) and scan2 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-428-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-439-1.png" width="672" /></p>
 <ul>
 <li>Ex2: A non-matching pair: scan1 (left; reference) from shoe2 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-429-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-440-1.png" width="672" /></p>
 <ul>
 <li>Ex3: A non-matching pair: scan1 (left; reference) from shoe3 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-430-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-441-1.png" width="672" /></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Extract the 600px by 600px square from both reference and moving images in each matching/non-matching pair, and then split each square into 36 smaller squares that are 100px by 100px. As a result, there are 36 100px by 100px squares are obtained from the reference and moving images, respectively, in each pair.</li>
 </ol>
 <ul>
 <li>Ex1:</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-431-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-442-1.png" width="672" /></p>
 <ul>
 <li>Ex2:</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-432-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-443-1.png" width="672" /></p>
 <ul>
 <li>Ex3:</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-433-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-444-1.png" width="672" /></p>
 <ol start="5" style="list-style-type: decimal">
 <li>Compute maximum cross correlation function from a small square of a reference image and its corresponding small square of the moving image. Consequently, there are 36 maximum ccf and their (dx, dy) obtained from each matching/nonmatching pair. Summarize ccf, dx, and dy so that only a single set of features from them is made from each pair.</li>
 </ol>
@@ -1614,11 +1617,11 @@ It is unclear how much ICP is changing after each iteration. For example, in our
 <li>Train randomforest based on the features of ccf, dx, and dy from the training set, and predict whether each pair in the test set is matching or non-matching.</li>
 </ol>
 <pre><code>## Warning: package &#39;randomForest&#39; was built under R version 4.0.2</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-436-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-447-1.png" width="672" /></p>
 </div>
 <div id="massive-matching-pairs-added-to-training-set" class="section level4" number="7.7.0.2">
 <h4><span class="header-section-number">7.7.0.2</span> Massive matching pairs added to training set</h4>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-437-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-448-1.png" width="672" /></p>
 <div id="hanas-update-on-215" class="section level5" number="7.7.0.2.1">
 <h5><span class="header-section-number">7.7.0.2.1</span> Hana’s update on 2/15</h5>
 <ul>

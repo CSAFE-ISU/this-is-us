@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2021-04-12" />
+<meta name="date" content="2021-04-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -360,7 +360,10 @@ div.csl-indent {
 <li class="chapter" data-level="10.1.1" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html#computational-reproducibility-in-team-based-collaboration"><i class="fa fa-check"></i><b>10.1.1</b> Computational Reproducibility in Team-based Collaboration</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="toolmarks.html"><a href="toolmarks.html"><i class="fa fa-check"></i><b>11</b> Toolmarks</a></li>
+<li class="chapter" data-level="11" data-path="toolmarks.html"><a href="toolmarks.html"><i class="fa fa-check"></i><b>11</b> Toolmarks</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="toolmarks.html"><a href="toolmarks.html#next-steps-experimental-setup"><i class="fa fa-check"></i><b>11.1</b> Next Steps: experimental setup</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -404,7 +407,7 @@ div.csl-indent {
 <p><strong>The first 90 complete writers were published:</strong>
 &gt; Crawford, Amy; Ray, Anyesha; Carriquiry, Alicia; Kruse, James; Peterson, Marc (2019): CSAFE Handwriting Database. Iowa State University. Dataset. <a href="https://doi.org/10.25380/iastate.10062203" class="uri">https://doi.org/10.25380/iastate.10062203</a>.</p>
 Anyesha and I worked on a variety of <strong>data quality checks and batch processing</strong> prior to publication. Scanner cuts a portion of the left side of the documents off sporadically. Survey date checks. Batch removal of header.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-351"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-361"></span>
 <img src="images/handwriting/amy/promptimage.png" alt="Batch process samples: rotate 0.05 degrees, turn black line pixels white, crop 450 pixels from top (under QR code), rename." width="90%" />
 <p class="caption">
 Figure 5.1: Batch process samples: rotate 0.05 degrees, turn black line pixels white, crop 450 pixels from top (under QR code), rename.
@@ -433,14 +436,14 @@ Crawford, A., Ray, A., &amp; Carriquiry, A. (2020). A database of handwriting sa
 <li><strong> Break. </strong> Connected writing is decomposed into small manageable pieces called <strong> glyphs </strong>. Glyphs are graphical structures with nodes and edges that often, but not always, correspond to Roman letters, and are the smallest unit of observation we consider for statistcal modelling.</li>
 <li><strong> Measure. </strong> A variety of measurements are taken on each glyph. See Section 4.2.1.</li>
 </ol>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-354"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-364"></span>
 <img src="images/handwriting/amy/handwriter_csafe.png" alt="Connected text processed by `handwriter`. The grey background is the original pen stroke. Colored lines represent the single pixel skeleton with color changes marking glyph decomposition. Red dots mark endpoints and intersections of each glyph." width="50%" />
 <p class="caption">
 Figure 5.2: Connected text processed by <code>handwriter</code>. The grey background is the original pen stroke. Colored lines represent the single pixel skeleton with color changes marking glyph decomposition. Red dots mark endpoints and intersections of each glyph.
 </p>
 </div>
 <p>For an input document, functions in the package give back a list of glyphs with path and node location information, adjacency grouping assignment, centroid locations, measurements (such as slope, pictured below), among other things. More on measurements in Section 4.2.1.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-355"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-365"></span>
 <img src="images/handwriting/amy/handwriter_slopecalc.png" alt="A visual of the ''slope'' calculation for two glyphs." width="90%" />
 <p class="caption">
 Figure 5.3: A visual of the ‘’slope’’ calculation for two glyphs.
@@ -458,7 +461,7 @@ Figure 5.3: A visual of the ‘’slope’’ calculation for two glyphs.
 <br>
 <span class="math display">\[\sum_{Num.\: Pixels}\frac{d(pixel,centroid)^2}{Num.\: Pixels -1}\]</span>
 While informative for comparing like-sized graphs, this measurement suffers from the inherit spacial dependence between pixels and (unfortunately) does not scale well for modelling.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-356"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-366"></span>
 <img src="images/handwriting/amy/compactness.png" alt="A visual of the ``compactness'' calculation for graphs" width="90%" />
 <p class="caption">
 Figure 5.4: A visual of the ``compactness’’ calculation for graphs
@@ -472,25 +475,25 @@ Figure 5.4: A visual of the ``compactness’’ calculation for graphs
 </ol>
 </summary>
 <p>The first principal component for each graph, or “letter,” is calculated through an eigendecomposition of the covariance matrix. The first principal component enjoys the property of having two invariant directions, and so we take the vector that lies in the upper half plane. The rotation angle of the graph is defined as the angle between the vector (0,1), and the unit principal component vector on the upper half plane. The angle is measured in radians and is considered a feature of the graph defined on the interval (0,<span class="math inline">\(\pi\)</span>).</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-357"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-367"></span>
 <img src="images/handwriting/amy/w0095-1.png" alt="Top: writing from one of Writer 95's training documents. Bottom: the graphs from handwriter that correpsond to the writing, and the unit vector in the first pricipal direction. Red vectors are rotated by $\pi$ to lie in the upper half plane prior to calculation of the rotation angle from the positive x-axis." width="100%" />
 <p class="caption">
 Figure 5.5: Top: writing from one of Writer 95’s training documents. Bottom: the graphs from handwriter that correpsond to the writing, and the unit vector in the first pricipal direction. Red vectors are rotated by <span class="math inline">\(\pi\)</span> to lie in the upper half plane prior to calculation of the rotation angle from the positive x-axis.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-358"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-368"></span>
 <img src="images/handwriting/amy/rotationangles_writer95_cluster29.pdf" alt="Data: All Cluster \#29 graphs in Writer 95's training documents. Left: A Nightingale Rose diagram displaying the rotation angles in 20 'petals'. A point for each observed rotation angle is plotted on the outermost ring of the diagram. Right: A traditional histogram of the rotation angles with 20 bins, a point for each observation is plotted on the x-axis." width="70%" />
 <p class="caption">
 Figure 5.6: Data: All Cluster #29 graphs in Writer 95’s training documents. Left: A Nightingale Rose diagram displaying the rotation angles in 20 ‘petals.’ A point for each observed rotation angle is plotted on the outermost ring of the diagram. Right: A traditional histogram of the rotation angles with 20 bins, a point for each observation is plotted on the x-axis.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-359"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-369"></span>
 <img src="images/handwriting/amy/w0001crop.png" alt="Top: writing from one of Writer 1's training documents. Bottom: the graphs from handwriter that correpsond to the writing, and the unit vector in the first pricipal direction. Red vectors are rotated by $\pi$ to lie in the upper half plane prior to calculation of the rotation angle from the positive x-axis." width="100%" />
 <p class="caption">
 Figure 5.7: Top: writing from one of Writer 1’s training documents. Bottom: the graphs from handwriter that correpsond to the writing, and the unit vector in the first pricipal direction. Red vectors are rotated by <span class="math inline">\(\pi\)</span> to lie in the upper half plane prior to calculation of the rotation angle from the positive x-axis.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-360"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-370"></span>
 <img src="images/handwriting/amy/rotationangles_writer1_clusters-16-29.pdf" alt="Nightingale rose diagrams and traditional histograms for the rotation angles from Writer \#1's training documents in Clusters \#29 (top) and \#16 (bottom)." width="70%" />
 <p class="caption">
 Figure 5.8: Nightingale rose diagrams and traditional histograms for the rotation angles from Writer #1’s training documents in Clusters #29 (top) and #16 (bottom).
@@ -503,19 +506,19 @@ Figure 5.8: Nightingale rose diagrams and traditional histograms for the rotatio
 <li>Loop measurements</li>
 </ol>
 </summary>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-361"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-371"></span>
 <img src="images/handwriting/amy/loops_writer95.pdf" alt="A few graphs with loops that come from the Writer 95 sample from Figure 4.5 (top)." width="100%" />
 <p class="caption">
 Figure 5.9: A few graphs with loops that come from the Writer 95 sample from Figure 4.5 (top).
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-362"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-372"></span>
 <img src="images/handwriting/amy/loops_linearvslog_writer95.pdf" alt="Distribution of loop ratios for Writer 95 across all training documents." width="68%" />
 <p class="caption">
 Figure 5.10: Distribution of loop ratios for Writer 95 across all training documents.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-363"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-373"></span>
 <img src="images/handwriting/amy/loops_hist_writers-95-1.pdf" alt="Distribution of log loop ratios for Writers 1 and 95 across all training documents." width="45%" />
 <p class="caption">
 Figure 5.11: Distribution of log loop ratios for Writers 1 and 95 across all training documents.
@@ -545,7 +548,7 @@ Paper submitted to ASA Statistical Analysis and Data Mining.
 <p>We begin by defining edge to edge distances. Edge to edge distances are subsequently combined for an overall glyph to glyph distance.</p>
 <p><strong>Edge to edge distances:</strong></p>
 Consider the following single edge glyphs, <span class="math inline">\(e_1\)</span> and <span class="math inline">\(e_2\)</span>. Make <span class="math inline">\(3\)</span> edits to <span class="math inline">\(e_1\)</span> to match <span class="math inline">\(e_2\)</span>. The combined magnitude of each edit make the edge distance.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-365"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-375"></span>
 <img src="images/handwriting/amy/DistMeasurePlot1.png" alt="Two edges that are also glyphs, $e_1$ and $e_2$." width="60%" />
 <p class="caption">
 Figure 5.12: Two edges that are also glyphs, <span class="math inline">\(e_1\)</span> and <span class="math inline">\(e_2\)</span>.
@@ -553,28 +556,28 @@ Figure 5.12: Two edges that are also glyphs, <span class="math inline">\(e_1\)</
 </div>
 <ol style="list-style-type: decimal">
 <li><strong> Shift</strong>. Anchor to the nearest endpoint by shifting.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-366"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-376"></span>
 <img src="images/handwriting/amy/DistMeasurePlot2.png" alt="Shift = 1.4." width="25%" />
 <p class="caption">
 Figure 5.13: Shift = 1.4.
 </p>
 </div></li>
 <li><strong> Stretch</strong>. Make the endpoints the same distance apart.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-367"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-377"></span>
 <img src="images/handwriting/amy/DistMeasurePlot3.png" alt="Stretch = 9.9." width="25%" />
 <p class="caption">
 Figure 5.14: Stretch = 9.9.
 </p>
 </div></li>
 <li><strong> Shape</strong>. Bend and twist the edge using <span class="math inline">\(7\)</span> shape points. Shape points are ‘’matched’’ and the distance between them is averaged to obtain the shape contribution to the distance measure.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-368"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-378"></span>
 <img src="images/handwriting/amy/DistMeasurePlot4.png" alt="Shape Components." width="25%" />
 <p class="caption">
 Figure 5.15: Shape Components.
 </p>
 </div></li>
 </ol>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-369"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-379"></span>
 <img src="images/handwriting/amy/DistMeasurePlot5.png" alt="Shape = 8.4." width="100%" />
 <p class="caption">
 Figure 5.16: Shape = 8.4.
@@ -586,7 +589,7 @@ Figure 5.16: Shape = 8.4.
 <div id="measure-of-glyph-centers" class="section level4 unnumbered">
 <h4>Measure of glyph centers</h4>
 Take the weighted average of endpoints, <span class="math inline">\(7\)</span> shape points, and edge length.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-370"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-380"></span>
 <img src="images/handwriting/amy/Meanplot1.png" alt="Weighted mean between two glyphs. p = weight on blue." width="60%" />
 <p class="caption">
 Figure 5.17: Weighted mean between two glyphs. p = weight on blue.
@@ -603,14 +606,14 @@ Figure 5.17: Weighted mean between two glyphs. p = weight on blue.
 </li>
 <li>Calculate each cluster mean as defined. Find the exemplar nearest the cluster mean and use it as the new cluster center.</li>
 </ol>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-371"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-381"></span>
 <img src="images/handwriting/amy/Cluster40.png" alt="One of $K=40$ Clusters. Exemplar &amp; cluster members (left). Cluster mean (right)." width="40%" />
 <p class="caption">
 Figure 5.18: One of <span class="math inline">\(K=40\)</span> Clusters. Exemplar &amp; cluster members (left). Cluster mean (right).
 </p>
 </div>
 <p>Use one document from each training writer to cluster and obtain a template. Make cluster assignments for the remaining documents by finding the template exemplar each glyph is nearest to. Below is an example of data that arises from the clustering method.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-372"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-382"></span>
 <img src="images/handwriting/amy/Clusterdata.png" alt="Data arising from the cluster grouping method. Cluster #'s ordered by most to least populated." width="60%" />
 <p class="caption">
 Figure 5.19: Data arising from the cluster grouping method. Cluster #’s ordered by most to least populated.
@@ -620,7 +623,7 @@ Figure 5.19: Data arising from the cluster grouping method. Cluster #’s ordere
 <div id="outliers" class="section level4" number="5.3.1.1">
 <h4><span class="header-section-number">5.3.1.1</span> Outliers</h4>
 <p>During clustering, outliers are considered glyphs that are at least <span class="math inline">\(T_o\)</span> distance units from cluster exemplars. The algorithm sets a ceiling <span class="math inline">\(n_o\)</span> on the allowable number of outliers. Initially, we were going to ignore the outliers, but now they are considered the <span class="math inline">\(K+1\)</span>th cluster and contribute information about writer.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-373"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-383"></span>
 <img src="images/handwriting/amy/HW_Outliers.png" alt="Cluster of outliers." width="80%" />
 <p class="caption">
 Figure 5.20: Cluster of outliers.
@@ -653,13 +656,13 @@ Figure 5.20: Cluster of outliers.
 <summary>
 The final template.
 </summary>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-374"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-384"></span>
 <img src="images/handwriting/amy/clusterplot2.png" alt="Exemplars for the first 20 most populated clusters (according to training data, later). The red lines are not plotting correctly.." width="80%" />
 <p class="caption">
 Figure 5.21: Exemplars for the first 20 most populated clusters (according to training data, later). The red lines are not plotting correctly..
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-375"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-385"></span>
 <img src="images/handwriting/amy/clusterplot1.png" alt="Exemplars for the first 20 least populated clusters (according to training data, later). The red lines are not plotting correctly.." width="80%" />
 <p class="caption">
 Figure 5.22: Exemplars for the first 20 least populated clusters (according to training data, later). The red lines are not plotting correctly..
@@ -718,7 +721,7 @@ and compute summaries over the MCMC draws,
 \]</span></p>
 <p><strong> Results </strong></p>
 <p>If we use a single holdout document for each writer (doc 4). The <span class="math inline">\(\boldsymbol{\bar{p}}\)</span> vector as given above is shown graphically for each holdout document (the rows).</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-376"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-386"></span>
 <img src="images/handwriting/amy/CVL_w27_h4_cluster40_basemodel_grid.png" alt="Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.2013" width="60%" />
 <p class="caption">
 Figure 5.23: Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.2013
@@ -726,7 +729,7 @@ Figure 5.23: Posterior predictive results. Rows are evaluated independently and 
 </div>
 <p><br></p>
 <p>We can use a cross validation routine to estimate error. For each writer, shuffle the order of their body of documents. For the first fold we holdout the first document for testing, for the second fold we hold out the second document for testing, etc.. This yields 6 results analogous to that of the figure above.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-377"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-387"></span>
 <img src="images/handwriting/amy/CVL_w27_CVfoldall_cluster40_basemodel_grid.png" alt="Posterior predictive results for each fold of the CV routine outlined above. Log Loss is clearly not a great summary of performance." width="100%" />
 <p class="caption">
 Figure 5.24: Posterior predictive results for each fold of the CV routine outlined above. Log Loss is clearly not a great summary of performance.
@@ -740,20 +743,20 @@ With a count data model it is important to investigate the presence of over- and
 <li>Relative Dispersion Index (RDI) = <span class="math inline">\(\frac{\mbox{writer data GDI}}{\mbox{model simulated GDI}}.\)</span></li>
 <li>High RDI <span class="math inline">\(\implies\)</span> data over-dispersion and high sample to sample variability.</li>
 </ul>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-378"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-388"></span>
 <img src="images/handwriting/amy/RDI_table.png" alt="RDIs for the 27 CVL writers under Model #1." width="60%" />
 <p class="caption">
 Figure 5.25: RDIs for the 27 CVL writers under Model #1.
 </p>
 </div>
 <p>High RDI <span class="math inline">\(\implies\)</span> data over-dispersion &amp; high sample to sample variability (in the sense of glyph cluster membership rates).</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-379"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-389"></span>
 <img src="images/handwriting/amy/writer12samples.png" alt="Handwriting Samples from Writer #12. Notice the repeated patterns in letters 'a', 'e', 'f', 'g', 'h', 't', etc. across samples." width="70%" />
 <p class="caption">
 Figure 5.26: Handwriting Samples from Writer #12. Notice the repeated patterns in letters ‘a,’ ‘e,’ ‘f,’ ‘g,’ ‘h,’ ‘t,’ etc. across samples.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-380"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-390"></span>
 <img src="images/handwriting/amy/writer23samples.png" alt="Handwriting Samples from Writer #23. Note the red 'h's, green 'll's, purple terminal 'y's, and blue 'loo's" width="80%" />
 <p class="caption">
 Figure 5.27: Handwriting Samples from Writer #23. Note the red ’h’s, green ’ll’s, purple terminal ’y’s, and blue ’loo’s
@@ -763,7 +766,7 @@ Figure 5.27: Handwriting Samples from Writer #23. Note the red ’h’s, green �
 <div id="model-2-mixture" class="section level4 unnumbered">
 <h4>Model #2, Mixture</h4>
 There seem to be greatly varying shapes in the relative frequency of cluster fill. We think maybe a more flexible Dirichlet distribution is warranted.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-381"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-391"></span>
 <img src="images/handwriting/amy/bucketfillshapes.png" alt="Average relative frequency of cluster fill for the 8 most common clusters. Notice writers 12/21 and 6/17/18." width="80%" />
 <p class="caption">
 Figure 5.28: Average relative frequency of cluster fill for the 8 most common clusters. Notice writers 12/21 and 6/17/18.
@@ -784,10 +787,10 @@ This has been resolved (?) by placing constraints on the first three elements of
 <li><p><span class="math inline">\(\mathbf{\alpha_2 &gt; \beta_2}\)</span> , <span class="math inline">\(\quad\)</span> <span class="math inline">\(\alpha_2 \sim Gamma(4, 0.25) \:\: \&amp; \:\: \beta_2 \sim Gamma(1, 0.25)\)</span></p></li>
 <li><p><span class="math inline">\(\mathbf{\alpha_3 &gt; \beta_3}\)</span> , <span class="math inline">\(\quad\)</span> <span class="math inline">\(\alpha_3 \sim Gamma(4, 0.25) \:\: \&amp; \:\: \beta_3 \sim Gamma(1, 0.25)\)</span></p></li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-382-1.png" width="624" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-392-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p><strong> Results </strong></p>
 The mixing component gives insights into writing style.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-383"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-393"></span>
 <img src="images/handwriting/amy/mixprior_rhosamps2.png" alt="Average 
 ho_w value for each writer." width="70%" />
 <p class="caption">
@@ -795,14 +798,14 @@ Figure 5.29: Average
 ho_w value for each writer.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-384"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-394"></span>
 <img src="images/handwriting/amy/writingsamples_style.png" alt="Writing samples in a variety of styles based on the mixing parameter. From top to bottom, writer #'s 21, 4, 29, 20, 18." width="60%" />
 <p class="caption">
 Figure 5.30: Writing samples in a variety of styles based on the mixing parameter. From top to bottom, writer #’s 21, 4, 29, 20, 18.
 </p>
 </div>
 Evaluate the posterior probability of writership for each of the holdout documents.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-385"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-395"></span>
 <img src="images/handwriting/amy/CVL_w27_h4_cluster40_mixparam_grid.png" alt="Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.2078" width="60%" />
 <p class="caption">
 Figure 5.31: Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.2078
@@ -817,14 +820,14 @@ Figure 5.31: Posterior predictive results. Rows are evaluated independently and 
 </li>
 <li>Testing doc: s01_pLND_r02</li>
 </ul>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-386"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-396"></span>
 <img src="images/handwriting/amy/csafe20_relfreqbyrho_template65_first8clusters.png" alt="Average relative frequency of cluster fill for the 8 most common clusters." width="90%" />
 <p class="caption">
 Figure 5.32: Average relative frequency of cluster fill for the 8 most common clusters.
 </p>
 </div>
 Posterior probability results.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-387"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-397"></span>
 <img src="images/handwriting/amy/csafe20_postprobs_template65.png" alt="Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one." width="60%" />
 <p class="caption">
 Figure 5.33: Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one.
@@ -875,7 +878,7 @@ Posterior probability that the questioned document belongs to writer <span class
 <p>for MCMC samples <span class="math inline">\(m = 1, \dots, M\)</span>.</p>
 <p><strong> Results </strong></p>
 Evaluate the posterior probability of writership for each of the holdout documents.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-388"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-398"></span>
 <img src="images/handwriting/amy/CVL_w27_h4_cluster40_normslopemean_grid.png" alt="Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.0883." width="60%" />
 <p class="caption">
 Figure 5.34: Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.0883.
@@ -927,7 +930,7 @@ Figure 5.34: Posterior predictive results. Rows are evaluated independently and 
 <li>Test: 1 Wizard of Oz</li>
 </ul>
 <p>Recall rotation angle measurements:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-390"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-400"></span>
 <img src="images/handwriting/amy/rotationangles_writer95_cluster29.pdf" alt="Data: All Cluster \#29 graphs in Writer 95's training documents. Left: A Nightingale Rose diagram displaying the rotation angles in 20 'petals'. A point for each observed rotation angle is plotted on the outermost ring of the diagram. Right: A traditional histogram of the rotation angles with 20 bins, a point for each observation is plotted on the x-axis." width="70%" />
 <p class="caption">
 Figure 5.35: Data: All Cluster #29 graphs in Writer 95’s training documents. Left: A Nightingale Rose diagram displaying the rotation angles in 20 ‘petals.’ A point for each observed rotation angle is plotted on the outermost ring of the diagram. Right: A traditional histogram of the rotation angles with 20 bins, a point for each observation is plotted on the x-axis.
@@ -947,28 +950,28 @@ variance_{w,k} &amp;= \frac{\mu_{w,k}(1 - \mu_{w,k})}{\alpha_{w,k} + \beta_{w,k}
 \kappa_{w,k} &amp;= \alpha_{w,k} + \beta_{w,k}  \: \sim Gamma(shape = 0.1, rate = 1)
 \end{align}\]</span></p>
 <p>Where <span class="math inline">\(SRA_{w,k,i}, \: \:i = 1, \dots, n_{w,k}\)</span>, are rotation angles from cluster <span class="math inline">\(k\)</span>, and writer <span class="math inline">\(w\)</span>, scaled to the beta density support of (0,1). For a given writer and cluster, <span class="math inline">\(\mu_{w,k}\)</span> is the mean of the data distribution, expressed as a functions of <span class="math inline">\(\alpha_{w,k}\)</span> and <span class="math inline">\(\beta_{w,k}\)</span>. We place a weak prior, <span class="math inline">\(Beta(2,2)\)</span>, on all <span class="math inline">\(\mu_{w,k}\)</span>. Similarly, <span class="math inline">\(\kappa_{w,k}\)</span> is expressed as a function of <span class="math inline">\(\alpha_{w,k}\)</span> and <span class="math inline">\(\beta_{w,k}\)</span> and is a sort of “sample size,” or “precision” parameter. Notice that <span class="math inline">\(\kappa_{w,k}+1\propto\frac{1}{variance_{w,k}}\)</span>.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-391"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-401"></span>
 <img src="images/handwriting/amy/rotationangles_writer95_cluster29_mcmcsamples.pdf" alt="Writer 95, Cluster 29. A plot depicting elements of the data model $SRA_{w,k} \: \sim \: Beta ( \alpha_{w,k}, \beta_{w,k})$. Top: values of $\alpha^{(m)}_{95,29}$ and $\beta^{(m)}_{95,29}$ for $m = 1, \dots,12$ iterations taken from the middle of the chain and used to plot the $12$ correpsonding beta densities. Bottom: the unscaled rotation angles (unscaled $SRA_{w,k}$), serving as data for the parameter estimation." width="70%" />
 <p class="caption">
 Figure 5.36: Writer 95, Cluster 29. A plot depicting elements of the data model <span class="math inline">\(SRA_{w,k} \: \sim \: Beta ( \alpha_{w,k}, \beta_{w,k})\)</span>. Top: values of <span class="math inline">\(\alpha^{(m)}_{95,29}\)</span> and <span class="math inline">\(\beta^{(m)}_{95,29}\)</span> for <span class="math inline">\(m = 1, \dots,12\)</span> iterations taken from the middle of the chain and used to plot the <span class="math inline">\(12\)</span> correpsonding beta densities. Bottom: the unscaled rotation angles (unscaled <span class="math inline">\(SRA_{w,k}\)</span>), serving as data for the parameter estimation.
 </p>
 </div>
 <p>For a different writer who does not tend to lean one way or another…</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-392"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-402"></span>
 <img src="images/handwriting/amy/rotationangles_writer1_clusters-16-29.pdf" alt="Nightingale rose diagrams and traditional histograms for the rotation angles from Writer \#1's training documents in Clusters \#29 (top) and \#16 (bottom)." width="75%" />
 <p class="caption">
 Figure 5.37: Nightingale rose diagrams and traditional histograms for the rotation angles from Writer #1’s training documents in Clusters #29 (top) and #16 (bottom).
 </p>
 </div>
 <p>And we can look at a handful of beta distributions that arise from <span class="math inline">\(w=1\)</span> and <span class="math inline">\(k=16\)</span>…</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-393"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-403"></span>
 <img src="images/handwriting/amy/rotationangles_writer1_cluster16_mcmcsamples.pdf" alt="Writer 1, Cluster 16. A plot depicting elements of the data model $SRA_{w,k} \: \sim \: Beta ( \alpha_{w,k}, \beta_{w,k})$. Top: values of $\alpha^{(m)}_{1,16}$ and $\beta^{(m)}_{1,16}$ for $m = 1, \dots,12$ iterations taken from the middle of the chain and used to plot the $12$ correpsonding beta densities. Bottom: the unscaled rotation angles (unscaled $SRA_{w,k}$), serving as data for the parameter estimation." width="70%" />
 <p class="caption">
 Figure 5.38: Writer 1, Cluster 16. A plot depicting elements of the data model <span class="math inline">\(SRA_{w,k} \: \sim \: Beta ( \alpha_{w,k}, \beta_{w,k})\)</span>. Top: values of <span class="math inline">\(\alpha^{(m)}_{1,16}\)</span> and <span class="math inline">\(\beta^{(m)}_{1,16}\)</span> for <span class="math inline">\(m = 1, \dots,12\)</span> iterations taken from the middle of the chain and used to plot the <span class="math inline">\(12\)</span> correpsonding beta densities. Bottom: the unscaled rotation angles (unscaled <span class="math inline">\(SRA_{w,k}\)</span>), serving as data for the parameter estimation.
 </p>
 </div>
 <p>Why am I showing you histograms and MCMC samples from clusters #29 and #16?? Becasue these are great examples of where the problems occur with the naive approach to modeling the “unwrapped” angles.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-394"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-404"></span>
 <img src="images/handwriting/amy/cluster29.png" alt="Cluster members in grey, and cluster exemplars in red (plotting is a few pixels shifted left) for clusters $\#29$ (left), and $\#26$ (right)" width="15%" /><img src="images/handwriting/amy/cluster16.png" alt="Cluster members in grey, and cluster exemplars in red (plotting is a few pixels shifted left) for clusters $\#29$ (left), and $\#26$ (right)" width="15%" />
 <p class="caption">
 Figure 5.39: Cluster members in grey, and cluster exemplars in red (plotting is a few pixels shifted left) for clusters <span class="math inline">\(\#29\)</span> (left), and <span class="math inline">\(\#26\)</span> (right)
@@ -977,14 +980,14 @@ Figure 5.39: Cluster members in grey, and cluster exemplars in red (plotting is 
 <p>These are clusters that tend to hold the letters <span class="math inline">\(n\)</span> and <span class="math inline">\(u\)</span> and thus, are generally wider than they are tall. When a writer emits one of these nearly straight up and down, but slightly right leaning, the rotation angle will be just above zero. If the graph is very slightly left leaning, then the rotation angle will be just under <span class="math inline">\(\pi\)</span>.</p>
 <p>While the beta distribution can take on a <span class="math inline">\(U\)</span>-shape (like the Writer 1, Cluster 16 data in Figure 4), this is still undesirable, becuase we want to express the fact that values near <span class="math inline">\(0\)</span> and <span class="math inline">\(\pi\)</span> are actually very similar. For example, a mean near <span class="math inline">\(\pi/2\)</span> does not do a good job of expressing the center of those rotation angles, and a traditional “unwrapped” variance will overstate the variability in data that is actually quite similar.</p>
 <p>Consider the following distribution of cluster #16 rotation angles from writer #85’s questioned document. The largest observation is 3.129, which scales to 0.996, the next largest is 3.024, which scales to 0.963. These are going to accumulate a huge amount of likelihood when evaluated under the beta parameters for Writer #1, displayed in Figure 6. The rest of the rotation angles are relatively spread out over the <span class="math inline">\(x\)</span>-axis, and not necessarily reflective of the Writer #1 distribution in Cluster #16.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-395"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-405"></span>
 <img src="images/handwriting/amy/rotationangles_writer85_qd.pdf" alt="Questioned Document. Writer \#85. Cluster \#16." width="45%" />
 <p class="caption">
 Figure 5.40: Questioned Document. Writer #85. Cluster #16.
 </p>
 </div>
 <p><strong>QD evaluation</strong> under beta distributed rotation angles using <span class="math inline">\(k=1,\dots,20\)</span>, the <span class="math inline">\(20\)</span> most populated clusters. Notice the probability for questioned writer #85 that is assigned to known writer #1. This error is explained by the behavior depicted above. Not all off-diagonal probability assignment can be attributed to similar behavior, but much of it can.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-396"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-406"></span>
 <img src="images/handwriting/amy/postprobs_RA_betadist.pdf" alt="Posterior predictive evaluation of QDs under beta distributed rotation angles." width="100%" />
 <p class="caption">
 Figure 5.41: Posterior predictive evaluation of QDs under beta distributed rotation angles.
@@ -992,13 +995,13 @@ Figure 5.41: Posterior predictive evaluation of QDs under beta distributed rotat
 </div>
 <p><strong>A Wrapped Model for Rotation Angles</strong></p>
 <p>A more appropriate approach to the problem is to consider the rotation angles in the polar coordinate system and treat them as spanning the full circle. So we map the upper half plane values to <span class="math inline">\((0,2\pi)\)</span>, where values above the <span class="math inline">\(x-\)</span>axis indicate a right leaning graph and below the <span class="math inline">\(x-\)</span>axis indicate left leaning graphs. Graphs that are relatively straight up and down will have values near <span class="math inline">\(0/2\pi\)</span> if they are wider than they are tall, and near <span class="math inline">\(\pi\)</span> if they are taller than they are wide.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-397"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-407"></span>
 <img src="images/handwriting/amy/rotationangles_writer1_wrappeddata.pdf" alt="Writer 1, Cluster 16. Left: linear consideration of the rotation angles. Right: wrapped rotation angles on the full circle."  />
 <p class="caption">
 Figure 5.42: Writer 1, Cluster 16. Left: linear consideration of the rotation angles. Right: wrapped rotation angles on the full circle.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-398"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-408"></span>
 <img src="images/handwriting/amy/rotationangles_writer1_wrappeddata_withdist.pdf" alt="Two candidate distributions defined on circular data, both specified at MLE parameter values calculated from the data."  />
 <p class="caption">
 Figure 5.43: Two candidate distributions defined on circular data, both specified at MLE parameter values calculated from the data.
@@ -1018,7 +1021,7 @@ RA_{w,k} | w,k \: &amp; \stackrel{iid}{\sim}\: Wrapped \: Cauchy \left( \mu_{w,k
 \end{align}\]</span></p>
 <p>Where <span class="math inline">\(RA_{w,k,i}, \: \:i = 1, \dots, n_{w,k}\)</span>, are rotation angles from cluster <span class="math inline">\(k\)</span>, and writer <span class="math inline">\(w\)</span>, on the full circle <span class="math inline">\((0,2\pi)\)</span>. For a given writer and cluster, <span class="math inline">\(\mu_{w,k}\)</span> and <span class="math inline">\(\phi_{w,k}\)</span> are the location and concentration parameters, respectively. We place non-informative uniform priors on each. Again, there is no borrowing set up in the model for rotation angles. Each writer/cluster combination gets its own estimated rotation angle distribution.</p>
 <p><strong>QD evaluation</strong> under wrapped Cauchy distributed rotation angles, using <span class="math inline">\(k=1,\dots,20\)</span>, the <span class="math inline">\(20\)</span> most populated clusters. Notice the probability for questioned writer #85 that was previously assigned to known writer #1 is no longer an issue.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-399"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-409"></span>
 <img src="images/handwriting/amy/postprobs_RA_wrappedcauchy.pdf" alt="Posterior predictive evaluation of QDs under wrapped Cauchy distributed rotation angles." width="100%" />
 <p class="caption">
 Figure 5.44: Posterior predictive evaluation of QDs under wrapped Cauchy distributed rotation angles.
@@ -1033,7 +1036,7 @@ Figure 5.44: Posterior predictive evaluation of QDs under wrapped Cauchy distrib
 <p>We tend to do worse on writers who only had 2 training documents.</p>
 <p><img src="images/handwriting/amy/Amountoftrainingdata.png" width="80%" style="display: block; margin: auto auto auto 0;" /></p>
 Writers 32 and 133.
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-401"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-411"></span>
 <img src="images/handwriting/amy/postprobs_RA_wrappedcauchy_all40_miss.png" alt="All 40 documents, wrapped cauchy rotation angles, where do we miss?" width="100%" />
 <p class="caption">
 Figure 5.45: All 40 documents, wrapped cauchy rotation angles, where do we miss?
@@ -1044,7 +1047,7 @@ Figure 5.45: All 40 documents, wrapped cauchy rotation angles, where do we miss?
 <summary>
 Writer 32 Test
 </summary>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-402"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-412"></span>
 <img src="images/handwriting/amy/writer32_qd.png" alt="Writer 32 Test" width="100%" />
 <p class="caption">
 Figure 5.46: Writer 32 Test
@@ -1055,7 +1058,7 @@ Figure 5.46: Writer 32 Test
 <summary>
 Writer 133 Train
 </summary>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-403"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-413"></span>
 <img src="images/handwriting/amy/writer133_train.png" alt="Writer 133 Train" width="100%" />
 <p class="caption">
 Figure 5.47: Writer 133 Train
@@ -1069,7 +1072,7 @@ Figure 5.47: Writer 133 Train
 <summary>
 London Letter #1
 </summary>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-404"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-414"></span>
 <img src="images/handwriting/amy/writer4_1.png" alt="Writer 4 data." width="100%" />
 <p class="caption">
 Figure 5.48: Writer 4 data.
@@ -1080,7 +1083,7 @@ Figure 5.48: Writer 4 data.
 <summary>
 London Letter #2
 </summary>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-405"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-415"></span>
 <img src="images/handwriting/amy/writer4_2.png" alt="Writer 4 data." width="100%" />
 <p class="caption">
 Figure 5.49: Writer 4 data.
@@ -1091,7 +1094,7 @@ Figure 5.49: Writer 4 data.
 <summary>
 London Letter #3
 </summary>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-406"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-416"></span>
 <img src="images/handwriting/amy/writer4_3.png" alt="Writer 4 data." width="100%" />
 <p class="caption">
 Figure 5.50: Writer 4 data.
@@ -1101,7 +1104,7 @@ Figure 5.50: Writer 4 data.
 </div>
 <div id="you-all" class="section level4" number="5.3.3.3">
 <h4><span class="header-section-number">5.3.3.3</span> You all!</h4>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-407"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-417"></span>
 <img src="images/handwriting/amy/csafewriters_modelresults.png" alt="CSAFE writers." width="100%" />
 <p class="caption">
 Figure 5.51: CSAFE writers.
@@ -1111,7 +1114,7 @@ Figure 5.51: CSAFE writers.
 <summary>
 Wolfgang
 </summary>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-408"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-418"></span>
 <img src="images/handwriting/amy/Wolfgang_writing.png" alt="A training sample from Wolfgang." width="100%" />
 <p class="caption">
 Figure 5.52: A training sample from Wolfgang.
@@ -1122,7 +1125,7 @@ Figure 5.52: A training sample from Wolfgang.
 <summary>
 Soyoung
 </summary>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-409"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-419"></span>
 <img src="images/handwriting/amy/Soyoung_writing.png" alt="A training sample from Soyoung." width="100%" />
 <p class="caption">
 Figure 5.53: A training sample from Soyoung.
@@ -1133,7 +1136,7 @@ Figure 5.53: A training sample from Soyoung.
 <summary>
 Other writer
 </summary>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-410"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-420"></span>
 <img src="images/handwriting/amy/wolfgang_miss2.png" alt="A training sample from the other writer with off-diagonal assignment for Wolfgang." width="100%" />
 <p class="caption">
 Figure 5.54: A training sample from the other writer with off-diagonal assignment for Wolfgang.
@@ -1194,14 +1197,15 @@ Figure 5.54: A training sample from the other writer with off-diagonal assignmen
 <p>Tippett plots are an additional way to visualize the behavior of the SLRs under the prosecution and defense hypotheses.</p>
 <pre><code>## Error in knitr::include_graphics(c(&quot;images/handwriting/mattie/tippett.png&quot;)): Cannot find the file(s): &quot;images/handwriting/mattie/tippett.png&quot;</code></pre>
 <p>It is important to note that the training set did down sample the number of different source differences, but the testing set did not so the number of SLRs in that are from different sources will be more than from the same (a pattern not seen in the simulated data).</p>
-<p>Hepler et al detail score-based likelihood ratios by specific source instead of common source. The three specific source SLRs are general match, source anchored, and trace anchored. To compare the behavior of each with the CSAFE handwriting database, we extracted 3 writers (“sources”) by ordering the all of the Euclidean distances, ordering the sum of distances by each writer, selecting the smallest, middle, and largest value.</p>
+<p>Hepler et al detail score-based likelihood ratios by specific source instead of common (but unknown) source. The three specific source SLRs are general match, source anchored, and trace anchored. To compare the behavior of each with the CSAFE handwriting database, we extracted 3 writers (“sources”) by ordering the all of the Euclidean distances, ordering the sum of distances by each writer, selecting the smallest, middle, and largest value.</p>
 <p>The numerator value is constructed by combining all documents written by each writer to create a “template.” This template is randomly split into 2 “pseudo-documents” 1000 times. The distance measures are calculated between each pair and used in the trained random forest to find dissimilarity scores.</p>
 <p><img src="images/handwriting/mattie/hepler_num_splits.png" width="1160" /></p>
 <p>The three SLRs denominators are defined by which documents are compared.</p>
 <p><img src="images/handwriting/mattie/trace_source_general.png" width="1906" /></p>
 <p><img src="images/handwriting/mattie/log_hepler_slr.png" width="1163" /></p>
-<p>The discrimination of the three SLRs across the three selected writers within the CSAFE database can be visually compared across the three selected writers with ROC curves.</p>
+<p>The discrimination of the three SLRs across the three selected writers within the CSAFE database can be visually compared across the three selected writers with ROC curves. There are two different random forests implemented to find the SLRs. The “pre-trained” random forest is the same random forest used with the common source SLRs, while the SLR specific trained SLRs are trained on a subset of the distance measures used to compute each of the three specific source SLRs.</p>
 <p><img src="images/handwriting/mattie/hepler_plots_rocs.png" width="1642" /></p>
+<p><img src="images/handwriting/mattie/hepler_slrs.png" width="484" /></p>
 <p>##Relationship Between Rotation Angle and Demographic Features
 So this part of the research looks specifically at rotation angles (the slant of handwriting). We are seeing if there is a relationship between slant of a writer and demographic features. We looked at demographic features such as the participant’s handedness, age group, gender, and location of third-grade education.We then fit a regression with the demographic information as explanatory variables and the average rotation angles as the response. Because rotation angles live on a circle, the regression model is based on a probability model appropriate for this type of data.</p>
 <p>First we looked at ANOVAs using circular package in R.
@@ -1375,7 +1379,7 @@ Click for Poster Image
 <p>Currently implementing a version of the TinyResNet Siamese CNN architecture, which was the best performing CNN in the paper <em>Siamese Convolutional Neural Networks for Authorship Verification by Du W., Fang M., Shen M.</em> Fully scanned pages of handwritten were broken down into lines to be used as the data inputted in the model. First we will use the model on the <a href="https://fki.tic.heia-fr.ch/databases/iam-handwriting-database">IAM</a> handwriting data set broken down by line. Consists of 13,353 isolated and labeled text lines.</p>
 <p>We used the ResNet CNN architecture to train a model on the IAM dataset to classify writers on the images in our own database.</p>
 <p>Working on preprocessing images to work with the ResNet architecture as images need to be grayscaled and scaled to be square images. Two methods are to add padding to the top and bottom of a scanned line image, or break up a line into smaller parts essentially tiling the original image.</p>
-<p>Matched input scale for ResNet50 architecture with preprocessed images.</p>
+<p>Matched input scale for ResNet50 architecture with preprocessed images. Paired images to use as training data and used a binary 0 or 1 labeling system to classify pairs that were different and the same respectively. The input data takes a very large amount of memory so to work around this issue, I have currently randomly sampeld observations from the training and test set to train and evaluate the resnet50 model.</p>
 
 </div>
 </div>

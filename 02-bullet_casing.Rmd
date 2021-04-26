@@ -4309,8 +4309,9 @@ April:
 - Regularization for distributional similarity
 - High-dimensional visualizations
 
-
-
+- Multivariate normal distribution
+- tourrrs:: R package
+- Performance comparison normed data RF and original RF
 
 ### Conference Presentations  
 

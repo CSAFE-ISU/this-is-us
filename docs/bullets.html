@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2021-04-26" />
+<meta name="date" content="2021-05-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -2989,6 +2989,11 @@ Will 04/18 Update: modified the zebra-striped <code>signature_shift_plot</code> 
 Will 04/25 Update: re-organized the codes and plots in CMPS paper; worked on optimizing the performance of <code>CMPS</code> package with C implementation of the function <code>get_ccf4()</code>. Now <code>extract_feature_cmps()</code> can be done in less than 1 second!
 </summary>
 </details>
+<details>
+<summary>
+<p>Will 05/23 Update: revised the CMPS paper to match the current implementation of the algorithm: now the algorithm allows the highest segment scale to find multiple peaks instead of just one peak. Additionally, the current implementation of the package is built with C source codes and can finish one comparison in less than 0.03 seconds. More tests are needed for the new implementation.</p>
+</summary>
+</details>
 </div>
 </div>
 <div id="future-work" class="section level4" number="4.3.4.4">
@@ -3355,6 +3360,7 @@ Figure 4.148: Land Engraved Area Scan with predicted labels
 </p>
 </div>
 <p>Update(04/26/2021): Scripts used for Data Processing were converted to functions, with more features and user controls.</p>
+<p>Update(05/24/2021): New data processing procedure implemented where relabeling of land engraved area scans is more precise and missing values are excluded from being used as input data when training the current 3D CNN. Currently over a thousand labeled land engraved area scans have been processed using the new procedure. Released R package “x3pLeaX,” for working with LEA scans and running deep learning models. The package is continually being updated daily.</p>
 </div>
 </div>
 <div id="analysis-of-results" class="section level2" number="4.5">
@@ -3966,7 +3972,7 @@ Figure 4.187: Prediction for 1500 trees vs 500 trees
 Chu, Wei, T. Song, J. Vorburger, J. Yen, S. Ballou, and B. Bacharach. 2010. <span>“<span class="nocase">Pilot study of automated bullet signature identification based on topography measurements and correlations</span>.”</span> <em>Journal of Forensic Sciences</em> 55 (2): 341–47.
 </div>
 <div id="ref-aoas" class="csl-entry">
-Hare, Eric, Heike Hofmann, and Alicia Carriquiry. 2016. <span>“<span class="nocase">Automatic Matching of Bullet Lands</span>.”</span> <em>ArXiv e-Prints</em>, January. <a href="http://arxiv.org/abs/1601.05788">http://arxiv.org/abs/1601.05788</a>.
+Hare, Eric, Heike Hofmann, and Alicia Carriquiry. 2016. <span>“<span class="nocase">Automatic Matching of Bullet Lands</span>.”</span> <em>ArXiv e-Prints</em>, January. <a href="https://arxiv.org/abs/1601.05788">https://arxiv.org/abs/1601.05788</a>.
 </div>
 <div id="ref-gkhh" class="csl-entry">
 Krishnan, Ganesh, and Heike Hofmann. 2019. <span>“Adapting the Chumbley Score to Match Striae on Land Engraved Areas (LEAs) of Bullets.”</span> <em>Journal of Forensic Sciences</em> 64 (3): 728–40. <a href="https://doi.org/10.1111/1556-4029.13950">https://doi.org/10.1111/1556-4029.13950</a>.

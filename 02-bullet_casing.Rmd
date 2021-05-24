@@ -3489,6 +3489,14 @@ Will 04/25 Update: re-organized the codes and plots in CMPS paper; worked on opt
 
 </details>
 
+<details>
+<summary>
+Will 05/23 Update: revised the CMPS paper to match the current implementation of the algorithm: now the algorithm allows the highest segment scale to find multiple peaks instead of just one peak. Additionally, the current implementation of the package is built with C source codes and can finish one comparison in less than 0.03 seconds. More tests are needed for the new implementation.
+
+</summary>
+
+</details>
+
 #### Future Work
 
 * improve and manage to submit the CMPS package to CRAN

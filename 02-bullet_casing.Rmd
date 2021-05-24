@@ -3602,6 +3602,21 @@ Will 04/18 Update: modified the zebra-striped `signature_shift_plot` and `segmen
 
 </details>
 
+<details>
+<summary>
+Will 04/25 Update: re-organized the codes and plots in CMPS paper; worked on optimizing the performance of `CMPS` package with C implementation of the function `get_ccf4()`. Now `extract_feature_cmps()` can be done in less than 1 second!
+</summary>
+
+</details>
+
+<details>
+<summary>
+Will 05/23 Update: revised the CMPS paper to match the current implementation of the algorithm: now the algorithm allows the highest segment scale to find multiple peaks instead of just one peak. Additionally, the current implementation of the package is built with C source codes and can finish one comparison in less than 0.03 seconds. More tests are needed for the new implementation.
+
+</summary>
+
+</details>
+
 #### Future Work
 
 * improve and manage to submit the CMPS package to CRAN
@@ -3932,6 +3947,10 @@ knitr::include_graphics(c("images/andy_temp/Resnet_latest_assigned_label.png"))
 ```{r, fig.cap="Land Engraved Area Scan with predicted labels", fig.keep="hold", fig.align='center', out.width="100%"}
 knitr::include_graphics(c("images/andy_temp/Resnet_latest_prediction.png"))
 ```
+
+Update(04/26/2021): Scripts used for Data Processing were converted to functions, with more features and user controls.
+
+Update(05/24/2021): New data processing procedure implemented where relabeling of land engraved area scans is more precise and missing values are excluded from being used as input data when training the current 3D CNN. Currently over a thousand labeled land engraved area scans have been processed using the new procedure.  Released R package "x3pLeaX," for working with LEA scans and running deep learning models.  The package is continually being updated daily. 
 
 
 ## Analysis of Results  
@@ -4421,8 +4440,9 @@ April:
 - Regularization for distributional similarity
 - High-dimensional visualizations
 
-
-
+- Multivariate normal distribution
+- tourrrs:: R package
+- Performance comparison normed data RF and original RF
 
 ### Conference Presentations  
 

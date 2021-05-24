@@ -3828,7 +3828,10 @@ knitr::include_graphics(c("images/andy_temp/Resnet_latest_assigned_label.png"))
 knitr::include_graphics(c("images/andy_temp/Resnet_latest_prediction.png"))
 ```
 
-Update(04/26/2021): Scripts used for Data Processing were converted to functions, with more features and user controls. 
+Update(04/26/2021): Scripts used for Data Processing were converted to functions, with more features and user controls.
+
+Update(05/24/2021): New data processing procedure implemented where relabeling of land engraved area scans is more precise and missing values are excluded from being used as input data when training the current 3D CNN. Currently over a thousand labeled land engraved area scans have been processed using the new procedure.  Released R package "x3pLeaX," for working with LEA scans and running deep learning models.  The package is continually being updated daily. 
+
 
 ## Analysis of Results  
 

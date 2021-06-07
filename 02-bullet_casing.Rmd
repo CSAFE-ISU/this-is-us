@@ -3595,27 +3595,17 @@ knitr::include_graphics("images/cmps/zebra_striped_example.png", dpi=100)
 
 </details>
 
-<details>
-<summary>
 Will 04/18 Update: modified the zebra-striped `signature_shift_plot` and `segment_shift_plot`; prepared for the reading group discussion
-</summary>
 
-</details>
-
-<details>
-<summary>
 Will 04/25 Update: re-organized the codes and plots in CMPS paper; worked on optimizing the performance of `CMPS` package with C implementation of the function `get_ccf4()`. Now `extract_feature_cmps()` can be done in less than 1 second!
-</summary>
 
-</details>
-
-<details>
-<summary>
 Will 05/23 Update: revised the CMPS paper to match the current implementation of the algorithm: now the algorithm allows the highest segment scale to find multiple peaks instead of just one peak. Additionally, the current implementation of the package is built with C source codes and can finish one comparison in less than 0.03 seconds. More tests are needed for the new implementation.
 
-</summary>
+Will 06/06 Update: keep editing the CMPS package paper. Now we planned to add some new sections: 1) compare the two versions of the CMPS algorithm; 2) define the CMPS version of the "variance ratio", compute the variance ratio for different sets of parameters, and try to use it as a metric for the cross-validation of the parameters. Other tasks related to CMPS package: 
 
-</details>
+*   update `get_ccf()` for `bulletxtrctr`; 
+*   fix the denominator issue of the C code of `get_ccf4()`
+
 
 #### Future Work
 

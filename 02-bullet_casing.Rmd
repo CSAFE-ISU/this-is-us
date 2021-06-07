@@ -2941,7 +2941,11 @@ knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/edgeErosion_va
 
 <details>
 <summary>
-Joe 5/24/21 Update: I have been developing additional preprocessing techniques to more effectively emphasize the interior breech face markings between two scans. This includes an automatic method for removing "anomaly" markings (dents, etc.) like the one visible in the scan shown below. It is important to remove such anomalies because (1) they are not shared across known match scans and (2) the CMC method is rather sensitive to these extreme values.
+Joe 5/24/21 Update: I have been developing additional preprocessing techniques to more effectively emphasize the interior breech face markings between two scans.
+
+</summary>
+
+I have been developing additional preprocessing techniques to more effectively emphasize the interior breech face markings between two scans. This includes an automatic method for removing "anomaly" markings (dents, etc.) like the one visible in the scan shown below. It is important to remove such anomalies because (1) they are not shared across known match scans and (2) the CMC method is rather sensitive to these extreme values.
 
 ```{r,fig.align='center'}
 knitr::include_graphics("images/cartridge_cases/5-24-21_update/P0009_anomaly.png")
@@ -2953,8 +2957,34 @@ Outright removing these anomaly pixels from the scan yields promising improvemen
 knitr::include_graphics("images/cartridge_cases/5-24-21_update/P0009_anomalyRemoved.png")
 ```
 
+</details>
 
+<details>
+<summary>
+Joe 6/7/21 Update: We discovered a potential problem in the labeling of a well-known cartridge case data set. I was hoping to get the group's thoughts on how we should proceed if, in fact, the labeling occurred in the original experiment.
 </summary>
+
+We have been working with cartridge cases from a study done in 2014 by Baldwin et al. that assessed the False Positive and False Negative error rates in cartridge case comparisons.
+
+As we have been applying the CMC method to more cartridge case scans, we came across an potential mislabeling of a set of cartridge case scans. The plot below illustrates the odd behavior. Note that the Group 7 scans from Barrels G and K seem to be highly similar to the Barrels K and G scans, respectively, in the other groups. That is to say, the G and K barrel labels for Group 7 may have been accidentally swapped.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/6-7-21_update/sensofarGroup9_cmcMatrix.png")
+```
+
+- I did not find anything to suggest that the label swapping is happening in my code.
+
+- During our Monday morning meeting, we double-checked the original labeling performed at CSAFE. The possible mislabeling does not appear to have originated there (although there are few other leads we can track down to ensure that this is the case).
+
+The only other possibility is that the mislabeling occurred during the **original** 2014 Baldwin study, which would obviously be problematic. If this is the case, we thought of a few potential actions:
+
+1. Swap the labels to what we believe to be correct and mention this in whatever article we eventually use these data in
+
+2. Exclude these 6 problematic cartridge case scans from our comparisons
+
+3. Alert Baldwin et al. that there was a labeling mismatch
+
+I would love to hear the groups' thoughts on how we should tackle this problem.
 
 </details>
 

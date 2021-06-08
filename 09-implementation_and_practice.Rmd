@@ -1,0 +1,17 @@
+# Project IMPL: Implementation and Practice {#impl}
+
+## Demonstrative Evidence and Firearms
+
+Project purpose
+
+1. Examine the use of demonstrative (picture) evidence in examiner testimony
+2. Develop and test language for quantitative firearms analysis testimony
+3. Validate quantitative language for firearms analysis with and without demonstrative evidence
+
+### Previous work
+
+write up a bit of a blurb here about FRSTAT language, Brandon's studies, etc.
+
+### Study Design
+
+Conditions

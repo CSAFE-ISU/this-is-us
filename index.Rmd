@@ -61,3 +61,7 @@ Be careful with this power, files that have been pushed online can practically n
 While it looks like a long shopping list of things to remember, once you have gone through the cycle a few times, you will find that it becomes second nature. 
 
 Welcome on the CSAFE ship :)
+
+```{r}
+knitr::opts_chunk$set(error = T)
+```

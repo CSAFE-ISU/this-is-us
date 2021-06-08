@@ -30,6 +30,35 @@ Those are:
 
 ## Data Collection
 
+### Breech face images
+
+**cartridge cases **
+
+  - DFSC (about 2000) taken with the Sensofar S-neox
+  - Cartridges for CSAFE persistence labelled for barrels 1 through 9.
+  - Cadre TopMatch Scanner: when taking scans of breech face images, we are following NIBIN protocol as closely as possible.
+
+Some sample scans using the Cadre TopMatch scanner. Figure \@ref(fig:topmatch) shows two breech face impressions from the same firearm:
+
+```{r topmatch, fig.cap="TopMatch scans of two breech face impressions from the same source.", , fig.show="hold", out.width="50%"}
+knitr::include_graphics(c("images/cartridge_cases/heike/0001_3.1.png", "images/cartridge_cases/heike/0001_4.1.png"))
+```
+
+When re-taking scans of previously taken breech faces, we noticed that the original data (exported as dat file)  did not match the screen shot taken at the same time as the scan, see figure \@ref(fig:screenshot).
+
+```{r screenshot, fig.cap="Screenshot of Sensofar scan of breech face #K004dD1."}
+knitr::include_graphics("images/cartridge_cases/heike/Study=DFSC-Group=K004-SET=d-Num=1-Code=K004dD1-SCOPE=Sneox2-Obj=10x-Light=A2_autoX1.5-TH=2-RES=4-User=Allison_Mark.png")
+```
+
+After (re-)exporting x3p files for the corresponding scans, we can reconcile the scans. Figure \@ref(fig:sidebyside) shows the scans from Sensofar (left) and TopMatch (right) side by side. Comparisons of these scans will be tricky but possible :)
+
+```{r sidebyside, fig.cap="Side-by-side renderings of breech face #K004dD1 from Sensofar (left) and TopMatch (right).", fig.show="hold", out.width="50%"}
+knitr::include_graphics(c("images/cartridge_cases/heike/senso-p13.png", "images/cartridge_cases/heike/topmatch.png"))
+```
+
+
+### Scans from land engraved areas on fired bullets
+
 Overview in numbers:
 
 **scans from bullet lands (about 25,000 total)**
@@ -43,10 +72,6 @@ Overview in numbers:
   - St Louis persistence: 2 barrels with 192 fired bullets each
   - most of the CSAFE persistence study 
     
-**and cartridge cases**
-
-  - DFSC (about 2000)
-  - getting ready to scan cartridges for CSAFE persistence
 
 
 ### LAPD
@@ -54,9 +79,9 @@ Overview in numbers:
 All bullets are collected by Srinivasan Rathinam, LAPD. 
 
 #### Main study
-4 bullets per barrel for  626  Beretta 92 F/FS firearms , ammunition used are 9 mm Luger Winchester 115 grain with a Copper surface.
+4 bullets per barrel for  626  Beretta 92 F/FS firearms, ammunition used are 9 mm Luger Winchester 115 grain with a Copper surface.
 
-scans are on Raven.
+scans are on Raven in the folder LAPD.
 
 
 
@@ -111,6 +136,131 @@ contact: Steve Kramer, St Louis PD
 Breech face data for knowns are scanned and available on a private github repository
 
 evaluation
+
+### Rotation stage
+
+We are currently evaluating a 4-axis Sensofar stage meant to capture a full 360 degree of scans.
+
+Standard bullet SRM 2400:
+
+```{r, fig.cap="Images from a 360 degree rotation",  fig.keep="hold", fig.align='center', fig.show="hold", out.width="20%"}
+include_graphics(sprintf( "images/bullets/SRM2400-360/P%04d.png", c(1:12, 14:26)))
+```
+There are 40 scans taken at steps of 9 degrees. Each scan is taken at 20 fold magnification at a nominal resolution of 0.645 microns per pixel. 
+Each scan is of dimension 1360 x 1024 pixels, covering a secant length of 877.2 microns.
+
+#### Comparison of scans taken under different angles 
+
+In our protocol for capturing land-engraved areas we take three focal views from left to right, as shown in the image below. During the capturing process, the stage shifts to place the microscope's lens center stage above the three areas of the land-engraved area.
+
+![](images/cartridge_cases/heike/focal-views-standard.png)
+In order to investigate the impact of the angle under which a land engraved area is taken, we rotate the land engraved area manually, such that the lens is capturing the area orthogonally, as shown in the image below.
+
+![](images/cartridge_cases/heike/focal-views-rotated.png)
+The set of images below shows crosscuts for the three focal views of one land engraved area using both the standard protocol and under the rotation:
+
+```{r, fig.keep="hold", fig.align='center',  warning=FALSE, message=FALSE}
+library(dplyr)
+library(ggplot2)
+views <- readRDS("code/views-wo-x3p.rds")
+
+p1 <- views$ccdata[[1]] %>% 
+  ggplot(aes(x = x*10^6, y = value)) + geom_line(aes(colour = "standard")) +
+  geom_line(aes(colour = "rotated"), data = views$ccdata[[1+18]]) +
+  ggtitle("Land 1a") + 
+  coord_equal() + 
+  xlab("x") +
+  theme(legend.position="none")
+
+p2 <- views$ccdata[[2]] %>% 
+  ggplot(aes(x = x*10^6, y = value)) + geom_line(aes(colour = "standard")) +
+  geom_line(aes(colour = "rotated"), data = views$ccdata[[2+18]]) +
+  ggtitle("Land 1b") + 
+  coord_equal() +
+  xlab("x") +
+  theme(legend.position="bottom")
+
+p3 <- views$ccdata[[3]] %>% 
+  ggplot(aes(x = x*10^6, y = value)) + geom_line(aes(colour = "standard")) +
+  geom_line(aes(colour = "rotated"), data = views$ccdata[[3+18]]) +
+  ggtitle("Land 1c") + 
+  coord_equal() +
+  xlab("x") +
+  theme(legend.position="none")
+
+gridExtra::grid.arrange(p1,p2,p3, nrow=1)
+```
+Signatures of the same focal views from rotated and standard alignment. While most peaks between the signatures can be identified based on their horizontal location, the height of these peaks between the signatures is quite different.
+```{r warning = FALSE}
+library(purrr)
+comparisons <- readRDS("code/comparisons.rds")
+
+showAligned <- function(land1Chr , land2Chr) {
+  comparisons %>% filter(land1==land1Chr, land2==land2Chr) %>% pluck("aligned", 1, "lands") %>%
+    tidyr::pivot_longer(names_to="sigs", values_to="value", cols=sig1:sig2) %>%
+    mutate(
+      landID = ifelse(sigs=="sig1", land1Chr, land2Chr)
+    )%>%
+    ggplot(aes(x = x, y = value)) +
+    geom_line(aes(colour = landID)) +
+    theme_bw() +
+    scale_color_brewer(palette = "Dark2")
+}
+
+showAligned("1-A-std", "1-A-rot")
+
+stylus <- readRDS("code/stylus.rds")
+
+showAligned("2-A-std", "2-A-rot") +
+  geom_line(data = na.omit(stylus$sig[[3]]), aes(x=x-1220, y = sig, colour="stylus")) + xlim(c(0,1300))
+
+```
+
+#### Generating a signature from consecutive scans
+
+<details>
+
+<summary>
+Will 03/07 update: added plots that could explain the current workflow of generating a signature using consecutive scans
+</summary>
+
+Here we are taking scan 5, 6, and 7 as an example to illustrate the current workflow. These three scans combined together provide a complete scan of the third land engraved area (LEA) of the examined bullet. The final goal is to use these three scans to generate a complete bullet signature of bullet land 3. 
+
+**Pre-processing** - we firstly remove the grooves by finding dividing line between a groove and a land.
+
+```{r, fig.cap="ccdata at crosscut = 50; the jump position between a groove and a land or the end position of a scan is identified and stored in R object grooves"}
+knitr::include_graphics("images/cmps/rotations/ccdata_plot.png", dpi=100)
+```
+
+```{r, fig.cap="using cc_get_signature(span1=0.25, span2=0.03) to smooth out the curvature and obtain the signature; this plot shows the fitted value of the curvature"}
+knitr::include_graphics("images/cmps/rotations/ccdata_smoothed.png", dpi=100)
+```
+
+```{r, fig.cap="using cc_get_signature(span1=0.25, span2=0.03) to smooth out the curvature and obtain the signature; this plot shows the obtained signatures"}
+knitr::include_graphics("images/cmps/rotations/ccdata_sigs.png", dpi=100)
+```
+
+**Finding the overlap** - here we work on scan 5 and scan 6 first. We applied the CMPS algorithm on signatures of scan 5 (reference) and scan 6 (comparison), then focused on the very last segment (segment 23) of scan 5. This segment is at the right end of scan 5, so it should be shared by both scans and be identified by the CMPS algorithm. 
+
+```{r, fig.cap="the segment analysis plot of segment 23. It shows that segment 23 does find a consistent correlation peak on position -741, which suggests that the reference profile should shift to the left by 741 units."}
+knitr::include_graphics("images/cmps/rotations/segment_plot23.png", dpi=100)
+```
+
+The figure above shows that, segment 23 is suggesting to shift the reference profile to the left by 741 units. So we shift it accordingly.
+
+```{r, fig.cap="this plot shows the shifted reference profile and the comparison profile."}
+knitr::include_graphics("images/cmps/rotations/alignment_cmps.png", dpi=100)
+```
+
+According to the overlapping part, we could see that the shift is reasonable. Then we take a closer look at the overlapping part:
+
+```{r, fig.cap="a closer look at the above plot"}
+knitr::include_graphics("images/cmps/rotations/alignment_cmps_close.png", dpi=100)
+```
+
+We can see that the alignment at the overlapping part isn't perfect. It looks like that the signature of scan 5 is compressed to some extent. This might be reflecting the impact of the angles during the scanning process.
+
+</details>
 
 ## Computational Tools
 
@@ -831,25 +981,25 @@ Joe 9/5/19 Update: Explanation of missing value problem when calculating cross-c
 Below is a series of images that illustrate how we might compare a cell in one image to a region of another image.
 
 ```{r, fig.cap="Comparing a cell in image 1 to a larger region in image 2. We wish to find the translations of the image 1 cell that yield the highest correlation within the image 2 region.", out.width="50%", fig.keep="hold", fig.align='center'}
-knitr::include_graphics("images/cartridge_cases/im1_im2_cellComparison.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/im1_im2_cellComparison.png")
 ```
 
 For the sake of an example, let's focus on the blue outlined cell in image 1. Our goal is to use the image 1 cell to "search" a corresponding larger region in image 2 for the horizontal/vertical translations needed to produce the highest correlation. Below is a zoomed-in version of the blue outlined image 1 cell on the left and the larger image 2 region (approximately: I made the gridded image above by-hand outside of R while the images below are from R). The image 1 cell may look larger than the image 2 region, but we can see from the axes that the image 2 region is indeed larger. Any white pixels in the two images are NA values that need to be dealt with in some way before we can use FFTs to calculate the cross-correlation.
 
 ```{r, fig.cap="(Left) A cell from image 1. (Right) A region from image 2 centered in the same location as the image 1 cell, yet quadruple the area.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/im1_split.png","images/cartridge_cases/im2_split.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/im1_split.png","images/cartridge_cases/joe_oldImages/im2_split.png"))
 ```
 
 As already discussed above, one "solution" is to replace the NA values with the average pixel value of each image. However, to avoid creating a stronger artificial signal than necessary, we can crop-out the NA rows and columns from the two images above. Below is the cropped version of the two images. The cropping doesn't produce signficantly different images in this case, but you could imagine other examples in which a cell has captured only small amount of breechface in the corner. Such examples are fairly common and cropping signficantly changes the resulting correlation values.
 
-```{r, fig.cap="The same images as above after cropping NA rows/columns.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
+```{r, eval=FALSE,fig.cap="The same images as above after cropping NA rows/columns.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
 knitr::include_graphics(c("images/cartridge_cases/im1_splitFilteredCropped.png","images/cartridge_cases/im2_splitFilteredCropped.png"))
 ```
 
 The last step before calculating correlation for these cells is to replace the remaining NAs with the average pixel value. This is shown below.
 
 ```{r, fig.cap="The NA-cropped images with remaining NAs replaced with the image's average pixel values.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/im1_splitShifted.png","images/cartridge_cases/im2_splitShifted.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/im1_splitShifted.png","images/cartridge_cases/joe_oldImages/im2_splitShifted.png"))
 ```
 
 The cross-correlation is then calculated between these two images via a standard fast fourier transform process (see [Cross-Correlation Theorem](http://mathworld.wolfram.com/Cross-CorrelationTheorem.html)). The benefit of using such a process is that (as the name suggests) it's faster than calculating the raw correlation between the two images. Also, the translations that produce the highest correlation between the image 1 cell and the image 2 region fall out of the calculation for free.
@@ -867,7 +1017,7 @@ Joe 9/5/19 Update (cont'd): A brief introduction to a congruent matching "tori" 
 As discussed above, dealing with missing values is provign to be a pain. The good news is that the currently-implemented CMC as described above yields results very similar to those published in Song et al. (2015) that originally describes that CMC algorithm. While our results seem to agree with currently published results, it would be nice if we could avoid needing to artifically replace missing values. We can do so if, rather than breaking up the circular breech face impression scans into disjoint squares, we break up the breech face impression into donut-shaped regions containing only breech face impression. Below is an example of such a toroidal region.
 
 ```{r, fig.cap="(Left) The original breech face impression scan image. (Right) A donut-shaped region cut out of the original image.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/im1_original.png","images/cartridge_cases/im1_toroidalRegion.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/im1_original.png","images/cartridge_cases/joe_oldImages/im1_toroidalRegion.png"))
 ```
 
 By comparing such regions instead of the square cells, we would presumably only need to fill in a few missing value "holes" in the breech face impression scan rather than completely replacing a non-existent signal with an artificial one. In the near-future, I hope to finish up the pre-processing needed for this Congruent Matching Tori method by performing a polar transformation on these images to make them into strips that can easily be compared via an FFT.
@@ -881,19 +1031,19 @@ Joe 9/12/19 Update: Explanation of some of the pre-processing steps needed to ma
 Before carving out toroidal regions from the two images we wish to compare, a fair amount of pre-processing needs to be completed. For example, the scans we work with begin with a considerable amount of auxiliary information, for example the firing pin impression, that we don't want to use in our comparisons. This isn't to say that firing pin impressions aren't useful to determine a match between two cartridge cases. In fact there is quite a lot of published research on how to compare two firing pin impressions. Rather, it is common practice to compare breech face impressions and firing pin impressions separately since it is difficult to scan both simultaneously. Thus, there are regions of a breech face impression scan that we want to remove so that the breech face impressions are more easily comparable. Below is an example of two breech face impression scans before processing.
 
 ```{r, fig.cap="Two cartridge case scans before pre-processing.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/im1_fullScan.png","images/cartridge_cases/im2_fullScan.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/im1_fullScan.png","images/cartridge_cases/joe_oldImages/im2_fullScan.png"))
 ```
 
 There are a variety of techniques to segment an image into various parts. In image processing, common techniques are the Canny edge detector, which identifies edges of shapes in an image using image gradient techniques, and the Hough Transform, which can detect a variety of geometrical shapes in an image. The Hough Transform is what is used to segment the cartridge case images used in the previous section. However, we've found that the use of a Hough Transform doesn't extract the "breech face signal" from an image as other techniques. Namely, the breech face can be effectively extracted using the RANSAC (Random sample consensus) method that iteratively fits a plane to a set of data until it settles upon a consensus-based "bulk" of the data. In the case of these cartridge case scans, the bulk of the data should predominantely be distributed around the mode height value. That is, the breech face impression. Once we've fit this plane to the breech face impression, we can extract the residuals of the fit to better accentuate the markings left in the cartridge case base by a firearm's breech face. Below is an example of the residuals left after fitting a RANSAC plane to two cartridge case scans above. In the example below, we grab any residuals less than 20 microns in magnitude.
 
 ```{r, fig.cap="Residual values of a RANSAC plane fit to the two cartridge case scans shown above.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/im1_ransacResiduals.png","images/cartridge_cases/im2_ransacResiduals.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/im1_ransacResiduals.png","images/cartridge_cases/joe_oldImages/im2_ransacResiduals.png"))
 ```
 
 Although these two images are of two different cartridge cases, you can hopefully see that one looks very much like a rotated version of the other. These two cartridge case scans are in fact fired from the same gun (known matches), so it's a good thing that they look so similar. We've now removed quite a bit of the unwanted regions of the original scans. However, there are still some areas of the image (e.g., the faint circular region of pixels in the center of the breech face scan) that just so happened to be close to the fitted plane and thus were brought along in the residual extraction. There are a few ways that we can clean up these last few areas. One is to use two Hough Transforms to detect the inner and outer circles of the breech face impression and filter out any pixels outside of the region between these two circles. The biggest issue with using a Hough Transform is that it must be given the radius of the circle that it is to search for in the image as an argument. That is, we need to know the radius of the breech face impression that we haven't yet identified in order to identify the breech face impression. Instead, we can dilate/erode (or vice-versa) the pixels in the image to remove the remaining "speckle" in the image. Below is an example of of the breech face impressions cleaned via a dilation/erosion procedure.
 
 ```{r, fig.cap="The selected breech face impressions based on dilation and erosion.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/im1_maskFiltered.png","images/cartridge_cases/im2_maskFiltered.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/im1_maskFiltered.png","images/cartridge_cases/joe_oldImages/im2_maskFiltered.png"))
 ```
 
 The final step in the pre-processing is to align the two images in some consistent fashion. Luckily, the firing pin impression ring that's left after performing the above dilation/erosion provides us with some idea of how to align the breech face impressions. The location of the firing ring impression in the breech face impression provides us with an indicator of where the cartridge case was located relative to the firing pin when it was sitting in the barrel. So aligning two cartridge cases so that their firing pin impression rings align will ensure that, at the very least, the breech face impression left on the cartridge case is horizontally/vertically aligned if not rotationally aligned.
@@ -909,13 +1059,13 @@ To automatically detect the radius of a given breech face impression, we can cou
 We can see below an example of the non-NA pixel row sums plotted against the row indices (starting from the top of the image and moving down). You can hopefully see that the raw row sums are rather "noisy". As such, we can pass a moving average smoother over the row sum values so that the local maxima are easier to identify. This may not be the most robust way to determine the local maxima. I hope to investigate the use of b-splines fit over the row sum values to see if these would be more effective at finding local maxima
 
 ```{r, fig.cap="Non-NA pixel row counts and moving average-smoothed row count values plotted against row index.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/nonNA_rowSums.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/nonNA_rowSums.png"))
 ```
 
 However, because firing pin impression circles have somewhat perforated edges, performing one pass through the image may not yield a particularly accurate estimate. As such, we can repeat the process of finding the distance between local maxima for both the row and column non-NA pixel counts. We can also rotate the image by a few degrees and perform the same process. I am currently rotating the image 0, 15, 30, 45, 60, and 75 degrees and calculating row and column diameter estimates per rotation. Obviously we can apply whatever aggregation function we desire to these estimates to determine a final estimate. Below we see what the Hough Transform selects as the breech face for 4 different radii values. In particular, for circles of radius 210, 213, 216, and 219.
 
 ```{r, fig.cap="Hough Transform selected circles (red) of radius (1) 210, (2) 213, (3) 216, and (4) 219.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/houghTransformGridSearch.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/houghTransformGridSearch.png"))
 ```
 </details>
 
@@ -927,25 +1077,25 @@ Joe 9/25/18 Update: Dilation and erosion of the breech face impression image see
 When trying to select the breech face impression out of an image such as the one below (this is a slice of the original scan based on the RANSAC method-selected breech face impression z-value), we're really just interesting in obtaining a yes/no answer for each pixel to the question: "Are you a part of the breech face impression?" As such, rather than looking at the considering the raw pixel values, we can binarize the image to a 1/0 (equivalently, non-NA/NA) pixel representation. Such a representation is below.
 
 ```{r, fig.cap="(Left) Residual values of a RANSAC plane fit to a cartridge case scan. (Right) Binarized non-NA/NA image for segmentation.", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/im1_ransacResiduals.png","images/cartridge_cases/breechFaceIndicator.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/im1_ransacResiduals.png","images/cartridge_cases/joe_oldImages/breechFaceIndicator.png"))
 ```
 
 Using this "indicator image", the beginning/end of the breech face impression should be much more obvious to, say, a Canny edge detector. Below is the output of such a Canny edge detector.
 
 ```{r, fig.cap="The edges of the binarized image above via a Canny edge detector. ", out.width="50%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/watershedPriorityMap.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/watershedPriorityMap.png"))
 ```
 
 From here, we can use a Watershed image segmentation procedure to identify various regions within this image. The Watershed algorithm needs to be given a set of pixel locations that the user believes to be within distinct regions of the image. With these "seed" pixels, the algorithm then searches neighboring pixels and attempts to identify them as within/without the same region. Almost as if a water source turned on at the given seed pixel and water began to spread to as many neighboring pixels as it could. The water should "stop" at the black lines in the image above, thus defining the boundary of a seed pixel's region. An example of the above image post-segmentation is given below. The 5 seed pixels I used were the 4 corners and center of the image. As we can, the watershed algorithm "overflowed" into the breech face impression, but segmented the firing pin impression circle from the rest of the image. Because most of the minutiae that we want to remove is in within this firing pin impression circle, this is not a problem for our purposes. With 5 seed images, there are technically 5 segments represented in the image below (although it's hard to see where the outer segments begin/end). So as shown below, we can just binarize the segments as being a part of the firing pin impression circle or not.
 
 ```{r, fig.cap="(Left) Watershed segmentation of the Canny edge image above. (Right) The firing pin impression circle binarization of the Watershed segmentation image.", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/watershedFiringPin_segments.png","images/cartridge_cases/watershedFiringPin_binarized.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/watershedFiringPin_segments.png","images/cartridge_cases/joe_oldImages/watershedFiringPin_binarized.png"))
 ```
 
 Finally, now that we've identified where the firing pin impression circle is in the original image, we can simply replace any pixel values within this circle with NAs. The final filtered image is shown below.
 
 ```{r, fig.cap="Final filtered image.", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/watershedFinalFiltered.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/watershedFinalFiltered.png"))
 ```
 
 </details>
@@ -958,21 +1108,21 @@ Joe 10/3/18 Update: Determined a fairly computationally intensive yet (seemingly
 We can find a rough estimate for the firing pin radius estimate using a variety of methods. The one that I've found to be fairly consistent in the few examples I've worked with (detailed in the in the 9/18/19 update) is by counting the number of non-NA pixels in each row/column of the image and identifying the distance between the two largest local maxima in this non-NA count sequence. We can pass a grid of radius values centered on this estimate to a Hough Transform and determine which radius picks out the firing pin impression circle most effectively. The difficulty is in how we quantify "effective" using the output of the Hough Transform. Below you can see the original image including the "minutiae" within the firing pin impression circle that we hope to filter out. You can also see the result of filtering out the firing pin impression circle based on the original radius estimate (210 pixels) obtained from the "local maxima" method.
 
 ```{r, fig.cap="(Left) Original breech face impression image. (Right) The breech face impression image after filtering based on a Hough Transform-selected circle of radius 210 pixels.", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/breechFaceIndicator.png",
-                          "images/cartridge_cases/firingPinImpressionFiltered_radius210.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/breechFaceIndicator.png",
+                          "images/cartridge_cases/joe_oldImages/firingPinImpressionFiltered_radius210.png"))
 ```
 
 As already discussed, we can test a variety of radius values around the 210 estimate to determine which is best. Below is a gif animating the result of filtering based on a Hough Transform for radius values ranging from 190 to 230. Although a radius of 210 does a decent job of filtering out the minutiae, a slightly smaller radius may be preferred as larger circles tend to cut into the breech face impression. We obviously want to retain as much of the breech face impression as possible for our later analysis.
 
 ```{r, fig.cap="Gif showing the result of filtering based on Hough Transform circles of various radii. ", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/cartridge_cases/houghTransformFilter.gif")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/houghTransformFilter.gif")
 ```
 
 Using the output of the Hough Transform-selected circles shown above we would like to determine an optimal radius with which to filter out the firing pin impression circle. I explored a few ways of quantifying how "effective" a given radius is at filtering out the firing pin impression minutiae while simulataneously retaining as much of the breech face impression surface as possible. For example, it seemed logical to me to count the number of non-NA pixels we would be throwing out if we filtered based on a particular radius value. As you can see from the gif above, larger radii end up chewing into the breech face impression surface while smaller radii appear to sort of bounce around inside of the firing pin impression circle. We may be able to look at the count of filtered non-NA pixel values for each radius and determine a threshold in which the circles become large enough to start chewing into the breech face impression. Unfortunately, that is not the case. You can see from the plot below on the left that the number of filtered non-NA pixels increased fairly steadily. There isn't an obvious location along the curve signalling when the circles are getting to be too large (the differences between successive counts are also shown). Since that metric didn't end up being fruitful, I had to explore alternatives. One alternative that isn't obvious from just visualizing which pixels are filtered by each radius is called the "Hough score" which essentially quantifies how confident the Hough Transform is that it indeed found the circle that it was told to find in the image. The plot on the right below shows the top Hough scores for each radius value. We can see that there is some variability depending on the radius value. However, there are a range of radius values starting at 210 in which the Hough Transform is consistently rather confident in its circle detection. In fact, we can see from the gif above that radius values between 201 and 206 indeed do a good job of filtering out the firing pin impression circle. Currently, I am basing my final firing pin radius estimate on the radius value in the middle of the longest-running sequence of high-confidence radius values. In both example breech face impressions that I've been working with (same type, fired from the same firearm), this final estimate ended up being 203. This is obviously promising, but I would like to spend time to verify that my current method is generalizable to other cartridge case scans.
 
 ```{r, fig.cap="(Left) The number of non-NA pixels filtered out by the Hough Transform-selected circles for different radius values. (Right) The Hough score curve used to determine the firing pin radius estimate.", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/nonNA_filteredPixelCounts.png",
-                          "images/cartridge_cases/houghScorePlot.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/nonNA_filteredPixelCounts.png",
+                          "images/cartridge_cases/joe_oldImages/houghScorePlot.png"))
 ```
 </details>
 
@@ -989,40 +1139,40 @@ Now that the skeleton of the algorithm has, for the most part, been fleshed-out,
 </summary>
 
 ```{r, fig.cap=" ",out.width="50%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/fadul1_im1_beforeRotation.png",
-                          "images/cartridge_cases/fadul1_im2_beforeRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/fadul1_im1_beforeRotation.png",
+                          "images/cartridge_cases/joe_oldImages/fadul1_im2_beforeRotation.png"))
 
-knitr::include_graphics(c("images/cartridge_cases/fadul2_im1_beforeRotation.png",
-                          "images/cartridge_cases/fadul2_im2_beforeRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/fadul2_im1_beforeRotation.png",
+                          "images/cartridge_cases/joe_oldImages/fadul2_im2_beforeRotation.png"))
 
-knitr::include_graphics(c("images/cartridge_cases/fadul3_im1_beforeRotation.png",
-                          "images/cartridge_cases/fadul3_im2_beforeRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/fadul3_im1_beforeRotation.png",
+                          "images/cartridge_cases/joe_oldImages/fadul3_im2_beforeRotation.png"))
 
-knitr::include_graphics(c("images/cartridge_cases/fadul4_im1_beforeRotation.png",
-                          "images/cartridge_cases/fadul4_im2_beforeRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/fadul4_im1_beforeRotation.png",
+                          "images/cartridge_cases/joe_oldImages/fadul4_im2_beforeRotation.png"))
 
-knitr::include_graphics(c("images/cartridge_cases/fadul5_im1_beforeRotation.png",
-                          "images/cartridge_cases/fadul5_im2_beforeRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/fadul5_im1_beforeRotation.png",
+                          "images/cartridge_cases/joe_oldImages/fadul5_im2_beforeRotation.png"))
 ```
 </details>
 
 One iteration of the CMC algorithm was already discussed in-detail in the 9/5/19 Update above, so I won't go into detail about that here (I'm saving it for my Spotlight in November). Instead, we can see a gif that shows which cells from image A and image B we compare when calculating the cross-correlation. Recall that the image A cells are 100x100 and image B cells are 200x200, which is why the cells on the right appear to cover more of the breech face impression than the cells on the left.
 
 ```{r, fig.cap="(Left) 100x100 cells from Image A. (Right) 200x200 cells from Image B.", out.width="50%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/im1_standardCells.gif",
-                          "images/cartridge_cases/im2_largerCells.gif"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/im1_standardCells.gif",
+                          "images/cartridge_cases/joe_oldImages/im2_largerCells.gif"))
 ```
 
 As we can clearly see from the 5 pairs above, we need to perform rotations to properly align one with the other. We perform the cross-correlation calculation for 43 different rotation angles (of image B) to determine which rotation angle yields the highest correlation ($\theta \in [-179.5,180]$ by $2.5^\circ$). However, because we have broken up our images into cells, each cell in image A gets to "vote" for the theta value for which it had the highest correlation with its paired cell in image B. Below, we see the distribution of such theta values (referred to as the "registration angle" in Tong et al. (2015)). The histogram shows that the many of the cells tend to vote for theta values in a relatively small range, which bodes well for us in determining the optimal rotation angle.
 
 ```{r, fig.cap="Histogram of the registration angle of highest correlation for each of the 5 pairs of breech face impressions.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/highestCorrelationRegistrationAngleHistogram.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/highestCorrelationRegistrationAngleHistogram.png"))
 ```
 
 Since we clearly have a region of popular theta values for each pair, we can perform a finer search around these theta values to arrive at a more precise estimate. The histogram for this finer grid search is shown below. According to Tong et al. (2015), the minimum number of cells that must agree upon a theta value (up to some margin) for two breech face impressions to be called a "match" is 6. We can clearly see from the histogram below that this criterion is met. There are other criteria that Tong et al. discuss including how far we need to shift each cell in image A to achieve the highest correlation with the neighboring cell in image B. Those criteria also seem to be met on the examples I've looked at.
 
 ```{r, fig.cap="A finer grid search histogram of the registration angle of highest correlation for each of the 5 pairs of breech face impressions.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/finerGridHighestCorrRegistrationAngleHistogram.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/finerGridHighestCorrRegistrationAngleHistogram.png"))
 ```
 
 <details>
@@ -1030,20 +1180,20 @@ knitr::include_graphics(c("images/cartridge_cases/finerGridHighestCorrRegistrati
 **Finally, we can pick the most popular rotation angle for each firearm pair and visually compare how well the two breech face impressions match up. This is done so below. We can see that the algorithm has indeed selected good rotation values for each pair.**
 </summary>
 ```{r, fig.cap=" ",out.width="50%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/fadul1_im1_afterRotation.png",
-                          "images/cartridge_cases/fadul1_im2_afterRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/fadul1_im1_afterRotation.png",
+                          "images/cartridge_cases/joe_oldImages/fadul1_im2_afterRotation.png"))
 
-knitr::include_graphics(c("images/cartridge_cases/fadul2_im1_afterRotation.png",
-                          "images/cartridge_cases/fadul2_im2_afterRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/fadul2_im1_afterRotation.png",
+                          "images/cartridge_cases/joe_oldImages/fadul2_im2_afterRotation.png"))
 
-knitr::include_graphics(c("images/cartridge_cases/fadul3_im1_afterRotation.png",
-                          "images/cartridge_cases/fadul3_im2_afterRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/fadul3_im1_afterRotation.png",
+                          "images/cartridge_cases/joe_oldImages/fadul3_im2_afterRotation.png"))
 
-knitr::include_graphics(c("images/cartridge_cases/fadul4_im1_afterRotation.png",
-                          "images/cartridge_cases/fadul4_im2_afterRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/fadul4_im1_afterRotation.png",
+                          "images/cartridge_cases/joe_oldImages/fadul4_im2_afterRotation.png"))
 
-knitr::include_graphics(c("images/cartridge_cases/fadul5_im1_afterRotation.png",
-                          "images/cartridge_cases/fadul5_im2_afterRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/fadul5_im1_afterRotation.png",
+                          "images/cartridge_cases/joe_oldImages/fadul5_im2_afterRotation.png"))
 ```
 </details>
 
@@ -1057,21 +1207,21 @@ Continued testing the CMC algorithm on more known match and known non-match pair
 I've continued to run the algorithm on a number of known match pairs of cartridge cases. Although the algorithm seems to work well for the majority of known match pairs, it isn't perfect at picking the correct rotation angle. I haven't yet determined the cause of when the algorithm fails to pick the correct rotation angle.
 
 ```{r, fig.cap="A pair of known match cartridge cases that start off as rotationally mis-aligned.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/Fadul8-2_FadulX_beforeRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/Fadul8-2_FadulX_beforeRotation.png"))
 ```
 
 ```{r, fig.cap="The same pair as above after being correctly aligned via the CMC algorithm.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/Fadul8-2_FadulX_afterRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/Fadul8-2_FadulX_afterRotation.png"))
 ```
 
 Below is an example of a pair for which the algorithm does a poor job of choosing the correct rotation to align the two images.
 
 ```{r, fig.cap="A pair of known match cartridge cases that start off as rotationally mis-aligned.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/FadulC_FadulM_beforeRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/FadulC_FadulM_beforeRotation.png"))
 ```
 
 ```{r, fig.cap="The same pair as above after being incorrectly aligned via the CMC algorithm.", out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/FadulC_FadulM_afterRotation.png"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/FadulC_FadulM_afterRotation.png"))
 ```
 
 While running code, I've also been working on putting all of my working functions into a package. I should hopefully have something resembling a structured package by my spotlight in November.
@@ -1083,32 +1233,32 @@ Our current goal is to demonstrate that the current form of the package produces
 Below we can see the known match cartridge case pair in their raw format before pre-processing. In this state, it's difficult to make any comparisons between the two breech faces. The first step is to process these images to both remove as much of the non-breech face region of the image as possible and accentuate the breech face impression markings left on the cartridge case.
 
 ```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/cartridge_cases/fadul1_pair_raw.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/fadul1_pair_raw.png")
 ```
 
 We can see the results of the pre-processing below. It will hopefully look to you as if one of the images is simply a rotated copy of the other. Our goal is to automatically detect what the correct rotation value is to properly align the two images.
 
 ```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/cartridge_cases/fadul1_pair_processed.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/fadul1_pair_processed.png")
 ```
 
 In order to find the correct rotational value to align the two images, we divide the first image (fadul1-1) into a 7x7 grid of cells. For each cell in image 1, we select a similarly located, wider region in image 2 and calculate the cross-correlation between the image 1 cell and the larger image 2 region. Below is an image that illustrates this for a particular cell.
 
 ```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/cartridge_cases/im1_im2_cellComparison.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/im1_im2_cellComparison.png")
 ```
 
 Below is a gif showing an example of cell/region pairs for which the CCF is computed.
 
 ```{r, fig.cap="(Left) 100x100 cells from Image 1. (Right) 200x200 cells from Image 2.", out.width="50%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics(c("images/cartridge_cases/im1_standardCells.gif",
-                          "images/cartridge_cases/im2_largerCells.gif"))
+knitr::include_graphics(c("images/cartridge_cases/joe_oldImages/im1_standardCells.gif",
+                          "images/cartridge_cases/joe_oldImages/im2_largerCells.gif"))
 ```
 
 Once we calculate the CCF for each cell/region pair, we rotate image 2 by a few degrees, say 3 degrees, and repeat the process. We can obviously keep track of the correlation values for each rotation and determine for which rotation values a particular image 1 cell attains its maximum CCF. If two cartridge cases are genuine matches, then we would expect there to be some consensus among the cells for which theta value they attain their max CCF. For example, below we see a histogram of theta values for which the cells in the fadul1-1 attain highest correlation in their associated fadul1-2 regions. We can see a peak around -20 degrees. In particular, the consensus-based theta value turns out to be -21 degrees.
 
 ```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/cartridge_cases/fadul1_fadul2_thetaHistogram.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/fadul1_fadul2_thetaHistogram.png")
 ```
 
 If we then consider the CCF values at the -21 degree rotation comparison, we see there are quite a few cells that could be classified as "highly correlated". Tong et al. discuss various criteria they use to define a cell as a "Congruent Matching Cell." For example, they set a minimum CCF value of .25. Based on the criteria that they set, we can see in the table below that there are 14 cells that can be defined as CMCs. In their original paper, the number of CMCs they found was 15. The discrepancy likely comes from the fact that they perform different pre-processing steps than we do but don't discuss what those pre-processing steps are.
@@ -1133,13 +1283,13 @@ If we then consider the CCF values at the -21 degree rotation comparison, we see
 We can visualize which cells in fadul1-1 are classified as CMCs. The image below shows the fadul1-1 CMCs as well as fadul1-2 rotated by -21 degrees (the consensus-based theta value chosen from before). We can see that most of the regions with the most obvious visual similarity between the two cartridge cases (in particular, the linear markings in the bottom-right of each image) are indeed classified as CMCs.
 
 ```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/cartridge_cases/fadu1_pair_CMCs.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/fadu1_pair_CMCs.png")
 ```
 
 We are currently running into issues where the correlations values we get out between the two images are not nearly as high as they appear to be in the Tong paper (although we don't really know since they didn't provide much context). Below is an example of a pair of known match cells. The two breech faces have already been rotationally aligned (by hand), so these should have very high correlation (apparantely something north of .55 according the the Tong paper). We can certainly see a mode in the correlation (red spot), but it is hard for me to interpret exactly what that mode represents. I believe it represents the shift needed to align the second, larger image with the first image. I need to do some more digging into what is actually happening with FFTs and cross-correlation implementations to know for sure.
 
 ```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/cartridge_cases/cellCCFMap.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/cellCCFMap.png")
 ```
 
 <details>
@@ -1151,19 +1301,19 @@ For each of these examples, the image on the left is the "reference" image that 
 In the first example below, the image on the right just has the box shifted down 30 pixels and right 10 pixels. If we were to overlay the two images with their centers aligned, the correlation "map" that accompanies this pair provides instructions for how to shift the right image to correctly match up with the left image. We see from the location of the largest correlation value (of 1 at (-10,30)) that the CCF indeed detected the correct shift.
 
 ```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/cartridge_cases/examplePerfectCCFMap.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/examplePerfectCCFMap.png")
 ```
 
 In the second example, the 0-values pixels in the right image are replaced with randomly generated $\mu = 0$ and $\sigma = 50$ white noise. We see that the max correlation value still occurs at the right location, but with a smaller magnitude. We also see that the rest of the correlation map isn't all 0 as it was in the 0-pixel example above.
 
 ```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/cartridge_cases/exampleWN_CCFMap.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/exampleWN_CCFMap.png")
 ```
 
 Lastly, we have an example where the second image contains a smaller square of side-length 10 pixels. We see that, again, the correlation value maximum occurs at the correct location yet with a magnitude well below 1. 
 
 ```{r out.width="75%",fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/cartridge_cases/exampleWNSmallerSquare_CCFMap.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/exampleWNSmallerSquare_CCFMap.png")
 ```
 </details>
 
@@ -1287,19 +1437,19 @@ Joe 12/5 Update: I believe we've finally cracked the issue that we've been runni
 Below, I have three examples showing the raw correlation values between pairs of cells. Any pair with a correlation above .55 we would call "highly correlated" under the Tong paper's criteria. The first example below shows a best-case scenario in which we have two images containing a lot of observed values and those observed values have a fairly high correlation (high enough to meet the arbitrary .55 threshold, at least).
 
 ```{r}
-include_graphics("images/cartridge_cases/highlyCorrelatedCellPair_largeProportionOfImage.png")
+include_graphics("images/cartridge_cases/joe_oldImages/highlyCorrelatedCellPair_largeProportionOfImage.png")
 ```
 
 However, the second example shows a not-so-great scenario in which we don't have a lot of observed values in the two images, but they are still highly correlated. We should be less confident that such examples indicate that the overall breech face impressions are "true matches" than we are in the example above, but the Tong paper doesn't seem to make such a distinction.
 
 ```{r}
-include_graphics("images/cartridge_cases/highlyCorrelatedCellPair_smallProportionOfImage.png")
+include_graphics("images/cartridge_cases/joe_oldImages/highlyCorrelatedCellPair_smallProportionOfImage.png")
 ```
 
 Lastly, I have an example of two images that certainly have many observed value that visually look like they should be fairly highly correlated. However, we can see by the raw correlation value that they, in fact, wouldn't pass the threshold to be "highly correlated." As such, we wouldn't include them when we count the number of highly correlated pairs between the two images. I wanted this example to demonstrate that our eyes don't always necessarily pick up on subtleties as strongly as a computer might.
 
 ```{r}
-include_graphics("images/cartridge_cases/lowCorrelatedCellPair_largeProportionOfImage.png")
+include_graphics("images/cartridge_cases/joe_oldImages/lowCorrelatedCellPair_largeProportionOfImage.png")
 ```
 
 </details>
@@ -1312,20 +1462,20 @@ Joe 12/12 Update: I have been trying to implement the Tong paper's criteria for 
 To recap, the CMC algorithm attempts to match two breech face impression images by breaking the image up into "cells" and counting the number of cells that are highly similar between the two images. So for each pair of images, we get a congruent matching cell count indicating how similar the overall images are. For the Fadul data that the Tong paper uses, there are 63 known match pairs. The bar chart on the left shows the various CMC counts for these 63 known match pairs as determined by our implementation in the algorithm. In contrast, the CMC count distribution as reported in the Tong paper is on the right (known matches in gold). We can see that our histogram is qualititatively similar to the gold distribution on the right.
 
 ```{r}
-include_graphics(c("images/cartridge_cases/kmCMCDistribution.png",
-                 "images/cartridge_cases/CMCDistribution_Tong.PNG"))
+include_graphics(c("images/cartridge_cases/joe_oldImages/kmCMCDistribution.png",
+                 "images/cartridge_cases/joe_oldImages/CMCDistribution_Tong.PNG"))
 ```
 
 There are two pairs that seem to be giving us trouble in the histogram above (we expect all of the known match pairs to have a large number of "highly similar" cells). Below shows the se two pairs. Hopefully it's clear to see that the first pair, while known matches, look fairly different. There are many regions in the image on the left that are missing from the image on the right. These differences possibly provide some justification as to why the current implementation of the algorithm fails to identify these two images as matches.
 
 ```{r}
-include_graphics("images/cartridge_cases/lowCMCCount_example1.png")
+include_graphics("images/cartridge_cases/joe_oldImages/lowCMCCount_example1.png")
 ```
 
 The troubling example is below. It's visually obvious that these two images are very similar to each other. However, the algorithm does not identify these as matches. Our current hunch is that the way we preprocess the images has a dramatic effect on the results we ultimately observe. We have a few ideas to tweak the preprocessing to hopefully fix such issues. Unfortunately, the Tong paper never describes how they preprocess the 3D scans, so we have no way of truly replicating their results. All we can hope for is qualitatively similar results, which appears to be the case for the most part.
 
 ```{r}
-include_graphics("images/cartridge_cases/lowCMCCount_example2.png")
+include_graphics("images/cartridge_cases/joe_oldImages/lowCMCCount_example2.png")
 ```
 </details>
 
@@ -1408,7 +1558,7 @@ Joe 1/27 Update: I've been starting to write up an article that we hope to submi
 </summary>
 
 ```{r}
-knitr::include_graphics("images/cartridge_cases/paperHeader.PNG")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/paperHeader.PNG")
 ```
 
 
@@ -1421,25 +1571,25 @@ Each of the following plots were subject to the same criteria and are based on t
 This is an example from Chen et al. (2017) that the rest of the plots are trying to emulate. This plot was made using reportedly images downsampled to size 600x600 and an 8x8 grid of cells. Again, it's unclear how this downsampling was performed since the raw surface data often have dimensions near 600x600, but never perfectly 600x600. The plots following include various resizing/padding techniques used to try to get this nominal 600x600 image size.
 
 ```{r}
-knitr::include_graphics("images/cartridge_cases/kmCMCs_Chen.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/kmCMCs_Chen.png")
 ```
 
 This is a plot based on images that were resized to 560x560 (the image size specified by Tong et al. (2015)) using linear interpolation.
 
 ```{r}
-knitr::include_graphics("images/cartridge_cases/kmCMCs_560x560_linearInterp.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/kmCMCs_560x560_linearInterp.png")
 ```
 
 This is a plot based on images that were resized to 600x600 (the image size specified by Chen et al. (2017)) using the `x3ptools::resize_x3p()` function followed by padding the image with NAs until it reaches a size of 600x600.
 
 ```{r}
-knitr::include_graphics("images/cartridge_cases/kmCMCs_600x600_sample_x3p.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/kmCMCs_600x600_sample_x3p.png")
 ```
 
 This final distribution is the most promising of the ones I've made. This distribution is also based on images that were resized using `x3ptools::resize_x3p()`. However, rather than padding the exterior of the image with NA rows/cols until it achieves the nominal 600x600 size, the image is first split into an 8x8 grid of cells and each cell is individually padded until it reaches dimension 75x75.
 
 ```{r}
-knitr::include_graphics("images/cartridge_cases/kmCMCs_originalSize_downSampled.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/kmCMCs_originalSize_downSampled.png")
 ```
 
 </details>
@@ -1629,7 +1779,7 @@ Joe 2/17 Update: Not too much to report today. I've mainly working on the cmcR p
 </summary>
 
 ```{r}
-knitr::include_graphics("images/cartridge_cases/ccfDiagnosticMap.png")
+knitr::include_graphics("images/cartridge_cases/joe_oldImages/ccfDiagnosticMap.png")
 ```
 
 
@@ -2197,50 +2347,1631 @@ While we haven't been able to perfectly replicate results of other authors, I do
 
 <details>
 <summary>
-Joe 6/1 Update: I've been writing the R Journal submission and adding more functionality to the cmcR package in the last few weeks. I believe we are close to finishing the R Journal submission and are on the home stretch for finishing the cmcR package.
+Joe 6/22 Spotlight: I think we've finally found a tone for the paper that discusses the ambiguity and lack of computational reproducibility in the current CMC literature while not being overly harsh. We're hoping to use this project as an example to illustrate (1) common patterns in non-reproducible research such as omitting code, parameter settings, etc. and (2) what must be done to implement an algorithm that has only been qualitatively described.
 </summary>
 
-I have been working on a lot of the "boring" parts of package writing including adding some functionality, writing tests, and improving documentation. Writing has also taken up a considerable amount of time. For those of you who are new, I thought I would share some exposition for my project and discuss its current condition.
+First, I wanted to provide some context for those of us who are not familiar with the cartridge case project or the CMC method. This will also give me an opportunity to show-off some visualizations that I've spent a good deal of time putting together and incorporating into the cmcR package that I believe illustrates the concepts well.
 
 The back wall of the barrel of the firearm is commonly referred to as the breech face. For a variety of reasons, the breech face of a firearm contains markings that can uniquely identify the firearm. During the firing process, cartridge cases, often colloquially referred to as "bullet casings," slam into the breech face. The breech face markings are impressed upon the cartridge case when this happens. Two cartridge cases fired from the same firearm can often be matched based on these "breech face impressions." The plots below show a known match and known non-match pair of cartridge case scans.
 
 ```{r, fig.cap="Known match pair of cartridge cases"}
-knitr::include_graphics("images/cartridge_cases/5-28_update/kmPair.png", dpi = 100)
+knitr::include_graphics("images/cartridge_cases/6-22_spotlight//kmPair.png", dpi = 100)
 ```
 
 ```{r, fig.cap="Known non-match pair of cartridge cases"}
-knitr::include_graphics("images/cartridge_cases/5-28_update/knmPair.png", dpi = 100)
+knitr::include_graphics("images/cartridge_cases/6-22_spotlight//knmPair.png", dpi = 100)
 ```
 
+The Congruent Matching Cells (CMC) method was developed at the National Institute of Standards and Technology to determine whether two cartridge cases match. The method involves partitioning a scan of one cartridge case into a grid of cells. Each of these cells is paired with a counterpart region in the other cartridge case scan. In their "raw" format, two matching cartridge case scans are not necessarily aligned. In particular, one scan may need to be translated and rotated to properly align with the other. These "alignment parameter" values by which two scans will be properly aligned can be estimated for each cell/region pair (I'll skip over how this is done). The CMC method tries to determine whether a "consensus" exists among the estimated alignment parameter values across cell/region pairs. For a truly matching pair of cartridge cases, we would expect the estimated alignment parameter values to agree with each other (possibly within some tolerance). We would also expect the estimated alignment parameter values to vary randomly for a truly *non*-matching pair of cartridge cases. These are assumptions underlying all methods proposed in the CMC literature. Effectively, the only difference between the various methods is how a "consensus" is determined. We have implemented two methods, the initially proposed method from Song (2013) and the High CMC method from Tong et al. (2015), in the cmcR package (these were the first two versions of the CMC method proposed). I won't delve into the details of either method here.
 
-The Congruent Matching Cells (CMC) method was developed at the National Institute of Standards and Technology to determine whether two cartridge cases match. The method involves partitioning a scan of one cartridge case into a grid of cells. Each of these cells is paired with a counterpart region in the other cartridge case scan. In their "raw" format, two matching cartridge case scans are not necessarily aligned. In particular, one scan may need to be translated and rotated to properly align with the other. These "alignment parameter" values by which two scans will be properly aligned can be estimated for each cell/region pair (I'll skip over how this is done). The CMC method tries to determine whether a "consensus" exists among the estimated alignment parameter values across cell/region pairs. For a truly matching pair of cartridge cases, we would expect the estimated alignment parameter values to agree with each other (possibly within some tolerance). On the other hand, we would expect the estimated alignment parameter values to vary randomly for a truly *non*-matching pair of cartridge cases.
-
-The plots below illustrate the CMC method (now implemented in a function in the cmcR package!). The plot immediately below shows results from a comparison between two known match cartridge case scans. The scans were partitioned into an $8 \times 8$ grid of cells. Cells shown in black have been identified as "Congruent Matching Cells." Red cells have not been identified as CMCs. Recall that the CMC method uses the estimated alignment parameter (translation and rotation) values to identify matches (we skipped over the finer details). The plot on the right-hand side shows how each cell in the left-hand side plot aligns "best," where "best" is quantified using the cross-correlation function. 40 cells were identified as CMCs while 3 were not.
+The plots below illustrate the CMC method. The plot immediately below shows results from a comparison between two known match cartridge case scans. The scans were partitioned into an $8 \times 8$ grid of cells. Cells shown in black have been identified as "Congruent Matching Cells." Red cells have not been identified as CMCs. Recall that the CMC method uses the estimated alignment parameter (translation and rotation) values to identify matches. The plot on the right-hand side shows how each cell in the left-hand side plot aligns best (where "best" is quantified using the cross-correlation function). 40 cells were identified as CMCs while 3 were not.
 
 ```{r,fig.cap="CMC results for known match pair"}
-knitr::include_graphics("images/cartridge_cases/5-28_update/kmCMCs.png", dpi = 100)
+knitr::include_graphics("images/cartridge_cases/6-22_spotlight/kmCMCs.png", dpi = 100)
 ```
 
 In contrast, the plots below show the results from a comparison between two known *non*-match cartridge case scans.
 
 ```{r, fig.cap="CMC results for known non-match pair"}
-knitr::include_graphics("images/cartridge_cases/5-28_update/knmCMCs.png", dpi = 100)
+knitr::include_graphics("images/cartridge_cases/6-22_spotlight/knmCMCs.png", dpi = 100)
 ```
 
-As I said above, we are close to finishing the R Journal submission as well as the development of the cmcR package. I'm very excited to delve into *new* ideas that we have for the project and will hopefully have thoughts to share on this in the future.
+A popular cartridge case data set in the CMC literature is from Fadul et al. (2011). This data set contains 63 known match and 717 known non-match cartridge case pairs. We can count the number of CMCs for each of these cartridge case pairs. Obviously, assuming the methods applied are valid, we would expect matching pairs to have more CMCs than non-matching pairs. In particular, we hope that all KM pairs have higher CMC counts than all KNM pairs. The plot below shows the distributions of the CMC counts assigned to all 63 KM and 717 KNM pairs. We can see that there is separation between the two CMC count distributions between 15 and 16 CMCs (vertical line drawn at 15.5).
+
+```{r, fig.cap="Initially proposed CMC method applied to 63 KM and 717 KNM cartridge case pairs"}
+knitr::include_graphics("images/cartridge_cases/6-22_spotlight/initialCMC_example.png", dpi = 100)
+```
+
+The CMC count distributions based on the High CMC method are shown below for the same data set. Again, we see that there is separation between the two distributions. We've observed that both the initially proposed and High CMC methods tend to assign more "false positive" CMCs to non-match pairs than the initially proposed method. The number of non-matching pairs assigned a high false positive CMC count is heavily dependent on the the various parameters that require setting in the method. We hope to provide a deeper discussion on how sensitive the two methods are to various processing decisions than what is currently provided in the CMC literature.
+
+```{r, fig.cap="High CMC method applied to 63 KM and 717 KNM cartridge case pairs"}
+knitr::include_graphics("images/cartridge_cases/6-22_spotlight/highCMC_example.png", dpi = 100)
+```
+
+As stated above, I think we've found an appropriate tone for the paper that provides a tempered critique of and discussion of the lack of reproducibility in the CMC literature. Reproducibility of results (by other parties) is a necessary, if sometimes overlooked, component of research. For computationally-intensive research (e.g., algorithm development), computational reproducibility is vital. Anything short of the original data and code used to arrive at the results does not equate to full reproducibility.
+
+We are planning on using the cmcR package as an example of how unreproducibility, specifically computational unreproducibility, manifests in academic literature. This includes ambiguity in how parameters are chosen, using unreplicable processing procedures (e.g., processing data manually), or reliance on proprietary software. The CMC literature is rife with all of these  Reproducibility is especially important for algorithms that may affect legal decisions (e.g., suspect's firearm fired a particular cartridge case). While few would disagree with the need for reproducible research, I believe the cmcR package provides an illustrative example of the typical challenges, failures, and successes that one experiences when implementing a previously closed-source method.
+
+I have also been adding functionality to the cmcR as ideas come up while writing. For example, the cartridge case pairs and CMC plots shown above were created with functions available in the cmcR package.
+
+</details>
+
+<details>
+<summary>
+Joe 10/5 Spotlight: We are currently fine tuning aspects of the paper and hoping to submit soon! I'm very excited to move onto the next stage of this project. Additionally, I have been thinking a good deal about how we might improve the cartridge case identification procedures while providing more rigorous justification than the current "state-of-the-art" which is effectively guess-and-check what procedures work well. I am surprised how little the literature borrows from state-of-the-art techniques in image processing (MRI imaging, etc.) and I believe that there is a lot of untapped potential in using such methods.
+</summary>
+
+The paper is methodically coming along. We are to the point of finely tuning aspects of the paper, specifically sections that explain the CMC methodology, to make it clearer how/why the procedures work. The original algorithm descriptions are incomplete in many respects. As such, we are not only introducing our particular implementation of the procedures, but also trying to provide an unambiguous description of the methods themselves. This has proven to be a time-intensive, frustrating process and often feels like we are patching holes caused by others. The figure shown below illustrates one way in which we are trying to clarify the CMC methodology. It shows 3 cartridge cases and the results obtained from their comparisons. Fadul 1-1 and Fadul 1-2 are a matching pair while Fadul 1-1 and Fadul 2-1 are non-matching. The gray cells in Fadul 1-2 and Fadul 2-1 represent where the Fadul 1-1 cells "align" based on the maximum cross-correlation. So each cell in Fadul 1-2 and Fadul 2-1 has an associated horizontal/vertical translation, a rotation, and a cross-correlation score based on those transformations. These are visually depicted as histograms below below each scan. The purple bars represent user-defined thresholds used to classify a particular value as "congruent" or not. We can see that, in general, more values tend to be classified as congruent for the matching pair than for the non-matching pair. Interestingly, however, we can see that the CCF scores are not as "well-behaved" in that a good deal of non-matching cells have "congruent" CCF scores (based on this particular set of thresholds, at least). In order for an entire *cell* to be classified as congruent, each of its associated values (translation, rotation, and CCF) need to be classified as congruent. This is how the originally proposed CMC method works (from Song (2013)). We have also implemented one of the descendants of the original method, but are still brainstorming illustrative visualizations.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/10-5-20-Spotlight/originalMethod_sideBySide_thirdDraft.png")
+```
+
+On top of introducing the implementation, we are also trying to abstract the process we went through in its creation to a larger discussion on reproducibility in computational research. In particular, we focus on why/how computational research should/can be rendered reproducible and use this particular CMC project as an illustrative example. The example shown above effectively skips over 2 of the 3 critical steps to the CMC procedure: the preprocessing and feature extraction. Both of these steps require a good deal of user input and little has been done in the CMC literature to create a principled approach to making informed decisions. This is one aspect of the project that I hope to focus on after we're done with this paper.
+
+The figure below illustrates the new preprocessing pipeline we have used to obtain better results. This new pipeline is semi-automatic, as opposed to the fully-automatic procedure we were previously using, but is much faster and yields considerably better results. The downside to the current version of this procedure is that it requires the user to specify the radii of the two circles between which the observations are kept (everything is handled automatically). Optimally we would use a fully automatic way to remove the undesired observations on the exterior and in the center of the scan. I would be happy to hear any ideas. Steps 2 and 3 are of our design. There is no discussion in the CMC literature concerning whether the breech face surfaces are leveled (step 3). I will discuss the ramifications of *not* leveling the surfaces below. Step 4, applying a Gaussian filter, is common in the CMC literature. However, inexplicably, different types of Gaussian filters (band-pass, low-pass, regression, robust regression, etc.) are used between CMC papers which compounds our inability to actually compare published results. Apart from it being a common tool in some domains, it's unclear why even a Gaussian filter is used -- this is something I would like to explore in the future.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/10-5-20-Spotlight/newPreProcessingPipeline.png")
+```
+
+</details>
+
+<details>
+<summary>
+Joe 11/16 Spotlight: We learned (after the last spotlight) that the R Journal requires that packages be accepted to CRAN before the associated paper is accepted. This gave us a reason to perform a major overhaul of the package's structure to make it better align with the points we made in our paper and make it CRAN-ready. The new structure of the CMC method is entirely pipe-friendly and works well with common dplyr functions. This aligns with one of the major points we discuss in the paper that modularizing an algorithm into discrete steps makes it easier to experiment with, understand, and scrutinize.
+</summary>
+
+It will be easiest to explain the new cmcR package functionality/structure by looking at the README available on the [package Github repo](https://github.com/CSAFE-ISU/cmcR).
+
+The major benefit of modularizing the procedure as we have done in the cmcR package is that experimentation of different processing conditions involves literally just commenting out certain parts of code. For example, if we want to see how results change when the trend is not removed from the scans during preprocessing (something that is not explicitly covered in the CMC literature), we can simply remove this function call from the pipeline like so:
+
+```{r eval=FALSE,echo=TRUE}
+x3p %>%
+  preProcess_crop(region = "exterior") %>%
+  preProcess_crop(region = "interior") %>%
+  # preProcess_removeTrend(statistic = "quantile",
+  #                                tau = .5,
+  #                                method = "fn") %>%
+  preProcess_gaussFilter() %>%
+  x3ptools::sample_x3p() %>%
+  ... #continue pipeline
+```
+
+The image below illustrates the difference between a processed scan where the trend was or was not removed. Nowhere in the CMC literature is there a discussion on whether/how the global trends that exist in most cartridge cases are removed (although a Gaussian regression filter would implicitly attenuate this information).
+
+
+```{r, out.width=700,fig.align="center"}
+knitr::include_graphics("images/cartridge_cases/11-15-20 Spotlight/trendRemovalComparison.png")
+```
+
+We will consider how the results change when we skip de-trending, but keep all other processing conditions the same.
+
+The number of cells that are deemed "congruent" under the CMC method can be used as a similarity score between a cartridge case pair. We anticipate matching cartridge case pairs to have a higher "CMC count" than non-matching cartridge cases in general. Each plot below shows the CMC counts for a set of 63 matching and 717 non-matching cartridge case pairs. How these plots differ is in the set of translation and CCF thresholds used to classify each cell as "congruent." We would like to see a large amount of separation between the distribution of matching and non-matching CMC counts. The AUCs are calculated based on varying the minimum CMC count used to declare a cartridge case pair "matching." AUCs equal to 1 indicate perfect separation between the matching and non-matching distributions. Based on our experimentation, there are many sets of processing conditions that result in perfect identificaitons. As such, we introduced a simple diagnostic to further differentiate these threshold combinations based on the fact that we would prefer large separation between the matching and non-matching distributions:
+
+$$
+r = \frac{\sum_{i=1}^2 \left(\overline{\text{CMC}}_{i} - \overline{\text{CMC}}\right)^2}{\sum_{i=1}^2 \frac{1}{n_i - 1}\sum_{j=1}^{n_i} \left(\text{CMC}_{i,j} - \overline{\text{CMC}}_i\right)^2}
+$$
+
+where $\overline{\text{CMC}}_i$ represents the within-group (i.e., match or non-match) mean CMC count and $\overline{\text{CMC}}$ represents the grand mean CMC count. This ratio attempts to quantify the between- and within-group variability.
+
+```{r, out.width=700,fig.align="center"}
+knitr::include_graphics("images/cartridge_cases/11-15-20 Spotlight/decisionRule_comparison.png")
+```
+
+This plot also uncovers another important point that we want to emphasize in the paper: the sensitivity of the method to various processing decisions. Method sensitivity has never been described in the CMC literature. Rather, authors seem to share what "looks good" on the Fadul dataset. Based on our experimentation, processing decisions have a major impact on the effectiveness of the CMC method are:
+
+- the decision rule used,
+
+- whether the global trend is removed during preprocessing, and
+
+- the choice of congruency thresholds $T_x, T_y, T_\theta$, and $T_{\text{CCF}}$.
+
+If we consider larger variance ratios as an indication of a more "promising" set of processing conditions, then the following plot can be used to select an optimal set (or at least range) of parameter settings.
+
+```{r, out.width=700,fig.align="center"}
+knitr::include_graphics("images/cartridge_cases/11-15-20 Spotlight/varianceRatioDotPlot.png")
+```
+
+For example, consider what happens to the CMC distributions if we skip the surface-leveling (step 3) in the preprocessing above. The issue with keeping such information in the scans is that the "tilt" visible in the preprocessing pipeline in steps 1 and 2 aren't consistent across cartridge cases fired from the same firearm. The CCF, being a non-robust similarity metric, gravitates towards large-scale information such as a tilt in the height values. However, we specifically want to make classifications based on small, intricate details of the two scans. Thus, not removing information such as a large-scale tilt causes the CCF to be smaller for matching scans that don't have the same tilt and larger for non-matching that do have the same tilt. We use such examples to illustrate why the principles of reproducibility need to be adhered to, especially when they apply to forensic methods.
+
+</details>
+
+<details>
+<summary>
+Joe 12/7: I've spent a good deal of time getting the cmcR paper ready for submission to the ASA Statistical Computing and Statistical Graphics paper competition. The limit is 6 pages for the competition while our most recent draft of the R Journal submission is 24 pages. It has been challenging to trim the paper to the required page limit while maintaining our original message. On top of this, I have also been studying Markov Random Field theory and its application to image processing. I believe MRFs can provide a more "principled" structure for performing cartridge case comparisons than the current "state-of-the-art" in cartridge case comparisons. I have at least one lead on a method for performing estimation on MRFs that is novel to image processing at large.
+</summary>
+
+</details>
+
+<details>
+<summary>
+Joe 12/21: The cmcR package has officially been accepted onto CRAN! It has been a challenging process to say the least, but I think we have a solid foundation upon which we can now start improving the cartridge case comparison procedures. I have some directions that I am interested in taking the project already, but still have a good deal of exploration to do. My current goal is to approach the problem of cartridge case classification from the perspective of texture classification.
+</summary>
+
+I have determined a fast method to align two scans based on estimating the firing pin impression hole and using a polar transformed version of the image to identify the aligning rotation. The plot below shows how the alignment works between the known match pair Fadul 1-1 and Fadul 1-2 and the known non-match pair Fadul 1-1 and Fadul 2-1. Additionally, we can remove all pixels that are NA in either one of the scans, thus only considering the "intersection" of the two breech face impressions. Depending on what we choose to model, this may be considered a "complete case" analysis, which often results in biased (variance?) estimators. On the other hand, certain parts of the scans are not a part of the actual breech face impressions, per se, which is ultimately what we want to model. This includes the firing pin impression region in the center. Thus, removal of these observations may be still be theoretically appropriate to avoid the complete case issues.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/12-21-20_update/alignedImage.png")
+```
+
+A model that I believe has promise for the texture approach is called the iFRAME ([i]nhomogeneous [F]ilters, [R]andom Field, [A]nd [M]aximum [E]ntropy) model. 
+
+For an image $I$, the iFRAME model assumes that the pixel intensities behave according to an inhomogeneous (i.e., dependent on the pixel index) random field model governed by a set of basis functions such as Gabor wavelets. Functionally, this model attempts to identify the set of basis functions that best explain a particular image by using "basis pursuit," which is an algorithm that estimates a basis that most effectively explains a set of data (such as an image). An example of the simulated images based on different stages of the basis pursuit algorithm for an image of a cat is shown below. The fact that images can be simulated means that this model is "generative." The authors of the paper from which the images were taken use Hamiltonian Monte Carlo to simulate these images. Also, the code is [freely available](http://www.stat.ucla.edu/~jxie/sparseFRAME.html) for download!
+
+```{r, out.width=100}
+knitr::include_graphics(c("images/cartridge_cases/12-21-20_update/1a.jpg",
+                          "images/cartridge_cases/12-21-20_update/ReconstructedImg_img_1_sketch_1.png",
+                          "images/cartridge_cases/12-21-20_update/ReconstructedImg_img_1_sketch_30.png",
+                          "images/cartridge_cases/12-21-20_update/ReconstructedImg_img_1_sketch_60.png",
+                          "images/cartridge_cases/12-21-20_update/ReconstructedImg_img_1_sketch_90.png",
+                          "images/cartridge_cases/12-21-20_update/ReconstructedImg_img_1_sketch_200.png",
+                          "images/cartridge_cases/12-21-20_update/ReconstructedImg_img_1_sketch_400.png"))
+```
+
+Applying this to cartridge cases, my current hypotheses are that the identifying breech face markings (1) can be found only on subsets of the cartridge case scan and (2) can be described using a small set of appropriately chosen, textural basis functions (e.g., Gabor functions/wavelets). The first hypothesis is essentially the hypothesis motivating the CMC method, so it aligns with commonly-held beliefs. This hypothesis plays-out in the iFRAME model in that the basis functions considered are small wavelet functions of dimension smaller than the cartridge case scan matrix. The second hypothesis has not been explored nearly as much as the first, so it will require some justification. If it holds true, I envision using the extracted basis functions as features in a classification algorithm (e.g., a random forest - the iFRAME authors compare logistic regression and SVM). When it comes to choosing a classifier, we may need to worry about the fact that we have fewer cartridge case scans than other types of data.
+
+</details>
+
+<details>
+<summary>
+Joe 1/11/21: The current "lowest hanging" fruit that we want to explore is applying the CMC method (or something like it) to polar transformed versions of the scans. This makes it easier to ensure that the square cells into which we partition the scans contain mostly observed values as opposed to the non-transformed scans' cells which often contain only pieces of the circular breech face surface.
+</summary>
+
+We had the idea some time ago that partitioning a circular cartridge case surface into square cells doesn't make a ton of sense. What would make more sense would be divide the scans into sort-of "pie pieces" or annular segments to be compared. This would, at the very least, avoid needing to replace as many missing values as we do in the current CMC method. The obvious problem with dividing a square matrix into annular segments is that result wouldn't be a square matrix. This makes it then challenging to apply matrix-based algorithms. To get around this, we can consider polar transformed versions of the scans.
+
+```{r, out.width="70%",fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/1-11-21 Spotlight/cmc_illustration.PNG")
+```
+
+
+Rectangular and polar transformed versions of the Fadul 1-1 cartridge case are shown below. We use nearest-neighbor interpolation to fit the polar-transformed values into a square matrix. 
+
+```{r, out.width="30%"}
+knitr::include_graphics(c("images/cartridge_cases/1-11-21 Spotlight/fadul1-1_processedRectangular.png",
+                          "images/cartridge_cases/1-11-21 Spotlight/fadul1-1_processedPolar.png"))
+```
+
+Performing the "correct" polar transformation involves identifying the center of the firing pin impression and centering the surface matrix on this center (by padding). The plots below show two examples of cartridge cases centered on their estimated firing pin impression centers. The polar transformation then involves populating a new matrix by interpolating values from the original. To preserve as many of the "raw" scan values as possible, we will choose nearest-neighbor interpolation (as opposed to performing local averaging of values, which is more often used when transforming images where the raw pixel values aren't as precious).
+
+```{r,out.width="60%"}
+knitr::include_graphics("images/cartridge_cases/1-11-21 Spotlight/fadul1_centered.png")
+```
+
+Once the scans are centered on their firing pin impression centers, we can then calculate the CCF to identify the optimal translations to align the two scans. In the polar domain, a vertical translation of the two images below corresponds to a rotation in the rectangular domain. An example of the CCF matrix is shown below. We can consider the index at which the CCF achieves its maximum as the estimated "optimal" translation and determine the estimated rotation angle from this. The estimated rotation angle of 24 degrees shown below agrees with the estimation performed using the CMC method on the rectangular scans.
+
+```{r, out.width="20%"}
+knitr::include_graphics(c("images/cartridge_cases/1-11-21 Spotlight/fadul1-1_polar.png",
+                                  "images/cartridge_cases/1-11-21 Spotlight/fadul1-2_correctPolar.png",
+                                  "images/cartridge_cases/1-11-21 Spotlight/ccf_correctPolar.png"))
+```
+
+However, because the effectiveness of the polar transformation is dependent on *estimating* the firing pin hole center, we also want to to consider how the CCF may behave if the firing pin hole center estimation is off. The plots below show what happens when the estimated firing pin hole center estimated above is pushed left and down 40 pixels. We can see that (1) the CCF matrix is less "certain" of the location of the maximum value as evidenced by the wide crest in the values and (2) the estimated rotation is far from the correct value. This means that we need to be extra cautious that the firing pin center is accurately estimated.
+
+```{r, out.width="20%"}
+knitr::include_graphics(c("images/cartridge_cases/1-11-21 Spotlight/fadul1-1_polar.png",
+                                  "images/cartridge_cases/1-11-21 Spotlight/fadul1-2_wrongPolar.png",
+                                  "images/cartridge_cases/1-11-21 Spotlight/ccf_wrongPolar.png"))
+```
+
+Using the polar transformed matrices, we can first see how the "classical" CMC method performs. We perform a cell-based comparison on the 63 matching and 717 non-matching pairs in the Fadul data set and consider the distribution of CMCs. In general, the CMC method does not perform under the chosen set of processing conditions in the polar domain as well as it does in the rectangular domain. There are a few changes to the processing conditions that can be made that may improve the classification. However, in applying the polar transformation, we lose some of the features that are used in the classical CMC method to make classifications. For example, some CMC methods use the distribution of the estimated translation values across various rotations of the target scan to identify the rotation at which the translation values reach a "convergence." Using such information is not possible to consider here as rotating the polar transformed scans doesn't have a coherent interpretation in the rectangular domain.
+
+```{r,out.width="80%"}
+knitr::include_graphics(c("images/cartridge_cases/1-11-21 Spotlight/corrThreshPt55_numCells36.png"))
+```
+
+Even with tweaks made to the processing conditions to improve the CMC classification rate, we still run into the issue that I've discussed in the past of needing to choose a "correct" set of processing conditions. Methods like Matching Pursuit can be thought of as "automated," model-based versions of the CMC method where cells are identified based on how informative they are to describing the overall scan. In particular, we can construct a "dictionary" of cells that can be used to (approximately) reconstruct a scan.
+
+</details>
+
+<details>
+<summary>
+Joe 1/24/21: I've been working on exploring more of applying the CMC method in the polar domain. In particular, considering how changing the pre-processing procedures affects the final results.
+</summary>
+
+Transforming a "rectangular domain" cartridge case scan into the polar domain requires interpolation if we desire the result to also be a square matrix. To keep as many of the "raw" values in the scans as possible, we can use Nearest Neighbor interpolation wherein values are populated in polar transformed matrix using whichever single value is closest in the rectangular domain matrix (as opposed to locally averaging rectangular domain pixels to populate a single polar transformed pixel). This transformation necessarily causes distortion (e.g., certain pixels closer to the matrix center may be sampled more than once while those near the edges may not be sampled at all) since it depends on choosing a rotational resolution (e.g., the distance between adjacent pixel indices represents 1 degree). When making cartridge case comparisons in the polar domain, it's important to consider if/how this distortion affects final results. This is what I have recently explored.
+
+The following shows the rectangular and polar-transformed versions of simulated scans created by Dr. VanderPlas. The polar transformation interpolation is affected by how the rectangular domain matrices are initially padded.
+
+```{r, out.width="150%"}
+knitr::include_graphics(c("images/cartridge_cases/1-24-21_update/simulatedScan_rectangular.png"))
+```
+
+```{r, out.width="150%"}
+knitr::include_graphics(c("images/cartridge_cases/1-24-21_update/simulatedScan_polar.png"))
+```
+
+
+One way to ensure that the interpolation (and thus distortion) affects two scans in the exact same way is to translationally align them on the same center pixel. I have created a series of functions to automatically perform this alignment. I wanted to determine how pre-aligning two scans before performing a comparison would affect the final CMC results. To determine whether the classification ability of the CMC method improved by pre-aligning, I considered a statistic that quantifies the between vs. within-group variability of the CMC counts assigned to the "match" and "non-match" groups of the form:
+$$
+r = \frac{\sum_{i=1}^2 \left(\overline{\text{CMC}}_{i} - \overline{\text{CMC}}\right)^2}{\sum_{i=1}^2 \frac{1}{n_i - 1}\sum_{j=1}^{n_i} \left(\text{CMC}_{i,j} - \overline{\text{CMC}}_i\right)^2}
+$$
+where $\overline{\text{CMC}}_i$ denotes the within-group (match or non-match) CMC count average and $\overline{\text{CMC}}$ denotes the grand CMC count average. 
+Greater separation between and less variability within the match and non-match CMC count distributions will yield larger $r$ values. 
+As such, larger values of $r$ are preferred.
+
+I considered the value of $r$ across a variety of processing conditions, most notably whether each pair of scans were translationally aligned before comparison. The values of $r$ are shown below. Each point corresponds to a particular set of processing conditions. We can see that, in fact, translationally aligning each pair of scans before comparisons seems to *worsen* the classification ability (as quantified by $r$). This is contrary to what I had initially hypothesized. 
+
+```{r, out.width="150%"}
+knitr::include_graphics("images/cartridge_cases/1-24-21_update/polarVarianceRatios.png")
+```
+
+One possible explanation is that, because the known match cartridge cases were consecutively fired, it can be observed that the firing pin impression holes are in approximately the same position for all known match pairs. Additionally, it is commonly *assumed* in the cartridge case comparison literature that truly matching cartridge cases only need to be rotated between -30 to 30 degrees to be rotationally aligned. This means that, even without translational pre-alignment, the distortion of truly matching scans may be similar when transformed to the polar domain. The same cannot be said about non-matches since their firing pin holes may be in completely different locations, the "aligning" rotation may be outside of the -30 to 30 range, etc. In short, the CMC method may implicitly rely on the location of the firing pin impression as a feature when performing comparisons. It's unclear whether the firing pin impressions from cartridge cases fired at (perhaps considerably) different times by the same firearm would still be similarly located.
+
+</details>
+
+<details>
+<summary>
+Joe 2/1/21: I ran the CMC method on the Fadul scans that were translationally pre-aligned on the center of the firing pin impression and have some interesting results to share from this experiment. Additionally, I've been working on tweaking some of the processing procedures to work with new scans. Finally, I have made some headway into transferring a similarity scoring method developed by Chumbley et al. (2010) for comparing two 1D toolmarks to our 2D scans.
+</summary>
+
+I have experimented with translationally aligning two scans on their firing pin impression centers prior to performing the CMC method. Intuitively, if two truly matching scans were aligned by their firing pin impressions before applying the CMC method, we would expect the CMC method be able to estimate the rotation value at which the scans align. That is to say, the breech face markings should obviously align at a single rotation value if we were to first translationally align the scans such that the firing pin impression centers match up. 
+
+For two truly matching scans that aren't first translationally aligned, we still would expect the CMC method to be somewhat effective at estimating the correct translation. This is because many cells should all "agree" upon the translation values at which the scans are best aligned. In contrast, for two non-matching scans, we would anticipate the estimated translation values to vary randomly across the various cells (i.e., an "agreement" wouldn't be reached). It is well-documented, however, that the degree to which the CMC method is "effective" at estimating the correct translation is contingent on a variety of user-defined processing conditions, thresholds, etc. In short, we should be able to lighten the burden placed on the CMC method to estimate estimate the correct rotation and translations if we first translationally align by the firing pin impression. This is illustrated by the image below.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/2-1-21_update/alignmentComparison.png")
+```
+
+To compare the effectiveness of the CMC method for pre-aligned vs. non pre-aligned scans, we will use the same variance ratio I've discussed in the past:
+$$
+r = \frac{\sum_{i=1}^2 \left(\overline{\text{CMC}}_{i} - \overline{\text{CMC}}\right)^2}{\sum_{i=1}^2 \frac{1}{n_i - 1}\sum_{j=1}^{n_i} \left(\text{CMC}_{i,j} - \overline{\text{CMC}}_i\right)^2}
+$$
+where $\overline{\text{CMC}}_i$ denotes the within-group (match or non-match) CMC count average, $\overline{\text{CMC}}$ denotes the grand CMC count average, and $CMC_{i,j}$ represents the CMC count associated with the $j$th cartridge case pair in the $i$th group, $i = 1,2$, $n_1 = 63$, $n_2 = 717$.
+Greater separation between and less variability within the match and non-match CMC count distributions will yield larger $r$ values. 
+As such, larger values of $r$ are preferred.
+
+Interestingly, it appears that pre-aligning two scans by their firing pin impression does not improve the performance of the CMC method, as measured by the variance ratio statistic. This is evidenced by the plot below.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/2-1-21_update/rectangularDomainPreAlignedVarianceRatios.png")
+```
+
+This seems to agree with the findings I discussed last week of the applying the CMC method to polar transformed scans that had/had not been translationally pre-aligned.
+
+</details>
+
+<details>
+<summary>
+Joe 2/8/21: I applied the CMC method to the Sensofar data that we recently collected. Using these data, we hope to develop some more robust/generalizable methods to identify an optimal set of processing conditions than the current method - which is essentially hunt-and-peck.
+</summary>
+
+The plot below shows the results of the CMC method on the Sensofar data for a particular set of thresholds. Interestingly, one scan, G4-09, doesn't have a very high CMC score. This requires further investigation. Additionally, it should be noted that there are matching pairs of cartridge case scans here (that I don't know), yet none of the pairwise CMC scores are particularly large. This indicates that some changes to the processing procedures should be explored. This is what I plan on exploring in the upcoming weeks.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/2-8-21_update/sensofarGroup4Comparisons.png")
+```
+
+
+</details>
+
+<details>
+<summary>
+Joe 2/15/21: I have been working more on applying the CMC method to Sensofar data. I hope to share more details during my spotlight next week.
+</summary>
+
+Among other things, it seems that automatically identifying the breech face impression region during the preprocessing continues to be an obstacle. Making minor changes to these procedures seems to have a demonstrable impact on the final CMC score in some cases. I am putting together a Shiny app to visualize the effect of and allow the user to tweak the preprocessing steps. I hope to share more about this and other results from various CMC methods to the Sensofar data next week.
+
+</details>
+
+<details>
+<summary>
+Joe 2/22/21: I will be discussing some of the recent results of applying the CMC method to our newly-collected Sensofar and TopMatch data. Additionally, I would like to show the Shiny app I've developed for processing cartridge cases and applying the CMC-method procedure.
+</summary>
+
+The preprocessing procedures continue to be a major hurdle in our handling of the Sensofar and TopMatch scans. The automatic procedures that work well for the popular Fadul data set don't seem to generalize well to these new data. As such, we have changed to manually identifying the breech face regions. The results seem to have improved with this manual identification.
+
+We can see an example of a matching pair between the Sensofar and TopMatch scans. It is hopefully clear that these scans share distinctive markings.
+
+```{r,out.width="49%",fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/2-22-21_spotlight/sensofar01.png",
+                          "images/cartridge_cases/2-22-21_spotlight/topmatchB1.png"))
+```
+
+On the other hand, the two scanning procedures seem to represent "extreme" markings in different ways. Below is an example demonstrating this, where the markings at the top of each scan, while perhaps visually similar when compared to each other, are clearly two different representations of the marking.
+
+```{r,out.width="49%",fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/2-22-21_spotlight/sensofar14.png",
+                          "images/cartridge_cases/2-22-21_spotlight/topmatchD2.png"))
+```
+
+We are interested in determining both how well the CMC method classifies matches within scanning group (i.e., within Sensofar and within TopMatch), but also between scanning group. The plots below summarize some experimental results. We can see, at a bare minimum, that the two decision rules implemented so far in cmcR package, the Original Method of Song (2013) and the High CMC method of Tong (2015), can identify when a cartridge case is compared to itself. Additionally, we can see that High CMC method tends to assign higher CMC scores to cartridge case pairs. Note that the Original Method is an asymmetric comparison method (i.e., comparing scan A to scan B may result in a different number of CMCs than the comparison of B to A) while the High CMC method is symmetric (in that it combines the comparison results from both directions).
+
+```{r,out.width="100%",fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/2-22-21_spotlight/sensofarOriginalMethodCMCs.png",
+                          "images/cartridge_cases/2-22-21_spotlight/sensofarHighCMCs.png"))
+```
+
+A similar story is told for the TopMatch cartridge cases. It should be noted that the identical cartridge cases between the Sensofar and TopMatch groups are not indexed identically (so cartridge case P0001 from Sensofar is not necessarily cartridge case A1 from TopMatch). Interestingly, there appear to be more non-zero CMC scores assigned within the TopMatch group than within the Sensofar group.
+
+```{r,out.width="100%",fig.align='center'}
+knitr::include_graphics(c("images/cartridge_cases/2-22-21_spotlight/topMatchOriginalMethodCMCs.png",
+                          "images/cartridge_cases/2-22-21_spotlight/topMatchHighCMCs.png"))
+```
+
+
+Comparing cross-group, we can see that both the Original Method and the High CMC method are able to pick-out pairs of similar cartridge cases. For example, G4-01 from Sensofar and B1 from TopMatch are true matches and this pairing is assigned a relatively high CMC count under both the Original Method and the High CMC method.
+
+```{r,out.width="100%",fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/2-22-21_spotlight/allOriginalMethodCMCs.png")
+```
+
+```{r,out.width="100%",fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/2-22-21_spotlight/allHighCMCs.png")
+```
+
+</details>
+
+<details>
+<summary>
+Joe 3/1/21: I have been working on tweaking aspects of the CMC algorithm applied to the Sensofar and TopMatch data.
+</summary>
+
+I have been working on tweaking aspects of the CMC algorithm applied to the Sensofar and TopMatch data. This includes exploring changes to the Gaussian filter used during the preprocessing stage. We discussed in my spotlight last week that the current preprocessing procedures might be "overfitting" individual scans. I am currently exploring filters that automatically estimate parameters by solving, for example, a penalized least squares problem (e.g., the Wiener filter). This is one change among others that I am interested in exploring.
+
+</details>
+
+<details>
+<summary>
+Joe 3/8/21: I have been working on a Shiny app based on Will's bullet app. We are hoping to use the app to diagnose problems in the current processing pipeline.
+</summary>
+
+The app can be cloned from this GitHub repo: https://github.com/jzemmels/cartridgeInvestigatR
+
+</details>
+
+<details>
+<summary>
+Joe 3/15/21: I have been working on coming up with different diagnostics for determining whether the CMC method will succeed or fail in working as assumed.
+</summary>
+
+</details>
+
+<details>
+<summary>
+Joe 4/5/21: We have been exploring issues related to the CMC method. In particular, we are interested in deriving diagnostic tools to determine when/how the CMC method will fail to accurately identify matching/non-matching cartridge case pairs.
+</summary>
+
+One of the ways we thought the CMC method could be made more "robust" would be to run the algorithm on downsampled copies of cartridge case scans. Presumably, the CMC score assigned to these downsampled copies would be approximately equal. Additionally, the CMC method *should* be able to estimate the "optimal" translation and rotation to align the two scans. This estimated alignment should also be consistent across the different downsampled copies. This does not appear to be necessarily true, as shown below.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-5_update/P0001_P0002_originalMethod.png")
+```
+
+```{r}
+knitr::kable(data.frame("Downsampling.Offset" = c("No Offset","Col Offset","Row Offset","Col + Row Offset"),
+           "Rotation.Deg" = c(6,7.5,7.5,9),
+           "Horizontal.px" = c(13,2.5,11.5,9),
+           "Vertical.px" = c(18.5,18.5,19,19)))
+```
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-5_update/noOffset_similarityFeatures.png")
+
+knitr::include_graphics("images/cartridge_cases/4-5_update/colOffset_similarityFeatures.png")
+
+knitr::include_graphics("images/cartridge_cases/4-5_update/rowOffset_similarityFeatures.png")
+
+knitr::include_graphics("images/cartridge_cases/4-5_update/colRowOffset_similarityFeatures.png")
+```
+
+
+</details>
+
+<details>
+<summary>
+Joe 4/12/21: We have been running some experiments to determine how well the CMC method can estimate the alignment of exact-matching or near-exact-matching scans for which we know the ground truth alignment.
+</summary>
+
+Exact copy, synthetic rotation results: The randomly generated, synthetic rotations are estimated well.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-12-21_update/estimatedAngles_sensofarGroup4.png")
+```
+
+CMC count distribution for this experiment:
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-12-21_update/cmcCountDistributions_selfComparisons_randomRotation.png")
+```
+
+
+Downsampling scheme:
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-12-21_update/samplingScheme_illustration.PNG")
+```
+
+Downsampled, no rotation comparison: True angle (0 degrees) is well-estimated here.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-12-21_update/estimatedAngles_sensofarGroup4_offsetCopies_noRotation.png")
+```
+
+CMC count distribution for this experiment (little difference from above)
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-12-21_update/cmcCountDistributions_offsetCopies_noRotation.png")
+```
+
+
+Downsampled, synthetically rotated comparison: Synthetic angles are well-estimated here.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-12-21_update/estimatedAngles_sensofarGroup4_offsetCopies_randomRotation.png")
+```
+
+CMC count distribution for this experiment (again, very little change from 2 previous CMC count distributions).
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-12-21_update/cmcCountDistributions_selfComparisons_randomRotation.png")
+```
+
+
+The plot below shows relationship between the CMC similarity score and the estimated rotation error. There is a slight negative relationship (not statistically significant, however) that is most noticable for the original method's CMC counts. We would anticipate such a negative relationship (i.e., poorly aligned scans should not have large CMC counts).
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-12-21_update/cmcCount_on_rotationError_scatterplot.png")
+```
+
+
+</details>
+
+<details>
+<summary>
+Joe 4/19/21: We have been running more experiments to diagnose situations in which the CMC method fails to identify known match pairings. This week, I worked on an experiment comparing a scan to a "combined" scan
+</summary>
+
+For two scans $A$ and $B$ and some $p \in [0,1]$, we compare $A$ to $pA + (1-p)B$. An example of a combined scan for $p = i/10, i = 0,...,10$ is shown in the animation below. 
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-19-21_update/convexCombinationAnimation.gif")
+```
+
+
+Presumably, the CMC counts will be large for $p = 1$ and degrade as $p \to 0$. This appears to be the case, in general, as evidenced by the following plot. This shows the CMC counts for comparing 15 scans to a convex combination of itself with a known match scan for $p \in \{i/10\}_{i = 0,...,10}$. The blue line tracks the average CMC count per value of $p$. We see that the CMC counts degrade quickly.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-19-21_update/sensofarGroup4_convexCombinationCMCCounts.png")
+```
+
+</details>
+
+
+<details>
+<summary>
+Joe 4/25/21 Spotlight: The CMC method consistently does a great job of identifying when a scan is compared to itself (which is obviously the bare-minimum we would want out of a method). However, the method seems to struggle in identifying actually matching pairs (outside of the Fadul dataset, which we're trying to get away from). We have been running a variety of experiments to diagnose situations in which the CMC method fails to identify known match pairings. I will share some interesting results/insights here.
+</summary>
+
+**Experiment 1: Downsampled/"synthetically" rotated copies**
+
+We began by considering how we might inject a small amount of variability into the values of the cartridge case scan to determine the robustness of the CMC method. First, we compared downsampled "copies" of the same scan to each other.
+
+Downsampling scheme:
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/samplingScheme_illustration.PNG")
+```
+
+
+Additionally, we rotated these copies by a randomly generated angle to determine how well the CMC method could estimate the "true" rotation.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/cmcCountDistributions_offsetCopies_randomRotation.png")
+```
+
+The plot below shows the values of $|\hat{\theta}_i - \theta_i|$ for $i = 1,...,180$ comparisons (4 downsampled copies of each scan * 15 scans * 2 comparison directions = 180). The takeaway of this plot is that the true rotations are well-estimated here.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/estimatedAngles_sensofarGroup4_offsetCopies_randomRotation.png")
+```
+
+**Experiment 2: Convex Combination Comparisons**
+
+For two scans $A$ and $B$, we compare $A$ to a new scan $C \equiv p*A + (1-p)*B$ for $p \in [0,1]$. Presumably, the CMC count should be high for $p = 1$ (where only $A$ is contributing to the combination) and decrease as $p \to 0$. The plot below shows the transition of scan $C$ from being an exact copy of $A$ to an exact copy of $B$.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/convexCombinationAnimation.gif")
+```
+
+Do form the convex combination scan, I first manually aligned each scan using a Shiny app I created. Of note here is that, even after aligning, the two surfaces do not perfectly overlap. To form the convex combination scans, I decided to only consider overlapping regions of the two scans. This decision does appear to effect the final CMC results, as will be discussed below.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/alignmentShinyApp.PNG")
+```
+
+We considered a set of 15 known match pairs. For each pair, consisting of scans $A$ and $B$ say, we calculated the CMCs comparing $A$ to $C \equiv p*A + (1 - p)*B$ for $p = i/10, i = 0,...,10$ under the Original and High CMC methods. There are 15 black lines below that show the trajectory of the CMC counts per $A$ to $C$ comparison. The blue line tracks the average CMC count per value of $p$. Recall that $p = 1$ means that only scan $A$ is contributing to the combined scan $C$. As such, the right-hand sides of these plots show the CMC results when $A$ is essentially compared to itself. As $p \to 0$, the CMC counts decrease fairly monotonically. Of note here is (1) the High CMC method appears to yield larger CMC counts, on average, than the Original method (this isn't new information), (2) somehow the High CMC results seem better, on average, for $p = .9$ than $p = 1$, which is somewhat pathological, and (3) the CMC results for $p$ close to 0 are considerably worse than if we just compare the "raw" versions of scan $A$ to scan $B$ (i.e., not considering only the overlap).
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/sensofarGroup4_convexCombinationCMCCounts.png")
+```
+
+*An interesting pattern in Experiment 2*
+
+There seems to be an effect of only considering the overlapping pixels in each scan in Experiment 2. To illustrate this, consider the following example where a known match pair (Sensofar Group 4 scans #4 and #6) are compared. The first plots below show the CMC results if the non-overlapping pixels are included after aligning. We can see that there are a fair number of High CMCs. 
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/nonOverlapIncluded_originalScans.png")
+
+knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/nonOverlapIncludedCMCPlot.png")
+```
+
+Compare this to the scans where only the overlapping pixels are considered after alignment. We can see that there are no High CMCs assigned to this comparison. 
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/overlapOnly_originalScans.png")
+
+knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/overlapOnly_cmcPlot.png")
+```
+
+One seemingly well-evidenced hypothesis we have as to why considering non-overlapping pixels yields better CMC results is that the non-overlapping pixels are most often on the "edges" of the breech face impression surface. The height values at these edge pixels are oftentimes larger in magnitude than those of pixels on the surface interior. We have noticed that the CCF naturally "attracts" to large-magnitude values even if those values are not a part of an identifying breech face mark (e.g., if a pixel is a part of the natural roll-off of the cartridge case primer - see the purple pixels on the outer-edge of the scans above). By considering the non-overlapping pixels in each scan, even though such pixels cannot be a part of a shared breech face marking between the two scans, we are including a "loud signal" that the CCF, and consequently the individual cells, attract to (see e.g., the cluster of cells in the bottom-left corner of scan "P0006 Nonoverlap Included" above as an example). In removing these "loud signals" from the scan, the CMC method appears to suffer.
+
+We might summarize the discussion above as running into "boundary effects" that detrimentally affect the CMC results. To that end, the next experiment we performed was aimed at handling these boundary effects.
+
+**Experiment 3: Edge Erosion**
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/labeledScanExample.png")
+```
+
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/edgeErosionScan_originalScans.png")
+```
+
+The matrix of CMC values that yielded the best results for the edge-eroded scans is shown below. Although these results look good, it should be noted that the results are quite sensitive to small changes in the translation/correlation thresholds.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/group4_edgeErosionHighCMCs.png")
+```
+
+
+We are interested not only in determing how well the CMC method performs on a particular data set, but also in how generalizable a particular set of processing conditions is to new data. We have introduced a "variance ratio" statsitic that aims to quantify how separated the "known match" and "known non-match" CMC count distributions are from each other. Let C$_{ij}$ denote the CMC count assigned to the $j$th cartridge case pair, $j = 1,...,n_i$, $n_1 = 63, n_2 = 717$, from the $i$th group, $i = 1,2$ representing matches and non-matches, respectively. For each set of thresholds we calculate the **Variance Ratio** $r$ as: $$
+r = r\left(T_x, T_y, T_\theta, T_{\text{CCF}}\right) = \frac{\sum_{i=1}^2 \left(\overline{C}_{i.} - \overline{C}_{..}\right)^2}{\sum_{i=1}^2 \frac{1}{n_i - 1}\sum_{j=1}^{n_i} \left(C_{ij} - \overline{C}_{i.}\right)^2}
+$$ where $\overline{C}_{i.}$ denotes the within-group CMC count average and $\overline{C}_{..}$ denotes the grand CMC count average. Greater separation between and less variability within the match and non-match CMC count distributions yields larger $r$ values. Larger values of $r$ are therefore indicative of greater separation between the groups.
+
+We can consider the behavior of the variance ratio statistic across various parameter settings to determine how well the CMC method distinguishes matches from non-matches. 
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/edgeErosion_varianceRatioPlot.png")
+```
+
+</details>
+
+
+<details>
+<summary>
+Joe 5/24/21 Update: I have been developing additional preprocessing techniques to more effectively emphasize the interior breech face markings between two scans.
+
+</summary>
+
+I have been developing additional preprocessing techniques to more effectively emphasize the interior breech face markings between two scans. This includes an automatic method for removing "anomaly" markings (dents, etc.) like the one visible in the scan shown below. It is important to remove such anomalies because (1) they are not shared across known match scans and (2) the CMC method is rather sensitive to these extreme values.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/5-24-21_update/P0009_anomaly.png")
+```
+
+Outright removing these anomaly pixels from the scan yields promising improvements when compared to known matches. In the future, I would like to consider imputing the missing values rather than outright removing them.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/5-24-21_update/P0009_anomalyRemoved.png")
+```
+
+</details>
+
+<details>
+<summary>
+Joe 6/7/21 Update: We discovered a potential problem in the labeling of a well-known cartridge case data set. I was hoping to get the group's thoughts on how we should proceed if, in fact, the labeling occurred in the original experiment.
+</summary>
+
+We have been working with cartridge cases from a study done in 2014 by Baldwin et al. that assessed the False Positive and False Negative error rates in cartridge case comparisons.
+
+As we have been applying the CMC method to more cartridge case scans, we came across an potential mislabeling of a set of cartridge case scans. The plot below illustrates the odd behavior. Note that the Group 7 scans from Barrels G and K seem to be highly similar to the Barrels K and G scans, respectively, in the other groups. That is to say, the G and K barrel labels for Group 7 may have been accidentally swapped.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/6-7-21_update/sensofarGroup9_cmcMatrix.png")
+```
+
+- I did not find anything to suggest that the label swapping is happening in my code.
+
+- During our Monday morning meeting, we double-checked the original labeling performed at CSAFE. The possible mislabeling does not appear to have originated there (although there are few other leads we can track down to ensure that this is the case).
+
+The only other possibility is that the mislabeling occurred during the **original** 2014 Baldwin study, which would obviously be problematic. If this is the case, we thought of a few potential actions:
+
+1. Swap the labels to what we believe to be correct and mention this in whatever article we eventually use these data in
+
+2. Exclude these 6 problematic cartridge case scans from our comparisons
+
+3. Alert Baldwin et al. that there was a labeling mismatch
+
+I would love to hear the groups' thoughts on how we should tackle this problem.
 
 </details>
 
 
 ### Modified Chumbley non-random test
 #### Land-to-land scores
-The moified Chumbley non-random algorithm is a statistical non-paramaetric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segement to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 
+The moified Chumbley non-random algorithm is a statistical non-parametric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segment to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 
 
 The modified chumbley method [@gkhh] can work with two markings at a time. Therefore the method can be used for comparing signatures from one land to signature from another land. The land-to-land comparison was performed for Hamby 44 dataset from [@nist] and CSAFE [@gkhh] and associated error rates were computed for these comparisons.
 
 #### Bullet-to-bullet scores
 
 In this method we extend the modified chumbley non-random method from land-to-land scoring to bullet-to-bullet scoring. In order to do this, first 6 ordered pairs of lands between the two bullets are chosen for comparison. The modified chumbley method is used on these 6 pairwise comparisons. This results in the same-shift and different-shift comparisons from each of the 6 comparisons. We do not need a land-to-land pairwise U-statistics and classification in this method. Instead all the same-shift and different-shift correlations are now aggregated from the 6 comparisons and a new non-parametric U test is used on the aggregated sets. This gives a test statistic at the bullet level and consequently we can compute p-values. This is used with different nominal significance levels to identify bullet level error rates.
+
+
+### CMPS Algorithm
+#### Introduction to CMPS and Algorithm Summary
+
+<details>
+<summary>
+This section provides an introduction and a summary of the Congruent Matching Profile Segments (CMPS) algorithm.
+</summary>
+
+The Congruent Matching Profile Segments (CMPS) method [Chen et al. 2019], in general, can be used for objective comparison of striated tool marks, but in our examples, we mainly use it for bullet profiles/signatures comparison. The CMPS number is expected to be large if two signatures are similar. So it can also be considered as a feature that measures the similarity of two bullets (yet another bullet feature).
+
+Right now, we are developing a R package that implements the CMPS method [Chen et al. 2019]. The following sections will provide with a summary of the CMPS algorithm and examples on how to use the package. 
+
+The development version of the package can be installed from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("willju-wangqian/CMPS")
+```
+
+In this section we use a known match (KM) compasison to illustrate the main ideas of CMPS algorithm. The bullet data used here can be found in Chapter 3.5 of [Open Forensic Science in R](https://sctyner.github.io/OpenForSciR/bullets.html#case-study-1).
+
+We can also run the following chunk. In this example, we are taking the signature of the third land engraved area (LEA) of the second bullet as the reference signature and the second LEA of the first bullet as the comparison signature. This is a KM comparison. 
+
+```{r eval=FALSE, echo=TRUE}
+library(CMPS)
+
+data("bullets")
+land23 <- bullets$sigs[bullets$bulletland == "2-3"][[1]]
+land12 <- bullets$sigs[bullets$bulletland == "1-2"][[1]]
+
+x <- land23$sig
+y <- land12$sig
+
+cmps <- extract_feature_cmps(x, y, full_result = TRUE)
+cmps
+
+# $CMPS.score
+# [1] 14
+# 
+# $rec.position
+# [1] -5
+# 
+# $pos.df
+#   position cmps
+# 1       -9   14
+# 2       -8   14
+# 3       -7   14
+# 4       -6   14
+# 5       -5   14
+# 6       -4   14
+# 7       -3   14
+# 8       -2   14
+# 9       -1   14
+# 
+# $nseg
+# [1] 22
+
+```
+
+And we have the plot of `x` and `y`.
+
+```{r, fig.cap="A KM Comparison, x and y", out.width="80%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/cmps/step0.png"))
+```
+
+1. we take the first signature as the reference signature (`x`) and cut it into consecutive and non-overlapping basis segments of the same length. In this case, we have 22 basis segments in total.
+
+```{r, fig.cap="Cut x into consecutive and non-overlapping basis segments of the same length. Only 4 basis segments are shown here", out.width="80%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/cmps/step1_1.png"))
+```
+
+2. for each basis segment, we compute the cross-correlation function (ccf) between the basis segment and the comparison signature (`y`)
+
+```{r, fig.cap="y and 7th basis segment", out.width="80%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/cmps/step2_1.png"))
+```
+
+```{r, fig.cap="the cross-correlation function (ccf) between y and segment 7", out.width="80%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/cmps/step2_2.png"))
+```
+
+* for the `ccf` curve, the `position` represents the shift of the segment. A negative value means a shift to the left, a positive value means a shift to the right, and 0 means no shift (the segment stays at its original position in the reference signature);
+* we are interested in the peaks in the ccf curve and the positions of those peaks (as indicated by the red vertical line in the plot above). In other words, if we shift the segment, which position would give us the "best fit"?
+
+
+3. If two signatures are similar (a KM comparison), most of the basis segments should agree with each other on the position of the best fit. Then these segments are called the "**Congruent Matching Profile Segments**".
+
+```{r, fig.cap="compare y to the basis segments of x", out.width="80%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/cmps/step1_2.png"))
+```
+
+  And ideally, if two signatures are identical, we are expecting the position of the highest peak in the ccf curve remains the same across all ccf curves (we only show 7 segments here);
+
+```{r, fig.cap="ideal case: compare x to itself. The highest peak has value 1 and is marked by the blue dot", out.width="80%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/cmps/step3_1.png"))
+```
+
+  But in the real case, the basis segments might not achieve a final agreement, but we have the majority; 
+
+```{r, fig.cap="real case: compare x to y. The 5 highest peaks are marked by the blue dots", out.width="80%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/cmps/step3_2.png"))
+```
+
+  We mark the 5 highest peaks for each ccf curve because the position of the "highest peak" might not be the best one. 
+
+4. each ccf curve votes for 5 candidate positions, then we ask two questions in order to obtain the CMPS number/score:
+
+* which position receives the most votes? -> the best position (indicated by the red vertical line)
+
+* how many segments have voted for the best position? -> CMPS number
+
+  If we focus on these 7 segments only, and have a very short tolerance zone, the CMPS number is 6.
+  
+  (If we consider all 22 segments, and have a default tolerance zone (+/- 25 units), the CMPS number is 20.)
+
+5. false positive: how can the segments vote more wisely? -> Multi Segment Lengths Strategy
+
+* by increasing the segment length (scale), one can reduce the number of "false positive" peaks
+
+```{r, fig.cap="Multi Segment Lengths Strategy - increasing the segment length could decrease the number of false positive peaks in ccf curves", out.width="80%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/cmps/step5_1.png",
+                   "images/cmps/step5_2.png"))
+```
+
+* we choose 5 peaks at scale 1; 3 peaks at scale 2; 1 peak at scale 3
+
+  the peak shared by all three scales is a **consistent correlation peak** (ccp). And the position of the ccp is our best choice. Sometimes a ccp might not be found. 
+  Trying to identify a ccp for each basis segment is called a "multi segment lengths" strategy.
+  
+* and then, each ccf curve votes for only 1 best condidate position if a ccp can be found; again, we ask two quesitons:
+    + which position receives the most votes?
+    + how many segments have voted for this position? -> CMPS number
+    
+* by default, CMPS algorithm uses the multi-segment lengths strategy. 
+
+6. if we consider all segments and use the multi-segment lengths strategy
+
+* when comparing x and y, a KM comparison, we have 
+
+```{r, echo=TRUE, eval=FALSE}
+extract_feature_cmps(x, y, seg_length = 50, seg_scale_max = 3, Tx = 25, 
+                     npeaks.set = c(5, 3, 1), full_result = TRUE)
+
+# $CMPS.score
+# [1] 14
+# 
+# $rec.position
+# [1] -5
+# 
+# $pos.df
+#   position cmps
+# 1       -9   14
+# 2       -8   14
+# 3       -7   14
+# 4       -6   14
+# 5       -5   14
+# 6       -4   14
+# 7       -3   14
+# 8       -2   14
+# 9       -1   14
+# 
+# $nseg
+# [1] 22
+```
+
+* if we have a KNM (known non-match) comparison, e.g. compare land 2-3 with land 1-3:
+
+```{r, eval=FALSE, echo=TRUE}
+land23 <- bullets$sigs[bullets$bulletland == "2-3"][[1]]
+land13 <- bullets$sigs[bullets$bulletland == "1-3"][[1]]
+
+result <- extract_feature_cmps(land23$sig, land13$sig, seg_length = 50, seg_scale_max = 3, Tx = 25, 
+                     npeaks.set = c(5, 3, 1), full_result = TRUE)
+result$CMPS.score
+# [1] 1
+
+result$rec.position
+# [1] 128
+
+result$nseg
+# [1] 22
+```
+
+</details>
+
+#### Full Comparison Between Two Bullets
+
+<details>
+<summary>
+This section provides an example on how to use the CMPS method to make a comparison between two bullets.
+</summary>
+
+`extract_feature_cmps()` can also be used in a pipeline fashion
+
+```{r eval = FALSE, echo=TRUE}
+library(tidyverse)
+library(bulletxtrctr)
+
+lands <- unique(bullets$bulletland)
+
+comparisons <- data.frame(expand.grid(land1 = lands[1:6], land2 = lands[7:12]), 
+                          stringsAsFactors = FALSE)
+
+comparisons <- comparisons %>% mutate(
+  aligned = purrr::map2(.x = land1, .y = land2, 
+                        .f = function(xx, yy) {
+                          land1 <- bullets$sigs[bullets$bulletland == xx][[1]]
+                          land2 <- bullets$sigs[bullets$bulletland == yy][[1]]
+                          land1$bullet <- "first-land"
+                          land2$bullet <- "second-land"
+                          
+                          sig_align(land1$sig, land2$sig)
+                        }))
+
+comparisons <- comparisons %>% 
+  mutate(cmps = aligned %>% purrr::map(.f = function(a) {
+    extract_feature_cmps(a$lands$sig1, a$lands$sig2, full_result = TRUE)
+  }))
+
+# comparisons.cmps <- comparisons.cmps %>% 
+#   mutate(cmps = aligned %>% purrr::map_dbl(.f = function(a) {
+#     extract_feature_cmps(a$lands$sig1, a$lands$sig2, full_result = FALSE)
+#   }))
+# comparisons.cmps %>% select(land1, land2, cmps) 
+
+comparisons <- comparisons %>% 
+  mutate(
+    cmps_score = sapply(comparisons$cmps, function(x) x$CMPS.score),
+    cmps_nseg = sapply(comparisons$cmps, function(x) x$nseg)
+  )
+
+cp1 <- comparisons %>% select(land1, land2, cmps_score, cmps_nseg)
+cp1
+
+#    land1 land2 cmps_score cmps_nseg
+# 1    1-1   2-1          2        23
+# 2    1-2   2-1          2        22
+# 3    1-3   2-1          1        21
+# 4    1-4   2-1          2        22
+# 5    1-5   2-1          1        23
+# 6    1-6   2-1         14        22
+# 7    1-1   2-2          5        23
+# 8    1-2   2-2          2        22
+# 9    1-3   2-2          1        21
+# 10   1-4   2-2          1        22
+# 11   1-5   2-2          2        23
+# 12   1-6   2-2          2        22
+# 13   1-1   2-3          3        23
+# 14   1-2   2-3         13        22
+# 15   1-3   2-3          2        21
+# 16   1-4   2-3          1        22
+# 17   1-5   2-3          1        23
+# 18   1-6   2-3          2        22
+# 19   1-1   2-4          4        23
+# 20   1-2   2-4          1        22
+# 21   1-3   2-4         11        21
+# 22   1-4   2-4          1        22
+# 23   1-5   2-4          2        23
+# 24   1-6   2-4          2        22
+# 25   1-1   2-5          3        23
+# 26   1-2   2-5          1        22
+# 27   1-3   2-5          2        21
+# 28   1-4   2-5         10        22
+# 29   1-5   2-5          2        23
+# 30   1-6   2-5          1        22
+# 31   1-1   2-6          2        23
+# 32   1-2   2-6          1        22
+# 33   1-3   2-6          2        21
+# 34   1-4   2-6          1        22
+# 35   1-5   2-6         15        23
+# 36   1-6   2-6          1        22
+```
+
+</details>
+
+#### Apply CMPS to Hamby252 and Hamby44
+
+<details>
+<summary>
+Will 09/19 Update: We applied the CMPS method to Hamby252 (the dataset used in the original paper). And now we are able to reproduce the main results qualitatively. Additionally, in order to obtain more reliable bullet signatures and effectively investigate outliers, a shiny app was implemented for `bulletxtrctr`.
+</summary>
+
+##### Hamby252 and Reproduce
+
+On the bullet level, we mainly consider two similarity scores: $\mathrm{CMPS_{max}}$ and $\mathrm{\bar{CMPS}_{max}}$. For Hamby252 each bullet has 6 lands. In order to compare two bullets, we want to compute the CMPS score for all possible land-by-land pairs. In this case, we have 36 pairs in total and thus will have 36 CMPS scores. 
+
+We want to summarize these 36 CMPS scores into a single similarity score at the bullet level.
+
+- $\mathrm{CMPS_{max}}$ is the maximum CMPS score among all 36 scores;  
+  + here is result of the paper[Chen et al. 2019]:
+```{r}
+knitr::include_graphics("images/cmps/sep20/cmpsmax_pp.png", dpi = 100)
+```
+
+  + and here is our result:
+```{r}
+knitr::include_graphics("images/cmps/sep20/cmpsmax_mm.png", dpi=100)
+```
+
+- $\mathrm{\bar{CMPS}_{max}}$: for the CMPS scores belonging to the same phase we compute the average. Since there are 6 phases in total, there would be 6 such averages. $\mathrm{\bar{CMPS}_{max}}$ is the maximum of these averages.
+  + CMPS scores and 6 phases [Chen et al. 2019]
+```{r}
+knitr::include_graphics("images/cmps/sep20/exp_cmpsmaxbar.png", dpi=100)
+```
+
+  + the result of the paper [Chen et al. 2019]
+```{r}
+knitr::include_graphics("images/cmps/sep20/cmpsbar_pp.png", dpi=100)
+```
+
+  + our result:
+```{r}
+knitr::include_graphics("images/cmps/sep20/cmpsmaxbar_mm.png", dpi=100)
+```
+
+- Comments:
+  + We are only able to qualitatively reproduce the results because in the paper the researchers were using different ways of obtaining bullet signatures. But both $\mathrm{CMPS_{max}}$ and $\mathrm{\bar{CMPS}_{max}}$ give us a clear seperation between the known-match and known-non-match comparisons.
+  + `Ukn` is a barrel label used in the Hamby252. Although it's labeled "Unknown", we do have the ground truth of which is which. There are 46 KM comparisons if we include the ground truth. And there are 46 observations for the cluster with higher CMPS score. 
+  + Improving the quality of bullet signatures improves the CMPS scores.
+
+##### Shiny App for Bullet Investigation
+
+If something unusual happened to the `crosscut`, `ccdata`, and `grooves` (all these are important in order to extract reliable bullet signatures), users might want to step in, take a look, and try different values to get a better bullet signature. This shiny app provides a way. 
+
+Users need to have a tibble object in their current environment called `shiny.tt`, which contains `x3p`, `crosscut`, `ccdata`, and `grooves`. 
+
+Use the following code to launch the shiny app.
+
+```{r, echo=TRUE, eval=FALSE}
+bulletxtrctr::runExample()
+```
+
+</details>
+
+
+<details>
+<summary>
+Will 01/03 Update: present the results of applying the CMPS method to Hamby44 set. And a brief demo of the current version of `bulletinvestigatR`
+</summary>
+
+For results below we have excluded damaged/deformed bullet scans in Hamby set 44 using the shiny app `bulletinvestigatR`.
+
+- First, we show the distribution of $\mathrm{CMPS_{max}}$
+```{r}
+knitr::include_graphics("images/cmps/jan3/Hamby44_cmps_max_plot.png", dpi=100)
+```
+  We can see a separation located at 8 and 9. In total the plot shows 595 bullet-by-bullet comparisons (since we have 35 bullets). 549 comparisons have $\mathrm{CMPS_{max}}$ lower than 8;  46 comparisons have $\mathrm{CMPS_{max}}$ higher than 9. 
+  
+- As for the distribution of $\mathrm{\bar{CMPS}_{max}}$, we have 
+```{r}
+knitr::include_graphics("images/cmps/jan3/Hamby44_cmps_maxbar_plot.png", dpi=100)
+```
+  We can see that the separation of the distribution of $\mathrm{\bar{CMPS}_{max}}$ is lower than that of $\mathrm{CMPS_{max}}$ (as expected), which is at 5 and 6. And for the separation, 549 comparisons are lower than 5, and 46 comparisons are higher than 6.
+  
+- Comments:
+  + We have label "Unknown" in these plots because part of the original scans are labeled with "Unknown"s. And we have not yet included the groundtruth of these "Unknown" scans into these results. 
+  + It would be better if we could have a wider separation in these results. I'm still looking for solutions that could further improve these results. One possible direction is to check the parameters used in the computation. For these Hamby44 results, we are using the same parameters as we used for Hamby252 results. But since these two sets have different scan resolution, we might need different sets of parameters.
+
+
+- demo: bulletinvestigatR
+  + added features:
+    - exported csv file can now include more info about bullet scans
+    - code section now shows different prompts according to how the users upload their data
+
+
+</details>
+
+<details>
+<summary>
+Will 01/24 Update: present the results that are used in the CMPS package paper. For both Hamby set 252 and Hamby set 44, the CMPS algorithm is able to distinguish KM comparisons from KNM comparisons. And the UI of `bulletinvestigatR` has been redesigned.
+
+</summary>
+  
+  In the following plots, we are showing the distributions of $\mathrm{CMPS_{max}}$ and $\mathrm{\overline{CMPS}_{max}}$, the two similarity metrics for bullet-level comparisons. 
+
+```{r}
+knitr::include_graphics("images/cmps/jan24/hamby252_025_075.png", dpi=100)
+```
+
+- For the two plots in the first row, parameters of getting bullet signatures are `span1=0.25` and `span2=0.03` in `cc_get_signature`; signature outliers are removed; the parameters of getting the CMPS score are `seg_length=61`, `Tx=30`, `npeaks.set=c(5, 3, 1)`
+- For the two plots in the second row, parameters of getting bullet signatures are `span1=0.75` and `span2=0.03` in `cc_get_signature`; signature outliers are removed; the parameters of getting the CMPS score are `seg_length=61`, `Tx=30`, `npeaks.set=c(10, 6, 1)`
+
+```{r}
+knitr::include_graphics("images/cmps/jan24/hamby44_gt.png", dpi=100)
+```
+
+- For the two plots in the first row, parameters of getting bullet signatures are `span1=0.25` and `span2=0.03` in `cc_get_signature`; signature outliers are removed; the parameters of getting the CMPS score are `seg_length=61`, `Tx=30`, `npeaks.set=c(5, 3, 1)`
+- For the two plots in the second row, parameters of getting bullet signatures are `span1=0.75` and `span2=0.03` in `cc_get_signature`; signature outliers are removed; the parameters of getting the CMPS score are `seg_length=61`, `Tx=30`, `npeaks.set=c(10, 6, 1)`
+
+
+- For the CMPS algorithm, increasing the number of accepted peaks at the first and second scales can largely increase the CMPS score of KM comparisons, while it has less effects on CMPS scores of KNM comparisons.  
+
+</details>
+
+<details>
+<summary>
+Will 02/01 Update: In the past week, I mainly focused on the writing of the CMPS package paper. So in this update, I will talk about the graphing tools we recently included in the CMPS package. We made two functions, `cmps_signature_plot` and `cmps_segment_plot`, that take a "CMPS result" generated by the main function `extract_feature_cmps` and output plots that can help users visualize and better understand the CMPS results.
+
+</summary>
+
+The example below shows how to use these two graphing functions. Note that in order to generate informative plots, `cmps_signature_plot` and `cmps_segment_plot` need more information beyond the `CMPS.score`, so we need to have `extract_feature_cmps(..., include = "full_result")`
+
+```{r, eval=FALSE, echo=TRUE}
+library(CMPS)
+data(bullets)
+
+land2_3 <- bullets$sigs[bullets$bulletland == "2-5"][[1]]
+land1_2 <- bullets$sigs[bullets$bulletland == "1-4"][[1]]
+
+cmps.result <- extract_feature_cmps(land2_3$sig,
+                                    land1_2$sig,
+                                    npeaks.set = c(5, 3, 1),
+                                    include = "full_result")
+
+sig.plot <- cmps_signature_plot(cmps.result)
+
+seg.plot <- cmps_segment_plot(cmps.result, seg.idx = 6)
+```
+
+Then we can take a look at those plotting results.
+
++ `sig.plot$segment_shift_plot` highlights basis segments that agree with the congruent registration position and hides other basis segments. In other words, we are highlighting the congruent matching profile segments. 
+
+```{r, eval=FALSE, echo=TRUE}
+sig.plot$segment_shift_plot
+```
+
+```{r}
+knitr::include_graphics("images/cmps/feb01/sigplot1.png", dpi=100)
+```
+
++ `sig.plot$signature_shift_plot` highlights the congruent matching profile segments on the reference profile.
+
+```{r, eval=FALSE, echo=TRUE}
+sig.plot$signature_shift_plot
+```
+
+```{r}
+knitr::include_graphics("images/cmps/feb01/sigplot2.png", dpi=100)
+```
+
++ `seg.plot <- cmps_segment_plot(cmps.result, seg.idx = 6)` generates plots for the 6th basis segment. `seg.plot` contains plots of cross-correlation functions (ccf) at every scale/level of the basis segment. 
+
+```{r, eval=FALSE, echo=TRUE}
+library(ggpubr)
+ggarrange(plotlist = unlist(seg.plot, recursive = FALSE),
+          ncol = 2, nrow = 3)
+```
+
+```{r}
+knitr::include_graphics("images/cmps/feb01/segplot3.png", dpi=100)
+```
+
++ The red vertical dashed line indicates the congruent registration position. We can see that the segment 6 does obtain a peak near to the congruent registration position at scale two and scale three, respectively; however, this position doesn't give one of the five highest peaks at scale one. As a result, segment 6 fails to identify the consistent correlation peak (ccp) and fails to become one of the congruent matching profile segments according to the multi segment lengths strategy. 
+
++ Similarly, we can generate `seg.plot` of other basis segments if we want to know why it is or it isn't a congruent matching profile segment.
+
+
+
+</details>
+
+
+<details>
+<summary>
+Will 02/07 Update: In the past week, we finished the first draft of the CMPS package paper. A figure was made to explain the workflow of obtaining bullet signatures using `x3ptools` and `bulletxtrctr`.
+
+</summary>
+
+```{r}
+knitr::include_graphics("images/cmps/feb07/figure1.png", dpi=100)
+```
+
++ (a) shows a front view of a bullet land impression. The white horizontal line indicates a crosscut position identified by `bulletxtrctr::x3p_crosscut_optimize`
++ (b) shows the cross-section at the crosscut position
++ (c) shows a plot of the crosscut data (`ccdata`) computated by `bulletxtrctr::x3p_crosscut`. The blue vertical lines show groove locations identified by `bulletxtrctr::cc_locate_grooves`
++ (d) the raw data after chopping off the grooves
++ (e) shows the curvature fitted by a LOESS regression
++ (f) shows the obtained bullet signature after removing the curvature
+
+</details>
+
+<details>
+<summary>
+Will 02/14 Update: In the past week I mainly focused on the writing. Now we are making revisions paragraph by paragraph, adding figure captions, and adding citations.
+
+</summary>
+
+</details>
+
+<details>
+<summary>
+Will 02/21 Update: In the past week my focus was on the paper writing. Moreover, the shiny app `bulletInspectR` was wrapped up as an `R` package.
+
+</summary>
+
+This is the updated version of the figure presented last week. 
+
+```{r, fig.cap="(a) front view of a scanned land engraved area (LEA). The optimized crosscut location is indicated by the white line. (b) view of the cross-section of the land engraved area at the white line in (a). (c) the crosscut data plotted in 2D; blue vertical lines indicate the position of left and right grooves (d) the crosscut data after chopping the left and right grooves (e) the fitted curvature using LOESS (f) after removing the curvature from the crosscut data, the bullet signature is obtained"}
+knitr::include_graphics("images/cmps/feb07/figure1_v2.PNG", dpi=100)
+```
+
+The shiny app `bulletInspectR` is available on [GitHub](https://github.com/willju-wangqian/bulletInspectR). And people can install the development version of the package by 
+
+```{r, echo=TRUE, eval=FALSE}
+devtools::install_github("willju-wangqian/bulletInspectR")
+```
+
+Currently, the app is having a bug on quitting. An error message related to package `later` would pop up and Rstudio would enter `browser` mode automatically. This happens on Windows machine, but have not yet been observed on Mac. And I'm still looking for solutions. 
+
+The next step of the app is to add more instructions on its usage, add more helping information, and make it give more feedback to users when something goes wrong.
+
+</details>
+
+<details>
+<summary>
+Will 02/28 Update: Started to work on bullet signature pasting. For the same section of a LEA (land engraved area), different scans result in similar but not identical signatures. Ideally, different scans should give highly similar description (bullet signatures) of the same section of the scan. More plots would be added. 
+</summary>
+
+</details>
+
+<details>
+<summary>
+Will 03/14 Update: In the past week I mainly focused on the paper revising and literature review. We are now looking for ideas that could be used to improve the performance of the CMPS method. 
+</summary>
+
+
+</details>
+
+<details>
+<summary>
+Will 03/21 Update: Continued the work of the previous week; we are now checking out the U-statistics to see if we would be able to utilize that instead of using a "kind of" arbitrary threshold for the CMPS score.
+</summary>
+
+
+</details>
+
+
+<details>
+<summary>
+Will 03/28 Update: Continued the work of the previous week + midterms.
+</summary>
+
+
+</details>
+
+<details>
+<summary>
+Will 04/04 Update: some TODO work for the CMPS package paper and an idea of how to combine the CMPS algorithm with Chumbley's algorithm. 
+</summary>
+
+[TODO] - CMPS package paper
+
+-   Complete a small example in "Conceptual idea of CMPS" 
+
+-   Parameter names in "Implementation"
+
+-   add zebra-striped rectangles in the background of the segment plot
+
+**Combine the CMPS algorithm with Chumbley's algorithm**
+
+**(1) Chumbley's algorithm**:
+
+Select a window size;
+
+Then:
+
+1.  Optimization: find the window position that results in the highest R-value (cross-correlation value)
+
+2.  Validation: 2 sets R-values
+
+    -   "common random rigid-shifts from their respective regions of best agreement"
+
+    -   "the independently selected windows"
+
+3.  Apply a nonparametric Mann--Whitney U-statistic to these 2 sets of R-values
+
+Another things worth noting:
+
+-   a K-fold cross-validation using 95% one-sided Bayes credible intervals
+
+-   A Markov Chain-Monte Carlo simulation was used to determine potential error rates
+
+**(2) A possible way to apply it to CMPS**
+
+Since we have results of CMPS algorithm, we don't really need the optimization step. We could try to incorporate the idea of "Validation"
+
+The first set of R-values comes from "common random rigid-shifts", we could utilize the "congruent registration position". For each basis segment, we find the R-value of the congruent registration position. Then a question is: which segment scale should we use for these R-values?
+
+-   if a consistent correlation peak (ccp) is identified, use the R-value of the lowest scale
+
+    -   if we have three scale levels, the R-values for three different scales could be, for example, 0.95, 0.8, 0.7; the idea is to record 0.95 instead of 0.7 in order to obtain a possible larger separation. (1)
+
+-   if not, use the R-value of the highest scale
+
+The second set of R-values comes from randomly and independently selected windows. Then we could apply the same idea here: we can make the window size equal to the largest segment scale, then randomly obtain the R-values.
+
+Some thoughts:
+
+-   The purpose of the second set is to provide a baseline. So choosing the largest segment scale is intentionally pushing the baseline down.
+
+-   if we have a true non-match, we would expect a small number of basis segments with a consistent correlation peak identified (the congruent matching profile segments). Then most basis segments in the first set would use large segment scale, which is the same for the baseline.
+
+-   if we have a true match, we would expect some number of cmp segments. The more cmp segments we have, the more differences we have in the distributions of these two sets of R-values, the stronger evidence we would obtain.
+
+-   If the idea in (1) doesn't work well, we could try to use the largest scale. Or at least make some comparisons between these two ways.
+
+The link to U-statistics: <https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test>
+
+
+</details>
+
+
+<details>
+<summary>
+Will 04/11 Update: finished the TODO part from the previous week on the CMPS project. The `signature_shift_plot` now has an updated version.
+</summary>
+  
+The updated version of `signature_shift_plot`. The zebra-striped background is added to indicate locations of each basis segment. 
+
+```{r}
+knitr::include_graphics("images/cmps/zebra_striped_example.png", dpi=100)
+```
+
+</details>
+
+Will 04/18 Update: modified the zebra-striped `signature_shift_plot` and `segment_shift_plot`; prepared for the reading group discussion
+
+Will 04/25 Update: re-organized the codes and plots in CMPS paper; worked on optimizing the performance of `CMPS` package with C implementation of the function `get_ccf4()`. Now `extract_feature_cmps()` can be done in less than 1 second!
+
+Will 05/23 Update: revised the CMPS paper to match the current implementation of the algorithm: now the algorithm allows the highest segment scale to find multiple peaks instead of just one peak. Additionally, the current implementation of the package is built with C source codes and can finish one comparison in less than 0.03 seconds. More tests are needed for the new implementation.
+
+Will 06/06 Update: keep editing the CMPS package paper. Now we planned to add some new sections: 1) compare the two versions of the CMPS algorithm; 2) define the CMPS version of the "variance ratio", compute the variance ratio for different sets of parameters, and try to use it as a metric for the cross-validation of the parameters. Other tasks related to CMPS package: 
+
+*   update `get_ccf()` for `bulletxtrctr`; 
+*   fix the denominator issue of the C code of `get_ccf4()`
+
+
+#### Future Work
+
+* improve and manage to submit the CMPS package to CRAN
+
+* cross-validate some hyper-parameters
+
+## Assessing Quality of Scans
+
+Setting up a CNN to assess scan quality
+
+The goal for this project is to be able to take the current CSAFE manually identified land engraved areas data and use that data to train a 3d convolutional neural network. Once the 3d convolutional neural network has been trained, we plan to use the model to automate the identification process of land engraved area scans.
+
+Currently an operator can take a land engraved area scan, which is stored as an x3p file, and upload that file to the fix3p google chrome extension.  Once the land engraved area scan is uploaded to fix3p, an operator can manually paint areas of the scan to identify the regions.
+
+#### The regions to annotate are as follows: 
+
+    1. Groove engraved areas are painted dark blue for the left groove and neon green for the right groove.
+    2. Break-off region, located at the bottom heel of a scan are painted in pink.
+    3. Damaged regions are painted using the color white.
+    4. Areas without striation marks are painted in light blue. 
+    5. Striation marks with a secondary pattern are painted in light yellow. 
+    6. Finally, all areas with well expressed striation marks are left unpainted.
+    7. Missing values in a LEA scan are painted Black
+    
+After all the regions have been correctly annotated and saved, the x3p file should contain a land engraved area scan with additional data known as a “mask.”
+
+```{r, fig.cap="Labeled Land Engraved Area Scan using fix3p", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/show_and_tell_3.png"))
+```
+
+### Current Data Processing Procedures 
+
+We read in the manually identified land engraved areas into R using the read_x3p function and store each .x3p as a row in a tibble style dataframe.
+
+There are a lot of missing values contained in the surface matrix for each LEA scan. Missing element values are currently being interpolated by taking the average of a missing element’s 8 neighbors, if they exist.
+
+```{r, fig.cap="Faceted Annotations Plot", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/Missing_Values_Interpolation_Facet_2.png"))
+```
+
+```{r, fig.cap="Missing Values Plot", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/Missing_Values_Interpolation_1.png"))
+```
+
+```{r, fig.cap="Interpolated Values Plot", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/Missing_Values_Interpolation_3.png"))
+```
+
+After the data has been read and stored into R’s global environment, we propose a data preprocessing procedure that increases the amount of data we currently have. We take each x3p file containing a masked LEA scan, crop, and store each 128x128 resolution grid of the original scan and store it as a new x3p. This allows us to increase the amount of data being fed into our 3d CNN model by 224 to 240 times the amount of our original data based on the original x3p resolution size. To do this we use the x3p_crop function from the x3ptools R programming package
+
+```{r, fig.cap="Example boundaries for cropping", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/csafe_21_noNA_x3p.png"))
+```
+
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="30%"}
+knitr::include_graphics(c("images/andy_temp/csafe_21_nostriae_2.png", "images/andy_temp/csafe_21_vert_2.png", "images/andy_temp/csafe_21_groove_2.png"))
+```
+
+
+Next, we extract the annotations associated with each cropped x3p file. These 7 types of annotations will serve as our predictor variables for our 3d convolutional neural network to learn on. Each cropped x3p can contain multiple annotations. Notice that the image of the cropped section of the right groove has two annotations associated with it, one annotation is the right groove and the other annotation is well expressed striae. A cropped x3p usually has one to four annotations associated with it, where one to two annotations are the most common.  For each cropped x3p we assign one annotation based on a ratio of 80% or a maximum majority.  We do not distinguish between left and right groove and assign them as the same annotation. Annotations are stored as a list and unlisted, given us 1 annotation per observation. Annotations are then one-hot encoded resulting in a matrix of size (n x 6).e
+
+
+3d convolutional neural networks take data as 5D tensors with shape (samples, conv_dim1, conv_dim2, conv_dim3, channels), where samples(also known as batch_shape) are the number of observations to be trained, the dimensions are our width, height, and depth values, and channels represent the color scale(=1 for greyscale and =3 for RGB color scale). Another way to think of a 5D tensor is just to think of a 5 dimensional array.
+
+We take the surface martix associated with each cropped x3p, transform each surface matrix to a (x, y, 1, 1) array, a 4d array or a 4d tensor. Then we can bind each surface matrix together creating a (n, x, y, 1, 1) array, a 5d array or a 5d tensor. n represents the batch_shape, x and y represent the width and height dimensions, the first “1” represents the elements contained in each surface matrix and the last “1” represents the color scale, greyscale.
+
+```{r, fig.cap="Data Processing Summary", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Pipeline_summary.png"))
+```
+
+
+
+### Convolutional Neural Networks
+
+<p class="new">Previous work will be added in the near future.</p>
+
+**Convolutional layers** are used as filters for our 5d input tensor resulting in an activation.  These layers produce feature maps that indicate the locations and strengths of our annotations.
+
+**3d zero padding**: padding allows us to keep the information at the borders of our cropped x3p scans, without padding we could potentially be losing important information regarding scans that have more than one annotation.
+
+**Max pooling** selects the maximum element covered by the filters, resulting in a feature map containing the most prominent features, max pooling also reduces the computational cost by reducing the number of parameters used to learn.
+
+**Batch Normalization** normalizes the output of each previous activation layer by subtracting the batch mean and dividing by the batch standard deviation.  Batch Normalization is essentially a scaling feature, making sure each activation in each layer isn't too low or too high.
+
+**Dropout** is used to prevent/reduce overfitting in our model and is typically used along with batch normalization.  Dropout is also referred to as dilution, thining the weights of the neural network, or it can be thought of as model averaging.
+
+**Previous Work:**
+
+We trained a shallow 3d convolutional neural network on 100 epochs **(epoch refers to one cycle through the full training data)** resulting in an overall accuracy of 76.2 percent.  Class weights were not adjusted for Class Imbalance Issue. 
+
+    Total True Positives: 3610
+
+    Overall Accuracy: 76.22 %
+
+    **Breakoff** (Precision: 0.59, Recall: 0.27, F1-Score: 0.37)
+
+    **Damage** (Precision: 0.48, Recall: 0.045, F1-Score: 0.081)
+
+    **Grooves** (Precision: 0.72, Recall: 0.67, F1-Score: 0.69)
+
+    **No Striations** (Precision: 0.75, Recall: 0.87, F1-Score: 0.80)
+
+    **Well Expressed Striations** (Precision: 0.78, Recall: 0.83, F1-Score: 0.80)
+
+    **Vertical Striations** (Precision: 0, Recall: 0, F1-Score: 0)
+    
+    
+```{r, fig.cap="100 epoch run confusion matrix", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/cnn_best_cm.png"))
+```
+    
+```{r, fig.cap="100 epoch run plot", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/100_epoch modek.png"))
+```
+
+We Re-run the 3d convolutional neural network on 200 epochs and adjust class weights by the frequency of classes throughout the training data set.
+
+    Total True Positives: 3171
+
+    Overall Accuracy: 67 %
+
+    **Breakoff** (Precision: 0.34, Recall: 0.52, F1-Score: 0.41)
+
+    **Damage** (Precision: 0.38, Recall: 0.40, F1-Score: 0.39)
+
+    **Grooves** (Precision: 0.60, Recall: 0.84, F1-Score: 0.70)
+
+    **No Striations** (Precision: 0.67, Recall: 0.89, F1-Score: 0.76)
+
+    **Well Expressed Striations** (Precision: 0.86, Recall: 0.56, F1-Score: 0.68)
+
+    **Vertical Striations** (Precision: 0.017, Recall: 0.14, F1-Score: 0.030)
+    
+```{r, fig.cap="200 epoch run confusion matrix", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/cnn_cm_class_weights.png"))
+```
+    
+```{r, fig.cap="200 epoch run adjusted class weights plot", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/CNN_class_weights.png"))
+```
+
+The model using adjusted class weights performs slightly worse overall but does a better job in classifying minority classes.  
+
+The training loss is still decreasing while validation loss has not started to increase.  This suggest running the model using more epochs.
+
+
+**Current Results:**
+
+- 30 Layer 3d Convolutional Residual Network
+
+- Skip Connections are used to allow for a deeper and more complex model.
+
+- Standard concatenation of layers(Previous Layer + Residual Layer)  when feature maps for both layers are the same dimensions.
+
+- When two layers feature maps differ, a linear projection is used for the would be residual layer(1x1 convolutions, stride = 2, batch normalization, and no relu activation)
+
+- This new residual network is twice as fast as the current shallow network 3d cnn.
+
+- Residual network also performs better at multiclassification compared to the shallow network 3d cnn. 
+
+- Residual Network also performs well on new never seen before data.  6 label validation classification ~ 84%
+
+
+
+
+
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.height="30%"}
+
+knitr::include_graphics(c("images/andy_temp/resnet_arch.png"))
+
+```
+
+
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Resnet_CFMatrix.png"))
+```
+
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/ResNet_3D_CNN_Performance.png"))
+```
+
+
+### Post Analysis
+
+We take three LEA scans and predict each set of cropped LEAs for those original LEA scans using our current trained neural network.
+
+```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/post_test.png"))
+```
+
+Looking at the confusion matrix we can see that the model was not able to correctly classify any cases of damage nor any cases of vertical change in striations. There were a total of 712 training samples and 74 samples were misclassified.  Out of those 74 misclassified samples, 38 of them were vertical change in striations.  We are interested in the misclassified labels. 
+
+
+
+```{r, fig.cap="Misclassified Crops", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Compare_label_pred_1.png"))
+```
+
+
+
+```{r, fig.cap="Misclassified Crops: Vertical Change in Striations", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Compare_label_pred_2.png"))
+```
+
+
+
+We are also able to take the predicted cropped LEAs and make a full land engraved area scan with a new associated mask. 
+
+
+```{r, fig.cap="Land Engraved Area Scan with assigned labels", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/square_1.png"))
+```
+
+
+
+```{r, fig.cap="Land Engraved Area Scan with predicted labels", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/sqaure_2.png"))
+```
+
+What's next?  We wish to study the correctly classified areas of well expressed striation marks.  Allowing for a better choice of location when deciding where to extract a crosscut from an land engraved area scan.  We are interested to see if this will reduce the variance on the signatures.
+
+Update(04/05/2021): Processing data including missing values as a label for land engraved area scans.
+
+Update(04/12/2021): Processed 800 Land Engraved Area Scans from scanner (Megan)
+
+```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Left_Groove_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Right_Groove_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/damage_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/No_Striations_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/vertical_change_in_striations_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/breakoff_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/left_groove_Density_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/right_groove_Density_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/damage_Density_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/No_Striations_Density_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/vertical_change_in_striations_Density_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/missing_value_Density_1-100_pointplot.png"))
+```
+
+```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/breakoff_Density_1-100_pointplot.png"))
+```
+
+### Summary Statistics
+
+Summary Statistics were derived using 100 Land Engraved Area Scans from scanner(Megan)
+
+```{r, fig.cap="LEA Labeled Region Summary Statistics", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Resnet_latest_summary_statistics.png"))
+```
+
+```{r, fig.cap="LEA Labeled Region Boxplot", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Annotation_boxplot.png"))
+```
+
+### Training Neural Net using data from Scanner(Megan)
+
+We Re-run the 3d convolutional neural network on 100 epochs using Megan's data for the training data set.
+
+```{r, fig.cap="Training ResNet using LEAs 1-100 scanner(Megan)", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Resnet_Latest.png"))
+```
+
+```{r, fig.cap="Confusion Matrix using LEAs 1-100 scanner(Megan)", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Resnet_latest_cm_1.png"))
+```
+
+    Total True Positives: 3940
+
+    Overall Accuracy: 83.19 %
+
+    **Breakoff** (Precision: 0.27, Recall: 0.10, F1-Score: 0.15)
+
+    **Damage** (Precision: 0.0, Recall: 0.0, F1-Score: 0.0)
+
+    **Grooves** (Precision: 0.78, Recall: 0.87, F1-Score: 0.82)
+    
+    **Missing Values** (Precision: 0.76, Recall: 0.87, F1-Score: 0.81)
+
+    **No Striations** (Precision: 0.89, Recall: 0.89, F1-Score: 0.89)
+
+    **Well Expressed Striations** (Precision: 0.84, Recall: 0.91, F1-Score: 0.87)
+
+    **Vertical Striations** (Precision: 0.0, Recall: 0.0, F1-Score: 0.0)
+
+
+
+```{r, fig.cap="Land Engraved Area Scan with assigned labels", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Resnet_latest_assigned_label.png"))
+```
+
+
+
+```{r, fig.cap="Land Engraved Area Scan with predicted labels", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Resnet_latest_prediction.png"))
+```
+
+Update(04/26/2021): Scripts used for Data Processing were converted to functions, with more features and user controls.
+
+Update(05/24/2021): New data processing procedure implemented where relabeling of land engraved area scans is more precise and missing values are excluded from being used as input data when training the current 3D CNN. Currently over a thousand labeled land engraved area scans have been processed using the new procedure.  Released R package "x3pLeaX," for working with LEA scans and running deep learning models.  The package is continually being updated daily. 
+
 
 ## Analysis of Results  
 
@@ -2467,6 +4198,73 @@ include_graphics(c("images/yawei/oddsratio2.png"))
 include_graphics(c("images/yawei/comparetable3.PNG"))
 ```
 
+We also have a look at the random forest scores for the LAPD sets. Our goal is to specify distributional forms to model the scores for known match (KM) and known non-match (KNM), and reach the estimated underlying theoretical error rates to evaluate the automatic matching algorithms. We would also investigate how this estimated theoretical error rates change with different sample sizes. Particularly, we make use of the LAPD data set which provide large samples to make this evaluation of underlying error rates possible. And we consider the beta distributions and beta-mixture distributions as candidate distributional forms. By consider beta-mixture distributions, we would like to introduce a second component to account for the heavy tail and the potential second mode (for KM particularly) of KM and KNM. We started with the more complex beta-mixture distribution which takes the single beta distributions as simpler cases and determine if the beta-mixture/beta distribution is sufficient to describe the data by conducting the lack of fit test through likelihood which has an asymptotic chi-square distribution. And the error rates will be evaluated under controlled conditions (given threshold selection method) and the effect of sample sizes will also be established based on the this.
+
+This is something partly covered in the previous sections. Currently, We are working to extract from that and form a well organized discussion. Many results will need to be reproduced and more closely scrutinized. One change is that we are trying to transfer to the random forest scores from cross correlations to avoid values less than 0 and catch up with the latest method, however the random forest scores don't perform as expected so far (in terms of the distribution of scores and estimation process) which requires more investigation. And we established more formal statistical inference procedures to do model selection and evaluation. We also control the threshold selection method fixed for the current discussion of error rates (to focus on the underlying model selection) and acknowledge that the threshold selection methods could greatly affect the resulting error rates, which we would like to discuss further in another paper in ideal case.
+
+To start the discussion, have a look at the distributions of the random forest scores for FAU 330 and 
+the full available data. The figure 4.130 was produced for a particular barrel. The curves are estimated by fit beta-mixture distributions for both KNM and KM without bullet A, the rugs are those comparison with bullet A. Just to get some sense how this behaved and how the data look like. We can get the primary observations from the plot:
+
+- Points for KNM and KM are entirely separated from each other (for rugs which are comparisons with bullet A)
+
+- The KNM has an unexpected heavy tail
+
+- The KM has a lot of extreme large values (including 1's), and the corresponding distribution has infinite probability density at rfscore = 1
+
+The figure 4.131 shows beta-mixture models for both KNM and KM for full data. This plot reveals a few serious issues/doubts with the data and the estimation process: 
+
+- KNM has two modes, which is unexpected
+
+- Estimated KM distribution seems to be able to improve, potentially affected by extreme values
+
+```{r, fig.cap="FAU330: rugs with A, densities without A for RF scores", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/fau330rf.png"))
+```
+
+```{r, fig.cap="Random forest scores and estimated distributions for full data", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/rf_full_2components_estimated.png"))
+```
+
+Currently, we have the following major issues to solve before going further. And these are more of technical issues.
+
+- Evaluate the estimation process, double check the pattern revealed in the full random forest score figure. (with different starting values? and other tuning parameters?)
+
+- Report standard error of estimation (bootstrap or asymptotic normality? Is the package reliable?)
+
+- Conduct lack of fit test for the beta-mixture distribution (what's the saturated model?)
+
+- Refine the writeup
+
+Feb/2021 starts here
+
+A "special" LEA scan as shown in the following:
+
+```{r, fig.cap="A special LEA", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/yawei/specialscan.PNG"))
+```
+
+The inspection of the LAPD data set (Show&Tell Mar/01):
+
+Since I only used 442 barrels out of the 626 total barrels in the LAPD bullet data set, we started a review process to check those "problematic" LEA scans. Some of the work done and findings are listed below:
+
+1. Identified 325 LEAs with bad scans that will fail to produce crosscut locations with default Bulletxtrctr method.
+
+2. Manually check the bad scans, and locate the crosscuts and GEAs. But those scans are all really bad and if there is a screening procedure, these might be excluded.
+
+3. Now we are using 612 barrels out of the 626 barrels, which is a big improvement.
+
+4. For the remaining unused data, there are some issues like: units mistake (solved now), bullets not 4 (reached an agreement to solve), lands not 6 (reached an agreement to solve). For some used data, there are also issues like: inconsistent names (lands and barrels),  mislabeling (same land shown up twice). Those are all identified to my best.
+
+5. Re-run the process and re-fit the model of my paper, and the results seem to be very similar from the previous. There are some other sections following that to be re-done.
+
+Besides, I also did some writing which is also the main part to do for some time from now.
+
+
+
+
+
+
+
 #### Look colser to the dependence structure of the land engraved areas
 
 There are some discussions about the existing patterns of dependence in the observed data. Inspired by that, we are trying to build a model to formalize those thoughts.
@@ -2533,11 +4331,138 @@ Connecting survey questions:
 2. Linking possible questions to the conceptual cognitive theory
 3. Best set of questionnaires need to be figured out.
 
-## Research Plan Summer
+### Measuring Trust and calibration
 
-1. Trust model
-2. User study design
-3. JSM - Bullet scoring - Adapted Chumbley
+```{r, fig.cap="Questionnaire setup for comparing trust in scores", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/bullets/questionnaire.png"))
+```
+
+
+
+1. Trust: Means different things to different people
+   - Outright questions measuring trust are highly susceptible to prior understanding and bias
+2. Trust in scores with visualizations as explanations 
+   - Pre- questionnaire along with Score without explanations of comparisons
+   - Post- questionnaire after experiencing a methodical array of visualizations (representations) 
+3. Framework design (Literature based):
+   - Optimized design with factors that can influence trust in scores.  
+      Criteria:
+       - Aligned to the steps of the model, present ordered set of visualization, so that the inference from the score, is drawn under the light of the right kind of uncertainty. 
+       - Exploratory understanding of impact of problems
+       - Theoretical arguments defining change of trust within the visualization setup (application) and the interest in change of trust
+         (1) 2- Agent game; 1st Agent [1] - System ; 2nd Agent [2] - Human/ Domain expert
+         (2) For Agent [1]- Trust in Agent [2] meaningless; For Agent [2]- Trust in Agent [1] of concern
+         (3) Each addition of visualization means Agent [2] sequentially always comes 2nd; assesses 
+         the score in the light of new visualization.
+         (4) Leads to a pure prediction problem:: Hence, change in trust + or - within the system.
+(*) These considerations are important as we only look to quantify trust in the light of a change and not in the light of absolute magnitude, which is not trivial.
+
+4. Trust is confusing term before jumping into measuring trust.
+      (1) Need to establish some ground rules that examiners can self-assess (not necessarily explicitly) during the experience.
+      (2) Without this, post- questionnaire based outright questions on trust can have widely unimaginable answers not representing the true calibration of trust.
+      (3) Trust here is identified as a function of uncertainty around scores
+      (4) Trust is a function of a non-zero initial trust in model scores, and a zero trust in model scores if acceptance of facts and reason is possible.
+      (5) Trust a function of facts and implication of fact of scores.
+      (6) In the light of above points, trust is a function of detectable problems in each visualization
+      (7) Probability of causation, argument, brings to light the concept of change in uncertainty around the scores. Seen to be in this light. Fact: Detectable problems
+  
+5. Pre- vs Post- questionnaire as a paired Wilcox ranked sum or paired t- test
+  - Assumptions?
+  - for a difference in mean of 1 need about 15 participants
+  
+6. IRB requisites
+
+### Survey Methods : Pre- vs Post 
+
+1. Explainability in Machine Learning - Fairly new field 
+2. Score based decision-making - Even lesser information available
+3. Existing surveys and scales with explainability and trust in mind
+4. Psychometric evaluation of survey questions:
+  a. Scale validity: Content Validity Ratio
+  b. Scale validity: Discriminant Validity
+5. System definition: Score Evaluation System
+   1. Decision-making revolving scores
+   2. Domain knowledge + Essential Processing Information + Comparative scoring with score uncertainty coming from (a) Presence of all scores (b) Reasoning based on "prior" (domain + model pipeline process information) knowledge  
+    VS
+     Domain knowledge + Essential Processing Information + Comparative scoring with score uncertainty coming from (a) Presence of all scores (b) Reasoning based on "prior" (domain + model pipeline process information) knowledge + Pipeline Stage specific and comparison specific information from each comparison made by model to generate scores.
+     
+6. Pros of such an explanation setup
+   (a) Evaluation is purely about scores and the understanding gathered about the uncertainty around it
+   (b) Provides a good setup to minimize pre-existing biased/ unyielding concepts of trust in algorithmic scoring models - machine learning or not.
+   
+Instructions for participants:
+ Vital instructions with goals of keeping post-experience inference being minimally affected by strong prior-beliefs about algorithmic pattern matching vs human pattern recognition:
+   (a) Heavy reliance on quality of definition of the system, and communication of the "score" based goals of the explanation system.
+   (b) Presentation of the system as solely a "score explanation system", and evaluation of inference drawn from "scores" in the presence of inter-pipeline explanations and in the absence of it.
+   
+#### Setup:
+Need multiple instances for conducting the survey - different cases for assessing different attributes
+Week of January 18th 
+ 1. Setting up instances for multiple sessions for survey. Fixing errors in script for pre-processing, generating modules for cases.
+ 2. Evaluating the qualtrics survey setup
+ 3. Reviewing existing work
+ 
+Week of January 25th
+ 1. Continuing work on setting up the visualizations and interactive interface instances.
+ 2. Choosing and finalizing different cases as modules. (for testing different attributes in the survey) 
+ 3. Mock setup for execution of the survey
+ 
+February Week 1  
+
+ - Algorithmic/ AI Explainability, Trust, Fairness: Field is moving very fast  
+ - Comparing in depth one recently published work in ACM FAccT by IBM Research, with my work on Explainability and trust in AI. Almost unbelievable!  
+ - Mapping other very recently published work, implications/ similarity to my current work.  
+
+Feb wee
+ - Identifying modifications, work needed and duration to completion/ submission of this work.
+ - Completing case setups
+ - Modifying paper to account for recent work
+ - Finalize, test mock visual app interaction setup  and survey
+ 
+Feb week 3
+- Connecting recent literature in AI trust
+- Implications to Examiner-ML trust
+- Literature review: reading papers, salient aspects and connections
+
+Feb week 4
+- Project: Class based differences in RF scores, features and metrics, perurbations and implications to uncertainty, accuracy, decision making, model scores
+- Literature review: general summaries, historic directions and consolidation, absorbing and modifications to theoretical work.
+
+March:  
+
+- Moving to OOB predicitons vs new predictions
+
+
+```{r, fig.cap="Out-of-bag prediction vs predicition using new data", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/bullets/G/oob_vs_new.png"))
+```
+
+
+```{r, fig.cap="Out-of-bag prediction 1500 trees vs 500 trees", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/bullets/G/oob_1500_vs_500.png"))
+```
+
+
+```{r, fig.cap="Prediction for 1500 trees vs 500 trees", out.width="50%", fig.keep="hold", fig.align='center'}
+include_graphics(c("images/bullets/G/new_1500_vs_500.png"))
+```
+
+
+March 29th
+- Looking into the forest - variable splitting, dependence modeling, variable importance
+- Testing prediction intervals, proximity, confidence intervals
+- Testing on Hamby and LAPD : end-splits
+- Working on density and interval plots
+
+April:
+- Categorizing shifts in LAPD compared to Hamby sets
+- Shift problems leading to threshold issues in the scale-invariant random forest
+- Regularization for distributional similarity
+- High-dimensional visualizations
+
+- Multivariate normal distribution
+- tourrrs:: R package
+- Performance comparison normed data RF and original RF
 
 ### Conference Presentations  
 
@@ -2598,6 +4523,7 @@ Connecting survey questions:
 - Charlotte Roiger 
 - Joe Zemmels
 - Yawei Ge
+- Wangqian (Will) Ju
 
 
 ### Undergraduates

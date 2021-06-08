@@ -12,6 +12,7 @@ The handwriting project has four major focuses:
       a. glyph clustering
       b. closed set modeling for writer identification
       c. Alexandra's project
+      d. open set modeling for writer identification from distribution of glyphs in clusters
   4. communication of results
 
 ## Data Collection
@@ -692,6 +693,174 @@ knitr::include_graphics(c("images/handwriting/amy/wolfgang_miss2.png"))
 
 :)
 
+### Open Set Modeling for Writer Identification from Distribution of Glyphs in Clusters
+The next step in this research extends the scope of potential sources of handwriting samples to an open set. So if there are two handwriting samples, are what is the probability they are from the same writer or different writer without the neccesary assumption of knowing all of the potential sources. The distribution of glyphs assigned to clusters in a document is can be used to explore the authorship because it is hypothesized that a particular writer would have their own writing style resulting in similar distributions of glyphs in each cluster over time across many different writing samples.
+
+Instead of comparing multinomial distributions, the proportions of total glyphs in each cluster can be compared with two Dirichlet distributions. If there are two different samples where the length of the documents differ the expected number of glyphs per cluster would also differ. For example, if samples of handwriting were found at two different scenes and the goal is to compare the two documents, it would be expected that the number of glyphs in each cluster would vary unless they happened to write the exact same thing in both. Dirichlet distributions would compare the proportions instead of the counts of glyphs per cluster.
+
+To start we will look at a dirichlet with three proportions, which would correspond to only having three clusters, and calculate the euclidean distance. 
+
+KDE (kernel density estimation) can be used to estimate the behavior of the distributions when the random variables are indeed from the distribution with the same parameters and when they are drawn from the distribution with different parameters.   
+
+```{r}
+knitr::include_graphics(c("images/handwriting/mattie/both.png"))
+```
+
+These density estimates can be used to calculate score-based likelihood ratios (SLRs) using leave-one-out of another simulated dataset. We would expect SLRs that are greater than 1 to be associated with the distance measures from the same distribution.
+
+This process was conducted with just the euclidean distance to start. Next, it is possible to assess how well a random forest with multiple distance measures (euclidean distance and the absolute difference between each of the clusters) can correctly identify if two dirichlet random variables are from a distribution with the same parameters or different parameters.
+
+To do this, 10,000 random variables were simulated for two dirichlet with the parameters (5,10,25) and one dirichlet with parameters (6,12,22) as a training set. The distance measures were calculated between the two dirichlet from the same parameters and also between different parameters. These distance measures were added to a dataset along with an indicator if the distance measures were from the same or different dirichlet.
+
+Next, a random forest was trained to predict the if the distance measures were from the same or different dirichlet.
+
+A testing dataset was simulated in the same way as before and the random forest was applied. The random forest returns a value between 0 and 1 which is the proportion of trees in the forest that predicts the distance measures are from the same dirichlet. 
+
+The training dataset was split into those that were actually from the same and different parameters. The `stat::density()` uses kernel density estimation with a Gaussian kernel to estimate the probability density function of the proportions that predicted the dirichlet were simulated from the distrution with the same parameters after defining the range of the pdf to be between 0 and 1.
+
+Using the leave-one-out method, 1 observation was excluded from the dataset and then KDE was performed. 
+
+```{r}
+knitr::include_graphics(c("images/handwriting/mattie/kernel_bothplot.png"))
+```
+
+The ratio of the KDE estimate for the curve if the excluded point was from the distribution with the same parameters to different parameters is computed. The SLRs are compared for those that are actually from the same vs different and we would expect there to be little overlap.
+
+```{r}
+knitr::include_graphics(c("images/handwriting/mattie/loo_slrs_plot.png"))
+```
+
+The same process that was conducted with 3 clusters was repeated with 40 clusters. A random forest was trained on simulated data with 40 clusters with randomly simulated parameters drawn from a uniform distribution. There appears to be little overlap between the kernel density estimates that were drawn from the same distribution compared to those from different distributions.
+
+```{r}
+knitr::include_graphics(c("images/handwriting/mattie/kernel_bothplot_40.png"))
+```
+
+While the small SLRs are based on the distance measures from dirichlet with different parameters and larger SLRs are from the same as expected, the score likelihood ratios computed using the leave-one-out method are not as distinct of those from the same compared to different dirichlet distributions as we would expect.
+
+```{r}
+knitr::include_graphics(c("images/handwriting/mattie/slrs_40.png"))
+```
+
+Application to CSAFE Database
+
+The data provided in the CSAFE database consist of writing samples from 90 writers who repeated three prompts three times throughout three sessions for a total of 9 writing samples per writer. The three prompts varied in length. "The London Letter" is the longest and has been used in other handwriting analyses because it includes all of the letters upper and lowercase and numbers. The second is an excerpt from "The Wizard of Oz" book. The last prompt is the short phrase: "The early bird may get the worm, but the second mouse gets the cheese"(Crawford, et al.). This initial test on the data only includes the documents from the first session.
+
+We repeated the process of evaluating the score-based likelihoods calculated from the kernel density estimates of the output a random forest previsouly applied to simulated data to the CSAFE handwriting data. We used 4 different prompts: London Letter, Wizard of Oz, short phrase, and all prompts per writer per repetition combined. The combined document is longer and would be expected to be more representative of the writing style of each writer in the study.
+
+For each data set, a random sample of 80% of the writers was drawn. The distance measures between all pairs of documents were calculated (absolute difference between each glyph and euchlidean distance) from sample. The number of distances from the same source were counted and the same number of different source distances were down sampled. This created a training set that includes an equal number of distances between same and different sources to train the random forest. The resulting random forest was trained using the remaining 20% of the writers not initially sampled for the training data set. As before with the simulated data, distributions of the output from the random forest by source was estimated using kernel density estimation with a Gaussian kernel with bounds between 0 and 1. SLRs were computed using the leave-one-out method as before.
+
+The first prompt is the short phrase.
+
+```{r varimp-p}
+knitr::include_graphics(c("images/handwriting/mattie/varimportanceplot_p.png"))
+```
+
+```{r kde-p}
+knitr::include_graphics(c("images/handwriting/mattie/kde_data_p.png"))
+```
+
+```{r slr-p}
+knitr::include_graphics(c("images/handwriting/mattie/slr_data_p.png"))
+```
+
+The next prompt is an excerpt from "The Wizard of Oz".
+
+```{r varimp-woz}
+knitr::include_graphics(c("images/handwriting/mattie/varimportanceplot_woz.png"))
+```
+
+```{r kde-woz}
+knitr::include_graphics(c("images/handwriting/mattie/kde_data_woz.png"))
+```
+
+```{r slr-woz}
+knitr::include_graphics(c("images/handwriting/mattie/slr_data_woz.png"))
+```
+
+The third prompt is the "London Letter".
+
+```{r varimp-ll}
+knitr::include_graphics(c("images/handwriting/mattie/varimportanceplot.png"))
+```
+
+```{r kde-ll}
+knitr::include_graphics(c("images/handwriting/mattie/kde_data.png"))
+```
+
+```{r slr-ll}
+knitr::include_graphics(c("images/handwriting/mattie/slr_data.png"))
+```
+
+Lastly, all three documents are combined into one large template per writer.
+
+```{r varimp-c}
+knitr::include_graphics(c("images/handwriting/mattie/varimportanceplot_mega.png"))
+```
+
+```{r kde-c}
+knitr::include_graphics(c("images/handwriting/mattie/kde_data_mega.png"))
+```
+
+```{r slr-c}
+knitr::include_graphics(c("images/handwriting/mattie/slr_data_mega.png"))
+```
+
+Comparing all four implementations of the process, the method did the best at correctly classifying same vs. different source with longer documents. The euclidean distance was the most important variable according to the mean decrease in Gini index. Additionally, when comparing the absolute difference by cluster, some clusters appear to be more influential across prompts, such as cluster 31.    
+
+The kernel density estimates for the shortest prompt are not well separated. As the length of the writing sample increases, the KDEs between same and different sources become more distinct.
+
+The discrimination of source using SLRs can be quantified using AUC by prompt as 0.6447, 0.7293, 0.9692, and 0.961 for the short phrase, Wizard of Oz, London Letter, and all prompts combined, respectively.
+
+```{r slr-c2}
+knitr::include_graphics(c("images/handwriting/mattie/roc_plots.png"))
+```
+
+Tippett plots are an additional way to visualize the behavior of the SLRs under the prosecution and defense hypotheses.
+
+```{r}
+knitr::include_graphics(c("images/handwriting/mattie/tippett.png"))
+```
+
+It is important to note that the training set did down sample the number of different source differences, but the testing set did not so the number of SLRs in that are from different sources will be more than from the same (a pattern not seen in the simulated data).
+
+Hepler et al detail score-based likelihood ratios by specific source instead of common (but unknown) source. The three specific source SLRs are general match, source anchored, and trace anchored. To compare the behavior of each with the CSAFE handwriting database, we extracted 3 writers ("sources") by ordering the all of the Euclidean distances, ordering the sum of distances by each writer, selecting the smallest, middle, and largest value. 
+
+The numerator value is constructed by combining all documents written by each writer to create a "template". This template is randomly split into 2 "pseudo-documents" 1000 times. The distance measures are calculated between each pair and used in the trained random forest to find dissimilarity scores.
+
+```{r}
+knitr::include_graphics(c("images/handwriting/mattie/hepler_num_splits.png"))
+```
+
+The three SLRs denominators are defined by which documents are compared.
+
+```{r}
+knitr::include_graphics(c("images/handwriting/mattie/trace_source_general.png"))
+```
+
+```{r}
+knitr::include_graphics(c("images/handwriting/mattie/log_hepler_slr.png"))
+```
+
+The discrimination of the three SLRs across the three selected writers within the CSAFE database can be visually compared across the three selected writers with ROC curves. There are two different random forests implemented to find the SLRs. The "pre-trained" random forest is the same random forest used with the common source SLRs, while the SLR specific trained SLRs are trained on a subset of the distance measures used to compute each of the three specific source SLRs.
+
+```{r}
+knitr::include_graphics(c("images/handwriting/mattie/hepler_plots_rocs.png"))
+```
+
+```{r}
+knitr::include_graphics(c("images/handwriting/mattie/hepler_slrs.png"))
+```
+
+##Relationship Between Rotation Angle and Demographic Features
+So this part of the research looks specifically at rotation angles (the slant of handwriting). We are seeing if there is a relationship between slant of a writer and demographic features. We looked at demographic features such as the participant's handedness, age group, gender, and location of third-grade education.We then fit a regression with the demographic information as explanatory variables and the average rotation angles as the response. Because rotation angles live on a circle, the regression model is based on a probability model appropriate for this type of data.
+
+
+First we looked at ANOVAs using circular package in R.
+Here are circular package Results:
+
+
+
 ## Communication of Results  
 Presenting author is in bold.
 
@@ -769,6 +938,19 @@ Presenting author is in bold.
     - Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry
     - CSAFE Annual All-Hands Meeting in Ames, IA
     
+- <strong>"Quantitative Support for Forensic Document Examination in an Open Set using Random Forests"</strong>
+    - February 2021
+    - Authors: Madeline Q. Johnson, Danica Ommen, and Alicia Carriquiry
+    - American Academy of Forensic Sciences, Virtual
+    - <details><summary>Click for Poster Image</summary>
+    ![Poster given at AAFS 2021 Meeting](images/handwriting/mattie/Johnson_AAFS_2021.png)</details>
+- <strong>"Relationship Between Handwriting Slant and Demographic Features"</strong>
+    - February 2021
+    - Authors: Anyesha Ray and Alicia Carriquiry
+    - American Academy of Forensic Sciences, Virtual
+    - <details><summary>Click for Poster Image</summary>
+    ![Poster given at AAFS 2021 Meeting](~/CSAFE/Handwriting/AAFS/A.Ray AAFS Poster.png)</details>
+    
 
 ## People involved
 
@@ -786,3 +968,21 @@ Presenting author is in bold.
 
 - Anyesha Ray (data collection)
 - James Taylor (feature extraction)
+
+## Deep Learning Methods
+
+We are currently researching ways in which we can use convolutional neural networks (CNN) to classify pieces of handwriting by their author. Similar ideas have and are being used in applications to to face recognition and shoe print comparisons in forensics. Identifying key differences in particular features in handwriting authorship and other applications will help determine artchitectural advantages and disadvantages in different CNNs to optimize success in the classification of an author's handwriting. 
+
+One potential approach we are investigating is using a Siamese neural network which uses the same weights and CNN architecture to train two images and output a metric noting their similarity. An outputted metric could be utilized to obtain a likelihood score that would then be used to classify similar images. With a focus on offline signatures, we are investigating the architectures of different CNNs used for other handwriting datasets to use as a baseline for constructing our own CNN to train and evaluate our handwriting datasets. 
+
+In constructing a CNN we consider the following processes used in previous research for offline signatures: Decorrelation, normalization, aggregation of local features, extraction of selected local versus global features.
+
+We programmed neural networks using data sets in keras (MNIST,IMDB,Reuters) to gain an understanding of the fundamental process in the algorithms. 
+
+Currently implementing a version of the TinyResNet Siamese CNN architecture, which was the best performing CNN in the paper *Siamese Convolutional Neural Networks for Authorship Verification by Du W., Fang M., Shen M.* Fully scanned pages of handwritten were broken down into lines to be used as the data inputted in the model. First we will use the model on the [IAM](https://fki.tic.heia-fr.ch/databases/iam-handwriting-database) handwriting data set broken down by line. Consists of 13,353 isolated and labeled text lines.
+
+We used the ResNet CNN architecture to train a model on the IAM dataset to classify writers on the images in our own database.
+
+Working on preprocessing images to work with the ResNet architecture as images need to be grayscaled and scaled to be square images. Two methods are to add padding to the top and bottom of a scanned line image, or break up a line into smaller parts essentially tiling the original image.
+
+Matched input scale for ResNet50 architecture with preprocessed images. Paired images to use as training data and used a binary 0 or 1 labeling system to classify pairs that were different and the same respectively. The input data takes a very large amount of memory so to work around this issue, I have currently randomly sampeld observations from the training and test set to train and evaluate the resnet50 model.

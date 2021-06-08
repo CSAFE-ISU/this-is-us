@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Project G: Handwriting (&amp; Signatures) | This is us: making CSAFE stronger each week</title>
+  <meta name="description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.21.6 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Project G: Handwriting (&amp; Signatures) | This is us: making CSAFE stronger each week" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="csafe-isu/this-is-us" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Project G: Handwriting (&amp; Signatures) | This is us: making CSAFE stronger each week" />
+  
+  <meta name="twitter:description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="CSAFE" />
+
+
+<meta name="date" content="2021-04-05" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="bullets.html"/>
+<link rel="next" href="glass.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">This is us</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#setting-up-the-repository"><i class="fa fa-check"></i><b>1.1</b> Setting up the repository</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#contributions-to-the-repository"><i class="fa fa-check"></i><b>1.2</b> Contributions to the repository</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#guidelines-for-show-and-tell"><i class="fa fa-check"></i><b>2.1</b> Guidelines for show and tell</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#rmarkdown-how-to"><i class="fa fa-check"></i><b>2.2</b> Rmarkdown how-to</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="dummy-file.html"><a href="dummy-file.html"><i class="fa fa-check"></i><b>3</b> Dummy file</a></li>
+<li class="chapter" data-level="4" data-path="bullets.html"><a href="bullets.html"><i class="fa fa-check"></i><b>4</b> Project CC: Bullets and Cartridge Cases</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="bullets.html"><a href="bullets.html#data-collection"><i class="fa fa-check"></i><b>4.1</b> Data Collection</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="bullets.html"><a href="bullets.html#breech-face-images"><i class="fa fa-check"></i><b>4.1.1</b> Breech face images</a></li>
+<li class="chapter" data-level="4.1.2" data-path="bullets.html"><a href="bullets.html#scans-from-land-engraved-areas-on-fired-bullets"><i class="fa fa-check"></i><b>4.1.2</b> Scans from land engraved areas on fired bullets</a></li>
+<li class="chapter" data-level="4.1.3" data-path="bullets.html"><a href="bullets.html#lapd"><i class="fa fa-check"></i><b>4.1.3</b> LAPD</a></li>
+<li class="chapter" data-level="4.1.4" data-path="bullets.html"><a href="bullets.html#hamby-sets"><i class="fa fa-check"></i><b>4.1.4</b> Hamby Sets</a></li>
+<li class="chapter" data-level="4.1.5" data-path="bullets.html"><a href="bullets.html#houston-tests"><i class="fa fa-check"></i><b>4.1.5</b> Houston Tests</a></li>
+<li class="chapter" data-level="4.1.6" data-path="bullets.html"><a href="bullets.html#houston-persistence"><i class="fa fa-check"></i><b>4.1.6</b> Houston Persistence</a></li>
+<li class="chapter" data-level="4.1.7" data-path="bullets.html"><a href="bullets.html#st-louis-persistence"><i class="fa fa-check"></i><b>4.1.7</b> St Louis persistence</a></li>
+<li class="chapter" data-level="4.1.8" data-path="bullets.html"><a href="bullets.html#dfsc-cartridge-cases"><i class="fa fa-check"></i><b>4.1.8</b> DFSC Cartridge cases</a></li>
+<li class="chapter" data-level="4.1.9" data-path="bullets.html"><a href="bullets.html#rotation-stage"><i class="fa fa-check"></i><b>4.1.9</b> Rotation stage</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="bullets.html"><a href="bullets.html#computational-tools"><i class="fa fa-check"></i><b>4.2</b> Computational Tools</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="bullets.html"><a href="bullets.html#x3ptools"><i class="fa fa-check"></i><b>4.2.1</b> x3ptools</a></li>
+<li class="chapter" data-level="4.2.2" data-path="bullets.html"><a href="bullets.html#bulletxtrctr"><i class="fa fa-check"></i><b>4.2.2</b> bulletxtrctr</a></li>
+<li class="chapter" data-level="4.2.3" data-path="bullets.html"><a href="bullets.html#groovefinder"><i class="fa fa-check"></i><b>4.2.3</b> grooveFinder</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="bullets.html"><a href="bullets.html#similarity-scores"><i class="fa fa-check"></i><b>4.3</b> Similarity Scores</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="bullets.html"><a href="bullets.html#bullet-lands"><i class="fa fa-check"></i><b>4.3.1</b> Bullet Lands</a></li>
+<li class="chapter" data-level="4.3.2" data-path="bullets.html"><a href="bullets.html#cartridge-cases"><i class="fa fa-check"></i><b>4.3.2</b> Cartridge Cases</a></li>
+<li class="chapter" data-level="4.3.3" data-path="bullets.html"><a href="bullets.html#modified-chumbley-non-random-test"><i class="fa fa-check"></i><b>4.3.3</b> Modified Chumbley non-random test</a></li>
+<li class="chapter" data-level="4.3.4" data-path="bullets.html"><a href="bullets.html#cmps-algorithm"><i class="fa fa-check"></i><b>4.3.4</b> CMPS Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="bullets.html"><a href="bullets.html#assessing-quality-of-scans"><i class="fa fa-check"></i><b>4.4</b> Assessing Quality of Scans</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="bullets.html"><a href="bullets.html#current-data-processing-procedures"><i class="fa fa-check"></i><b>4.4.1</b> Current Data Processing Procedures</a></li>
+<li class="chapter" data-level="4.4.2" data-path="bullets.html"><a href="bullets.html#convolutional-neural-networks"><i class="fa fa-check"></i><b>4.4.2</b> Convolutional Neural Networks</a></li>
+<li class="chapter" data-level="4.4.3" data-path="bullets.html"><a href="bullets.html#post-analysis"><i class="fa fa-check"></i><b>4.4.3</b> Post Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="bullets.html"><a href="bullets.html#analysis-of-results"><i class="fa fa-check"></i><b>4.5</b> Analysis of Results</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="bullets.html"><a href="bullets.html#stability-of-the-analysis-process"><i class="fa fa-check"></i><b>4.5.1</b> Stability of the Analysis Process</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="bullets.html"><a href="bullets.html#communication-of-results-and-methods"><i class="fa fa-check"></i><b>4.6</b> Communication of Results and Methods</a></li>
+<li class="chapter" data-level="4.7" data-path="bullets.html"><a href="bullets.html#explainable-results-usability-and-trust-survey"><i class="fa fa-check"></i><b>4.7</b> Explainable results: Usability and Trust survey</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="bullets.html"><a href="bullets.html#measuring-trust-and-calibration"><i class="fa fa-check"></i><b>4.7.1</b> Measuring Trust and calibration</a></li>
+<li class="chapter" data-level="4.7.2" data-path="bullets.html"><a href="bullets.html#survey-methods-pre--vs-post"><i class="fa fa-check"></i><b>4.7.2</b> Survey Methods : Pre- vs Post</a></li>
+<li class="chapter" data-level="4.7.3" data-path="bullets.html"><a href="bullets.html#conference-presentations"><i class="fa fa-check"></i><b>4.7.3</b> Conference Presentations</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="bullets.html"><a href="bullets.html#people-involved"><i class="fa fa-check"></i><b>4.8</b> People involved</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="bullets.html"><a href="bullets.html#faculty"><i class="fa fa-check"></i><b>4.8.1</b> Faculty</a></li>
+<li class="chapter" data-level="4.8.2" data-path="bullets.html"><a href="bullets.html#graduate-students"><i class="fa fa-check"></i><b>4.8.2</b> Graduate Students</a></li>
+<li class="chapter" data-level="4.8.3" data-path="bullets.html"><a href="bullets.html#undergraduates"><i class="fa fa-check"></i><b>4.8.3</b> Undergraduates</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html"><i class="fa fa-check"></i><b>5</b> Project G: Handwriting (&amp; Signatures)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#data-collection-1"><i class="fa fa-check"></i><b>5.1</b> Data Collection</a></li>
+<li class="chapter" data-level="5.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#computational-tools-1"><i class="fa fa-check"></i><b>5.2</b> Computational Tools</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#graph-measurements-extracted-in-rcpp-by-james"><i class="fa fa-check"></i><b>5.2.1</b> Graph measurements (extracted in RCpp by James)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#statistical-analysis"><i class="fa fa-check"></i><b>5.3</b> Statistical Analysis</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#clustering"><i class="fa fa-check"></i><b>5.3.1</b> Clustering</a></li>
+<li class="chapter" data-level="5.3.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#statistical-modeling"><i class="fa fa-check"></i><b>5.3.2</b> Statistical Modeling</a></li>
+<li class="chapter" data-level="5.3.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#interesting-documents"><i class="fa fa-check"></i><b>5.3.3</b> Interesting documents</a></li>
+<li class="chapter" data-level="5.3.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#alis-project"><i class="fa fa-check"></i><b>5.3.4</b> Ali’s project</a></li>
+<li class="chapter" data-level="5.3.5" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#open-set-modeling-for-writer-identification-from-distribution-of-glyphs-in-clusters"><i class="fa fa-check"></i><b>5.3.5</b> Open Set Modeling for Writer Identification from Distribution of Glyphs in Clusters</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#communication-of-results"><i class="fa fa-check"></i><b>5.4</b> Communication of Results</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#papers"><i class="fa fa-check"></i><b>5.4.1</b> Papers</a></li>
+<li class="chapter" data-level="5.4.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#talks"><i class="fa fa-check"></i><b>5.4.2</b> Talks</a></li>
+<li class="chapter" data-level="5.4.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#posters"><i class="fa fa-check"></i><b>5.4.3</b> Posters</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#people-involved-1"><i class="fa fa-check"></i><b>5.5</b> People involved</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#faculty-1"><i class="fa fa-check"></i><b>5.5.1</b> Faculty</a></li>
+<li class="chapter" data-level="5.5.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#graduate-students-1"><i class="fa fa-check"></i><b>5.5.2</b> Graduate Students</a></li>
+<li class="chapter" data-level="5.5.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#undergraduates-1"><i class="fa fa-check"></i><b>5.5.3</b> Undergraduates</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#deep-learning-methods"><i class="fa fa-check"></i><b>5.6</b> Deep Learning Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="glass.html"><a href="glass.html"><i class="fa fa-check"></i><b>6</b> Glass</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="glass.html"><a href="glass.html#data-collection-2"><i class="fa fa-check"></i><b>6.1</b> Data collection</a></li>
+<li class="chapter" data-level="6.2" data-path="glass.html"><a href="glass.html#data-collection-2.0"><i class="fa fa-check"></i><b>6.2</b> Data collection 2.0</a></li>
+<li class="chapter" data-level="6.3" data-path="glass.html"><a href="glass.html#the-astm-standard-method"><i class="fa fa-check"></i><b>6.3</b> The ASTM standard method</a></li>
+<li class="chapter" data-level="6.4" data-path="glass.html"><a href="glass.html#learning-algorithms-to-evaluate-forensic-glass-evidence"><i class="fa fa-check"></i><b>6.4</b> Learning algorithms to evaluate forensic glass evidence</a></li>
+<li class="chapter" data-level="6.5" data-path="glass.html"><a href="glass.html#evaluation-and-comparison-of-methods-for-forensic-glass-source-conclusions"><i class="fa fa-check"></i><b>6.5</b> Evaluation and comparison of methods for forensic glass source conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="shoes.html"><a href="shoes.html"><i class="fa fa-check"></i><b>7</b> Shoes</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="shoes.html"><a href="shoes.html#longitudinal"><i class="fa fa-check"></i><b>7.1</b> Longitudinal Shoe Study</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="shoes.html"><a href="shoes.html#paper-describing-the-database"><i class="fa fa-check"></i><b>7.1.1</b> Paper describing the database</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="shoes.html"><a href="shoes.html#shoescanner"><i class="fa fa-check"></i><b>7.2</b> Shoe Scanner - Passive Shoe Recognition</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="shoes.html"><a href="shoes.html#nij-grant"><i class="fa fa-check"></i><b>7.2.1</b> NIJ Grant</a></li>
+<li class="chapter" data-level="7.2.2" data-path="shoes.html"><a href="shoes.html#connor-convolutional-neural-network-for-outsole-recognition"><i class="fa fa-check"></i><b>7.2.2</b> CoNNOR: Convolutional Neural Network for Outsole Recognition</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="shoes.html"><a href="shoes.html#maxclique"><i class="fa fa-check"></i><b>7.3</b> Maximum Clique Matching</a></li>
+<li class="chapter" data-level="7.4" data-path="shoes.html"><a href="shoes.html#cocoa"><i class="fa fa-check"></i><b>7.4</b> Project Tread (formerly Cocoa Powder Citizen Science)</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="shoes.html"><a href="shoes.html#pilot-procedure-testing"><i class="fa fa-check"></i><b>7.4.1</b> Pilot procedure testing</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="shoes.html"><a href="shoes.html#d-shoe-recognition"><i class="fa fa-check"></i><b>7.5</b> 3d Shoe Recognition</a></li>
+<li class="chapter" data-level="7.6" data-path="shoes.html"><a href="shoes.html#shoe-outsole-matching-using-image-descriptors"><i class="fa fa-check"></i><b>7.6</b> Shoe outsole matching using image descriptors</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="shoes.html"><a href="shoes.html#method-1-edge-detection-and-mc-mc-comp"><i class="fa fa-check"></i><b>7.6.1</b> Method 1: Edge detection and MC (MC-COMP)</a></li>
+<li class="chapter" data-level="7.6.2" data-path="shoes.html"><a href="shoes.html#method-2-surf-detection-and-mc-on-degraded-impressions"><i class="fa fa-check"></i><b>7.6.2</b> Method 2: SURF detection and MC on degraded impressions</a></li>
+<li class="chapter" data-level="7.6.3" data-path="shoes.html"><a href="shoes.html#research-1-features"><i class="fa fa-check"></i><b>7.6.3</b> Research 1: Features</a></li>
+<li class="chapter" data-level="7.6.4" data-path="shoes.html"><a href="shoes.html#matching-on-clean-and-full-images-with-several-features"><i class="fa fa-check"></i><b>7.6.4</b> Matching on clean and full images with several features</a></li>
+<li class="chapter" data-level="7.6.5" data-path="shoes.html"><a href="shoes.html#matching-on-degraded-and-partial-images"><i class="fa fa-check"></i><b>7.6.5</b> Matching on degraded and partial images</a></li>
+<li class="chapter" data-level="7.6.6" data-path="shoes.html"><a href="shoes.html#research-2-impact-of-weight-to-outsole-scans-from-everos-2d-scanner"><i class="fa fa-check"></i><b>7.6.6</b> Research 2: Impact of weight to outsole scans from EverOS 2D scanner</a></li>
+<li class="chapter" data-level="7.6.7" data-path="shoes.html"><a href="shoes.html#research-3-mc-cnn"><i class="fa fa-check"></i><b>7.6.7</b> Research 3: MC + CNN</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="shoes.html"><a href="shoes.html#matching-shoe-prints-with-ccf"><i class="fa fa-check"></i><b>7.7</b> Matching shoe prints with ccf</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html"><i class="fa fa-check"></i><b>8</b> Theoretical foundations</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#explaining-slr-behavior"><i class="fa fa-check"></i><b>8.1</b> Explaining SLR behavior</a></li>
+<li class="chapter" data-level="8.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#common-source-vs-specific-source-comparison-via-information-theory"><i class="fa fa-check"></i><b>8.2</b> Common Source vs Specific Source Comparison via Information Theory</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#introduction"><i class="fa fa-check"></i><b>8.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#common-source-vs-specific-source-lr"><i class="fa fa-check"></i><b>8.2.2</b> Common Source vs Specific Source LR</a></li>
+<li class="chapter" data-level="8.2.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#other-notions-of-information"><i class="fa fa-check"></i><b>8.2.3</b> Other notions of information</a></li>
+<li class="chapter" data-level="8.2.4" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#information-theoretic-specific-source-score-sufficiency-metric"><i class="fa fa-check"></i><b>8.2.4</b> Information Theoretic Specific Source Score Sufficiency Metric</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#score-based-likelihood-ratios-are-not-fundamentally-incoherent"><i class="fa fa-check"></i><b>8.3</b> Score-based Likelihood Ratios are not Fundamentally “Incoherent”</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#coherence"><i class="fa fa-check"></i><b>8.3.1</b> Coherence</a></li>
+<li class="chapter" data-level="8.3.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#problems-with-arguments-showing-slrs-are-incoherent"><i class="fa fa-check"></i><b>8.3.2</b> Problems with arguments showing SLRs are incoherent</a></li>
+<li class="chapter" data-level="8.3.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#example-of-a-coherent-slr-in-the-two-source-problem"><i class="fa fa-check"></i><b>8.3.3</b> Example of a coherent SLR in the two source problem</a></li>
+<li class="chapter" data-level="8.3.4" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#possible-generalizations-of-coherent-slrs-to-the-multisource-case"><i class="fa fa-check"></i><b>8.3.4</b> Possible Generalizations of Coherent SLRs to the Multisource Case</a></li>
+<li class="chapter" data-level="8.3.5" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#multisource-example"><i class="fa fa-check"></i><b>8.3.5</b> Multisource example</a></li>
+<li class="chapter" data-level="8.3.6" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#other-possible-viewpoints"><i class="fa fa-check"></i><b>8.3.6</b> Other Possible Viewpoints?</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#copper-wire-synthetic-data"><i class="fa fa-check"></i><b>8.4</b> Copper Wire Synthetic Data</a></li>
+<li class="chapter" data-level="8.5" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#optimal-matching-problem"><i class="fa fa-check"></i><b>8.5</b> Optimal matching problem</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#two-groups-case."><i class="fa fa-check"></i><b>8.5.1</b> Two groups case.</a></li>
+<li class="chapter" data-level="8.5.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#topics-needs-exploration"><i class="fa fa-check"></i><b>8.5.2</b> Topics needs exploration</a></li>
+<li class="chapter" data-level="8.5.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#brief-introduction-to-optimal-rule"><i class="fa fa-check"></i><b>8.5.3</b> Brief introduction to optimal rule</a></li>
+<li class="chapter" data-level="8.5.4" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#optimal-rule-for-matching-problems"><i class="fa fa-check"></i><b>8.5.4</b> Optimal rule for matching problems</a></li>
+<li class="chapter" data-level="8.5.5" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#simulation-plan"><i class="fa fa-check"></i><b>8.5.5</b> Simulation plan</a></li>
+<li class="chapter" data-level="8.5.6" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#simulation-results"><i class="fa fa-check"></i><b>8.5.6</b> Simulation results</a></li>
+<li class="chapter" data-level="8.5.7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#real-data-for-simulations"><i class="fa fa-check"></i><b>8.5.7</b> Real data for simulations</a></li>
+<li class="chapter" data-level="8.5.8" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#simulation-results-using-glass-data"><i class="fa fa-check"></i><b>8.5.8</b> Simulation results using glass data</a></li>
+<li class="chapter" data-level="8.5.9" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#extension-to-openset-problems"><i class="fa fa-check"></i><b>8.5.9</b> Extension to openset problems</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#srl-behaviour-and-dependence"><i class="fa fa-check"></i><b>8.6</b> SRL behaviour and dependence</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#introduction."><i class="fa fa-check"></i><b>8.6.1</b> Introduction.</a></li>
+<li class="chapter" data-level="8.6.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#a-pipeline-for-testing-forensic-algorithm."><i class="fa fa-check"></i><b>8.6.2</b> A pipeline for testing forensic algorithm.</a></li>
+<li class="chapter" data-level="8.6.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#simulating-realistic-data."><i class="fa fa-check"></i><b>8.6.3</b> Simulating realistic data.</a></li>
+<li class="chapter" data-level="8.6.4" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#forensic-set-up"><i class="fa fa-check"></i><b>8.6.4</b> Forensic set up</a></li>
+<li class="chapter" data-level="8.6.5" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#model-set-up"><i class="fa fa-check"></i><b>8.6.5</b> Model set up</a></li>
+<li class="chapter" data-level="8.6.6" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#simulation-basics."><i class="fa fa-check"></i><b>8.6.6</b> Simulation basics.</a></li>
+<li class="chapter" data-level="8.6.7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#slr."><i class="fa fa-check"></i><b>8.6.7</b> SLR.</a></li>
+<li class="chapter" data-level="8.6.8" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#lr"><i class="fa fa-check"></i><b>8.6.8</b> LR</a></li>
+<li class="chapter" data-level="8.6.9" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#train--test---validation."><i class="fa fa-check"></i><b>8.6.9</b> Train- Test - Validation.</a></li>
+<li class="chapter" data-level="8.6.10" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#metrics-for-comparing-results"><i class="fa fa-check"></i><b>8.6.10</b> Metrics for comparing results</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#evaluation-metrics."><i class="fa fa-check"></i><b>8.7</b> Evaluation metrics.</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#results"><i class="fa fa-check"></i><b>8.7.1</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#srl-behaviour-and-dependence-extended-simulation."><i class="fa fa-check"></i><b>8.8</b> SRL behaviour and dependence: Extended simulation.</a></li>
+<li class="chapter" data-level="8.9" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#small-updates"><i class="fa fa-check"></i><b>8.9</b> Small updates:</a></li>
+<li class="chapter" data-level="8.10" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#communication-of-results-1"><i class="fa fa-check"></i><b>8.10</b> Communication of Results</a>
+<ul>
+<li class="chapter" data-level="8.10.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#poster"><i class="fa fa-check"></i><b>8.10.1</b> Poster</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="outreach-activities.html"><a href="outreach-activities.html"><i class="fa fa-check"></i><b>9</b> Outreach activities</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="outreach-activities.html"><a href="outreach-activities.html#book-on-forensic-science-and-statistics"><i class="fa fa-check"></i><b>9.1</b> Book on Forensic Science and Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html"><i class="fa fa-check"></i><b>10</b> Reproducibility in Research</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html#computational-reproducibility"><i class="fa fa-check"></i><b>10.1</b> Computational Reproducibility</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html#computational-reproducibility-in-team-based-collaboration"><i class="fa fa-check"></i><b>10.1.1</b> Computational Reproducibility in Team-based Collaboration</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">This is us: making CSAFE stronger each week</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="project-g-handwriting-signatures" class="section level1" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Project G: Handwriting (&amp; Signatures)</h1>
+<p>The handwriting project has four major focuses:</p>
+<ol style="list-style-type: decimal">
+<li>data collection</li>
+<li>computational tools</li>
+<li>statistical analysis
+<ol style="list-style-type: lower-alpha">
+<li>glyph clustering</li>
+<li>closed set modeling for writer identification</li>
+<li>Alexandra’s project</li>
+<li>open set modeling for writer identification from distribution of glyphs in clusters</li>
+</ol></li>
+<li>communication of results</li>
+</ol>
+<div id="data-collection-1" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Data Collection</h2>
+<p>We are conducting a large data collection study to gather handwriting samples from a variety of participants across the world (most in the Midwest). Each participant provides handwriting samples at three sessions. Session packets are prepared, mailed to participants, completed, and mailed back. Once recieved, we scan all surveys and writing samples. Scans are loaded, cropped, and saved using a Shiny app. The app also facilitates survey data entry, saving that participant data to lines in an excel spreadsheet.</p>
+<p>As of September 2019, Marc and Anyesha are the primary contacts for the study. Phase 2 recruiting is underway.</p>
+<p><strong>The first 90 complete writers were published:</strong>
+&gt; Crawford, Amy; Ray, Anyesha; Carriquiry, Alicia; Kruse, James; Peterson, Marc (2019): CSAFE Handwriting Database. Iowa State University. Dataset. <a href="https://doi.org/10.25380/iastate.10062203" class="uri">https://doi.org/10.25380/iastate.10062203</a>.</p>
+Anyesha and I worked on a variety of <strong>data quality checks and batch processing</strong> prior to publication. Scanner cuts a portion of the left side of the documents off sporadically. Survey date checks. Batch removal of header.
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-331"></span>
+<img src="images/handwriting/amy/promptimage.png" alt="Batch process samples: rotate 0.05 degrees, turn black line pixels white, crop 450 pixels from top (under QR code), rename." width="90%" />
+<p class="caption">
+Figure 5.1: Batch process samples: rotate 0.05 degrees, turn black line pixels white, crop 450 pixels from top (under QR code), rename.
+</p>
+</div>
+We hit a bump with the ISU Office for Responsible Research (ORR).
+</summary>
+<p>They had concerns with the demographic variables we collected on the surveys and wanted to publish. We "negotiated’’ and settled on the following survey information.</p>
+<p><img src="images/handwriting/amy/surveydata_header.png" width="110%" style="display: block; margin: auto;" />
+<br></p>
+<details>
+<summary>
+A data article was accepted at <a href="https://www.sciencedirect.com/science/article/pii/S2352340919314155?via%3Dihub">Data in Brief</a>. <br>
+Crawford, A., Ray, A., &amp; Carriquiry, A. (2020). A database of handwriting samples for applications in forensic statistics. Data in brief, 28, 105059.
+</summary>
+<br>
+<img src="images/handwriting/amy/DIBarticle.png" width="90%" style="display: block; margin: auto;" />
+</details>
+</div>
+<div id="computational-tools-1" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Computational Tools</h2>
+<p><code>handwriter</code> is a developmental R package hosted at <a href="https://github.com/CSAFE-ISU/handwriter" class="uri">https://github.com/CSAFE-ISU/handwriter</a>. It is our major computational tool for the project. The package takes in scanned handwritten documents and the following are performed.</p>
+<ol style="list-style-type: decimal">
+<li><strong> Binarize.</strong> Turn the image to pure black and white.</li>
+<li><strong> Skeletonize. </strong> Reduce writing to a 1 pixel wide skeleton.</li>
+<li><strong> Break. </strong> Connected writing is decomposed into small manageable pieces called <strong> glyphs </strong>. Glyphs are graphical structures with nodes and edges that often, but not always, correspond to Roman letters, and are the smallest unit of observation we consider for statistcal modelling.</li>
+<li><strong> Measure. </strong> A variety of measurements are taken on each glyph. See Section 4.2.1.</li>
+</ol>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-334"></span>
+<img src="images/handwriting/amy/handwriter_csafe.png" alt="Connected text processed by `handwriter`. The grey background is the original pen stroke. Colored lines represent the single pixel skeleton with color changes marking glyph decomposition. Red dots mark endpoints and intersections of each glyph." width="50%" />
+<p class="caption">
+Figure 5.2: Connected text processed by <code>handwriter</code>. The grey background is the original pen stroke. Colored lines represent the single pixel skeleton with color changes marking glyph decomposition. Red dots mark endpoints and intersections of each glyph.
+</p>
+</div>
+<p>For an input document, functions in the package give back a list of glyphs with path and node location information, adjacency grouping assignment, centroid locations, measurements (such as slope, pictured below), among other things. More on measurements in Section 4.2.1.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-335"></span>
+<img src="images/handwriting/amy/handwriter_slopecalc.png" alt="A visual of the ''slope'' calculation for two glyphs." width="90%" />
+<p class="caption">
+Figure 5.3: A visual of the ‘’slope’’ calculation for two glyphs.
+</p>
+</div>
+<div id="graph-measurements-extracted-in-rcpp-by-james" class="section level3" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Graph measurements (extracted in RCpp by James)</h3>
+<p>The goal is to extract features that will discrimiate between writers within clusters.</p>
+<details>
+<summary>
+<ol style="list-style-type: decimal">
+<li>Compactness measurements</li>
+</ol>
+</summary>
+<br>
+<span class="math display">\[\sum_{Num.\: Pixels}\frac{d(pixel,centroid)^2}{Num.\: Pixels -1}\]</span>
+While informative for comparing like-sized graphs, this measurement suffers from the inherit spacial dependence between pixels and (unfortunately) does not scale well for modelling.
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-336"></span>
+<img src="images/handwriting/amy/compactness.png" alt="A visual of the ``compactness'' calculation for graphs" width="90%" />
+<p class="caption">
+Figure 5.4: A visual of the ``compactness’’ calculation for graphs
+</p>
+</div>
+</details>
+<details>
+<summary>
+<ol start="2" style="list-style-type: decimal">
+<li>Rotation angle measurements</li>
+</ol>
+</summary>
+<p>The first principal component for each graph, or “letter,” is calculated through an eigendecomposition of the covariance matrix. The first principal component enjoys the property of having two invariant directions, and so we take the vector that lies in the upper half plane. The rotation angle of the graph is defined as the angle between the vector (0,1), and the unit principal component vector on the upper half plane. The angle is measured in radians and is considered a feature of the graph defined on the interval (0,<span class="math inline">\(\pi\)</span>).</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-337"></span>
+<img src="images/handwriting/amy/w0095-1.png" alt="Top: writing from one of Writer 95's training documents. Bottom: the graphs from handwriter that correpsond to the writing, and the unit vector in the first pricipal direction. Red vectors are rotated by $\pi$ to lie in the upper half plane prior to calculation of the rotation angle from the positive x-axis." width="100%" />
+<p class="caption">
+Figure 5.5: Top: writing from one of Writer 95’s training documents. Bottom: the graphs from handwriter that correpsond to the writing, and the unit vector in the first pricipal direction. Red vectors are rotated by <span class="math inline">\(\pi\)</span> to lie in the upper half plane prior to calculation of the rotation angle from the positive x-axis.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-338"></span>
+<img src="images/handwriting/amy/rotationangles_writer95_cluster29.pdf" alt="Data: All Cluster \#29 graphs in Writer 95's training documents. Left: A Nightingale Rose diagram displaying the rotation angles in 20 'petals'. A point for each observed rotation angle is plotted on the outermost ring of the diagram. Right: A traditional histogram of the rotation angles with 20 bins, a point for each observation is plotted on the x-axis." width="70%" />
+<p class="caption">
+Figure 5.6: Data: All Cluster #29 graphs in Writer 95’s training documents. Left: A Nightingale Rose diagram displaying the rotation angles in 20 ‘petals.’ A point for each observed rotation angle is plotted on the outermost ring of the diagram. Right: A traditional histogram of the rotation angles with 20 bins, a point for each observation is plotted on the x-axis.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-339"></span>
+<img src="images/handwriting/amy/w0001crop.png" alt="Top: writing from one of Writer 1's training documents. Bottom: the graphs from handwriter that correpsond to the writing, and the unit vector in the first pricipal direction. Red vectors are rotated by $\pi$ to lie in the upper half plane prior to calculation of the rotation angle from the positive x-axis." width="100%" />
+<p class="caption">
+Figure 5.7: Top: writing from one of Writer 1’s training documents. Bottom: the graphs from handwriter that correpsond to the writing, and the unit vector in the first pricipal direction. Red vectors are rotated by <span class="math inline">\(\pi\)</span> to lie in the upper half plane prior to calculation of the rotation angle from the positive x-axis.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-340"></span>
+<img src="images/handwriting/amy/rotationangles_writer1_clusters-16-29.pdf" alt="Nightingale rose diagrams and traditional histograms for the rotation angles from Writer \#1's training documents in Clusters \#29 (top) and \#16 (bottom)." width="70%" />
+<p class="caption">
+Figure 5.8: Nightingale rose diagrams and traditional histograms for the rotation angles from Writer #1’s training documents in Clusters #29 (top) and #16 (bottom).
+</p>
+</div>
+</details>
+<details>
+<summary>
+<ol start="3" style="list-style-type: decimal">
+<li>Loop measurements</li>
+</ol>
+</summary>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-341"></span>
+<img src="images/handwriting/amy/loops_writer95.pdf" alt="A few graphs with loops that come from the Writer 95 sample from Figure 4.5 (top)." width="100%" />
+<p class="caption">
+Figure 5.9: A few graphs with loops that come from the Writer 95 sample from Figure 4.5 (top).
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-342"></span>
+<img src="images/handwriting/amy/loops_linearvslog_writer95.pdf" alt="Distribution of loop ratios for Writer 95 across all training documents." width="68%" />
+<p class="caption">
+Figure 5.10: Distribution of loop ratios for Writer 95 across all training documents.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-343"></span>
+<img src="images/handwriting/amy/loops_hist_writers-95-1.pdf" alt="Distribution of log loop ratios for Writers 1 and 95 across all training documents." width="45%" />
+<p class="caption">
+Figure 5.11: Distribution of log loop ratios for Writers 1 and 95 across all training documents.
+</p>
+</div>
+</details>
+</div>
+</div>
+<div id="statistical-analysis" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Statistical Analysis</h2>
+<div id="clustering" class="section level3" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Clustering</h3>
+<details>
+<summary>
+Paper submitted to ASA Statistical Analysis and Data Mining.
+</summary>
+<img src="images/handwriting/amy/clusterpaper_header.png" width="70%" style="display: block; margin: auto;" />
+</details>
+<p>Rather than impose rigid grouping rules (the previously used ‘’adjacency grouping’’) we consider a more robust, dynamic <span class="math inline">\(K-\)</span>means type clustering method that is focused on major glyph structural components.</p>
+<p>Clustering algorithms require:</p>
+<ul>
+<li><strong> A distance measure.</strong> For us, a way to measure the discrepancy between glyphs.</li>
+<li><strong> A measure of center.</strong> A glyph-like structure that is the exemplar representation of a group of glyphs.</li>
+</ul>
+<div id="glyph-distance-measure" class="section level4 unnumbered">
+<h4>Glyph Distance Measure</h4>
+<p>We begin by defining edge to edge distances. Edge to edge distances are subsequently combined for an overall glyph to glyph distance.</p>
+<p><strong>Edge to edge distances:</strong></p>
+Consider the following single edge glyphs, <span class="math inline">\(e_1\)</span> and <span class="math inline">\(e_2\)</span>. Make <span class="math inline">\(3\)</span> edits to <span class="math inline">\(e_1\)</span> to match <span class="math inline">\(e_2\)</span>. The combined magnitude of each edit make the edge distance.
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-345"></span>
+<img src="images/handwriting/amy/DistMeasurePlot1.png" alt="Two edges that are also glyphs, $e_1$ and $e_2$." width="60%" />
+<p class="caption">
+Figure 5.12: Two edges that are also glyphs, <span class="math inline">\(e_1\)</span> and <span class="math inline">\(e_2\)</span>.
+</p>
+</div>
+<ol style="list-style-type: decimal">
+<li><strong> Shift</strong>. Anchor to the nearest endpoint by shifting.
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-346"></span>
+<img src="images/handwriting/amy/DistMeasurePlot2.png" alt="Shift = 1.4." width="25%" />
+<p class="caption">
+Figure 5.13: Shift = 1.4.
+</p>
+</div></li>
+<li><strong> Stretch</strong>. Make the endpoints the same distance apart.
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-347"></span>
+<img src="images/handwriting/amy/DistMeasurePlot3.png" alt="Stretch = 9.9." width="25%" />
+<p class="caption">
+Figure 5.14: Stretch = 9.9.
+</p>
+</div></li>
+<li><strong> Shape</strong>. Bend and twist the edge using <span class="math inline">\(7\)</span> shape points. Shape points are ‘’matched’’ and the distance between them is averaged to obtain the shape contribution to the distance measure.
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-348"></span>
+<img src="images/handwriting/amy/DistMeasurePlot4.png" alt="Shape Components." width="25%" />
+<p class="caption">
+Figure 5.15: Shape Components.
+</p>
+</div></li>
+</ol>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-349"></span>
+<img src="images/handwriting/amy/DistMeasurePlot5.png" alt="Shape = 8.4." width="100%" />
+<p class="caption">
+Figure 5.16: Shape = 8.4.
+</p>
+</div>
+<p>Combine the three measurements for a final edge to edge distance. D<span class="math inline">\((e_1, e_2) = 1.4 + 9.9 + 8.4 = 19.7\)</span>.</p>
+<p>For multi-edge glyphs get pairwise edge distances. Minimize total glyph distance using linear programming to match edges (sudoku). Down-weight edge distance contributions based on edge lengths. There are nuances associated with all of this. We must handle glyphs with differing number of edges, and consider the direction in which edges are compared (endpoint labels are arbitrary). All of this is addressed in detail in the paper.</p>
+</div>
+<div id="measure-of-glyph-centers" class="section level4 unnumbered">
+<h4>Measure of glyph centers</h4>
+Take the weighted average of endpoints, <span class="math inline">\(7\)</span> shape points, and edge length.
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-350"></span>
+<img src="images/handwriting/amy/Meanplot1.png" alt="Weighted mean between two glyphs. p = weight on blue." width="60%" />
+<p class="caption">
+Figure 5.17: Weighted mean between two glyphs. p = weight on blue.
+</p>
+</div>
+<p>The mean of a set can be iteratively calculated by properly weighting each newly introduced glyph. For stability, the <span class="math inline">\(K-\)</span>means algorithm finds the glyph nearest the mean and uses that  as measure of cluster center.</p>
+</div>
+<div id="k-means-algorithm-for-glyphs" class="section level4 unnumbered">
+<h4><span class="math inline">\(K-\)</span>means Algorithm for Glyphs</h4>
+<p>Implement a standard <span class="math inline">\(K-\)</span>means<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> <a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> with handling of outlier observations.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<p>Begin with fixed <span class="math inline">\(K\)</span> and a set of exemplars. Iterate between the following steps until cluster assignments do not change:</p>
+<ol style="list-style-type: decimal">
+<li>Assign each glyph to the exemplar it is nearest to, with respect to the glyph distance measure.<br />
+</li>
+<li>Calculate each cluster mean as defined. Find the exemplar nearest the cluster mean and use it as the new cluster center.</li>
+</ol>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-351"></span>
+<img src="images/handwriting/amy/Cluster40.png" alt="One of $K=40$ Clusters. Exemplar &amp; cluster members (left). Cluster mean (right)." width="40%" />
+<p class="caption">
+Figure 5.18: One of <span class="math inline">\(K=40\)</span> Clusters. Exemplar &amp; cluster members (left). Cluster mean (right).
+</p>
+</div>
+<p>Use one document from each training writer to cluster and obtain a template. Make cluster assignments for the remaining documents by finding the template exemplar each glyph is nearest to. Below is an example of data that arises from the clustering method.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-352"></span>
+<img src="images/handwriting/amy/Clusterdata.png" alt="Data arising from the cluster grouping method. Cluster #'s ordered by most to least populated." width="60%" />
+<p class="caption">
+Figure 5.19: Data arising from the cluster grouping method. Cluster #’s ordered by most to least populated.
+</p>
+</div>
+</div>
+<div id="outliers" class="section level4" number="5.3.1.1">
+<h4><span class="header-section-number">5.3.1.1</span> Outliers</h4>
+<p>During clustering, outliers are considered glyphs that are at least <span class="math inline">\(T_o\)</span> distance units from cluster exemplars. The algorithm sets a ceiling <span class="math inline">\(n_o\)</span> on the allowable number of outliers. Initially, we were going to ignore the outliers, but now they are considered the <span class="math inline">\(K+1\)</span>th cluster and contribute information about writer.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-353"></span>
+<img src="images/handwriting/amy/HW_Outliers.png" alt="Cluster of outliers." width="80%" />
+<p class="caption">
+Figure 5.20: Cluster of outliers.
+</p>
+</div>
+</div>
+<div id="cvl-csafe-iam-template-development" class="section level4" number="5.3.1.2">
+<h4><span class="header-section-number">5.3.1.2</span> <span class="new"> CVL + CSAFE + IAM Template Development </span></h4>
+<p>Template development on:</p>
+<pre><code>1.  CSAFE Handwriting Database, 25 documents. 
+2.  Computer Vision Lab (CVL) Database, 25 documents.
+3.  IAM Handwriting Database, 50 documents.</code></pre>
+<p>With the new template, we’ve made a few adjustments to the original algorithm and measurement tools:</p>
+<ol style="list-style-type: decimal">
+<li>Starting values.</li>
+<li>Changes to the distance measurement to emphasize shape, and focus less on character size.
+<ul>
+<li><span class="math inline">\(\frac{1}{2}\times\)</span> <strong>Stretch</strong> (straight line distance component, ~ size)</li>
+<li>1 <span class="math inline">\(\times\)</span> <strong>Shift</strong> (nearest endpoint)</li>
+<li>2 <span class="math inline">\(\times\)</span> <strong>Shape</strong></li>
+<li>(ghost edge comparisons)<span class="math inline">\(^2\)</span></li>
+</ul></li>
+<li>A sample template is picture below.
+<ul>
+<li>27 CVL documents (6 unique), 73 CSAFE documents (2 unique)</li>
+<li>Currently working on 20+ algorithm runs with a variety of starting values to select final template.</li>
+</ul></li>
+</ol>
+<details>
+<summary>
+The final template.
+</summary>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-354"></span>
+<img src="images/handwriting/amy/clusterplot2.png" alt="Exemplars for the first 20 most populated clusters (according to training data, later). The red lines are not plotting correctly.." width="80%" />
+<p class="caption">
+Figure 5.21: Exemplars for the first 20 most populated clusters (according to training data, later). The red lines are not plotting correctly..
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-355"></span>
+<img src="images/handwriting/amy/clusterplot1.png" alt="Exemplars for the first 20 least populated clusters (according to training data, later). The red lines are not plotting correctly.." width="80%" />
+<p class="caption">
+Figure 5.22: Exemplars for the first 20 least populated clusters (according to training data, later). The red lines are not plotting correctly..
+</p>
+</div>
+</details>
+</div>
+</div>
+<div id="statistical-modeling" class="section level3" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Statistical Modeling</h3>
+<div id="model-1-straw-man" class="section level4 unnumbered">
+<h4>Model #1, Straw Man</h4>
+<p>Let,</p>
+<ul>
+<li><span class="math inline">\(\boldsymbol{Y}_{w(d)} = \{Y_{w(d),1}, \dots, Y_{w(d),K}\}\)</span> be the number of glyphs assigned to each cluster for document within writer, <span class="math inline">\(w(d),\)</span> and</li>
+<li><span class="math inline">\(\boldsymbol{\pi}_w = \{\pi_{w,1}, \dots, \pi_{w,K} \}\)</span> be the rate at which a writer emits glyphs to each cluster.</li>
+<li>Here, <span class="math inline">\(K = 41\)</span>, <span class="math inline">\(d = 1,2,...,5\)</span>, <span class="math inline">\(w = 1,...,27\)</span>.</li>
+</ul>
+<p>Then a hierarchical model for the data is
+<span class="math display">\[\begin{array}{rl}
+     \mathbf{Y}_{w(d)}\: &amp;\stackrel{ind}{\sim} \:Multinomial(\boldsymbol\pi_{w}), \\
+\boldsymbol{\pi}_w \:&amp;\stackrel{ind}{\sim}\: Dirichlet(\boldsymbol{\alpha}),\\
+\alpha_{1}, \dots, \alpha_{K}\: &amp;\stackrel{iid}{\sim}\: Gamma(2, \:0.25).  \label{model_line3}
+\end{array}\]</span></p>
+<p><strong> Posterior Predictive Analysis </strong></p>
+<p>For a holdout document of unknown source, <span class="math inline">\(w^*\)</span>,</p>
+<ul>
+<li>Extract glyphs with  and assign groups,
+<ul>
+<li><span class="math inline">\(\boldsymbol{Y}^*_{w^*}=\{Y_{w^*,1}, ... Y_{w^*,K}\}\)</span></li>
+</ul></li>
+<li>Assess the posterior probability of writership under each known writer <span class="math inline">\(\boldsymbol\pi_{w}\)</span> vectors.
+<ul>
+<li>i.e. <span class="math inline">\(p(w^* = w^\prime|\boldsymbol{Y^*}, \boldsymbol{Y})\)</span> for each writer <span class="math inline">\(w^\prime\)</span> in the training data.</li>
+</ul></li>
+</ul>
+<p>The posterior probability that the questioned document <span class="math inline">\(\boldsymbol{Y}^*_{w^*}\)</span> belongs to writer <span class="math inline">\(w^\prime\)</span> with respect to the closed set is,
+<span class="math display">\[\begin{array}{rl}
+    p(w^* = w^\prime|\boldsymbol{Y}^*, \boldsymbol{Y}) 
+     &amp; \propto p(\boldsymbol{Y}^*| w^* = w^\prime, \boldsymbol{Y}) p(w^*=w^\prime | \boldsymbol{Y})\nonumber\\
+     &amp; \propto p(\boldsymbol{Y}^*| w^* = w^\prime, \boldsymbol{Y})   \nonumber\\
+    &amp; = \int p(\boldsymbol{Y}^*|   \boldsymbol{\pi}_{w^\prime}) p(\boldsymbol{\pi}_{w^\prime}| \boldsymbol{Y}) d \boldsymbol{\pi}_{w^\prime}\nonumber\\ 
+    &amp; \approx \frac{1}{M} \sum_{m=1}^M p(\boldsymbol{Y}^*|   \boldsymbol{\pi}^{(m)}_{w^\prime}) , \mbox{ where }  \boldsymbol{\pi}^{(m)}_{w^\prime} \sim p(\boldsymbol{\pi}_{w^\prime}|\boldsymbol{Y})  \nonumber 
+\end{array}\]</span></p>
+<p>for MCMC iterations <span class="math inline">\(m = 1, \dots, M\)</span>. Then, for a given iteration <span class="math inline">\(m\)</span>,</p>
+<p><span class="math display">\[
+p(\boldsymbol{Y}^*|   \boldsymbol{\pi}^{(m)}_{w^\prime}) =    p_{w^\prime}^{(m)} =  \frac{Mult(\boldsymbol{Y}^*; \boldsymbol{\pi}_{w^\prime}^{(m)})}{\sum_{w_i = 1}^{27}Mult(\boldsymbol{Y}^*; \boldsymbol{\pi}_{w_i}^{(m)}) }. \nonumber
+\]</span>
+Calculate the quantitity for each known writer <span class="math inline">\(w^\prime = w_1, \dots, w_{27}\)</span> in training set to get
+<span class="math display">\[
+\boldsymbol{p}^{(m)} = \{p_{w_1}^{(m)}, ..., p_{w_{27}}^{(m)}\},
+\]</span>
+and compute summaries over the MCMC draws,
+<span class="math display">\[
+\boldsymbol{\bar{p}} = \{\bar{p}_{w_1},...,\bar{p}_{w_{27}}\}.
+\]</span></p>
+<p><strong> Results </strong></p>
+<p>If we use a single holdout document for each writer (doc 4). The <span class="math inline">\(\boldsymbol{\bar{p}}\)</span> vector as given above is shown graphically for each holdout document (the rows).</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-356"></span>
+<img src="images/handwriting/amy/CVL_w27_h4_cluster40_basemodel_grid.png" alt="Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.2013" width="60%" />
+<p class="caption">
+Figure 5.23: Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.2013
+</p>
+</div>
+<p><br></p>
+<p>We can use a cross validation routine to estimate error. For each writer, shuffle the order of their body of documents. For the first fold we holdout the first document for testing, for the second fold we hold out the second document for testing, etc.. This yields 6 results analogous to that of the figure above.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-357"></span>
+<img src="images/handwriting/amy/CVL_w27_CVfoldall_cluster40_basemodel_grid.png" alt="Posterior predictive results for each fold of the CV routine outlined above. Log Loss is clearly not a great summary of performance." width="100%" />
+<p class="caption">
+Figure 5.24: Posterior predictive results for each fold of the CV routine outlined above. Log Loss is clearly not a great summary of performance.
+</p>
+</div>
+<p><br></p>
+<p><strong> Evaluating Over-/Under-dispersion (Writer Variability Index) </strong><br />
+With a count data model it is important to investigate the presence of over- and under-dispersion. An index of intra-writer variability with respect to a model.</p>
+<ul>
+<li>Multivariate Generalized Dispersion Index (GDI) of Kokonendji and Puig<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>.</li>
+<li>Relative Dispersion Index (RDI) = <span class="math inline">\(\frac{\mbox{writer data GDI}}{\mbox{model simulated GDI}}.\)</span></li>
+<li>High RDI <span class="math inline">\(\implies\)</span> data over-dispersion and high sample to sample variability.</li>
+</ul>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-358"></span>
+<img src="images/handwriting/amy/RDI_table.png" alt="RDIs for the 27 CVL writers under Model #1." width="60%" />
+<p class="caption">
+Figure 5.25: RDIs for the 27 CVL writers under Model #1.
+</p>
+</div>
+<p>High RDI <span class="math inline">\(\implies\)</span> data over-dispersion &amp; high sample to sample variability (in the sense of glyph cluster membership rates).</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-359"></span>
+<img src="images/handwriting/amy/writer12samples.png" alt="Handwriting Samples from Writer #12. Notice the repeated patterns in letters 'a', 'e', 'f', 'g', 'h', 't', etc. across samples." width="70%" />
+<p class="caption">
+Figure 5.26: Handwriting Samples from Writer #12. Notice the repeated patterns in letters ‘a,’ ‘e,’ ‘f,’ ‘g,’ ‘h,’ ‘t,’ etc. across samples.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-360"></span>
+<img src="images/handwriting/amy/writer23samples.png" alt="Handwriting Samples from Writer #23. Note the red 'h's, green 'll's, purple terminal 'y's, and blue 'loo's" width="80%" />
+<p class="caption">
+Figure 5.27: Handwriting Samples from Writer #23. Note the red ’h’s, green ’ll’s, purple terminal ’y’s, and blue ’loo’s
+</p>
+</div>
+</div>
+<div id="model-2-mixture" class="section level4 unnumbered">
+<h4>Model #2, Mixture</h4>
+There seem to be greatly varying shapes in the relative frequency of cluster fill. We think maybe a more flexible Dirichlet distribution is warranted.
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-361"></span>
+<img src="images/handwriting/amy/bucketfillshapes.png" alt="Average relative frequency of cluster fill for the 8 most common clusters. Notice writers 12/21 and 6/17/18." width="80%" />
+<p class="caption">
+Figure 5.28: Average relative frequency of cluster fill for the 8 most common clusters. Notice writers 12/21 and 6/17/18.
+</p>
+</div>
+<p>Add flexibility to the original model by including a mixture component in the Dirichlet parameter space.</p>
+<p><span class="math display">\[\begin{array}{rl}
+     \mathbf{Y}_{w(d)} | \boldsymbol\pi_{w}, w\: &amp;\stackrel{ind}{\sim} \:Multinomial(\boldsymbol\pi_{w}), \\
+\boldsymbol{\pi}_w|\boldsymbol{\alpha},\boldsymbol{\beta}, \rho_w  \:&amp;\stackrel{ind}{\sim}\:Dirichlet(\rho_w \: \boldsymbol{\alpha}+ (1-\rho_w)  \: \boldsymbol{\beta}), \\
+\alpha_{k}, \: \beta_{k} \: &amp;\stackrel{iid}{\sim}\: Gamma(2, \: 0.25) \:\: \mbox{ for } k &gt; 3,  \\
+\rho_w\: &amp; \stackrel{iid}{\sim}\: Beta(1,1)
+\end{array}\]</span></p>
+<p><strong> Label Switchin Issues. </strong><br />
+The model is non-identifiabile. We need to either place constraints on the parameter space to exclude the possibility of a second mode apriori, or estimate the posterior in both modes and post-process for label reassignment after.
+This has been resolved (?) by placing constraints on the first three elements of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> with moderately informative priors.</p>
+<ul>
+<li><p><span class="math inline">\(\mathbf{\alpha_1 &lt; \beta_1}\)</span>, <span class="math inline">\(\quad\)</span> <span class="math inline">\(\alpha_1 \sim Gamma(2, 0.25) \:\: \&amp; \:\: \beta_1 \sim Gamma(4, 0.25)\)</span></p></li>
+<li><p><span class="math inline">\(\mathbf{\alpha_2 &gt; \beta_2}\)</span> , <span class="math inline">\(\quad\)</span> <span class="math inline">\(\alpha_2 \sim Gamma(4, 0.25) \:\: \&amp; \:\: \beta_2 \sim Gamma(1, 0.25)\)</span></p></li>
+<li><p><span class="math inline">\(\mathbf{\alpha_3 &gt; \beta_3}\)</span> , <span class="math inline">\(\quad\)</span> <span class="math inline">\(\alpha_3 \sim Gamma(4, 0.25) \:\: \&amp; \:\: \beta_3 \sim Gamma(1, 0.25)\)</span></p></li>
+</ul>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-362-1.png" width="624" style="display: block; margin: auto;" /></p>
+<p><strong> Results </strong></p>
+The mixing component gives insights into writing style.
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-363"></span>
+<img src="images/handwriting/amy/mixprior_rhosamps2.png" alt="Average 
+ho_w value for each writer." width="70%" />
+<p class="caption">
+Figure 5.29: Average
+ho_w value for each writer.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-364"></span>
+<img src="images/handwriting/amy/writingsamples_style.png" alt="Writing samples in a variety of styles based on the mixing parameter. From top to bottom, writer #'s 21, 4, 29, 20, 18." width="60%" />
+<p class="caption">
+Figure 5.30: Writing samples in a variety of styles based on the mixing parameter. From top to bottom, writer #’s 21, 4, 29, 20, 18.
+</p>
+</div>
+Evaluate the posterior probability of writership for each of the holdout documents.
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-365"></span>
+<img src="images/handwriting/amy/CVL_w27_h4_cluster40_mixparam_grid.png" alt="Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.2078" width="60%" />
+<p class="caption">
+Figure 5.31: Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.2078
+</p>
+</div>
+</div>
+<div id="model-2-csafe-cvl-not-most-recent-template" class="section level4" number="5.3.2.1">
+<h4><span class="header-section-number">5.3.2.1</span> Model #2, CSAFE + CVL (not most recent) Template</h4>
+<p>The following analysis was done for the first 20 CSAFE writers.</p>
+<ul>
+<li>Training docs: s01_pLND_r01, s01_pLND_r03, s01_pWOZ_r02, s01_pPHR_r03<br />
+</li>
+<li>Testing doc: s01_pLND_r02</li>
+</ul>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-366"></span>
+<img src="images/handwriting/amy/csafe20_relfreqbyrho_template65_first8clusters.png" alt="Average relative frequency of cluster fill for the 8 most common clusters." width="90%" />
+<p class="caption">
+Figure 5.32: Average relative frequency of cluster fill for the 8 most common clusters.
+</p>
+</div>
+Posterior probability results.
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-367"></span>
+<img src="images/handwriting/amy/csafe20_postprobs_template65.png" alt="Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one." width="60%" />
+<p class="caption">
+Figure 5.33: Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one.
+</p>
+</div>
+<p>Not surprising. Working on:</p>
+<ul>
+<li>More writers (need to go through handwriter)</li>
+<li>Testing on the phrase prompt</li>
+<li>Including not yet seen CVL writers in analysis.</li>
+</ul>
+</div>
+<div id="model-3-normal-slopes.-work-in-progress." class="section level4 unnumbered">
+<h4>Model #3, Normal Slopes. Work in progress.</h4>
+<p>Adding slope measurements into the model.</p>
+<p>Let,</p>
+<ul>
+<li><span class="math inline">\(\boldsymbol{Y}_{w(d)} = \{Y_{w(d),1}, \dots, Y_{w(d),K}\}\)</span> be the number of glyphs assigned to each group for document within writer, <span class="math inline">\(w(d),\)</span></li>
+<li><span class="math inline">\(\boldsymbol{\bar{S}}_{w(d)} = \{\bar{S}_{w(d),1}, \dots, \bar{S}_{w(d),K}\}\)</span>, be the average slope in each group for document <span class="math inline">\(w(d)\)</span>
+<ul>
+<li><span class="math inline">\(G_{w(d),j}\)</span> be the <span class="math inline">\(j^{th}\)</span> glyph in document <span class="math inline">\(w(d)\)</span>,</li>
+<li><span class="math inline">\(g_{w(d), j} = 1, \dots, 41\)</span> be the available cluster assignments for the <span class="math inline">\(j^{th}\)</span> glyph in the document,</li>
+<li><span class="math inline">\(S_{w(d),j}\)</span> be the slope of the <span class="math inline">\(j^{th}\)</span> glyph in the document.</li>
+</ul></li>
+<li>Here, <span class="math inline">\(K = 41\)</span>, <span class="math inline">\(d = 1,2,...,5\)</span>, <span class="math inline">\(w = 1,...,27\)</span>, <span class="math inline">\(j= 1, \dots,\mathrm{J}_{w(d)}.\)</span></li>
+</ul>
+<p><span class="math display">\[
+\bar{S}_{w(d),k}= \frac{1}{Y_{w(d),k}} \sum_{j \ni  \mathrm{I}[g_j = k]}S_{w(d),j} \quad \&amp; \quad Y_{w(d),k} = \sum_{j = 1}^{\mathrm{J}_{w(d)}} \mathrm{I}[g_j = k]
+\]</span></p>
+<p>Then a hierarchical model for the data is</p>
+<p><span class="math display">\[\begin{array}{rl}
+     \mathbf{Y}_{w(d)} | \boldsymbol\pi_{w}, w\: &amp;\stackrel{ind}{\sim} \:Multinomial(\boldsymbol\pi_{w}), \\
+\boldsymbol{\pi}_w|\boldsymbol{\alpha} \:&amp;\stackrel{ind}{\sim}\:Dirichlet(\boldsymbol{\alpha}), \\
+\alpha_k\: &amp;\stackrel{iid}{\sim}\: Gamma(a = 2, \: b= 0.25),  \\
+\bar{S}_{w(d),k} | Y_{w(d),k}, w, \mu_{w, k}, \sigma^2_{k}  \: &amp; \stackrel{iid}{\sim}\: N \left(\mu_{w, k}, \frac{\sigma^2_{k}}{Y_{w(d),k}}\right) \\
+\mu_{w, k} | \mu_{k} \: &amp; \stackrel{iid}{\sim}\:  N(\mu_{k}, 3) \\
+\mu_{k} \: &amp; \stackrel{iid}{\sim}\:  N(0, 3) \\
+1/\sigma^2_{k}\: &amp; \stackrel{iid}{\sim}\:  Gamma(0.5, 0.1)
+\end{array}\]</span></p>
+<p>Consider a new document with cluster fill counts <span class="math inline">\(\boldsymbol{Y}^*\)</span> and average slope measurements <span class="math inline">\(\boldsymbol{\bar{S}}^*\)</span> from unknown writer <span class="math inline">\(w^*\)</span>.</p>
+<p><strong> Posterior Predictive Analysis </strong></p>
+Posterior probability that the questioned document belongs to writer <span class="math inline">\(w^\prime\)</span> with respect to the closed set is:
+<span class="math display">\[\begin{array}{rl}
+    &amp;p(w^* = w^\prime|\boldsymbol{\bar{S}}^* \boldsymbol{Y}^*, \dots) \nonumber \\
+      &amp;\qquad \qquad \propto \left[ \: \prod_{k=1}^{K}p(\bar{S}^*_k | Y^*_{k}, w^* = w^\prime, \dots) \right]  p(\boldsymbol{Y}^* | w^* = w^\prime, \dots ) \nonumber \\
+      &amp;\qquad \qquad \approx \frac{1}{M} \sum_{m=1}^{M} \left[ \: \prod_{k=1}^{K}N \left(\mu_{w, k}^{(m)}, \frac{\sigma^{2(m)}_{k}}{Y_{w(d),k}}\right) \right]  Mult(\boldsymbol{Y}^*; \boldsymbol{\pi}_{w^\prime}^{(m)}) \nonumber
+\end{array}\]</span>
+<p>for MCMC samples <span class="math inline">\(m = 1, \dots, M\)</span>.</p>
+<p><strong> Results </strong></p>
+Evaluate the posterior probability of writership for each of the holdout documents.
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-368"></span>
+<img src="images/handwriting/amy/CVL_w27_h4_cluster40_normslopemean_grid.png" alt="Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.0883." width="60%" />
+<p class="caption">
+Figure 5.34: Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.0883.
+</p>
+</div>
+</div>
+<div id="modeling-summary" class="section level4 unnumbered">
+<h4>Modeling Summary</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Model</th>
+<th align="left">Data</th>
+<th align="right">LogLoss</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">#1</td>
+<td align="left">Adjacency Grouping (not presented)</td>
+<td align="right">0.5413</td>
+</tr>
+<tr class="even">
+<td align="left">#1</td>
+<td align="left">Cluster Grouping</td>
+<td align="right">0.2013</td>
+</tr>
+<tr class="odd">
+<td align="left">#2</td>
+<td align="left">Cluster Grouping</td>
+<td align="right">0.2078</td>
+</tr>
+<tr class="even">
+<td align="left">#3</td>
+<td align="left">Cluster Grouping &amp; Glyph Slopes</td>
+<td align="right">0.0883</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="modeling-update-feb-17" class="section level4" number="5.3.2.2">
+<h4><span class="header-section-number">5.3.2.2</span> Modeling update (Feb 17)</h4>
+<p>90 writers, Session #1</p>
+<ul>
+<li>Train: 3 London Letters
+<ul>
+<li>A few writers only had 2 (working on this)</li>
+</ul></li>
+<li>Test: 1 Wizard of Oz</li>
+</ul>
+<p>Recall rotation angle measurements:</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-370"></span>
+<img src="images/handwriting/amy/rotationangles_writer95_cluster29.pdf" alt="Data: All Cluster \#29 graphs in Writer 95's training documents. Left: A Nightingale Rose diagram displaying the rotation angles in 20 'petals'. A point for each observed rotation angle is plotted on the outermost ring of the diagram. Right: A traditional histogram of the rotation angles with 20 bins, a point for each observation is plotted on the x-axis." width="70%" />
+<p class="caption">
+Figure 5.35: Data: All Cluster #29 graphs in Writer 95’s training documents. Left: A Nightingale Rose diagram displaying the rotation angles in 20 ‘petals.’ A point for each observed rotation angle is plotted on the outermost ring of the diagram. Right: A traditional histogram of the rotation angles with 20 bins, a point for each observation is plotted on the x-axis.
+</p>
+</div>
+<p><strong>A NAIVE Model for Rotation Angles</strong></p>
+<p>Naively we can treat the rotation angle values as if they are linear on the interval (0,<span class="math inline">\(\pi\)</span>). This is of course not the case, since a value of 0 is extremely similar to a value of <span class="math inline">\(\pi\)</span>, both corresponding to letters that do not lean a great deal to the left or right, and are wider than they are tall. This can be seen in Figure 2, where the unimodal density ends abuptly at zero and “wraps around” in the higher values near <span class="math inline">\(\pi\)</span>. Nonetheless, we can specify a disribution on the linear, or unwrapped, rotation angles as follows:
+<span class="math display">\[\begin{align} \nonumber
+\mathbf{Y}_{w(d)} | \boldsymbol\pi_{w}, w \: &amp;\stackrel{ind}{\sim} \:Multinomial(\boldsymbol\pi_{w}), \\ \nonumber
+\boldsymbol{\pi}_w|\boldsymbol{\gamma} \: &amp;\stackrel{ind}{\sim}\:Dirichlet(\boldsymbol{\gamma}), \\ \nonumber
+\gamma_k\: &amp;\stackrel{iid}{\sim}\: Gamma(a = 2, \: b= 0.25),  \\ \nonumber
+&amp; \quad \\ \nonumber
+SRA_{w,k} | w,k \: &amp; \stackrel{iid}{\sim}\: Beta \left( \alpha_{w,k}, \beta_{w,k} \right) \\ \nonumber
+&amp; \quad \\ \nonumber
+\mu_{w,k} &amp;= \frac{\alpha_{w,k}}{\alpha_{w,k}+\beta_{w,k}} \: \sim Beta(2,2) \\ \nonumber
+variance_{w,k} &amp;= \frac{\mu_{w,k}(1 - \mu_{w,k})}{\alpha_{w,k} + \beta_{w,k} + 1} = \frac{\mu_{w,k}(1 - \mu_{w,k})}{\kappa_{w,k}+1} \\ \nonumber
+\kappa_{w,k} &amp;= \alpha_{w,k} + \beta_{w,k}  \: \sim Gamma(shape = 0.1, rate = 1)
+\end{align}\]</span></p>
+<p>Where <span class="math inline">\(SRA_{w,k,i}, \: \:i = 1, \dots, n_{w,k}\)</span>, are rotation angles from cluster <span class="math inline">\(k\)</span>, and writer <span class="math inline">\(w\)</span>, scaled to the beta density support of (0,1). For a given writer and cluster, <span class="math inline">\(\mu_{w,k}\)</span> is the mean of the data distribution, expressed as a functions of <span class="math inline">\(\alpha_{w,k}\)</span> and <span class="math inline">\(\beta_{w,k}\)</span>. We place a weak prior, <span class="math inline">\(Beta(2,2)\)</span>, on all <span class="math inline">\(\mu_{w,k}\)</span>. Similarly, <span class="math inline">\(\kappa_{w,k}\)</span> is expressed as a function of <span class="math inline">\(\alpha_{w,k}\)</span> and <span class="math inline">\(\beta_{w,k}\)</span> and is a sort of “sample size,” or “precision” parameter. Notice that <span class="math inline">\(\kappa_{w,k}+1\propto\frac{1}{variance_{w,k}}\)</span>.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-371"></span>
+<img src="images/handwriting/amy/rotationangles_writer95_cluster29_mcmcsamples.pdf" alt="Writer 95, Cluster 29. A plot depicting elements of the data model $SRA_{w,k} \: \sim \: Beta ( \alpha_{w,k}, \beta_{w,k})$. Top: values of $\alpha^{(m)}_{95,29}$ and $\beta^{(m)}_{95,29}$ for $m = 1, \dots,12$ iterations taken from the middle of the chain and used to plot the $12$ correpsonding beta densities. Bottom: the unscaled rotation angles (unscaled $SRA_{w,k}$), serving as data for the parameter estimation." width="70%" />
+<p class="caption">
+Figure 5.36: Writer 95, Cluster 29. A plot depicting elements of the data model <span class="math inline">\(SRA_{w,k} \: \sim \: Beta ( \alpha_{w,k}, \beta_{w,k})\)</span>. Top: values of <span class="math inline">\(\alpha^{(m)}_{95,29}\)</span> and <span class="math inline">\(\beta^{(m)}_{95,29}\)</span> for <span class="math inline">\(m = 1, \dots,12\)</span> iterations taken from the middle of the chain and used to plot the <span class="math inline">\(12\)</span> correpsonding beta densities. Bottom: the unscaled rotation angles (unscaled <span class="math inline">\(SRA_{w,k}\)</span>), serving as data for the parameter estimation.
+</p>
+</div>
+<p>For a different writer who does not tend to lean one way or another…</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-372"></span>
+<img src="images/handwriting/amy/rotationangles_writer1_clusters-16-29.pdf" alt="Nightingale rose diagrams and traditional histograms for the rotation angles from Writer \#1's training documents in Clusters \#29 (top) and \#16 (bottom)." width="75%" />
+<p class="caption">
+Figure 5.37: Nightingale rose diagrams and traditional histograms for the rotation angles from Writer #1’s training documents in Clusters #29 (top) and #16 (bottom).
+</p>
+</div>
+<p>And we can look at a handful of beta distributions that arise from <span class="math inline">\(w=1\)</span> and <span class="math inline">\(k=16\)</span>…</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-373"></span>
+<img src="images/handwriting/amy/rotationangles_writer1_cluster16_mcmcsamples.pdf" alt="Writer 1, Cluster 16. A plot depicting elements of the data model $SRA_{w,k} \: \sim \: Beta ( \alpha_{w,k}, \beta_{w,k})$. Top: values of $\alpha^{(m)}_{1,16}$ and $\beta^{(m)}_{1,16}$ for $m = 1, \dots,12$ iterations taken from the middle of the chain and used to plot the $12$ correpsonding beta densities. Bottom: the unscaled rotation angles (unscaled $SRA_{w,k}$), serving as data for the parameter estimation." width="70%" />
+<p class="caption">
+Figure 5.38: Writer 1, Cluster 16. A plot depicting elements of the data model <span class="math inline">\(SRA_{w,k} \: \sim \: Beta ( \alpha_{w,k}, \beta_{w,k})\)</span>. Top: values of <span class="math inline">\(\alpha^{(m)}_{1,16}\)</span> and <span class="math inline">\(\beta^{(m)}_{1,16}\)</span> for <span class="math inline">\(m = 1, \dots,12\)</span> iterations taken from the middle of the chain and used to plot the <span class="math inline">\(12\)</span> correpsonding beta densities. Bottom: the unscaled rotation angles (unscaled <span class="math inline">\(SRA_{w,k}\)</span>), serving as data for the parameter estimation.
+</p>
+</div>
+<p>Why am I showing you histograms and MCMC samples from clusters #29 and #16?? Becasue these are great examples of where the problems occur with the naive approach to modeling the “unwrapped” angles.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-374"></span>
+<img src="images/handwriting/amy/cluster29.png" alt="Cluster members in grey, and cluster exemplars in red (plotting is a few pixels shifted left) for clusters $\#29$ (left), and $\#26$ (right)" width="15%" /><img src="images/handwriting/amy/cluster16.png" alt="Cluster members in grey, and cluster exemplars in red (plotting is a few pixels shifted left) for clusters $\#29$ (left), and $\#26$ (right)" width="15%" />
+<p class="caption">
+Figure 5.39: Cluster members in grey, and cluster exemplars in red (plotting is a few pixels shifted left) for clusters <span class="math inline">\(\#29\)</span> (left), and <span class="math inline">\(\#26\)</span> (right)
+</p>
+</div>
+<p>These are clusters that tend to hold the letters <span class="math inline">\(n\)</span> and <span class="math inline">\(u\)</span> and thus, are generally wider than they are tall. When a writer emits one of these nearly straight up and down, but slightly right leaning, the rotation angle will be just above zero. If the graph is very slightly left leaning, then the rotation angle will be just under <span class="math inline">\(\pi\)</span>.</p>
+<p>While the beta distribution can take on a <span class="math inline">\(U\)</span>-shape (like the Writer 1, Cluster 16 data in Figure 4), this is still undesirable, becuase we want to express the fact that values near <span class="math inline">\(0\)</span> and <span class="math inline">\(\pi\)</span> are actually very similar. For example, a mean near <span class="math inline">\(\pi/2\)</span> does not do a good job of expressing the center of those rotation angles, and a traditional “unwrapped” variance will overstate the variability in data that is actually quite similar.</p>
+<p>Consider the following distribution of cluster #16 rotation angles from writer #85’s questioned document. The largest observation is 3.129, which scales to 0.996, the next largest is 3.024, which scales to 0.963. These are going to accumulate a huge amount of likelihood when evaluated under the beta parameters for Writer #1, displayed in Figure 6. The rest of the rotation angles are relatively spread out over the <span class="math inline">\(x\)</span>-axis, and not necessarily reflective of the Writer #1 distribution in Cluster #16.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-375"></span>
+<img src="images/handwriting/amy/rotationangles_writer85_qd.pdf" alt="Questioned Document. Writer \#85. Cluster \#16." width="45%" />
+<p class="caption">
+Figure 5.40: Questioned Document. Writer #85. Cluster #16.
+</p>
+</div>
+<p><strong>QD evaluation</strong> under beta distributed rotation angles using <span class="math inline">\(k=1,\dots,20\)</span>, the <span class="math inline">\(20\)</span> most populated clusters. Notice the probability for questioned writer #85 that is assigned to known writer #1. This error is explained by the behavior depicted above. Not all off-diagonal probability assignment can be attributed to similar behavior, but much of it can.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-376"></span>
+<img src="images/handwriting/amy/postprobs_RA_betadist.pdf" alt="Posterior predictive evaluation of QDs under beta distributed rotation angles." width="100%" />
+<p class="caption">
+Figure 5.41: Posterior predictive evaluation of QDs under beta distributed rotation angles.
+</p>
+</div>
+<p><strong>A Wrapped Model for Rotation Angles</strong></p>
+<p>A more appropriate approach to the problem is to consider the rotation angles in the polar coordinate system and treat them as spanning the full circle. So we map the upper half plane values to <span class="math inline">\((0,2\pi)\)</span>, where values above the <span class="math inline">\(x-\)</span>axis indicate a right leaning graph and below the <span class="math inline">\(x-\)</span>axis indicate left leaning graphs. Graphs that are relatively straight up and down will have values near <span class="math inline">\(0/2\pi\)</span> if they are wider than they are tall, and near <span class="math inline">\(\pi\)</span> if they are taller than they are wide.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-377"></span>
+<img src="images/handwriting/amy/rotationangles_writer1_wrappeddata.pdf" alt="Writer 1, Cluster 16. Left: linear consideration of the rotation angles. Right: wrapped rotation angles on the full circle."  />
+<p class="caption">
+Figure 5.42: Writer 1, Cluster 16. Left: linear consideration of the rotation angles. Right: wrapped rotation angles on the full circle.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-378"></span>
+<img src="images/handwriting/amy/rotationangles_writer1_wrappeddata_withdist.pdf" alt="Two candidate distributions defined on circular data, both specified at MLE parameter values calculated from the data."  />
+<p class="caption">
+Figure 5.43: Two candidate distributions defined on circular data, both specified at MLE parameter values calculated from the data.
+</p>
+</div>
+<p>We consider two distributions that are appropriate for circular data. First, the <strong>von Mises</strong> distribution is a close approximation to the wrapped normal distribution, which is the circular analouge of the normal. This is the “go-to” unimodal wrapped distribution, like the normal is the traditional “go-to” unimodal distribution. It is specified through the mean, <span class="math inline">\(\mu\)</span>, and concentration, <span class="math inline">\(\kappa\)</span> (<span class="math inline">\(\frac{1}{\kappa}\)</span> analogous to <span class="math inline">\(\sigma^2\)</span>).</p>
+<p>The second is the <strong>wrapped Cauchy</strong> distribution, which is the wrapped version of the Caucy distribution. Similar to the traditional Cauchy, this distribution is symmetric, unimodel, and specified by a location parameter, <span class="math inline">\(\mu\)</span>, and concentration parameter, <span class="math inline">\(\rho\)</span>. This distribution is also heavy-tailed in the sense that it will place more density on the “back” of the circle opposite the peak of the distribution.</p>
+<p>Now, consider
+<span class="math display">\[\begin{align} \nonumber
+\mathbf{Y}_{w(d)} | \boldsymbol\pi_{w}, w \: &amp;\stackrel{ind}{\sim} \:Multinomial(\boldsymbol\pi_{w}), \\ \nonumber
+\boldsymbol{\pi}_w|\boldsymbol{\gamma} \: &amp;\stackrel{ind}{\sim}\:Dirichlet(\boldsymbol{\gamma}), \\ \nonumber
+\gamma_k\: &amp;\stackrel{iid}{\sim}\: Gamma(a = 2, \: b= 0.25),  \\ \nonumber
+&amp; \quad \\ \nonumber
+RA_{w,k} | w,k \: &amp; \stackrel{iid}{\sim}\: Wrapped \: Cauchy \left( \mu_{w,k}, \phi_{w,k} \right) \\ \nonumber
+\mu_{w,k} &amp;\sim Uniform(0,2\pi) \\ \nonumber
+\phi{w,k} &amp;\sim Uniform(0,1) \\ \nonumber
+\end{align}\]</span></p>
+<p>Where <span class="math inline">\(RA_{w,k,i}, \: \:i = 1, \dots, n_{w,k}\)</span>, are rotation angles from cluster <span class="math inline">\(k\)</span>, and writer <span class="math inline">\(w\)</span>, on the full circle <span class="math inline">\((0,2\pi)\)</span>. For a given writer and cluster, <span class="math inline">\(\mu_{w,k}\)</span> and <span class="math inline">\(\phi_{w,k}\)</span> are the location and concentration parameters, respectively. We place non-informative uniform priors on each. Again, there is no borrowing set up in the model for rotation angles. Each writer/cluster combination gets its own estimated rotation angle distribution.</p>
+<p><strong>QD evaluation</strong> under wrapped Cauchy distributed rotation angles, using <span class="math inline">\(k=1,\dots,20\)</span>, the <span class="math inline">\(20\)</span> most populated clusters. Notice the probability for questioned writer #85 that was previously assigned to known writer #1 is no longer an issue.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-379"></span>
+<img src="images/handwriting/amy/postprobs_RA_wrappedcauchy.pdf" alt="Posterior predictive evaluation of QDs under wrapped Cauchy distributed rotation angles." width="100%" />
+<p class="caption">
+Figure 5.44: Posterior predictive evaluation of QDs under wrapped Cauchy distributed rotation angles.
+</p>
+</div>
+</div>
+</div>
+<div id="interesting-documents" class="section level3" number="5.3.3">
+<h3><span class="header-section-number">5.3.3</span> Interesting documents</h3>
+<div id="where-do-we-miss" class="section level4" number="5.3.3.1">
+<h4><span class="header-section-number">5.3.3.1</span> Where do we miss?</h4>
+<p>We tend to do worse on writers who only had 2 training documents.</p>
+<p><img src="images/handwriting/amy/Amountoftrainingdata.png" width="80%" style="display: block; margin: auto auto auto 0;" /></p>
+Writers 32 and 133.
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-381"></span>
+<img src="images/handwriting/amy/postprobs_RA_wrappedcauchy_all40_miss.png" alt="All 40 documents, wrapped cauchy rotation angles, where do we miss?" width="100%" />
+<p class="caption">
+Figure 5.45: All 40 documents, wrapped cauchy rotation angles, where do we miss?
+</p>
+</div>
+<p>Samples:</p>
+<details>
+<summary>
+Writer 32 Test
+</summary>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-382"></span>
+<img src="images/handwriting/amy/writer32_qd.png" alt="Writer 32 Test" width="100%" />
+<p class="caption">
+Figure 5.46: Writer 32 Test
+</p>
+</div>
+</details>
+<details>
+<summary>
+Writer 133 Train
+</summary>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-383"></span>
+<img src="images/handwriting/amy/writer133_train.png" alt="Writer 133 Train" width="100%" />
+<p class="caption">
+Figure 5.47: Writer 133 Train
+</p>
+</div>
+</details>
+</div>
+<div id="writer-4-data" class="section level4" number="5.3.3.2">
+<h4><span class="header-section-number">5.3.3.2</span> Writer 4 Data</h4>
+<details>
+<summary>
+London Letter #1
+</summary>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-384"></span>
+<img src="images/handwriting/amy/writer4_1.png" alt="Writer 4 data." width="100%" />
+<p class="caption">
+Figure 5.48: Writer 4 data.
+</p>
+</div>
+</details>
+<details>
+<summary>
+London Letter #2
+</summary>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-385"></span>
+<img src="images/handwriting/amy/writer4_2.png" alt="Writer 4 data." width="100%" />
+<p class="caption">
+Figure 5.49: Writer 4 data.
+</p>
+</div>
+</details>
+<details>
+<summary>
+London Letter #3
+</summary>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-386"></span>
+<img src="images/handwriting/amy/writer4_3.png" alt="Writer 4 data." width="100%" />
+<p class="caption">
+Figure 5.50: Writer 4 data.
+</p>
+</div>
+</details>
+</div>
+<div id="you-all" class="section level4" number="5.3.3.3">
+<h4><span class="header-section-number">5.3.3.3</span> You all!</h4>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-387"></span>
+<img src="images/handwriting/amy/csafewriters_modelresults.png" alt="CSAFE writers." width="100%" />
+<p class="caption">
+Figure 5.51: CSAFE writers.
+</p>
+</div>
+<details>
+<summary>
+Wolfgang
+</summary>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-388"></span>
+<img src="images/handwriting/amy/Wolfgang_writing.png" alt="A training sample from Wolfgang." width="100%" />
+<p class="caption">
+Figure 5.52: A training sample from Wolfgang.
+</p>
+</div>
+</details>
+<details>
+<summary>
+Soyoung
+</summary>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-389"></span>
+<img src="images/handwriting/amy/Soyoung_writing.png" alt="A training sample from Soyoung." width="100%" />
+<p class="caption">
+Figure 5.53: A training sample from Soyoung.
+</p>
+</div>
+</details>
+<details>
+<summary>
+Other writer
+</summary>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-390"></span>
+<img src="images/handwriting/amy/wolfgang_miss2.png" alt="A training sample from the other writer with off-diagonal assignment for Wolfgang." width="100%" />
+<p class="caption">
+Figure 5.54: A training sample from the other writer with off-diagonal assignment for Wolfgang.
+</p>
+</div>
+</details>
+</div>
+</div>
+<div id="alis-project" class="section level3" number="5.3.4">
+<h3><span class="header-section-number">5.3.4</span> Ali’s project</h3>
+<p>:)</p>
+</div>
+<div id="open-set-modeling-for-writer-identification-from-distribution-of-glyphs-in-clusters" class="section level3" number="5.3.5">
+<h3><span class="header-section-number">5.3.5</span> Open Set Modeling for Writer Identification from Distribution of Glyphs in Clusters</h3>
+<p>The next step in this research extends the scope of potential sources of handwriting samples to an open set. So if there are two handwriting samples, are what is the probability they are from the same writer or different writer without the neccesary assumption of knowing all of the potential sources. The distribution of glyphs assigned to clusters in a document is can be used to explore the authorship because it is hypothesized that a particular writer would have their own writing style resulting in similar distributions of glyphs in each cluster over time across many different writing samples.</p>
+<p>Instead of comparing multinomial distributions, the proportions of total glyphs in each cluster can be compared with two Dirichlet distributions. If there are two different samples where the length of the documents differ the expected number of glyphs per cluster would also differ. For example, if samples of handwriting were found at two different scenes and the goal is to compare the two documents, it would be expected that the number of glyphs in each cluster would vary unless they happened to write the exact same thing in both. Dirichlet distributions would compare the proportions instead of the counts of glyphs per cluster.</p>
+<p>To start we will look at a dirichlet with three proportions, which would correspond to only having three clusters, and calculate the euclidean distance.</p>
+<p>KDE (kernel density estimation) can be used to estimate the behavior of the distributions when the random variables are indeed from the distribution with the same parameters and when they are drawn from the distribution with different parameters.</p>
+<p><img src="images/handwriting/mattie/both.png" width="916" /></p>
+<p>These density estimates can be used to calculate score-based likelihood ratios (SLRs) using leave-one-out of another simulated dataset. We would expect SLRs that are greater than 1 to be associated with the distance measures from the same distribution.</p>
+<p>This process was conducted with just the euclidean distance to start. Next, it is possible to assess how well a random forest with multiple distance measures (euclidean distance and the absolute difference between each of the clusters) can correctly identify if two dirichlet random variables are from a distribution with the same parameters or different parameters.</p>
+<p>To do this, 10,000 random variables were simulated for two dirichlet with the parameters (5,10,25) and one dirichlet with parameters (6,12,22) as a training set. The distance measures were calculated between the two dirichlet from the same parameters and also between different parameters. These distance measures were added to a dataset along with an indicator if the distance measures were from the same or different dirichlet.</p>
+<p>Next, a random forest was trained to predict the if the distance measures were from the same or different dirichlet.</p>
+<p>A testing dataset was simulated in the same way as before and the random forest was applied. The random forest returns a value between 0 and 1 which is the proportion of trees in the forest that predicts the distance measures are from the same dirichlet.</p>
+<p>The training dataset was split into those that were actually from the same and different parameters. The <code>stat::density()</code> uses kernel density estimation with a Gaussian kernel to estimate the probability density function of the proportions that predicted the dirichlet were simulated from the distrution with the same parameters after defining the range of the pdf to be between 0 and 1.</p>
+<p>Using the leave-one-out method, 1 observation was excluded from the dataset and then KDE was performed.</p>
+<p><img src="images/handwriting/mattie/kernel_bothplot.png" width="1050" /></p>
+<p>The ratio of the KDE estimate for the curve if the excluded point was from the distribution with the same parameters to different parameters is computed. The SLRs are compared for those that are actually from the same vs different and we would expect there to be little overlap.</p>
+<p><img src="images/handwriting/mattie/loo_slrs_plot.png" width="1050" /></p>
+<p>The same process that was conducted with 3 clusters was repeated with 40 clusters. A random forest was trained on simulated data with 40 clusters with randomly simulated parameters drawn from a uniform distribution. There appears to be little overlap between the kernel density estimates that were drawn from the same distribution compared to those from different distributions.</p>
+<p><img src="images/handwriting/mattie/kernel_bothplot_40.png" width="1050" /></p>
+<p>While the small SLRs are based on the distance measures from dirichlet with different parameters and larger SLRs are from the same as expected, the score likelihood ratios computed using the leave-one-out method are not as distinct of those from the same compared to different dirichlet distributions as we would expect.</p>
+<p><img src="images/handwriting/mattie/slrs_40.png" width="1050" /></p>
+<p>Application to CSAFE Database</p>
+<p>The data provided in the CSAFE database consist of writing samples from 90 writers who repeated three prompts three times throughout three sessions for a total of 9 writing samples per writer. The three prompts varied in length. “The London Letter” is the longest and has been used in other handwriting analyses because it includes all of the letters upper and lowercase and numbers. The second is an excerpt from “The Wizard of Oz” book. The last prompt is the short phrase: “The early bird may get the worm, but the second mouse gets the cheese”(Crawford, et al.). This initial test on the data only includes the documents from the first session.</p>
+<p>We repeated the process of evaluating the score-based likelihoods calculated from the kernel density estimates of the output a random forest previsouly applied to simulated data to the CSAFE handwriting data. We used 4 different prompts: London Letter, Wizard of Oz, short phrase, and all prompts per writer per repetition combined. The combined document is longer and would be expected to be more representative of the writing style of each writer in the study.</p>
+<p>For each data set, a random sample of 80% of the writers was drawn. The distance measures between all pairs of documents were calculated (absolute difference between each glyph and euchlidean distance) from sample. The number of distances from the same source were counted and the same number of different source distances were down sampled. This created a training set that includes an equal number of distances between same and different sources to train the random forest. The resulting random forest was trained using the remaining 20% of the writers not initially sampled for the training data set. As before with the simulated data, distributions of the output from the random forest by source was estimated using kernel density estimation with a Gaussian kernel with bounds between 0 and 1. SLRs were computed using the leave-one-out method as before.</p>
+<p>The first prompt is the short phrase.</p>
+<p><img src="images/handwriting/mattie/varimportanceplot_p.png" width="300" /></p>
+<p><img src="images/handwriting/mattie/kde_data_p.png" width="896" /></p>
+<p><img src="images/handwriting/mattie/slr_data_p.png" width="1050" /></p>
+<p>The next prompt is an excerpt from “The Wizard of Oz.”</p>
+<p><img src="images/handwriting/mattie/varimportanceplot_woz.png" width="300" /></p>
+<p><img src="images/handwriting/mattie/kde_data_woz.png" width="1050" /></p>
+<p><img src="images/handwriting/mattie/slr_data_woz.png" width="1050" /></p>
+<p>The third prompt is the “London Letter.”</p>
+<p><img src="images/handwriting/mattie/varimportanceplot.png" width="300" /></p>
+<p><img src="images/handwriting/mattie/kde_data.png" width="1050" /></p>
+<p><img src="images/handwriting/mattie/slr_data.png" width="1050" /></p>
+<p>Lastly, all three documents are combined into one large template per writer.</p>
+<p><img src="images/handwriting/mattie/varimportanceplot_mega.png" width="300" /></p>
+<p><img src="images/handwriting/mattie/kde_data_mega.png" width="1050" /></p>
+<p><img src="images/handwriting/mattie/slr_data_mega.png" width="1050" /></p>
+<p>Comparing all four implementations of the process, the method did the best at correctly classifying same vs. different source with longer documents. The euclidean distance was the most important variable according to the mean decrease in Gini index. Additionally, when comparing the absolute difference by cluster, some clusters appear to be more influential across prompts, such as cluster 31.</p>
+<p>The kernel density estimates for the shortest prompt are not well separated. As the length of the writing sample increases, the KDEs between same and different sources become more distinct.</p>
+<p>The discrimination of source using SLRs can be quantified using AUC by prompt as 0.6447, 0.7293, 0.9692, and 0.961 for the short phrase, Wizard of Oz, London Letter, and all prompts combined, respectively.</p>
+<p><img src="images/handwriting/mattie/roc_plots.png" width="488" /></p>
+<p>Tippett plots are an additional way to visualize the behavior of the SLRs under the prosecution and defense hypotheses.</p>
+<pre><code>## Error in knitr::include_graphics(c(&quot;images/handwriting/mattie/tippett.png&quot;)): Cannot find the file(s): &quot;images/handwriting/mattie/tippett.png&quot;</code></pre>
+<p>It is important to note that the training set did down sample the number of different source differences, but the testing set did not so the number of SLRs in that are from different sources will be more than from the same (a pattern not seen in the simulated data).</p>
+<p>Hepler et al detail score-based likelihood ratios by specific source instead of common source. The three specific source SLRs are general match, source anchored, and trace anchored. To compare the behavior of each with the CSAFE handwriting database, we extracted 3 writers (“sources”) by ordering the all of the Euclidean distances, ordering the sum of distances by each writer, selecting the smallest, middle, and largest value.</p>
+<p>The numerator value is constructed by combining all documents written by each writer to create a “template.” This template is randomly split into 2 “pseudo-documents” 1000 times. The distance measures are calculated between each pair and used in the trained random forest to find dissimilarity scores.</p>
+<p><img src="images/handwriting/mattie/hepler_num_splits.png" width="1160" /></p>
+<p>The three SLRs denominators are defined by which documents are compared.</p>
+<p><img src="images/handwriting/mattie/trace_source_general.png" width="1906" /></p>
+<p><img src="images/handwriting/mattie/log_hepler_slr.png" width="1163" /></p>
+<p>The discrimination of the three SLRs across the three selected writers within the CSAFE database can be visually compared across the three selected writers with ROC curves.</p>
+<p><img src="images/handwriting/mattie/hepler_plots_rocs.png" width="1642" /></p>
+<p>##Relationship Between Rotation Angle and Demographic Features
+So this part of the research looks specifically at rotation angles (the slant of handwriting). We are seeing if there is a relationship between slant of a writer and demographic features. We looked at demographic features such as the participant’s handedness, age group, gender, and location of third-grade education.We then fit a regression with the demographic information as explanatory variables and the average rotation angles as the response. Because rotation angles live on a circle, the regression model is based on a probability model appropriate for this type of data.</p>
+<p>First we looked at ANOVAs using circular package in R.
+Here are circular package Results:</p>
+</div>
+</div>
+<div id="communication-of-results" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> Communication of Results</h2>
+<p>Presenting author is in bold.</p>
+<div id="papers" class="section level3" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Papers</h3>
+<ul>
+<li><strong>“A Clustering Method for Graphical Handwriting Components and Statistical Writership Analysis”</strong>
+<ul>
+<li>Authors: Nick Berry and Amy Crawford</li>
+<li>Submitted to The Annals of Applied Statistics in September 2019.</li>
+</ul></li>
+<li><strong>“A Database of Handwriting Samples for Applications in Forensic Statistics”</strong>
+<ul>
+<li>Authors: Anyesha Rey, Amy Crawford, and Alicia Carriquiry</li>
+<li>Submitted to Data in Brief in October 2019.</li>
+</ul></li>
+<li><strong>“Bayesian Hierarchical Modeling for Forensic Handwriting Analysis”</strong>
+<ul>
+<li>Authors: Amy Crawford, Alicia Carriquiry, and Danica Ommen</li>
+<li>In preparation for submission to PNAS.</li>
+</ul></li>
+</ul>
+</div>
+<div id="talks" class="section level3" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> Talks</h3>
+<ul>
+<li><strong>“Statistical Analysis of Handwriting for Writer Identification”</strong>
+<ul>
+<li>August 2019</li>
+<li>Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry, Danica Ommen</li>
+<li>American Society of Questioned Document Examiners (ASQDE) Annual Meeting in Cary, NC.</li>
+</ul></li>
+<li><strong>“A Bayesian Hierarchical Mixture Model with Applications in Forensic Handwriting Analysis”</strong>
+<ul>
+<li>July 2019</li>
+<li>Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry Danica Ommen</li>
+<li>Joint Statistical Meetings (JSM) in Denver, CO.</li>
+</ul></li>
+<li><strong>“Forensic Analysis of Handwriting”</strong>
+<ul>
+<li>July 2019</li>
+<li>Authors: <strong>Alicia Carriquiry</strong>, Amy Crawford, Nick Berry, Danica Ommen</li>
+<li>VI Latin American Meeting on Bayesian Statistics (VI COBAL), Lima, Peru.</li>
+</ul></li>
+<li><strong>“Exploratory Analysis of Handwriting Features: Investigating Numeric Measurements of Writing”</strong>
+<ul>
+<li>February 2019</li>
+<li>Authors: <strong>Amy Crawford</strong>, Nick Berry, Alicia Carriquiry, Danica Ommen</li>
+<li>American Academy of Forensic Sciences (AAFS) Annual Meeting in Baltimore, MD.</li>
+</ul></li>
+<li><strong>“Toward a Statistical and Algorithmic Approach to Forensic Handwriting Comparison”</strong>
+<ul>
+<li>August 2018</li>
+<li>Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry</li>
+<li>American Society of Questioned Document Examiners (ASQDE) Annual Meeting in Park City, UT.</li>
+</ul></li>
+<li><strong>“A Bayesian Approach to Forensic Handwriting Evidence”</strong>
+<ul>
+<li>July 2018
+<ul>
+<li>Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry</li>
+</ul></li>
+<li>Joint Statistical Meetings (JSM) in Vancouver, BC, Canada.</li>
+</ul></li>
+<li><strong>“Bringing Statistical Foundations to Forensic Handwriting Analysis”</strong>
+<ul>
+<li>May 2018</li>
+<li>Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry</li>
+<li>American Bar Association, 9th Annual Prescription for Criminal Justice Forensics Program in New York, NY.</li>
+</ul></li>
+</ul>
+</div>
+<div id="posters" class="section level3" number="5.4.3">
+<h3><span class="header-section-number">5.4.3</span> Posters</h3>
+<ul>
+<li><strong>“A Bayesian Hierarchical Model for Forensic Writer Identification”</strong>
+<ul>
+<li>September 2019</li>
+<li>Authors: <strong>Amy Crawford</strong>, Alicia Carriquiry, Danica Ommen</li>
+<li>10th International Workshop on Statistics and Simulation in Salzburg, Austria</li>
+<li><i>1st Springer Poster Award</i></li>
+<li><details>
+<summary>
+Click for Poster Image
+</summary>
+<img src="images/handwriting/amy/Crawford_SIMSTAT_2019.png" title="fig:" alt="Poster given at the 10th International Workshop on Simulation and Statistics" />
+</details></li>
+</ul></li>
+<li><strong>“Statistical Analysis of Handwriting”</strong>
+<ul>
+<li>May 2019</li>
+<li>Authors: <strong>Amy Crawford</strong> and Nick Berry</li>
+<li>CSAFE Annual All-Hands Meeting in Ames, IA</li>
+</ul></li>
+<li><strong>“Statistical Analysis of Letter Importance for Document Examination”</strong>
+<ul>
+<li>February 2018</li>
+<li>Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry</li>
+<li>American Academy of Forensic Sciences in Seattle, WA</li>
+<li><i>YFSF Best Poster Award</i></li>
+</ul></li>
+<li><strong>(Presented AAFS 2018 Poster for a Second Time)</strong>
+<ul>
+<li>May 2018</li>
+<li>Authors: <strong>Amy Crawford</strong> and Alicia Carriquiry</li>
+<li>CSAFE Annual All-Hands Meeting in Ames, IA</li>
+</ul></li>
+<li><strong>“Quantitative Support for Forensic Document Examination in an Open Set using Random Forests”</strong>
+<ul>
+<li>February 2021</li>
+<li>Authors: Madeline Q. Johnson, Danica Ommen, and Alicia Carriquiry</li>
+<li>American Academy of Forensic Sciences, Virtual</li>
+<li><details>
+<summary>
+Click for Poster Image
+</summary>
+<img src="images/handwriting/mattie/Johnson_AAFS_2021.png" title="fig:" alt="Poster given at AAFS 2021 Meeting" />
+</details></li>
+</ul></li>
+<li><strong>“Relationship Between Handwriting Slant and Demographic Features”</strong>
+<ul>
+<li>February 2021</li>
+<li>Authors: Anyesha Ray and Alicia Carriquiry</li>
+<li>American Academy of Forensic Sciences, Virtual</li>
+<li><details>
+<summary>
+Click for Poster Image
+</summary>
+<img src="~/CSAFE/Handwriting/AAFS/A.Ray%20AAFS%20Poster.png" title="fig:" alt="Poster given at AAFS 2021 Meeting" />
+</details></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="people-involved-1" class="section level2" number="5.5">
+<h2><span class="header-section-number">5.5</span> People involved</h2>
+<div id="faculty-1" class="section level3" number="5.5.1">
+<h3><span class="header-section-number">5.5.1</span> Faculty</h3>
+<ul>
+<li>Alicia Carriquiry</li>
+<li>Hal Stern (UCI, Project G PI)</li>
+<li>Danica Ommen</li>
+</ul>
+</div>
+<div id="graduate-students-1" class="section level3" number="5.5.2">
+<h3><span class="header-section-number">5.5.2</span> Graduate Students</h3>
+<ul>
+<li>Amy Crawford</li>
+</ul>
+</div>
+<div id="undergraduates-1" class="section level3" number="5.5.3">
+<h3><span class="header-section-number">5.5.3</span> Undergraduates</h3>
+<ul>
+<li>Anyesha Ray (data collection)</li>
+<li>James Taylor (feature extraction)</li>
+</ul>
+</div>
+</div>
+<div id="deep-learning-methods" class="section level2" number="5.6">
+<h2><span class="header-section-number">5.6</span> Deep Learning Methods</h2>
+<p>We are currently researching ways in which we can use convolutional neural networks (CNN) to classify pieces of handwriting by their author. Similar ideas have and are being used in applications to to face recognition and shoe print comparisons in forensics. Identifying key differences in particular features in handwriting authorship and other applications will help determine artchitectural advantages and disadvantages in different CNNs to optimize success in the classification of an author’s handwriting.</p>
+<p>One potential approach we are investigating is using a Siamese neural network which uses the same weights and CNN architecture to train two images and output a metric noting their similarity. An outputted metric could be utilized to obtain a likelihood score that would then be used to classify similar images. With a focus on offline signatures, we are investigating the architectures of different CNNs used for other handwriting datasets to use as a baseline for constructing our own CNN to train and evaluate our handwriting datasets.</p>
+<p>In constructing a CNN we consider the following processes used in previous research for offline signatures: Decorrelation, normalization, aggregation of local features, extraction of selected local versus global features.</p>
+<p>We programmed neural networks using data sets in keras (MNIST,IMDB,Reuters) to gain an understanding of the fundamental process in the algorithms.</p>
+<p>Currently implementing a version of the TinyResNet Siamese CNN architecture, which was the best performing CNN in the paper <em>Siamese Convolutional Neural Networks for Authorship Verification by Du W., Fang M., Shen M.</em> Fully scanned pages of handwritten were broken down into lines to be used as the data inputted in the model. First we will use the model on the <a href="https://fki.tic.heia-fr.ch/databases/iam-handwriting-database">IAM</a> handwriting data set broken down by line. Consists of 13,353 isolated and labeled text lines.</p>
+<p>We used the ResNet CNN architecture to train a model on the IAM dataset to classify writers on the images in our own database.</p>
+<p>Working on preprocessing images to work with the ResNet architecture as images need to be grayscaled and scaled to be square images. Two methods are to add padding to the top and bottom of a scanned line image, or break up a line into smaller parts essentially tiling the original image.</p>
+<p>Matched input scale for ResNet50 architecture with preprocessed images.</p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Forgy, E. (1965). Cluster Analysis of Multivariate Data: Efficiency vs. Interpretability of Classifications. Biometrics, 21:768–780.<a href="project-g-handwriting-signatures.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Lloyd, S. (1982). Least Squares Quantization in PCM. IEEE Trans. on Information Theory, 28(2):129–137.<a href="project-g-handwriting-signatures.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Gan, G. and Ng, M. K.-P. (2017). K-means clustering with outlier removal. Pattern Recog. Letters, 90:8–14.<a href="project-g-handwriting-signatures.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>Kokonendji, C. C. and Puig, P. (2018). Fisher Dispersion Index for Multivariate Count Distributions. Journal of Multivariate Analysis, v165 p180-193.<a href="project-g-handwriting-signatures.html#fnref4" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="bullets.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="glass.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-handwriting.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

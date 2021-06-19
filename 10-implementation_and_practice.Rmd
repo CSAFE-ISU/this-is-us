@@ -14,4 +14,7 @@ write up a bit of a blurb here about FRSTAT language, Brandon's studies, etc.
 
 ### Study Design
 
-Conditions
+This study design is a 2x2x3 factorial. The first factor is the presence or
+absence of demonstrative evidence. The second factor is the presence or absence of
+the bullet matching algorithm, and the third factor is the expert's conclusion:
+match, inconclusive, or not a match.

@@ -3636,6 +3636,7 @@ Will 06/06 Update: keep editing the CMPS package paper. Now we planned to add so
 *   update `get_ccf()` for `bulletxtrctr`; 
 *   fix the denominator issue of the C code of `get_ccf4()`
 
+Will 06/20 Update: First part of the CMPS package paper is finished, and we are currently working on the new sections mentioned above. New metric based on CMPS scores is introduced: `same_source_avg` - `diff_source_avg`. `same_source_avg` is the original $\mathrm{\overline{CMPS}_{max}}$, while `diff_source_avg` is the mean CMPS score of all other pairwise comparisons.
 
 #### Future Work
 

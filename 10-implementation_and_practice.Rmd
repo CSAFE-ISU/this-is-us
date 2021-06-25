@@ -10,7 +10,17 @@ Project purpose
 
 ### Previous work
 
-write up a bit of a blurb here about FRSTAT language, Brandon's studies, etc.
+The FRStat program produces a probability that a fingerprint was produced by the 
+subject, as opposed to being produced by a different source. This language was 
+investigated in Garrett et al.'s "Comparing Categorical and Probabilistic 
+Fingerprint Evidence" (2018). Garrett et al. found that there was no significant
+difference in conviction rates between simple match language and the strongest
+(as well as the weakest) probability language. In terms of the likelihood that 
+the defendant committed the crime, Garrett et al. found that the lowest probability 
+condition (the probability being 10 times greater for the subject versus a different 
+source) was significantly different from the highest probability condition (1,000,000 
+times greater). However, there was not a significant difference between the lowest 
+probability and the next highest probability (10,000 times greater).
 
 ### Study Design
 

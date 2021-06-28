@@ -3841,18 +3841,23 @@ The training loss is still decreasing while validation loss has not started to i
 
 
 
-```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.height="30%"}
-
+```{r, fig.cap="Residual Network Architecture.", fig.keep="hold", fig.align='center', out.height="30%"}
 knitr::include_graphics(c("images/andy_temp/resnet_arch.png"))
-
 ```
 
+```{r, fig.cap="Exponential Distribution.", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Exponential_Learning_Rate.png"))
+```
 
-```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="100%"}
+```{r, fig.cap="Determining Learning Rate.", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Determing_Learning_Rate.png"))
+```
+
+```{r, fig.cap="Confusion Matrix.", fig.keep="hold", fig.align='center', out.width="100%"}
 knitr::include_graphics(c("images/andy_temp/Resnet_CFMatrix.png"))
 ```
 
-```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="100%"}
+```{r, fig.cap="Training & Validation Curves.", fig.keep="hold", fig.align='center', out.width="100%"}
 knitr::include_graphics(c("images/andy_temp/ResNet_3D_CNN_Performance.png"))
 ```
 
@@ -3986,7 +3991,13 @@ Update(04/26/2021): Scripts used for Data Processing were converted to functions
 
 Update(05/24/2021): New data processing procedure implemented where relabeling of land engraved area scans is more precise and missing values are excluded from being used as input data when training the current 3D CNN. Currently over a thousand labeled land engraved area scans have been processed using the new procedure.  Released R package "x3pLeaX," for working with LEA scans and running deep learning models.  The package is continually being updated daily.
 
-Update(06/28/2021): 1000+ processed Land Engraved Area Scans used as training data for Residual 3d Convolution Neural Network.  Current CNN has an overall validation accuracy of 89% and a 99% training accuracy.  Accuracy and Loss metrics change depending on how we set the learning rate.  Currently, three learning rates are determined by modeling the learning rate with an exponential distribution.  The further exploration resulted in using a changing learning rate when the validation loss hit a plateau.  The cyclic learning rate was also explored.  What's next?  Exploring probabilistic deep learning with an interest in capturing noise and uncertainties typically seen in training deep learning models.  Getting a better understanding of probabilistic deep learning has the potential benefit of improving our understanding of how these algorithms work.  This week I plan to use the current model as a tool to determine cross-cut regions used in training the current random forest model.    
+Update(06/28/2021): 1000+ processed Land Engraved Area Scans used as training data for Residual 3d Convolution Neural Network.  Current CNN has an overall validation accuracy of 89% and a 99% training accuracy.  Accuracy and Loss metrics change depending on how we set the learning rate.  Currently, three learning rates are determined by modeling the learning rate with an exponential distribution.  The further exploration resulted in using a changing learning rate when the validation loss hit a plateau.  The cyclic learning rate was also explored.  What's next?  Exploring probabilistic deep learning with an interest in capturing noise and uncertainties typically seen in training deep learning models.  Getting a better understanding of probabilistic deep learning has the potential benefit of improving our understanding of how these algorithms work.  This week I plan to use the current model as a tool to determine cross-cut regions used in training the current random forest model. 
+
+### Probabilistic deep learning Exploration
+
+```{r, fig.cap="Output Probabilites from sections of LEA", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Probabilistic_DL_Models_1.png"))
+```
 
 
 ## Analysis of Results  

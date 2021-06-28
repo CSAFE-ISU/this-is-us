@@ -3900,30 +3900,6 @@ Update(04/05/2021): Processing data including missing values as a label for land
 
 Update(04/12/2021): Processed 800 Land Engraved Area Scans from scanner (Megan)
 
-```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/Left_Groove_1-100_pointplot.png"))
-```
-
-```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/Right_Groove_1-100_pointplot.png"))
-```
-
-```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/damage_1-100_pointplot.png"))
-```
-
-```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/No_Striations_1-100_pointplot.png"))
-```
-
-```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/vertical_change_in_striations_1-100_pointplot.png"))
-```
-
-```{r, fig.cap="Scatterplot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/breakoff_1-100_pointplot.png"))
-```
-
 ```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
 knitr::include_graphics(c("images/andy_temp/left_groove_Density_1-100_pointplot.png"))
 ```

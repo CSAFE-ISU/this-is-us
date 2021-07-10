@@ -10,7 +10,7 @@ Project purpose
 
 ### Previous work
 
-The FRStat program produces a probability that a fingerprint was produced by the 
+The FRStat program produces a probability that a fingerprint was created by the 
 subject, as opposed to being produced by a different source. This language was 
 investigated in Garrett et al.'s "Comparing Categorical and Probabilistic 
 Fingerprint Evidence" (2018). Garrett et al. found that there was no significant

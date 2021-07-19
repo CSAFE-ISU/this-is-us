@@ -3993,6 +3993,8 @@ Update(05/24/2021): New data processing procedure implemented where relabeling o
 
 Update(06/28/2021): 1000+ processed Land Engraved Area Scans used as training data for Residual 3d Convolution Neural Network.  Current CNN has an overall validation accuracy of 89% and a 99% training accuracy.  Accuracy and Loss metrics change depending on how we set the learning rate.  Currently, three learning rates are determined by modeling the learning rate with an exponential distribution.  The further exploration resulted in using a changing learning rate when the validation loss hit a plateau.  The cyclic learning rate was also explored.  What's next?  Exploring probabilistic deep learning with an interest in capturing noise and uncertainties typically seen in training deep learning models.  Getting a better understanding of probabilistic deep learning has the potential benefit of improving our understanding of how these algorithms work.  This week I plan to use the current model as a tool to determine cross-cut regions used in training the current random forest model. 
 
+Update(07/19/2021): Currently working on the paper for Assessing Quality of Scans using 3d convolutional neural networks.  Currently writing scripts to use the cnn for determining multiple crosscut locations used for analyzing bullet signatures. 
+
 ### Probabilistic deep learning Exploration
 
 ```{r, fig.cap="Output Probabilites from sections of LEA", fig.keep="hold", fig.align='center', out.width="100%"}

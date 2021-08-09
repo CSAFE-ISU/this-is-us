@@ -4051,11 +4051,48 @@ Update(06/28/2021): 1000+ processed Land Engraved Area Scans used as training da
 
 Update(07/19/2021): Currently working on the paper for Assessing Quality of Scans using 3d convolutional neural networks.  Currently writing scripts to use the cnn for determining multiple crosscut locations used for analyzing bullet signatures. 
 
-### Probabilistic deep learning Exploration
+Update(08/09/2021): Examining the effects of hyper parameter tuning on the 3d CNN residual network.  Gradient descent is one of the most popular algorithms to perform optimization on neural networks.  Gradient descent is a way to minimize an objective function parameterized by a model’s parameters by updating the parameters in the opposite direction of the gradient of the objective function w.r.t. to the parameters. 
 
-```{r, fig.cap="Output Probabilites from sections of LEA", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/Probabilistic_DL_Models_1.png"))
+Stochastic Gradient Descent performs a parameter update for each training example and associated label.
+
+Gradient Descent:
+
+$$θ_t=y_t−ε_t∇f(y_t)$$
+Stochastic Gradient Descent:
+
+$$θ_t = θ_t − ε_t∇f(θ_t; x^i; y^i)$$
+
+Stochastic Gradient Descent with warm restarts:
+
+If we are stuck around a local minimum but have not found the global minimum we can encourage the model to jump local local minimums.
+
+```{r, fig.cap="Cosine Annealing", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Explain_4.PNG"))
 ```
+
+
+
+Expanding the tools for data processing, we can now identify and fill islands across the lea scan and obtain contour information.
+
+```{r, fig.cap="", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/plot_1_prefill.PNG"))
+```
+
+```{r, fig.cap="", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/plot_2_fill_part1_correction.PNG"))
+```
+
+```{r, fig.cap="", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/plot_4_fill_part4_correction.PNG"))
+```
+
+```{r, fig.cap="", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/Contour_Polygon_using_moores.PNG"))
+```
+
+
+
+
 
 
 ## Analysis of Results  

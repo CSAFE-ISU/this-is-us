@@ -3711,7 +3711,7 @@ knitr::include_graphics("images/cmps/inspect_seg_length/p150.png", dpi=100)
 knitr::include_graphics("images/cmps/inspect_seg_length/p150s.png", dpi=100)
 ```
 
-**Variance Ratio**
+**Sum of Squares Ratio**
 
 Now we define a score to measure the separation between the KM and KNM groups.
 
@@ -3721,7 +3721,7 @@ $$
 
 Or $\frac{SS_{model}}{SSE}$ in one-way ANOVA setup. Note that this is not a F-statistic since we are not including the degrees of freedom. The degrees of freedom are ignored because the df of the numerator is always $2 - 1$ and the df of the denominator is always $595 - 2$ in our case, and including the df is equivalent to multiplying the variance ratio value with $\frac{595-2}{2-1}$
 
-If we want to determine a value for the parameter `seg_length` (the length of a basis segment), we can compare the variance ratio value for different values of `seg_length`.
+If we want to determine a value for the parameter `seg_length` (the length of a basis segment), we can compare the sum of squares ratio value for different values of `seg_length`.
 
 ```{r}
 knitr::include_graphics("images/cmps/inspect_seg_length/b252_seg_length_plot.png", dpi=100)
@@ -3730,6 +3730,14 @@ knitr::include_graphics("images/cmps/inspect_seg_length/b252_seg_length_plot.png
 
 </details>
 
+
+<details>
+<summary>
+Will 09/12 Update: We used the sum of squares ratio to evaluate different sets of parameters and different CMPS metrics on both Hamby 252 and 44. We also ran the random forest model on Hamby 252 and 44 and compared the results to those of the CMPS algorithm via sum of squares ratio. 
+
+</summary>
+
+</details>
 
 #### Future Work
 

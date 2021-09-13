@@ -2850,20 +2850,20 @@ We began by considering how we might inject a small amount of variability into t
 Downsampling scheme:
 
 ```{r,fig.align='center'}
-knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/samplingScheme_illustration.PNG")
+knitr::include_graphics("images/cartridge_cases/4-12-21_update/samplingScheme_illustration.PNG")
 ```
 
 
 Additionally, we rotated these copies by a randomly generated angle to determine how well the CMC method could estimate the "true" rotation.
 
 ```{r,fig.align='center'}
-knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/cmcCountDistributions_offsetCopies_randomRotation.png")
+knitr::include_graphics("images/cartridge_cases/4-12-21_update/cmcCountDistributions_offsetCopies_randomRotation.png")
 ```
 
 The plot below shows the values of $|\hat{\theta}_i - \theta_i|$ for $i = 1,...,180$ comparisons (4 downsampled copies of each scan * 15 scans * 2 comparison directions = 180). The takeaway of this plot is that the true rotations are well-estimated here.
 
 ```{r,fig.align='center'}
-knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/estimatedAngles_sensofarGroup4_offsetCopies_randomRotation.png")
+knitr::include_graphics("images/cartridge_cases/4-12-21_update/estimatedAngles_sensofarGroup4_offsetCopies_randomRotation.png")
 ```
 
 **Experiment 2: Convex Combination Comparisons**
@@ -2871,26 +2871,26 @@ knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/estimatedAngle
 For two scans $A$ and $B$, we compare $A$ to a new scan $C \equiv p*A + (1-p)*B$ for $p \in [0,1]$. Presumably, the CMC count should be high for $p = 1$ (where only $A$ is contributing to the combination) and decrease as $p \to 0$. The plot below shows the transition of scan $C$ from being an exact copy of $A$ to an exact copy of $B$.
 
 ```{r,fig.align='center'}
-knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/convexCombinationAnimation.gif")
+knitr::include_graphics("images/cartridge_cases/4-19-21_update/convexCombinationAnimation.gif")
 ```
 
 Do form the convex combination scan, I first manually aligned each scan using a Shiny app I created. Of note here is that, even after aligning, the two surfaces do not perfectly overlap. To form the convex combination scans, I decided to only consider overlapping regions of the two scans. This decision does appear to effect the final CMC results, as will be discussed below.
 
-```{r,fig.align='center'}
+```{r,fig.align='center',eval = FALSE}
 knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/alignmentShinyApp.PNG")
 ```
 
 We considered a set of 15 known match pairs. For each pair, consisting of scans $A$ and $B$ say, we calculated the CMCs comparing $A$ to $C \equiv p*A + (1 - p)*B$ for $p = i/10, i = 0,...,10$ under the Original and High CMC methods. There are 15 black lines below that show the trajectory of the CMC counts per $A$ to $C$ comparison. The blue line tracks the average CMC count per value of $p$. Recall that $p = 1$ means that only scan $A$ is contributing to the combined scan $C$. As such, the right-hand sides of these plots show the CMC results when $A$ is essentially compared to itself. As $p \to 0$, the CMC counts decrease fairly monotonically. Of note here is (1) the High CMC method appears to yield larger CMC counts, on average, than the Original method (this isn't new information), (2) somehow the High CMC results seem better, on average, for $p = .9$ than $p = 1$, which is somewhat pathological, and (3) the CMC results for $p$ close to 0 are considerably worse than if we just compare the "raw" versions of scan $A$ to scan $B$ (i.e., not considering only the overlap).
 
 ```{r,fig.align='center'}
-knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/sensofarGroup4_convexCombinationCMCCounts.png")
+knitr::include_graphics("images/cartridge_cases/4-19-21_update/sensofarGroup4_convexCombinationCMCCounts.png")
 ```
 
 *An interesting pattern in Experiment 2*
 
 There seems to be an effect of only considering the overlapping pixels in each scan in Experiment 2. To illustrate this, consider the following example where a known match pair (Sensofar Group 4 scans #4 and #6) are compared. The first plots below show the CMC results if the non-overlapping pixels are included after aligning. We can see that there are a fair number of High CMCs. 
 
-```{r,fig.align='center'}
+```{r,fig.align='center',eval = FALSE}
 knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/nonOverlapIncluded_originalScans.png")
 
 knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/nonOverlapIncludedCMCPlot.png")
@@ -2898,7 +2898,7 @@ knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/nonOverlapIncl
 
 Compare this to the scans where only the overlapping pixels are considered after alignment. We can see that there are no High CMCs assigned to this comparison. 
 
-```{r,fig.align='center'}
+```{r,fig.align='center',eval = FALSE}
 knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/overlapOnly_originalScans.png")
 
 knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/overlapOnly_cmcPlot.png")
@@ -2910,29 +2910,32 @@ We might summarize the discussion above as running into "boundary effects" that 
 
 **Experiment 3: Edge Erosion**
 
-```{r,fig.align='center'}
+```{r,fig.align='center',eval = FALSE}
 knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/labeledScanExample.png")
 ```
 
 
-```{r,fig.align='center'}
+```{r,fig.align='center',eval = FALSE}
 knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/edgeErosionScan_originalScans.png")
 ```
 
 The matrix of CMC values that yielded the best results for the edge-eroded scans is shown below. Although these results look good, it should be noted that the results are quite sensitive to small changes in the translation/correlation thresholds.
 
-```{r,fig.align='center'}
+```{r,fig.align='center',eval = FALSE}
 knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/group4_edgeErosionHighCMCs.png")
 ```
 
 
-We are interested not only in determing how well the CMC method performs on a particular data set, but also in how generalizable a particular set of processing conditions is to new data. We have introduced a "variance ratio" statsitic that aims to quantify how separated the "known match" and "known non-match" CMC count distributions are from each other. Let C$_{ij}$ denote the CMC count assigned to the $j$th cartridge case pair, $j = 1,...,n_i$, $n_1 = 63, n_2 = 717$, from the $i$th group, $i = 1,2$ representing matches and non-matches, respectively. For each set of thresholds we calculate the **Variance Ratio** $r$ as: $$
-r = r\left(T_x, T_y, T_\theta, T_{\text{CCF}}\right) = \frac{\sum_{i=1}^2 \left(\overline{C}_{i.} - \overline{C}_{..}\right)^2}{\sum_{i=1}^2 \frac{1}{n_i - 1}\sum_{j=1}^{n_i} \left(C_{ij} - \overline{C}_{i.}\right)^2}
-$$ where $\overline{C}_{i.}$ denotes the within-group CMC count average and $\overline{C}_{..}$ denotes the grand CMC count average. Greater separation between and less variability within the match and non-match CMC count distributions yields larger $r$ values. Larger values of $r$ are therefore indicative of greater separation between the groups.
+We are interested not only in determing how well the CMC method performs on a particular data set, but also in how generalizable a particular set of processing conditions is to new data. We have introduced a "variance ratio" statsitic that aims to quantify how separated the "known match" and "known non-match" CMC count distributions are from each other. Let C$_{ij}$ denote the CMC count assigned to the $j$th cartridge case pair, $j = 1,...,n_i$, $n_1 = 63, n_2 = 717$, from the $i$th group, $i = 1,2$ representing matches and non-matches, respectively. For each set of thresholds we calculate the **Variance Ratio** $r$ as: 
+$$
+r = r\left(T_x, T_y, T_\theta, T_{\text{CCF}}\right) = \frac{\sum_{i=1}^2 \left(\overline{C}_{i.} - \overline{C}_{..}\right)^2}{\sum_{i=1}^2 \frac{1}{n_i - 1}\sum_{j=1}
+^{n_i} \left(C_{ij} - \overline{C}_{i.}\right)^2}
+$$ 
+where $\overline{C}_{i.}$ denotes the within-group CMC count average and $\overline{C}_{..}$ denotes the grand CMC count average. Greater separation between and less variability within the match and non-match CMC count distributions yields larger $r$ values. Larger values of $r$ are therefore indicative of greater separation between the groups.
 
 We can consider the behavior of the variance ratio statistic across various parameter settings to determine how well the CMC method distinguishes matches from non-matches. 
 
-```{r,fig.align='center'}
+```{r,fig.align='center',eval = FALSE}
 knitr::include_graphics("images/cartridge_cases/4-26-21_Spotlight/edgeErosion_varianceRatioPlot.png")
 ```
 
@@ -2988,6 +2991,131 @@ I would love to hear the groups' thoughts on how we should tackle this problem.
 
 </details>
 
+<details>
+<summary>
+Joe 8/9/21 Spotlight: I'll discuss improvements to the validation pipeline that we've been developing to compare cartridge case matching algorithms.
+</summary>
+
+Cartridge case comparison methods start with two cartridge case scans and end with a similarity score. This similarity score must be interpreted relative to similarity scores calculated between other scans, both known matches and known non-matches, to determine whether it is indicative of a matching or a non-matching pair.
+
+The similarity score we've been predominately analyzing so far is the number of Congruent Matching Cells (CMC). One of the major drawbacks of the CMC method is that it relies on a large number of parameters that individually require tuning to work well. This (1) requires a lot of time to tune these parameters and (2) makes the method highly sensitive to changes in the characteristics of scans. So far, CMC papers have focused on using a relatively small set of scans from Fadul et al. to "validate" a particular CMC method. Authors prove that their method "works" to classify matches and non-matches amongst this small set of scans without a broader discussion of the process by which they tuned the underlying parameters or the method's sensitivity to, for example, new data.
+
+A few months ago we started using scans taken at CSAFE from a study conducted by Baldwin et al. Initial experiments with these scans proved that the CMC method behaved quite differently than it did on the Fadul scans. So far, we have 90 manually-processed scans from this study (with more on the way). The number of scans per barrel is summarized below.
+
+| Barrel | # of CCs |
+| --- | --- |
+| A | 3 |
+| B | 3 |
+| C | 3 |
+| D | 3 |
+| E | 3 |
+| F | 9 |
+| G | 9 |
+| H | 9 |
+| J | 9 |
+| K | 9 |
+| R | 6 |
+| S | 6 |
+| T | 6 |
+| U | 6 | 
+| V | 6 |
+
+We've spent a good deal of energy trying to determine why this might be the case and how we might improve the method. To alleviate the problem of manually choosing a "good" set of parameters, as has seemingly been done in previous CMC papers, we introduce a validation scheme to "learn" parameters based on a train set and assess their effectiveness against a test set. To begin, we randomly select some number of barrels from the table above as the training set and set the rest aside for testing. A procedure to "learn" parameters from the training data is shared below. Note that it references the CMC method to calculate the similarity score, although we can use this with any similarity score method.
+
+1. Calculate the CMC count over a grid of parameter values for all training comparisons.
+
+2. Choose the set of parameters that optimize some metric.
+
+  - We might choose to just optimize the classification error. An alternative metric is the variance ratio. In the case of CMC counts, $C_{ij}$ where $i = 1,2$ indexes matches vs. non-matches and $j = 1,...,n_i$ represents the number of matches/non-matches, the variance ratio is:
+$$
+r = \frac{\sum_{i=1}^2 \left(\overline{C}_{i} - \overline{C}\right)^2}{\sum_{i=1}^2 \frac{1}{n_i - 1}\sum_{j=1}^{n_i} \left(C_{i,j} - \overline{C_i\right)^2}
+$$
+
+3. Define a CMC count boundary to classify "matches" from "non-matches" using the CMC counts associated with the parameters selected in 2.
+
+  - For example, choose the halfway point between $\bar{C}_{1 \cdot}$ and $\bar{C}_{2 \cdot}$ as the decision boundary.
+
+We can wrap all of this into a $k$-fold cross-validation scheme to obtain an estimate of the expected prediction error.
+
+Below is an example showing the CMC results from two different settings of the algorithm. We can see that they both result in an AUC of 1, yet the variance ratio statistic is larger for the CMC count distributions that are more spread-out. Hence, the variance ratio statistic makes sense as an optimization criterion for choosing the "best" parameters.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/8-9-21_spotlight/varianceRatioExample.PNG")
+```
+
+
+The training set consists of all scans fired from 3 randomly-selected barrels. These barrels are T, F, and J meaning the training data consists of 24 scans. The remaining 66 scans make up the test set. 
+
+Below is the training confusion matrix after applying the above parameter selection method. The selected CMC count cutoff was 3.5 CMCs (between 3 and 4 CMCs, that is).
+
+| | Predicted Match | Predicted Non-Match |
+| --- | --- | --- |
+| **Actual Match** | 48 | 39 |
+| **Actual Non-Match** | 0 | 189 |
+
+The test data confusion matrix using the learned parameters is shown below. 
+
+| | Predicted Match | Predicted Non-Match |
+| --- | --- | --- |
+| **Actual Match** | 94 | 89 |
+| **Actual Non-Match** | 40 | 1922 |
+
+Note that the false positive rate is low (which may be preferred in an "innocent until proven guilty" legal paradigm), yet the false negative rate is dismally high. This suggests that our pipeline isn't capturing similar markings between two truly matching scans as we would like.
+
+I've spent much of this summer implementing an alternative method to the CMC method. We're still working on a nice name, but we'll refer to it for now as a "cell correlation" method. The method is as follows. For two cartridge case scans, call them the "reference" and "target" scans,
+
+1. Translate and rotate the target scan to be aligned with the reference scan.
+
+2. Divide the scans into a grid of 8x8 cells.
+
+3. Calculate the correlation between each pair of cells.
+
+4. Flip the target scan and divide it again into a grid of 8x8 cells
+
+5. Calculate the correlation between each cell pair, now between the reference and the flipped target.
+
+6. Rank the correlation values and calculate the Wilcoxon Rank-Sum statistic.
+
+7. Use this as the similarity score to classify matches vs. non-matches.
+
+The major benefit of this method over the CMC method is that it requires significantly fewer parameters than the CMC method. Additionally, there are well-established tables and theoretical results (albeit under independence assumptions not necessarily met in this situation) related to the Wilcoxon Rank-Sum statistics allowing the calculation of either small sample or asymptotic p-values. 
+
+
+We have some promising preliminary results such as the p-values shown below between a set of 7 scans (all of the orange p-values correspond to matches, the white/gray to non-matches), although there are a few obstacles in properly implementing this method at a larger scale.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/8-9-21_spotlight/correlationCellPValues.png")
+```
+
+
+The major obstacle with properly implementing this method is step 1 above; aligning the two scans. We've come up with a few methods to align two scans including "automatic" alignment based on estimating translations and rotation and using an app that shows the overlay of two scans to align. However, to validate the automatic method takes manual inspection which, for the large number of scans that we hope to eventually analyze, isn't going to be realistic. Additionally, there are some truly matching scans that are either extremely difficult or impossible to visually align such as the example below.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/8-9-21_spotlight/inconclusiveMatchExample.png")
+```
+
+
+We've also run into some pathological results where the automatic method clearly doesn't align two matching scans correctly, yet the resulting similarity scores are higher than when the scans are manually-aligned.
+
+I think there is still more that we can explore in terms of automatic alignment or, alternatively, calculating a similarity score across various rotations/translations of two scans. We also need to explore more of the parameter space for this cell correlation method.
+
+</details>
+
+<details>
+<summary>
+Joe 9/13/21 Update: I've been working on organizing our various additions/alterations to the CMC method in a pipeline diagram.
+</summary>
+
+I've been working on organizing our various additions/alterations to the CMC method in a pipeline diagram. Below is the most recent version of the pipeline.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/9-13-21_uodate/pipelineDiagram_9-9-21.jpg")
+```
+
+
+This exercise has simultaneously illuminated some areas of the parameter space that could be explored a bit more carefully. Consequently, I have been running a number of "experiments" to explore these areas of the parameter space.
+
+</details>
 
 ### Modified Chumbley non-random test
 #### Land-to-land scores

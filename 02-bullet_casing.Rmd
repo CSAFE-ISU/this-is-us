@@ -3867,11 +3867,28 @@ Will 09/12 Update: We used the sum of squares ratio to evaluate different sets o
 
 </details>
 
+<details>
+<summary>
+Will 09/19 Update: We renamed the package to `cmpsR`. The main results of using the sum of squares ratio to compare different metrics and different sets of parameters are included. We are finishing the last part of the paper, adding the new results into the summarizing sections. 
+
+</summary>
+
+```{r}
+knitr::include_graphics("images/cmps/p_seg_plot.png", dpi=100)
+```
+
+```{r}
+knitr::include_graphics("images/cmps/p_npeak_plot.png", dpi=100)
+```
+
+</details>
+
 #### Future Work
 
-* improve and manage to submit the CMPS package to CRAN
+* Manage to submit the `cmpsR` package to CRAN
 
-* cross-validate some hyper-parameters
+* Finish the paper
+
 
 ## Assessing Quality of Scans
 

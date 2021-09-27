@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2021-07-20" />
+<meta name="date" content="2021-09-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -208,7 +208,6 @@ div.csl-indent {
 <li class="chapter" data-level="4.4.3" data-path="bullets.html"><a href="bullets.html#post-analysis"><i class="fa fa-check"></i><b>4.4.3</b> Post Analysis</a></li>
 <li class="chapter" data-level="4.4.4" data-path="bullets.html"><a href="bullets.html#summary-statistics"><i class="fa fa-check"></i><b>4.4.4</b> Summary Statistics</a></li>
 <li class="chapter" data-level="4.4.5" data-path="bullets.html"><a href="bullets.html#training-neural-net-using-data-from-scannermegan"><i class="fa fa-check"></i><b>4.4.5</b> Training Neural Net using data from Scanner(Megan)</a></li>
-<li class="chapter" data-level="4.4.6" data-path="bullets.html"><a href="bullets.html#probabilistic-deep-learning-exploration"><i class="fa fa-check"></i><b>4.4.6</b> Probabilistic deep learning Exploration</a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="bullets.html"><a href="bullets.html#analysis-of-results"><i class="fa fa-check"></i><b>4.5</b> Analysis of Results</a>
 <ul>
@@ -371,6 +370,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="12.1.1" data-path="impl.html"><a href="impl.html#previous-work"><i class="fa fa-check"></i><b>12.1.1</b> Previous work</a></li>
 <li class="chapter" data-level="12.1.2" data-path="impl.html"><a href="impl.html#study-design"><i class="fa fa-check"></i><b>12.1.2</b> Study Design</a></li>
+<li class="chapter" data-level="12.1.3" data-path="impl.html"><a href="impl.html#sample-testimony"><i class="fa fa-check"></i><b>12.1.3</b> Sample Testimony</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -2455,37 +2455,31 @@ Joe 4/25/21 Spotlight: The CMC method consistently does a great job of identifyi
 <p><strong>Experiment 1: Downsampled/“synthetically” rotated copies</strong></p>
 <p>We began by considering how we might inject a small amount of variability into the values of the cartridge case scan to determine the robustness of the CMC method. First, we compared downsampled “copies” of the same scan to each other.</p>
 <p>Downsampling scheme:</p>
-<pre><code>## Error in knitr::include_graphics(&quot;images/cartridge_cases/4-26-21_Spotlight/samplingScheme_illustration.PNG&quot;): Cannot find the file(s): &quot;images/cartridge_cases/4-26-21_Spotlight/samplingScheme_illustration.PNG&quot;</code></pre>
+<p><img src="images/cartridge_cases/4-12-21_update/samplingScheme_illustration.PNG" width="604" style="display: block; margin: auto;" /></p>
 <p>Additionally, we rotated these copies by a randomly generated angle to determine how well the CMC method could estimate the “true” rotation.</p>
-<pre><code>## Error in knitr::include_graphics(&quot;images/cartridge_cases/4-26-21_Spotlight/cmcCountDistributions_offsetCopies_randomRotation.png&quot;): Cannot find the file(s): &quot;images/cartridge_cases/4-26-21_Spotlight/cmcCountDistributions_offsetCopies_randomRotation.png&quot;</code></pre>
+<p><img src="images/cartridge_cases/4-12-21_update/cmcCountDistributions_offsetCopies_randomRotation.png" width="350" style="display: block; margin: auto;" /></p>
 <p>The plot below shows the values of <span class="math inline">\(|\hat{\theta}_i - \theta_i|\)</span> for <span class="math inline">\(i = 1,...,180\)</span> comparisons (4 downsampled copies of each scan * 15 scans * 2 comparison directions = 180). The takeaway of this plot is that the true rotations are well-estimated here.</p>
-<pre><code>## Error in knitr::include_graphics(&quot;images/cartridge_cases/4-26-21_Spotlight/estimatedAngles_sensofarGroup4_offsetCopies_randomRotation.png&quot;): Cannot find the file(s): &quot;images/cartridge_cases/4-26-21_Spotlight/estimatedAngles_sensofarGroup4_offsetCopies_randomRotation.png&quot;</code></pre>
+<p><img src="images/cartridge_cases/4-12-21_update/estimatedAngles_sensofarGroup4_offsetCopies_randomRotation.png" width="350" style="display: block; margin: auto;" /></p>
 <p><strong>Experiment 2: Convex Combination Comparisons</strong></p>
 <p>For two scans <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, we compare <span class="math inline">\(A\)</span> to a new scan <span class="math inline">\(C \equiv p*A + (1-p)*B\)</span> for <span class="math inline">\(p \in [0,1]\)</span>. Presumably, the CMC count should be high for <span class="math inline">\(p = 1\)</span> (where only <span class="math inline">\(A\)</span> is contributing to the combination) and decrease as <span class="math inline">\(p \to 0\)</span>. The plot below shows the transition of scan <span class="math inline">\(C\)</span> from being an exact copy of <span class="math inline">\(A\)</span> to an exact copy of <span class="math inline">\(B\)</span>.</p>
-<pre><code>## Error in knitr::include_graphics(&quot;images/cartridge_cases/4-26-21_Spotlight/convexCombinationAnimation.gif&quot;): Cannot find the file(s): &quot;images/cartridge_cases/4-26-21_Spotlight/convexCombinationAnimation.gif&quot;</code></pre>
+<p><img src="images/cartridge_cases/4-19-21_update/convexCombinationAnimation.gif" style="display: block; margin: auto;" /></p>
 <p>Do form the convex combination scan, I first manually aligned each scan using a Shiny app I created. Of note here is that, even after aligning, the two surfaces do not perfectly overlap. To form the convex combination scans, I decided to only consider overlapping regions of the two scans. This decision does appear to effect the final CMC results, as will be discussed below.</p>
-<pre><code>## Error in knitr::include_graphics(&quot;images/cartridge_cases/4-26-21_Spotlight/alignmentShinyApp.PNG&quot;): Cannot find the file(s): &quot;images/cartridge_cases/4-26-21_Spotlight/alignmentShinyApp.PNG&quot;</code></pre>
 <p>We considered a set of 15 known match pairs. For each pair, consisting of scans <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> say, we calculated the CMCs comparing <span class="math inline">\(A\)</span> to <span class="math inline">\(C \equiv p*A + (1 - p)*B\)</span> for <span class="math inline">\(p = i/10, i = 0,...,10\)</span> under the Original and High CMC methods. There are 15 black lines below that show the trajectory of the CMC counts per <span class="math inline">\(A\)</span> to <span class="math inline">\(C\)</span> comparison. The blue line tracks the average CMC count per value of <span class="math inline">\(p\)</span>. Recall that <span class="math inline">\(p = 1\)</span> means that only scan <span class="math inline">\(A\)</span> is contributing to the combined scan <span class="math inline">\(C\)</span>. As such, the right-hand sides of these plots show the CMC results when <span class="math inline">\(A\)</span> is essentially compared to itself. As <span class="math inline">\(p \to 0\)</span>, the CMC counts decrease fairly monotonically. Of note here is (1) the High CMC method appears to yield larger CMC counts, on average, than the Original method (this isn’t new information), (2) somehow the High CMC results seem better, on average, for <span class="math inline">\(p = .9\)</span> than <span class="math inline">\(p = 1\)</span>, which is somewhat pathological, and (3) the CMC results for <span class="math inline">\(p\)</span> close to 0 are considerably worse than if we just compare the “raw” versions of scan <span class="math inline">\(A\)</span> to scan <span class="math inline">\(B\)</span> (i.e., not considering only the overlap).</p>
-<pre><code>## Error in knitr::include_graphics(&quot;images/cartridge_cases/4-26-21_Spotlight/sensofarGroup4_convexCombinationCMCCounts.png&quot;): Cannot find the file(s): &quot;images/cartridge_cases/4-26-21_Spotlight/sensofarGroup4_convexCombinationCMCCounts.png&quot;</code></pre>
+<p><img src="images/cartridge_cases/4-19-21_update/sensofarGroup4_convexCombinationCMCCounts.png" width="350" style="display: block; margin: auto;" /></p>
 <p><em>An interesting pattern in Experiment 2</em></p>
 <p>There seems to be an effect of only considering the overlapping pixels in each scan in Experiment 2. To illustrate this, consider the following example where a known match pair (Sensofar Group 4 scans #4 and #6) are compared. The first plots below show the CMC results if the non-overlapping pixels are included after aligning. We can see that there are a fair number of High CMCs.</p>
-<pre><code>## Error in knitr::include_graphics(&quot;images/cartridge_cases/4-26-21_Spotlight/nonOverlapIncluded_originalScans.png&quot;): Cannot find the file(s): &quot;images/cartridge_cases/4-26-21_Spotlight/nonOverlapIncluded_originalScans.png&quot;</code></pre>
-<pre><code>## Error in knitr::include_graphics(&quot;images/cartridge_cases/4-26-21_Spotlight/nonOverlapIncludedCMCPlot.png&quot;): Cannot find the file(s): &quot;images/cartridge_cases/4-26-21_Spotlight/nonOverlapIncludedCMCPlot.png&quot;</code></pre>
 <p>Compare this to the scans where only the overlapping pixels are considered after alignment. We can see that there are no High CMCs assigned to this comparison.</p>
-<pre><code>## Error in knitr::include_graphics(&quot;images/cartridge_cases/4-26-21_Spotlight/overlapOnly_originalScans.png&quot;): Cannot find the file(s): &quot;images/cartridge_cases/4-26-21_Spotlight/overlapOnly_originalScans.png&quot;</code></pre>
-<pre><code>## Error in knitr::include_graphics(&quot;images/cartridge_cases/4-26-21_Spotlight/overlapOnly_cmcPlot.png&quot;): Cannot find the file(s): &quot;images/cartridge_cases/4-26-21_Spotlight/overlapOnly_cmcPlot.png&quot;</code></pre>
 <p>One seemingly well-evidenced hypothesis we have as to why considering non-overlapping pixels yields better CMC results is that the non-overlapping pixels are most often on the “edges” of the breech face impression surface. The height values at these edge pixels are oftentimes larger in magnitude than those of pixels on the surface interior. We have noticed that the CCF naturally “attracts” to large-magnitude values even if those values are not a part of an identifying breech face mark (e.g., if a pixel is a part of the natural roll-off of the cartridge case primer - see the purple pixels on the outer-edge of the scans above). By considering the non-overlapping pixels in each scan, even though such pixels cannot be a part of a shared breech face marking between the two scans, we are including a “loud signal” that the CCF, and consequently the individual cells, attract to (see e.g., the cluster of cells in the bottom-left corner of scan “P0006 Nonoverlap Included” above as an example). In removing these “loud signals” from the scan, the CMC method appears to suffer.</p>
 <p>We might summarize the discussion above as running into “boundary effects” that detrimentally affect the CMC results. To that end, the next experiment we performed was aimed at handling these boundary effects.</p>
 <p><strong>Experiment 3: Edge Erosion</strong></p>
-<pre><code>## Error in knitr::include_graphics(&quot;images/cartridge_cases/4-26-21_Spotlight/labeledScanExample.png&quot;): Cannot find the file(s): &quot;images/cartridge_cases/4-26-21_Spotlight/labeledScanExample.png&quot;</code></pre>
-<pre><code>## Error in knitr::include_graphics(&quot;images/cartridge_cases/4-26-21_Spotlight/edgeErosionScan_originalScans.png&quot;): Cannot find the file(s): &quot;images/cartridge_cases/4-26-21_Spotlight/edgeErosionScan_originalScans.png&quot;</code></pre>
 <p>The matrix of CMC values that yielded the best results for the edge-eroded scans is shown below. Although these results look good, it should be noted that the results are quite sensitive to small changes in the translation/correlation thresholds.</p>
-<pre><code>## Error in knitr::include_graphics(&quot;images/cartridge_cases/4-26-21_Spotlight/group4_edgeErosionHighCMCs.png&quot;): Cannot find the file(s): &quot;images/cartridge_cases/4-26-21_Spotlight/group4_edgeErosionHighCMCs.png&quot;</code></pre>
-<p>We are interested not only in determing how well the CMC method performs on a particular data set, but also in how generalizable a particular set of processing conditions is to new data. We have introduced a “variance ratio” statsitic that aims to quantify how separated the “known match” and “known non-match” CMC count distributions are from each other. Let C<span class="math inline">\(_{ij}\)</span> denote the CMC count assigned to the <span class="math inline">\(j\)</span>th cartridge case pair, <span class="math inline">\(j = 1,...,n_i\)</span>, <span class="math inline">\(n_1 = 63, n_2 = 717\)</span>, from the <span class="math inline">\(i\)</span>th group, <span class="math inline">\(i = 1,2\)</span> representing matches and non-matches, respectively. For each set of thresholds we calculate the <strong>Variance Ratio</strong> <span class="math inline">\(r\)</span> as: <span class="math display">\[
-r = r\left(T_x, T_y, T_\theta, T_{\text{CCF}}\right) = \frac{\sum_{i=1}^2 \left(\overline{C}_{i.} - \overline{C}_{..}\right)^2}{\sum_{i=1}^2 \frac{1}{n_i - 1}\sum_{j=1}^{n_i} \left(C_{ij} - \overline{C}_{i.}\right)^2}
-\]</span> where <span class="math inline">\(\overline{C}_{i.}\)</span> denotes the within-group CMC count average and <span class="math inline">\(\overline{C}_{..}\)</span> denotes the grand CMC count average. Greater separation between and less variability within the match and non-match CMC count distributions yields larger <span class="math inline">\(r\)</span> values. Larger values of <span class="math inline">\(r\)</span> are therefore indicative of greater separation between the groups.</p>
+<p>We are interested not only in determing how well the CMC method performs on a particular data set, but also in how generalizable a particular set of processing conditions is to new data. We have introduced a “variance ratio” statsitic that aims to quantify how separated the “known match” and “known non-match” CMC count distributions are from each other. Let C<span class="math inline">\(_{ij}\)</span> denote the CMC count assigned to the <span class="math inline">\(j\)</span>th cartridge case pair, <span class="math inline">\(j = 1,...,n_i\)</span>, <span class="math inline">\(n_1 = 63, n_2 = 717\)</span>, from the <span class="math inline">\(i\)</span>th group, <span class="math inline">\(i = 1,2\)</span> representing matches and non-matches, respectively. For each set of thresholds we calculate the <strong>Variance Ratio</strong> <span class="math inline">\(r\)</span> as:
+<span class="math display">\[
+r = r\left(T_x, T_y, T_\theta, T_{\text{CCF}}\right) = \frac{\sum_{i=1}^2 \left(\overline{C}_{i.} - \overline{C}_{..}\right)^2}{\sum_{i=1}^2 \frac{1}{n_i - 1}\sum_{j=1}
+^{n_i} \left(C_{ij} - \overline{C}_{i.}\right)^2}
+\]</span>
+where <span class="math inline">\(\overline{C}_{i.}\)</span> denotes the within-group CMC count average and <span class="math inline">\(\overline{C}_{..}\)</span> denotes the grand CMC count average. Greater separation between and less variability within the match and non-match CMC count distributions yields larger <span class="math inline">\(r\)</span> values. Larger values of <span class="math inline">\(r\)</span> are therefore indicative of greater separation between the groups.</p>
 <p>We can consider the behavior of the variance ratio statistic across various parameter settings to determine how well the CMC method distinguishes matches from non-matches.</p>
-<pre><code>## Error in knitr::include_graphics(&quot;images/cartridge_cases/4-26-21_Spotlight/edgeErosion_varianceRatioPlot.png&quot;): Cannot find the file(s): &quot;images/cartridge_cases/4-26-21_Spotlight/edgeErosion_varianceRatioPlot.png&quot;</code></pre>
 </details>
 <details>
 <summary>
@@ -2515,6 +2509,175 @@ Joe 6/7/21 Update: We discovered a potential problem in the labeling of a well-k
 </ol>
 <p>I would love to hear the groups’ thoughts on how we should tackle this problem.</p>
 </details>
+<details>
+<summary>
+Joe 8/9/21 Spotlight: I’ll discuss improvements to the validation pipeline that we’ve been developing to compare cartridge case matching algorithms.
+</summary>
+<p>Cartridge case comparison methods start with two cartridge case scans and end with a similarity score. This similarity score must be interpreted relative to similarity scores calculated between other scans, both known matches and known non-matches, to determine whether it is indicative of a matching or a non-matching pair.</p>
+<p>The similarity score we’ve been predominately analyzing so far is the number of Congruent Matching Cells (CMC). One of the major drawbacks of the CMC method is that it relies on a large number of parameters that individually require tuning to work well. This (1) requires a lot of time to tune these parameters and (2) makes the method highly sensitive to changes in the characteristics of scans. So far, CMC papers have focused on using a relatively small set of scans from Fadul et al. to “validate” a particular CMC method. Authors prove that their method “works” to classify matches and non-matches amongst this small set of scans without a broader discussion of the process by which they tuned the underlying parameters or the method’s sensitivity to, for example, new data.</p>
+<p>A few months ago we started using scans taken at CSAFE from a study conducted by Baldwin et al. Initial experiments with these scans proved that the CMC method behaved quite differently than it did on the Fadul scans. So far, we have 90 manually-processed scans from this study (with more on the way). The number of scans per barrel is summarized below.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Barrel</th>
+<th># of CCs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>D</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>E</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>F</td>
+<td>9</td>
+</tr>
+<tr class="odd">
+<td>G</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>H</td>
+<td>9</td>
+</tr>
+<tr class="odd">
+<td>J</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>K</td>
+<td>9</td>
+</tr>
+<tr class="odd">
+<td>R</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td>S</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>T</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td>U</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>V</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p>We’ve spent a good deal of energy trying to determine why this might be the case and how we might improve the method. To alleviate the problem of manually choosing a “good” set of parameters, as has seemingly been done in previous CMC papers, we introduce a validation scheme to “learn” parameters based on a train set and assess their effectiveness against a test set. To begin, we randomly select some number of barrels from the table above as the training set and set the rest aside for testing. A procedure to “learn” parameters from the training data is shared below. Note that it references the CMC method to calculate the similarity score, although we can use this with any similarity score method.</p>
+<ol style="list-style-type: decimal">
+<li><p>Calculate the CMC count over a grid of parameter values for all training comparisons.</p></li>
+<li><p>Choose the set of parameters that optimize some metric.</p></li>
+</ol>
+<ul>
+<li>We might choose to just optimize the classification error. An alternative metric is the variance ratio. In the case of CMC counts, <span class="math inline">\(C_{ij}\)</span> where <span class="math inline">\(i = 1,2\)</span> indexes matches vs. non-matches and <span class="math inline">\(j = 1,...,n_i\)</span> represents the number of matches/non-matches, the variance ratio is:
+<span class="math display">\[
+r = \frac{\sum_{i=1}^2 \left(\overline{C}_{i} - \overline{C}\right)^2}{\sum_{i=1}^2 \frac{1}{n_i - 1}\sum_{j=1}^{n_i} \left(C_{i,j} - \overline{C_i\right)^2}
+\]</span></li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Define a CMC count boundary to classify “matches” from “non-matches” using the CMC counts associated with the parameters selected in 2.</li>
+</ol>
+<ul>
+<li>For example, choose the halfway point between <span class="math inline">\(\bar{C}_{1 \cdot}\)</span> and <span class="math inline">\(\bar{C}_{2 \cdot}\)</span> as the decision boundary.</li>
+</ul>
+<p>We can wrap all of this into a <span class="math inline">\(k\)</span>-fold cross-validation scheme to obtain an estimate of the expected prediction error.</p>
+<p>Below is an example showing the CMC results from two different settings of the algorithm. We can see that they both result in an AUC of 1, yet the variance ratio statistic is larger for the CMC count distributions that are more spread-out. Hence, the variance ratio statistic makes sense as an optimization criterion for choosing the “best” parameters.</p>
+<p><img src="images/cartridge_cases/8-9-21_spotlight/varianceRatioExample.PNG" width="446" /></p>
+<p>The training set consists of all scans fired from 3 randomly-selected barrels. These barrels are T, F, and J meaning the training data consists of 24 scans. The remaining 66 scans make up the test set.</p>
+<p>Below is the training confusion matrix after applying the above parameter selection method. The selected CMC count cutoff was 3.5 CMCs (between 3 and 4 CMCs, that is).</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Predicted Match</th>
+<th>Predicted Non-Match</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Actual Match</strong></td>
+<td>48</td>
+<td>39</td>
+</tr>
+<tr class="even">
+<td><strong>Actual Non-Match</strong></td>
+<td>0</td>
+<td>189</td>
+</tr>
+</tbody>
+</table>
+<p>The test data confusion matrix using the learned parameters is shown below.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Predicted Match</th>
+<th>Predicted Non-Match</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Actual Match</strong></td>
+<td>94</td>
+<td>89</td>
+</tr>
+<tr class="even">
+<td><strong>Actual Non-Match</strong></td>
+<td>40</td>
+<td>1922</td>
+</tr>
+</tbody>
+</table>
+<p>Note that the false positive rate is low (which may be preferred in an “innocent until proven guilty” legal paradigm), yet the false negative rate is dismally high. This suggests that our pipeline isn’t capturing similar markings between two truly matching scans as we would like.</p>
+<p>I’ve spent much of this summer implementing an alternative method to the CMC method. We’re still working on a nice name, but we’ll refer to it for now as a “cell correlation” method. The method is as follows. For two cartridge case scans, call them the “reference” and “target” scans,</p>
+<ol style="list-style-type: decimal">
+<li><p>Translate and rotate the target scan to be aligned with the reference scan.</p></li>
+<li><p>Divide the scans into a grid of 8x8 cells.</p></li>
+<li><p>Calculate the correlation between each pair of cells.</p></li>
+<li><p>Flip the target scan and divide it again into a grid of 8x8 cells</p></li>
+<li><p>Calculate the correlation between each cell pair, now between the reference and the flipped target.</p></li>
+<li><p>Rank the correlation values and calculate the Wilcoxon Rank-Sum statistic.</p></li>
+<li><p>Use this as the similarity score to classify matches vs. non-matches.</p></li>
+</ol>
+<p>The major benefit of this method over the CMC method is that it requires significantly fewer parameters than the CMC method. Additionally, there are well-established tables and theoretical results (albeit under independence assumptions not necessarily met in this situation) related to the Wilcoxon Rank-Sum statistics allowing the calculation of either small sample or asymptotic p-values.</p>
+<p>We have some promising preliminary results such as the p-values shown below between a set of 7 scans (all of the orange p-values correspond to matches, the white/gray to non-matches), although there are a few obstacles in properly implementing this method at a larger scale.</p>
+<p><img src="images/cartridge_cases/8-9-21_spotlight/correlationCellPValues.png" width="350" /></p>
+<p>The major obstacle with properly implementing this method is step 1 above; aligning the two scans. We’ve come up with a few methods to align two scans including “automatic” alignment based on estimating translations and rotation and using an app that shows the overlay of two scans to align. However, to validate the automatic method takes manual inspection which, for the large number of scans that we hope to eventually analyze, isn’t going to be realistic. Additionally, there are some truly matching scans that are either extremely difficult or impossible to visually align such as the example below.</p>
+<p><img src="images/cartridge_cases/8-9-21_spotlight/inconclusiveMatchExample.png" width="350" /></p>
+<p>We’ve also run into some pathological results where the automatic method clearly doesn’t align two matching scans correctly, yet the resulting similarity scores are higher than when the scans are manually-aligned.</p>
+<p>I think there is still more that we can explore in terms of automatic alignment or, alternatively, calculating a similarity score across various rotations/translations of two scans. We also need to explore more of the parameter space for this cell correlation method.</p>
+</details>
+<details>
+<summary>
+Joe 9/13/21 Update: I’ve been working on organizing our various additions/alterations to the CMC method in a pipeline diagram.
+</summary>
+<p>I’ve been working on organizing our various additions/alterations to the CMC method in a pipeline diagram. Below is the most recent version of the pipeline.</p>
+<p><img src="images/cartridge_cases/9-13-21_uodate/pipelineDiagram_9-9-21.jpg" width="960" /></p>
+<p>This exercise has simultaneously illuminated some areas of the parameter space that could be explored a bit more carefully. Consequently, I have been running a number of “experiments” to explore these areas of the parameter space.</p>
+</details>
 </div>
 </div>
 <div id="modified-chumbley-non-random-test" class="section level3" number="4.3.3">
@@ -2540,44 +2703,44 @@ This section provides an introduction and a summary of the Congruent Matching Pr
 <p>The Congruent Matching Profile Segments (CMPS) method [Chen et al. 2019], in general, can be used for objective comparison of striated tool marks, but in our examples, we mainly use it for bullet profiles/signatures comparison. The CMPS number is expected to be large if two signatures are similar. So it can also be considered as a feature that measures the similarity of two bullets (yet another bullet feature).</p>
 <p>Right now, we are developing a R package that implements the CMPS method [Chen et al. 2019]. The following sections will provide with a summary of the CMPS algorithm and examples on how to use the package.</p>
 <p>The development version of the package can be installed from <a href="https://github.com/">GitHub</a> with:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="bullets.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
-<span id="cb45-2"><a href="bullets.html#cb45-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;willju-wangqian/CMPS&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="bullets.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
+<span id="cb31-2"><a href="bullets.html#cb31-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;willju-wangqian/CMPS&quot;</span>)</span></code></pre></div>
 <p>In this section we use a known match (KM) compasison to illustrate the main ideas of CMPS algorithm. The bullet data used here can be found in Chapter 3.5 of <a href="https://sctyner.github.io/OpenForSciR/bullets.html#case-study-1">Open Forensic Science in R</a>.</p>
 <p>We can also run the following chunk. In this example, we are taking the signature of the third land engraved area (LEA) of the second bullet as the reference signature and the second LEA of the first bullet as the comparison signature. This is a KM comparison.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="bullets.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CMPS)</span>
-<span id="cb46-2"><a href="bullets.html#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-3"><a href="bullets.html#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;bullets&quot;</span>)</span>
-<span id="cb46-4"><a href="bullets.html#cb46-4" aria-hidden="true" tabindex="-1"></a>land23 <span class="ot">&lt;-</span> bullets<span class="sc">$</span>sigs[bullets<span class="sc">$</span>bulletland <span class="sc">==</span> <span class="st">&quot;2-3&quot;</span>][[<span class="dv">1</span>]]</span>
-<span id="cb46-5"><a href="bullets.html#cb46-5" aria-hidden="true" tabindex="-1"></a>land12 <span class="ot">&lt;-</span> bullets<span class="sc">$</span>sigs[bullets<span class="sc">$</span>bulletland <span class="sc">==</span> <span class="st">&quot;1-2&quot;</span>][[<span class="dv">1</span>]]</span>
-<span id="cb46-6"><a href="bullets.html#cb46-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-7"><a href="bullets.html#cb46-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> land23<span class="sc">$</span>sig</span>
-<span id="cb46-8"><a href="bullets.html#cb46-8" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> land12<span class="sc">$</span>sig</span>
-<span id="cb46-9"><a href="bullets.html#cb46-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-10"><a href="bullets.html#cb46-10" aria-hidden="true" tabindex="-1"></a>cmps <span class="ot">&lt;-</span> <span class="fu">extract_feature_cmps</span>(x, y, <span class="at">full_result =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb46-11"><a href="bullets.html#cb46-11" aria-hidden="true" tabindex="-1"></a>cmps</span>
-<span id="cb46-12"><a href="bullets.html#cb46-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-13"><a href="bullets.html#cb46-13" aria-hidden="true" tabindex="-1"></a><span class="co"># $CMPS.score</span></span>
-<span id="cb46-14"><a href="bullets.html#cb46-14" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 14</span></span>
-<span id="cb46-15"><a href="bullets.html#cb46-15" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb46-16"><a href="bullets.html#cb46-16" aria-hidden="true" tabindex="-1"></a><span class="co"># $rec.position</span></span>
-<span id="cb46-17"><a href="bullets.html#cb46-17" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -5</span></span>
-<span id="cb46-18"><a href="bullets.html#cb46-18" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb46-19"><a href="bullets.html#cb46-19" aria-hidden="true" tabindex="-1"></a><span class="co"># $pos.df</span></span>
-<span id="cb46-20"><a href="bullets.html#cb46-20" aria-hidden="true" tabindex="-1"></a><span class="co">#   position cmps</span></span>
-<span id="cb46-21"><a href="bullets.html#cb46-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 1       -9   14</span></span>
-<span id="cb46-22"><a href="bullets.html#cb46-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 2       -8   14</span></span>
-<span id="cb46-23"><a href="bullets.html#cb46-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 3       -7   14</span></span>
-<span id="cb46-24"><a href="bullets.html#cb46-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 4       -6   14</span></span>
-<span id="cb46-25"><a href="bullets.html#cb46-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 5       -5   14</span></span>
-<span id="cb46-26"><a href="bullets.html#cb46-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 6       -4   14</span></span>
-<span id="cb46-27"><a href="bullets.html#cb46-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 7       -3   14</span></span>
-<span id="cb46-28"><a href="bullets.html#cb46-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 8       -2   14</span></span>
-<span id="cb46-29"><a href="bullets.html#cb46-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 9       -1   14</span></span>
-<span id="cb46-30"><a href="bullets.html#cb46-30" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb46-31"><a href="bullets.html#cb46-31" aria-hidden="true" tabindex="-1"></a><span class="co"># $nseg</span></span>
-<span id="cb46-32"><a href="bullets.html#cb46-32" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 22</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="bullets.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CMPS)</span>
+<span id="cb32-2"><a href="bullets.html#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="bullets.html#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;bullets&quot;</span>)</span>
+<span id="cb32-4"><a href="bullets.html#cb32-4" aria-hidden="true" tabindex="-1"></a>land23 <span class="ot">&lt;-</span> bullets<span class="sc">$</span>sigs[bullets<span class="sc">$</span>bulletland <span class="sc">==</span> <span class="st">&quot;2-3&quot;</span>][[<span class="dv">1</span>]]</span>
+<span id="cb32-5"><a href="bullets.html#cb32-5" aria-hidden="true" tabindex="-1"></a>land12 <span class="ot">&lt;-</span> bullets<span class="sc">$</span>sigs[bullets<span class="sc">$</span>bulletland <span class="sc">==</span> <span class="st">&quot;1-2&quot;</span>][[<span class="dv">1</span>]]</span>
+<span id="cb32-6"><a href="bullets.html#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="bullets.html#cb32-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> land23<span class="sc">$</span>sig</span>
+<span id="cb32-8"><a href="bullets.html#cb32-8" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> land12<span class="sc">$</span>sig</span>
+<span id="cb32-9"><a href="bullets.html#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-10"><a href="bullets.html#cb32-10" aria-hidden="true" tabindex="-1"></a>cmps <span class="ot">&lt;-</span> <span class="fu">extract_feature_cmps</span>(x, y, <span class="at">full_result =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb32-11"><a href="bullets.html#cb32-11" aria-hidden="true" tabindex="-1"></a>cmps</span>
+<span id="cb32-12"><a href="bullets.html#cb32-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-13"><a href="bullets.html#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="co"># $CMPS.score</span></span>
+<span id="cb32-14"><a href="bullets.html#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 14</span></span>
+<span id="cb32-15"><a href="bullets.html#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb32-16"><a href="bullets.html#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="co"># $rec.position</span></span>
+<span id="cb32-17"><a href="bullets.html#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -5</span></span>
+<span id="cb32-18"><a href="bullets.html#cb32-18" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb32-19"><a href="bullets.html#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="co"># $pos.df</span></span>
+<span id="cb32-20"><a href="bullets.html#cb32-20" aria-hidden="true" tabindex="-1"></a><span class="co">#   position cmps</span></span>
+<span id="cb32-21"><a href="bullets.html#cb32-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 1       -9   14</span></span>
+<span id="cb32-22"><a href="bullets.html#cb32-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 2       -8   14</span></span>
+<span id="cb32-23"><a href="bullets.html#cb32-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 3       -7   14</span></span>
+<span id="cb32-24"><a href="bullets.html#cb32-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 4       -6   14</span></span>
+<span id="cb32-25"><a href="bullets.html#cb32-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 5       -5   14</span></span>
+<span id="cb32-26"><a href="bullets.html#cb32-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 6       -4   14</span></span>
+<span id="cb32-27"><a href="bullets.html#cb32-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 7       -3   14</span></span>
+<span id="cb32-28"><a href="bullets.html#cb32-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 8       -2   14</span></span>
+<span id="cb32-29"><a href="bullets.html#cb32-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 9       -1   14</span></span>
+<span id="cb32-30"><a href="bullets.html#cb32-30" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb32-31"><a href="bullets.html#cb32-31" aria-hidden="true" tabindex="-1"></a><span class="co"># $nseg</span></span>
+<span id="cb32-32"><a href="bullets.html#cb32-32" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 22</span></span></code></pre></div>
 <p>And we have the plot of <code>x</code> and <code>y</code>.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-267"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-271"></span>
 <img src="images/cmps/step0.png" alt="A KM Comparison, x and y" width="80%" />
 <p class="caption">
 Figure 4.99: A KM Comparison, x and y
@@ -2586,7 +2749,7 @@ Figure 4.99: A KM Comparison, x and y
 <ol style="list-style-type: decimal">
 <li>we take the first signature as the reference signature (<code>x</code>) and cut it into consecutive and non-overlapping basis segments of the same length. In this case, we have 22 basis segments in total.</li>
 </ol>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-268"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-272"></span>
 <img src="images/cmps/step1_1.png" alt="Cut x into consecutive and non-overlapping basis segments of the same length. Only 4 basis segments are shown here" width="80%" />
 <p class="caption">
 Figure 4.100: Cut x into consecutive and non-overlapping basis segments of the same length. Only 4 basis segments are shown here
@@ -2595,13 +2758,13 @@ Figure 4.100: Cut x into consecutive and non-overlapping basis segments of the s
 <ol start="2" style="list-style-type: decimal">
 <li>for each basis segment, we compute the cross-correlation function (ccf) between the basis segment and the comparison signature (<code>y</code>)</li>
 </ol>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-269"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-273"></span>
 <img src="images/cmps/step2_1.png" alt="y and 7th basis segment" width="80%" />
 <p class="caption">
 Figure 4.101: y and 7th basis segment
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-270"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-274"></span>
 <img src="images/cmps/step2_2.png" alt="the cross-correlation function (ccf) between y and segment 7" width="80%" />
 <p class="caption">
 Figure 4.102: the cross-correlation function (ccf) between y and segment 7
@@ -2614,21 +2777,21 @@ Figure 4.102: the cross-correlation function (ccf) between y and segment 7
 <ol start="3" style="list-style-type: decimal">
 <li>If two signatures are similar (a KM comparison), most of the basis segments should agree with each other on the position of the best fit. Then these segments are called the “<strong>Congruent Matching Profile Segments</strong>.”</li>
 </ol>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-271"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-275"></span>
 <img src="images/cmps/step1_2.png" alt="compare y to the basis segments of x" width="80%" />
 <p class="caption">
 Figure 4.103: compare y to the basis segments of x
 </p>
 </div>
 <p>And ideally, if two signatures are identical, we are expecting the position of the highest peak in the ccf curve remains the same across all ccf curves (we only show 7 segments here);</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-272"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-276"></span>
 <img src="images/cmps/step3_1.png" alt="ideal case: compare x to itself. The highest peak has value 1 and is marked by the blue dot" width="80%" />
 <p class="caption">
 Figure 4.104: ideal case: compare x to itself. The highest peak has value 1 and is marked by the blue dot
 </p>
 </div>
 <p>But in the real case, the basis segments might not achieve a final agreement, but we have the majority;</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-273"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-277"></span>
 <img src="images/cmps/step3_2.png" alt="real case: compare x to y. The 5 highest peaks are marked by the blue dots" width="80%" />
 <p class="caption">
 Figure 4.105: real case: compare x to y. The 5 highest peaks are marked by the blue dots
@@ -2650,13 +2813,13 @@ Figure 4.105: real case: compare x to y. The 5 highest peaks are marked by the b
 <ul>
 <li>by increasing the segment length (scale), one can reduce the number of “false positive” peaks</li>
 </ul>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-274-1"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-278-1"></span>
 <img src="images/cmps/step5_1.png" alt="Multi Segment Lengths Strategy - increasing the segment length could decrease the number of false positive peaks in ccf curves" width="80%" />
 <p class="caption">
 Figure 4.106: Multi Segment Lengths Strategy - increasing the segment length could decrease the number of false positive peaks in ccf curves
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-274-2"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-278-2"></span>
 <img src="images/cmps/step5_2.png" alt="Multi Segment Lengths Strategy - increasing the segment length could decrease the number of false positive peaks in ccf curves" width="80%" />
 <p class="caption">
 Figure 4.107: Multi Segment Lengths Strategy - increasing the segment length could decrease the number of false positive peaks in ccf curves
@@ -2679,45 +2842,45 @@ Trying to identify a ccp for each basis segment is called a “multi segment len
 <ul>
 <li>when comparing x and y, a KM comparison, we have</li>
 </ul>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="bullets.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_feature_cmps</span>(x, y, <span class="at">seg_length =</span> <span class="dv">50</span>, <span class="at">seg_scale_max =</span> <span class="dv">3</span>, <span class="at">Tx =</span> <span class="dv">25</span>, </span>
-<span id="cb47-2"><a href="bullets.html#cb47-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">npeaks.set =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">1</span>), <span class="at">full_result =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb47-3"><a href="bullets.html#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-4"><a href="bullets.html#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co"># $CMPS.score</span></span>
-<span id="cb47-5"><a href="bullets.html#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 14</span></span>
-<span id="cb47-6"><a href="bullets.html#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb47-7"><a href="bullets.html#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="co"># $rec.position</span></span>
-<span id="cb47-8"><a href="bullets.html#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -5</span></span>
-<span id="cb47-9"><a href="bullets.html#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb47-10"><a href="bullets.html#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="co"># $pos.df</span></span>
-<span id="cb47-11"><a href="bullets.html#cb47-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   position cmps</span></span>
-<span id="cb47-12"><a href="bullets.html#cb47-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 1       -9   14</span></span>
-<span id="cb47-13"><a href="bullets.html#cb47-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 2       -8   14</span></span>
-<span id="cb47-14"><a href="bullets.html#cb47-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 3       -7   14</span></span>
-<span id="cb47-15"><a href="bullets.html#cb47-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 4       -6   14</span></span>
-<span id="cb47-16"><a href="bullets.html#cb47-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 5       -5   14</span></span>
-<span id="cb47-17"><a href="bullets.html#cb47-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 6       -4   14</span></span>
-<span id="cb47-18"><a href="bullets.html#cb47-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 7       -3   14</span></span>
-<span id="cb47-19"><a href="bullets.html#cb47-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 8       -2   14</span></span>
-<span id="cb47-20"><a href="bullets.html#cb47-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 9       -1   14</span></span>
-<span id="cb47-21"><a href="bullets.html#cb47-21" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb47-22"><a href="bullets.html#cb47-22" aria-hidden="true" tabindex="-1"></a><span class="co"># $nseg</span></span>
-<span id="cb47-23"><a href="bullets.html#cb47-23" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 22</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="bullets.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_feature_cmps</span>(x, y, <span class="at">seg_length =</span> <span class="dv">50</span>, <span class="at">seg_scale_max =</span> <span class="dv">3</span>, <span class="at">Tx =</span> <span class="dv">25</span>, </span>
+<span id="cb33-2"><a href="bullets.html#cb33-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">npeaks.set =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">1</span>), <span class="at">full_result =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb33-3"><a href="bullets.html#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="bullets.html#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># $CMPS.score</span></span>
+<span id="cb33-5"><a href="bullets.html#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 14</span></span>
+<span id="cb33-6"><a href="bullets.html#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb33-7"><a href="bullets.html#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co"># $rec.position</span></span>
+<span id="cb33-8"><a href="bullets.html#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] -5</span></span>
+<span id="cb33-9"><a href="bullets.html#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb33-10"><a href="bullets.html#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="co"># $pos.df</span></span>
+<span id="cb33-11"><a href="bullets.html#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   position cmps</span></span>
+<span id="cb33-12"><a href="bullets.html#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 1       -9   14</span></span>
+<span id="cb33-13"><a href="bullets.html#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 2       -8   14</span></span>
+<span id="cb33-14"><a href="bullets.html#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 3       -7   14</span></span>
+<span id="cb33-15"><a href="bullets.html#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 4       -6   14</span></span>
+<span id="cb33-16"><a href="bullets.html#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 5       -5   14</span></span>
+<span id="cb33-17"><a href="bullets.html#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 6       -4   14</span></span>
+<span id="cb33-18"><a href="bullets.html#cb33-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 7       -3   14</span></span>
+<span id="cb33-19"><a href="bullets.html#cb33-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 8       -2   14</span></span>
+<span id="cb33-20"><a href="bullets.html#cb33-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 9       -1   14</span></span>
+<span id="cb33-21"><a href="bullets.html#cb33-21" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb33-22"><a href="bullets.html#cb33-22" aria-hidden="true" tabindex="-1"></a><span class="co"># $nseg</span></span>
+<span id="cb33-23"><a href="bullets.html#cb33-23" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 22</span></span></code></pre></div>
 <ul>
 <li>if we have a KNM (known non-match) comparison, e.g. compare land 2-3 with land 1-3:</li>
 </ul>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="bullets.html#cb48-1" aria-hidden="true" tabindex="-1"></a>land23 <span class="ot">&lt;-</span> bullets<span class="sc">$</span>sigs[bullets<span class="sc">$</span>bulletland <span class="sc">==</span> <span class="st">&quot;2-3&quot;</span>][[<span class="dv">1</span>]]</span>
-<span id="cb48-2"><a href="bullets.html#cb48-2" aria-hidden="true" tabindex="-1"></a>land13 <span class="ot">&lt;-</span> bullets<span class="sc">$</span>sigs[bullets<span class="sc">$</span>bulletland <span class="sc">==</span> <span class="st">&quot;1-3&quot;</span>][[<span class="dv">1</span>]]</span>
-<span id="cb48-3"><a href="bullets.html#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-4"><a href="bullets.html#cb48-4" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">extract_feature_cmps</span>(land23<span class="sc">$</span>sig, land13<span class="sc">$</span>sig, <span class="at">seg_length =</span> <span class="dv">50</span>, <span class="at">seg_scale_max =</span> <span class="dv">3</span>, <span class="at">Tx =</span> <span class="dv">25</span>, </span>
-<span id="cb48-5"><a href="bullets.html#cb48-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">npeaks.set =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">1</span>), <span class="at">full_result =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb48-6"><a href="bullets.html#cb48-6" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>CMPS.score</span>
-<span id="cb48-7"><a href="bullets.html#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 1</span></span>
-<span id="cb48-8"><a href="bullets.html#cb48-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-9"><a href="bullets.html#cb48-9" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>rec.position</span>
-<span id="cb48-10"><a href="bullets.html#cb48-10" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 128</span></span>
-<span id="cb48-11"><a href="bullets.html#cb48-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-12"><a href="bullets.html#cb48-12" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>nseg</span>
-<span id="cb48-13"><a href="bullets.html#cb48-13" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 22</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="bullets.html#cb34-1" aria-hidden="true" tabindex="-1"></a>land23 <span class="ot">&lt;-</span> bullets<span class="sc">$</span>sigs[bullets<span class="sc">$</span>bulletland <span class="sc">==</span> <span class="st">&quot;2-3&quot;</span>][[<span class="dv">1</span>]]</span>
+<span id="cb34-2"><a href="bullets.html#cb34-2" aria-hidden="true" tabindex="-1"></a>land13 <span class="ot">&lt;-</span> bullets<span class="sc">$</span>sigs[bullets<span class="sc">$</span>bulletland <span class="sc">==</span> <span class="st">&quot;1-3&quot;</span>][[<span class="dv">1</span>]]</span>
+<span id="cb34-3"><a href="bullets.html#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="bullets.html#cb34-4" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">extract_feature_cmps</span>(land23<span class="sc">$</span>sig, land13<span class="sc">$</span>sig, <span class="at">seg_length =</span> <span class="dv">50</span>, <span class="at">seg_scale_max =</span> <span class="dv">3</span>, <span class="at">Tx =</span> <span class="dv">25</span>, </span>
+<span id="cb34-5"><a href="bullets.html#cb34-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">npeaks.set =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">1</span>), <span class="at">full_result =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb34-6"><a href="bullets.html#cb34-6" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>CMPS.score</span>
+<span id="cb34-7"><a href="bullets.html#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 1</span></span>
+<span id="cb34-8"><a href="bullets.html#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="bullets.html#cb34-9" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>rec.position</span>
+<span id="cb34-10"><a href="bullets.html#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 128</span></span>
+<span id="cb34-11"><a href="bullets.html#cb34-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-12"><a href="bullets.html#cb34-12" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>nseg</span>
+<span id="cb34-13"><a href="bullets.html#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 22</span></span></code></pre></div>
 </details>
 </div>
 <div id="full-comparison-between-two-bullets" class="section level4" number="4.3.4.2">
@@ -2727,82 +2890,82 @@ Trying to identify a ccp for each basis segment is called a “multi segment len
 This section provides an example on how to use the CMPS method to make a comparison between two bullets.
 </summary>
 <p><code>extract_feature_cmps()</code> can also be used in a pipeline fashion</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="bullets.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb49-2"><a href="bullets.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bulletxtrctr)</span>
-<span id="cb49-3"><a href="bullets.html#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-4"><a href="bullets.html#cb49-4" aria-hidden="true" tabindex="-1"></a>lands <span class="ot">&lt;-</span> <span class="fu">unique</span>(bullets<span class="sc">$</span>bulletland)</span>
-<span id="cb49-5"><a href="bullets.html#cb49-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-6"><a href="bullets.html#cb49-6" aria-hidden="true" tabindex="-1"></a>comparisons <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">expand.grid</span>(<span class="at">land1 =</span> lands[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>], <span class="at">land2 =</span> lands[<span class="dv">7</span><span class="sc">:</span><span class="dv">12</span>]), </span>
-<span id="cb49-7"><a href="bullets.html#cb49-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb49-8"><a href="bullets.html#cb49-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-9"><a href="bullets.html#cb49-9" aria-hidden="true" tabindex="-1"></a>comparisons <span class="ot">&lt;-</span> comparisons <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
-<span id="cb49-10"><a href="bullets.html#cb49-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">aligned =</span> purrr<span class="sc">::</span><span class="fu">map2</span>(<span class="at">.x =</span> land1, <span class="at">.y =</span> land2, </span>
-<span id="cb49-11"><a href="bullets.html#cb49-11" aria-hidden="true" tabindex="-1"></a>                        <span class="at">.f =</span> <span class="cf">function</span>(xx, yy) {</span>
-<span id="cb49-12"><a href="bullets.html#cb49-12" aria-hidden="true" tabindex="-1"></a>                          land1 <span class="ot">&lt;-</span> bullets<span class="sc">$</span>sigs[bullets<span class="sc">$</span>bulletland <span class="sc">==</span> xx][[<span class="dv">1</span>]]</span>
-<span id="cb49-13"><a href="bullets.html#cb49-13" aria-hidden="true" tabindex="-1"></a>                          land2 <span class="ot">&lt;-</span> bullets<span class="sc">$</span>sigs[bullets<span class="sc">$</span>bulletland <span class="sc">==</span> yy][[<span class="dv">1</span>]]</span>
-<span id="cb49-14"><a href="bullets.html#cb49-14" aria-hidden="true" tabindex="-1"></a>                          land1<span class="sc">$</span>bullet <span class="ot">&lt;-</span> <span class="st">&quot;first-land&quot;</span></span>
-<span id="cb49-15"><a href="bullets.html#cb49-15" aria-hidden="true" tabindex="-1"></a>                          land2<span class="sc">$</span>bullet <span class="ot">&lt;-</span> <span class="st">&quot;second-land&quot;</span></span>
-<span id="cb49-16"><a href="bullets.html#cb49-16" aria-hidden="true" tabindex="-1"></a>                          </span>
-<span id="cb49-17"><a href="bullets.html#cb49-17" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">sig_align</span>(land1<span class="sc">$</span>sig, land2<span class="sc">$</span>sig)</span>
-<span id="cb49-18"><a href="bullets.html#cb49-18" aria-hidden="true" tabindex="-1"></a>                        }))</span>
-<span id="cb49-19"><a href="bullets.html#cb49-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-20"><a href="bullets.html#cb49-20" aria-hidden="true" tabindex="-1"></a>comparisons <span class="ot">&lt;-</span> comparisons <span class="sc">%&gt;%</span> </span>
-<span id="cb49-21"><a href="bullets.html#cb49-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cmps =</span> aligned <span class="sc">%&gt;%</span> purrr<span class="sc">::</span><span class="fu">map</span>(<span class="at">.f =</span> <span class="cf">function</span>(a) {</span>
-<span id="cb49-22"><a href="bullets.html#cb49-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">extract_feature_cmps</span>(a<span class="sc">$</span>lands<span class="sc">$</span>sig1, a<span class="sc">$</span>lands<span class="sc">$</span>sig2, <span class="at">full_result =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb49-23"><a href="bullets.html#cb49-23" aria-hidden="true" tabindex="-1"></a>  }))</span>
-<span id="cb49-24"><a href="bullets.html#cb49-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-25"><a href="bullets.html#cb49-25" aria-hidden="true" tabindex="-1"></a><span class="co"># comparisons.cmps &lt;- comparisons.cmps %&gt;% </span></span>
-<span id="cb49-26"><a href="bullets.html#cb49-26" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(cmps = aligned %&gt;% purrr::map_dbl(.f = function(a) {</span></span>
-<span id="cb49-27"><a href="bullets.html#cb49-27" aria-hidden="true" tabindex="-1"></a><span class="co">#     extract_feature_cmps(a$lands$sig1, a$lands$sig2, full_result = FALSE)</span></span>
-<span id="cb49-28"><a href="bullets.html#cb49-28" aria-hidden="true" tabindex="-1"></a><span class="co">#   }))</span></span>
-<span id="cb49-29"><a href="bullets.html#cb49-29" aria-hidden="true" tabindex="-1"></a><span class="co"># comparisons.cmps %&gt;% select(land1, land2, cmps) </span></span>
-<span id="cb49-30"><a href="bullets.html#cb49-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-31"><a href="bullets.html#cb49-31" aria-hidden="true" tabindex="-1"></a>comparisons <span class="ot">&lt;-</span> comparisons <span class="sc">%&gt;%</span> </span>
-<span id="cb49-32"><a href="bullets.html#cb49-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb49-33"><a href="bullets.html#cb49-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">cmps_score =</span> <span class="fu">sapply</span>(comparisons<span class="sc">$</span>cmps, <span class="cf">function</span>(x) x<span class="sc">$</span>CMPS.score),</span>
-<span id="cb49-34"><a href="bullets.html#cb49-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">cmps_nseg =</span> <span class="fu">sapply</span>(comparisons<span class="sc">$</span>cmps, <span class="cf">function</span>(x) x<span class="sc">$</span>nseg)</span>
-<span id="cb49-35"><a href="bullets.html#cb49-35" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb49-36"><a href="bullets.html#cb49-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-37"><a href="bullets.html#cb49-37" aria-hidden="true" tabindex="-1"></a>cp1 <span class="ot">&lt;-</span> comparisons <span class="sc">%&gt;%</span> <span class="fu">select</span>(land1, land2, cmps_score, cmps_nseg)</span>
-<span id="cb49-38"><a href="bullets.html#cb49-38" aria-hidden="true" tabindex="-1"></a>cp1</span>
-<span id="cb49-39"><a href="bullets.html#cb49-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-40"><a href="bullets.html#cb49-40" aria-hidden="true" tabindex="-1"></a><span class="co">#    land1 land2 cmps_score cmps_nseg</span></span>
-<span id="cb49-41"><a href="bullets.html#cb49-41" aria-hidden="true" tabindex="-1"></a><span class="co"># 1    1-1   2-1          2        23</span></span>
-<span id="cb49-42"><a href="bullets.html#cb49-42" aria-hidden="true" tabindex="-1"></a><span class="co"># 2    1-2   2-1          2        22</span></span>
-<span id="cb49-43"><a href="bullets.html#cb49-43" aria-hidden="true" tabindex="-1"></a><span class="co"># 3    1-3   2-1          1        21</span></span>
-<span id="cb49-44"><a href="bullets.html#cb49-44" aria-hidden="true" tabindex="-1"></a><span class="co"># 4    1-4   2-1          2        22</span></span>
-<span id="cb49-45"><a href="bullets.html#cb49-45" aria-hidden="true" tabindex="-1"></a><span class="co"># 5    1-5   2-1          1        23</span></span>
-<span id="cb49-46"><a href="bullets.html#cb49-46" aria-hidden="true" tabindex="-1"></a><span class="co"># 6    1-6   2-1         14        22</span></span>
-<span id="cb49-47"><a href="bullets.html#cb49-47" aria-hidden="true" tabindex="-1"></a><span class="co"># 7    1-1   2-2          5        23</span></span>
-<span id="cb49-48"><a href="bullets.html#cb49-48" aria-hidden="true" tabindex="-1"></a><span class="co"># 8    1-2   2-2          2        22</span></span>
-<span id="cb49-49"><a href="bullets.html#cb49-49" aria-hidden="true" tabindex="-1"></a><span class="co"># 9    1-3   2-2          1        21</span></span>
-<span id="cb49-50"><a href="bullets.html#cb49-50" aria-hidden="true" tabindex="-1"></a><span class="co"># 10   1-4   2-2          1        22</span></span>
-<span id="cb49-51"><a href="bullets.html#cb49-51" aria-hidden="true" tabindex="-1"></a><span class="co"># 11   1-5   2-2          2        23</span></span>
-<span id="cb49-52"><a href="bullets.html#cb49-52" aria-hidden="true" tabindex="-1"></a><span class="co"># 12   1-6   2-2          2        22</span></span>
-<span id="cb49-53"><a href="bullets.html#cb49-53" aria-hidden="true" tabindex="-1"></a><span class="co"># 13   1-1   2-3          3        23</span></span>
-<span id="cb49-54"><a href="bullets.html#cb49-54" aria-hidden="true" tabindex="-1"></a><span class="co"># 14   1-2   2-3         13        22</span></span>
-<span id="cb49-55"><a href="bullets.html#cb49-55" aria-hidden="true" tabindex="-1"></a><span class="co"># 15   1-3   2-3          2        21</span></span>
-<span id="cb49-56"><a href="bullets.html#cb49-56" aria-hidden="true" tabindex="-1"></a><span class="co"># 16   1-4   2-3          1        22</span></span>
-<span id="cb49-57"><a href="bullets.html#cb49-57" aria-hidden="true" tabindex="-1"></a><span class="co"># 17   1-5   2-3          1        23</span></span>
-<span id="cb49-58"><a href="bullets.html#cb49-58" aria-hidden="true" tabindex="-1"></a><span class="co"># 18   1-6   2-3          2        22</span></span>
-<span id="cb49-59"><a href="bullets.html#cb49-59" aria-hidden="true" tabindex="-1"></a><span class="co"># 19   1-1   2-4          4        23</span></span>
-<span id="cb49-60"><a href="bullets.html#cb49-60" aria-hidden="true" tabindex="-1"></a><span class="co"># 20   1-2   2-4          1        22</span></span>
-<span id="cb49-61"><a href="bullets.html#cb49-61" aria-hidden="true" tabindex="-1"></a><span class="co"># 21   1-3   2-4         11        21</span></span>
-<span id="cb49-62"><a href="bullets.html#cb49-62" aria-hidden="true" tabindex="-1"></a><span class="co"># 22   1-4   2-4          1        22</span></span>
-<span id="cb49-63"><a href="bullets.html#cb49-63" aria-hidden="true" tabindex="-1"></a><span class="co"># 23   1-5   2-4          2        23</span></span>
-<span id="cb49-64"><a href="bullets.html#cb49-64" aria-hidden="true" tabindex="-1"></a><span class="co"># 24   1-6   2-4          2        22</span></span>
-<span id="cb49-65"><a href="bullets.html#cb49-65" aria-hidden="true" tabindex="-1"></a><span class="co"># 25   1-1   2-5          3        23</span></span>
-<span id="cb49-66"><a href="bullets.html#cb49-66" aria-hidden="true" tabindex="-1"></a><span class="co"># 26   1-2   2-5          1        22</span></span>
-<span id="cb49-67"><a href="bullets.html#cb49-67" aria-hidden="true" tabindex="-1"></a><span class="co"># 27   1-3   2-5          2        21</span></span>
-<span id="cb49-68"><a href="bullets.html#cb49-68" aria-hidden="true" tabindex="-1"></a><span class="co"># 28   1-4   2-5         10        22</span></span>
-<span id="cb49-69"><a href="bullets.html#cb49-69" aria-hidden="true" tabindex="-1"></a><span class="co"># 29   1-5   2-5          2        23</span></span>
-<span id="cb49-70"><a href="bullets.html#cb49-70" aria-hidden="true" tabindex="-1"></a><span class="co"># 30   1-6   2-5          1        22</span></span>
-<span id="cb49-71"><a href="bullets.html#cb49-71" aria-hidden="true" tabindex="-1"></a><span class="co"># 31   1-1   2-6          2        23</span></span>
-<span id="cb49-72"><a href="bullets.html#cb49-72" aria-hidden="true" tabindex="-1"></a><span class="co"># 32   1-2   2-6          1        22</span></span>
-<span id="cb49-73"><a href="bullets.html#cb49-73" aria-hidden="true" tabindex="-1"></a><span class="co"># 33   1-3   2-6          2        21</span></span>
-<span id="cb49-74"><a href="bullets.html#cb49-74" aria-hidden="true" tabindex="-1"></a><span class="co"># 34   1-4   2-6          1        22</span></span>
-<span id="cb49-75"><a href="bullets.html#cb49-75" aria-hidden="true" tabindex="-1"></a><span class="co"># 35   1-5   2-6         15        23</span></span>
-<span id="cb49-76"><a href="bullets.html#cb49-76" aria-hidden="true" tabindex="-1"></a><span class="co"># 36   1-6   2-6          1        22</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="bullets.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb35-2"><a href="bullets.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bulletxtrctr)</span>
+<span id="cb35-3"><a href="bullets.html#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="bullets.html#cb35-4" aria-hidden="true" tabindex="-1"></a>lands <span class="ot">&lt;-</span> <span class="fu">unique</span>(bullets<span class="sc">$</span>bulletland)</span>
+<span id="cb35-5"><a href="bullets.html#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="bullets.html#cb35-6" aria-hidden="true" tabindex="-1"></a>comparisons <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">expand.grid</span>(<span class="at">land1 =</span> lands[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>], <span class="at">land2 =</span> lands[<span class="dv">7</span><span class="sc">:</span><span class="dv">12</span>]), </span>
+<span id="cb35-7"><a href="bullets.html#cb35-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb35-8"><a href="bullets.html#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="bullets.html#cb35-9" aria-hidden="true" tabindex="-1"></a>comparisons <span class="ot">&lt;-</span> comparisons <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb35-10"><a href="bullets.html#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">aligned =</span> purrr<span class="sc">::</span><span class="fu">map2</span>(<span class="at">.x =</span> land1, <span class="at">.y =</span> land2, </span>
+<span id="cb35-11"><a href="bullets.html#cb35-11" aria-hidden="true" tabindex="-1"></a>                        <span class="at">.f =</span> <span class="cf">function</span>(xx, yy) {</span>
+<span id="cb35-12"><a href="bullets.html#cb35-12" aria-hidden="true" tabindex="-1"></a>                          land1 <span class="ot">&lt;-</span> bullets<span class="sc">$</span>sigs[bullets<span class="sc">$</span>bulletland <span class="sc">==</span> xx][[<span class="dv">1</span>]]</span>
+<span id="cb35-13"><a href="bullets.html#cb35-13" aria-hidden="true" tabindex="-1"></a>                          land2 <span class="ot">&lt;-</span> bullets<span class="sc">$</span>sigs[bullets<span class="sc">$</span>bulletland <span class="sc">==</span> yy][[<span class="dv">1</span>]]</span>
+<span id="cb35-14"><a href="bullets.html#cb35-14" aria-hidden="true" tabindex="-1"></a>                          land1<span class="sc">$</span>bullet <span class="ot">&lt;-</span> <span class="st">&quot;first-land&quot;</span></span>
+<span id="cb35-15"><a href="bullets.html#cb35-15" aria-hidden="true" tabindex="-1"></a>                          land2<span class="sc">$</span>bullet <span class="ot">&lt;-</span> <span class="st">&quot;second-land&quot;</span></span>
+<span id="cb35-16"><a href="bullets.html#cb35-16" aria-hidden="true" tabindex="-1"></a>                          </span>
+<span id="cb35-17"><a href="bullets.html#cb35-17" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">sig_align</span>(land1<span class="sc">$</span>sig, land2<span class="sc">$</span>sig)</span>
+<span id="cb35-18"><a href="bullets.html#cb35-18" aria-hidden="true" tabindex="-1"></a>                        }))</span>
+<span id="cb35-19"><a href="bullets.html#cb35-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-20"><a href="bullets.html#cb35-20" aria-hidden="true" tabindex="-1"></a>comparisons <span class="ot">&lt;-</span> comparisons <span class="sc">%&gt;%</span> </span>
+<span id="cb35-21"><a href="bullets.html#cb35-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cmps =</span> aligned <span class="sc">%&gt;%</span> purrr<span class="sc">::</span><span class="fu">map</span>(<span class="at">.f =</span> <span class="cf">function</span>(a) {</span>
+<span id="cb35-22"><a href="bullets.html#cb35-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">extract_feature_cmps</span>(a<span class="sc">$</span>lands<span class="sc">$</span>sig1, a<span class="sc">$</span>lands<span class="sc">$</span>sig2, <span class="at">full_result =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb35-23"><a href="bullets.html#cb35-23" aria-hidden="true" tabindex="-1"></a>  }))</span>
+<span id="cb35-24"><a href="bullets.html#cb35-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-25"><a href="bullets.html#cb35-25" aria-hidden="true" tabindex="-1"></a><span class="co"># comparisons.cmps &lt;- comparisons.cmps %&gt;% </span></span>
+<span id="cb35-26"><a href="bullets.html#cb35-26" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(cmps = aligned %&gt;% purrr::map_dbl(.f = function(a) {</span></span>
+<span id="cb35-27"><a href="bullets.html#cb35-27" aria-hidden="true" tabindex="-1"></a><span class="co">#     extract_feature_cmps(a$lands$sig1, a$lands$sig2, full_result = FALSE)</span></span>
+<span id="cb35-28"><a href="bullets.html#cb35-28" aria-hidden="true" tabindex="-1"></a><span class="co">#   }))</span></span>
+<span id="cb35-29"><a href="bullets.html#cb35-29" aria-hidden="true" tabindex="-1"></a><span class="co"># comparisons.cmps %&gt;% select(land1, land2, cmps) </span></span>
+<span id="cb35-30"><a href="bullets.html#cb35-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-31"><a href="bullets.html#cb35-31" aria-hidden="true" tabindex="-1"></a>comparisons <span class="ot">&lt;-</span> comparisons <span class="sc">%&gt;%</span> </span>
+<span id="cb35-32"><a href="bullets.html#cb35-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb35-33"><a href="bullets.html#cb35-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">cmps_score =</span> <span class="fu">sapply</span>(comparisons<span class="sc">$</span>cmps, <span class="cf">function</span>(x) x<span class="sc">$</span>CMPS.score),</span>
+<span id="cb35-34"><a href="bullets.html#cb35-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">cmps_nseg =</span> <span class="fu">sapply</span>(comparisons<span class="sc">$</span>cmps, <span class="cf">function</span>(x) x<span class="sc">$</span>nseg)</span>
+<span id="cb35-35"><a href="bullets.html#cb35-35" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb35-36"><a href="bullets.html#cb35-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-37"><a href="bullets.html#cb35-37" aria-hidden="true" tabindex="-1"></a>cp1 <span class="ot">&lt;-</span> comparisons <span class="sc">%&gt;%</span> <span class="fu">select</span>(land1, land2, cmps_score, cmps_nseg)</span>
+<span id="cb35-38"><a href="bullets.html#cb35-38" aria-hidden="true" tabindex="-1"></a>cp1</span>
+<span id="cb35-39"><a href="bullets.html#cb35-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-40"><a href="bullets.html#cb35-40" aria-hidden="true" tabindex="-1"></a><span class="co">#    land1 land2 cmps_score cmps_nseg</span></span>
+<span id="cb35-41"><a href="bullets.html#cb35-41" aria-hidden="true" tabindex="-1"></a><span class="co"># 1    1-1   2-1          2        23</span></span>
+<span id="cb35-42"><a href="bullets.html#cb35-42" aria-hidden="true" tabindex="-1"></a><span class="co"># 2    1-2   2-1          2        22</span></span>
+<span id="cb35-43"><a href="bullets.html#cb35-43" aria-hidden="true" tabindex="-1"></a><span class="co"># 3    1-3   2-1          1        21</span></span>
+<span id="cb35-44"><a href="bullets.html#cb35-44" aria-hidden="true" tabindex="-1"></a><span class="co"># 4    1-4   2-1          2        22</span></span>
+<span id="cb35-45"><a href="bullets.html#cb35-45" aria-hidden="true" tabindex="-1"></a><span class="co"># 5    1-5   2-1          1        23</span></span>
+<span id="cb35-46"><a href="bullets.html#cb35-46" aria-hidden="true" tabindex="-1"></a><span class="co"># 6    1-6   2-1         14        22</span></span>
+<span id="cb35-47"><a href="bullets.html#cb35-47" aria-hidden="true" tabindex="-1"></a><span class="co"># 7    1-1   2-2          5        23</span></span>
+<span id="cb35-48"><a href="bullets.html#cb35-48" aria-hidden="true" tabindex="-1"></a><span class="co"># 8    1-2   2-2          2        22</span></span>
+<span id="cb35-49"><a href="bullets.html#cb35-49" aria-hidden="true" tabindex="-1"></a><span class="co"># 9    1-3   2-2          1        21</span></span>
+<span id="cb35-50"><a href="bullets.html#cb35-50" aria-hidden="true" tabindex="-1"></a><span class="co"># 10   1-4   2-2          1        22</span></span>
+<span id="cb35-51"><a href="bullets.html#cb35-51" aria-hidden="true" tabindex="-1"></a><span class="co"># 11   1-5   2-2          2        23</span></span>
+<span id="cb35-52"><a href="bullets.html#cb35-52" aria-hidden="true" tabindex="-1"></a><span class="co"># 12   1-6   2-2          2        22</span></span>
+<span id="cb35-53"><a href="bullets.html#cb35-53" aria-hidden="true" tabindex="-1"></a><span class="co"># 13   1-1   2-3          3        23</span></span>
+<span id="cb35-54"><a href="bullets.html#cb35-54" aria-hidden="true" tabindex="-1"></a><span class="co"># 14   1-2   2-3         13        22</span></span>
+<span id="cb35-55"><a href="bullets.html#cb35-55" aria-hidden="true" tabindex="-1"></a><span class="co"># 15   1-3   2-3          2        21</span></span>
+<span id="cb35-56"><a href="bullets.html#cb35-56" aria-hidden="true" tabindex="-1"></a><span class="co"># 16   1-4   2-3          1        22</span></span>
+<span id="cb35-57"><a href="bullets.html#cb35-57" aria-hidden="true" tabindex="-1"></a><span class="co"># 17   1-5   2-3          1        23</span></span>
+<span id="cb35-58"><a href="bullets.html#cb35-58" aria-hidden="true" tabindex="-1"></a><span class="co"># 18   1-6   2-3          2        22</span></span>
+<span id="cb35-59"><a href="bullets.html#cb35-59" aria-hidden="true" tabindex="-1"></a><span class="co"># 19   1-1   2-4          4        23</span></span>
+<span id="cb35-60"><a href="bullets.html#cb35-60" aria-hidden="true" tabindex="-1"></a><span class="co"># 20   1-2   2-4          1        22</span></span>
+<span id="cb35-61"><a href="bullets.html#cb35-61" aria-hidden="true" tabindex="-1"></a><span class="co"># 21   1-3   2-4         11        21</span></span>
+<span id="cb35-62"><a href="bullets.html#cb35-62" aria-hidden="true" tabindex="-1"></a><span class="co"># 22   1-4   2-4          1        22</span></span>
+<span id="cb35-63"><a href="bullets.html#cb35-63" aria-hidden="true" tabindex="-1"></a><span class="co"># 23   1-5   2-4          2        23</span></span>
+<span id="cb35-64"><a href="bullets.html#cb35-64" aria-hidden="true" tabindex="-1"></a><span class="co"># 24   1-6   2-4          2        22</span></span>
+<span id="cb35-65"><a href="bullets.html#cb35-65" aria-hidden="true" tabindex="-1"></a><span class="co"># 25   1-1   2-5          3        23</span></span>
+<span id="cb35-66"><a href="bullets.html#cb35-66" aria-hidden="true" tabindex="-1"></a><span class="co"># 26   1-2   2-5          1        22</span></span>
+<span id="cb35-67"><a href="bullets.html#cb35-67" aria-hidden="true" tabindex="-1"></a><span class="co"># 27   1-3   2-5          2        21</span></span>
+<span id="cb35-68"><a href="bullets.html#cb35-68" aria-hidden="true" tabindex="-1"></a><span class="co"># 28   1-4   2-5         10        22</span></span>
+<span id="cb35-69"><a href="bullets.html#cb35-69" aria-hidden="true" tabindex="-1"></a><span class="co"># 29   1-5   2-5          2        23</span></span>
+<span id="cb35-70"><a href="bullets.html#cb35-70" aria-hidden="true" tabindex="-1"></a><span class="co"># 30   1-6   2-5          1        22</span></span>
+<span id="cb35-71"><a href="bullets.html#cb35-71" aria-hidden="true" tabindex="-1"></a><span class="co"># 31   1-1   2-6          2        23</span></span>
+<span id="cb35-72"><a href="bullets.html#cb35-72" aria-hidden="true" tabindex="-1"></a><span class="co"># 32   1-2   2-6          1        22</span></span>
+<span id="cb35-73"><a href="bullets.html#cb35-73" aria-hidden="true" tabindex="-1"></a><span class="co"># 33   1-3   2-6          2        21</span></span>
+<span id="cb35-74"><a href="bullets.html#cb35-74" aria-hidden="true" tabindex="-1"></a><span class="co"># 34   1-4   2-6          1        22</span></span>
+<span id="cb35-75"><a href="bullets.html#cb35-75" aria-hidden="true" tabindex="-1"></a><span class="co"># 35   1-5   2-6         15        23</span></span>
+<span id="cb35-76"><a href="bullets.html#cb35-76" aria-hidden="true" tabindex="-1"></a><span class="co"># 36   1-6   2-6          1        22</span></span></code></pre></div>
 </details>
 </div>
 <div id="apply-cmps-to-hamby252-and-hamby44" class="section level4" number="4.3.4.3">
@@ -2845,7 +3008,7 @@ Will 09/19 Update: We applied the CMPS method to Hamby252 (the dataset used in t
 <p>If something unusual happened to the <code>crosscut</code>, <code>ccdata</code>, and <code>grooves</code> (all these are important in order to extract reliable bullet signatures), users might want to step in, take a look, and try different values to get a better bullet signature. This shiny app provides a way.</p>
 <p>Users need to have a tibble object in their current environment called <code>shiny.tt</code>, which contains <code>x3p</code>, <code>crosscut</code>, <code>ccdata</code>, and <code>grooves</code>.</p>
 <p>Use the following code to launch the shiny app.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="bullets.html#cb50-1" aria-hidden="true" tabindex="-1"></a>bulletxtrctr<span class="sc">::</span><span class="fu">runExample</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="bullets.html#cb36-1" aria-hidden="true" tabindex="-1"></a>bulletxtrctr<span class="sc">::</span><span class="fu">runExample</span>()</span></code></pre></div>
 </details>
 <details>
 <summary>
@@ -2896,37 +3059,37 @@ We can see that the separation of the distribution of <span class="math inline">
 <p>Will 02/01 Update: In the past week, I mainly focused on the writing of the CMPS package paper. So in this update, I will talk about the graphing tools we recently included in the CMPS package. We made two functions, <code>cmps_signature_plot</code> and <code>cmps_segment_plot</code>, that take a “CMPS result” generated by the main function <code>extract_feature_cmps</code> and output plots that can help users visualize and better understand the CMPS results.</p>
 </summary>
 <p>The example below shows how to use these two graphing functions. Note that in order to generate informative plots, <code>cmps_signature_plot</code> and <code>cmps_segment_plot</code> need more information beyond the <code>CMPS.score</code>, so we need to have <code>extract_feature_cmps(..., include = "full_result")</code></p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="bullets.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CMPS)</span>
-<span id="cb51-2"><a href="bullets.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(bullets)</span>
-<span id="cb51-3"><a href="bullets.html#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-4"><a href="bullets.html#cb51-4" aria-hidden="true" tabindex="-1"></a>land2_3 <span class="ot">&lt;-</span> bullets<span class="sc">$</span>sigs[bullets<span class="sc">$</span>bulletland <span class="sc">==</span> <span class="st">&quot;2-5&quot;</span>][[<span class="dv">1</span>]]</span>
-<span id="cb51-5"><a href="bullets.html#cb51-5" aria-hidden="true" tabindex="-1"></a>land1_2 <span class="ot">&lt;-</span> bullets<span class="sc">$</span>sigs[bullets<span class="sc">$</span>bulletland <span class="sc">==</span> <span class="st">&quot;1-4&quot;</span>][[<span class="dv">1</span>]]</span>
-<span id="cb51-6"><a href="bullets.html#cb51-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-7"><a href="bullets.html#cb51-7" aria-hidden="true" tabindex="-1"></a>cmps.result <span class="ot">&lt;-</span> <span class="fu">extract_feature_cmps</span>(land2_3<span class="sc">$</span>sig,</span>
-<span id="cb51-8"><a href="bullets.html#cb51-8" aria-hidden="true" tabindex="-1"></a>                                    land1_2<span class="sc">$</span>sig,</span>
-<span id="cb51-9"><a href="bullets.html#cb51-9" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">npeaks.set =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">1</span>),</span>
-<span id="cb51-10"><a href="bullets.html#cb51-10" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">include =</span> <span class="st">&quot;full_result&quot;</span>)</span>
-<span id="cb51-11"><a href="bullets.html#cb51-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-12"><a href="bullets.html#cb51-12" aria-hidden="true" tabindex="-1"></a>sig.plot <span class="ot">&lt;-</span> <span class="fu">cmps_signature_plot</span>(cmps.result)</span>
-<span id="cb51-13"><a href="bullets.html#cb51-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-14"><a href="bullets.html#cb51-14" aria-hidden="true" tabindex="-1"></a>seg.plot <span class="ot">&lt;-</span> <span class="fu">cmps_segment_plot</span>(cmps.result, <span class="at">seg.idx =</span> <span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="bullets.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CMPS)</span>
+<span id="cb37-2"><a href="bullets.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(bullets)</span>
+<span id="cb37-3"><a href="bullets.html#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="bullets.html#cb37-4" aria-hidden="true" tabindex="-1"></a>land2_3 <span class="ot">&lt;-</span> bullets<span class="sc">$</span>sigs[bullets<span class="sc">$</span>bulletland <span class="sc">==</span> <span class="st">&quot;2-5&quot;</span>][[<span class="dv">1</span>]]</span>
+<span id="cb37-5"><a href="bullets.html#cb37-5" aria-hidden="true" tabindex="-1"></a>land1_2 <span class="ot">&lt;-</span> bullets<span class="sc">$</span>sigs[bullets<span class="sc">$</span>bulletland <span class="sc">==</span> <span class="st">&quot;1-4&quot;</span>][[<span class="dv">1</span>]]</span>
+<span id="cb37-6"><a href="bullets.html#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-7"><a href="bullets.html#cb37-7" aria-hidden="true" tabindex="-1"></a>cmps.result <span class="ot">&lt;-</span> <span class="fu">extract_feature_cmps</span>(land2_3<span class="sc">$</span>sig,</span>
+<span id="cb37-8"><a href="bullets.html#cb37-8" aria-hidden="true" tabindex="-1"></a>                                    land1_2<span class="sc">$</span>sig,</span>
+<span id="cb37-9"><a href="bullets.html#cb37-9" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">npeaks.set =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">1</span>),</span>
+<span id="cb37-10"><a href="bullets.html#cb37-10" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">include =</span> <span class="st">&quot;full_result&quot;</span>)</span>
+<span id="cb37-11"><a href="bullets.html#cb37-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-12"><a href="bullets.html#cb37-12" aria-hidden="true" tabindex="-1"></a>sig.plot <span class="ot">&lt;-</span> <span class="fu">cmps_signature_plot</span>(cmps.result)</span>
+<span id="cb37-13"><a href="bullets.html#cb37-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-14"><a href="bullets.html#cb37-14" aria-hidden="true" tabindex="-1"></a>seg.plot <span class="ot">&lt;-</span> <span class="fu">cmps_segment_plot</span>(cmps.result, <span class="at">seg.idx =</span> <span class="dv">6</span>)</span></code></pre></div>
 <p>Then we can take a look at those plotting results.</p>
 <ul>
 <li><code>sig.plot$segment_shift_plot</code> highlights basis segments that agree with the congruent registration position and hides other basis segments. In other words, we are highlighting the congruent matching profile segments.</li>
 </ul>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="bullets.html#cb52-1" aria-hidden="true" tabindex="-1"></a>sig.plot<span class="sc">$</span>segment_shift_plot</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="bullets.html#cb38-1" aria-hidden="true" tabindex="-1"></a>sig.plot<span class="sc">$</span>segment_shift_plot</span></code></pre></div>
 <p><img src="images/cmps/feb01/sigplot1.png" width="861" /></p>
 <ul>
 <li><code>sig.plot$signature_shift_plot</code> highlights the congruent matching profile segments on the reference profile.</li>
 </ul>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="bullets.html#cb53-1" aria-hidden="true" tabindex="-1"></a>sig.plot<span class="sc">$</span>signature_shift_plot</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="bullets.html#cb39-1" aria-hidden="true" tabindex="-1"></a>sig.plot<span class="sc">$</span>signature_shift_plot</span></code></pre></div>
 <p><img src="images/cmps/feb01/sigplot2.png" width="861" /></p>
 <ul>
 <li><code>seg.plot &lt;- cmps_segment_plot(cmps.result, seg.idx = 6)</code> generates plots for the 6th basis segment. <code>seg.plot</code> contains plots of cross-correlation functions (ccf) at every scale/level of the basis segment.</li>
 </ul>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="bullets.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
-<span id="cb54-2"><a href="bullets.html#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(<span class="at">plotlist =</span> <span class="fu">unlist</span>(seg.plot, <span class="at">recursive =</span> <span class="cn">FALSE</span>),</span>
-<span id="cb54-3"><a href="bullets.html#cb54-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="bullets.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb40-2"><a href="bullets.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(<span class="at">plotlist =</span> <span class="fu">unlist</span>(seg.plot, <span class="at">recursive =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb40-3"><a href="bullets.html#cb40-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p><img src="images/cmps/feb01/segplot3.png" width="1098" /></p>
 <ul>
 <li><p>The red vertical dashed line indicates the congruent registration position. We can see that the segment 6 does obtain a peak near to the congruent registration position at scale two and scale three, respectively; however, this position doesn’t give one of the five highest peaks at scale one. As a result, segment 6 fails to identify the consistent correlation peak (ccp) and fails to become one of the congruent matching profile segments according to the multi segment lengths strategy.</p></li>
@@ -2969,14 +3132,14 @@ We can see that the separation of the distribution of <span class="math inline">
 <p>Will 02/21 Update: In the past week my focus was on the paper writing. Moreover, the shiny app <code>bulletInspectR</code> was wrapped up as an <code>R</code> package.</p>
 </summary>
 <p>This is the updated version of the figure presented last week.</p>
-<div class="figure"><span id="fig:unnamed-chunk-296"></span>
+<div class="figure"><span id="fig:unnamed-chunk-300"></span>
 <img src="images/cmps/feb07/figure1_v2.PNG" alt="(a) front view of a scanned land engraved area (LEA). The optimized crosscut location is indicated by the white line. (b) view of the cross-section of the land engraved area at the white line in (a). (c) the crosscut data plotted in 2D; blue vertical lines indicate the position of left and right grooves (d) the crosscut data after chopping the left and right grooves (e) the fitted curvature using LOESS (f) after removing the curvature from the crosscut data, the bullet signature is obtained" width="1229" />
 <p class="caption">
 Figure 4.108: (a) front view of a scanned land engraved area (LEA). The optimized crosscut location is indicated by the white line. (b) view of the cross-section of the land engraved area at the white line in (a). (c) the crosscut data plotted in 2D; blue vertical lines indicate the position of left and right grooves (d) the crosscut data after chopping the left and right grooves (e) the fitted curvature using LOESS (f) after removing the curvature from the crosscut data, the bullet signature is obtained
 </p>
 </div>
 <p>The shiny app <code>bulletInspectR</code> is available on <a href="https://github.com/willju-wangqian/bulletInspectR">GitHub</a>. And people can install the development version of the package by</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="bullets.html#cb55-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;willju-wangqian/bulletInspectR&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="bullets.html#cb41-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;willju-wangqian/bulletInspectR&quot;</span>)</span></code></pre></div>
 <p>Currently, the app is having a bug on quitting. An error message related to package <code>later</code> would pop up and Rstudio would enter <code>browser</code> mode automatically. This happens on Windows machine, but have not yet been observed on Mac. And I’m still looking for solutions.</p>
 <p>The next step of the app is to add more instructions on its usage, add more helping information, and make it give more feedback to users when something goes wrong.</p>
 </details>
@@ -3066,8 +3229,9 @@ Will 04/11 Update: finished the TODO part from the previous week on the CMPS pro
 <p>Will 06/20 Update: First part of the CMPS package paper is finished, and we are currently working on the new sections mentioned above. New metric based on CMPS scores is introduced: <code>same_source_avg</code> - <code>diff_source_avg</code>. <code>same_source_avg</code> is the original <span class="math inline">\(\mathrm{\overline{CMPS}_{max}}\)</span>, while <code>diff_source_avg</code> is the mean CMPS score of all other pairwise comparisons.</p>
 <details>
 <summary>
-Will 06/27 Update: we defined new metric based on CMPS scores and introduced the scaled version of the CMPS score. We applied ANOVA on the CMPS metrics generated by scaled CMPS scores to compute an F-statistic as a measurement of the separation between KM and KNM groups.
+<p>Will 06/27 Update: we defined new metric based on CMPS scores and introduced the scaled version of the CMPS score.</p>
 </summary>
+<p><img src="images/cmps/inspect_seg_length/phase_plot.png" width="492" style="display: block; margin: auto;" /></p>
 <ul>
 <li>define <span class="math inline">\(\mathrm{\overline{CMPS}_{diff}}\)</span>:</li>
 </ul>
@@ -3079,28 +3243,59 @@ Will 06/27 Update: we defined new metric based on CMPS scores and introduced the
 <p>, and at the same time we have</p>
 <p><span class="math display">\[
 k^* = \text{arg}\max\limits_{k} \left[  \frac{1}{n} \sum_{(i,j) \in \mathcal{P}_k} c_{ij}\right]
-\]</span>
-so we can define</p>
+\]</span></p>
+<p>so <span class="math inline">\(k^*\)</span> is the index of the “same-source” phase if we have a known-match bullet comparison.</p>
+<p>Thus, we can define</p>
 <p><span class="math display">\[
 \mathrm{\overline{CMPS}_{diff}} =\left[  \frac{1}{n} \sum_{(i,j) \in \mathcal{P}_{k^*}} c_{ij}\right] - \left[  \frac{1}{n(n-1)} \sum_{(i,j) \notin \mathcal{P}_{k^*}} c_{ij}\right]
 \]</span></p>
+<p>which is the mean CMPS score of comparisons in the “same-source” phase minus the mean CMPS score of comparisons in the “different-source” phase.</p>
 <ul>
-<li>the scaled CMPS score <span class="math inline">\(c_{ij}^*\)</span> is the original CMPS score <span class="math inline">\(c_{ij}\)</span> divided by the number of basis segments <span class="math inline">\(l_{ij}\)</span> (the highest possible CMPS score) of the comparison between <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>.</li>
+<li>the scaled CMPS score <span class="math inline">\(c_{ij}^*\)</span> can be computed with the original CMPS score <span class="math inline">\(c_{ij}\)</span> divided by the number of basis segments <span class="math inline">\(l_{ij}\)</span> (the highest possible CMPS score) of the comparison between <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>. The number of basis segments <span class="math inline">\(l_{ij}\)</span> is determined by the length of the basis segment (a parameter of the algorithm) and the length of each bullet signature. So defining the scaled CMPS score will make the CMPS score results (<span class="math inline">\(\mathrm{\overline{CMPS}_{diff}}\)</span>, <span class="math inline">\(\mathrm{\overline{CMPS}_{max}}\)</span>, <span class="math inline">\(\mathrm{{CMPS}_{max}}\)</span>) more comparable.</li>
 </ul>
 <p><span class="math display">\[
 c_{ij}^* = \frac{c_{ij}}{l_{ij}}
 \]</span></p>
-<ul>
-<li>we use one-way ANOVA to compute the variance ratio</li>
-</ul>
+<p><img src="images/cmps/inspect_seg_length/phase_plot_s.png" width="655" style="display: block; margin: auto;" /></p>
 </details>
+<details>
+<summary>
+<p>Will 08/01 Update: with 35 bullets in the dataset, we have 595 pairwise bullet comparisons in total (either known-match or known-non-match). Each bullet comparison generates one CMPS score result (<span class="math inline">\(\mathrm{\overline{CMPS}_{diff}}\)</span>, <span class="math inline">\(\mathrm{\overline{CMPS}_{max}}\)</span>, <span class="math inline">\(\mathrm{{CMPS}_{max}}\)</span>). We are interested in the distribution of these CMPS metrics since the distribution of the KM group and the KNM group are supposed to be different. We want to achieve a larger separation in these distributions between the KM group and the KNM group. To do this, we defined a score to measure this separation and built a pipeline for testing different sets of parameters. Additionally, we added a new feature to the CMPS implementation that allows users to decide segment lengths at each segment level under the multi-segment length strategy.</p>
+</summary>
+<p><strong>Distribution of CMPS metrics</strong></p>
+<p><img src="images/cmps/inspect_seg_length/p50.png" width="686" /></p>
+<p><img src="images/cmps/inspect_seg_length/p50s.png" width="691" /></p>
+<p><img src="images/cmps/inspect_seg_length/p150.png" width="714" /></p>
+<p><img src="images/cmps/inspect_seg_length/p150s.png" width="714" /></p>
+<p><strong>Sum of Squares Ratio</strong></p>
+<p>Now we define a score to measure the separation between the KM and KNM groups.</p>
+<p><span class="math display">\[
+v = \frac{\sum n_i (\bar{y}_{i.} - \bar{y}_{..})^2}{\sum_i \sum_j (y_{ij} - \bar{y}_{..})^2 }
+\]</span></p>
+<p>Or <span class="math inline">\(\frac{SS_{model}}{SSE}\)</span> in one-way ANOVA setup. Note that this is not a F-statistic since we are not including the degrees of freedom. The degrees of freedom are ignored because the df of the numerator is always <span class="math inline">\(2 - 1\)</span> and the df of the denominator is always <span class="math inline">\(595 - 2\)</span> in our case, and including the df is equivalent to multiplying the variance ratio value with <span class="math inline">\(\frac{595-2}{2-1}\)</span></p>
+<p>If we want to determine a value for the parameter <code>seg_length</code> (the length of a basis segment), we can compare the sum of squares ratio value for different values of <code>seg_length</code>.</p>
+<p><img src="images/cmps/inspect_seg_length/b252_seg_length_plot.png" width="714" /></p>
+</details>
+<details>
+<summary>
+<p>Will 09/12 Update: We used the sum of squares ratio to evaluate different sets of parameters and different CMPS metrics on both Hamby 252 and 44. We also ran the random forest model on Hamby 252 and 44 and compared the results to those of the CMPS algorithm via sum of squares ratio.</p>
+</summary>
+</details>
+<details>
+<summary>
+<p>Will 09/19 Update: We renamed the package to <code>cmpsR</code>. The main results of using the sum of squares ratio to compare different metrics and different sets of parameters are included. We are finishing the last part of the paper, adding the new results into the summarizing sections.</p>
+</summary>
+<p><img src="images/cmps/p_seg_plot.png" width="659" /></p>
+<p><img src="images/cmps/p_npeak_plot.png" width="659" /></p>
+</details>
+<p>Will 09/26 Update: preparing to submit the package to CRAN and submit the paper. I also updated some functions in <code>bulletxtrctr</code>, adding source code that improves the running speed of <code>get_ccf()</code> and <code>sig_align()</code> and defining the concept of “lag” used in <code>bulletxtrctr</code>.</p>
 </div>
 </div>
 <div id="future-work" class="section level4" number="4.3.4.4">
 <h4><span class="header-section-number">4.3.4.4</span> Future Work</h4>
 <ul>
-<li><p>improve and manage to submit the CMPS package to CRAN</p></li>
-<li><p>cross-validate some hyper-parameters</p></li>
+<li><p>Manage to submit the <code>cmpsR</code> package to CRAN</p></li>
+<li><p>Finish the paper</p></li>
 </ul>
 </div>
 </div>
@@ -3120,7 +3315,7 @@ c_{ij}^* = \frac{c_{ij}}{l_{ij}}
 6. Finally, all areas with well expressed striation marks are left unpainted.
 7. Missing values in a LEA scan are painted Black</code></pre>
 <p>After all the regions have been correctly annotated and saved, the x3p file should contain a land engraved area scan with additional data known as a “mask.”</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-299"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-312"></span>
 <img src="images/andy_temp/show_and_tell_3.PNG" alt="Labeled Land Engraved Area Scan using fix3p" width="80%" />
 <p class="caption">
 Figure 4.109: Labeled Land Engraved Area Scan using fix3p
@@ -3131,44 +3326,44 @@ Figure 4.109: Labeled Land Engraved Area Scan using fix3p
 <h3><span class="header-section-number">4.4.1</span> Current Data Processing Procedures</h3>
 <p>We read in the manually identified land engraved areas into R using the read_x3p function and store each .x3p as a row in a tibble style dataframe.</p>
 <p>There are a lot of missing values contained in the surface matrix for each LEA scan. Missing element values are currently being interpolated by taking the average of a missing element’s 8 neighbors, if they exist.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-300"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-313"></span>
 <img src="images/andy_temp/Missing_Values_Interpolation_Facet_2.png" alt="Faceted Annotations Plot" width="80%" />
 <p class="caption">
 Figure 4.110: Faceted Annotations Plot
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-301"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-314"></span>
 <img src="images/andy_temp/Missing_Values_Interpolation_1.png" alt="Missing Values Plot" width="80%" />
 <p class="caption">
 Figure 4.111: Missing Values Plot
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-302"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-315"></span>
 <img src="images/andy_temp/Missing_Values_Interpolation_3.png" alt="Interpolated Values Plot" width="80%" />
 <p class="caption">
 Figure 4.112: Interpolated Values Plot
 </p>
 </div>
 <p>After the data has been read and stored into R’s global environment, we propose a data preprocessing procedure that increases the amount of data we currently have. We take each x3p file containing a masked LEA scan, crop, and store each 128x128 resolution grid of the original scan and store it as a new x3p. This allows us to increase the amount of data being fed into our 3d CNN model by 224 to 240 times the amount of our original data based on the original x3p resolution size. To do this we use the x3p_crop function from the x3ptools R programming package</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-303"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-316"></span>
 <img src="images/andy_temp/csafe_21_noNA_x3p.PNG" alt="Example boundaries for cropping" width="80%" />
 <p class="caption">
 Figure 4.113: Example boundaries for cropping
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-304-1"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-317-1"></span>
 <img src="images/andy_temp/csafe_21_nostriae_2.PNG" alt="Title coming soon." width="30%" />
 <p class="caption">
 Figure 4.114: Title coming soon.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-304-2"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-317-2"></span>
 <img src="images/andy_temp/csafe_21_vert_2.PNG" alt="Title coming soon." width="30%" />
 <p class="caption">
 Figure 4.115: Title coming soon.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-304-3"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-317-3"></span>
 <img src="images/andy_temp/csafe_21_groove_2.PNG" alt="Title coming soon." width="30%" />
 <p class="caption">
 Figure 4.116: Title coming soon.
@@ -3177,7 +3372,7 @@ Figure 4.116: Title coming soon.
 <p>Next, we extract the annotations associated with each cropped x3p file. These 7 types of annotations will serve as our predictor variables for our 3d convolutional neural network to learn on. Each cropped x3p can contain multiple annotations. Notice that the image of the cropped section of the right groove has two annotations associated with it, one annotation is the right groove and the other annotation is well expressed striae. A cropped x3p usually has one to four annotations associated with it, where one to two annotations are the most common. For each cropped x3p we assign one annotation based on a ratio of 80% or a maximum majority. We do not distinguish between left and right groove and assign them as the same annotation. Annotations are stored as a list and unlisted, given us 1 annotation per observation. Annotations are then one-hot encoded resulting in a matrix of size (n x 6).e</p>
 <p>3d convolutional neural networks take data as 5D tensors with shape (samples, conv_dim1, conv_dim2, conv_dim3, channels), where samples(also known as batch_shape) are the number of observations to be trained, the dimensions are our width, height, and depth values, and channels represent the color scale(=1 for greyscale and =3 for RGB color scale). Another way to think of a 5D tensor is just to think of a 5 dimensional array.</p>
 <p>We take the surface martix associated with each cropped x3p, transform each surface matrix to a (x, y, 1, 1) array, a 4d array or a 4d tensor. Then we can bind each surface matrix together creating a (n, x, y, 1, 1) array, a 5d array or a 5d tensor. n represents the batch_shape, x and y represent the width and height dimensions, the first “1” represents the elements contained in each surface matrix and the last “1” represents the color scale, greyscale.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-305"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-318"></span>
 <img src="images/andy_temp/Pipeline_summary.PNG" alt="Data Processing Summary" width="100%" />
 <p class="caption">
 Figure 4.117: Data Processing Summary
@@ -3211,13 +3406,13 @@ Overall Accuracy: 76.22 %
 **Well Expressed Striations** (Precision: 0.78, Recall: 0.83, F1-Score: 0.80)
 
 **Vertical Striations** (Precision: 0, Recall: 0, F1-Score: 0)</code></pre>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-306"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-319"></span>
 <img src="images/andy_temp/cnn_best_cm.PNG" alt="100 epoch run confusion matrix" width="100%" />
 <p class="caption">
 Figure 4.118: 100 epoch run confusion matrix
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-307"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-320"></span>
 <img src="images/andy_temp/100_epoch%20modek.PNG" alt="100 epoch run plot" width="100%" />
 <p class="caption">
 Figure 4.119: 100 epoch run plot
@@ -3239,13 +3434,13 @@ Overall Accuracy: 67 %
 **Well Expressed Striations** (Precision: 0.86, Recall: 0.56, F1-Score: 0.68)
 
 **Vertical Striations** (Precision: 0.017, Recall: 0.14, F1-Score: 0.030)</code></pre>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-308"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-321"></span>
 <img src="images/andy_temp/cnn_cm_class_weights.PNG" alt="200 epoch run confusion matrix" width="100%" />
 <p class="caption">
 Figure 4.120: 200 epoch run confusion matrix
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-309"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-322"></span>
 <img src="images/andy_temp/CNN_class_weights.PNG" alt="200 epoch run adjusted class weights plot" width="100%" />
 <p class="caption">
 Figure 4.121: 200 epoch run adjusted class weights plot
@@ -3263,31 +3458,31 @@ Figure 4.121: 200 epoch run adjusted class weights plot
 <li><p>Residual network also performs better at multiclassification compared to the shallow network 3d cnn.</p></li>
 <li><p>Residual Network also performs well on new never seen before data. 6 label validation classification ~ 84%</p></li>
 </ul>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-310"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-323"></span>
 <img src="images/andy_temp/resnet_arch.png" alt="Residual Network Architecture." width="294" height="30%" />
 <p class="caption">
 Figure 4.122: Residual Network Architecture.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-311"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-324"></span>
 <img src="images/andy_temp/Exponential_Learning_Rate.PNG" alt="Exponential Distribution." width="100%" />
 <p class="caption">
 Figure 4.123: Exponential Distribution.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-312"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-325"></span>
 <img src="images/andy_temp/Determing_Learning_Rate.PNG" alt="Determining Learning Rate." width="100%" />
 <p class="caption">
 Figure 4.124: Determining Learning Rate.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-313"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-326"></span>
 <img src="images/andy_temp/Resnet_CFMatrix.PNG" alt="Confusion Matrix." width="100%" />
 <p class="caption">
 Figure 4.125: Confusion Matrix.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-314"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-327"></span>
 <img src="images/andy_temp/ResNet_3D_CNN_Performance.png" alt="Training &amp; Validation Curves." width="100%" />
 <p class="caption">
 Figure 4.126: Training &amp; Validation Curves.
@@ -3297,33 +3492,33 @@ Figure 4.126: Training &amp; Validation Curves.
 <div id="post-analysis" class="section level3" number="4.4.3">
 <h3><span class="header-section-number">4.4.3</span> Post Analysis</h3>
 <p>We take three LEA scans and predict each set of cropped LEAs for those original LEA scans using our current trained neural network.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-315"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-328"></span>
 <img src="images/andy_temp/post_test.PNG" alt="Title coming soon." width="100%" />
 <p class="caption">
 Figure 4.127: Title coming soon.
 </p>
 </div>
 <p>Looking at the confusion matrix we can see that the model was not able to correctly classify any cases of damage nor any cases of vertical change in striations. There were a total of 712 training samples and 74 samples were misclassified. Out of those 74 misclassified samples, 38 of them were vertical change in striations. We are interested in the misclassified labels.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-316"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-329"></span>
 <img src="images/andy_temp/Compare_label_pred_1.PNG" alt="Misclassified Crops" width="100%" />
 <p class="caption">
 Figure 4.128: Misclassified Crops
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-317"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-330"></span>
 <img src="images/andy_temp/Compare_label_pred_2.PNG" alt="Misclassified Crops: Vertical Change in Striations" width="100%" />
 <p class="caption">
 Figure 4.129: Misclassified Crops: Vertical Change in Striations
 </p>
 </div>
 <p>We are also able to take the predicted cropped LEAs and make a full land engraved area scan with a new associated mask.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-318"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-331"></span>
 <img src="images/andy_temp/square_1.PNG" alt="Land Engraved Area Scan with assigned labels" width="100%" />
 <p class="caption">
 Figure 4.130: Land Engraved Area Scan with assigned labels
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-319"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-332"></span>
 <img src="images/andy_temp/sqaure_2.PNG" alt="Land Engraved Area Scan with predicted labels" width="100%" />
 <p class="caption">
 Figure 4.131: Land Engraved Area Scan with predicted labels
@@ -3332,43 +3527,43 @@ Figure 4.131: Land Engraved Area Scan with predicted labels
 <p>What’s next? We wish to study the correctly classified areas of well expressed striation marks. Allowing for a better choice of location when deciding where to extract a crosscut from an land engraved area scan. We are interested to see if this will reduce the variance on the signatures.</p>
 <p>Update(04/05/2021): Processing data including missing values as a label for land engraved area scans.</p>
 <p>Update(04/12/2021): Processed 800 Land Engraved Area Scans from scanner (Megan)</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-320"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-333"></span>
 <img src="images/andy_temp/left_groove_Density_1-100_pointplot.png" alt="Density plot using 100 LEAs" width="100%" />
 <p class="caption">
 Figure 4.132: Density plot using 100 LEAs
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-321"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-334"></span>
 <img src="images/andy_temp/right_groove_Density_1-100_pointplot.png" alt="Density plot using 100 LEAs" width="100%" />
 <p class="caption">
 Figure 4.133: Density plot using 100 LEAs
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-322"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-335"></span>
 <img src="images/andy_temp/damage_Density_1-100_pointplot.png" alt="Density plot using 100 LEAs" width="100%" />
 <p class="caption">
 Figure 4.134: Density plot using 100 LEAs
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-323"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-336"></span>
 <img src="images/andy_temp/No_Striations_Density_1-100_pointplot.png" alt="Density plot using 100 LEAs" width="100%" />
 <p class="caption">
 Figure 4.135: Density plot using 100 LEAs
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-324"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-337"></span>
 <img src="images/andy_temp/vertical_change_in_striations_Density_1-100_pointplot.png" alt="Density plot using 100 LEAs" width="100%" />
 <p class="caption">
 Figure 4.136: Density plot using 100 LEAs
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-325"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-338"></span>
 <img src="images/andy_temp/missing_value_Density_1-100_pointplot.png" alt="Density plot using 100 LEAs" width="100%" />
 <p class="caption">
 Figure 4.137: Density plot using 100 LEAs
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-326"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-339"></span>
 <img src="images/andy_temp/breakoff_Density_1-100_pointplot.png" alt="Density plot using 100 LEAs" width="100%" />
 <p class="caption">
 Figure 4.138: Density plot using 100 LEAs
@@ -3378,13 +3573,13 @@ Figure 4.138: Density plot using 100 LEAs
 <div id="summary-statistics" class="section level3" number="4.4.4">
 <h3><span class="header-section-number">4.4.4</span> Summary Statistics</h3>
 <p>Summary Statistics were derived using 100 Land Engraved Area Scans from scanner(Megan)</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-327"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-340"></span>
 <img src="images/andy_temp/Resnet_latest_summary_statistics.PNG" alt="LEA Labeled Region Summary Statistics" width="100%" />
 <p class="caption">
 Figure 4.139: LEA Labeled Region Summary Statistics
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-328"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-341"></span>
 <img src="images/andy_temp/Annotation_boxplot.png" alt="LEA Labeled Region Boxplot" width="100%" />
 <p class="caption">
 Figure 4.140: LEA Labeled Region Boxplot
@@ -3394,13 +3589,13 @@ Figure 4.140: LEA Labeled Region Boxplot
 <div id="training-neural-net-using-data-from-scannermegan" class="section level3" number="4.4.5">
 <h3><span class="header-section-number">4.4.5</span> Training Neural Net using data from Scanner(Megan)</h3>
 <p>We Re-run the 3d convolutional neural network on 100 epochs using Megan’s data for the training data set.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-329"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-342"></span>
 <img src="images/andy_temp/Resnet_Latest.png" alt="Training ResNet using LEAs 1-100 scanner(Megan)" width="100%" />
 <p class="caption">
 Figure 4.141: Training ResNet using LEAs 1-100 scanner(Megan)
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-330"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-343"></span>
 <img src="images/andy_temp/Resnet_latest_cm_1.PNG" alt="Confusion Matrix using LEAs 1-100 scanner(Megan)" width="100%" />
 <p class="caption">
 Figure 4.142: Confusion Matrix using LEAs 1-100 scanner(Megan)
@@ -3423,13 +3618,13 @@ Overall Accuracy: 83.19 %
 **Well Expressed Striations** (Precision: 0.84, Recall: 0.91, F1-Score: 0.87)
 
 **Vertical Striations** (Precision: 0.0, Recall: 0.0, F1-Score: 0.0)</code></pre>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-331"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-344"></span>
 <img src="images/andy_temp/Resnet_latest_assigned_label.PNG" alt="Land Engraved Area Scan with assigned labels" width="100%" />
 <p class="caption">
 Figure 4.143: Land Engraved Area Scan with assigned labels
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-332"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-345"></span>
 <img src="images/andy_temp/Resnet_latest_prediction.PNG" alt="Land Engraved Area Scan with predicted labels" width="100%" />
 <p class="caption">
 Figure 4.144: Land Engraved Area Scan with predicted labels
@@ -3439,15 +3634,25 @@ Figure 4.144: Land Engraved Area Scan with predicted labels
 <p>Update(05/24/2021): New data processing procedure implemented where relabeling of land engraved area scans is more precise and missing values are excluded from being used as input data when training the current 3D CNN. Currently over a thousand labeled land engraved area scans have been processed using the new procedure. Released R package “x3pLeaX,” for working with LEA scans and running deep learning models. The package is continually being updated daily.</p>
 <p>Update(06/28/2021): 1000+ processed Land Engraved Area Scans used as training data for Residual 3d Convolution Neural Network. Current CNN has an overall validation accuracy of 89% and a 99% training accuracy. Accuracy and Loss metrics change depending on how we set the learning rate. Currently, three learning rates are determined by modeling the learning rate with an exponential distribution. The further exploration resulted in using a changing learning rate when the validation loss hit a plateau. The cyclic learning rate was also explored. What’s next? Exploring probabilistic deep learning with an interest in capturing noise and uncertainties typically seen in training deep learning models. Getting a better understanding of probabilistic deep learning has the potential benefit of improving our understanding of how these algorithms work. This week I plan to use the current model as a tool to determine cross-cut regions used in training the current random forest model.</p>
 <p>Update(07/19/2021): Currently working on the paper for Assessing Quality of Scans using 3d convolutional neural networks. Currently writing scripts to use the cnn for determining multiple crosscut locations used for analyzing bullet signatures.</p>
-</div>
-<div id="probabilistic-deep-learning-exploration" class="section level3" number="4.4.6">
-<h3><span class="header-section-number">4.4.6</span> Probabilistic deep learning Exploration</h3>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-333"></span>
-<img src="images/andy_temp/Probabilistic_DL_Models_1.PNG" alt="Output Probabilites from sections of LEA" width="100%" />
+<p>Update(08/09/2021): Examining the effects of hyper parameter tuning on the 3d CNN residual network. Gradient descent is one of the most popular algorithms to perform optimization on neural networks. Gradient descent is a way to minimize an objective function parameterized by a model’s parameters by updating the parameters in the opposite direction of the gradient of the objective function w.r.t. to the parameters.</p>
+<p>Stochastic Gradient Descent performs a parameter update for each training example and associated label.</p>
+<p>Gradient Descent:</p>
+<p><span class="math display">\[θ_t=y_t−ε_t∇f(y_t)\]</span>
+Stochastic Gradient Descent:</p>
+<p><span class="math display">\[θ_t = θ_t − ε_t∇f(θ_t; x^i; y^i)\]</span></p>
+<p>Stochastic Gradient Descent with warm restarts:</p>
+<p>If we are stuck around a local minimum but have not found the global minimum we can encourage the model to jump local local minimums.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-346"></span>
+<img src="images/andy_temp/Explain_4.PNG" alt="Cosine Annealing" width="100%" />
 <p class="caption">
-Figure 4.145: Output Probabilites from sections of LEA
+Figure 4.145: Cosine Annealing
 </p>
 </div>
+<p>Expanding the tools for data processing, we can now identify and fill islands across the lea scan and obtain contour information.</p>
+<p><img src="images/andy_temp/plot_1_prefill.PNG" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="images/andy_temp/plot_2_fill_part1_correction.PNG" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="images/andy_temp/plot_4_fill_part4_correction.PNG" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="images/andy_temp/Contour_Polygon_using_moores.PNG" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="analysis-of-results" class="section level2" number="4.5">
@@ -3457,13 +3662,13 @@ Figure 4.145: Output Probabilites from sections of LEA
 <p class="new">
 evaluation: Yawei is going to work through all 626 barrels of knowns to assess similarity scores
 </p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-334"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-351"></span>
 <img src="images/yawei/results-FAU-1.png" alt="Results from assessing scans of barrel FAU 1 similarity." width="50%" />
 <p class="caption">
 Figure 4.146: Results from assessing scans of barrel FAU 1 similarity.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-335"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-352"></span>
 <img src="images/yawei/results-FAU-2.png" alt="Results from assessing scans of barrel FAU 2 similarity." width="50%" />
 <p class="caption">
 Figure 4.147: Results from assessing scans of barrel FAU 2 similarity.
@@ -3471,19 +3676,19 @@ Figure 4.147: Results from assessing scans of barrel FAU 2 similarity.
 </div>
 <p>Why some of the cases failed? (181/626 = 30%)</p>
 <p><code>x3p_crosscut_optimize()</code> failed to find the positions to get cross cut for some lands.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-336"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-353"></span>
 <img src="images/yawei/lapd-FAU-3-Bullet-A-land-6.PNG" alt="Land scan for barrel FAU 3 bullet A land 6." width="50%" />
 <p class="caption">
 Figure 4.148: Land scan for barrel FAU 3 bullet A land 6.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-337"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-354"></span>
 <img src="images/yawei/lapd-FAU-4-Bullet-C-land-5.PNG" alt="Land scan for barrel FAU 4 bullet C land 5." width="50%" />
 <p class="caption">
 Figure 4.149: Land scan for barrel FAU 4 bullet C land 5.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-338"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-355"></span>
 <img src="images/yawei/lapd-FAU-5-Bullet-B-land-5.PNG" alt="Land scan for barrel FAU 5 bullet B land 5." width="50%" />
 <p class="caption">
 Figure 4.150: Land scan for barrel FAU 5 bullet B land 5.
@@ -3495,20 +3700,20 @@ Figure 4.150: Land scan for barrel FAU 5 bullet B land 5.
 <p>For the known mathches, we have totally 626 x 6 = 3756 for the LAPD data, excluding the comparasions for same bullet.</p>
 <p>For the known non-matches, we don’t have the data in hand. We need to generate the data in a way. We have totally 626 x 625/2 x 16 = 313000 known non-matches. We can only generate a sample from the data.</p>
 <p>We sampled 100 bullet-bullet known non-matches from our 92 cases.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-339"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-356"></span>
 <img src="images/yawei/knmkm.png" alt="KM and KNM" width="50%" />
 <p class="caption">
 Figure 4.151: KM and KNM
 </p>
 </div>
 <p>Is the SAM(sequence average maximum) a good choice? Need to do a permutation test.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-340"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-357"></span>
 <img src="images/yawei/sam_1.PNG" alt="SAM permutation result" width="50%" />
 <p class="caption">
 Figure 4.152: SAM permutation result
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-341"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-358"></span>
 <img src="images/yawei/sam_max_1.PNG" alt="SAM permutation result among maxmum" width="50%" />
 <p class="caption">
 Figure 4.153: SAM permutation result among maxmum
@@ -3516,77 +3721,77 @@ Figure 4.153: SAM permutation result among maxmum
 </div>
 <p>Possible dependence structure in land-land comparasions:</p>
 <p>Assume beta distributions for the ccf for both known mathces and known non-matches. For the real known match cases, we consider a mixture distribution of two/three beta distribution.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-342"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-359"></span>
 <img src="images/yawei/km-three-alldata.png" alt="KM three components for all data" width="50%" />
 <p class="caption">
 Figure 4.154: KM three components for all data
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-343"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-360"></span>
 <img src="images/yawei/knm-two-alldata.png" alt="KNM two components for all data" width="50%" />
 <p class="caption">
 Figure 4.155: KNM two components for all data
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-344"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-361"></span>
 <img src="images/yawei/commoncomp.png" alt="common component" width="50%" />
 <p class="caption">
 Figure 4.156: common component
 </p>
 </div>
 <p>Ten-fold-cross validation (no validation yet), check the model estimator sensibility</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-345"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-362"></span>
 <img src="images/yawei/km-two.png" alt="KM ten-fold models for two components" width="50%" />
 <p class="caption">
 Figure 4.157: KM ten-fold models for two components
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-346"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-363"></span>
 <img src="images/yawei/km-three.png" alt="KM ten-fold models for three components" width="50%" />
 <p class="caption">
 Figure 4.158: KM ten-fold models for three components
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-347"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-364"></span>
 <img src="images/yawei/knm-one.png" alt="KNM ten-fold models for one component" width="50%" />
 <p class="caption">
 Figure 4.159: KNM ten-fold models for one component
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-348"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-365"></span>
 <img src="images/yawei/knm-two.png" alt="KNM ten-fold models for two components" width="50%" />
 <p class="caption">
 Figure 4.160: KNM ten-fold models for two components
 </p>
 </div>
 <p>Increasing sample size: 1, 2, 6, 12, … number of barrels</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-349"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-366"></span>
 <img src="images/yawei/km-two-cum.png" alt="KM increasing sample models for two components" width="50%" />
 <p class="caption">
 Figure 4.161: KM increasing sample models for two components
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-350"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-367"></span>
 <img src="images/yawei/knm-one-cum.png" alt="KNM increasing sample models for one components" width="50%" />
 <p class="caption">
 Figure 4.162: KNM increasing sample models for one components
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-351"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-368"></span>
 <img src="images/yawei/km-c1-cum.png" alt="KM increasing sample for first component" width="50%" />
 <p class="caption">
 Figure 4.163: KM increasing sample for first component
 </p>
 </div>
 <p>More on the weight</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-352"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-369"></span>
 <img src="images/yawei/priorboxplot.png" alt="Prior weight on components" width="50%" />
 <p class="caption">
 Figure 4.164: Prior weight on components
 </p>
 </div>
 <p>More on one barrel case</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-353"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-370"></span>
 <img src="images/yawei/onebarrel.png" alt="KM one barrel model for the frist ten barrels" width="50%" />
 <p class="caption">
 Figure 4.165: KM one barrel model for the frist ten barrels
@@ -3609,19 +3814,19 @@ Figure 4.165: KM one barrel model for the frist ten barrels
 <li><p>One-barrel KM models and full data KNM model. One-barrel KM models use the first ten barrels.</p></li>
 </ol>
 <p>From the ROC curves, we can easily see how stable our procedure is in terms of the classification performance. Note that those ROC curves start with the y-axis higher than 0.5 (which may be changed later). And the TPR(y-value) goes up steeply to about 0.75 with almost no change in FPR(x-value). Then the curve gradually goes up with different rates. There are two significant points from the ROC curves: 1) the pattern is very stable in the ROC curves across different cases and within each case; 2) the models perform very well. And also note that when we produce ROC curves, we need to get test sets and specify sample size and proportion. Here we generate the test set from the full data randomly, and set KM/KNM ratio as 200/1000. The same set is used in all three ROC plots. We choose such a ratio to make the true positive classification more difficult. If we set KM/KNM as 1000/1000, the curves will be smoother and get rid of those concave regions in current plots and of course, perform a little better in those concave regions but not significantly different in overall performance and pattern.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-354"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-371"></span>
 <img src="images/yawei/roc-cvmodels-new.png" alt="ROC-cv-models" width="50%" />
 <p class="caption">
 Figure 4.166: ROC-cv-models
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-355"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-372"></span>
 <img src="images/yawei/roc-differentsize-new.png" alt="ROC-different-size-models" width="50%" />
 <p class="caption">
 Figure 4.167: ROC-different-size-models
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-356"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-373"></span>
 <img src="images/yawei/roc-onebarrel-new.png" alt="ROC-one-barrel" width="50%" />
 <p class="caption">
 Figure 4.168: ROC-one-barrel
@@ -3629,27 +3834,27 @@ Figure 4.168: ROC-one-barrel
 </div>
 <p>To summarize the model fits we have, we compare several important parameters in the following tables. We primarily focus on how stable the model we have with fixed sample size and across different sample sizes.</p>
 <p>From the KM-table and KNM-table, we have the following observations: 1) The weight of the components is not stable in terms of large standard errors in both KM and KNM cases with small sample sizes. 2) The mean values of the distributions (parameter mu) are relatively stable, especially for the primary components (first component for KNM and second component for KM). 3) The variance of the estimated distributions (parameter phi) is not stable, which is reasonable because it takes care of the variation of the data in each fit. 4) The variance of the estimated distributions (parameter phi) decreases as sample size increases. To better understand how well the model fit is and how stable it is we should also refer to the actual curves to help us see what those parameters actually mean in the curves. And I would say three barrels may be a safe minimum sample size to get a stable fit across different cases in terms of handling differences and variations existing in data sets but it’s not the minimum sample size required to make good classifications.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-357"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-374"></span>
 <img src="images/yawei/km-table1.PNG" alt="KM-table" width="100%" />
 <p class="caption">
 Figure 4.169: KM-table
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-358"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-375"></span>
 <img src="images/yawei/knm-table1.PNG" alt="KNM-table" width="100%" />
 <p class="caption">
 Figure 4.170: KNM-table
 </p>
 </div>
 <p>We’re also interested in the variation of mean values of KM ccf in different barrels. The following boxplot with the global box as the right most one is shown for this comparison. From this plot, the constant mean value assumption may be challenged, however, we must take the practice work of scan and identification into considerations when making such conclusions.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-359"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-376"></span>
 <img src="images/yawei/ccfineachbarrel.png" alt="ccf in each barrel" width="50%" />
 <p class="caption">
 Figure 4.171: ccf in each barrel
 </p>
 </div>
 <p>To show how our model works in a single barrel case, we conduct the model fit as in the real case. We fit the KM and KNM models with three bullet comparisons (18 KM and 135 KNM land-land ccf respectively), and conduct a test on those comparisons with the forth bullet (18 KM and 105 KNM land-land ccf respectively). We conduct the above procedure in a LOO frame work, i.e. to leave one bullet out each time. The ROC curves for two barrels are shown as follows. We can see the classification results are almost as good as the previous ones.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-360"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-377"></span>
 <img src="images/yawei/withinbarrel4256roc-new.png" alt="within barrel ROC for barrel 42 and 56" width="50%" />
 <p class="caption">
 Figure 4.172: within barrel ROC for barrel 42 and 56
@@ -3661,7 +3866,7 @@ Figure 4.172: within barrel ROC for barrel 42 and 56
 <p><span class="math display">\[T = log(\frac{KM}{KNM})\]</span></p>
 <p>In which case, we reject the null hypohesis that the new bullet is from different source from our testing bullets when we have a large value for <span class="math inline">\(T\)</span>.</p>
 <p>First we have a look at how this log-likelihood ratio statistic changes with respect to the ccf score we calculated.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-361"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-378"></span>
 <img src="images/yawei/loglr-fau42.png" alt="loglr-fau42" width="50%" />
 <p class="caption">
 Figure 4.173: loglr-fau42
@@ -3679,19 +3884,19 @@ Figure 4.173: loglr-fau42
 </ol>
 <p>An additional requirement may be <span class="math display">\[(1-p_2) &gt; Mp_1\]</span> for a large M.</p>
 <p>We are going to compare the above methods next.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-362"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-379"></span>
 <img src="images/yawei/curves.png" alt="two curves" width="50%" />
 <p class="caption">
 Figure 4.174: two curves
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-363"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-380"></span>
 <img src="images/yawei/oddsratio2.png" alt="odds ratio" width="50%" />
 <p class="caption">
 Figure 4.175: odds ratio
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-364"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-381"></span>
 <img src="images/yawei/comparetable3.PNG" alt="comparison table" width="100%" />
 <p class="caption">
 Figure 4.176: comparison table
@@ -3711,13 +3916,13 @@ the full available data. The figure 4.130 was produced for a particular barrel. 
 <li><p>KNM has two modes, which is unexpected</p></li>
 <li><p>Estimated KM distribution seems to be able to improve, potentially affected by extreme values</p></li>
 </ul>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-365"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-382"></span>
 <img src="images/yawei/fau330rf.png" alt="FAU330: rugs with A, densities without A for RF scores" width="50%" />
 <p class="caption">
 Figure 4.177: FAU330: rugs with A, densities without A for RF scores
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-366"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-383"></span>
 <img src="images/yawei/rf_full_2components_estimated.png" alt="Random forest scores and estimated distributions for full data" width="50%" />
 <p class="caption">
 Figure 4.178: Random forest scores and estimated distributions for full data
@@ -3732,7 +3937,7 @@ Figure 4.178: Random forest scores and estimated distributions for full data
 </ul>
 <p>Feb/2021 starts here</p>
 <p>A “special” LEA scan as shown in the following:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-367"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-384"></span>
 <img src="images/yawei/specialscan.PNG" alt="A special LEA" width="50%" />
 <p class="caption">
 Figure 4.179: A special LEA
@@ -3776,7 +3981,7 @@ where, barrel effect, land effect, explosion effect, random effect are respectiv
 <p>We extract markings, locate grooves, align signatures, and generate cross-comparison results. Each step is notified in UI and all steps are logged.</p>
 <p>The scores and results are then communicated through an interactive visualization. We first interact at the top most level where we have bullet-to-bullet scores for all the cross-comparisons presented in a grid. We can select one comparison at a time which would generate a second level of grid visualization that shows the land-to-land scores for all 36 comparisons within a bullet. Interacting with this visualization, we can now pull up score tables, profiles, location of grooves, aligned signatures and raw images.</p>
 <p>The framework of interactions, allows for validation of classification recommended by the RF model as well as gives an opportunity to critically asses, identify the cause and diagnose any problems encountered in the bullet matching pipeline.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-368"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-385"></span>
 <img src="images/bullets/gan-app2_consolidated.png" alt="An instance of the interactive visualizations for communicating results" width="50%" />
 <p class="caption">
 Figure 4.180: An instance of the interactive visualizations for communicating results
@@ -3803,7 +4008,7 @@ Figure 4.180: An instance of the interactive visualizations for communicating re
 3. Best set of questionnaires need to be figured out.</p>
 <div id="measuring-trust-and-calibration" class="section level3" number="4.7.1">
 <h3><span class="header-section-number">4.7.1</span> Measuring Trust and calibration</h3>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-369"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-386"></span>
 <img src="images/bullets/questionnaire.png" alt="Questionnaire setup for comparing trust in scores" width="50%" />
 <p class="caption">
 Figure 4.181: Questionnaire setup for comparing trust in scores
@@ -3922,19 +4127,19 @@ Week of January 18th
 <ul>
 <li>Moving to OOB predicitons vs new predictions</li>
 </ul>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-370"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-387"></span>
 <img src="images/bullets/G/oob_vs_new.png" alt="Out-of-bag prediction vs predicition using new data" width="50%" />
 <p class="caption">
 Figure 4.182: Out-of-bag prediction vs predicition using new data
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-371"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-388"></span>
 <img src="images/bullets/G/oob_1500_vs_500.png" alt="Out-of-bag prediction 1500 trees vs 500 trees" width="50%" />
 <p class="caption">
 Figure 4.183: Out-of-bag prediction 1500 trees vs 500 trees
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-372"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-389"></span>
 <img src="images/bullets/G/new_1500_vs_500.png" alt="Prediction for 1500 trees vs 500 trees" width="50%" />
 <p class="caption">
 Figure 4.184: Prediction for 1500 trees vs 500 trees

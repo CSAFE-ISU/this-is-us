@@ -28,3 +28,36 @@ This study design is a 2x2x3 factorial. The first factor is the presence or
 absence of demonstrative evidence. The second factor is the presence or absence of
 the bullet matching algorithm, and the third factor is the expert's conclusion:
 match, inconclusive, or not a match.
+
+### Sample Testimony
+
+Two different expert testimonies have been drafted. The first testimony is that
+of the firearms examiner. This testimony relates specifically to the case used in
+the study.The second testimony is that of the algorithm expert. This testimony
+relates to the details of how the algorithm works, as well as when it may be used.
+
+#### Firearms Examiner
+
+The firearms examiner's testimony includes a description of how bullets are marked, 
+as well as how the expert examines the bullets using a comparison microscope. The
+examiner then concludes that the bullets either match, do not match, or are inconclusive.
+
+Demonstrative evidence for this section would include: an image of barrel rifling, 
+an image of a fired bullet, and an image of two bullets aligned using a comparison 
+microscope.
+
+When the bullet matching algorithm is included in the testimony, the firearms
+expert would describe their experience with the algorithm, as well as a simple
+description of the algorithm and the score it produces. This score should generally 
+correspond to the examiner's conclusion. Demonstrative evidence would include
+an image of the land-to-land scores.
+
+#### Algorithm Expert
+
+The algorithm expert's testimony includes a more in-depth description of how the
+algorithm works: finding lands, extracting signatures, and comparing signatures
+to produce a score. It also includes information about how the algorithm has
+been tested, as well as the validity of using the algorithm for the case in question.
+
+Demonstrative evidence for this section would include: an image of how lands can
+be located, and an image of the comparison of two signatures.

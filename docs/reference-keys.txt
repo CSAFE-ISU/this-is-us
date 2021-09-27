@@ -475,3 +475,6 @@ impl
 demonstrative-evidence-and-firearms
 previous-work
 study-design
+sample-testimony
+firearms-examiner
+algorithm-expert

@@ -3129,6 +3129,18 @@ knitr::include_graphics("images/cartridge_cases/9-27-21_update/varianceRatioComp
 
 </details>
 
+<details>
+<summary>
+Joe 10/4/21 Update: On top of re-writing the cmcR paper and running the CMC method on a large set of TopMatch scans, I have also been trying formulate a model for the CMC counts that takes into account spatial dependence between cells in a particular comparison and the fact that any one cartridge cases among $N$ total scans is used in $N-1$ comparisons. I plan on spending part of my spotlight next week proposing a model and asking the group for feedback.
+</summary>
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/10-4-21_update/gmrf_dependencyDiagram.png")
+```
+
+
+</details>
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
 The moified Chumbley non-random algorithm is a statistical non-parametric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segment to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 

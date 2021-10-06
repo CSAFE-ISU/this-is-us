@@ -3909,6 +3909,7 @@ knitr::include_graphics("images/cmps/p_npeak_plot.png", dpi=100)
 
 Will 09/26 Update: preparing to submit the package to CRAN and submit the paper. I also updated some functions in `bulletxtrctr`, adding source code that improves the running speed of `get_ccf()` and `sig_align()` and defining the concept of "lag" used in `bulletxtrctr`.  
 
+Will this-us-demo.
 
 
 #### Future Work

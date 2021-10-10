@@ -3080,7 +3080,6 @@ I've spent much of this summer implementing an alternative method to the CMC met
 
 The major benefit of this method over the CMC method is that it requires significantly fewer parameters than the CMC method. Additionally, there are well-established tables and theoretical results (albeit under independence assumptions not necessarily met in this situation) related to the Wilcoxon Rank-Sum statistics allowing the calculation of either small sample or asymptotic p-values. 
 
-
 We have some promising preliminary results such as the p-values shown below between a set of 7 scans (all of the orange p-values correspond to matches, the white/gray to non-matches), although there are a few obstacles in properly implementing this method at a larger scale.
 
 ```{r}
@@ -3137,6 +3136,94 @@ Joe 10/4/21 Update: On top of re-writing the cmcR paper and running the CMC meth
 ```{r}
 knitr::include_graphics("images/cartridge_cases/10-4-21_update/gmrf_dependencyDiagram.png")
 ```
+
+
+</details>
+
+<details>
+<summary>
+Joe 10/11/21 Spotlight: I will discuss some recent CMC results and a model that I am putting together for CMC counts.
+</summary>
+
+**Large-scale CMC validation**
+
+I will share results from running the CMC method on a large set of scans.
+
+Following is the optimized confusion matrix on the training data. This is based on an optimized CMC count threshold of 6.19 (averaged) CMCs. The overall error rate is 3.8% with a Type I (false negative) error rate of 29.8% and a Type II (false positive) error rate of 1.1%.
+
+| | Predicted Match | Predicted Non-Match |
+| --- | --- | --- |
+| **Actual Match** | 556 | 236 |
+| **Actual Non-Match** | 83 | 7552 |
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/10-11-21-spotlight/trainDataResults.png",dpi = 50)
+```
+
+
+Using parameters learned on the training data, the following is the test data confusion matrix. The overall error rate is 2.6% with a Type I error rate of 27.3% and a Type II error rate of 0.7%.
+
+| | Predicted Match | Predicted Non-Match |
+| --- | --- | --- |
+| **Actual Match** | 2266 | 849 |
+| **Actual Non-Match** | 302 | 41550 |
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/10-11-21-spotlight/testDataResults.png",dpi = 50)
+```
+
+| Paper | Translation Thresh. (px) | CCF Thresh. | Theta Thresh. (deg) | CMC Thresh. | Error Rate (%) | False Pos. Rate (%) | False Neg. Rate (%) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Song et al. (2014) | 20 | 0.6 | 6 | 6 | 3.7 | 0.06 | 53.3 |
+| Song et al. (2018) | 20 | 0.5 | 6 | 6 | 3.1 | 0.6 | 36.1 |
+| Optimized CMC | 10 | 0.35 | 6 | 5.5 | 2.9 | 0.8 | 30.3 |
+| Averaged Optimized CMC | (10,10,15) | (0.3,0.35,0.35) | 6 | 6.11 | 2.6 | 0.7 | 27.3 |
+
+
+**Bayesian CMC Dependency Model**
+
+I will describe a model that I've been developing for the CMC counts that take into account dependencies between CMC scores. I am interested in hearing the group's thoughts on the model and if they would propose any changes.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/10-11-21-spotlight/gmrf_dependencyDiagram.png",dpi = 50)
+```
+
+
+Let $i,j$ index $S$ scans, $i,j = 1,...,S$. 
+Denote a comparison between scan $i$ and scan $j$ as $i,j$.
+Let $\pmb{y}_{i,j} \in \{0,1\}^{N_{i,j}}$ be the vector of CMC results for the comaprison $i,j$ where $N_{i,j}$ is the total number of cells in comparison $i,j$.
+Identify a particular cell in comparison $i,j$ with its row/column index $[k,l]$, $k = 1,...,R_{i,j}$ and $l = 1,...,C_{i,j}$.
+
+Then let $y_{i,j,[k,l]} \in \pmb{y}_{i,j}$ be the CMC result for cell $[k,l]$ of comparison $i,j$.
+Assume $y_{i,j,[k,l]} | p_{i,j,[k,l]} \sim$ Bernoulli$(p_{i,j,[k,l]})$ where
+$$
+\text{logit}(p_{i,j,[k,l]}) = \alpha_0 + \alpha_i + \alpha_j + \gamma_{ij} + f_u(u_i) + f_u(u_j) + f_s(s_{[k,l]}).
+$$
+
+We might refer to this model as a *generalized linear mixed latent Gaussian Markov random field model* with Bernoulli likelihood. Sampling from this model can be accomplished using INLA (Integrated Nested Laplace Approximations).
+
+*Mixed Effect Terms*
+
+$\alpha_i, \alpha_j$ are fixed-effect parameters representing the effect of the barrels from which cartridge cases $i$ or $j$ originated (so $\alpha_i = \alpha_j$ if cartridge case $i$ and $j$ originated from the same barrel). 
+$\gamma_{ij}$ is the fixed-effect interaction between the barrels from which $i$ and $j$ originated.
+We assume that these have vague Gaussian priors with mean 0 (maybe?) and known precision (maybe?).
+
+$f_u(u_i)$ and $f_u(u_j)$ are [u]nustructured random-effect parameters intended to account for the fact that we observe multiple CMC scores from scans $i$ and $j$ (repeated measures).
+Assume that $f_u(u_i)$ and $f_u(u_j)$ are conditionally independent and distributed $N(0,\tau_u^{-1})$ given precision $\tau_u$ for $i,j = 1,...,S$.
+These unstructured random terms thus behave as random intercepts.
+
+*Spatial Terms*
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/10-11-21-spotlight/CMCneighborhoodExample.png",dpi = 50)
+```
+
+Finally, $f_s(s_{[k,l]})$ is a [s]patially structured term intended to account for spatial correlation between neighboring cells (or sites, hence the $s$).
+Assume that the sites $\pmb{s} = (s_{[k,l]})$ follow a "Besag" distribution defined by
+$$
+s_{[k,l]} | \pmb{s}_{-[k,l]}, \tau_s \sim N\left(\frac{1}{n_{[k,l]}} \sum_{[k,l] \sim [m,n]} s_{[m,n]}, \frac{1}{n_{[k,l]} \tau_s}\right)
+$$
+where $n_{[k,l]}$ is the number of neighbors of node $[k,l]$ and $[k,l] \sim [m,n]$ indicates that two nodes $[k,l]$ and $[m,n]$ are neighbors. We will assume a 3x3 neighborhood structure except for cells on the boundaries of the scan.
 
 
 </details>

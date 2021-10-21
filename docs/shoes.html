@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2021-10-05" />
+<meta name="date" content="2021-10-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -292,6 +292,7 @@ div.csl-indent {
 <li class="chapter" data-level="7.6.7" data-path="shoes.html"><a href="shoes.html#research-3-mc-cnn"><i class="fa fa-check"></i><b>7.6.7</b> Research 3: MC + CNN</a></li>
 </ul></li>
 <li class="chapter" data-level="7.7" data-path="shoes.html"><a href="shoes.html#matching-shoe-prints-with-ccf"><i class="fa fa-check"></i><b>7.7</b> Matching shoe prints with ccf</a></li>
+<li class="chapter" data-level="7.8" data-path="shoes.html"><a href="shoes.html#a-new-algorithm-using-icp-method-based-on-surf-to-identify-the-source-of-shoe-impression"><i class="fa fa-check"></i><b>7.8</b> A new algorithm using ICP method based on SURF to identify the source of shoe impression</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html"><i class="fa fa-check"></i><b>8</b> Theoretical foundations</a>
 <ul>
@@ -372,6 +373,10 @@ div.csl-indent {
 <li class="chapter" data-level="12.1.2" data-path="impl.html"><a href="impl.html#study-design"><i class="fa fa-check"></i><b>12.1.2</b> Study Design</a></li>
 <li class="chapter" data-level="12.1.3" data-path="impl.html"><a href="impl.html#sample-testimony"><i class="fa fa-check"></i><b>12.1.3</b> Sample Testimony</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="digital-evidence.html"><a href="digital-evidence.html"><i class="fa fa-check"></i><b>13</b> Digital Evidence</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="digital-evidence.html"><a href="digital-evidence.html#score-based-likelihood-ratios-for-camera-device-identification"><i class="fa fa-check"></i><b>13.1</b> Score-Based Likelihood Ratios for Camera Device Identification</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -619,11 +624,11 @@ This is necessary because Fourier transforms assume images go on forever, so abr
 <p><img src="images/shoes/longitudinal/FFT_Demo_Hann.png" width = "25%"/></p>
 <ul>
 <li>The strength of the Hann function can be adjusted by a power argument<br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-464-1.png" width="672" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-471-1.png" width="672" /></li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
 <li>Use the Fast Fourier Transform on each image. Center the FFT’d images so that low frequencies are in the center (exchange top left quadrant with bottom right, and top right quadrant with bottom left). Call the FFT’d, centered images <span class="math inline">\(F(A)\)</span> and <span class="math inline">\(F(B)\)</span><br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-465-1.png" width="50%" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-472-1.png" width="50%" /></li>
 </ol>
 <p><img src="images/shoes/longitudinal/FFT_Demo_FFT1.png" width = "50%"/></p>
 <ol start="4" style="list-style-type: decimal">
@@ -1565,45 +1570,45 @@ It is unclear how much ICP is changing after each iteration. For example, in our
 <ul>
 <li>Ex1: A matching pair: scan1 (left; reference) and scan2 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-467-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-474-1.png" width="672" /></p>
 <ul>
 <li>Ex2: A non-matching pair: scan1 (left; reference) from shoe2 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-468-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-475-1.png" width="672" /></p>
 <ul>
 <li>Ex3: A non-matching pair: scan1 (left; reference) from shoe3 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-469-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-476-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Determine 600px by 600px square coordinate for all of the reference images; the location of square is the same for each reference image. For example, the bottom left corner is at (601, 1001) and the top right corner is at (1200, 1600).</li>
 </ol>
 <ul>
 <li>Ex1: A matching pair: scan1 (left; reference) and scan2 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-470-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-477-1.png" width="672" /></p>
 <ul>
 <li>Ex2: A non-matching pair: scan1 (left; reference) from shoe2 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-471-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-478-1.png" width="672" /></p>
 <ul>
 <li>Ex3: A non-matching pair: scan1 (left; reference) from shoe3 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-472-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-479-1.png" width="672" /></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Extract the 600px by 600px square from both reference and moving images in each matching/non-matching pair, and then split each square into 36 smaller squares that are 100px by 100px. As a result, there are 36 100px by 100px squares are obtained from the reference and moving images, respectively, in each pair.</li>
 </ol>
 <ul>
 <li>Ex1:</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-473-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-480-1.png" width="672" /></p>
 <ul>
 <li>Ex2:</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-474-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-481-1.png" width="672" /></p>
 <ul>
 <li>Ex3:</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-475-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-482-1.png" width="672" /></p>
 <ol start="5" style="list-style-type: decimal">
 <li>Compute maximum cross correlation function from a small square of a reference image and its corresponding small square of the moving image. Consequently, there are 36 maximum ccf and their (dx, dy) obtained from each matching/nonmatching pair. Summarize ccf, dx, and dy so that only a single set of features from them is made from each pair.</li>
 </ol>
@@ -1624,11 +1629,11 @@ It is unclear how much ICP is changing after each iteration. For example, in our
 <ol start="6" style="list-style-type: decimal">
 <li>Train randomforest based on the features of ccf, dx, and dy from the training set, and predict whether each pair in the test set is matching or non-matching.</li>
 </ol>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-478-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-485-1.png" width="672" /></p>
 </div>
 <div id="massive-matching-pairs-added-to-training-set" class="section level4" number="7.7.0.2">
 <h4><span class="header-section-number">7.7.0.2</span> Massive matching pairs added to training set</h4>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-479-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-486-1.png" width="672" /></p>
 <div id="hanas-update-on-215" class="section level5" number="7.7.0.2.1">
 <h5><span class="header-section-number">7.7.0.2.1</span> Hana’s update on 2/15</h5>
 <ul>
@@ -1678,7 +1683,33 @@ It is unclear how much ICP is changing after each iteration. For example, in our
 </ul>
 <p><img src="images/shoes/deformation_hana/points4_for_triangulation.png" width = "80%"/></p>
 <p><img src="images/shoes/deformation_hana/Delaunay_triangulation.png" width = "80%"/></p>
-<p>####Shoe Comparisons through Time
+</div>
+</div>
+</div>
+<div id="a-new-algorithm-using-icp-method-based-on-surf-to-identify-the-source-of-shoe-impression" class="section level2" number="7.8">
+<h2><span class="header-section-number">7.8</span> A new algorithm using ICP method based on SURF to identify the source of shoe impression</h2>
+<p>The proposed algorithm mainly consists of two stages. First, the best alignment between two images–moving and reference–compared are obtained by ICP (Iterative Closest Points) method based on SURF (Speeded-Up Robust Features) so that the two images, and their corresponding SURF points could be overlaid by rotating and translating the moving to the reference. Next, pairwise features are extracted from the aligned SURF points as well as the images, which is used to distinguish matching pairs from nonmatching pairs. Then, the randomforest is employed with the pairwise features to tell if a pair of images were originated from the same shoe or not. In the remaining of this report, each stage is described with example results, and the performance of the proposed algorithm is demonstrated through two case studies.</p>
+<img src="images/shoes/Aligned_output/mated_nonmated_aligned_surf.png">Figure 1. The left and right panels present the reference SURF points with the moving SURF points aligned to it based on a known matching pair (KM), and a known nonmatching pair (KN), respectively where a thousand of the strongest SURF points from a reference image, and five hundreds of the strongest SURF points from a moving image are shown.
+</p>
+<p>The first stage is to extract five hundreds of points of SURF from each of two images of shoe outsoles compared, and to align the two sets of points by ICP method. As its name indicates, ICP method aligns two sets of SURF points by minimizing sum of the closest distance between the two sets of points. It consequently overlays the SURFs from two outsole images that are similar like human examiners try to overlay the outlines of shoes prior to comparison by lining up potential stationary points that are commonly located in both sets of points. The alignment of SURF points from a known matching pair (KM), and a known nonmatching pair (KN) is presented in Figure 1. Such alignment based on SURF can be applied to the original images, and the results are illustrated in Figures 2, and 3. Note particularly that the outline of both images from (KN), and their common pattern including logos are aligned as intended although the images from two different shoes are not supposed to be perfectly overlapped due to wear-and-tear as well as subtle difference in the design resulting from the production process.</p>
+<img src="images/shoes/Aligned_output/mated_all.png">Figure 2. The most left image colored in yellow is a reference, and the middle colored in red is a moving image aligned to the reference by ICP method based on SURF for the case of (KM). The most right panel shows the reference overlaid with the aligned moving image.
+</p>
+<img src="images/shoes/Aligned_output/nonmated_all.png">Figure 3. The most left image colored in yellow is a reference, and the middle colored in red is a moving image aligned to the reference by ICP method based on SURF for the case of (KN). The most right panel shows the reference overlaid with the aligned moving image.
+</p>
+<p>Next, the features from the aligned SURFs and images are computed where a double number of reference SURF points are used. The closest distances from each of the aligned moving SURF points to the reference SURF points, and then their first quantile, and average are used as features. In addition to that, the average number of neighboring reference SURF points around each of the aligned moving SURF points within a set of small distances is calculated, and their mean across the distances is taken as a feature. Likewise, the average number of the aligned moving SURF points that have no neighborihg reference SURF points within the set of small distances is obtained, and their mean across the distances is used as a feature. Lastly, the phase only correlation between the aligned images is considered to be a feature, which is a key feature to distinguish matching and nonmatching pairs by this algorithm.</p>
+<p>The proposed algorithm was applied to two datasets denoted by Dataset1, and Dataset2 and its performance to distinguish matching and nonmatching pairs was compared with that of the algorithm based on maximum cliques and randomforest denoted by MC developed by Park and Carriquiry (2020) that had demonstrated high accuracy rate. Both datasets consist of about 420 of matching and close nonmatching pairs made by Nike shoes, and Adidas shoes in various sizes whose designs are the same as shown in Figure 2 and 3 where a matching pair and a close nonmatching pair indicate two outsole images from the same shoe, and from two different shoes whose class characteristics including design, size, and side are identical, respectively. The two images in each matching pair of Dataset1 are just replicated scans of the same shoe, meaning that the second scan was obtained immediately after the first one was made. On the other hand, the one image of each matching pair of Dataset2 was created several months after the other scan was created so that the degree of wear-and-tear of the same shoe is different between the two scanned images. Hence, Dataset2 would be more challenging than Dataset1 for the algorithms to identify the source of shoe outsole images in a sense that the two images from the same shoe are less similar in Dataset2. Each dataest was split into a training set independent of a test set by brand, and the predictive performance of the randomforest based on a training set (Nike) was evaluated on the test set (Adidas). Figure 4 displays the performance of the proposed algorithm and MC algorithm, illustrating that the MC algorithm is slightly better than or comparable to the proposed algorithm on Dataset1, but the proposed method is superior with the higher ROC curve on Dataset2. Note also that when the features from both algorithms are used together, the ROC curves are improved on Dataset2.</p>
+<img src="images/shoes/Aligned_output/ROC_samevisit_diffvisit.png">Figure 4. ROC curves on Dataset1 and 2 by the proposed method, the algorithm based on MC, and the combination of both are shown. The area under curve (AUC) of each method is 0.969, 0.995, 0.991 on Dataset1, and 0.944, 0.855, 0.986 on Dataset2.
+</p>
+<!-- \begin{figure}[H] -->
+<!--     \centering{ -->
+<!--     \subfigure{\includegraphics[scale = 0.4]{Aligned_output/ROC_samevisit.png} } -->
+<!--     \hfill -->
+<!--     \subfigure{\includegraphics[scale = 0.4]{Aligned_output/ROC_diffvisit.png} } -->
+<!--     } -->
+<!--     \caption{ROC curves on Dataset1 and 2 by the proposed method, the algorithm based on MC, and the combination of both are shown. The area under curve (AUC) of each method is 0.969, 0.995, 0.991 on Dataset1, and 0.944, 0.855, 0.986 on Dataset2.} -->
+<!--     \label{ROCs} -->
+<!-- \end{figure} -->
+<p>##Shoe Comparisons through Time
 ####NIKE</p>
 <p><strong>Definitions:</strong>
 Matched Shoes: When the scans of the same shoes from different time periods are compared</p>
@@ -1765,8 +1796,6 @@ I finished creating data sets for Nike shoes. I created 6 dataframes, one for ea
 <p><em>February 15th 2020, Matias Ibarburu</em>
 I am in the process of analyzing and writing up the datasets I have created for Nike.</p>
 
-</div>
-</div>
 </div>
 </div>
 <h3>References</h3>

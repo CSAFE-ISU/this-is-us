@@ -250,6 +250,54 @@ include_graphics(c( "images/handwriting/amy/clusterplot1.png"))
 ```
 </details>
 
+#### Convergence of Clustering Template Algorithm 
+*This section was written by Stephanie Reinders October 22, 2021.*
+
+Amy Crawford created a K-means type algorithm that groups graphs extracted from handwriting samples into
+clusters. See the previous sections for her summary of her work. I am in the process of using her clustering template creation code to create new templates on different training data. 
+
+As mentioned in the previous section, Amy's K-means algorithm consists of two main steps:
+- ASSIGNMENT STEP: assign each graph to the nearest cluster
+- UPDATE STEP: calculate the new cluster center
+These two steps are repeated until the graph assignments don't change or the maximum number of iterations is reached. (See the pseudo code below for a more detailed description of Amy's K-means algorithm) If the algorithm reaches a place where the graph assignments no longer change, we say that the algorithm
+converged. 
+
+<strong> PSEUDO CODE: Current Clustering Template Algorithm:</strong>
+```
+Input:
+  K = number of clusters
+  graphs = n graphs from training handwriting samples
+  centers = K graphs to be used as starting cluster centers
+Output:
+  centers = K final cluster centers
+
+1. # Calculate distances
+2. For each center c in centers
+3.    For each graph g in graphs
+4.        dist(c,g) = the graph distance between c and g
+5. # Cluster assignment
+6. For each graph g in graphs
+7.    assign(g) = the cluster to which g has the smallest distance in dist
+8. # Calculate mean graph and update center
+9. for each cluster k in K
+10.   sort the graphs in k from closest to k's center to farthest
+11.   mean_graph = first graph g in the sort list
+12.   remove the first graph from the sorted list
+11.   for each graph g in the sorted list
+12.       mean_graph = the average of mean_graph and g
+13.   c = graph in cluster k closest to mean_graph
+14. Terminate if no center changed or if max iterations is reached. Otherwise repeat lines 1-13.
+```
+
+Amy found that even on the same training data depending on the random seed used, some cluster templates don't 
+converge even after letting the algorithm run for ~24 hours. I have run into the same problem. Over the past week I have been trying to figure out why some templates don't converge.
+
+```{r, fig.cap="Posterior predictive results. Rows are evaluated independently and the probability in each row sums to one. Log Loss = 0.2013", out.width="60%", fig.keep="hold", fig.align='center'}
+include_graphics(c( "images/handwriting/amy/CVL_w27_h4_cluster40_basemodel_grid.png"))
+```
+
+
+
 ### Statistical Modeling
 
 

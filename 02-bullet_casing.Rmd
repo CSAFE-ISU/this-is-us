@@ -4663,6 +4663,8 @@ knitr::include_graphics(c("images/andy_temp/rework_plots/Certainty_map.png"))
 
 Pixel wise accuracy is 68%, we can see that the models certainty is related to the number of instances for each class, excluding missing values.  The low performance could be do to the scan used.  This land engraved area scan is particularly difficult due to the frequent occurrences of damage and no striations.  The annotator wasn't even able to label all of the instances of damage and left them as well expressed striation marks. Experimenting with alternative class weights of a loss function that utilizes class weights such weight categorical cross entropy could be used to improve classification accuracy.  There are upsides and downsides to this approach but further analysis needs to be done such as IOU and DICE metrics to determine class separability. 
 
+This study has just started and there is still a lot more to do.  These are just some basic results I have made.  More on this to come!
+
 <br><br><br>
 
 
@@ -4707,7 +4709,7 @@ knitr::include_graphics(c("images/andy_temp/rework_plots/Class_labels_freq.png")
 
 #### Missing Values
 
-Interpolation of missing values w.r.t the land engraved area scans is a very interesting problem.  Neural networks can not accept inputs with a large amount of missing values because of the negative impact they have on the model weights.  The impact of missing values and training a convolutional neural network have been observed.  We saw that the model would loop a number of accuracy and loss metrics.  The length of the loop was directly related to the number of classes we were trying to predict.  The end result would yield a trained neural network that would always pick the majority class, aka the learnable layers only learned to predict the majority class for each instance of training and validation data.  The question of "What should we do with the missing values?" is not an easy one.  We have to interpolate the missing values but what is the best way in regards to our data and the problem we are trying to solve?  Previous studies have showed that the 8 neighbor approach reduces the variability more compared to other left, right, up, and down recursive approaches.  Fourier Transforms have also been explored in other topographical data problems.  Another approach would be to set missing values to an extremely low value or an extremely high value. 
+Interpolation of missing values w.r.t the land engraved area scans is a very interesting problem.  Neural networks can not accept inputs with a large amount of missing values because of the negative impact they have on the model weights.  The impact of missing values and training a convolutional neural network have been observed.  We saw that the model would loop a number of accuracy and loss metrics.  The length of the loop was directly related to the number of classes we were trying to predict.  The end result would yield a trained neural network that would always pick the majority class, aka the learnable layers only learned to predict the majority class for each instance of training and validation data.  The question of "What should we do with the missing values?" is not an easy one.  We have to interpolate the missing values but what is the best way in regards to our data and the problem we are trying to solve?  Previous studies have showed that the 8 neighbor approach reduces the variability more compared to other left, right, up, and down recursive approaches.  Fourier Transforms have also been explored in other topographical data problems.  Another approach would be to set missing values to an extremely low value or an extremely high value.  Another approach would be to not interpolate the missing values, but re-scale the existing values to a range greater than zero.  We can then use the keras and tensorflow backend features to pad missing values with zero before imputing into the model.  This would work for cropped land engraved areas, full land engraved areas, and would allow for a more dynamic input rather than a fixed input.
 
 #### Normalize and Scaling of Processed Data
 
@@ -4719,13 +4721,13 @@ After a land engraved area scan is interpolated, a portion of the labels in the 
 
 <br>
 
-                                               Moore's Neighborhood
-                                               #  (-1, -1)  |  (-1, 0)    | (-1, +1)    #
-                                               #----------------------------------------#
-                                               #  (0, -1)   |  (0, 0)     | (0, +1)     #
-                                               #----------------------------------------#
-                                               #  (+1, -1)  | (+1, 0)     | (+1, +1)    #
-                                               #----------------------------------------#
+                                  Moore's Neighborhood
+                                  #  (-1, -1)  |  (-1, 0)    | (-1, +1)    #
+                                  #----------------------------------------#
+                                  #  (0, -1)   |  (0, 0)     | (0, +1)     #
+                                  #----------------------------------------#
+                                  #  (+1, -1)  | (+1, 0)     | (+1, +1)    #
+                                  #----------------------------------------#
 <br>
                                                
 We utilize the Moore's neighborhood approach, traversing counter clockwise, and we use the jacob stop criterion for terminating the algorithm.
@@ -4782,6 +4784,8 @@ The user has the ability to examine a scan just like in rgl but in rgl widget.  
 ### What's Next?
 
 There are many things that can be done.  I plan to continue the statistical analysis portion of this project, studying the variability of the data w.r.t the model and data processing.  Using tensorflow and keras callbacks has allowed the project to progress much farther than expected and it is exciting.  Using statistical methods, inference, and studying our models learnable layers will strengthen the validity of the project.  More updates in the future. 
+
+**END**(10/25/2021)**Current Progress**
 
 <br><br><br><br><br><br>
 

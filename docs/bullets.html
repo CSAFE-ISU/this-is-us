@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2021-10-21" />
+<meta name="date" content="2021-10-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -203,11 +203,19 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="bullets.html"><a href="bullets.html#assessing-quality-of-scans"><i class="fa fa-check"></i><b>4.4</b> Assessing Quality of Scans</a>
 <ul>
-<li class="chapter" data-level="4.4.1" data-path="bullets.html"><a href="bullets.html#current-data-processing-procedures"><i class="fa fa-check"></i><b>4.4.1</b> Current Data Processing Procedures</a></li>
-<li class="chapter" data-level="4.4.2" data-path="bullets.html"><a href="bullets.html#convolutional-neural-networks"><i class="fa fa-check"></i><b>4.4.2</b> Convolutional Neural Networks</a></li>
-<li class="chapter" data-level="4.4.3" data-path="bullets.html"><a href="bullets.html#post-analysis"><i class="fa fa-check"></i><b>4.4.3</b> Post Analysis</a></li>
-<li class="chapter" data-level="4.4.4" data-path="bullets.html"><a href="bullets.html#summary-statistics"><i class="fa fa-check"></i><b>4.4.4</b> Summary Statistics</a></li>
-<li class="chapter" data-level="4.4.5" data-path="bullets.html"><a href="bullets.html#training-neural-net-using-data-from-scannermegan"><i class="fa fa-check"></i><b>4.4.5</b> Training Neural Net using data from Scanner(Megan)</a></li>
+<li class="chapter" data-level="4.4.1" data-path="bullets.html"><a href="bullets.html#goal"><i class="fa fa-check"></i><b>4.4.1</b> Goal</a></li>
+<li class="chapter" data-level="4.4.2" data-path="bullets.html"><a href="bullets.html#data-brief"><i class="fa fa-check"></i><b>4.4.2</b> Data Brief</a></li>
+<li class="chapter" data-level="4.4.3" data-path="bullets.html"><a href="bullets.html#data-labeling"><i class="fa fa-check"></i><b>4.4.3</b> Data Labeling</a></li>
+<li class="chapter" data-level="4.4.4" data-path="bullets.html"><a href="bullets.html#current-data-processing-procedures"><i class="fa fa-check"></i><b>4.4.4</b> Current Data Processing Procedures</a></li>
+<li class="chapter" data-level="4.4.5" data-path="bullets.html"><a href="bullets.html#convolutional-neural-networks"><i class="fa fa-check"></i><b>4.4.5</b> Convolutional Neural Networks</a></li>
+<li class="chapter" data-level="4.4.6" data-path="bullets.html"><a href="bullets.html#model-architectures"><i class="fa fa-check"></i><b>4.4.6</b> Model Architectures</a></li>
+<li class="chapter" data-level="4.4.7" data-path="bullets.html"><a href="bullets.html#results"><i class="fa fa-check"></i><b>4.4.7</b> Results</a></li>
+<li class="chapter" data-level="4.4.8" data-path="bullets.html"><a href="bullets.html#class-imbalance"><i class="fa fa-check"></i><b>4.4.8</b> Class Imbalance</a></li>
+<li class="chapter" data-level="4.4.9" data-path="bullets.html"><a href="bullets.html#labeling-consistency"><i class="fa fa-check"></i><b>4.4.9</b> Labeling Consistency</a></li>
+<li class="chapter" data-level="4.4.10" data-path="bullets.html"><a href="bullets.html#data-processing-improvements"><i class="fa fa-check"></i><b>4.4.10</b> Data Processing Improvements</a></li>
+<li class="chapter" data-level="4.4.11" data-path="bullets.html"><a href="bullets.html#shiny-app"><i class="fa fa-check"></i><b>4.4.11</b> Shiny App</a></li>
+<li class="chapter" data-level="4.4.12" data-path="bullets.html"><a href="bullets.html#whats-next"><i class="fa fa-check"></i><b>4.4.12</b> What’s Next?</a></li>
+<li class="chapter" data-level="4.4.13" data-path="bullets.html"><a href="bullets.html#past-worksection-may-be-removed-later"><i class="fa fa-check"></i><b>4.4.13</b> Past Work(Section May be Removed Later)</a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="bullets.html"><a href="bullets.html#analysis-of-results"><i class="fa fa-check"></i><b>4.5</b> Analysis of Results</a>
 <ul>
@@ -341,7 +349,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="8.7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#evaluation-metrics."><i class="fa fa-check"></i><b>8.7</b> Evaluation metrics.</a>
 <ul>
-<li class="chapter" data-level="8.7.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#results"><i class="fa fa-check"></i><b>8.7.1</b> Results</a></li>
+<li class="chapter" data-level="8.7.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#results-1"><i class="fa fa-check"></i><b>8.7.1</b> Results</a></li>
 </ul></li>
 <li class="chapter" data-level="8.8" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#srl-behaviour-and-dependence-extended-simulation."><i class="fa fa-check"></i><b>8.8</b> SRL behaviour and dependence: Extended simulation.</a></li>
 <li class="chapter" data-level="8.9" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#small-updates"><i class="fa fa-check"></i><b>8.9</b> Small updates:</a></li>
@@ -3488,6 +3496,7 @@ v = \frac{\sum n_i (\bar{y}_{i.} - \bar{y}_{..})^2}{\sum_i \sum_j (y_{ij} - \bar
 \]</span></p>
 <p>where <span class="math inline">\(d\)</span> is an integer.</p>
 </details>
+<p>Will 10/24 Update: the <code>cmpsR</code> package passed all tests with github action. Submitting.</p>
 </div>
 </div>
 <div id="future-work" class="section level4" number="4.3.4.4">
@@ -3501,94 +3510,674 @@ v = \frac{\sum n_i (\bar{y}_{i.} - \bar{y}_{..})^2}{\sum_i \sum_j (y_{ij} - \bar
 </div>
 <div id="assessing-quality-of-scans" class="section level2" number="4.4">
 <h2><span class="header-section-number">4.4</span> Assessing Quality of Scans</h2>
-<p>Setting up a CNN to assess scan quality</p>
+<div id="goal" class="section level3" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> Goal</h3>
 <p>The goal for this project is to be able to take the current CSAFE manually identified land engraved areas data and use that data to train a 3d convolutional neural network. Once the 3d convolutional neural network has been trained, we plan to use the model to automate the identification process of land engraved area scans.</p>
-<p>Currently an operator can take a land engraved area scan, which is stored as an x3p file, and upload that file to the fix3p google chrome extension. Once the land engraved area scan is uploaded to fix3p, an operator can manually paint areas of the scan to identify the regions.</p>
-<div id="the-regions-to-annotate-are-as-follows" class="section level4" number="4.4.0.1">
-<h4><span class="header-section-number">4.4.0.1</span> The regions to annotate are as follows:</h4>
-<pre><code>1. Groove engraved areas are painted dark blue for the left groove and neon green for the right groove.
-2. Break-off region, located at the bottom heel of a scan are painted in pink.
-3. Damaged regions are painted using the color white.
-4. Areas without striation marks are painted in light blue. 
-5. Striation marks with a secondary pattern are painted in light yellow. 
-6. Finally, all areas with well expressed striation marks are left unpainted.
-7. Missing values in a LEA scan are painted Black</code></pre>
-<p>After all the regions have been correctly annotated and saved, the x3p file should contain a land engraved area scan with additional data known as a “mask.”</p>
+</div>
+<div id="data-brief" class="section level3" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> Data Brief</h3>
+<p>When a bullet is fired through the barrel of a firearm certain impressions are left on the bullet. Impressions left on the bullet can be caused by several factors such as: rifling of the barrel, explosion created by the firing pin igniting the gun powder, and impurities inside the barrel. These impressions are useful in the study of pattern evidence to determine if two bullets came from the same source.</p>
+<p><br><br></p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-321"></span>
-<img src="images/andy_temp/show_and_tell_3.PNG" alt="Labeled Land Engraved Area Scan using fix3p" width="80%" />
+<img src="images/andy_temp/rework_plots/Land_Engraved_Area.PNG" alt="Area of Interest, Land Engraved Area" width="80%" />
 <p class="caption">
-Figure 4.109: Labeled Land Engraved Area Scan using fix3p
+Figure 4.109: Area of Interest, Land Engraved Area
 </p>
 </div>
-</div>
-<div id="current-data-processing-procedures" class="section level3" number="4.4.1">
-<h3><span class="header-section-number">4.4.1</span> Current Data Processing Procedures</h3>
-<p>We read in the manually identified land engraved areas into R using the read_x3p function and store each .x3p as a row in a tibble style dataframe.</p>
-<p>There are a lot of missing values contained in the surface matrix for each LEA scan. Missing element values are currently being interpolated by taking the average of a missing element’s 8 neighbors, if they exist.</p>
+<p><br></p>
+<p>After a bullet has been fired and collected, a predetermined section of the bullet is scanned using a Sensofar Confocal Light Microscope. Each scan represents a 3d topographic image referred to as a Land Engraved Area(LEA).</p>
+<p><br><br></p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-322"></span>
-<img src="images/andy_temp/Missing_Values_Interpolation_Facet_2.png" alt="Faceted Annotations Plot" width="80%" />
+<img src="images/andy_temp/rework_plots/LEA_Blank.PNG" alt="Area of Interest, Land Engraved Area" width="80%" />
 <p class="caption">
-Figure 4.110: Faceted Annotations Plot
+Figure 4.110: Area of Interest, Land Engraved Area
 </p>
 </div>
+<p><br><br></p>
+<p>Each land engraved area scan is stored in a .x3p file format, an iso standard. Each .x3p file contains useful information such as: surface matrix information, mask matrix information, and useful meta information for logging the collection process and any changes made to the .x3p file. The surface information is captured on a grid of <span class="math inline">\(0.645_{\mu m} \times 0.645_{\mu m}\)</span> microns <strong>(1 x 10^-16)</strong>. Around <span class="math inline">\(2.2_{mm} \times 0.6_{mm}\)</span> of area is captured for each land engraved area.</p>
+<p><br></p>
+</div>
+<div id="data-labeling" class="section level3" number="4.4.3">
+<h3><span class="header-section-number">4.4.3</span> Data Labeling</h3>
+<p>We categorize impressions/areas on land engraved area scans into 6~7 different types, where only one of the impressions is useful in the training of pattern matching algorithms. The area of major importance is known as well expressed striation marks. Bringing more context about the goal of this project, correctly determining these 6~7 types of impressions/areas using a convolutional neural network is the main goal of this research project.</p>
+<p>Currently an operator can take a land engraved area scan, which is stored as a .x3p file, and upload that file to the fix3p Google chrome extension. Once the land engraved area scan is uploaded to fix3p, an operator can manually paint areas of the scan to identify the regions. After all the regions have been correctly annotated and saved, the x3p file should contain a land engraved area scan with additional data known as a “mask.”</p>
+<div id="the-regions-to-annotate-are-as-follows" class="section level4" number="4.4.3.1">
+<h4><span class="header-section-number">4.4.3.1</span> The regions to annotate are as follows:</h4>
+<ol style="list-style-type: decimal">
+<li>Groove engraved areas are painted dark blue for the <span class="math inline">\(\color{blue}{\text{left groove}}\)</span> and neon green for the <span class="math inline">\(\color{#00ff00}{\text{right groove}}\)</span>.</li>
+<li><span class="math inline">\(\color{#ff0080}{\text{Break-off Region}}\)</span>, located at the bottom heel of a scan are painted in pink.</li>
+<li><span class="math inline">\(\color{grey}{\text{Damaged Regions}}\)</span> are painted using the color white.</li>
+<li><span class="math inline">\(\color{#66ffff}{\text{Areas without Striations}}\)</span> marks are painted in light blue.</li>
+<li>Striation marks with a secondary pattern are painted in light yellow <span class="math inline">\(\color{yellow}{\text{********}}\)</span>.</li>
+<li>Finally, all areas with <span class="math inline">\(\color{#cd7f32}{\text{well expressed striation marks}}\)</span> are left unpainted.</li>
+<li><span class="math inline">\(\color{#000000}{\text{Missing Values}}\)</span> in a LEA scan are painted Black</li>
+</ol>
+<p><br></p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-323"></span>
-<img src="images/andy_temp/Missing_Values_Interpolation_1.png" alt="Missing Values Plot" width="80%" />
+<img src="images/andy_temp/rework_plots/this_is_us_1.PNG" alt="Labeled Land Engraved Area Scan using fix3p" width="80%" />
 <p class="caption">
-Figure 4.111: Missing Values Plot
+Figure 4.111: Labeled Land Engraved Area Scan using fix3p
 </p>
 </div>
+<p><br></p>
+</div>
+</div>
+<div id="current-data-processing-procedures" class="section level3" number="4.4.4">
+<h3><span class="header-section-number">4.4.4</span> Current Data Processing Procedures</h3>
+<p>We read in the manually identified land engraved areas into R using the read_x3p function and store each .x3p as a row in a tibble style dataframe.</p>
+<p>There are a lot of missing values contained in the surface matrix for each LEA scan. Missing element values are currently being interpolated by taking the average of a missing element’s 8 neighbors, if they exist. Missing values in the surface matrices had a label of well expressed striae assigned to the corresponding ith x jth location in the mask matrices. These annotations are not classified correctly and are relabeled using summary statistics as a basis for a location relabeling function, a sample size of 500 land engraved area scans was used as reference. The label known as change in striation was also removed due to lack of importance<strong>(More on this later)</strong>. The left groove is also relabeled to the same color as the right groove. Therefore we trying to use a convolutional neural network to correctly classify 6 labels: <span class="math inline">\(\color{#00ff00}{\text{Grooves}}\)</span>, <span class="math inline">\(\color{#ff0080}{\text{Break-off}}\)</span>, <span class="math inline">\(\color{grey}{\text{Damage}}\)</span>, <span class="math inline">\(\color{#66ffff}{\text{No Striations}}\)</span>, <span class="math inline">\(\color{#cd7f32}{\text{Striations}}\)</span>, and <span class="math inline">\(\color{#000000}{\text{Missing Values}}\)</span>. Interpolation and relabeling functions can be found in my Rpackage, x3pLeax.</p>
+<p><br></p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-324"></span>
-<img src="images/andy_temp/Missing_Values_Interpolation_3.png" alt="Interpolated Values Plot" width="80%" />
+<img src="images/andy_temp/rework_plots/this_is_us_2.PNG" alt="Annotations Plot, Missing Values" width="80%" />
 <p class="caption">
-Figure 4.112: Interpolated Values Plot
+Figure 4.112: Annotations Plot, Missing Values
 </p>
 </div>
-<p>After the data has been read and stored into R’s global environment, we propose a data preprocessing procedure that increases the amount of data we currently have. We take each x3p file containing a masked LEA scan, crop, and store each 128x128 resolution grid of the original scan and store it as a new x3p. This allows us to increase the amount of data being fed into our 3d CNN model by 224 to 240 times the amount of our original data based on the original x3p resolution size. To do this we use the x3p_crop function from the x3ptools R programming package</p>
+<p><br><br><br></p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-325"></span>
-<img src="images/andy_temp/csafe_21_noNA_x3p.PNG" alt="Example boundaries for cropping" width="80%" />
+<img src="images/andy_temp/rework_plots/this_is_us_4.PNG" alt="Interpolated Values Plot" width="80%" />
 <p class="caption">
-Figure 4.113: Example boundaries for cropping
+Figure 4.113: Interpolated Values Plot
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-326-1"></span>
-<img src="images/andy_temp/csafe_21_nostriae_2.PNG" alt="Title coming soon." width="30%" />
+<p><br></p>
+<p>The Full Land Engraved Area Surface matrices and Mask Matrices will be used to train a 3d convolutional neural network. The surface matrices will be used as the explanatory training data with size(x, y) and the mask matrices will be used as the prediction data with size(x, y). The mask matrices/prediction data are then one-hot encoding resulting in matrices with dimensions of size (x, y, 6).</p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-326"></span>
+<img src="images/andy_temp/rework_plots/this_is_us_3.PNG" alt="Full Land Engraved Area" width="80%" />
 <p class="caption">
-Figure 4.114: Title coming soon.
+Figure 4.114: Full Land Engraved Area
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-326-2"></span>
-<img src="images/andy_temp/csafe_21_vert_2.PNG" alt="Title coming soon." width="30%" />
-<p class="caption">
-Figure 4.115: Title coming soon.
-</p>
-</div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-326-3"></span>
-<img src="images/andy_temp/csafe_21_groove_2.PNG" alt="Title coming soon." width="30%" />
-<p class="caption">
-Figure 4.116: Title coming soon.
-</p>
-</div>
-<p>Next, we extract the annotations associated with each cropped x3p file. These 7 types of annotations will serve as our predictor variables for our 3d convolutional neural network to learn on. Each cropped x3p can contain multiple annotations. Notice that the image of the cropped section of the right groove has two annotations associated with it, one annotation is the right groove and the other annotation is well expressed striae. A cropped x3p usually has one to four annotations associated with it, where one to two annotations are the most common. For each cropped x3p we assign one annotation based on a ratio of 80% or a maximum majority. We do not distinguish between left and right groove and assign them as the same annotation. Annotations are stored as a list and unlisted, given us 1 annotation per observation. Annotations are then one-hot encoded resulting in a matrix of size (n x 6).e</p>
-<p>3d convolutional neural networks take data as 5D tensors with shape (samples, conv_dim1, conv_dim2, conv_dim3, channels), where samples(also known as batch_shape) are the number of observations to be trained, the dimensions are our width, height, and depth values, and channels represent the color scale(=1 for greyscale and =3 for RGB color scale). Another way to think of a 5D tensor is just to think of a 5 dimensional array.</p>
-<p>We take the surface martix associated with each cropped x3p, transform each surface matrix to a (x, y, 1, 1) array, a 4d array or a 4d tensor. Then we can bind each surface matrix together creating a (n, x, y, 1, 1) array, a 5d array or a 5d tensor. n represents the batch_shape, x and y represent the width and height dimensions, the first “1” represents the elements contained in each surface matrix and the last “1” represents the color scale, greyscale.</p>
+<p><br></p>
+<p>We propose another data preprocessing procedure that increases the amount of data we currently have. We take each x3p file containing a masked LEA scan, crop, and store each 128x128 resolution grid of the original scan and store it as a new x3p. This allows us to increase the amount of data being fed into our 3d CNN model by 224 to 240 times the amount of our original data based on the original x3p resolution size. To do this we use the x3p_crop function from the x3ptools &amp; x3pLeax R programming packages.</p>
+<p><br></p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-327"></span>
-<img src="images/andy_temp/Pipeline_summary.PNG" alt="Data Processing Summary" width="100%" />
+<img src="images/andy_temp/rework_plots/this_is_us_5x.PNG" alt="Boundaries for cropping" width="80%" />
 <p class="caption">
-Figure 4.117: Data Processing Summary
+Figure 4.115: Boundaries for cropping
 </p>
 </div>
-</div>
-<div id="convolutional-neural-networks" class="section level3" number="4.4.2">
-<h3><span class="header-section-number">4.4.2</span> Convolutional Neural Networks</h3>
-<p class="new">
-Previous work will be added in the near future.
+<p><br></p>
+<p>Next, we extract the annotations associated with each cropped x3p file. These 6 types of annotations will serve as our predictor variables for our 3d convolutional neural network to learn on. Each cropped x3p can contain multiple annotations. Notice that the image of the cropped section of the right groove has two annotations associated with it, one annotation is the right groove and the other annotation is well expressed striae.</p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-328"></span>
+<img src="images/andy_temp/rework_plots/majority.PNG" alt="Majority Relabeling of Crops" width="50%" />
+<p class="caption">
+Figure 4.116: Majority Relabeling of Crops
 </p>
-<p><strong>Convolutional layers</strong> are used as filters for our 5d input tensor resulting in an activation. These layers produce feature maps that indicate the locations and strengths of our annotations.</p>
+</div>
+<p><br></p>
+<p>A cropped x3p usually has one to four annotations associated with it, where one to two annotations are the most common. For each cropped x3p we assign one annotation based on a ratio of 80% or a maximum majority. We do not distinguish between left and right groove and assign them as the same annotation. Logical conditions are applied if there is a tie between annotations for a crop. Majority annotations further reduces any spatial information, beneficial for a robust algorithm. Annotations are stored as a list and unlisted, given us 1 annotation per observation. Annotations are then one-hot encoded resulting in a matrix of size (n x 6).</p>
+<p>3d convolutional neural networks take data as 5D tensors with shape (samples, conv_dim1, conv_dim2, conv_dim3, channels), where samples(also known as batch_shape) are the number of observations to be trained, the dimensions are our width, height, and depth values, and channels represent the color scale(=1 for grey scale and =3 for RGB color scale). Another way to think of a 5D tensor is just to think of a 5 dimensional array.</p>
+<p>We take the surface matrix associated with each cropped x3p, transform each surface matrix to a (x, y, 1, 1) array, a 4d array or a 4d tensor. Then we can bind each surface matrix together creating a (n, x, y, 1, 1) array, a 5d array or a 5d tensor. n represents the batch_shape, x and y represent the width and height dimensions, the first “1” represents the elements contained in each surface matrix and the last “1” represents the color scale, grey scale. We do the same procedure with our full land engraved area training data, resulting in two arrays of size (n, x, y, 1, 1) and (n, x, y, 1, 6).</p>
+<p><br></p>
+<div id="pipeline-summaries" class="section level4" number="4.4.4.1">
+<h4><span class="header-section-number">4.4.4.1</span> Pipeline Summaries</h4>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-329"></span>
+<img src="images/andy_temp/rework_plots/Crops_Pipeline.PNG" alt="Data Processing Pipeline for 3D CNN(Residual Networks)" width="80%" />
+<p class="caption">
+Figure 4.117: Data Processing Pipeline for 3D CNN(Residual Networks)
+</p>
+</div>
+<p><br></p>
+<p>The cropped land engraved area tensors and one-hot encoded predictions will be used in training a variety of residual networks<strong>(more on this later)</strong>.</p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-330"></span>
+<img src="images/andy_temp/rework_plots/Full_Lea_Pipeline.PNG" alt="Data Processing Pipeline for 3D CNN(Universal Networks)" width="80%" />
+<p class="caption">
+Figure 4.118: Data Processing Pipeline for 3D CNN(Universal Networks)
+</p>
+</div>
+<p><br></p>
+<p>The full land engraved area tensors and full mask prediction tensors will be used in training a universal network<strong>(more on this later)</strong>.</p>
+<p><br></p>
+</div>
+</div>
+<div id="convolutional-neural-networks" class="section level3" number="4.4.5">
+<h3><span class="header-section-number">4.4.5</span> Convolutional Neural Networks</h3>
+<p>A convolutional neural network is a deep learning algorithm which can take input data in the form of a tensor and assign importance<strong>(learnable weights and biases)</strong> to various aspects/objects learned throughout the model’s architecture, the model learns to differentiate one from the other when done correctly. Typically, a convolutional neural network follows a “stack” of layers architecture, also referred to as a “graph” of layers. Consisting of an input layer, hidden layers, and an output layer. As the input progresses through these “layers,” it gets smaller and smaller, but it also gets deeper and deeper<strong>(more feature maps)</strong>. This is an outline of a traditional approach designing CNN architectures but does not mean this is all we can do<strong>(more on this later)</strong>.</p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-331"></span>
+<img src="images/andy_temp/rework_plots/CNN_0.PNG" alt="https://developer.nvidia.com/blog/deep-learning-nutshell-core-concepts/" width="80%" />
+<p class="caption">
+Figure 4.119: <a href="https://developer.nvidia.com/blog/deep-learning-nutshell-core-concepts/" class="uri">https://developer.nvidia.com/blog/deep-learning-nutshell-core-concepts/</a>
+</p>
+</div>
+<p><br></p>
+<p><strong>Convolutional layers</strong> are used as filters for our 5d input tensor resulting in an activation. These layers produce feature maps/activation maps that indicate the locations and strengths of our annotations. The specified filter is also known as the weight for that layer. The weights, along with a bias(to be learned during training) for a layer, are passed to an activation function to form the feature map for the next layer. Uses filters that perform convolution operations while going through the input with respect to the input dimensions. Filter size and Stride are two important parameters!</p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-332"></span>
+<img src="images/andy_temp/rework_plots/CNN_1.PNG" alt="(Convolutional Layer) https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks" width="80%" />
+<p class="caption">
+Figure 4.120: (Convolutional Layer) <a href="https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks" class="uri">https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks</a>
+</p>
+</div>
+<p><br></p>
+<p><strong>Pooling layers</strong> select the specified elements covered by the convolutional layers filters, hopefully resulting in a feature map containing the most prominent features. There many types of pooling layers, max pooling and average pooling layers being the most common.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-333"></span>
+<img src="images/andy_temp/rework_plots/CNN_2.PNG" alt="(Pooling Layer) https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks" width="80%" />
+<p class="caption">
+Figure 4.121: (Pooling Layer) <a href="https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks" class="uri">https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks</a>
+</p>
+</div>
+<p><br></p>
+<p>The <strong>receptive field</strong> at each layer is the area of the input that each activation map can see. Activation maps are calculated by applying the weights and biases to an activation function, can be thought of which regions in the surface matrix were relevant for determining which class annotation. The central pixels will have their information propagated through many different connections in the network. This means the receptive field can be thought of as dynamic because it changes during training w.r.t to back propagation, the central “pixels” will have larger gradient magnitudes when compared to the borders. The effective receptive field impact on the final output computation will follow more closely to a Gaussian distribution instead of a Uniform distribution. For our project “pixels” can be thought of as the surface values.</p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-334"></span>
+<img src="images/andy_temp/rework_plots/CNN_3.PNG" alt="(Receptive Field) https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks" width="80%" />
+<p class="caption">
+Figure 4.122: (Receptive Field) <a href="https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks" class="uri">https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks</a>
+</p>
+</div>
+<p><br></p>
+<p><strong>Hidden layer activation functions</strong>, activation functions perform a transformation on the input received, in order to keep the values within a manageable range. Activation functions must be nonlinear and continuously differentiable. The nonlinear restraint allows the neural network to be a universal approximation. The continously differentiable restraint is necessary for gradient-based optimization methods. There are many types of hidden layer activation functions but the three dominant ones are Relu, Leaky Relu, and Elu. Fun fact, in reality Leaky Relu and Elu are more robust and perform the same or often better than Relu when comparing overall model performance. The reason Relu is still a contender is because people mostly use Relu for comparing new model architectures with existing ones.</p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-335"></span>
+<img src="images/andy_temp/rework_plots/CNN_4.PNG" alt="(Hidden Layer Activations) https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks" width="80%" />
+<p class="caption">
+Figure 4.123: (Hidden Layer Activations) <a href="https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks" class="uri">https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks</a>
+</p>
+</div>
+<p><br></p>
+<div id="what-is-going-on" class="section level4" number="4.4.5.1">
+<h4><span class="header-section-number">4.4.5.1</span> What is going on?</h4>
+<p>For a given surface matrix denoted as <span class="math inline">\(S\)</span> and the filter denoted as <span class="math inline">\(K\)</span>, we can write the general equation to obtain a feature map for a given convolutional layer where each element is the sum of the element wise multiplication of the filter applied to our data.</p>
+<p><span class="math display">\[Convolutional \ Layer\]</span></p>
+<p><span class="math display">\[conv(S,K)_{x,y} = \sum_{i=1}^{n_{H}}\sum_{j=1}^{n_{W}}\sum_{k=1}^{n_{C}}K_{i,j,k}\times S_{x+i-1,y+j-1,k}\]</span></p>
+<p><span class="math display">\[conv(S^{[g-1]},K^{[n]})_{x,y} = f^{[g]}(Z) \times (\sum_{i=1}^{n^{[g-1]}_{H}}\sum_{j=1}^{n^{[g-1]}_{W}}\sum_{k=1}^{n^{[g-1]}_{C}}K^{[n]}_{i,j,k}\times S^{[g-1]}_{x+i-1,y+j-1,k} + b^{[g]}_{n})\]</span>
+Where <span class="math inline">\(n_{H}\)</span> represents the size of the height dimension for the convolutional layer, <span class="math inline">\(n_{W}\)</span> represents the size of the width dimension for the convolutional layer, and <span class="math inline">\(n_{C}\)</span> represents the number of channels for the convolutional layer, for our data, channel = 1 for every layer. <span class="math inline">\(n^{[g-1]}_{H}\)</span>, <span class="math inline">\(n^{[g-1]}_{W}\)</span>, <span class="math inline">\(n^{[g-1]}_{C}\)</span>, represent the values for the previous layer. <span class="math inline">\(f^{[g]}(Z)\)</span> represents the convolutional layers activation function and <span class="math inline">\(b^{[g]}_{n}\)</span> is the bias term.</p>
+<p><br></p>
+<p><strong>Output layer activation functions</strong>, another activation function defines the output of each instance. There are many types of activation functions, linear, sigmoid, softmax, …, etc. One should be careful about which activation function they use, it relates to the output size of your prediction data. We focus on the softmax activation function because we are working with a multi-classification problem<strong>(non-binary)</strong>. The softmax activation function is a generalized logistic function that takes inputs as a vector, matrix, or an array of scores calculated by the weights and biases of the neural network’s architecture. The output results in a vector, matrix, or array of probabilities.</p>
+<p><span class="math display">\[Softmax \ Equation\]</span></p>
+<p><span class="math display">\[p_{i}=\frac{e^{x_{i}}}{\sum_{j=1}^{n}e^{x_{j}}}\\ p = (p_{1}, p_{2}, p_{3}, ..., p_{n})\]</span>
+<br></p>
+<p><strong>Forward and Backward Propagation using Gradient Descent Optimization</strong>:</p>
+<p>Forward propagation refers to the calculation and storage of our models’ weights and Biases at each learnable layer in order from the input layer to the output layer. Backward propagation refers to applying the total loss<strong>(error)</strong> calculated using a cost function and a gradient descent optimizer back into the layers of our model, specifically to each learnable layer’s weights and biases. Another way to think of this is calculating the gradients of learnable layers weights with respect to the error. <span class="math inline">\(\frac{\partial E}{\partial L_{weight/filter}}\)</span></p>
+<p>Optimization algorithms help to minimize or maximize an objective function, which is the loss function in our project. <span class="math inline">\(\theta = \theta - \eta \times \nabla J(\theta)\)</span>, where <span class="math inline">\(\eta\)</span> is the learning rate, <span class="math inline">\(\nabla J(\theta)\)</span> is the gradient of the loss function w.r.t parameters <span class="math inline">\(\theta\)</span>. This is the equation for the traditional gradient descent optimizer. Take small steps iteratively until our model reaches the correct weights, achieved by updating <span class="math inline">\(\theta\)</span> via backward propagation. The problem with the original gradient descent optimizer is that the weights are only updated once after seeing the entire data set.</p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-336"></span>
+<img src="images/andy_temp/rework_plots/Grad_1.PNG" alt="Gradient Descent" width="80%" />
+<p class="caption">
+Figure 4.124: Gradient Descent
+</p>
+</div>
+<p><br></p>
+<p>Adaptive optimizers can update parameters more frequently. Allowing more frequent updates to our models weights and biases at each learnable layer during training. One example, the learning rate parameter. Adaptive optimizers can perform updates after a certain user specified amount of data has been seen, an example of this would be mini-batch stochastic gradient descent based optimization. For this project we explore a variety of adaptive optimizers such as: <span class="math inline">\(SGD\)</span>, <span class="math inline">\(SGD + Momentum + Decay\)</span>, <span class="math inline">\(Rmsprop\)</span>, and <span class="math inline">\(Adam\)</span>.</p>
+<p><br></p>
+</div>
+<div id="loss-functions-explored" class="section level4" number="4.4.5.2">
+<h4><span class="header-section-number">4.4.5.2</span> Loss Functions Explored</h4>
+<p><br></p>
+<p><span class="math inline">\(Loss \ Categorical \ CrossEntropy = -\sum_{i=1}^{n}t_{i}log(p_{i})\)</span></p>
+<p><br><br></p>
+<p><span class="math inline">\(Weighted \ Categorical \ CrossEntropy = \frac{-1}{N}\sum_{n=1}^{N}wr_{n}log(p_{n})+(1-r_{n})log(1-p_{n})\)</span></p>
+<p><br><br></p>
+<p><span class="math inline">\(Dice \ Loss = 1-\frac{2\sum_{i^{th},j^{th} \ location}Y_{true}Y_{pred}}{\sum_{i^{th},j^{th} \ location}Y^{2}_{true}+\sum_{i^{th},j^{th} \ location}Y^{2}_{pred}}\)</span></p>
+<p><br><br></p>
+<p><span class="math inline">\(Generalized \ Dice \ Loss = 1 - 2\frac{\sum{w_{t}}\sum_{i^{th},j^{th} \ location}Y_{true}Y_{pred}}{\sum{w_{t}}\sum_{i^{th},j^{th} \ location}Y_{true}+Y_{pred}}\)</span></p>
+<p><br><br></p>
+<p><span class="math inline">\(Focal \ Loss = -\alpha_{t}(1-p_{t})^{\gamma} \ log(p_{t})\)</span></p>
+<p><br></p>
+</div>
+<div id="convolution-neural-networks-other-layer-operations-used-for-this-project" class="section level4" number="4.4.5.3">
+<h4><span class="header-section-number">4.4.5.3</span> Convolution Neural Networks other layer operations used for this project</h4>
 <p><strong>3d zero padding</strong>: padding allows us to keep the information at the borders of our cropped x3p scans, without padding we could potentially be losing important information regarding scans that have more than one annotation.</p>
-<p><strong>Max pooling</strong> selects the maximum element covered by the filters, resulting in a feature map containing the most prominent features, max pooling also reduces the computational cost by reducing the number of parameters used to learn.</p>
 <p><strong>Batch Normalization</strong> normalizes the output of each previous activation layer by subtracting the batch mean and dividing by the batch standard deviation. Batch Normalization is essentially a scaling feature, making sure each activation in each layer isn’t too low or too high.</p>
 <p><strong>Dropout</strong> is used to prevent/reduce overfitting in our model and is typically used along with batch normalization. Dropout is also referred to as dilution, thining the weights of the neural network, or it can be thought of as model averaging.</p>
-<p><strong>Previous Work:</strong></p>
+<p><br></p>
+</div>
+</div>
+<div id="model-architectures" class="section level3" number="4.4.6">
+<h3><span class="header-section-number">4.4.6</span> Model Architectures</h3>
+<div id="multiclassification-using-residual-networks" class="section level4" number="4.4.6.1">
+<h4><span class="header-section-number">4.4.6.1</span> Multiclassification using Residual Networks</h4>
+<p>We investigate a multi-classification problem where we wish to predict a single label assigned to each 128x128 crop of a land engraved area scan. We use 3D convolutional neural networks utilizing residual network architectures. Residual networks utilize skip connections to jump over layers. Reusing the activations from previous layers and concatenating these activations to the current layer using a 1x1 linear convolutional layer. Standard concatenation of layers<strong>(Previous Layer + Residual Layer)</strong> when feature maps for layers are the same dimensions.</p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-337"></span>
+<img src="images/andy_temp/rework_plots/Res_1.PNG" alt="Residual Network Skip Connection" width="20%" />
+<p class="caption">
+Figure 4.125: Residual Network Skip Connection
+</p>
+</div>
+<p><br></p>
+<p>Residual networks have many benefits and dominate the world when it comes to designing neural network architectures. Residual networks allow us to increase the models complexity by using more convolutional layers, allowing the model to learn more parameters at the lower, middle, and higher level feature maps, model training time is significantly reduced, reducing the vanishing gradient problem, and higher overall performance are a few of the benefits.</p>
+</div>
+<div id="architectures-resnet-18-resnet-50-wide-resnet" class="section level4" number="4.4.6.2">
+<h4><span class="header-section-number">4.4.6.2</span> Architectures (Resnet 18, Resnet 50, Wide Resnet)</h4>
+<div id="resnet-18" class="section level5" number="4.4.6.2.1">
+<h5><span class="header-section-number">4.4.6.2.1</span> <strong>Resnet 18</strong></h5>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-338"></span>
+<img src="images/andy_temp/rework_plots/Res_18_diagram.PNG" alt="Residual Network (18 Residual Blocks)" width="90%" />
+<p class="caption">
+Figure 4.126: Residual Network (18 Residual Blocks)
+</p>
+</div>
+<p><br><br><br></p>
+</div>
+<div id="resnet-50" class="section level5" number="4.4.6.2.2">
+<h5><span class="header-section-number">4.4.6.2.2</span> <strong>Resnet 50</strong></h5>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-339"></span>
+<img src="images/andy_temp/rework_plots/Res_50_diagram.PNG" alt="Residual Network (50 Residual Blocks)" width="90%" />
+<p class="caption">
+Figure 4.127: Residual Network (50 Residual Blocks)
+</p>
+</div>
+<p><br><br><br></p>
+</div>
+<div id="wide-residual-network" class="section level5" number="4.4.6.2.3">
+<h5><span class="header-section-number">4.4.6.2.3</span> <strong>Wide Residual Network</strong></h5>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-340"></span>
+<img src="images/andy_temp/rework_plots/wide_resnet_diagram.PNG" alt="Wide residual Network" width="90%" />
+<p class="caption">
+Figure 4.128: Wide residual Network
+</p>
+</div>
+<p><br></p>
+</div>
+</div>
+<div id="tensorflow-and-keras-callbacks" class="section level4" number="4.4.6.3">
+<h4><span class="header-section-number">4.4.6.3</span> Tensorflow and Keras Callbacks</h4>
+<p>Callbacks using the tensorflow and keras backend allow us to obtain different types of data and results throughout the a model’s architecture during any point of training. Callbacks allow an analyst to add specific constraints to the model during any point of training. Callbacks allow us to create custom loss functions, optimization functions, and callbacks allow us to explore optimization/tuning techniques such as a learning rate scheduler.</p>
+<p>For each residual network architecture we explore the range of our learning rate parameter where our model’s show the greatest ability to learn. To do this we utilize the functionality of the tensorflow and keras backend callbacks. We observe each models loss during training using a exponential distribution as the basis for a models learning rate at each step during training. <span class="math display">\[f_{X}(x) = \lambda {e}^{-\lambda x}, \ x &gt; 0 \]</span></p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-341"></span>
+<img src="images/andy_temp/rework_plots/Exponential_Learning_Rate.PNG" alt="Exponentail Learning Rate" width="80%" />
+<p class="caption">
+Figure 4.129: Exponentail Learning Rate
+</p>
+</div>
+<p><br><br><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-342"></span>
+<img src="images/andy_temp/rework_plots/Determing_Learning_Rate.PNG" alt="Resnet 18 Learning Rate 5 epochs" width="80%" />
+<p class="caption">
+Figure 4.130: Resnet 18 Learning Rate 5 epochs
+</p>
+</div>
+<p><br><br><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-343"></span>
+<img src="images/andy_temp/rework_plots/Resnet_50_Learning_Rate.png" alt="Resnet 50 Learning Rate 5 epochs" width="80%" />
+<p class="caption">
+Figure 4.131: Resnet 50 Learning Rate 5 epochs
+</p>
+</div>
+<p><br><br><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-344"></span>
+<img src="images/andy_temp/rework_plots/Wide_Resnet_Learning_Rate.png" alt="Wide Resnet Learning Rate 10 epochs" width="80%" />
+<p class="caption">
+Figure 4.132: Wide Resnet Learning Rate 10 epochs
+</p>
+</div>
+<p><br></p>
+<p>Learning rate schedulers allow us to visualize a possible best learning rate to use when training or a possible “range.” Gradient descent is a way to minimize an objective function parameterized by a model’s parameters by updating the parameters in the opposite direction of the gradient of the objective function w.r.t. to the parameters. If we are stuck around a local minimum but have not found the global minimum we can encourage the model to jump local local minimums using cyclical learning rates or one fit cycle policies.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-345"></span>
+<img src="images/andy_temp/rework_plots/Explain_4.PNG" alt="Minimizing objective Function using Cycles" width="80%" />
+<p class="caption">
+Figure 4.133: Minimizing objective Function using Cycles
+</p>
+</div>
+<p><br></p>
+<p>Using Stochastic Gradient Descent, Rmsprop, and/or Adam allows us to perform parameter updates for each training example and associated label. Cosine Annealing is a popular technique for this.</p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-346"></span>
+<img src="images/andy_temp/rework_plots/Cosine_Annealing.png" alt="Cosine Annealing with Warm Restarts" width="80%" />
+<p class="caption">
+Figure 4.134: Cosine Annealing with Warm Restarts
+</p>
+</div>
+<p><br></p>
+<p>The most recent learning rate optimization techniques utilize the one fit cycle policy.</p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-347"></span>
+<img src="images/andy_temp/rework_plots/Linear_One_Fit_Cycle.png" alt="Linear One Fit Cycle Policy" width="80%" />
+<p class="caption">
+Figure 4.135: Linear One Fit Cycle Policy
+</p>
+</div>
+<p><br><br><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-348"></span>
+<img src="images/andy_temp/rework_plots/Linear_Cosine_One_Fit_Cycle.png" alt="Cosine One Fit Cycle Policy" width="80%" />
+<p class="caption">
+Figure 4.136: Cosine One Fit Cycle Policy
+</p>
+</div>
+<p><br></p>
+</div>
+<div id="multi-label-multiclassification-using-universal-networks" class="section level4" number="4.4.6.4">
+<h4><span class="header-section-number">4.4.6.4</span> Multi-label, Multiclassification using Universal Networks</h4>
+<p>UNET stands for Universal Network and are widely used for image segmentation in many types of fields. Recently used for covid-19 chest CT imaging. UNET is an end-to-end fully convolutional neural network. This architecture only contains convolutional layers where the main idea is to supplement a usual contracting network<strong>(like our residual network)</strong> by successive layers where pooling operations are replaced with up sampling operations. UNET models show High Performance but are not as robust w.r.t data. UNet is able to locally distinguish every pixel, including borders, by doing classification on every pixel of our masks using every surface value of our surface matrix.</p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-349"></span>
+<img src="images/andy_temp/rework_plots/Unet_Example.PNG" alt="(Unet Example) https://en.wikipedia.org/wiki/U-Net" width="80%" />
+<p class="caption">
+Figure 4.137: (Unet Example) <a href="https://en.wikipedia.org/wiki/U-Net" class="uri">https://en.wikipedia.org/wiki/U-Net</a>
+</p>
+</div>
+<p><br></p>
+<div id="our-model" class="section level5" number="4.4.6.4.1">
+<h5><span class="header-section-number">4.4.6.4.1</span> Our Model</h5>
+<p><strong>Contracting Path</strong></p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-350"></span>
+<img src="images/andy_temp/rework_plots/Unet_contracting_path.PNG" alt="UNet Contracting Path" width="90%" />
+<p class="caption">
+Figure 4.138: UNet Contracting Path
+</p>
+</div>
+<p><br></p>
+<p><strong>Expansive Path</strong></p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-351"></span>
+<img src="images/andy_temp/rework_plots/Unet_expansive_path.PNG" alt="UNet expansive Path" width="90%" />
+<p class="caption">
+Figure 4.139: UNet expansive Path
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="results" class="section level3" number="4.4.7">
+<h3><span class="header-section-number">4.4.7</span> Results</h3>
+<div id="multi-classification-3d-cnn-residual-networks" class="section level4" number="4.4.7.1">
+<h4><span class="header-section-number">4.4.7.1</span> Multi-Classification, 3D CNN Residual Networks</h4>
+<p>Training Set: 196400 Instances</p>
+<p>Test Set: 19640 Instances, size = 10% based on training set size</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-352"></span>
+<img src="images/andy_temp/rework_plots/Resnet_50_results.PNG" alt="Resnet 50 Training vs Validation" width="100%" />
+<p class="caption">
+Figure 4.140: Resnet 50 Training vs Validation
+</p>
+</div>
+<p><br></p>
+<p>Total True Positive = 176653</p>
+<p>Overall Accuracy = 89.95%</p>
+<p><br></p>
+<pre><code>##   Confusion Matrix
+## |Class          | Striae        | Grooves       | No Striae  | Damage        | Breakoff       | Missing Values |
+## |---------------|---------------|---------------|------------|---------------|----------------|----------------|
+## | Striae        | 91337         | 853           | 4604       | 100           | 353            | 17             |
+## | Grooves       | 1697          | 28894         | 30         | 23            | 90             | 1734           | 
+## | No Striae     | 4255          | 50            | 45984      | 98            | 19             | 0              |
+## | Damage        | 1866          | 148           | 1322       | 850           | 31             | 47             |
+## | Breakoff      | 687           | 136           | 14         | 35            | 2419           | 215            |
+## | Missing Values| 38            | 1221          | 0          | 1             | 63             | 7169           |</code></pre>
+<p><strong>Striations:</strong> (Precision: 0.94, Recall: 0.91, F1-Score: 0.93)</p>
+<p><strong>Grooves:</strong> (Precision: 0.89, Recall: 0.92, F1-Score: 0.91)</p>
+<p><strong>No Striations:</strong> (Precision: 0.91, Recall: 0.89, F1-Score: 0.90)</p>
+<p><strong>Damage:</strong> (Precision: 0.20, Recall: 0.77, F1-Score: 0.32)</p>
+<p><strong>Breakoff:</strong> (Precision: 0.69, Recall: 0.81, F1-Score: 0.75)</p>
+<p><strong>Missing Values:</strong> (Precision: 0.84, Recall: 0.78, F1-Score: 0.81)</p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-354"></span>
+<img src="images/andy_temp/rework_plots/Resnet_Results_table.PNG" alt="More Results Table" width="70%" />
+<p class="caption">
+Figure 4.141: More Results Table
+</p>
+</div>
+<p><br><br><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-355"></span>
+<img src="images/andy_temp/rework_plots/this_is_us_3.PNG" alt="Processed Land Engraved Area Scan" width="80%" />
+<p class="caption">
+Figure 4.142: Processed Land Engraved Area Scan
+</p>
+</div>
+<p><br><br><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-356"></span>
+<img src="images/andy_temp/rework_plots/New_2.PNG" alt="Crop/Patch together, what is fed into the model" width="80%" />
+<p class="caption">
+Figure 4.143: Crop/Patch together, what is fed into the model
+</p>
+</div>
+<p><br><br><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-357"></span>
+<img src="images/andy_temp/rework_plots/New_3.PNG" alt="What the Model Predicted, 5 Crops Misclassified ~ 97.8% Accuracy" width="80%" />
+<p class="caption">
+Figure 4.144: What the Model Predicted, 5 Crops Misclassified ~ 97.8% Accuracy
+</p>
+</div>
+<p><br><br><br></p>
+</div>
+<div id="multinomial-distribution-study" class="section level4" number="4.4.7.2">
+<h4><span class="header-section-number">4.4.7.2</span> Multinomial Distribution Study</h4>
+<p>Crop at every <span class="math inline">\(i_{th}\)</span>, <span class="math inline">\(j_{th}\)</span> location on the surface matrix. Instead of having only 232 to 240 crops we will have millions of crops, varies depending on the size of the land engraved area scan. We predict the label for each crop and assign that prediction to the <span class="math inline">\(i_{th}\)</span>, <span class="math inline">\(j_{th}\)</span> location. We end up with an array of probabilities of size (x, y, 6). Where the last dimension are the 6 probabiliy matrices assigned to each class w.r.t to the matrix location. Therefore, we have <span class="math inline">\(n = i \times j\)</span> points, of <span class="math inline">\(k = 6\)</span> different colors, where each color have <span class="math inline">\(p_{i}\)</span> probabilities, <span class="math inline">\(i = 1, ..., 6\)</span>.</p>
+<p><br></p>
+<p><span class="math inline">\(Notation: X\sim Multi(n,p)\)</span> &amp; where <span class="math inline">\(n &gt; 0\)</span>, <span class="math inline">\(p=[p_1,\ldots,p_k]\)</span> and <span class="math inline">\(\sum p_j = 1\)</span></p>
+<p><br></p>
+<p><span class="math inline">\(Support: \{x_1,\ldots,x_k \mid \sum x_j = n, x_j \geq 0 \}\)</span></p>
+<p><br></p>
+<p><span class="math inline">\(PMF = {n \choose x_1,\ldots,x_k}\prod p_j^{x_j}\)</span></p>
+<p><br></p>
+<p><span class="math inline">\({E}[X]= n p\)</span></p>
+<p><br></p>
+<p><span class="math inline">\(Var[X_j]= n p_j(1-p_j)\)</span></p>
+<p><br></p>
+<p><span class="math inline">\(Cov[X_i,X_j]= -n p_ip_j\)</span></p>
+<p><br></p>
+<p>We can use a wide variety of statistical analysis to understand the model and our data w.r.t our population. Explore the full variance matrix, study the entropy, look at the full distribution w.r.t each class, and investigate the certainty of our model.</p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-358"></span>
+<img src="images/andy_temp/rework_plots/parallel_xxx.PNG" alt="Original label for land engraved area scan" width="70%" />
+<p class="caption">
+Figure 4.145: Original label for land engraved area scan
+</p>
+</div>
+<p><br></p>
+<p>Initialize and empty array to be populated with probabilistic scores.</p>
+<p>Distribute a function across available cores<strong>(parallel)</strong>, the function will be:</p>
+<pre><code>1. Crop
+2. Predict using trained network
+3. Assign prediction of 128x128 crop to point at which it was cropped.</code></pre>
+<p>Distribute processes w.r.t the number of available cores. 19 cores =&gt; 180~200 locations per core via x direction, ~3 million crops, ~20 million probabilities.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-359"></span>
+<img src="images/andy_temp/rework_plots/blank_interp.PNG" alt="Land engraved area scan" width="70%" />
+<p class="caption">
+Figure 4.146: Land engraved area scan
+</p>
+</div>
+<p><br><br><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-360"></span>
+<img src="images/andy_temp/rework_plots/Para_Explain_1.PNG" alt="Parallel Strategy" width="70%" />
+<p class="caption">
+Figure 4.147: Parallel Strategy
+</p>
+</div>
+<p><br><br><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-361"></span>
+<img src="images/andy_temp/rework_plots/Para_Explain_2.PNG" alt="Populate i, j locations with predictions" width="70%" />
+<p class="caption">
+Figure 4.148: Populate i, j locations with predictions
+</p>
+</div>
+<p><br></p>
+<p>You can think of this as a sliding window algorithm, but I decided to use a parallel computing strategy that was a lot faster. Cropping and predicting using a CNN millions of times isn’t fast unless you go parallel. The way we apply Neural Networks does not have to be the same way we train them!(Heike Hofmann).</p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-362"></span>
+<img src="images/andy_temp/rework_plots/class_labels_true.PNG" alt="True Labels Pixelwise" width="70%" />
+<p class="caption">
+Figure 4.149: True Labels Pixelwise
+</p>
+</div>
+<p><br><br><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-363"></span>
+<img src="images/andy_temp/rework_plots/class_labels_preds.PNG" alt="Prediction Labels Pixelwise" width="70%" />
+<p class="caption">
+Figure 4.150: Prediction Labels Pixelwise
+</p>
+</div>
+<p><br><br><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-364"></span>
+<img src="images/andy_temp/rework_plots/true_class_surface_relation.PNG" alt="True Labels Surface Relationship" width="70%" />
+<p class="caption">
+Figure 4.151: True Labels Surface Relationship
+</p>
+</div>
+<p><br><br><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-365"></span>
+<img src="images/andy_temp/rework_plots/predictions_class_surface.PNG" alt="Prediction Labels Surface Relationship" width="70%" />
+<p class="caption">
+Figure 4.152: Prediction Labels Surface Relationship
+</p>
+</div>
+<p><br><br><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-366"></span>
+<img src="images/andy_temp/rework_plots/Certainty.PNG" alt="Certainty of Predictions by Class" width="70%" />
+<p class="caption">
+Figure 4.153: Certainty of Predictions by Class
+</p>
+</div>
+<p><br><br><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-367"></span>
+<img src="images/andy_temp/rework_plots/True_Raster.PNG" alt="True Labels Map" width="80%" />
+<p class="caption">
+Figure 4.154: True Labels Map
+</p>
+</div>
+<p><br><br><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-368"></span>
+<img src="images/andy_temp/rework_plots/Predictions_raster.PNG" alt="Predictions Map" width="80%" />
+<p class="caption">
+Figure 4.155: Predictions Map
+</p>
+</div>
+<p><br><br><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-369"></span>
+<img src="images/andy_temp/rework_plots/Overlayed_raster.PNG" alt="Overlay" width="80%" />
+<p class="caption">
+Figure 4.156: Overlay
+</p>
+</div>
+<p><br><br><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-370"></span>
+<img src="images/andy_temp/rework_plots/Certainty_map.PNG" alt="Certainty Map, Probabilities" width="85%" />
+<p class="caption">
+Figure 4.157: Certainty Map, Probabilities
+</p>
+</div>
+<p><br></p>
+<p>Pixel wise accuracy is 68%, we can see that the models certainty is related to the number of instances for each class, excluding missing values. The low performance could be do to the scan used. This land engraved area scan is particularly difficult due to the frequent occurrences of damage and no striations. The annotator wasn’t even able to label all of the instances of damage and left them as well expressed striation marks. Experimenting with alternative class weights of a loss function that utilizes class weights such weight categorical cross entropy could be used to improve classification accuracy. There are upsides and downsides to this approach but further analysis needs to be done such as IOU and DICE metrics to determine class separability.</p>
+<p>This study has just started and there is still a lot more to do. These are just some basic results I have made. More on this to come!</p>
+<p><br><br><br></p>
+</div>
+<div id="multi-label-multi-classification-3d-cnn-universal-network-results" class="section level4" number="4.4.7.3">
+<h4><span class="header-section-number">4.4.7.3</span> Multi-label, Multi-Classification, 3D CNN Universal Network Results</h4>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-371"></span>
+<img src="images/andy_temp/rework_plots/Unet_Results.PNG" alt="UNet Results" width="70%" />
+<p class="caption">
+Figure 4.158: UNet Results
+</p>
+</div>
+<p><br><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-372"></span>
+<img src="images/andy_temp/rework_plots/Unet_Current_table.PNG" alt="Unet Results Table" width="70%" />
+<p class="caption">
+Figure 4.159: Unet Results Table
+</p>
+</div>
+<p><br></p>
+<p>The lines seen in the prediction outputs and activation maps from the universal networks output layer are an unintended consequence due to an issue in the data processing. I am currently trying to narrow down this issue and I think I have figured it out. We have seen successful training using a universal network but there was also another data processing issue with the data. Figuring out the issue with the universal network has been put on the backburning for right now. Hopefully it will be resolved in the coming weeks. The model is able to determine the “contour” for each region very well.</p>
+<p><br></p>
+</div>
+</div>
+<div id="class-imbalance" class="section level3" number="4.4.8">
+<h3><span class="header-section-number">4.4.8</span> Class Imbalance</h3>
+<p>If it isn’t clear by now, there is a huge class imbalance issue that could be negatively impacting the models we have trained. There are a few approaches that can be taken, some of which we have briefly experimented with. Training a model that takes input data in the form of crops using a balanced set of classes. Training a model using a loss function that utilizes a weighting parameter such as weighted categorical crossentropy for the residual networks and focal loss for the universal networks. I have previously experimented with manually set class weights, where each weight per class is determined by calculating the inverse class weighting schema, this is a common procedure. The model will handle minority classes better but will perform worse on the majority classes.</p>
+<p><br></p>
+</div>
+<div id="labeling-consistency" class="section level3" number="4.4.9">
+<h3><span class="header-section-number">4.4.9</span> Labeling Consistency</h3>
+<p>An interesting problem with this project is the trust in the scanners and annotators. It is not an easy task to scan and label land engraved area scans. I personally believe no one can do a great job at labeling the land engraved area scans. The annotators are human and they will act accordingly. The quality of the labels for each land engraved area scan could be due to a wide range of factors. Time, concentration, outside life activities, commitment, …, etc could cause a drop in the quality of a land engraved area scans assigned labels. This large variability with the current data raises a lot of interesting questions. A cross examination study would provide some valuable insights. How much internal consistency can we expect from the scanner and annotator? Can we quantify the variability of our data w.r.t to the assigned labels? We plan to pull out a few scans that were redone and compare the pixel by pixel percentages w.r.t to the labels. Can we design tools to make labeling easier? Can we use existing tools to make labeling easier? Even if labeling land engraved area scans was quote “easier,” would the quality of labeled scans go up?</p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-373"></span>
+<img src="images/andy_temp/rework_plots/Class_labels_freq.PNG" alt="Labels based on location using a sample of 500 Land Engraved Area Scans" width="100%" />
+<p class="caption">
+Figure 4.160: Labels based on location using a sample of 500 Land Engraved Area Scans
+</p>
+</div>
+<p><br></p>
+</div>
+<div id="data-processing-improvements" class="section level3" number="4.4.10">
+<h3><span class="header-section-number">4.4.10</span> Data Processing Improvements</h3>
+<div id="missing-values" class="section level4" number="4.4.10.1">
+<h4><span class="header-section-number">4.4.10.1</span> Missing Values</h4>
+<p>Interpolation of missing values w.r.t the land engraved area scans is a very interesting problem. Neural networks can not accept inputs with a large amount of missing values because of the negative impact they have on the model weights. The impact of missing values and training a convolutional neural network have been observed. We saw that the model would loop a number of accuracy and loss metrics. The length of the loop was directly related to the number of classes we were trying to predict. The end result would yield a trained neural network that would always pick the majority class, aka the learnable layers only learned to predict the majority class for each instance of training and validation data. The question of “What should we do with the missing values?” is not an easy one. We have to interpolate the missing values but what is the best way in regards to our data and the problem we are trying to solve? Previous studies have showed that the 8 neighbor approach reduces the variability more compared to other left, right, up, and down recursive approaches. Fourier Transforms have also been explored in other topographical data problems. Another approach would be to set missing values to an extremely low value or an extremely high value. Another approach would be to not interpolate the missing values, but re-scale the existing values to a range greater than zero. We can then use the keras and tensorflow backend features to pad missing values with zero before imputing into the model. This would work for cropped land engraved areas, full land engraved areas, and would allow for a more dynamic input rather than a fixed input.</p>
+</div>
+<div id="normalize-and-scaling-of-processed-data" class="section level4" number="4.4.10.2">
+<h4><span class="header-section-number">4.4.10.2</span> Normalize and Scaling of Processed Data</h4>
+<p>Currently the values for each <span class="math inline">\(i_{th}\)</span>, <span class="math inline">\(j_{th}\)</span> cell of a land engraved area surface matrix range somewhere between -40 to +40. We could change the range to be strictly positive. The code for this is available. Another thing that can be done is normalizing the surface data to a range between 0 and 1. This is a common approach in many machine learning tasks. We do utilize batch normalization layers in our neural networks currently. The models weights/activation maps are normalized using a strictly operational layer.</p>
+</div>
+<div id="relabeling" class="section level4" number="4.4.10.3">
+<h4><span class="header-section-number">4.4.10.3</span> Relabeling</h4>
+<p>After a land engraved area scan is interpolated, a portion of the labels in the corresponding mask matrix need to be relabeled. We are using a few relabeling functions where the main one replaces labels based on the location and previous label. The relabeling process can be improved using a technique known as flooding. We can use a combination of flood fill and boundary fill algorithms to correctly relabel areas after interpolation. Given a matrix of colors, replace <span class="math inline">\(color_{a}\)</span> with <span class="math inline">\(color_{b}\)</span> if <span class="math inline">\(color_{a}\)</span> is surrounded by <span class="math inline">\(color_{b}\)</span>. We use the BFS technique to handle the O(MN) time complexity problem.</p>
+<p><br></p>
+<pre><code>                              Moore&#39;s Neighborhood
+                              #  (-1, -1)  |  (-1, 0)    | (-1, +1)    #
+                              #----------------------------------------#
+                              #  (0, -1)   |  (0, 0)     | (0, +1)     #
+                              #----------------------------------------#
+                              #  (+1, -1)  | (+1, 0)     | (+1, +1)    #
+                              #----------------------------------------#</code></pre>
+<p><br></p>
+<p>We utilize the Moore’s neighborhood approach, traversing counter clockwise, and we use the jacob stop criterion for terminating the algorithm.</p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-374"></span>
+<img src="images/andy_temp/rework_plots/Steps_flood_fill.PNG" alt="Flood Fill Algorithm Results for 2 classes" width="100%" />
+<p class="caption">
+Figure 4.161: Flood Fill Algorithm Results for 2 classes
+</p>
+</div>
+<p><br></p>
+<p>This algorithm allows us to flood each region of the land engraved area scan. We do not need to utilize summary statistics. This algorithm also allows us to obtain the contours associated with each region.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-375"></span>
+<img src="images/andy_temp/rework_plots/Contour_Polygon_using_moores.PNG" alt="Polygon/Contours" width="40%" />
+<p class="caption">
+Figure 4.162: Polygon/Contours
+</p>
+</div>
+<p><br></p>
+</div>
+</div>
+<div id="shiny-app" class="section level3" number="4.4.11">
+<h3><span class="header-section-number">4.4.11</span> Shiny App</h3>
+<p>There is always a lot of discussion about how we communicate these algorithms and procedures to the forensic community. The ability to utilize these algorithms in applied applications is important. I have been working on a shiny app that allows a user to perform everything I have talked about above just by the click of a mouse.</p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-376"></span>
+<img src="images/andy_temp/rework_plots/shiny_app_1.png" alt="Intro Page" width="80%" />
+<p class="caption">
+Figure 4.163: Intro Page
+</p>
+</div>
+<p><br><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-377"></span>
+<img src="images/andy_temp/rework_plots/shiny_app_2.png" alt="Data Processing Page" width="80%" />
+<p class="caption">
+Figure 4.164: Data Processing Page
+</p>
+</div>
+<p><br><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-378"></span>
+<img src="images/andy_temp/rework_plots/shiny_app_3.png" alt="Data Processing Page 2" width="80%" />
+<p class="caption">
+Figure 4.165: Data Processing Page 2
+</p>
+</div>
+<p><br><br></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-379"></span>
+<img src="images/andy_temp/rework_plots/shiny_app_4.png" alt="Neural Network Design Page" width="80%" />
+<p class="caption">
+Figure 4.166: Neural Network Design Page
+</p>
+</div>
+<p><br></p>
+<p>The user has the ability to examine a scan just like in rgl but in rgl widget. The user can explore the useful meta data information found within the x3p file. The user has the ability to load in new .x3p files, perform data processing, create tensors for deep learning models, and save the modified data. The user has the ability to design neural network architectures from scratch using either sequential or functional modeling. The user can specify certain callbacks when training and examine the results afterwords. This app still needs a lot of work but is functional, hence, “Version Alpha.” I think this app is best used as a proof of concept for potential software development.</p>
+</div>
+<div id="whats-next" class="section level3" number="4.4.12">
+<h3><span class="header-section-number">4.4.12</span> What’s Next?</h3>
+<p>There are many things that can be done. I plan to continue the statistical analysis portion of this project, studying the variability of the data w.r.t the model and data processing. Using tensorflow and keras callbacks has allowed the project to progress much farther than expected and it is exciting. Using statistical methods, inference, and studying our models learnable layers will strengthen the validity of the project. More updates in the future.</p>
+<p><strong>END</strong>(10/25/2021)<strong>Current Progress</strong></p>
+<p><br><br><br><br><br><br></p>
+</div>
+<div id="past-worksection-may-be-removed-later" class="section level3" number="4.4.13">
+<h3><span class="header-section-number">4.4.13</span> Past Work(Section May be Removed Later)</h3>
 <p>We trained a shallow 3d convolutional neural network on 100 epochs <strong>(epoch refers to one cycle through the full training data)</strong> resulting in an overall accuracy of 76.2 percent. Class weights were not adjusted for Class Imbalance Issue.</p>
 <pre><code>Total True Positives: 3610
 
@@ -3605,16 +4194,16 @@ Overall Accuracy: 76.22 %
 **Well Expressed Striations** (Precision: 0.78, Recall: 0.83, F1-Score: 0.80)
 
 **Vertical Striations** (Precision: 0, Recall: 0, F1-Score: 0)</code></pre>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-328"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-380"></span>
 <img src="images/andy_temp/cnn_best_cm.PNG" alt="100 epoch run confusion matrix" width="100%" />
 <p class="caption">
-Figure 4.118: 100 epoch run confusion matrix
+Figure 4.167: 100 epoch run confusion matrix
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-329"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-381"></span>
 <img src="images/andy_temp/100_epoch%20modek.PNG" alt="100 epoch run plot" width="100%" />
 <p class="caption">
-Figure 4.119: 100 epoch run plot
+Figure 4.168: 100 epoch run plot
 </p>
 </div>
 <p>We Re-run the 3d convolutional neural network on 200 epochs and adjust class weights by the frequency of classes throughout the training data set.</p>
@@ -3633,16 +4222,16 @@ Overall Accuracy: 67 %
 **Well Expressed Striations** (Precision: 0.86, Recall: 0.56, F1-Score: 0.68)
 
 **Vertical Striations** (Precision: 0.017, Recall: 0.14, F1-Score: 0.030)</code></pre>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-330"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-382"></span>
 <img src="images/andy_temp/cnn_cm_class_weights.PNG" alt="200 epoch run confusion matrix" width="100%" />
 <p class="caption">
-Figure 4.120: 200 epoch run confusion matrix
+Figure 4.169: 200 epoch run confusion matrix
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-331"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-383"></span>
 <img src="images/andy_temp/CNN_class_weights.PNG" alt="200 epoch run adjusted class weights plot" width="100%" />
 <p class="caption">
-Figure 4.121: 200 epoch run adjusted class weights plot
+Figure 4.170: 200 epoch run adjusted class weights plot
 </p>
 </div>
 <p>The model using adjusted class weights performs slightly worse overall but does a better job in classifying minority classes.</p>
@@ -3657,147 +4246,79 @@ Figure 4.121: 200 epoch run adjusted class weights plot
 <li><p>Residual network also performs better at multiclassification compared to the shallow network 3d cnn.</p></li>
 <li><p>Residual Network also performs well on new never seen before data. 6 label validation classification ~ 84%</p></li>
 </ul>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-332"></span>
-<img src="images/andy_temp/resnet_arch.png" alt="Residual Network Architecture." width="294" height="30%" />
-<p class="caption">
-Figure 4.122: Residual Network Architecture.
-</p>
-</div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-333"></span>
-<img src="images/andy_temp/Exponential_Learning_Rate.PNG" alt="Exponential Distribution." width="100%" />
-<p class="caption">
-Figure 4.123: Exponential Distribution.
-</p>
-</div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-334"></span>
-<img src="images/andy_temp/Determing_Learning_Rate.PNG" alt="Determining Learning Rate." width="100%" />
-<p class="caption">
-Figure 4.124: Determining Learning Rate.
-</p>
-</div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-335"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-384"></span>
 <img src="images/andy_temp/Resnet_CFMatrix.PNG" alt="Confusion Matrix." width="100%" />
 <p class="caption">
-Figure 4.125: Confusion Matrix.
+Figure 4.171: Confusion Matrix.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-336"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-385"></span>
 <img src="images/andy_temp/ResNet_3D_CNN_Performance.png" alt="Training &amp; Validation Curves." width="100%" />
 <p class="caption">
-Figure 4.126: Training &amp; Validation Curves.
+Figure 4.172: Training &amp; Validation Curves.
 </p>
 </div>
-</div>
-<div id="post-analysis" class="section level3" number="4.4.3">
-<h3><span class="header-section-number">4.4.3</span> Post Analysis</h3>
 <p>We take three LEA scans and predict each set of cropped LEAs for those original LEA scans using our current trained neural network.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-337"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-386"></span>
 <img src="images/andy_temp/post_test.PNG" alt="Title coming soon." width="100%" />
 <p class="caption">
-Figure 4.127: Title coming soon.
+Figure 4.173: Title coming soon.
 </p>
 </div>
 <p>Looking at the confusion matrix we can see that the model was not able to correctly classify any cases of damage nor any cases of vertical change in striations. There were a total of 712 training samples and 74 samples were misclassified. Out of those 74 misclassified samples, 38 of them were vertical change in striations. We are interested in the misclassified labels.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-338"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-387"></span>
 <img src="images/andy_temp/Compare_label_pred_1.PNG" alt="Misclassified Crops" width="100%" />
 <p class="caption">
-Figure 4.128: Misclassified Crops
+Figure 4.174: Misclassified Crops
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-339"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-388"></span>
 <img src="images/andy_temp/Compare_label_pred_2.PNG" alt="Misclassified Crops: Vertical Change in Striations" width="100%" />
 <p class="caption">
-Figure 4.129: Misclassified Crops: Vertical Change in Striations
+Figure 4.175: Misclassified Crops: Vertical Change in Striations
 </p>
 </div>
 <p>We are also able to take the predicted cropped LEAs and make a full land engraved area scan with a new associated mask.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-340"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-389"></span>
 <img src="images/andy_temp/square_1.PNG" alt="Land Engraved Area Scan with assigned labels" width="100%" />
 <p class="caption">
-Figure 4.130: Land Engraved Area Scan with assigned labels
+Figure 4.176: Land Engraved Area Scan with assigned labels
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-341"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-390"></span>
 <img src="images/andy_temp/sqaure_2.PNG" alt="Land Engraved Area Scan with predicted labels" width="100%" />
 <p class="caption">
-Figure 4.131: Land Engraved Area Scan with predicted labels
+Figure 4.177: Land Engraved Area Scan with predicted labels
 </p>
 </div>
 <p>What’s next? We wish to study the correctly classified areas of well expressed striation marks. Allowing for a better choice of location when deciding where to extract a crosscut from an land engraved area scan. We are interested to see if this will reduce the variance on the signatures.</p>
 <p>Update(04/05/2021): Processing data including missing values as a label for land engraved area scans.</p>
 <p>Update(04/12/2021): Processed 800 Land Engraved Area Scans from scanner (Megan)</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-342"></span>
-<img src="images/andy_temp/left_groove_Density_1-100_pointplot.png" alt="Density plot using 100 LEAs" width="100%" />
-<p class="caption">
-Figure 4.132: Density plot using 100 LEAs
-</p>
-</div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-343"></span>
-<img src="images/andy_temp/right_groove_Density_1-100_pointplot.png" alt="Density plot using 100 LEAs" width="100%" />
-<p class="caption">
-Figure 4.133: Density plot using 100 LEAs
-</p>
-</div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-344"></span>
-<img src="images/andy_temp/damage_Density_1-100_pointplot.png" alt="Density plot using 100 LEAs" width="100%" />
-<p class="caption">
-Figure 4.134: Density plot using 100 LEAs
-</p>
-</div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-345"></span>
-<img src="images/andy_temp/No_Striations_Density_1-100_pointplot.png" alt="Density plot using 100 LEAs" width="100%" />
-<p class="caption">
-Figure 4.135: Density plot using 100 LEAs
-</p>
-</div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-346"></span>
-<img src="images/andy_temp/vertical_change_in_striations_Density_1-100_pointplot.png" alt="Density plot using 100 LEAs" width="100%" />
-<p class="caption">
-Figure 4.136: Density plot using 100 LEAs
-</p>
-</div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-347"></span>
-<img src="images/andy_temp/missing_value_Density_1-100_pointplot.png" alt="Density plot using 100 LEAs" width="100%" />
-<p class="caption">
-Figure 4.137: Density plot using 100 LEAs
-</p>
-</div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-348"></span>
-<img src="images/andy_temp/breakoff_Density_1-100_pointplot.png" alt="Density plot using 100 LEAs" width="100%" />
-<p class="caption">
-Figure 4.138: Density plot using 100 LEAs
-</p>
-</div>
-</div>
-<div id="summary-statistics" class="section level3" number="4.4.4">
-<h3><span class="header-section-number">4.4.4</span> Summary Statistics</h3>
 <p>Summary Statistics were derived using 100 Land Engraved Area Scans from scanner(Megan)</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-349"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-391"></span>
 <img src="images/andy_temp/Resnet_latest_summary_statistics.PNG" alt="LEA Labeled Region Summary Statistics" width="100%" />
 <p class="caption">
-Figure 4.139: LEA Labeled Region Summary Statistics
+Figure 4.178: LEA Labeled Region Summary Statistics
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-350"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-392"></span>
 <img src="images/andy_temp/Annotation_boxplot.png" alt="LEA Labeled Region Boxplot" width="100%" />
 <p class="caption">
-Figure 4.140: LEA Labeled Region Boxplot
+Figure 4.179: LEA Labeled Region Boxplot
 </p>
 </div>
-</div>
-<div id="training-neural-net-using-data-from-scannermegan" class="section level3" number="4.4.5">
-<h3><span class="header-section-number">4.4.5</span> Training Neural Net using data from Scanner(Megan)</h3>
+<p>Training Neural Net using data from Scanner(Megan)</p>
 <p>We Re-run the 3d convolutional neural network on 100 epochs using Megan’s data for the training data set.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-351"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-393"></span>
 <img src="images/andy_temp/Resnet_Latest.png" alt="Training ResNet using LEAs 1-100 scanner(Megan)" width="100%" />
 <p class="caption">
-Figure 4.141: Training ResNet using LEAs 1-100 scanner(Megan)
+Figure 4.180: Training ResNet using LEAs 1-100 scanner(Megan)
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-352"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-394"></span>
 <img src="images/andy_temp/Resnet_latest_cm_1.PNG" alt="Confusion Matrix using LEAs 1-100 scanner(Megan)" width="100%" />
 <p class="caption">
-Figure 4.142: Confusion Matrix using LEAs 1-100 scanner(Megan)
+Figure 4.181: Confusion Matrix using LEAs 1-100 scanner(Megan)
 </p>
 </div>
 <pre><code>Total True Positives: 3940
@@ -3817,41 +4338,11 @@ Overall Accuracy: 83.19 %
 **Well Expressed Striations** (Precision: 0.84, Recall: 0.91, F1-Score: 0.87)
 
 **Vertical Striations** (Precision: 0.0, Recall: 0.0, F1-Score: 0.0)</code></pre>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-353"></span>
-<img src="images/andy_temp/Resnet_latest_assigned_label.PNG" alt="Land Engraved Area Scan with assigned labels" width="100%" />
-<p class="caption">
-Figure 4.143: Land Engraved Area Scan with assigned labels
-</p>
-</div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-354"></span>
-<img src="images/andy_temp/Resnet_latest_prediction.PNG" alt="Land Engraved Area Scan with predicted labels" width="100%" />
-<p class="caption">
-Figure 4.144: Land Engraved Area Scan with predicted labels
-</p>
-</div>
 <p>Update(04/26/2021): Scripts used for Data Processing were converted to functions, with more features and user controls.</p>
 <p>Update(05/24/2021): New data processing procedure implemented where relabeling of land engraved area scans is more precise and missing values are excluded from being used as input data when training the current 3D CNN. Currently over a thousand labeled land engraved area scans have been processed using the new procedure. Released R package “x3pLeaX,” for working with LEA scans and running deep learning models. The package is continually being updated daily.</p>
 <p>Update(06/28/2021): 1000+ processed Land Engraved Area Scans used as training data for Residual 3d Convolution Neural Network. Current CNN has an overall validation accuracy of 89% and a 99% training accuracy. Accuracy and Loss metrics change depending on how we set the learning rate. Currently, three learning rates are determined by modeling the learning rate with an exponential distribution. The further exploration resulted in using a changing learning rate when the validation loss hit a plateau. The cyclic learning rate was also explored. What’s next? Exploring probabilistic deep learning with an interest in capturing noise and uncertainties typically seen in training deep learning models. Getting a better understanding of probabilistic deep learning has the potential benefit of improving our understanding of how these algorithms work. This week I plan to use the current model as a tool to determine cross-cut regions used in training the current random forest model.</p>
 <p>Update(07/19/2021): Currently working on the paper for Assessing Quality of Scans using 3d convolutional neural networks. Currently writing scripts to use the cnn for determining multiple crosscut locations used for analyzing bullet signatures.</p>
 <p>Update(08/09/2021): Examining the effects of hyper parameter tuning on the 3d CNN residual network. Gradient descent is one of the most popular algorithms to perform optimization on neural networks. Gradient descent is a way to minimize an objective function parameterized by a model’s parameters by updating the parameters in the opposite direction of the gradient of the objective function w.r.t. to the parameters.</p>
-<p>Stochastic Gradient Descent performs a parameter update for each training example and associated label.</p>
-<p>Gradient Descent:</p>
-<p><span class="math display">\[θ_t=y_t−ε_t∇f(y_t)\]</span>
-Stochastic Gradient Descent:</p>
-<p><span class="math display">\[θ_t = θ_t − ε_t∇f(θ_t; x^i; y^i)\]</span></p>
-<p>Stochastic Gradient Descent with warm restarts:</p>
-<p>If we are stuck around a local minimum but have not found the global minimum we can encourage the model to jump local local minimums.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-355"></span>
-<img src="images/andy_temp/Explain_4.PNG" alt="Cosine Annealing" width="100%" />
-<p class="caption">
-Figure 4.145: Cosine Annealing
-</p>
-</div>
-<p>Expanding the tools for data processing, we can now identify and fill islands across the lea scan and obtain contour information.</p>
-<p><img src="images/andy_temp/plot_1_prefill.PNG" width="100%" style="display: block; margin: auto;" /></p>
-<p><img src="images/andy_temp/plot_2_fill_part1_correction.PNG" width="100%" style="display: block; margin: auto;" /></p>
-<p><img src="images/andy_temp/plot_4_fill_part4_correction.PNG" width="100%" style="display: block; margin: auto;" /></p>
-<p><img src="images/andy_temp/Contour_Polygon_using_moores.PNG" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="analysis-of-results" class="section level2" number="4.5">
@@ -3861,36 +4352,36 @@ Figure 4.145: Cosine Annealing
 <p class="new">
 evaluation: Yawei is going to work through all 626 barrels of knowns to assess similarity scores
 </p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-360"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-395"></span>
 <img src="images/yawei/results-FAU-1.png" alt="Results from assessing scans of barrel FAU 1 similarity." width="50%" />
 <p class="caption">
-Figure 4.146: Results from assessing scans of barrel FAU 1 similarity.
+Figure 4.182: Results from assessing scans of barrel FAU 1 similarity.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-361"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-396"></span>
 <img src="images/yawei/results-FAU-2.png" alt="Results from assessing scans of barrel FAU 2 similarity." width="50%" />
 <p class="caption">
-Figure 4.147: Results from assessing scans of barrel FAU 2 similarity.
+Figure 4.183: Results from assessing scans of barrel FAU 2 similarity.
 </p>
 </div>
 <p>Why some of the cases failed? (181/626 = 30%)</p>
 <p><code>x3p_crosscut_optimize()</code> failed to find the positions to get cross cut for some lands.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-362"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-397"></span>
 <img src="images/yawei/lapd-FAU-3-Bullet-A-land-6.PNG" alt="Land scan for barrel FAU 3 bullet A land 6." width="50%" />
 <p class="caption">
-Figure 4.148: Land scan for barrel FAU 3 bullet A land 6.
+Figure 4.184: Land scan for barrel FAU 3 bullet A land 6.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-363"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-398"></span>
 <img src="images/yawei/lapd-FAU-4-Bullet-C-land-5.PNG" alt="Land scan for barrel FAU 4 bullet C land 5." width="50%" />
 <p class="caption">
-Figure 4.149: Land scan for barrel FAU 4 bullet C land 5.
+Figure 4.185: Land scan for barrel FAU 4 bullet C land 5.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-364"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-399"></span>
 <img src="images/yawei/lapd-FAU-5-Bullet-B-land-5.PNG" alt="Land scan for barrel FAU 5 bullet B land 5." width="50%" />
 <p class="caption">
-Figure 4.150: Land scan for barrel FAU 5 bullet B land 5.
+Figure 4.186: Land scan for barrel FAU 5 bullet B land 5.
 </p>
 </div>
 <p>Assess the land-land comparasion and bullet-bullet comparasion</p>
@@ -3899,101 +4390,101 @@ Figure 4.150: Land scan for barrel FAU 5 bullet B land 5.
 <p>For the known mathches, we have totally 626 x 6 = 3756 for the LAPD data, excluding the comparasions for same bullet.</p>
 <p>For the known non-matches, we don’t have the data in hand. We need to generate the data in a way. We have totally 626 x 625/2 x 16 = 313000 known non-matches. We can only generate a sample from the data.</p>
 <p>We sampled 100 bullet-bullet known non-matches from our 92 cases.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-365"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-400"></span>
 <img src="images/yawei/knmkm.png" alt="KM and KNM" width="50%" />
 <p class="caption">
-Figure 4.151: KM and KNM
+Figure 4.187: KM and KNM
 </p>
 </div>
 <p>Is the SAM(sequence average maximum) a good choice? Need to do a permutation test.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-366"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-401"></span>
 <img src="images/yawei/sam_1.PNG" alt="SAM permutation result" width="50%" />
 <p class="caption">
-Figure 4.152: SAM permutation result
+Figure 4.188: SAM permutation result
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-367"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-402"></span>
 <img src="images/yawei/sam_max_1.PNG" alt="SAM permutation result among maxmum" width="50%" />
 <p class="caption">
-Figure 4.153: SAM permutation result among maxmum
+Figure 4.189: SAM permutation result among maxmum
 </p>
 </div>
 <p>Possible dependence structure in land-land comparasions:</p>
 <p>Assume beta distributions for the ccf for both known mathces and known non-matches. For the real known match cases, we consider a mixture distribution of two/three beta distribution.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-368"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-403"></span>
 <img src="images/yawei/km-three-alldata.png" alt="KM three components for all data" width="50%" />
 <p class="caption">
-Figure 4.154: KM three components for all data
+Figure 4.190: KM three components for all data
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-369"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-404"></span>
 <img src="images/yawei/knm-two-alldata.png" alt="KNM two components for all data" width="50%" />
 <p class="caption">
-Figure 4.155: KNM two components for all data
+Figure 4.191: KNM two components for all data
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-370"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-405"></span>
 <img src="images/yawei/commoncomp.png" alt="common component" width="50%" />
 <p class="caption">
-Figure 4.156: common component
+Figure 4.192: common component
 </p>
 </div>
 <p>Ten-fold-cross validation (no validation yet), check the model estimator sensibility</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-371"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-406"></span>
 <img src="images/yawei/km-two.png" alt="KM ten-fold models for two components" width="50%" />
 <p class="caption">
-Figure 4.157: KM ten-fold models for two components
+Figure 4.193: KM ten-fold models for two components
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-372"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-407"></span>
 <img src="images/yawei/km-three.png" alt="KM ten-fold models for three components" width="50%" />
 <p class="caption">
-Figure 4.158: KM ten-fold models for three components
+Figure 4.194: KM ten-fold models for three components
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-373"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-408"></span>
 <img src="images/yawei/knm-one.png" alt="KNM ten-fold models for one component" width="50%" />
 <p class="caption">
-Figure 4.159: KNM ten-fold models for one component
+Figure 4.195: KNM ten-fold models for one component
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-374"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-409"></span>
 <img src="images/yawei/knm-two.png" alt="KNM ten-fold models for two components" width="50%" />
 <p class="caption">
-Figure 4.160: KNM ten-fold models for two components
+Figure 4.196: KNM ten-fold models for two components
 </p>
 </div>
 <p>Increasing sample size: 1, 2, 6, 12, … number of barrels</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-375"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-410"></span>
 <img src="images/yawei/km-two-cum.png" alt="KM increasing sample models for two components" width="50%" />
 <p class="caption">
-Figure 4.161: KM increasing sample models for two components
+Figure 4.197: KM increasing sample models for two components
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-376"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-411"></span>
 <img src="images/yawei/knm-one-cum.png" alt="KNM increasing sample models for one components" width="50%" />
 <p class="caption">
-Figure 4.162: KNM increasing sample models for one components
+Figure 4.198: KNM increasing sample models for one components
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-377"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-412"></span>
 <img src="images/yawei/km-c1-cum.png" alt="KM increasing sample for first component" width="50%" />
 <p class="caption">
-Figure 4.163: KM increasing sample for first component
+Figure 4.199: KM increasing sample for first component
 </p>
 </div>
 <p>More on the weight</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-378"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-413"></span>
 <img src="images/yawei/priorboxplot.png" alt="Prior weight on components" width="50%" />
 <p class="caption">
-Figure 4.164: Prior weight on components
+Figure 4.200: Prior weight on components
 </p>
 </div>
 <p>More on one barrel case</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-379"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-414"></span>
 <img src="images/yawei/onebarrel.png" alt="KM one barrel model for the frist ten barrels" width="50%" />
 <p class="caption">
-Figure 4.165: KM one barrel model for the frist ten barrels
+Figure 4.201: KM one barrel model for the frist ten barrels
 </p>
 </div>
 <p>Some conclusions from current plots:</p>
@@ -4013,50 +4504,50 @@ Figure 4.165: KM one barrel model for the frist ten barrels
 <li><p>One-barrel KM models and full data KNM model. One-barrel KM models use the first ten barrels.</p></li>
 </ol>
 <p>From the ROC curves, we can easily see how stable our procedure is in terms of the classification performance. Note that those ROC curves start with the y-axis higher than 0.5 (which may be changed later). And the TPR(y-value) goes up steeply to about 0.75 with almost no change in FPR(x-value). Then the curve gradually goes up with different rates. There are two significant points from the ROC curves: 1) the pattern is very stable in the ROC curves across different cases and within each case; 2) the models perform very well. And also note that when we produce ROC curves, we need to get test sets and specify sample size and proportion. Here we generate the test set from the full data randomly, and set KM/KNM ratio as 200/1000. The same set is used in all three ROC plots. We choose such a ratio to make the true positive classification more difficult. If we set KM/KNM as 1000/1000, the curves will be smoother and get rid of those concave regions in current plots and of course, perform a little better in those concave regions but not significantly different in overall performance and pattern.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-380"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-415"></span>
 <img src="images/yawei/roc-cvmodels-new.png" alt="ROC-cv-models" width="50%" />
 <p class="caption">
-Figure 4.166: ROC-cv-models
+Figure 4.202: ROC-cv-models
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-381"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-416"></span>
 <img src="images/yawei/roc-differentsize-new.png" alt="ROC-different-size-models" width="50%" />
 <p class="caption">
-Figure 4.167: ROC-different-size-models
+Figure 4.203: ROC-different-size-models
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-382"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-417"></span>
 <img src="images/yawei/roc-onebarrel-new.png" alt="ROC-one-barrel" width="50%" />
 <p class="caption">
-Figure 4.168: ROC-one-barrel
+Figure 4.204: ROC-one-barrel
 </p>
 </div>
 <p>To summarize the model fits we have, we compare several important parameters in the following tables. We primarily focus on how stable the model we have with fixed sample size and across different sample sizes.</p>
 <p>From the KM-table and KNM-table, we have the following observations: 1) The weight of the components is not stable in terms of large standard errors in both KM and KNM cases with small sample sizes. 2) The mean values of the distributions (parameter mu) are relatively stable, especially for the primary components (first component for KNM and second component for KM). 3) The variance of the estimated distributions (parameter phi) is not stable, which is reasonable because it takes care of the variation of the data in each fit. 4) The variance of the estimated distributions (parameter phi) decreases as sample size increases. To better understand how well the model fit is and how stable it is we should also refer to the actual curves to help us see what those parameters actually mean in the curves. And I would say three barrels may be a safe minimum sample size to get a stable fit across different cases in terms of handling differences and variations existing in data sets but it’s not the minimum sample size required to make good classifications.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-383"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-418"></span>
 <img src="images/yawei/km-table1.PNG" alt="KM-table" width="100%" />
 <p class="caption">
-Figure 4.169: KM-table
+Figure 4.205: KM-table
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-384"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-419"></span>
 <img src="images/yawei/knm-table1.PNG" alt="KNM-table" width="100%" />
 <p class="caption">
-Figure 4.170: KNM-table
+Figure 4.206: KNM-table
 </p>
 </div>
 <p>We’re also interested in the variation of mean values of KM ccf in different barrels. The following boxplot with the global box as the right most one is shown for this comparison. From this plot, the constant mean value assumption may be challenged, however, we must take the practice work of scan and identification into considerations when making such conclusions.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-385"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-420"></span>
 <img src="images/yawei/ccfineachbarrel.png" alt="ccf in each barrel" width="50%" />
 <p class="caption">
-Figure 4.171: ccf in each barrel
+Figure 4.207: ccf in each barrel
 </p>
 </div>
 <p>To show how our model works in a single barrel case, we conduct the model fit as in the real case. We fit the KM and KNM models with three bullet comparisons (18 KM and 135 KNM land-land ccf respectively), and conduct a test on those comparisons with the forth bullet (18 KM and 105 KNM land-land ccf respectively). We conduct the above procedure in a LOO frame work, i.e. to leave one bullet out each time. The ROC curves for two barrels are shown as follows. We can see the classification results are almost as good as the previous ones.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-386"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-421"></span>
 <img src="images/yawei/withinbarrel4256roc-new.png" alt="within barrel ROC for barrel 42 and 56" width="50%" />
 <p class="caption">
-Figure 4.172: within barrel ROC for barrel 42 and 56
+Figure 4.208: within barrel ROC for barrel 42 and 56
 </p>
 </div>
 <p>Error Rate Control and Cutoff</p>
@@ -4065,10 +4556,10 @@ Figure 4.172: within barrel ROC for barrel 42 and 56
 <p><span class="math display">\[T = log(\frac{KM}{KNM})\]</span></p>
 <p>In which case, we reject the null hypohesis that the new bullet is from different source from our testing bullets when we have a large value for <span class="math inline">\(T\)</span>.</p>
 <p>First we have a look at how this log-likelihood ratio statistic changes with respect to the ccf score we calculated.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-387"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-422"></span>
 <img src="images/yawei/loglr-fau42.png" alt="loglr-fau42" width="50%" />
 <p class="caption">
-Figure 4.173: loglr-fau42
+Figure 4.209: loglr-fau42
 </p>
 </div>
 <p>Clearly, there is a potential issue with the log-likelihood ratio since it is not monotone w.r.t ccf, which means a larger ccf may lead to a smaller test statistic sometimes. As we can see when ccf is 0.45, the log-lr is 0.127 &gt; 0, however it goes below 0 when ccf increase to 0.523 (the cutoff with type one error rate as 0.05). We can also find another issue from a different aspect. If we set the type one error as 0.05 (which should be smaller in practice), then we find the ccf with this error rate from KNM (null hypothesis) is 0.523. Then the log-likelihood ratio we calculated at this point is -1.11, which means we have larger likelihood for KNM than KM even with this large enough cutoff in terms of the type one error rate. These two criteria give us contradicted results. The cutoff we set according to the usual type one error rate contradicted with the one indicated by log-likelihood ratio. However, the lower tail of the KM distribution at this cutoff here is 0.12, which is twice as larger as 0.05, which is contradicted with the log-lr again.</p>
@@ -4083,22 +4574,22 @@ Figure 4.173: loglr-fau42
 </ol>
 <p>An additional requirement may be <span class="math display">\[(1-p_2) &gt; Mp_1\]</span> for a large M.</p>
 <p>We are going to compare the above methods next.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-388"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-423"></span>
 <img src="images/yawei/curves.png" alt="two curves" width="50%" />
 <p class="caption">
-Figure 4.174: two curves
+Figure 4.210: two curves
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-389"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-424"></span>
 <img src="images/yawei/oddsratio2.png" alt="odds ratio" width="50%" />
 <p class="caption">
-Figure 4.175: odds ratio
+Figure 4.211: odds ratio
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-390"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-425"></span>
 <img src="images/yawei/comparetable3.PNG" alt="comparison table" width="100%" />
 <p class="caption">
-Figure 4.176: comparison table
+Figure 4.212: comparison table
 </p>
 </div>
 <p>We also have a look at the random forest scores for the LAPD sets. Our goal is to specify distributional forms to model the scores for known match (KM) and known non-match (KNM), and reach the estimated underlying theoretical error rates to evaluate the automatic matching algorithms. We would also investigate how this estimated theoretical error rates change with different sample sizes. Particularly, we make use of the LAPD data set which provide large samples to make this evaluation of underlying error rates possible. And we consider the beta distributions and beta-mixture distributions as candidate distributional forms. By consider beta-mixture distributions, we would like to introduce a second component to account for the heavy tail and the potential second mode (for KM particularly) of KM and KNM. We started with the more complex beta-mixture distribution which takes the single beta distributions as simpler cases and determine if the beta-mixture/beta distribution is sufficient to describe the data by conducting the lack of fit test through likelihood which has an asymptotic chi-square distribution. And the error rates will be evaluated under controlled conditions (given threshold selection method) and the effect of sample sizes will also be established based on the this.</p>
@@ -4115,16 +4606,16 @@ the full available data. The figure 4.130 was produced for a particular barrel. 
 <li><p>KNM has two modes, which is unexpected</p></li>
 <li><p>Estimated KM distribution seems to be able to improve, potentially affected by extreme values</p></li>
 </ul>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-391"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-426"></span>
 <img src="images/yawei/fau330rf.png" alt="FAU330: rugs with A, densities without A for RF scores" width="50%" />
 <p class="caption">
-Figure 4.177: FAU330: rugs with A, densities without A for RF scores
+Figure 4.213: FAU330: rugs with A, densities without A for RF scores
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-392"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-427"></span>
 <img src="images/yawei/rf_full_2components_estimated.png" alt="Random forest scores and estimated distributions for full data" width="50%" />
 <p class="caption">
-Figure 4.178: Random forest scores and estimated distributions for full data
+Figure 4.214: Random forest scores and estimated distributions for full data
 </p>
 </div>
 <p>Currently, we have the following major issues to solve before going further. And these are more of technical issues.</p>
@@ -4136,10 +4627,10 @@ Figure 4.178: Random forest scores and estimated distributions for full data
 </ul>
 <p>Feb/2021 starts here</p>
 <p>A “special” LEA scan as shown in the following:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-393"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-428"></span>
 <img src="images/yawei/specialscan.PNG" alt="A special LEA" width="50%" />
 <p class="caption">
-Figure 4.179: A special LEA
+Figure 4.215: A special LEA
 </p>
 </div>
 <p>The inspection of the LAPD data set (Show&amp;Tell Mar/01):</p>
@@ -4180,10 +4671,10 @@ where, barrel effect, land effect, explosion effect, random effect are respectiv
 <p>We extract markings, locate grooves, align signatures, and generate cross-comparison results. Each step is notified in UI and all steps are logged.</p>
 <p>The scores and results are then communicated through an interactive visualization. We first interact at the top most level where we have bullet-to-bullet scores for all the cross-comparisons presented in a grid. We can select one comparison at a time which would generate a second level of grid visualization that shows the land-to-land scores for all 36 comparisons within a bullet. Interacting with this visualization, we can now pull up score tables, profiles, location of grooves, aligned signatures and raw images.</p>
 <p>The framework of interactions, allows for validation of classification recommended by the RF model as well as gives an opportunity to critically asses, identify the cause and diagnose any problems encountered in the bullet matching pipeline.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-394"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-429"></span>
 <img src="images/bullets/gan-app2_consolidated.png" alt="An instance of the interactive visualizations for communicating results" width="50%" />
 <p class="caption">
-Figure 4.180: An instance of the interactive visualizations for communicating results
+Figure 4.216: An instance of the interactive visualizations for communicating results
 </p>
 </div>
 </div>
@@ -4207,10 +4698,10 @@ Figure 4.180: An instance of the interactive visualizations for communicating re
 3. Best set of questionnaires need to be figured out.</p>
 <div id="measuring-trust-and-calibration" class="section level3" number="4.7.1">
 <h3><span class="header-section-number">4.7.1</span> Measuring Trust and calibration</h3>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-395"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-430"></span>
 <img src="images/bullets/questionnaire.png" alt="Questionnaire setup for comparing trust in scores" width="50%" />
 <p class="caption">
-Figure 4.181: Questionnaire setup for comparing trust in scores
+Figure 4.217: Questionnaire setup for comparing trust in scores
 </p>
 </div>
 <ol style="list-style-type: decimal">
@@ -4326,22 +4817,22 @@ Week of January 18th
 <ul>
 <li>Moving to OOB predicitons vs new predictions</li>
 </ul>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-396"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-431"></span>
 <img src="images/bullets/G/oob_vs_new.png" alt="Out-of-bag prediction vs predicition using new data" width="50%" />
 <p class="caption">
-Figure 4.182: Out-of-bag prediction vs predicition using new data
+Figure 4.218: Out-of-bag prediction vs predicition using new data
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-397"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-432"></span>
 <img src="images/bullets/G/oob_1500_vs_500.png" alt="Out-of-bag prediction 1500 trees vs 500 trees" width="50%" />
 <p class="caption">
-Figure 4.183: Out-of-bag prediction 1500 trees vs 500 trees
+Figure 4.219: Out-of-bag prediction 1500 trees vs 500 trees
 </p>
 </div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-398"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-433"></span>
 <img src="images/bullets/G/new_1500_vs_500.png" alt="Prediction for 1500 trees vs 500 trees" width="50%" />
 <p class="caption">
-Figure 4.184: Prediction for 1500 trees vs 500 trees
+Figure 4.220: Prediction for 1500 trees vs 500 trees
 </p>
 </div>
 <p>March 29th

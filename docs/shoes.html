@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2021-10-21" />
+<meta name="date" content="2021-10-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -203,11 +203,19 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="bullets.html"><a href="bullets.html#assessing-quality-of-scans"><i class="fa fa-check"></i><b>4.4</b> Assessing Quality of Scans</a>
 <ul>
-<li class="chapter" data-level="4.4.1" data-path="bullets.html"><a href="bullets.html#current-data-processing-procedures"><i class="fa fa-check"></i><b>4.4.1</b> Current Data Processing Procedures</a></li>
-<li class="chapter" data-level="4.4.2" data-path="bullets.html"><a href="bullets.html#convolutional-neural-networks"><i class="fa fa-check"></i><b>4.4.2</b> Convolutional Neural Networks</a></li>
-<li class="chapter" data-level="4.4.3" data-path="bullets.html"><a href="bullets.html#post-analysis"><i class="fa fa-check"></i><b>4.4.3</b> Post Analysis</a></li>
-<li class="chapter" data-level="4.4.4" data-path="bullets.html"><a href="bullets.html#summary-statistics"><i class="fa fa-check"></i><b>4.4.4</b> Summary Statistics</a></li>
-<li class="chapter" data-level="4.4.5" data-path="bullets.html"><a href="bullets.html#training-neural-net-using-data-from-scannermegan"><i class="fa fa-check"></i><b>4.4.5</b> Training Neural Net using data from Scanner(Megan)</a></li>
+<li class="chapter" data-level="4.4.1" data-path="bullets.html"><a href="bullets.html#goal"><i class="fa fa-check"></i><b>4.4.1</b> Goal</a></li>
+<li class="chapter" data-level="4.4.2" data-path="bullets.html"><a href="bullets.html#data-brief"><i class="fa fa-check"></i><b>4.4.2</b> Data Brief</a></li>
+<li class="chapter" data-level="4.4.3" data-path="bullets.html"><a href="bullets.html#data-labeling"><i class="fa fa-check"></i><b>4.4.3</b> Data Labeling</a></li>
+<li class="chapter" data-level="4.4.4" data-path="bullets.html"><a href="bullets.html#current-data-processing-procedures"><i class="fa fa-check"></i><b>4.4.4</b> Current Data Processing Procedures</a></li>
+<li class="chapter" data-level="4.4.5" data-path="bullets.html"><a href="bullets.html#convolutional-neural-networks"><i class="fa fa-check"></i><b>4.4.5</b> Convolutional Neural Networks</a></li>
+<li class="chapter" data-level="4.4.6" data-path="bullets.html"><a href="bullets.html#model-architectures"><i class="fa fa-check"></i><b>4.4.6</b> Model Architectures</a></li>
+<li class="chapter" data-level="4.4.7" data-path="bullets.html"><a href="bullets.html#results"><i class="fa fa-check"></i><b>4.4.7</b> Results</a></li>
+<li class="chapter" data-level="4.4.8" data-path="bullets.html"><a href="bullets.html#class-imbalance"><i class="fa fa-check"></i><b>4.4.8</b> Class Imbalance</a></li>
+<li class="chapter" data-level="4.4.9" data-path="bullets.html"><a href="bullets.html#labeling-consistency"><i class="fa fa-check"></i><b>4.4.9</b> Labeling Consistency</a></li>
+<li class="chapter" data-level="4.4.10" data-path="bullets.html"><a href="bullets.html#data-processing-improvements"><i class="fa fa-check"></i><b>4.4.10</b> Data Processing Improvements</a></li>
+<li class="chapter" data-level="4.4.11" data-path="bullets.html"><a href="bullets.html#shiny-app"><i class="fa fa-check"></i><b>4.4.11</b> Shiny App</a></li>
+<li class="chapter" data-level="4.4.12" data-path="bullets.html"><a href="bullets.html#whats-next"><i class="fa fa-check"></i><b>4.4.12</b> What’s Next?</a></li>
+<li class="chapter" data-level="4.4.13" data-path="bullets.html"><a href="bullets.html#past-worksection-may-be-removed-later"><i class="fa fa-check"></i><b>4.4.13</b> Past Work(Section May be Removed Later)</a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="bullets.html"><a href="bullets.html#analysis-of-results"><i class="fa fa-check"></i><b>4.5</b> Analysis of Results</a>
 <ul>
@@ -341,7 +349,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="8.7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#evaluation-metrics."><i class="fa fa-check"></i><b>8.7</b> Evaluation metrics.</a>
 <ul>
-<li class="chapter" data-level="8.7.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#results"><i class="fa fa-check"></i><b>8.7.1</b> Results</a></li>
+<li class="chapter" data-level="8.7.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#results-1"><i class="fa fa-check"></i><b>8.7.1</b> Results</a></li>
 </ul></li>
 <li class="chapter" data-level="8.8" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#srl-behaviour-and-dependence-extended-simulation."><i class="fa fa-check"></i><b>8.8</b> SRL behaviour and dependence: Extended simulation.</a></li>
 <li class="chapter" data-level="8.9" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#small-updates"><i class="fa fa-check"></i><b>8.9</b> Small updates:</a></li>
@@ -624,11 +632,11 @@ This is necessary because Fourier transforms assume images go on forever, so abr
 <p><img src="images/shoes/longitudinal/FFT_Demo_Hann.png" width = "25%"/></p>
 <ul>
 <li>The strength of the Hann function can be adjusted by a power argument<br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-471-1.png" width="672" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-507-1.png" width="672" /></li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
 <li>Use the Fast Fourier Transform on each image. Center the FFT’d images so that low frequencies are in the center (exchange top left quadrant with bottom right, and top right quadrant with bottom left). Call the FFT’d, centered images <span class="math inline">\(F(A)\)</span> and <span class="math inline">\(F(B)\)</span><br />
-<img src="bookdown-demo_files/figure-html/unnamed-chunk-472-1.png" width="50%" /></li>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-508-1.png" width="50%" /></li>
 </ol>
 <p><img src="images/shoes/longitudinal/FFT_Demo_FFT1.png" width = "50%"/></p>
 <ol start="4" style="list-style-type: decimal">
@@ -1570,45 +1578,45 @@ It is unclear how much ICP is changing after each iteration. For example, in our
 <ul>
 <li>Ex1: A matching pair: scan1 (left; reference) and scan2 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-474-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-510-1.png" width="672" /></p>
 <ul>
 <li>Ex2: A non-matching pair: scan1 (left; reference) from shoe2 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-475-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-511-1.png" width="672" /></p>
 <ul>
 <li>Ex3: A non-matching pair: scan1 (left; reference) from shoe3 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-476-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-512-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Determine 600px by 600px square coordinate for all of the reference images; the location of square is the same for each reference image. For example, the bottom left corner is at (601, 1001) and the top right corner is at (1200, 1600).</li>
 </ol>
 <ul>
 <li>Ex1: A matching pair: scan1 (left; reference) and scan2 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-477-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-513-1.png" width="672" /></p>
 <ul>
 <li>Ex2: A non-matching pair: scan1 (left; reference) from shoe2 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-478-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-514-1.png" width="672" /></p>
 <ul>
 <li>Ex3: A non-matching pair: scan1 (left; reference) from shoe3 and scan1 (right; moving) from shoe1</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-479-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-515-1.png" width="672" /></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Extract the 600px by 600px square from both reference and moving images in each matching/non-matching pair, and then split each square into 36 smaller squares that are 100px by 100px. As a result, there are 36 100px by 100px squares are obtained from the reference and moving images, respectively, in each pair.</li>
 </ol>
 <ul>
 <li>Ex1:</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-480-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-516-1.png" width="672" /></p>
 <ul>
 <li>Ex2:</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-481-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-517-1.png" width="672" /></p>
 <ul>
 <li>Ex3:</li>
 </ul>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-482-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-518-1.png" width="672" /></p>
 <ol start="5" style="list-style-type: decimal">
 <li>Compute maximum cross correlation function from a small square of a reference image and its corresponding small square of the moving image. Consequently, there are 36 maximum ccf and their (dx, dy) obtained from each matching/nonmatching pair. Summarize ccf, dx, and dy so that only a single set of features from them is made from each pair.</li>
 </ol>
@@ -1629,11 +1637,11 @@ It is unclear how much ICP is changing after each iteration. For example, in our
 <ol start="6" style="list-style-type: decimal">
 <li>Train randomforest based on the features of ccf, dx, and dy from the training set, and predict whether each pair in the test set is matching or non-matching.</li>
 </ol>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-485-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-521-1.png" width="672" /></p>
 </div>
 <div id="massive-matching-pairs-added-to-training-set" class="section level4" number="7.7.0.2">
 <h4><span class="header-section-number">7.7.0.2</span> Massive matching pairs added to training set</h4>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-486-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-522-1.png" width="672" /></p>
 <div id="hanas-update-on-215" class="section level5" number="7.7.0.2.1">
 <h5><span class="header-section-number">7.7.0.2.1</span> Hana’s update on 2/15</h5>
 <ul>

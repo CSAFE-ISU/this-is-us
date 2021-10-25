@@ -4048,6 +4048,9 @@ where $d$ is an integer.
 
 </details>
 
+Will 10/24 Update: the `cmpsR` package passed all tests with github action. Submitting.
+
+
 
 #### Future Work
 

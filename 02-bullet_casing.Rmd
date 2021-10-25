@@ -4058,85 +4058,734 @@ where $d$ is an integer.
 
 ## Assessing Quality of Scans
 
-Setting up a CNN to assess scan quality
+### Goal
 
 The goal for this project is to be able to take the current CSAFE manually identified land engraved areas data and use that data to train a 3d convolutional neural network. Once the 3d convolutional neural network has been trained, we plan to use the model to automate the identification process of land engraved area scans.
 
-Currently an operator can take a land engraved area scan, which is stored as an x3p file, and upload that file to the fix3p google chrome extension.  Once the land engraved area scan is uploaded to fix3p, an operator can manually paint areas of the scan to identify the regions.
+### Data Brief
+
+When a bullet is fired through the barrel of a firearm certain impressions are left on the bullet.  Impressions left on the bullet can be caused by several factors such as: rifling of the barrel, explosion created by the firing pin igniting the gun powder, and impurities inside the barrel.  These impressions are useful in the study of pattern evidence to determine if two bullets came from the same source.
+
+<br><br>
+
+```{r echo=FALSE, fig.cap="Area of Interest, Land Engraved Area", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Land_Engraved_Area.png"))
+```
+
+<br>
+
+After a bullet has been fired and collected, a predetermined section of the bullet is scanned using a Sensofar Confocal Light Microscope.  Each scan represents a 3d topographic image referred to as a Land Engraved Area(LEA).
+
+<br><br>
+
+```{r echo=FALSE, fig.cap="Area of Interest, Land Engraved Area", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/LEA_Blank.png"))
+```
+
+<br><br>
+
+Each land engraved area scan is stored in a .x3p file format, an iso standard.  Each .x3p file contains useful information such as: surface matrix information, mask matrix information, and useful meta information for logging the collection process and any changes made to the .x3p file.  The surface information is captured on a grid of  $0.645_{\mu m} \times 0.645_{\mu m}$ microns **(1 x 10^-16)**.  Around $2.2_{mm} \times 0.6_{mm}$ of area is captured for each land engraved area.
+
+<br>
+
+### Data Labeling
+
+We categorize impressions/areas on land engraved area scans into 6~7 different types, where only one of the impressions is useful in the training of pattern matching algorithms.  The area of major importance is known as well expressed striation marks.  Bringing more context about the goal of this project, correctly determining these 6~7 types of impressions/areas using a convolutional neural network is the main goal of this research project.
+
+Currently an operator can take a land engraved area scan, which is stored as a .x3p file, and upload that file to the fix3p Google chrome extension.  Once the land engraved area scan is uploaded to fix3p, an operator can manually paint areas of the scan to identify the regions.  After all the regions have been correctly annotated and saved, the x3p file should contain a land engraved area scan with additional data known as a “mask.”
 
 #### The regions to annotate are as follows: 
 
-    1. Groove engraved areas are painted dark blue for the left groove and neon green for the right groove.
-    2. Break-off region, located at the bottom heel of a scan are painted in pink.
-    3. Damaged regions are painted using the color white.
-    4. Areas without striation marks are painted in light blue. 
-    5. Striation marks with a secondary pattern are painted in light yellow. 
-    6. Finally, all areas with well expressed striation marks are left unpainted.
-    7. Missing values in a LEA scan are painted Black
+  1. Groove engraved areas are painted dark blue for the $\color{blue}{\text{left groove}}$ and neon green for the $\color{#00ff00}{\text{right groove}}$.
+  2. $\color{#ff0080}{\text{Break-off Region}}$, located at the bottom heel of a scan are painted in pink.
+  3. $\color{grey}{\text{Damaged Regions}}$  are painted using the color white.
+  4. $\color{#66ffff}{\text{Areas without Striations}}$ marks are painted in light blue. 
+  5. Striation marks with a secondary pattern are painted in light yellow $\color{yellow}{\text{********}}$. 
+  6. Finally, all areas with $\color{#cd7f32}{\text{well expressed striation marks}}$ are left unpainted.
+  7. $\color{#000000}{\text{Missing Values}}$ in a LEA scan are painted Black
     
-After all the regions have been correctly annotated and saved, the x3p file should contain a land engraved area scan with additional data known as a “mask.”
+<br>
 
-```{r, fig.cap="Labeled Land Engraved Area Scan using fix3p", fig.keep="hold", fig.align='center', out.width="80%"}
-knitr::include_graphics(c("images/andy_temp/show_and_tell_3.png"))
+```{r echo=FALSE, fig.cap="Labeled Land Engraved Area Scan using fix3p", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/this_is_us_1.png"))
 ```
 
-### Current Data Processing Procedures 
+<br>
+
+### Current Data Processing Procedures
 
 We read in the manually identified land engraved areas into R using the read_x3p function and store each .x3p as a row in a tibble style dataframe.
 
-There are a lot of missing values contained in the surface matrix for each LEA scan. Missing element values are currently being interpolated by taking the average of a missing element’s 8 neighbors, if they exist.
+There are a lot of missing values contained in the surface matrix for each LEA scan. Missing element values are currently being interpolated by taking the average of a missing element’s 8 neighbors, if they exist.  Missing values in the surface matrices had a label of well expressed striae assigned to the corresponding ith x jth location in the mask matrices.  These annotations are not classified correctly and are relabeled using summary statistics as a basis for a location relabeling function, a sample size of 500 land engraved area scans was used as reference.  The label known as change in striation was also removed due to lack of importance**(More on this later)**.  The left groove is also relabeled to the same color as the right groove.  Therefore we trying to use a convolutional neural network to correctly classify 6 labels: $\color{#00ff00}{\text{Grooves}}$, $\color{#ff0080}{\text{Break-off}}$, $\color{grey}{\text{Damage}}$, $\color{#66ffff}{\text{No Striations}}$, $\color{#cd7f32}{\text{Striations}}$, and  $\color{#000000}{\text{Missing Values}}$.  Interpolation and relabeling functions can be found in my Rpackage, x3pLeax. 
 
-```{r, fig.cap="Faceted Annotations Plot", fig.keep="hold", fig.align='center', out.width="80%"}
-knitr::include_graphics(c("images/andy_temp/Missing_Values_Interpolation_Facet_2.png"))
+<br>
+
+```{r echo=FALSE, fig.cap="Annotations Plot, Missing Values", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/this_is_us_2.png"))
 ```
 
-```{r, fig.cap="Missing Values Plot", fig.keep="hold", fig.align='center', out.width="80%"}
-knitr::include_graphics(c("images/andy_temp/Missing_Values_Interpolation_1.png"))
+<br><br><br>
+
+```{r echo=FALSE, fig.align='center', fig.cap="Interpolated Values Plot", fig.keep="hold", out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/this_is_us_4.png"))
 ```
 
-```{r, fig.cap="Interpolated Values Plot", fig.keep="hold", fig.align='center', out.width="80%"}
-knitr::include_graphics(c("images/andy_temp/Missing_Values_Interpolation_3.png"))
+<br>
+
+The Full Land Engraved Area Surface matrices and Mask Matrices will be used to train a 3d convolutional neural network.  The surface matrices will be used as the explanatory training data with size(x, y) and the mask matrices will be used as the prediction data with size(x, y).  The mask matrices/prediction data are then one-hot encoding resulting in matrices with dimensions of size (x, y, 6).
+
+<br>
+
+```{r echo=FALSE, fig.cap="Full Land Engraved Area", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/this_is_us_3.png"))
 ```
 
-After the data has been read and stored into R’s global environment, we propose a data preprocessing procedure that increases the amount of data we currently have. We take each x3p file containing a masked LEA scan, crop, and store each 128x128 resolution grid of the original scan and store it as a new x3p. This allows us to increase the amount of data being fed into our 3d CNN model by 224 to 240 times the amount of our original data based on the original x3p resolution size. To do this we use the x3p_crop function from the x3ptools R programming package
+<br>
 
-```{r, fig.cap="Example boundaries for cropping", fig.keep="hold", fig.align='center', out.width="80%"}
-knitr::include_graphics(c("images/andy_temp/csafe_21_noNA_x3p.png"))
+We propose another data preprocessing procedure that increases the amount of data we currently have. We take each x3p file containing a masked LEA scan, crop, and store each 128x128 resolution grid of the original scan and store it as a new x3p. This allows us to increase the amount of data being fed into our 3d CNN model by 224 to 240 times the amount of our original data based on the original x3p resolution size. To do this we use the x3p_crop function from the x3ptools & x3pLeax R programming packages.
+
+<br>
+
+```{r echo=FALSE, fig.cap="Boundaries for cropping", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/this_is_us_5x.png"))
 ```
 
-```{r, fig.cap="Title coming soon.", fig.keep="hold", fig.align='center', out.width="30%"}
-knitr::include_graphics(c("images/andy_temp/csafe_21_nostriae_2.png", "images/andy_temp/csafe_21_vert_2.png", "images/andy_temp/csafe_21_groove_2.png"))
+<br>
+
+Next, we extract the annotations associated with each cropped x3p file. These 6 types of annotations will serve as our predictor variables for our 3d convolutional neural network to learn on. Each cropped x3p can contain multiple annotations. Notice that the image of the cropped section of the right groove has two annotations associated with it, one annotation is the right groove and the other annotation is well expressed striae.
+
+<br>
+
+```{r echo=FALSE, fig.cap="Majority Relabeling of Crops", fig.keep="hold", fig.align='center', out.width="50%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Majority.png"))
 ```
 
+<br>
 
-Next, we extract the annotations associated with each cropped x3p file. These 7 types of annotations will serve as our predictor variables for our 3d convolutional neural network to learn on. Each cropped x3p can contain multiple annotations. Notice that the image of the cropped section of the right groove has two annotations associated with it, one annotation is the right groove and the other annotation is well expressed striae. A cropped x3p usually has one to four annotations associated with it, where one to two annotations are the most common.  For each cropped x3p we assign one annotation based on a ratio of 80% or a maximum majority.  We do not distinguish between left and right groove and assign them as the same annotation. Annotations are stored as a list and unlisted, given us 1 annotation per observation. Annotations are then one-hot encoded resulting in a matrix of size (n x 6).e
+A cropped x3p usually has one to four annotations associated with it, where one to two annotations are the most common.  For each cropped x3p we assign one annotation based on a ratio of 80% or a maximum majority.  We do not distinguish between left and right groove and assign them as the same annotation.  Logical conditions are applied if there is a tie between annotations for a crop.  Majority annotations further reduces any spatial information, beneficial for a robust algorithm. Annotations are stored as a list and unlisted, given us 1 annotation per observation. Annotations are then one-hot encoded resulting in a matrix of size (n x 6).
 
 
-3d convolutional neural networks take data as 5D tensors with shape (samples, conv_dim1, conv_dim2, conv_dim3, channels), where samples(also known as batch_shape) are the number of observations to be trained, the dimensions are our width, height, and depth values, and channels represent the color scale(=1 for greyscale and =3 for RGB color scale). Another way to think of a 5D tensor is just to think of a 5 dimensional array.
+3d convolutional neural networks take data as 5D tensors with shape (samples, conv_dim1, conv_dim2, conv_dim3, channels), where samples(also known as batch_shape) are the number of observations to be trained, the dimensions are our width, height, and depth values, and channels represent the color scale(=1 for grey scale and =3 for RGB color scale). Another way to think of a 5D tensor is just to think of a 5 dimensional array.
 
-We take the surface martix associated with each cropped x3p, transform each surface matrix to a (x, y, 1, 1) array, a 4d array or a 4d tensor. Then we can bind each surface matrix together creating a (n, x, y, 1, 1) array, a 5d array or a 5d tensor. n represents the batch_shape, x and y represent the width and height dimensions, the first “1” represents the elements contained in each surface matrix and the last “1” represents the color scale, greyscale.
+We take the surface matrix associated with each cropped x3p, transform each surface matrix to a (x, y, 1, 1) array, a 4d array or a 4d tensor. Then we can bind each surface matrix together creating a (n, x, y, 1, 1) array, a 5d array or a 5d tensor. n represents the batch_shape, x and y represent the width and height dimensions, the first “1” represents the elements contained in each surface matrix and the last “1” represents the color scale, grey scale.  We do the same procedure with our full land engraved area training data, resulting in two arrays of size (n, x, y, 1, 1) and (n, x, y, 1, 6). 
 
-```{r, fig.cap="Data Processing Summary", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/Pipeline_summary.png"))
+<br>
+
+#### Pipeline Summaries
+
+```{r echo=FALSE, fig.cap="Data Processing Pipeline for 3D CNN(Residual Networks)", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Crops_Pipeline.png"))
 ```
 
+<br>
 
+The cropped land engraved area tensors and one-hot encoded predictions will be used in training a variety of residual networks**(more on this later)**.
+
+<br>
+
+```{r echo=FALSE, fig.cap="Data Processing Pipeline for 3D CNN(Universal Networks)", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Full_Lea_Pipeline.png"))
+```
+
+<br>
+
+The full land engraved area tensors and full mask prediction tensors will be used in training a universal network**(more on this later)**.
+
+<br>
 
 ### Convolutional Neural Networks
 
-<p class="new">Previous work will be added in the near future.</p>
+A convolutional neural network is a deep learning algorithm which can take input data in the form of a tensor and assign importance**(learnable weights and biases)** to various aspects/objects learned throughout the model's architecture, the model learns to differentiate one from the other when done correctly.  Typically, a convolutional neural network follows a "stack" of layers architecture, also referred to as a "graph" of layers.  Consisting of an input layer, hidden layers, and an output layer.  As the input progresses through these "layers," it gets smaller and smaller, but it also gets deeper and deeper**(more feature maps)**.  This is an outline of a traditional approach designing CNN architectures but does not mean this is all we can do**(more on this later)**.
 
-**Convolutional layers** are used as filters for our 5d input tensor resulting in an activation.  These layers produce feature maps that indicate the locations and strengths of our annotations.
+<br>
+
+```{r echo=FALSE, fig.cap= "https://developer.nvidia.com/blog/deep-learning-nutshell-core-concepts/", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/CNN_0.png"))
+```
+
+<br>
+
+**Convolutional layers** are used as filters for our 5d input tensor resulting in an activation. These layers produce feature maps/activation maps that indicate the locations and strengths of our annotations.  The specified filter is also known as the weight for that layer.  The weights, along with a bias(to be learned during training) for a layer, are passed to an activation function to form the feature map for the next layer.  Uses filters that perform convolution operations while going through the input with respect to the input dimensions.  Filter size and Stride are two important parameters!
+
+<br>
+
+```{r echo=FALSE, fig.cap= "(Convolutional Layer) https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/CNN_1.png"))
+```
+
+<br>
+
+**Pooling layers** select the specified elements covered by the convolutional layers filters, hopefully resulting in a feature map containing the most prominent features.  There many types of pooling layers, max pooling and average pooling layers being the most common.
+
+```{r echo=FALSE, fig.cap= "(Pooling Layer) https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/CNN_2.png"))
+```
+
+<br>
+
+The **receptive field** at each layer is the area of the input that each activation map can see. Activation maps are calculated by applying the weights and biases to an activation function, can be thought of which regions in the surface matrix were relevant for determining which class annotation.  The central pixels will have their information propagated through many different connections in the network.  This means the receptive field can be thought of as dynamic because it changes during training w.r.t to back propagation, the central "pixels" will have larger gradient magnitudes when compared to the borders.  The effective receptive field impact on the final output computation will follow more closely to a Gaussian distribution instead of a Uniform distribution.  For our project "pixels" can be thought of as the surface values. 
+
+<br>
+
+```{r echo=FALSE, fig.cap= "(Receptive Field) https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/CNN_3.png"))
+```
+
+<br>
+
+**Hidden layer activation functions**, activation functions perform a transformation on the input received, in order to keep the values within a manageable range.  Activation functions must be nonlinear and continuously differentiable.  The nonlinear restraint allows the neural network to be a universal approximation.  The continously differentiable restraint is necessary for gradient-based optimization methods.  There are many types of hidden layer activation functions but the three dominant ones are Relu, Leaky Relu, and Elu.  Fun fact, in reality Leaky Relu and Elu are more robust and perform the same or often better than Relu when comparing overall model performance.  The reason Relu is still a contender is because people mostly use Relu for comparing new model architectures with existing ones.  
+
+<br>
+
+```{r echo=FALSE, fig.cap= "(Hidden Layer Activations) https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/CNN_4.png"))
+```
+
+<br>
+
+#### What is going on?
+
+For a given surface matrix denoted as $S$ and the filter denoted as $K$, we can write the general equation to obtain a feature map for a given convolutional layer where each element is the sum of the element wise multiplication of the filter applied to our data.
+
+$$Convolutional \ Layer$$
+
+
+$$conv(S,K)_{x,y} = \sum_{i=1}^{n_{H}}\sum_{j=1}^{n_{W}}\sum_{k=1}^{n_{C}}K_{i,j,k}\times S_{x+i-1,y+j-1,k}$$
+
+$$conv(S^{[g-1]},K^{[n]})_{x,y} = f^{[g]}(Z) \times (\sum_{i=1}^{n^{[g-1]}_{H}}\sum_{j=1}^{n^{[g-1]}_{W}}\sum_{k=1}^{n^{[g-1]}_{C}}K^{[n]}_{i,j,k}\times S^{[g-1]}_{x+i-1,y+j-1,k} + b^{[g]}_{n})$$
+Where $n_{H}$ represents the size of the height dimension for the convolutional layer, $n_{W}$ represents the size of the width dimension for the convolutional layer, and $n_{C}$ represents the number of channels for the convolutional layer, for our data, channel = 1 for every layer. $n^{[g-1]}_{H}$, $n^{[g-1]}_{W}$, $n^{[g-1]}_{C}$, represent the values for the previous layer. $f^{[g]}(Z)$ represents the convolutional layers activation function and $b^{[g]}_{n}$ is the bias term. 
+
+<br>
+
+**Output layer activation functions**, another activation function defines the output of each instance.  There are many types of activation functions, linear, sigmoid, softmax, ..., etc.  One should be careful about which activation function they use, it relates to the output size of your prediction data.  We focus on the softmax activation function because we are working with a multi-classification problem**(non-binary)**.  The softmax activation function is a generalized logistic function that takes inputs as a vector, matrix, or an array of scores calculated by the weights and biases of the neural network's architecture.  The output results in a vector, matrix, or array of probabilities.
+
+$$Softmax \ Equation$$
+
+$$p_{i}=\frac{e^{x_{i}}}{\sum_{j=1}^{n}e^{x_{j}}}\\ p = (p_{1}, p_{2}, p_{3}, ..., p_{n})$$
+<br>
+
+**Forward and Backward Propagation using Gradient Descent Optimization**: 
+
+Forward propagation refers to the calculation and storage of our models' weights and Biases at each learnable layer in order from the input layer to the output layer.  Backward propagation refers to applying the total loss**(error)** calculated using a cost function and a gradient descent optimizer back into the layers of our model, specifically to each learnable layer's weights and biases.  Another way to think of this is calculating the gradients of learnable layers weights with respect to the error. $\frac{\partial E}{\partial L_{weight/filter}}$ 
+
+Optimization algorithms help to minimize or maximize an objective function, which is the loss function in our project.  $\theta = \theta - \eta \times \nabla J(\theta)$, where $\eta$ is the learning rate, $\nabla J(\theta)$ is the gradient of the loss function w.r.t parameters $\theta$.  This is the equation for the traditional gradient descent optimizer.  Take small steps iteratively until our model reaches the correct weights, achieved by updating $\theta$ via backward propagation.  The problem with the original gradient descent optimizer is that the weights are only updated once after seeing the entire data set. 
+
+<br>
+
+```{r echo=FALSE, fig.cap= "Gradient Descent", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Grad_1.png"))
+```
+
+<br>
+
+Adaptive optimizers can update parameters more frequently.  Allowing more frequent updates to our models weights and biases at each learnable layer during training.  One example, the learning rate parameter.  Adaptive optimizers can perform updates after a certain user specified amount of data has been seen, an example of this would be mini-batch stochastic gradient descent based optimization.  For this project we explore a variety of adaptive optimizers such as: $SGD$, $SGD + Momentum + Decay$, $Rmsprop$, and $Adam$.
+
+<br>
+
+#### Loss Functions Explored
+
+<br>
+
+$Loss \ Categorical \ CrossEntropy = -\sum_{i=1}^{n}t_{i}log(p_{i})$
+
+<br><br>
+
+$Weighted \ Categorical \ CrossEntropy = \frac{-1}{N}\sum_{n=1}^{N}wr_{n}log(p_{n})+(1-r_{n})log(1-p_{n})$
+
+<br><br>
+
+$Dice \ Loss = 1-\frac{2\sum_{i^{th},j^{th} \ location}Y_{true}Y_{pred}}{\sum_{i^{th},j^{th} \ location}Y^{2}_{true}+\sum_{i^{th},j^{th} \ location}Y^{2}_{pred}}$
+
+<br><br>
+
+$Generalized \ Dice \ Loss = 1 - 2\frac{\sum{w_{t}}\sum_{i^{th},j^{th} \ location}Y_{true}Y_{pred}}{\sum{w_{t}}\sum_{i^{th},j^{th} \ location}Y_{true}+Y_{pred}}$
+
+<br><br>
+
+$Focal \ Loss = -\alpha_{t}(1-p_{t})^{\gamma} \ log(p_{t})$
+
+<br>
+
+
+#### Convolution Neural Networks other layer operations used for this project
 
 **3d zero padding**: padding allows us to keep the information at the borders of our cropped x3p scans, without padding we could potentially be losing important information regarding scans that have more than one annotation.
-
-**Max pooling** selects the maximum element covered by the filters, resulting in a feature map containing the most prominent features, max pooling also reduces the computational cost by reducing the number of parameters used to learn.
 
 **Batch Normalization** normalizes the output of each previous activation layer by subtracting the batch mean and dividing by the batch standard deviation.  Batch Normalization is essentially a scaling feature, making sure each activation in each layer isn't too low or too high.
 
 **Dropout** is used to prevent/reduce overfitting in our model and is typically used along with batch normalization.  Dropout is also referred to as dilution, thining the weights of the neural network, or it can be thought of as model averaging.
 
-**Previous Work:**
+<br>
+
+### Model Architectures
+
+#### Multiclassification using Residual Networks
+
+We investigate a multi-classification problem where we wish to predict a single label assigned to each 128x128 crop of a land engraved area scan.  We use 3D convolutional neural networks utilizing residual network architectures.  Residual networks utilize skip connections to jump over layers.  Reusing the activations from previous layers and concatenating these activations to the current layer using a 1x1 linear convolutional layer. Standard concatenation of layers**(Previous Layer + Residual Layer)** when feature maps for layers are the same dimensions.
+
+<br>
+
+```{r echo=FALSE, fig.cap= "Residual Network Skip Connection", fig.keep="hold", fig.align='center', out.width="20%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Res_1.png"))
+```
+
+<br>
+
+Residual networks have many benefits and dominate the world when it comes to designing neural network architectures. Residual networks allow us to increase the models complexity by using more convolutional layers, allowing the model to learn more parameters at the lower, middle, and higher level feature maps, model training time is significantly reduced, reducing the vanishing gradient problem, and higher overall performance are a few of the benefits.
+
+#### Architectures (Resnet 18, Resnet 50, Wide Resnet)
+
+##### **Resnet 18**
+
+```{r echo=FALSE, fig.cap= "Residual Network (18 Residual Blocks)", fig.keep="hold", fig.align='center', out.width="90%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Res_18_diagram.png"))
+```
+
+<br><br><br>
+
+##### **Resnet 50**
+
+```{r echo=FALSE, fig.cap= "Residual Network (50 Residual Blocks)", fig.keep="hold", fig.align='center', out.width="90%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Res_50_diagram.png"))
+```
+
+<br><br><br>
+
+##### **Wide Residual Network**
+
+```{r echo=FALSE, fig.cap= "Wide residual Network", fig.keep="hold", fig.align='center', out.width="90%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/wide_resnet_diagram.png"))
+```
+
+<br>
+
+#### Tensorflow and Keras Callbacks
+
+Callbacks using the tensorflow and keras backend allow us to obtain different types of data and results throughout the a model's architecture during any point of training.  Callbacks allow an analyst to add specific constraints to the model during any point of training.  Callbacks allow us to create custom loss functions, optimization functions, and callbacks allow us to explore optimization/tuning techniques such as a learning rate scheduler. 
+
+For each residual network architecture we explore the range of our learning rate parameter where our model's show the greatest ability to learn.  To do this we utilize the functionality of the tensorflow and keras backend callbacks.  We observe each models loss during training using a exponential distribution as the basis for a models learning rate at each step during training.  $$f_{X}(x) = \lambda {e}^{-\lambda x}, \ x > 0 $$  
+
+<br>
+
+```{r echo=FALSE, fig.cap= "Exponentail Learning Rate", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Exponential_Learning_Rate.png"))
+```
+
+<br><br><br>
+
+```{r echo=FALSE, fig.cap= "Resnet 18 Learning Rate 5 epochs", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Determing_Learning_Rate.png"))
+```
+
+<br><br><br>
+
+```{r echo=FALSE, fig.cap= "Resnet 50 Learning Rate 5 epochs", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Resnet_50_Learning_Rate.png"))
+```
+
+<br><br><br>
+
+```{r echo=FALSE, fig.cap= "Wide Resnet Learning Rate 10 epochs", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Wide_Resnet_Learning_Rate.png"))
+```
+
+<br>
+
+Learning rate schedulers allow us to visualize a possible best learning rate to use when training or a possible "range."  Gradient descent is a way to minimize an objective function parameterized by a model’s parameters by updating the parameters in the opposite direction of the gradient of the objective function w.r.t. to the parameters.  If we are stuck around a local minimum but have not found the global minimum we can encourage the model to jump local local minimums using cyclical learning rates or one fit cycle policies.
+
+```{r echo=FALSE, fig.cap= "Minimizing objective Function using Cycles", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Explain_4.png"))
+```
+
+<br>
+
+Using Stochastic Gradient Descent, Rmsprop, and/or Adam allows us to perform parameter updates for each training example and associated label.  Cosine Annealing is a popular technique for this.
+
+<br>
+
+```{r echo=FALSE, fig.cap= "Cosine Annealing with Warm Restarts", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Cosine_Annealing.png"))
+```
+
+<br>
+
+The most recent learning rate optimization techniques utilize the one fit cycle policy.
+
+<br>
+
+```{r echo=FALSE, fig.cap= "Linear One Fit Cycle Policy", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Linear_One_Fit_Cycle.png"))
+```
+
+<br><br><br>
+
+
+```{r echo=FALSE, fig.cap= "Cosine One Fit Cycle Policy", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Linear_Cosine_One_Fit_Cycle.png"))
+```
+
+<br>
+
+#### Multi-label, Multiclassification using Universal Networks
+
+UNET stands for Universal Network and are widely used for image segmentation in many types of fields.  Recently used for covid-19 chest CT imaging.  UNET is an end-to-end fully convolutional neural network. This architecture only contains convolutional layers where the main idea is to supplement a usual contracting network**(like our residual network)** by successive layers where pooling operations are replaced with up sampling operations. UNET models show High Performance but are not as robust w.r.t data.  UNet is able to locally distinguish every pixel, including borders, by doing classification on every pixel of our masks using every surface value of our surface matrix.
+
+<br>
+
+```{r echo=FALSE, fig.cap= "(Unet Example) https://en.wikipedia.org/wiki/U-Net", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Unet_Example.png"))
+```
+
+<br>
+
+##### Our Model
+
+**Contracting Path**
+
+<br>
+
+```{r echo=FALSE, fig.cap= "UNet Contracting Path", fig.keep="hold", fig.align='center', out.width="90%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Unet_contracting_path.png"))
+```
+
+<br>
+
+**Expansive Path**
+
+<br>
+
+```{r echo=FALSE, fig.cap= "UNet expansive Path", fig.keep="hold", fig.align='center', out.width="90%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Unet_expansive_path.png"))
+```
+
+
+### Results
+
+#### Multi-Classification, 3D CNN Residual Networks
+
+Training Set: 196400 Instances
+
+Test Set: 19640 Instances, size = 10% based on training set size
+
+```{r echo=FALSE, fig.cap= "Resnet 50 Training vs Validation", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Resnet_50_results.png"))
+```
+
+<br>
+
+Total True Positive = 176653
+
+Overall Accuracy = 89.95%
+
+<br>
+
+```{r table2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "  Confusion Matrix
+|Class          | Striae        | Grooves       | No Striae  | Damage        | Breakoff       | Missing Values |
+|---------------|---------------|---------------|------------|---------------|----------------|----------------|
+| Striae        | 91337         | 853           | 4604       | 100           | 353            | 17             |
+| Grooves       | 1697          | 28894         | 30         | 23            | 90             | 1734           | 
+| No Striae     | 4255          | 50            | 45984      | 98            | 19             | 0              |
+| Damage        | 1866          | 148           | 1322       | 850           | 31             | 47             |
+| Breakoff      | 687           | 136           | 14         | 35            | 2419           | 215            |
+| Missing Values| 38            | 1221          | 0          | 1             | 63             | 7169           |
+"
+```
+
+```{r echo=FALSE}
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+**Striations:** (Precision: 0.94, Recall: 0.91, F1-Score: 0.93)
+
+**Grooves:** (Precision: 0.89, Recall: 0.92, F1-Score: 0.91)
+
+**No Striations:** (Precision: 0.91, Recall: 0.89, F1-Score: 0.90)
+
+**Damage:** (Precision: 0.20, Recall: 0.77, F1-Score: 0.32)
+
+**Breakoff:** (Precision: 0.69, Recall: 0.81, F1-Score: 0.75)
+
+**Missing Values:** (Precision: 0.84, Recall: 0.78, F1-Score: 0.81)
+
+<br>
+
+```{r echo=FALSE, fig.cap= "More Results Table", fig.keep="hold", fig.align='center', out.width="70%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Resnet_Results_table.png"))
+```
+
+<br><br><br>
+
+```{r echo=FALSE, fig.cap= "Processed Land Engraved Area Scan", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/this_is_us_3.png"))
+```
+
+<br><br><br>
+
+```{r echo=FALSE, fig.cap= "Crop/Patch together, what is fed into the model", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/New_2.png"))
+```
+
+<br><br><br>
+
+```{r echo=FALSE, fig.cap= "What the Model Predicted, 5 Crops Misclassified ~ 97.8% Accuracy", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/New_3.png"))
+```
+
+<br><br><br>
+
+#### Multinomial Distribution Study
+
+Crop at every $i_{th}$, $j_{th}$ location on the surface matrix.  Instead of having only 232 to 240 crops we will have millions of crops, varies depending on the size of the land engraved area scan.  We predict the label for each crop and assign that prediction to the $i_{th}$, $j_{th}$ location.  We end up with an array of probabilities of size (x, y, 6).  Where the last dimension are the 6 probabiliy matrices assigned to each class w.r.t to the matrix location. Therefore, we have $n = i \times j$ points, of $k = 6$ different colors, where each color have $p_{i}$ probabilities, $i = 1, ..., 6$.
+
+<br>
+
+$Notation: X\sim Multi(n,p)$ & where $n > 0$, $p=[p_1,\ldots,p_k]$ and $\sum p_j = 1$
+
+<br>
+
+$Support: \{x_1,\ldots,x_k \mid \sum x_j = n, x_j \geq 0 \}$
+
+<br>
+
+$PMF = {n \choose x_1,\ldots,x_k}\prod p_j^{x_j}$
+
+<br>
+
+${E}[X]= n p$
+
+<br>
+
+$Var[X_j]=  n p_j(1-p_j)$
+
+<br>
+
+$Cov[X_i,X_j]=  -n p_ip_j$
+
+<br>
+
+We can use a wide variety of statistical analysis to understand the model and our data w.r.t our population.  Explore the full variance matrix, study the entropy, look at the full distribution w.r.t each class, and investigate the certainty of our model.
+
+<br>
+
+```{r echo=FALSE, fig.cap= "Original label for land engraved area scan", fig.keep="hold", fig.align='center', out.width="70%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/parallel_xxx.png"))
+```
+
+<br>
+
+Initialize and empty array to be populated with probabilistic scores.
+
+Distribute a function across available cores**(parallel)**, the function will be:
+
+    1. Crop
+    2. Predict using trained network
+    3. Assign prediction of 128x128 crop to point at which it was cropped.
+    
+Distribute processes w.r.t the number of available cores.  19 cores => 180~200 locations per core via x direction, ~3 million crops, ~20 million probabilities.
+
+
+```{r echo=FALSE, fig.cap= "Land engraved area scan", fig.keep="hold", fig.align='center', out.width="70%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/blank_interp.png"))
+```
+
+<br><br><br>
+
+```{r echo=FALSE, fig.cap= "Parallel Strategy", fig.keep="hold", fig.align='center', out.width="70%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Para_Explain_1.png"))
+```
+
+<br><br><br>
+
+```{r echo=FALSE, fig.cap= "Populate i, j locations with predictions", fig.keep="hold", fig.align='center', out.width="70%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Para_Explain_2.png"))
+```
+
+<br>
+
+You can think of this as a sliding window algorithm, but I decided to use a parallel computing strategy that was a lot faster. Cropping and predicting using a CNN millions of times isn’t fast unless you go parallel.  The way we apply Neural Networks does not have to be the same way we train them!(Heike Hofmann). 
+
+<br>
+
+```{r echo=FALSE, fig.cap= "True Labels Pixelwise", fig.keep="hold", fig.align='center', out.width="70%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/class_labels_true.png"))
+```
+
+<br><br><br>
+
+```{r echo=FALSE, fig.cap= "Prediction Labels Pixelwise", fig.keep="hold", fig.align='center', out.width="70%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/class_labels_preds.png"))
+```
+
+<br><br><br>
+
+```{r echo=FALSE, fig.cap= "True Labels Surface Relationship", fig.keep="hold", fig.align='center', out.width="70%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/true_class_surface_relation.png"))
+```
+
+<br><br><br>
+
+```{r echo=FALSE, fig.cap= "Prediction Labels Surface Relationship", fig.keep="hold", fig.align='center', out.width="70%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/predictions_class_surface.png"))
+```
+
+<br><br><br>
+
+```{r echo=FALSE, fig.cap= "Certainty of Predictions by Class", fig.keep="hold", fig.align='center', out.width="70%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Certainty.png"))
+```
+
+<br><br><br>
+
+```{r echo=FALSE, fig.cap= "True Labels Map", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/True_raster.png"))
+```
+
+<br><br><br>
+
+```{r echo=FALSE, fig.cap= "Predictions Map", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Predictions_raster.png"))
+```
+
+<br><br><br>
+
+```{r echo=FALSE, fig.cap= "Overlay", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Overlayed_raster.png"))
+```
+
+<br><br><br>
+
+
+```{r echo=FALSE, fig.cap= "Certainty Map, Probabilities", fig.keep="hold", fig.align='center', out.width="85%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Certainty_map.png"))
+```
+
+<br>
+
+Pixel wise accuracy is 68%, we can see that the models certainty is related to the number of instances for each class, excluding missing values.  The low performance could be do to the scan used.  This land engraved area scan is particularly difficult due to the frequent occurrences of damage and no striations.  The annotator wasn't even able to label all of the instances of damage and left them as well expressed striation marks. Experimenting with alternative class weights of a loss function that utilizes class weights such weight categorical cross entropy could be used to improve classification accuracy.  There are upsides and downsides to this approach but further analysis needs to be done such as IOU and DICE metrics to determine class separability. 
+
+<br><br><br>
+
+
+#### Multi-label, Multi-Classification, 3D CNN Universal Network Results
+
+
+```{r echo=FALSE, fig.cap= "UNet Results", fig.keep="hold", fig.align='center', out.width="70%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Unet_Results.png"))
+```
+
+<br><br>
+
+```{r echo=FALSE, fig.cap= "Unet Results Table", fig.keep="hold", fig.align='center', out.width="70%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Unet_Current_table.png"))
+```
+
+<br>
+
+The lines seen in the prediction outputs and activation maps from the universal networks output layer are an unintended consequence due to an issue in the data processing.  I am currently trying to narrow down this issue and I think I have figured it out.  We have seen successful training using a universal network but there was also another data processing issue with the data.  Figuring out the issue with the universal network has been put on the backburning for right now.  Hopefully it will be resolved in the coming weeks.  The model is able to determine the "contour" for each region very well.
+
+<br>
+
+### Class Imbalance
+
+If it isn't clear by now, there is a huge class imbalance issue that could be negatively impacting the models we have trained.  There are a few approaches that can be taken, some of which we have briefly experimented with.  Training a model that takes input data in the form of crops using a balanced set of classes.  Training a model using a loss function that utilizes a weighting parameter such as weighted categorical crossentropy for the residual networks and focal loss for the universal networks.  I have previously experimented with manually set class weights, where each weight per class is determined by calculating the inverse class weighting schema, this is a common procedure.  The model will handle minority classes better but will perform worse on the majority classes. 
+
+<br>
+
+### Labeling Consistency
+
+An interesting problem with this project is the trust in the scanners and annotators.  It is not an easy task to scan and label land engraved area scans.  I personally believe no one can do a great job at labeling the land engraved area scans.  The annotators are human and they will act accordingly.  The quality of the labels for each land engraved area scan could be due to a wide range of factors.  Time, concentration, outside life activities, commitment, ..., etc could cause a drop in the quality of a land engraved area scans assigned labels.  This large variability with the current data raises a lot of interesting questions.  A cross examination study would provide some valuable insights.  How much internal consistency can we expect from the scanner and annotator?  Can we quantify the variability of our data w.r.t to the assigned labels?  We plan to pull out a few scans that were redone and compare the pixel by pixel percentages w.r.t to the labels.  Can we design tools to make labeling easier?  Can we use existing tools to make labeling easier?  Even if labeling land engraved area scans was quote "easier," would the quality of labeled scans go up?  
+
+<br>
+
+```{r echo=FALSE, fig.cap= "Labels based on location using a sample of 500 Land Engraved Area Scans", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Class_labels_freq.png"))
+```
+
+<br>
+
+### Data Processing Improvements
+
+#### Missing Values
+
+Interpolation of missing values w.r.t the land engraved area scans is a very interesting problem.  Neural networks can not accept inputs with a large amount of missing values because of the negative impact they have on the model weights.  The impact of missing values and training a convolutional neural network have been observed.  We saw that the model would loop a number of accuracy and loss metrics.  The length of the loop was directly related to the number of classes we were trying to predict.  The end result would yield a trained neural network that would always pick the majority class, aka the learnable layers only learned to predict the majority class for each instance of training and validation data.  The question of "What should we do with the missing values?" is not an easy one.  We have to interpolate the missing values but what is the best way in regards to our data and the problem we are trying to solve?  Previous studies have showed that the 8 neighbor approach reduces the variability more compared to other left, right, up, and down recursive approaches.  Fourier Transforms have also been explored in other topographical data problems.  Another approach would be to set missing values to an extremely low value or an extremely high value. 
+
+#### Normalize and Scaling of Processed Data
+
+Currently the values for each $i_{th}$, $j_{th}$ cell of a land engraved area surface matrix range somewhere between -40 to +40.  We could change the range to be strictly positive.  The code for this is available.  Another thing that can be done is normalizing the surface data to a range between 0 and 1.  This is a common approach in many machine learning tasks.  We do utilize batch normalization layers in our neural networks currently.  The models weights/activation maps are normalized using a strictly operational layer.  
+
+#### Relabeling
+
+After a land engraved area scan is interpolated, a portion of the labels in the corresponding mask matrix need to be relabeled.  We are using a few relabeling functions where the main one replaces labels based on the location and previous label.  The relabeling process can be improved using a technique known as flooding.  We can use a combination of flood fill and boundary fill algorithms to correctly relabel areas after interpolation.  Given a matrix of colors, replace $color_{a}$ with $color_{b}$ if $color_{a}$ is surrounded by $color_{b}$.  We use the BFS technique to handle the O(MN) time complexity problem.
+
+<br>
+
+                                               Moore's Neighborhood
+                                               #  (-1, -1)  |  (-1, 0)    | (-1, +1)    #
+                                               #----------------------------------------#
+                                               #  (0, -1)   |  (0, 0)     | (0, +1)     #
+                                               #----------------------------------------#
+                                               #  (+1, -1)  | (+1, 0)     | (+1, +1)    #
+                                               #----------------------------------------#
+<br>
+                                               
+We utilize the Moore's neighborhood approach, traversing counter clockwise, and we use the jacob stop criterion for terminating the algorithm.
+
+<br>
+
+```{r echo=FALSE, fig.cap= "Flood Fill Algorithm Results for 2 classes", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Steps_flood_fill.png"))
+```
+
+<br>
+
+This algorithm allows us to flood each region of the land engraved area scan.  We do not need to utilize summary statistics.  This algorithm also allows us to obtain the contours associated with each region.
+
+```{r echo=FALSE, fig.cap= "Polygon/Contours", fig.keep="hold", fig.align='center', out.width="40%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/Contour_Polygon_using_moores.png"))
+```
+             
+<br>
+
+### Shiny App
+
+There is always a lot of discussion about how we communicate these algorithms and procedures to the forensic community.  The ability to utilize these algorithms in applied applications is important.  I have been working on a shiny app that allows a user to perform everything I have talked about above just by the click of a mouse.
+
+<br>
+
+```{r echo=FALSE, fig.cap= "Intro Page", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/shiny_app_1.png"))
+```
+
+<br><br>
+
+```{r echo=FALSE, fig.cap= "Data Processing Page", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/shiny_app_2.png"))
+```
+
+<br><br>
+
+```{r echo=FALSE, fig.cap= "Data Processing Page 2", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/shiny_app_3.png"))
+```
+
+<br><br>
+
+
+```{r echo=FALSE, fig.cap= "Neural Network Design Page", fig.keep="hold", fig.align='center', out.width="80%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/shiny_app_4.png"))
+```
+
+<br>
+
+The user has the ability to examine a scan just like in rgl but in rgl widget.  The user can explore the useful meta data information found within the x3p file.  The user has the ability to load in new .x3p files, perform data processing, create tensors for deep learning models, and save the modified data.  The user has the ability to design neural network architectures from scratch using either sequential or functional modeling.  The user can specify certain callbacks when training and examine the results afterwords.  This app still needs a lot of work but is functional, hence, "Version Alpha."  I think this app is best used as a proof of concept for potential software development.   
+
+### What's Next?
+
+There are many things that can be done.  I plan to continue the statistical analysis portion of this project, studying the variability of the data w.r.t the model and data processing.  Using tensorflow and keras callbacks has allowed the project to progress much farther than expected and it is exciting.  Using statistical methods, inference, and studying our models learnable layers will strengthen the validity of the project.  More updates in the future. 
+
+<br><br><br><br><br><br>
+
+### Past Work(Section May be Removed Later)
 
 We trained a shallow 3d convolutional neural network on 100 epochs **(epoch refers to one cycle through the full training data)** resulting in an overall accuracy of 76.2 percent.  Class weights were not adjusted for Class Imbalance Issue. 
 
@@ -4213,21 +4862,6 @@ The training loss is still decreasing while validation loss has not started to i
 - Residual Network also performs well on new never seen before data.  6 label validation classification ~ 84%
 
 
-
-
-
-```{r, fig.cap="Residual Network Architecture.", fig.keep="hold", fig.align='center', out.height="30%"}
-knitr::include_graphics(c("images/andy_temp/resnet_arch.png"))
-```
-
-```{r, fig.cap="Exponential Distribution.", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/Exponential_Learning_Rate.png"))
-```
-
-```{r, fig.cap="Determining Learning Rate.", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/Determing_Learning_Rate.png"))
-```
-
 ```{r, fig.cap="Confusion Matrix.", fig.keep="hold", fig.align='center', out.width="100%"}
 knitr::include_graphics(c("images/andy_temp/Resnet_CFMatrix.png"))
 ```
@@ -4235,9 +4869,6 @@ knitr::include_graphics(c("images/andy_temp/Resnet_CFMatrix.png"))
 ```{r, fig.cap="Training & Validation Curves.", fig.keep="hold", fig.align='center', out.width="100%"}
 knitr::include_graphics(c("images/andy_temp/ResNet_3D_CNN_Performance.png"))
 ```
-
-
-### Post Analysis
 
 We take three LEA scans and predict each set of cropped LEAs for those original LEA scans using our current trained neural network.
 
@@ -4247,28 +4878,19 @@ knitr::include_graphics(c("images/andy_temp/post_test.png"))
 
 Looking at the confusion matrix we can see that the model was not able to correctly classify any cases of damage nor any cases of vertical change in striations. There were a total of 712 training samples and 74 samples were misclassified.  Out of those 74 misclassified samples, 38 of them were vertical change in striations.  We are interested in the misclassified labels. 
 
-
-
 ```{r, fig.cap="Misclassified Crops", fig.keep="hold", fig.align='center', out.width="100%"}
 knitr::include_graphics(c("images/andy_temp/Compare_label_pred_1.png"))
 ```
-
-
 
 ```{r, fig.cap="Misclassified Crops: Vertical Change in Striations", fig.keep="hold", fig.align='center', out.width="100%"}
 knitr::include_graphics(c("images/andy_temp/Compare_label_pred_2.png"))
 ```
 
-
-
 We are also able to take the predicted cropped LEAs and make a full land engraved area scan with a new associated mask. 
-
 
 ```{r, fig.cap="Land Engraved Area Scan with assigned labels", fig.keep="hold", fig.align='center', out.width="100%"}
 knitr::include_graphics(c("images/andy_temp/square_1.png"))
 ```
-
-
 
 ```{r, fig.cap="Land Engraved Area Scan with predicted labels", fig.keep="hold", fig.align='center', out.width="100%"}
 knitr::include_graphics(c("images/andy_temp/sqaure_2.png"))
@@ -4280,36 +4902,6 @@ Update(04/05/2021): Processing data including missing values as a label for land
 
 Update(04/12/2021): Processed 800 Land Engraved Area Scans from scanner (Megan)
 
-```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/left_groove_Density_1-100_pointplot.png"))
-```
-
-```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/right_groove_Density_1-100_pointplot.png"))
-```
-
-```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/damage_Density_1-100_pointplot.png"))
-```
-
-```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/No_Striations_Density_1-100_pointplot.png"))
-```
-
-```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/vertical_change_in_striations_Density_1-100_pointplot.png"))
-```
-
-```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/missing_value_Density_1-100_pointplot.png"))
-```
-
-```{r, fig.cap="Density plot using 100 LEAs", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/breakoff_Density_1-100_pointplot.png"))
-```
-
-### Summary Statistics
-
 Summary Statistics were derived using 100 Land Engraved Area Scans from scanner(Megan)
 
 ```{r, fig.cap="LEA Labeled Region Summary Statistics", fig.keep="hold", fig.align='center', out.width="100%"}
@@ -4320,7 +4912,7 @@ knitr::include_graphics(c("images/andy_temp/Resnet_latest_summary_statistics.png
 knitr::include_graphics(c("images/andy_temp/Annotation_boxplot.png"))
 ```
 
-### Training Neural Net using data from Scanner(Megan)
+Training Neural Net using data from Scanner(Megan)
 
 We Re-run the 3d convolutional neural network on 100 epochs using Megan's data for the training data set.
 
@@ -4351,17 +4943,6 @@ knitr::include_graphics(c("images/andy_temp/Resnet_latest_cm_1.png"))
     **Vertical Striations** (Precision: 0.0, Recall: 0.0, F1-Score: 0.0)
 
 
-
-```{r, fig.cap="Land Engraved Area Scan with assigned labels", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/Resnet_latest_assigned_label.png"))
-```
-
-
-
-```{r, fig.cap="Land Engraved Area Scan with predicted labels", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/Resnet_latest_prediction.png"))
-```
-
 Update(04/26/2021): Scripts used for Data Processing were converted to functions, with more features and user controls.
 
 Update(05/24/2021): New data processing procedure implemented where relabeling of land engraved area scans is more precise and missing values are excluded from being used as input data when training the current 3D CNN. Currently over a thousand labeled land engraved area scans have been processed using the new procedure.  Released R package "x3pLeaX," for working with LEA scans and running deep learning models.  The package is continually being updated daily.
@@ -4371,47 +4952,6 @@ Update(06/28/2021): 1000+ processed Land Engraved Area Scans used as training da
 Update(07/19/2021): Currently working on the paper for Assessing Quality of Scans using 3d convolutional neural networks.  Currently writing scripts to use the cnn for determining multiple crosscut locations used for analyzing bullet signatures. 
 
 Update(08/09/2021): Examining the effects of hyper parameter tuning on the 3d CNN residual network.  Gradient descent is one of the most popular algorithms to perform optimization on neural networks.  Gradient descent is a way to minimize an objective function parameterized by a model’s parameters by updating the parameters in the opposite direction of the gradient of the objective function w.r.t. to the parameters. 
-
-Stochastic Gradient Descent performs a parameter update for each training example and associated label.
-
-Gradient Descent:
-
-$$θ_t=y_t−ε_t∇f(y_t)$$
-Stochastic Gradient Descent:
-
-$$θ_t = θ_t − ε_t∇f(θ_t; x^i; y^i)$$
-
-Stochastic Gradient Descent with warm restarts:
-
-If we are stuck around a local minimum but have not found the global minimum we can encourage the model to jump local local minimums.
-
-```{r, fig.cap="Cosine Annealing", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/Explain_4.PNG"))
-```
-
-
-
-Expanding the tools for data processing, we can now identify and fill islands across the lea scan and obtain contour information.
-
-```{r, fig.cap="", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/plot_1_prefill.PNG"))
-```
-
-```{r, fig.cap="", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/plot_2_fill_part1_correction.PNG"))
-```
-
-```{r, fig.cap="", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/plot_4_fill_part4_correction.PNG"))
-```
-
-```{r, fig.cap="", fig.keep="hold", fig.align='center', out.width="100%"}
-knitr::include_graphics(c("images/andy_temp/Contour_Polygon_using_moores.PNG"))
-```
-
-
-
-
 
 
 ## Analysis of Results  

@@ -4716,7 +4716,39 @@ Interpolation of missing values w.r.t the land engraved area scans is a very int
 
 #### Normalize and Scaling of Processed Data
 
-Currently the values for each $i_{th}$, $j_{th}$ cell of a land engraved area surface matrix range somewhere between -40 to +40.  We could change the range to be strictly positive.  The code for this is available.  Another thing that can be done is normalizing the surface data to a range between 0 and 1.  This is a common approach in many machine learning tasks.  We do utilize batch normalization layers in our neural networks currently.  The models weights/activation maps are normalized using a strictly operational layer.  
+Currently the values for each $i_{th}$, $j_{th}$ cell of a land engraved area surface matrix range somewhere between -40 to +40.  We could change the range to be strictly positive.  The code for this is available.  Another thing that can be done is normalizing the surface data to a range between 0 and 1.  This is a common approach in many machine learning tasks.  We do utilize batch normalization layers in our neural networks currently.  The models weights/activation maps are normalized using a strictly operational layer.
+
+<br>
+
+```{r echo=FALSE, fig.cap= "Current: -/+ Scale, Neighbor Interpolation", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/original_scale.png"))
+```
+
+<br><br>
+
+```{r echo=FALSE, fig.cap= "0 to 1 Scale, Neighbor Interpolation", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/postive_scale_0_to_1.png"))
+```
+
+<br><br>
+
+```{r echo=FALSE, fig.cap= "0 to Positive Range Scale, Neighbor Interpolation", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/postive_scale_0_to_range.png"))
+```
+
+<br><br>
+
+```{r echo=FALSE, fig.cap= "Interpolate NA with 0, Zero Pad", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/x3p_zero_pad.png"))
+```
+
+<br><br>
+
+```{r echo=FALSE, fig.cap= "0 to Positive Range Scale, Interpolate NA with 0, Zero Pad", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/x3p_positive_scale_interp_0.png"))
+```
+
+<br>
 
 #### Relabeling
 

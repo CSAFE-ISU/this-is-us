@@ -4598,6 +4598,12 @@ knitr::include_graphics(c("images/andy_temp/rework_plots/Para_Explain_1.png"))
 knitr::include_graphics(c("images/andy_temp/rework_plots/Para_Explain_2.png"))
 ```
 
+<br><br><br>
+
+```{r echo=FALSE, fig.cap= "Predictions for every pixel", fig.keep="hold", fig.align='center', out.width="70%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/parallel_x3p.png"))
+```
+
 <br>
 
 You can think of this as a sliding window algorithm, but I decided to use a parallel computing strategy that was a lot faster. Cropping and predicting using a CNN millions of times isn’t fast unless you go parallel.  The way we apply Neural Networks does not have to be the same way we train them!(Heike Hofmann). 
@@ -4652,9 +4658,20 @@ knitr::include_graphics(c("images/andy_temp/rework_plots/Overlayed_raster.png"))
 
 <br><br><br>
 
-
 ```{r echo=FALSE, fig.cap= "Certainty Map, Probabilities", fig.keep="hold", fig.align='center', out.width="85%"}
 knitr::include_graphics(c("images/andy_temp/rework_plots/Certainty_map.png"))
+```
+
+<br><br><br>
+
+```{r echo=FALSE, fig.cap= "Certainty Map, Entropy", fig.keep="hold", fig.align='center', out.width="85%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/entropy_2.png"))
+```
+
+<br><br><br>
+
+```{r echo=FALSE, fig.cap= "Certainty Map, Entropy", fig.keep="hold", fig.align='center', out.width="85%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/entropy_1.png"))
 ```
 
 <br>

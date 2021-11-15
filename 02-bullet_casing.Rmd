@@ -4050,13 +4050,8 @@ where $d$ is an integer.
 
 Will 10/24 Update: the `cmpsR` package passed all tests with github action. Submitting.
 
+Will 11/14 Update: the `cmpsR` package is now on CRAN. And the paper has been submitted to the R journal. 
 
-
-#### Future Work
-
-* Manage to submit the `cmpsR` package to CRAN
-
-* Finish the paper
 
 
 ## Assessing Quality of Scans

@@ -4601,7 +4601,7 @@ knitr::include_graphics(c("images/andy_temp/rework_plots/Para_Explain_2.png"))
 <br><br><br>
 
 ```{r echo=FALSE, fig.cap= "Predictions for every pixel", fig.keep="hold", fig.align='center', out.width="70%"}
-knitr::include_graphics(c("images/andy_temp/rework_plots/parallel_x3p.png"))
+knitr::include_graphics(c("images/andy_temp/rework_plots/parallel.png"))
 ```
 
 <br>
@@ -4694,6 +4694,16 @@ knitr::include_graphics(c("images/andy_temp/rework_plots/Unet_Results.png"))
 
 ```{r echo=FALSE, fig.cap= "Unet Results Table", fig.keep="hold", fig.align='center', out.width="70%"}
 knitr::include_graphics(c("images/andy_temp/rework_plots/Unet_Current_table.png"))
+```
+
+```{r echo=FALSE, fig.cap= "Predictions before next epoch", fig.keep="hold", fig.align='center', out.width="100%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/epoch_preds.gif"))
+```
+
+<br><br><br>
+
+```{r echo=FALSE, fig.cap= "Final Prediction", fig.keep="hold", fig.align='center', out.width="70%"}
+knitr::include_graphics(c("images/andy_temp/rework_plots/unet_improvement.png"))
 ```
 
 <br>

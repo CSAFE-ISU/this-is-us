@@ -4696,6 +4696,14 @@ knitr::include_graphics(c("images/andy_temp/rework_plots/Unet_Results.png"))
 knitr::include_graphics(c("images/andy_temp/rework_plots/Unet_Current_table.png"))
 ```
 
+
+
+<br>
+
+The lines seen in the prediction outputs and activation maps from the universal networks output layer are an unintended consequence due to an issue in the data processing.  I am currently trying to narrow down this issue and I think I have figured it out.  We have seen successful training using a universal network but there was also another data processing issue with the data.  Figuring out the issue with the universal network has been put on the backburning for right now.  Hopefully it will be resolved in the coming weeks.  The model is able to determine the "contour" for each region very well.
+
+**UPDATE**(11/15/2021)
+
 ```{r echo=FALSE, fig.cap= "Predictions before next epoch", fig.keep="hold", fig.align='center', out.width="100%"}
 knitr::include_graphics(c("images/andy_temp/rework_plots/epoch_preds.gif"))
 ```
@@ -4705,10 +4713,6 @@ knitr::include_graphics(c("images/andy_temp/rework_plots/epoch_preds.gif"))
 ```{r echo=FALSE, fig.cap= "Final Prediction", fig.keep="hold", fig.align='center', out.width="70%"}
 knitr::include_graphics(c("images/andy_temp/rework_plots/unet_improvement.png"))
 ```
-
-<br>
-
-The lines seen in the prediction outputs and activation maps from the universal networks output layer are an unintended consequence due to an issue in the data processing.  I am currently trying to narrow down this issue and I think I have figured it out.  We have seen successful training using a universal network but there was also another data processing issue with the data.  Figuring out the issue with the universal network has been put on the backburning for right now.  Hopefully it will be resolved in the coming weeks.  The model is able to determine the "contour" for each region very well.
 
 <br>
 

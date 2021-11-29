@@ -1445,11 +1445,53 @@ pROC::ggroc(pROC::roc(test.dat$actual.matching,
 
 
 
+## A new algorithm using ICP method based on SURF to identify the source of shoe impression
+
+
+The proposed algorithm mainly consists of two stages. First, the best alignment between two images--moving and reference--compared are obtained by ICP (Iterative Closest Points) method based on SURF (Speeded-Up Robust Features) so that the two images, and their corresponding SURF points could be overlaid by rotating and translating the moving to the reference. Next, pairwise features are extracted from the aligned SURF points as well as the images, which is used to distinguish matching pairs from nonmatching pairs. Then, the randomforest is employed with the pairwise features to tell if a pair of images were originated from the same shoe or not. In the remaining of this report, each stage is described with example results, and the performance of the proposed algorithm is demonstrated through two case studies.
+
+
+
+<img src="images/shoes/Aligned_output/mated_nonmated_aligned_surf.png">Figure 1. The left and right panels present the reference SURF points with the moving SURF points aligned to it based on a known matching pair (KM), and a known nonmatching pair (KN), respectively where a thousand of the strongest SURF points from a reference image, and five hundreds of the strongest SURF points from a moving image are shown.</p>
+
+
+
+The first stage is to extract five hundreds of points of SURF from each of two images of shoe outsoles compared, and to align the two sets of points by ICP method. As its name indicates, ICP method aligns two sets of SURF points by minimizing sum of the closest distance between the two sets of points. It consequently overlays the SURFs from two outsole images that are similar like human examiners try to overlay the outlines of shoes prior to comparison by lining up potential stationary points that are commonly located in both sets of points. The alignment of SURF points from a known matching pair (KM), and a known nonmatching pair (KN) is presented in Figure 1. Such alignment based on SURF can be applied to the original images, and the results are illustrated in Figures 2, and 3. Note particularly that the outline of both images from (KN), and their common pattern including logos are aligned as intended although the images from two different shoes are not supposed to be perfectly overlapped due to wear-and-tear as well as subtle difference in the design resulting from the production process.
+
+
+<img src="images/shoes/Aligned_output/mated_all.png">Figure 2. The most left image colored in yellow is a reference, and the middle colored in red is a moving image aligned to the reference by ICP method based on SURF for the case of (KM). The most right panel shows the reference overlaid with the aligned moving image.</p>
+
+<img src="images/shoes/Aligned_output/nonmated_all.png">Figure 3. The most left image colored in yellow is a reference, and the middle colored in red is a moving image aligned to the reference by ICP method based on SURF for the case of (KN). The most right panel shows the reference overlaid with the aligned moving image.</p>
+
+
+Next, the features from the aligned SURFs and images are computed where a double number of reference SURF points are used. The closest distances from each of the aligned moving SURF points to the reference SURF points, and then their first quantile, and average are used as features. In addition to that, the average number of neighboring reference SURF points around each of the aligned moving SURF points within a set of small distances is calculated, and their mean across the distances is taken as a feature. Likewise, the average number of the aligned moving SURF points that have no neighborihg reference SURF points within the set of small distances is obtained, and their mean across the distances is used as a feature. Lastly, the phase only correlation between the aligned images is considered to be a feature, which is a key feature to distinguish matching and nonmatching pairs by this algorithm.
+
+
+The proposed algorithm was applied to two datasets denoted by Dataset1, and Dataset2 and its performance to distinguish matching and nonmatching pairs was compared with that of the algorithm based on maximum cliques and randomforest denoted by MC developed by Park and Carriquiry (2020) that had demonstrated high accuracy rate. Both datasets consist of about 420 of matching and close nonmatching pairs made by Nike shoes, and Adidas shoes in various sizes whose designs are the same as shown in Figure 2 and 3 where a matching pair and a close nonmatching pair indicate two outsole images from the same shoe, and from two different shoes whose class characteristics including design, size, and side are identical, respectively. The two images in each matching pair of Dataset1 are just replicated scans of the same shoe, meaning that the second scan was obtained immediately after the first one was made. On the other hand, the one image of each matching pair of Dataset2 was created several months after the other scan was created so that the degree of wear-and-tear of the same shoe is different between the two scanned images. Hence, Dataset2 would be more challenging than Dataset1 for the algorithms to identify the source of shoe outsole images in a sense that the two images from the same shoe are less similar in Dataset2. Each dataest was split into a training set independent of a test set by brand, and the predictive performance of the randomforest based on a training set (Nike) was evaluated on the test set (Adidas). Figure 4 displays the performance of the proposed algorithm and MC algorithm, illustrating that the MC algorithm is slightly better than or comparable to the proposed algorithm on Dataset1, but the proposed method is superior with the higher ROC curve on Dataset2. Note also that when the features from both algorithms are used together, the ROC curves are improved on Dataset2.
+
+
+
+<img src="images/shoes/Aligned_output/ROC_samevisit_diffvisit.png">Figure 4. ROC curves on Dataset1 and 2 by the proposed method, the algorithm based on MC, and the combination of both are shown. The area under curve (AUC) of each method is 0.969, 0.995, 0.991 on Dataset1, and 0.944, 0.855, 0.986 on Dataset2.</p>
+
+<!-- \begin{figure}[H] -->
+<!--     \centering{ -->
+<!--     \subfigure{\includegraphics[scale = 0.4]{Aligned_output/ROC_samevisit.png} } -->
+<!--     \hfill -->
+<!--     \subfigure{\includegraphics[scale = 0.4]{Aligned_output/ROC_diffvisit.png} } -->
+<!--     } -->
+<!--     \caption{ROC curves on Dataset1 and 2 by the proposed method, the algorithm based on MC, and the combination of both are shown. The area under curve (AUC) of each method is 0.969, 0.995, 0.991 on Dataset1, and 0.944, 0.855, 0.986 on Dataset2.} -->
+<!--     \label{ROCs} -->
+<!-- \end{figure} -->
 
 
 
 
-####Shoe Comparisons through Time
+
+
+
+
+
+##Shoe Comparisons through Time
 ####NIKE
 
 **Definitions:**

@@ -1,0 +1,95 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+load("~/cmas/crossValidation/topMatch_randomTrain/topMatchData_test.RData")
+
+load("~/this-is-us/images/cartridge_cases/11-29-21_Spotlight/K002eG1_vs_K009gG1.RData")
+
+animation::saveGIF(expr = {
+  
+  walk(seq(-12,12,by = 3),
+    function(thet){
+      
+      dat1 <- topMatchData_train$processedScan[[1]]
+      
+      dat2 <- topMatchData_train$processedScan[[28]]
+      
+      dat2$surface.matrix <- cmcR:::rotateSurfaceMatrix(surfaceMat = dat2$surface.matrix,
+                                                        theta = thet)
+      
+      dat2$header.info$sizeX <- nrow(dat2$surface.matrix)
+      dat2$header.info$sizeY <- ncol(dat2$surface.matrix)
+      
+      plt1 <- cmcR::x3pListPlot(list(dat1,dat2)) +
+        theme(legend.position = "none")
+      
+      kdeFit <- MASS::kde2d(x = compData %>%
+                              filter(direction == "refToTarget") %>%
+                              filter(theta == thet) %>%
+                              filter(pairwiseCompCor > .3) %>%
+                              pull(x),
+                            y = compData %>%
+                              filter(direction == "refToTarget") %>%
+                              filter(theta == thet) %>%
+                              filter(pairwiseCompCor > .3) %>%
+                              pull(y),n = 100)
+      
+      plt2 <- compData %>%
+        filter(direction == "refToTarget") %>%
+        filter(theta == thet) %>%
+        filter(pairwiseCompCor > .3) %>%
+        ggplot() +
+        geom_tile(data = expand.grid(x = kdeFit$x,y = kdeFit$y) %>%
+                    mutate(z = c(kdeFit$z)),
+                  aes(x = x,y = y,fill = z)) +
+        geom_point(aes(x = x,y = y),alpha = .5) +
+        coord_fixed() +
+        facet_wrap(~ theta,
+                   nrow = 1,
+                   labeller = label_both) +
+        scale_fill_gradient(low = "white",high = "orange") +
+        theme_bw() +
+        guides(fill = guide_colorbar(title = "Density")) +
+        theme(panel.grid = element_blank(),
+              legend.position = "none") +
+        xlim(-80,80) +
+        ylim(-80,80)
+      
+      plot({plt1 / plt2 + plot_layout(heights = c(2,1))}) 
+      
+    })
+  
+},movie.name = "~/this-is-us/images/cartridge_cases/11-29-21_Spotlight/consensusExample.gif")
+```
+s
+
+
+```{r}
+load("~/cmas/Consensus Estimation/topMatch_dbscan_rfFits/dbscan_5_5_0.3.RData")
+
+dat <- dbscanFit[[1]]$trainingData %>%
+  pivot_longer(cols = 2:29) %>%
+  separate(col = name,into = c("direction","cluster"),sep = "_") %>%
+  filter(direction == "refToTarget")
+
+dbscanFit[[1]]$trainingData  %>%
+  select(1:4,30) %>%
+  rename(type = .outcome)
+
+dat %>%
+  filter(value != 0) %>%
+  mutate(cluster = factor(cluster,levels = rev(c(0,1,2)),labels = rev(c("Noise","First","Second")))) %>%
+  ggplot(aes(x = cluster,y = value)) +
+  geom_jitter() +
+  facet_wrap(~ .outcome) +
+  theme_bw() +
+  labs(x = "Cluster Assignment",
+       y = "Cluster Size") +
+  coord_flip() +
+  ylim(c(0,NA))
+```
+

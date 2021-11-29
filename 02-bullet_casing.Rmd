@@ -13,16 +13,16 @@ Those are:
 2. computational tools
 3. similarity scores
 
-    1. for bullet lands: 
+1. for bullet lands: 
 
-        a. crosscut identification
-        b. groove location
-        c. curvature removal
-        d. alignment of signatures
-        e. feature extraction
-        f. matching with trained Random Forest
+a. crosscut identification
+b. groove location
+c. curvature removal
+d. alignment of signatures
+e. feature extraction
+f. matching with trained Random Forest
 
-    2. for breech faces
+2. for breech faces
 
 4. analysis of results
 5. communication of results and methods
@@ -34,9 +34,9 @@ Those are:
 
 **cartridge cases **
 
-  - DFSC (about 2000) taken with the Sensofar S-neox
-  - Cartridges for CSAFE persistence labelled for barrels 1 through 9.
-  - Cadre TopMatch Scanner: when taking scans of breech face images, we are following NIBIN protocol as closely as possible.
+- DFSC (about 2000) taken with the Sensofar S-neox
+- Cartridges for CSAFE persistence labelled for barrels 1 through 9.
+- Cadre TopMatch Scanner: when taking scans of breech face images, we are following NIBIN protocol as closely as possible.
 
 Some sample scans using the Cadre TopMatch scanner. Figure \@ref(fig:topmatch) shows two breech face impressions from the same firearm:
 
@@ -63,15 +63,15 @@ Overview in numbers:
 
 **scans from bullet lands (about 25,000 total)**
 
-  - LAPD: 4 bullets per barrel for 626 firearms
-  - LAPD sub-study: 4 bullets per barrel for 92 out of 626 firearms (different ammunition)
-  - Variability study: 5 operators x 2 machines x 5 time points x 3 types of bullets x 3 bullets (~450 bullets)
-  - Hamby Sets 10, 36, 44, 224, and a clone (35 bullets each)
-  - Houston test sets (6 kits with 25 bullets each)
-  - Houston persistence: 8 barrels with 40 fired bullets each
-  - St Louis persistence: 2 barrels with 192 fired bullets each
-  - most of the CSAFE persistence study 
-    
+- LAPD: 4 bullets per barrel for 626 firearms
+- LAPD sub-study: 4 bullets per barrel for 92 out of 626 firearms (different ammunition)
+- Variability study: 5 operators x 2 machines x 5 time points x 3 types of bullets x 3 bullets (~450 bullets)
+- Hamby Sets 10, 36, 44, 224, and a clone (35 bullets each)
+- Houston test sets (6 kits with 25 bullets each)
+- Houston persistence: 8 barrels with 40 fired bullets each
+- St Louis persistence: 2 barrels with 192 fired bullets each
+- most of the CSAFE persistence study 
+
 
 
 ### LAPD
@@ -312,9 +312,9 @@ So either somethin is wrong with `get_mask_hough` or something is funky with the
 - Compare Hough results with manual identification using score calculations from Kiegan. 
 
 - Write up results in Hough Groove Paper (It's coming I promise)
-  - Create graphical images to explain line selection method
-  - Include 2-d and 3-d visualizations of Hough groove area identifications
-  - Include crosscut visualization and comparison in results
+- Create graphical images to explain line selection method
+- Include 2-d and 3-d visualizations of Hough groove area identifications
+- Include crosscut visualization and comparison in results
 
 </details>
 
@@ -404,15 +404,15 @@ every score possible I found that there is really no visual difference between s
 the highest normalized Hough score and the other top five. 
 
 ```{r, fig.cap="Phoenix Gun 1-A9 Land 4 visualized using new Hough process index one", out.width="50%", fig.keep="hold", fig.align='center'}
-  knitr::include_graphics("images/bullets/Hough_project/mask_phoenix_index_one.png")
+knitr::include_graphics("images/bullets/Hough_project/mask_phoenix_index_one.png")
 ```
 
 ```{r, fig.cap="Phoenix Gun 1-A9 Land 4 visualized using new Hough process index ten", out.width="50%", fig.keep="hold", fig.align='center'}
-  knitr::include_graphics("images/bullets/Hough_project/mask_phoenix_index_ten.png")
+knitr::include_graphics("images/bullets/Hough_project/mask_phoenix_index_ten.png")
 ```
 
 ```{r, fig.cap="Phoenix Gun 1-A9 Land 4 visualized using new Hough process index twenty", out.width="50%", fig.keep="hold", fig.align='center'}
-  knitr::include_graphics("images/bullets/Hough_project/mask_phoenix_index_twenty.png")
+knitr::include_graphics("images/bullets/Hough_project/mask_phoenix_index_twenty.png")
 ```
 
 
@@ -476,7 +476,7 @@ So a key goal in the bullet project is to be able to automatically identify the 
 
 ** Hough Transform Mechanics**
 
- Hough transforms are essentially a computer algorithm for detecting imperfect incidences of a known class of shapes in an image by finding aligned points. In our case, grooves are typically linear so we want the Hough transform to detect straight lines. Anyone who has looked at a bullet scan knows that the striae are also straight lines, so some image pre-processing is necessary for the algorithm to be able to distinguish between weaker appearing striae and the prominent groove features. Traditionally a gaussian blur and Canny Edge detection are performed to reduce the noise found in a gradient image. However, we have found that using Canny Edge detection is pretty much unnecessary for identifying grooves.
+Hough transforms are essentially a computer algorithm for detecting imperfect incidences of a known class of shapes in an image by finding aligned points. In our case, grooves are typically linear so we want the Hough transform to detect straight lines. Anyone who has looked at a bullet scan knows that the striae are also straight lines, so some image pre-processing is necessary for the algorithm to be able to distinguish between weaker appearing striae and the prominent groove features. Traditionally a gaussian blur and Canny Edge detection are performed to reduce the noise found in a gradient image. However, we have found that using Canny Edge detection is pretty much unnecessary for identifying grooves.
 
 ```{r, fig.cap="Bullet land with Canny Edge detection", out.width = "80%", fig.keep="hold", fig.align='center',fig.show='hold'}
 knitr::include_graphics(c("images/bullets/Hough_project/canny-land.png"))
@@ -801,7 +801,7 @@ A paper is in preparation for submission to Forensic Science International descr
 ##### Robust LOESS Method  
 
 A paper submitted to the Journal of Forensic Science is waiting for peer review response to the first round of revisions.  
-  
+
 
 #### Bullet Land Comparisons Pipeline
 
@@ -827,10 +827,10 @@ This year, I'll be studying our bullet land "pipeline" here at CSAFE, as well as
 
 1. Quantifying the uncertainty of our RF similarity scores based on data decisions  
 2. Comparing reproducibility/robustness of differing bullet analysis approaches  
-     - @aoas vs. @chu_jfs, for example
-     - Crosscuts: method 1 vs. alternate? Crosscut parameter tuning? 
-     - Groove methods  
-     - Original RF vs. updated/retrained/re-engineering 
+- @aoas vs. @chu_jfs, for example
+- Crosscuts: method 1 vs. alternate? Crosscut parameter tuning? 
+- Groove methods  
+- Original RF vs. updated/retrained/re-engineering 
 3. Reproducibility/robustness of different approaches when we consider data COLLECTION.   
 
 The code in `bulletxtrctr` is already really well set up as a data "pipeline", so now we are conceptualizing the best way to wrap the pipeline and keep track of what decisions are made along the way. 
@@ -838,12 +838,12 @@ The code in `bulletxtrctr` is already really well set up as a data "pipeline", s
 The current work underway on this project is focused on developing a package in `R` that will assist users in keeping track of data science projects. We believe it will be particularly useful for those developing a data science process and tools to complete that process. This is most obviously the case for a lot of the ongoing projects at CSAFE; for example: 
 
 1. The `bulletverse`, packages in development include `x3ptools`, `bulletxtrctr`, and `grooveFinder`. 
-     - Methods are worked on at multiple stages (e.g., groove ID methods, work on modeling bullet scores)
-     - Multiple people are on the project and may make changes to things that impact other stages
-     - We want to keep track of when something (e.g., a function, model object, parameters) changes that will impact our analyses/scripts.
+- Methods are worked on at multiple stages (e.g., groove ID methods, work on modeling bullet scores)
+- Multiple people are on the project and may make changes to things that impact other stages
+- We want to keep track of when something (e.g., a function, model object, parameters) changes that will impact our analyses/scripts.
 2. `handwriter`, a package which processes handwritten documents and extracts data features to be used in modeling 
-     - If processing code changes, how does that impact the features that are extracted? 
-     - Can you check entire package for changes to see if you need to re-run processing?
+- If processing code changes, how does that impact the features that are extracted? 
+- Can you check entire package for changes to see if you need to re-run processing?
 3. `ShoeScrubR`, `shoeprintr` packages... etc. 
 
 Almost all of the methods developed here at CSAFE use non-traditional data that requires processing and feature generation before modeling/analysis can begin. These processes are continually improved as projects move forward, and thus as changes happen we need to be able to assess: 
@@ -857,10 +857,10 @@ Earlier this year, we designed and collected a bullet scanning variability study
 
 1. Subsampling and assuming independence; 
 2. Directly modeling out the mean structure
-     - Ignoring peak/valley dependence
-     - Using time series/spatial dependence modeling
-     - Using a Bayesian shrinkage prior (w/help from Amy!)
-     
+- Ignoring peak/valley dependence
+- Using time series/spatial dependence modeling
+- Using a Bayesian shrinkage prior (w/help from Amy!)
+
 
 Results for Method 1, the subsampling, looks something like this:   
 
@@ -949,11 +949,11 @@ We simulated data in the following way:
 1. Extract fixed means $\mu$ and $\alpha_{BLi}$ for a particular land.  
 2. Identify a set of "target" random effects to see whether we can estimate them.  
 3. For each run of the simulation, simulate a data set by doing the following:   
-     - Simulate a set of random effect "true" values for each effect  
-     - e.g., for $\alpha\beta_{BLij}$, the bullet-by-location effect, if we have 20 locations and 3 bullets, we simulate 60 values from a $N(0, \sigma_{BLij})$ distribution.
-     - Each group is then assigned one value from that set of simulated values.  
-     - Also do this for "residual" error for every single data point.  
-     - After simulating a group effect for each "data point", we add the fixed and simulated random effects together to create a simulated data point.  
+- Simulate a set of random effect "true" values for each effect  
+- e.g., for $\alpha\beta_{BLij}$, the bullet-by-location effect, if we have 20 locations and 3 bullets, we simulate 60 values from a $N(0, \sigma_{BLij})$ distribution.
+- Each group is then assigned one value from that set of simulated values.  
+- Also do this for "residual" error for every single data point.  
+- After simulating a group effect for each "data point", we add the fixed and simulated random effects together to create a simulated data point.  
 4. Using the simulated data, fit a model with our given specification; save the resulting estimates and whether the model is singular or not.  
 
 
@@ -976,7 +976,7 @@ Discussion points:
 <summary>
 Joe 9/5/19 Update: Explanation of missing value problem when calculating cross-correlations and some attempted fixes.
 </summary>
- Dealing with missing values in the x3p scans continues to be an issue. The Fast Fourier Transform method for calculating cross-correlation can't handle missing data in an image, so we've attempted a few "fixes" that haven't necessarily turned out as well as expected. One idea we had was to replace the NA values in a cell with the average pixel value. However, this is artificially introducing a signal where before there was none. This can (and demonstrably has) led to inflated/incorrect correlations between cells that shouldn't have much at all in common. Unfortunately, this may be the only solution if we still wish to adhere to the CMC algorithm as described in Song et al. (2015). One improvement that I've implemented is to "crop out" the rows and columns of an image that only contain NAs. This at least means that we've weakened the strength of the artificial signal relative to the breechface's signal.
+Dealing with missing values in the x3p scans continues to be an issue. The Fast Fourier Transform method for calculating cross-correlation can't handle missing data in an image, so we've attempted a few "fixes" that haven't necessarily turned out as well as expected. One idea we had was to replace the NA values in a cell with the average pixel value. However, this is artificially introducing a signal where before there was none. This can (and demonstrably has) led to inflated/incorrect correlations between cells that shouldn't have much at all in common. Unfortunately, this may be the only solution if we still wish to adhere to the CMC algorithm as described in Song et al. (2015). One improvement that I've implemented is to "crop out" the rows and columns of an image that only contain NAs. This at least means that we've weakened the strength of the artificial signal relative to the breechface's signal.
 
 Below is a series of images that illustrate how we might compare a cell in one image to a region of another image.
 
@@ -1335,9 +1335,9 @@ When a firearm is discharged, the projectile stored in the cartridge case is pro
 ```{r, out.width="30%",echo=FALSE,fig.align='center'}
 knitr::include_graphics("images/cartridge_cases/11-21-Spotlight/breechFace.jpg")
 ```
-  
-  The hole in the center of the breech face is where the firing pin shoots out to strike the cartridge case primer, which in turn ignites the propellant within the cartridge case causing an explosion that propels the bullet forward down the barrel. As you can see from the image above, there are markings (e.g., manufacturing imperfections) on the breech face. When the cartridge case slams against the breech face during the firing process, these markings can be "stamped" into either the primer of the cartridge case or the cartridge case itself. The markings left on a cartridge case from the firearm's breech face are called "breech face impressions." The image below shows the primer of a shotshell fired in the above shotgun. You can clearly see that some impressions were left on the primer during the firing process.
-  
+
+The hole in the center of the breech face is where the firing pin shoots out to strike the cartridge case primer, which in turn ignites the propellant within the cartridge case causing an explosion that propels the bullet forward down the barrel. As you can see from the image above, there are markings (e.g., manufacturing imperfections) on the breech face. When the cartridge case slams against the breech face during the firing process, these markings can be "stamped" into either the primer of the cartridge case or the cartridge case itself. The markings left on a cartridge case from the firearm's breech face are called "breech face impressions." The image below shows the primer of a shotshell fired in the above shotgun. You can clearly see that some impressions were left on the primer during the firing process.
+
 ```{r, out.width="30%",echo=FALSE,fig.align='center'}
 knitr::include_graphics("images/cartridge_cases/11-21-Spotlight/breechFaceImpression.jpg")
 ```
@@ -1463,7 +1463,7 @@ To recap, the CMC algorithm attempts to match two breech face impression images 
 
 ```{r}
 include_graphics(c("images/cartridge_cases/joe_oldImages/kmCMCDistribution.png",
-                 "images/cartridge_cases/joe_oldImages/CMCDistribution_Tong.PNG"))
+                   "images/cartridge_cases/joe_oldImages/CMCDistribution_Tong.PNG"))
 ```
 
 There are two pairs that seem to be giving us trouble in the histogram above (we expect all of the known match pairs to have a large number of "highly similar" cells). Below shows the se two pairs. Hopefully it's clear to see that the first pair, while known matches, look fairly different. There are many regions in the image on the left that are missing from the image on the right. These differences possibly provide some justification as to why the current implementation of the algorithm fails to identify these two images as matches.
@@ -1495,9 +1495,9 @@ When a firearm is discharged, the projectile stored in the cartridge case is pro
 ```{r, out.width="30%",echo=FALSE,fig.align='center',fig.cap="Breech face of a shotgun"}
 knitr::include_graphics("images/cartridge_cases/11-21-Spotlight/breechFace.jpg")
 ```
-  
-  The hole in the center of the breech face is where the firing pin shoots out to strike the cartridge case primer, which in turn ignites the propellant within the cartridge case causing an explosion that propels the bullet forward down the barrel. As you can see from the image above, there are markings (e.g., manufacturing imperfections) on the breech face. When the cartridge case slams against the breech face during the firing process, these markings can be "stamped" into either the primer of the cartridge case or the cartridge case itself. The markings left on a cartridge case from the firearm's breech face are called "breech face impressions." The image below shows the primer of a shotshell fired in the above shotgun. You can clearly see that some impressions were left on the primer during the firing process.
-  
+
+The hole in the center of the breech face is where the firing pin shoots out to strike the cartridge case primer, which in turn ignites the propellant within the cartridge case causing an explosion that propels the bullet forward down the barrel. As you can see from the image above, there are markings (e.g., manufacturing imperfections) on the breech face. When the cartridge case slams against the breech face during the firing process, these markings can be "stamped" into either the primer of the cartridge case or the cartridge case itself. The markings left on a cartridge case from the firearm's breech face are called "breech face impressions." The image below shows the primer of a shotshell fired in the above shotgun. You can clearly see that some impressions were left on the primer during the firing process.
+
 ```{r, out.width="30%",echo=FALSE,fig.align='center',fig.cap="Breech face impression on a cartridge case"}
 knitr::include_graphics("images/cartridge_cases/11-21-Spotlight/breechFaceImpression.jpg")
 ```
@@ -1728,17 +1728,17 @@ All of this pre-processing can be done while keeping the original resolution of 
 </summary>
 
 To illustrate some of the sensitivity of the final results to the pre-processing steps, we'll consider an example in which we have 3 cartridge case scans. We'll consider two of them "known" and one of them to be "questioned." We'll consider combinations of two different decisions: 1) take the RANSAC residuals or the raw breech face impression values and 2) pass a gaussian bandpass filter over the images or not. In each of these examples, the questioned cartridge case is in the top left, its (known) match is in the top right, a (known) non-match is in the bottom left, and the distribution of maximum CCF values per cell comparing the questioned cartridge case to the two known cartridge cases is in the bottom right.
- 
+
 Below we can see the results if the RANSAC residuals were taken and then bandpass filtered. We can see considerable overlap between the two distributions.
 
 ```{r out.width = "49%"}
 knitr::include_graphics(c("images/cartridge_cases/2-10_spotlight/sensitivityExample/bandpassResiduals/fadul1_bandpassResiduals.png",
-                            "images/cartridge_cases/2-10_spotlight/sensitivityExample/bandpassResiduals/fadul2_bandpassResiduals.png"))
+                          "images/cartridge_cases/2-10_spotlight/sensitivityExample/bandpassResiduals/fadul2_bandpassResiduals.png"))
 
 knitr::include_graphics(c("images/cartridge_cases/2-10_spotlight/sensitivityExample/bandpassResiduals/fadulx_bandpassResiduals.png",
                           "images/cartridge_cases/2-10_spotlight/sensitivityExample/bandpassResiduals/BandpassResiduals_ccfHistogram.png"))
 ```
- 
+
 Below we can see the results if the raw breech face values were taken and then bandpass filtered. Again, considerable overlap.
 
 ```{r out.width = "49%"}
@@ -1844,14 +1844,14 @@ A quick yet inflexible way is to turn the surface matrix into a `cimg` object an
 par(mar = c(1,1,1,1))
 
 imager::imlist(
-km1_raw$surface.matrix %>%
-  imager::as.cimg(),
-km2_raw$surface.matrix %>%
-  imager::as.cimg(),
-unknown1_raw$surface.matrix %>%
-  imager::as.cimg(),
-unknown2_raw$surface.matrix %>%
-  imager::as.cimg()
+  km1_raw$surface.matrix %>%
+    imager::as.cimg(),
+  km2_raw$surface.matrix %>%
+    imager::as.cimg(),
+  unknown1_raw$surface.matrix %>%
+    imager::as.cimg(),
+  unknown2_raw$surface.matrix %>%
+    imager::as.cimg()
 ) %>%
   plot()
 ```
@@ -1990,14 +1990,14 @@ unknown2_residuals$x3p$surface.matrix <-
 par(mar = c(1,1,1,1))
 
 imager::imlist(
-km1_residuals$surface.matrix %>%
-  imager::as.cimg(),
-km2_residuals$x3p$surface.matrix %>%
-  imager::as.cimg(),
-unknown1_residuals$x3p$surface.matrix %>%
-  imager::as.cimg(),
-unknown2_residuals$x3p$surface.matrix %>%
-  imager::as.cimg()
+  km1_residuals$surface.matrix %>%
+    imager::as.cimg(),
+  km2_residuals$x3p$surface.matrix %>%
+    imager::as.cimg(),
+  unknown1_residuals$x3p$surface.matrix %>%
+    imager::as.cimg(),
+  unknown2_residuals$x3p$surface.matrix %>%
+    imager::as.cimg()
 ) %>%
   plot()
 ```
@@ -2023,14 +2023,14 @@ The call below will compare `km1_residuals` and `unknown1_residuals` by performi
 1) Divide one of the matrices into a grid of $8 \times 8$ cells
 2) Determine which of these cells contains fewer than 15% of observed values (i.e., 85% or more NA values). These cells are not considered for the CCF calculation.
 3) For each remaining cell:
-        (a) rotate the other matrix (not the one divided into cells) by some theta value using a linear interpolation scheme
-        (b) extract a region from this rotated matrix that is centered on the same index as the cell is in its matrix but is 4 times larger.
-        (c) shift each cell/region by its respective average element value and divide by its standard deviation
-        (d) calculate the translation, $(dx,dy)$, values by which the maximum CCF is attained between a cell/region pair
-        (e) using these translation values, calculate the "raw" cross-correlation between the cell and the cell-sized portion of the larger region at which the max CCF was attained
+(a) rotate the other matrix (not the one divided into cells) by some theta value using a linear interpolation scheme
+(b) extract a region from this rotated matrix that is centered on the same index as the cell is in its matrix but is 4 times larger.
+(c) shift each cell/region by its respective average element value and divide by its standard deviation
+(d) calculate the translation, $(dx,dy)$, values by which the maximum CCF is attained between a cell/region pair
+(e) using these translation values, calculate the "raw" cross-correlation between the cell and the cell-sized portion of the larger region at which the max CCF was attained
 4) Compile a list of data frames, one per rotation value, of CCF, dx, and dy values per cell/region pair
 5) Perform steps 1-4 again, but by dividing the other matrix into a grid of cells to be compared to larger regions in the other matrix (i.e., the matrices swap roles).
- 
+
 For now we'll just compare km1 to the two unknown source cartridge cases. The comparisons of km2 will be discussed below.
 
 ```{r eval = FALSE,echo=TRUE}
@@ -2295,8 +2295,8 @@ The Congruent Matching Cells method was developed to identify a pair of cartridg
 
 - Use these estimated "alignment parameter" values (rotation & translation) as well as the estimated $CCF_{\max}$ values for each cell/region pair as features to determine whether the two cartridge case scans match.
 
-    - The idea here is that each cell/region pair for a truly matching pair of cartridge case scans should have alignment parameter estimates that "agree" with each other (within some tolerance). On the other hand, cell/region pairs from a truly *non*-matching pair of cartridge case scans should have alignment parameter estimates that vary randomly.
-    
+- The idea here is that each cell/region pair for a truly matching pair of cartridge case scans should have alignment parameter estimates that "agree" with each other (within some tolerance). On the other hand, cell/region pairs from a truly *non*-matching pair of cartridge case scans should have alignment parameter estimates that vary randomly.
+
 - Count the number of "congruent matching" cells (CMCs) and use that as a similarity score for the cartridge case pair. Song (2013) recommend using a minimum CMC count of 6 to classify a pair as a match, but many authors since then have demonstrated that this threshold isn't particularly effective in general.
 
 ```{r}
@@ -2542,16 +2542,16 @@ Once the scans are centered on their firing pin impression centers, we can then 
 
 ```{r, out.width="20%"}
 knitr::include_graphics(c("images/cartridge_cases/1-11-21 Spotlight/fadul1-1_polar.png",
-                                  "images/cartridge_cases/1-11-21 Spotlight/fadul1-2_correctPolar.png",
-                                  "images/cartridge_cases/1-11-21 Spotlight/ccf_correctPolar.png"))
+                          "images/cartridge_cases/1-11-21 Spotlight/fadul1-2_correctPolar.png",
+                          "images/cartridge_cases/1-11-21 Spotlight/ccf_correctPolar.png"))
 ```
 
 However, because the effectiveness of the polar transformation is dependent on *estimating* the firing pin hole center, we also want to to consider how the CCF may behave if the firing pin hole center estimation is off. The plots below show what happens when the estimated firing pin hole center estimated above is pushed left and down 40 pixels. We can see that (1) the CCF matrix is less "certain" of the location of the maximum value as evidenced by the wide crest in the values and (2) the estimated rotation is far from the correct value. This means that we need to be extra cautious that the firing pin center is accurately estimated.
 
 ```{r, out.width="20%"}
 knitr::include_graphics(c("images/cartridge_cases/1-11-21 Spotlight/fadul1-1_polar.png",
-                                  "images/cartridge_cases/1-11-21 Spotlight/fadul1-2_wrongPolar.png",
-                                  "images/cartridge_cases/1-11-21 Spotlight/ccf_wrongPolar.png"))
+                          "images/cartridge_cases/1-11-21 Spotlight/fadul1-2_wrongPolar.png",
+                          "images/cartridge_cases/1-11-21 Spotlight/ccf_wrongPolar.png"))
 ```
 
 Using the polar transformed matrices, we can first see how the "classical" CMC method performs. We perform a cell-based comparison on the 63 matching and 717 non-matching pairs in the Fadul data set and consider the distribution of CMCs. In general, the CMC method does not perform under the chosen set of processing conditions in the polar domain as well as it does in the rectangular domain. There are a few changes to the processing conditions that can be made that may improve the classification. However, in applying the polar transformation, we lose some of the features that are used in the classical CMC method to make classifications. For example, some CMC methods use the distribution of the estimated translation values across various rotations of the target scan to identify the rotation at which the translation values reach a "convergence." Using such information is not possible to consider here as rotating the polar transformed scans doesn't have a coherent interpretation in the rectangular domain.
@@ -2740,9 +2740,9 @@ knitr::include_graphics("images/cartridge_cases/4-5_update/P0001_P0002_originalM
 
 ```{r}
 knitr::kable(data.frame("Downsampling.Offset" = c("No Offset","Col Offset","Row Offset","Col + Row Offset"),
-           "Rotation.Deg" = c(6,7.5,7.5,9),
-           "Horizontal.px" = c(13,2.5,11.5,9),
-           "Vertical.px" = c(18.5,18.5,19,19)))
+                        "Rotation.Deg" = c(6,7.5,7.5,9),
+                        "Horizontal.px" = c(13,2.5,11.5,9),
+                        "Vertical.px" = c(18.5,18.5,19,19)))
 ```
 
 ```{r}
@@ -3026,14 +3026,14 @@ We've spent a good deal of energy trying to determine why this might be the case
 
 2. Choose the set of parameters that optimize some metric.
 
-  - We might choose to just optimize the classification error. An alternative metric is the variance ratio. In the case of CMC counts, $C_{ij}$ where $i = 1,2$ indexes matches vs. non-matches and $j = 1,...,n_i$ represents the number of matches/non-matches, the variance ratio is:
+- We might choose to just optimize the classification error. An alternative metric is the variance ratio. In the case of CMC counts, $C_{ij}$ where $i = 1,2$ indexes matches vs. non-matches and $j = 1,...,n_i$ represents the number of matches/non-matches, the variance ratio is:
 $$
 r = \frac{\sum_{i=1}^2 \left(\overline{C}_{i} - \overline{C}\right)^2}{\sum_{i=1}^2 \frac{1}{n_i - 1}\sum_{j=1}^{n_i} \left(C_{i,j} - \overline{C_i\right)^2}
 $$
 
 3. Define a CMC count boundary to classify "matches" from "non-matches" using the CMC counts associated with the parameters selected in 2.
 
-  - For example, choose the halfway point between $\bar{C}_{1 \cdot}$ and $\bar{C}_{2 \cdot}$ as the decision boundary.
+- For example, choose the halfway point between $\bar{C}_{1 \cdot}$ and $\bar{C}_{2 \cdot}$ as the decision boundary.
 
 We can wrap all of this into a $k$-fold cross-validation scheme to obtain an estimate of the expected prediction error.
 
@@ -3189,15 +3189,16 @@ knitr::include_graphics("images/cartridge_cases/10-11-21-spotlight/gmrf_dependen
 ```
 
 
-Let $i,j$ index $S$ scans, $i,j = 1,...,S$. 
+Let $i,j$ index $S$ scans (cartridge cases), $i,j = 1,...,S$. 
 Denote a comparison between scan $i$ and scan $j$ as $i,j$.
-Let $\pmb{y}_{i,j} \in \{0,1\}^{N_{i,j}}$ be the vector of CMC results for the comaprison $i,j$ where $N_{i,j}$ is the total number of cells in comparison $i,j$.
+Define function $b(\cdot)$ that maps a scan index to the barrel from which it was fired (e.g., $b(i) = A$ if scan $i$ originated from barrel $A$).
+Let $\pmb{y}_{i,j} \in \{0,1\}^{N_{i,j}}$ be the vector of CMC results for the comparison $i,j$ where $N_{i,j}$ is the total number of cells in comparison $i,j$.
 Identify a particular cell in comparison $i,j$ with its row/column index $[k,l]$, $k = 1,...,R_{i,j}$ and $l = 1,...,C_{i,j}$.
 
 Then let $y_{i,j,[k,l]} \in \pmb{y}_{i,j}$ be the CMC result for cell $[k,l]$ of comparison $i,j$.
 Assume $y_{i,j,[k,l]} | p_{i,j,[k,l]} \sim$ Bernoulli$(p_{i,j,[k,l]})$ where
 $$
-\text{logit}(p_{i,j,[k,l]}) = \alpha_0 + \alpha_i + \alpha_j + \gamma_{ij} + f_u(u_i) + f_u(u_j) + f_s(s_{[k,l]}).
+\text{logit}(p_{i,j,[k,l]}) = \alpha_0 + \alpha_{b(i)} + \alpha_{b(j)} + \gamma_{b(i)b(j)} + f_u(u_i) + f_u(u_j) + f_s(s_{[k,l]}).
 $$
 
 We might refer to this model as a *generalized linear mixed latent Gaussian Markov random field model* with Bernoulli likelihood. Sampling from this model can be accomplished using INLA (Integrated Nested Laplace Approximations).
@@ -3219,12 +3220,300 @@ knitr::include_graphics("images/cartridge_cases/10-11-21-spotlight/CMCneighborho
 ```
 
 Finally, $f_s(s_{[k,l]})$ is a [s]patially structured term intended to account for spatial correlation between neighboring cells (or sites, hence the $s$).
-Assume that the sites $\pmb{s} = (s_{[k,l]})$ follow a "Besag" distribution defined by
+Assume that the sites $f_s(\pmb{s})$ follow a "Besag" distribution defined by
 $$
-s_{[k,l]} | \pmb{s}_{-[k,l]}, \tau_s \sim N\left(\frac{1}{n_{[k,l]}} \sum_{[k,l] \sim [m,n]} s_{[m,n]}, \frac{1}{n_{[k,l]} \tau_s}\right)
+f_s(s_{[k,l]}) | f_s(\pmb{s}_{-[k,l]}), \tau_s \sim N\left(\frac{1}{n_{[k,l]}} \sum_{[k,l] \sim [m,n]} f_s(s_{[m,n]}), \frac{1}{n_{[k,l]} \tau_s}\right)
 $$
 where $n_{[k,l]}$ is the number of neighbors of node $[k,l]$ and $[k,l] \sim [m,n]$ indicates that two nodes $[k,l]$ and $[m,n]$ are neighbors. We will assume a 3x3 neighborhood structure except for cells on the boundaries of the scan.
 
+
+</details>
+
+<details>
+<summary>
+Joe 11/26/21 Spotlight: I will discuss some recent developments of the CMC method and the random effects model that I have been developing for the CMC counts.
+</summary>
+
+**Density-based Clustering for CMC Features**
+
+Here, I will discuss a new classification method using the CMC features that relies on density-based clustering. To recap, the CMC method involves partitioning a scan into a grid of cells, for example 8x8 as shown in the diagram below, and comparing each cell to a region in another scan. In particular, we maximize the cross-correlation function to estimate the horizontal and vertical translations needed to best align each cell in the other scan. We then repeat the process for various rotations of one of the two scans.
+
+```{r,echo=FALSE,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/11-29-21_Spotlight/cmc_illustration.PNG")
+```
+
+The animation shows the (x,y) translation pairs for each cell in the comparison between two matching scans for different rotations of the x3p2 scan. We can see that the (x,y) pairs appear to come to a consensus when $\theta = 0$. This is evidence that the two scans match.
+
+```{r,echo=FALSE,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/11-29-21_Spotlight/consensusExample.gif")
+```
+
+The diagram below shows a side-by-side comparison of the (x,y) values across various rotations for a match and non-match comparison. The match comparison shows the same data as the animation above. Again, we can see a consensus of the (x,y) values is achieved when $\theta = 0$. For the non-match comparison, I used a KDE to determine the rotation ($\theta = 18$) at which the (x,y) values achieve the highest density value. In contrast to the match example, there doesn't appear to be a consensus reached amongst the (x,y) values at this rotation.
+
+```{r,message=FALSE,warning=FALSE,echo = FALSE,fig.align='center'}
+library(tidyverse)
+require(patchwork)
+
+load("images/cartridge_cases/11-29-21_Spotlight/K002eG1_vs_K009gG1.RData")
+
+compData_match <- compData
+
+load("images/cartridge_cases/11-29-21_Spotlight/K002eG1_vs_K002yF1.RData")
+
+compData_nonmatch <- compData
+
+rm(compData)
+
+plt1 <- compData_match %>%
+  filter(direction == "refToTarget") %>%
+  filter(theta %in% -6:6) %>%
+  filter(pairwiseCompCor > .3) %>%
+  ggplot(aes(x = x,y = y)) +
+  geom_point() +
+  coord_fixed() +
+  facet_wrap(~ theta,nrow = 1,
+             labeller = label_both) +
+  theme_bw() +
+  labs(subtitle = "(x,y) values per rotation, Match example")
+
+plt2 <- compData_nonmatch %>%
+  filter(direction == "refToTarget") %>%
+  filter(theta %in% 12:24) %>%
+  filter(pairwiseCompCor > .3) %>%
+  ggplot(aes(x = x,y = y)) +
+  geom_point() +
+  coord_fixed() +
+  facet_wrap(~ theta,nrow = 1,
+             labeller = label_both) +
+  theme_bw() +
+  labs(subtitle = "(x,y) values per rotation, Non-Match example")
+
+plt1 / plt2
+```
+
+The diagrams below show a side-by-side comparison of the match and non-match example at the highest-density rotation, respectively. The kernel-estimated density values formalizes the notion of a "consensus" being reached amongst the different (x,y) values.
+
+```{r,echo=FALSE,fig.align='center'}
+kdeFit <- MASS::kde2d(x = compData_match %>%
+                        filter(direction == "refToTarget") %>%
+                        filter(theta == 0) %>%
+                        filter(pairwiseCompCor > .3) %>%
+                        pull(x),
+                      y = compData_match %>%
+                        filter(direction == "refToTarget") %>%
+                        filter(theta == 0) %>%
+                        filter(pairwiseCompCor > .3) %>%
+                        pull(y),n = 100)
+
+plt1 <- compData_match %>%
+  filter(direction == "refToTarget") %>%
+  filter(theta == 0) %>%
+  filter(pairwiseCompCor > .3) %>%
+  ggplot() +
+  geom_tile(data = expand.grid(x = kdeFit$x,y = kdeFit$y) %>%
+              mutate(z = c(kdeFit$z)),
+            aes(x = x,y = y,fill = z)) +
+  geom_point(aes(x = x,y = y),alpha = .5) +
+  coord_fixed() +
+  facet_wrap(~ theta,nrow = 1,
+             labeller = label_both) +
+  scale_fill_gradient(low = "white",high = "orange") +
+  theme_bw() +
+  guides(fill = guide_colorbar(title = "Density")) +
+  theme(panel.grid = element_blank()) +
+  labs(subtitle = "(x,y) density at highest-density rotation,\nMatch example")
+
+kdeFit <- MASS::kde2d(x = compData_nonmatch %>%
+                        filter(direction == "refToTarget") %>%
+                        filter(theta == 18) %>%
+                        filter(pairwiseCompCor > .3) %>%
+                        pull(x),
+                      y = compData_nonmatch %>%
+                        filter(direction == "refToTarget") %>%
+                        filter(theta == 18) %>%
+                        filter(pairwiseCompCor > .3) %>%
+                        pull(y),n = 100)
+
+plt2 <- compData_nonmatch %>%
+  filter(direction == "refToTarget") %>%
+  filter(theta == 18) %>%
+  filter(pairwiseCompCor > .3) %>%
+  ggplot() +
+  geom_tile(data = expand.grid(x = kdeFit$x,y = kdeFit$y) %>%
+              mutate(z = c(kdeFit$z)),
+            aes(x = x,y = y,fill = z)) +
+  geom_point(aes(x = x,y = y),alpha = .5) +
+  coord_fixed() +
+  facet_wrap(~ theta,nrow = 1,
+             labeller = label_both) +
+  scale_fill_gradient(low = "white",high = "orange") +
+  theme_bw() +
+  guides(fill = guide_colorbar(title = "Density")) +
+  theme(panel.grid = element_blank()) +
+  labs(subtitle = "(x,y) density at highest-density rotation,\nNon-Match example")
+
+plt1 + plt2
+```
+
+The original CMC method performs an approximate version of this "consensus finding" procedure. In particular, the CMC method requires that only those (x,y) pairs that are within some $T_x, T_y$ threshold, respectively, of the median (x,y) value be considered as Congruent Matching Cells. Visually, this can be interpreted as drawing a box around the median (x,y) value and including all points that fall within that box. From the perspective of finding a consensus, this method (1) assumes that the median will be close to the mode (which is more appropriate for a consensus) and (2) requires setting an arbitrary $T_x, T_y$ to which it is heavily sensitive.
+
+```{r,echo=FALSE,fig.align='center'}
+plt1 <- compData_match %>%
+  filter(direction == "refToTarget") %>%
+  filter(theta == 0) %>%
+  filter(pairwiseCompCor > .3) %>%
+  mutate(xmed = median(x),
+         ymed = median(y)) %>%
+  ggplot() +
+  geom_point(aes(x = x,y = y),alpha = .5) +
+  coord_fixed() +
+  facet_wrap(~ theta,nrow = 1,
+             labeller = label_both) +
+  geom_point(aes(x = xmed,y = ymed),shape = 4,colour = "orange",size = 5) +
+  geom_rect(aes(xmin = xmed - 20,xmax = xmed + 20,ymin = ymed - 20,max = ymed + 20),colour = "orange",fill = NA) +
+  theme_bw() +
+  labs(subtitle = "Original CMC Method Classification,\nMatch example")
+
+plt2 <- compData_nonmatch %>%
+  filter(direction == "refToTarget") %>%
+  filter(theta == 18) %>%
+  filter(pairwiseCompCor > .3) %>%
+  mutate(xmed = median(x),
+         ymed = median(y)) %>%
+  ggplot() +
+  geom_point(aes(x = x,y = y),alpha = .5) +
+  coord_fixed() +
+  facet_wrap(~ theta,nrow = 1,
+             labeller = label_both) +
+  geom_point(aes(x = xmed,y = ymed),shape = 4,colour = "orange",size = 5) +
+  geom_rect(aes(xmin = xmed - 20,xmax = xmed + 20,ymin = ymed - 20,max = ymed + 20),colour = "orange",fill = NA) +
+  theme_bw() +
+  labs(subtitle = "Original CMC Method Classification,\nNon-Match example")
+
+plt1 + plt2
+```
+
+The DBSCAN (density-based clustering of applications with noise) algorithm is an unsupervised clustering method proposed in Ester et al. in 1996. The method assigns clusters based on points that are "close" to one another. Whether two points are "close" to each other depends on whether they are within some distance $\epsilon$ of each other. If so, then these points are called "directly reachable" to each other. In the diagram below, the circles around each point are of radius $\epsilon$. To ensure that points are assigned to clusters of reasonable size (e.g., no clusters of size 2), we only define a cluster if there are at least $minPts$ points that are directly reachable. In the diagram below, $minPts = 4$. All points that are directly reachable to 4 other points (including themselves) are called "core points" and are colored red. A new cluster is formed from these core points. Additionally, points that are directly reachable to at least one core point, such as points $B$ and $C$, are also included in the cluster. Point $N$ is classified as a "Noise" point because it is not directly reachable to any other of the other points.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/11-29-21_Spotlight/400px-DBSCAN-Illustration.svg.png",dpi = 100)
+```
+
+The DBSCAN algorithm is useful in this context because it doesn't require the user to set the number of clusters ahead of time and permits the definition of "noise" points that do not belong to any cluster. Below is an example of the cluster assignments in the match and non-match examples shown above with $\epsilon = 5$ and $minPts = 5$. In the match example, there are 12 points assigned to Cluster 1 and 17 noise points. All 29 points in the non-match examples are classified as noise points.
+
+```{r,fig.align='center'}
+load("images/cartridge_cases/11-29-21_Spotlight/dbscanClusters_match.RData")
+
+load("images/cartridge_cases/11-29-21_Spotlight/dbscanClusters_nonmatch.RData")
+
+plt1 <- compData_match %>%
+  filter(direction == "refToTarget" & theta == 0) %>%
+  filter(pairwiseCompCor > .3) %>%
+  mutate(cluster = factor(dbscanClusters_match$dbscan[[1]]$cluster,levels = c(1,0),labels = c("Cluster","Noise Point"))) %>%
+  # mutate(cluster = ifelse(cluster == 1,"Cluster","Noise Point")) %>%
+  ggplot(aes(x = x,y=y,colour=cluster)) +
+  geom_point() +
+  theme_bw() +
+  coord_fixed() +
+  guides(colour = guide_legend(title = NULL)) +
+  scale_colour_manual(values = c("blue","red")) +
+  labs(subtitle = "DBSCAN Cluster Assignments,\nMatch example")
+
+plt2 <- compData_nonmatch %>%
+  filter(direction == "refToTarget" & theta == 18) %>%
+  filter(pairwiseCompCor > .3) %>%
+  mutate(cluster = factor(dbscanClusters_nonmatch$dbscan[[1]]$cluster,levels = c(1,0),labels = c("Cluster","Noise Point"))) %>%
+  # mutate(cluster = ifelse(cluster == 1,"Cluster","Noise Point")) %>%
+  ggplot(aes(x = x,y=y,colour=cluster)) +
+  geom_point() +
+  theme_bw() +
+  coord_fixed() +
+  guides(colour = guide_legend(title = NULL)) +
+  scale_colour_manual(values = c("red")) +
+  labs(subtitle = "DBSCAN Cluster Assignments,\nNon-Match example")
+
+plt1 + plt2
+```
+
+In summary, we have transformed the feature space from (x,y) to cluster membership. Depending on the parameters of the DBSCAN method, there were upwards of 14 clusters assigned to a single comparison. Combining this with the fact that we actually consider the CMC features in *both* directions (x3p1 cells compared to x3p2 and vice versa), the feature space can be quite high-dimensional. As such, I've handed the cluster assignment features to a random forest to sort out (as opposed to defining my own cutoffs). The table below represents a data frame in which each row represents a single comparison where 3, 4, 5, etc. represent the number of points assigned to each cluster by DBSCAN. This is the data frame given to the random forest. I would be interested if anyone has any other ideas of how I can use the cluster assignments.
+
+```{r,fig.align='center'}
+data.frame(Comparison = c("K002eG1 vs. K009gG1","K002eG1 vs. K002yF1","..."),
+           Type = c("Match","Non-match","..."),
+           Noise = c(17,27,"..."),
+           `Cluster 1` = c(12,0,"..."),
+           `Cluster 2` = c(0,0,"..."),
+           `...` = c("...","...","...")) %>%
+  knitr::kable()
+```
+
+To assess the effectiveness of this method, I trained a random forest using the cluster assignment data for a set of 21945 comparisons. The confusion matrix for the training data based on this random forest is given below.
+
+| | Predicted Match | Predicted Non-Match |
+| --- | --- | --- |
+| **Actual Match** | 1797 | 402 |
+| **Actual Non-Match** | 55 | 19691 |
+
+More importantly, I applied the trained random forest to test data consisting of cluster assignments for a set of 44967 comparisons. The confusion matrix for the test data based on this trained random forest is given below.
+
+| | Predicted Match | Predicted Non-Match |
+| --- | --- | --- |
+| **Actual Match** | 2614 | 501 |
+| **Actual Non-Match** | 137 | 41715 |
+
+The table below shows a comparison of the error, false positive, and false negative rates for different methods including the CMC methods under different parameter settings on the test data. We can see that the DBSCAN method yields roughly half of the error as the "best" CMC method settings.
+
+| Method | Error Rate (%) | False Pos. Rate (%) | False Neg. Rate (%) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Song et al. (2014) |  3.7 | 0.06 | 53.3 |
+| Song et al. (2018) |  3.1 | 0.6 | 36.1 |
+| Optimized CMC | 2.9 | 0.8 | 30.3 |
+| Averaged Optimized CMC | 2.6 | 0.7 | 27.3 |
+| DBSCAN | 1.4 | 0.3 | 16.1 |
+
+**Random Effect Markov Random Field Model for CMC Counts**
+
+I will describe a model that I've been developing for the CMC counts that take into account dependencies between CMC scores.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/11-29-21_Spotlight/gmrf_dependencyDiagram.png",dpi = 50)
+```
+
+
+**Model Structure**
+
+Let $i,j$ index $S$ scans, $i,j = 1,...,S$. 
+Denote a comparison between scan $i$ and scan $j$ as $i,j$.
+Define function $b(\cdot)$ that maps a scan index to the barrel from which it was fired (e.g., $b(i) = A$ if scan $i$ originated from barrel $A$).
+Let $\pmb{y}_{i,j} \in \{0,1\}^{N_{i,j}}$ be the vector of CMC results for the comparison $i,j$ where $N_{i,j}$ is the total number of cells in comparison $i,j$.
+Identify a particular cell in comparison $i,j$ with its [row,column] index $[k,l]$.
+<!-- , $k = 1,...,R_{i,j}$ and $l = 1,...,C_{i,j}$.  -->
+Then let $y_{i,j,[k,l]} \in \pmb{y}_{i,j}$ be the CMC result for cell $[k,l]$ of comparison $i,j$.
+Assume $y_{i,j,[k,l]} | p_{i,j,[k,l]} \sim$ Bernoulli$(p_{i,j,[k,l]})$ where
+$$
+\text{logit}(p_{i,j,[k,l]}) = \underbrace{\alpha_0}_{\text{Intercept}} + \underbrace{\beta_{b(i)} + \beta_{b(j)} + \gamma_{b(i)b(j)}}_{\text{Barrel-level R.E. w/ Inter.}} + \underbrace{\kappa_i + \kappa_j}_{\text{Scan-level R.E.}} + \underbrace{\lambda_{[k,l]}}_{\text{MRF Term}}.
+$$
+
+$\beta_{b(i)}, \beta_{b(j)}$ for barrels $b(i)$ and $b(j)$ are random-effect parameters accounting for the fact that we observe multiple CMC scores per barrel. $\gamma_{b(i)b(j)}$ is their interaction. $\kappa_i$ and $\kappa_j$ are random-effect parameters intended to account for the fact that we observe multiple CMC scores from scans $i$ and $j$. $\lambda_{[k,l]}$ accounts for spatial dependence by way of a Markov Random Field.
+
+We assume independence between parameters and for $i = 1,...,S$, with $N(a,b)$ denoting a normal distribution with mean $a$ and variance $b$, the following priors:
+\begin{align*}
+\alpha_0 &\sim N(0,\tau_0^{-1}) \\
+\log(\tau_0) &\sim Gam(1,0.00001) \\
+\beta_{b(i)} &\overset{ind}{\sim} N(0,\tau_{b(i)}^{-1}) \\
+\log(\tau_{b(i)}) &\overset{ind}{\sim} Gam(1,0.00005) \\
+\gamma_{b(i)b(j)} &\overset{ind}{\sim} N(0,\tau_{b(i)b(j)}^{-1}) \\
+\log(\tau_{b(i)b(j)}) &\overset{ind}{\sim} Gam(1,0.00005) \\
+\kappa_i &\overset{ind}{\sim} N(0,\tau_{k,i}^{-1}) \\
+\log(\tau_{k,i}) &\overset{ind}{\sim} Gam(1,0.00005).
+\end{align*}
+
+Finally, for the spatial term $\lambda_{[k,l]}$, define a "queen" neighborhood system $\mathcal{N}_{[k,l]} = \{\lambda_{m,n} : |m - k| \leq 1, |n - l| \leq 1 \text{ but } [m,n] \neq [k,l]\}$. For $\pmb{\lambda}_{-[k,l]} \equiv \{\lambda_{m,n} : m \neq k \text{ and } n \neq l\}$, we assume that
+
+\begin{align*}
+\lambda_{[k,l]} | \pmb{\lambda}_{-[k,l]}, \tau_l &\overset{ind}{\sim} N\left(\frac{1}{|\mathcal{N}_{[k,l]}|} \sum_{\lambda_{m,n} \in \mathcal{N}_{[k,l]}} \lambda_{[m,n]}, \frac{\tau_l^{-1}}{|\mathcal{N}_{[k,l]}|}\right) \\
+\log(\tau_l) &\sim Gam(1,0.00005).
+\end{align*}
 
 </details>
 
@@ -3330,19 +3619,19 @@ include_graphics(c("images/cmps/step2_2.png"))
 include_graphics(c("images/cmps/step1_2.png"))
 ```
 
-  And ideally, if two signatures are identical, we are expecting the position of the highest peak in the ccf curve remains the same across all ccf curves (we only show 7 segments here);
+And ideally, if two signatures are identical, we are expecting the position of the highest peak in the ccf curve remains the same across all ccf curves (we only show 7 segments here);
 
 ```{r, fig.cap="ideal case: compare x to itself. The highest peak has value 1 and is marked by the blue dot", out.width="80%", fig.keep="hold", fig.align='center'}
 include_graphics(c("images/cmps/step3_1.png"))
 ```
 
-  But in the real case, the basis segments might not achieve a final agreement, but we have the majority; 
+But in the real case, the basis segments might not achieve a final agreement, but we have the majority; 
 
 ```{r, fig.cap="real case: compare x to y. The 5 highest peaks are marked by the blue dots", out.width="80%", fig.keep="hold", fig.align='center'}
 include_graphics(c("images/cmps/step3_2.png"))
 ```
 
-  We mark the 5 highest peaks for each ccf curve because the position of the "highest peak" might not be the best one. 
+We mark the 5 highest peaks for each ccf curve because the position of the "highest peak" might not be the best one. 
 
 4. each ccf curve votes for 5 candidate positions, then we ask two questions in order to obtain the CMPS number/score:
 
@@ -3350,9 +3639,9 @@ include_graphics(c("images/cmps/step3_2.png"))
 
 * how many segments have voted for the best position? -> CMPS number
 
-  If we focus on these 7 segments only, and have a very short tolerance zone, the CMPS number is 6.
-  
-  (If we consider all 22 segments, and have a default tolerance zone (+/- 25 units), the CMPS number is 20.)
+If we focus on these 7 segments only, and have a very short tolerance zone, the CMPS number is 6.
+
+(If we consider all 22 segments, and have a default tolerance zone (+/- 25 units), the CMPS number is 20.)
 
 5. false positive: how can the segments vote more wisely? -> Multi Segment Lengths Strategy
 
@@ -3365,13 +3654,13 @@ include_graphics(c("images/cmps/step5_1.png",
 
 * we choose 5 peaks at scale 1; 3 peaks at scale 2; 1 peak at scale 3
 
-  the peak shared by all three scales is a **consistent correlation peak** (ccp). And the position of the ccp is our best choice. Sometimes a ccp might not be found. 
-  Trying to identify a ccp for each basis segment is called a "multi segment lengths" strategy.
-  
+the peak shared by all three scales is a **consistent correlation peak** (ccp). And the position of the ccp is our best choice. Sometimes a ccp might not be found. 
+Trying to identify a ccp for each basis segment is called a "multi segment lengths" strategy.
+
 * and then, each ccf curve votes for only 1 best condidate position if a ccp can be found; again, we ask two quesitons:
-    + which position receives the most votes?
-    + how many segments have voted for this position? -> CMPS number
-    
++ which position receives the most votes?
++ how many segments have voted for this position? -> CMPS number
+
 * by default, CMPS algorithm uses the multi-segment lengths strategy. 
 
 6. if we consider all segments and use the multi-segment lengths strategy
@@ -3411,7 +3700,7 @@ land23 <- bullets$sigs[bullets$bulletland == "2-3"][[1]]
 land13 <- bullets$sigs[bullets$bulletland == "1-3"][[1]]
 
 result <- extract_feature_cmps(land23$sig, land13$sig, seg_length = 50, seg_scale_max = 3, Tx = 25, 
-                     npeaks.set = c(5, 3, 1), full_result = TRUE)
+                               npeaks.set = c(5, 3, 1), full_result = TRUE)
 result$CMPS.score
 # [1] 1
 
@@ -3528,36 +3817,36 @@ On the bullet level, we mainly consider two similarity scores: $\mathrm{CMPS_{ma
 We want to summarize these 36 CMPS scores into a single similarity score at the bullet level.
 
 - $\mathrm{CMPS_{max}}$ is the maximum CMPS score among all 36 scores;  
-  + here is result of the paper[Chen et al. 2019]:
++ here is result of the paper[Chen et al. 2019]:
 ```{r}
 knitr::include_graphics("images/cmps/sep20/cmpsmax_pp.png", dpi = 100)
 ```
 
-  + and here is our result:
++ and here is our result:
 ```{r}
 knitr::include_graphics("images/cmps/sep20/cmpsmax_mm.png", dpi=100)
 ```
 
 - $\mathrm{\bar{CMPS}_{max}}$: for the CMPS scores belonging to the same phase we compute the average. Since there are 6 phases in total, there would be 6 such averages. $\mathrm{\bar{CMPS}_{max}}$ is the maximum of these averages.
-  + CMPS scores and 6 phases [Chen et al. 2019]
++ CMPS scores and 6 phases [Chen et al. 2019]
 ```{r}
 knitr::include_graphics("images/cmps/sep20/exp_cmpsmaxbar.png", dpi=100)
 ```
 
-  + the result of the paper [Chen et al. 2019]
++ the result of the paper [Chen et al. 2019]
 ```{r}
 knitr::include_graphics("images/cmps/sep20/cmpsbar_pp.png", dpi=100)
 ```
 
-  + our result:
++ our result:
 ```{r}
 knitr::include_graphics("images/cmps/sep20/cmpsmaxbar_mm.png", dpi=100)
 ```
 
 - Comments:
-  + We are only able to qualitatively reproduce the results because in the paper the researchers were using different ways of obtaining bullet signatures. But both $\mathrm{CMPS_{max}}$ and $\mathrm{\bar{CMPS}_{max}}$ give us a clear seperation between the known-match and known-non-match comparisons.
-  + `Ukn` is a barrel label used in the Hamby252. Although it's labeled "Unknown", we do have the ground truth of which is which. There are 46 KM comparisons if we include the ground truth. And there are 46 observations for the cluster with higher CMPS score. 
-  + Improving the quality of bullet signatures improves the CMPS scores.
++ We are only able to qualitatively reproduce the results because in the paper the researchers were using different ways of obtaining bullet signatures. But both $\mathrm{CMPS_{max}}$ and $\mathrm{\bar{CMPS}_{max}}$ give us a clear seperation between the known-match and known-non-match comparisons.
++ `Ukn` is a barrel label used in the Hamby252. Although it's labeled "Unknown", we do have the ground truth of which is which. There are 46 KM comparisons if we include the ground truth. And there are 46 observations for the cluster with higher CMPS score. 
++ Improving the quality of bullet signatures improves the CMPS scores.
 
 ##### Shiny App for Bullet Investigation
 
@@ -3585,23 +3874,23 @@ For results below we have excluded damaged/deformed bullet scans in Hamby set 44
 ```{r}
 knitr::include_graphics("images/cmps/jan3/Hamby44_cmps_max_plot.png", dpi=100)
 ```
-  We can see a separation located at 8 and 9. In total the plot shows 595 bullet-by-bullet comparisons (since we have 35 bullets). 549 comparisons have $\mathrm{CMPS_{max}}$ lower than 8;  46 comparisons have $\mathrm{CMPS_{max}}$ higher than 9. 
-  
+We can see a separation located at 8 and 9. In total the plot shows 595 bullet-by-bullet comparisons (since we have 35 bullets). 549 comparisons have $\mathrm{CMPS_{max}}$ lower than 8;  46 comparisons have $\mathrm{CMPS_{max}}$ higher than 9. 
+
 - As for the distribution of $\mathrm{\bar{CMPS}_{max}}$, we have 
 ```{r}
 knitr::include_graphics("images/cmps/jan3/Hamby44_cmps_maxbar_plot.png", dpi=100)
 ```
-  We can see that the separation of the distribution of $\mathrm{\bar{CMPS}_{max}}$ is lower than that of $\mathrm{CMPS_{max}}$ (as expected), which is at 5 and 6. And for the separation, 549 comparisons are lower than 5, and 46 comparisons are higher than 6.
-  
+We can see that the separation of the distribution of $\mathrm{\bar{CMPS}_{max}}$ is lower than that of $\mathrm{CMPS_{max}}$ (as expected), which is at 5 and 6. And for the separation, 549 comparisons are lower than 5, and 46 comparisons are higher than 6.
+
 - Comments:
-  + We have label "Unknown" in these plots because part of the original scans are labeled with "Unknown"s. And we have not yet included the groundtruth of these "Unknown" scans into these results. 
-  + It would be better if we could have a wider separation in these results. I'm still looking for solutions that could further improve these results. One possible direction is to check the parameters used in the computation. For these Hamby44 results, we are using the same parameters as we used for Hamby252 results. But since these two sets have different scan resolution, we might need different sets of parameters.
++ We have label "Unknown" in these plots because part of the original scans are labeled with "Unknown"s. And we have not yet included the groundtruth of these "Unknown" scans into these results. 
++ It would be better if we could have a wider separation in these results. I'm still looking for solutions that could further improve these results. One possible direction is to check the parameters used in the computation. For these Hamby44 results, we are using the same parameters as we used for Hamby252 results. But since these two sets have different scan resolution, we might need different sets of parameters.
 
 
 - demo: bulletinvestigatR
-  + added features:
-    - exported csv file can now include more info about bullet scans
-    - code section now shows different prompts according to how the users upload their data
++ added features:
+- exported csv file can now include more info about bullet scans
+- code section now shows different prompts according to how the users upload their data
 
 
 </details>
@@ -3611,8 +3900,8 @@ knitr::include_graphics("images/cmps/jan3/Hamby44_cmps_maxbar_plot.png", dpi=100
 Will 01/24 Update: present the results that are used in the CMPS package paper. For both Hamby set 252 and Hamby set 44, the CMPS algorithm is able to distinguish KM comparisons from KNM comparisons. And the UI of `bulletinvestigatR` has been redesigned.
 
 </summary>
-  
-  In the following plots, we are showing the distributions of $\mathrm{CMPS_{max}}$ and $\mathrm{\overline{CMPS}_{max}}$, the two similarity metrics for bullet-level comparisons. 
+
+In the following plots, we are showing the distributions of $\mathrm{CMPS_{max}}$ and $\mathrm{\overline{CMPS}_{max}}$, the two similarity metrics for bullet-level comparisons. 
 
 ```{r}
 knitr::include_graphics("images/cmps/jan24/hamby252_025_075.png", dpi=100)
@@ -3809,9 +4098,9 @@ Then:
 
 2.  Validation: 2 sets R-values
 
-    -   "common random rigid-shifts from their respective regions of best agreement"
+-   "common random rigid-shifts from their respective regions of best agreement"
 
-    -   "the independently selected windows"
+-   "the independently selected windows"
 
 3.  Apply a nonparametric Mann--Whitney U-statistic to these 2 sets of R-values
 
@@ -3829,7 +4118,7 @@ The first set of R-values comes from "common random rigid-shifts", we could util
 
 -   if a consistent correlation peak (ccp) is identified, use the R-value of the lowest scale
 
-    -   if we have three scale levels, the R-values for three different scales could be, for example, 0.95, 0.8, 0.7; the idea is to record 0.95 instead of 0.7 in order to obtain a possible larger separation. (1)
+-   if we have three scale levels, the R-values for three different scales could be, for example, 0.95, 0.8, 0.7; the idea is to record 0.95 instead of 0.7 in order to obtain a possible larger separation. (1)
 
 -   if not, use the R-value of the highest scale
 
@@ -3855,7 +4144,7 @@ The link to U-statistics: <https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_
 <summary>
 Will 04/11 Update: finished the TODO part from the previous week on the CMPS project. The `signature_shift_plot` now has an updated version.
 </summary>
-  
+
 The updated version of `signature_shift_plot`. The zebra-striped background is added to indicate locations of each basis segment. 
 
 ```{r}
@@ -4016,14 +4305,14 @@ Currently an operator can take a land engraved area scan, which is stored as an 
 
 #### The regions to annotate are as follows: 
 
-    1. Groove engraved areas are painted dark blue for the left groove and neon green for the right groove.
-    2. Break-off region, located at the bottom heel of a scan are painted in pink.
-    3. Damaged regions are painted using the color white.
-    4. Areas without striation marks are painted in light blue. 
-    5. Striation marks with a secondary pattern are painted in light yellow. 
-    6. Finally, all areas with well expressed striation marks are left unpainted.
-    7. Missing values in a LEA scan are painted Black
-    
+1. Groove engraved areas are painted dark blue for the left groove and neon green for the right groove.
+2. Break-off region, located at the bottom heel of a scan are painted in pink.
+3. Damaged regions are painted using the color white.
+4. Areas without striation marks are painted in light blue. 
+5. Striation marks with a secondary pattern are painted in light yellow. 
+6. Finally, all areas with well expressed striation marks are left unpainted.
+7. Missing values in a LEA scan are painted Black
+
 After all the regions have been correctly annotated and saved, the x3p file should contain a land engraved area scan with additional data known as a “mask.”
 
 ```{r, fig.cap="Labeled Land Engraved Area Scan using fix3p", fig.keep="hold", fig.align='center', out.width="80%"}
@@ -4090,53 +4379,53 @@ knitr::include_graphics(c("images/andy_temp/Pipeline_summary.png"))
 
 We trained a shallow 3d convolutional neural network on 100 epochs **(epoch refers to one cycle through the full training data)** resulting in an overall accuracy of 76.2 percent.  Class weights were not adjusted for Class Imbalance Issue. 
 
-    Total True Positives: 3610
+Total True Positives: 3610
 
-    Overall Accuracy: 76.22 %
+Overall Accuracy: 76.22 %
 
-    **Breakoff** (Precision: 0.59, Recall: 0.27, F1-Score: 0.37)
+**Breakoff** (Precision: 0.59, Recall: 0.27, F1-Score: 0.37)
 
-    **Damage** (Precision: 0.48, Recall: 0.045, F1-Score: 0.081)
+**Damage** (Precision: 0.48, Recall: 0.045, F1-Score: 0.081)
 
-    **Grooves** (Precision: 0.72, Recall: 0.67, F1-Score: 0.69)
+**Grooves** (Precision: 0.72, Recall: 0.67, F1-Score: 0.69)
 
-    **No Striations** (Precision: 0.75, Recall: 0.87, F1-Score: 0.80)
+**No Striations** (Precision: 0.75, Recall: 0.87, F1-Score: 0.80)
 
-    **Well Expressed Striations** (Precision: 0.78, Recall: 0.83, F1-Score: 0.80)
+**Well Expressed Striations** (Precision: 0.78, Recall: 0.83, F1-Score: 0.80)
 
-    **Vertical Striations** (Precision: 0, Recall: 0, F1-Score: 0)
-    
-    
+**Vertical Striations** (Precision: 0, Recall: 0, F1-Score: 0)
+
+
 ```{r, fig.cap="100 epoch run confusion matrix", fig.keep="hold", fig.align='center', out.width="100%"}
 knitr::include_graphics(c("images/andy_temp/cnn_best_cm.png"))
 ```
-    
+
 ```{r, fig.cap="100 epoch run plot", fig.keep="hold", fig.align='center', out.width="100%"}
 knitr::include_graphics(c("images/andy_temp/100_epoch modek.png"))
 ```
 
 We Re-run the 3d convolutional neural network on 200 epochs and adjust class weights by the frequency of classes throughout the training data set.
 
-    Total True Positives: 3171
+Total True Positives: 3171
 
-    Overall Accuracy: 67 %
+Overall Accuracy: 67 %
 
-    **Breakoff** (Precision: 0.34, Recall: 0.52, F1-Score: 0.41)
+**Breakoff** (Precision: 0.34, Recall: 0.52, F1-Score: 0.41)
 
-    **Damage** (Precision: 0.38, Recall: 0.40, F1-Score: 0.39)
+**Damage** (Precision: 0.38, Recall: 0.40, F1-Score: 0.39)
 
-    **Grooves** (Precision: 0.60, Recall: 0.84, F1-Score: 0.70)
+**Grooves** (Precision: 0.60, Recall: 0.84, F1-Score: 0.70)
 
-    **No Striations** (Precision: 0.67, Recall: 0.89, F1-Score: 0.76)
+**No Striations** (Precision: 0.67, Recall: 0.89, F1-Score: 0.76)
 
-    **Well Expressed Striations** (Precision: 0.86, Recall: 0.56, F1-Score: 0.68)
+**Well Expressed Striations** (Precision: 0.86, Recall: 0.56, F1-Score: 0.68)
 
-    **Vertical Striations** (Precision: 0.017, Recall: 0.14, F1-Score: 0.030)
-    
+**Vertical Striations** (Precision: 0.017, Recall: 0.14, F1-Score: 0.030)
+
 ```{r, fig.cap="200 epoch run confusion matrix", fig.keep="hold", fig.align='center', out.width="100%"}
 knitr::include_graphics(c("images/andy_temp/cnn_cm_class_weights.png"))
 ```
-    
+
 ```{r, fig.cap="200 epoch run adjusted class weights plot", fig.keep="hold", fig.align='center', out.width="100%"}
 knitr::include_graphics(c("images/andy_temp/CNN_class_weights.png"))
 ```
@@ -4282,23 +4571,23 @@ knitr::include_graphics(c("images/andy_temp/Resnet_Latest.png"))
 knitr::include_graphics(c("images/andy_temp/Resnet_latest_cm_1.png"))
 ```
 
-    Total True Positives: 3940
+Total True Positives: 3940
 
-    Overall Accuracy: 83.19 %
+Overall Accuracy: 83.19 %
 
-    **Breakoff** (Precision: 0.27, Recall: 0.10, F1-Score: 0.15)
+**Breakoff** (Precision: 0.27, Recall: 0.10, F1-Score: 0.15)
 
-    **Damage** (Precision: 0.0, Recall: 0.0, F1-Score: 0.0)
+**Damage** (Precision: 0.0, Recall: 0.0, F1-Score: 0.0)
 
-    **Grooves** (Precision: 0.78, Recall: 0.87, F1-Score: 0.82)
-    
-    **Missing Values** (Precision: 0.76, Recall: 0.87, F1-Score: 0.81)
+**Grooves** (Precision: 0.78, Recall: 0.87, F1-Score: 0.82)
 
-    **No Striations** (Precision: 0.89, Recall: 0.89, F1-Score: 0.89)
+**Missing Values** (Precision: 0.76, Recall: 0.87, F1-Score: 0.81)
 
-    **Well Expressed Striations** (Precision: 0.84, Recall: 0.91, F1-Score: 0.87)
+**No Striations** (Precision: 0.89, Recall: 0.89, F1-Score: 0.89)
 
-    **Vertical Striations** (Precision: 0.0, Recall: 0.0, F1-Score: 0.0)
+**Well Expressed Striations** (Precision: 0.84, Recall: 0.91, F1-Score: 0.87)
+
+**Vertical Striations** (Precision: 0.0, Recall: 0.0, F1-Score: 0.0)
 
 
 
@@ -4711,10 +5000,10 @@ knitr::include_graphics("images/bullets/gan-app2_consolidated.png")
 1. Brief background of what the App is doing in terms of FTEs
 2. The explanation system and the framework which is designed to build trust, better understanding, and diagnose problems.
 3. The plan- a focus group (now virtual and online)
-      a. need for anonymity- why?
-      b. possible way to set this up
-      c. Questionnaires before and after experiment - standard examples
-      d. Specific questions, for the generated b-to-b and land-to-land comparisons to scale how well critical analysis can lead to trust, understanding and diagnosing problems.
+a. need for anonymity- why?
+b. possible way to set this up
+c. Questionnaires before and after experiment - standard examples
+d. Specific questions, for the generated b-to-b and land-to-land comparisons to scale how well critical analysis can lead to trust, understanding and diagnosing problems.
 4. Other issues on the timeline - IRB approval for Virtual setups?
 
 Connecting survey questions:
@@ -4731,36 +5020,36 @@ include_graphics(c("images/bullets/questionnaire.png"))
 
 
 1. Trust: Means different things to different people
-   - Outright questions measuring trust are highly susceptible to prior understanding and bias
+- Outright questions measuring trust are highly susceptible to prior understanding and bias
 2. Trust in scores with visualizations as explanations 
-   - Pre- questionnaire along with Score without explanations of comparisons
-   - Post- questionnaire after experiencing a methodical array of visualizations (representations) 
+- Pre- questionnaire along with Score without explanations of comparisons
+- Post- questionnaire after experiencing a methodical array of visualizations (representations) 
 3. Framework design (Literature based):
-   - Optimized design with factors that can influence trust in scores.  
-      Criteria:
-       - Aligned to the steps of the model, present ordered set of visualization, so that the inference from the score, is drawn under the light of the right kind of uncertainty. 
-       - Exploratory understanding of impact of problems
-       - Theoretical arguments defining change of trust within the visualization setup (application) and the interest in change of trust
-         (1) 2- Agent game; 1st Agent [1] - System ; 2nd Agent [2] - Human/ Domain expert
-         (2) For Agent [1]- Trust in Agent [2] meaningless; For Agent [2]- Trust in Agent [1] of concern
-         (3) Each addition of visualization means Agent [2] sequentially always comes 2nd; assesses 
-         the score in the light of new visualization.
-         (4) Leads to a pure prediction problem:: Hence, change in trust + or - within the system.
+- Optimized design with factors that can influence trust in scores.  
+Criteria:
+- Aligned to the steps of the model, present ordered set of visualization, so that the inference from the score, is drawn under the light of the right kind of uncertainty. 
+- Exploratory understanding of impact of problems
+- Theoretical arguments defining change of trust within the visualization setup (application) and the interest in change of trust
+(1) 2- Agent game; 1st Agent [1] - System ; 2nd Agent [2] - Human/ Domain expert
+(2) For Agent [1]- Trust in Agent [2] meaningless; For Agent [2]- Trust in Agent [1] of concern
+(3) Each addition of visualization means Agent [2] sequentially always comes 2nd; assesses 
+the score in the light of new visualization.
+(4) Leads to a pure prediction problem:: Hence, change in trust + or - within the system.
 (*) These considerations are important as we only look to quantify trust in the light of a change and not in the light of absolute magnitude, which is not trivial.
 
 4. Trust is confusing term before jumping into measuring trust.
-      (1) Need to establish some ground rules that examiners can self-assess (not necessarily explicitly) during the experience.
-      (2) Without this, post- questionnaire based outright questions on trust can have widely unimaginable answers not representing the true calibration of trust.
-      (3) Trust here is identified as a function of uncertainty around scores
-      (4) Trust is a function of a non-zero initial trust in model scores, and a zero trust in model scores if acceptance of facts and reason is possible.
-      (5) Trust a function of facts and implication of fact of scores.
-      (6) In the light of above points, trust is a function of detectable problems in each visualization
-      (7) Probability of causation, argument, brings to light the concept of change in uncertainty around the scores. Seen to be in this light. Fact: Detectable problems
-  
+(1) Need to establish some ground rules that examiners can self-assess (not necessarily explicitly) during the experience.
+(2) Without this, post- questionnaire based outright questions on trust can have widely unimaginable answers not representing the true calibration of trust.
+(3) Trust here is identified as a function of uncertainty around scores
+(4) Trust is a function of a non-zero initial trust in model scores, and a zero trust in model scores if acceptance of facts and reason is possible.
+(5) Trust a function of facts and implication of fact of scores.
+(6) In the light of above points, trust is a function of detectable problems in each visualization
+(7) Probability of causation, argument, brings to light the concept of change in uncertainty around the scores. Seen to be in this light. Fact: Detectable problems
+
 5. Pre- vs Post- questionnaire as a paired Wilcox ranked sum or paired t- test
-  - Assumptions?
-  - for a difference in mean of 1 need about 15 participants
-  
+- Assumptions?
+- for a difference in mean of 1 need about 15 participants
+
 6. IRB requisites
 
 ### Survey Methods : Pre- vs Post 
@@ -4769,47 +5058,47 @@ include_graphics(c("images/bullets/questionnaire.png"))
 2. Score based decision-making - Even lesser information available
 3. Existing surveys and scales with explainability and trust in mind
 4. Psychometric evaluation of survey questions:
-  a. Scale validity: Content Validity Ratio
-  b. Scale validity: Discriminant Validity
+a. Scale validity: Content Validity Ratio
+b. Scale validity: Discriminant Validity
 5. System definition: Score Evaluation System
-   1. Decision-making revolving scores
-   2. Domain knowledge + Essential Processing Information + Comparative scoring with score uncertainty coming from (a) Presence of all scores (b) Reasoning based on "prior" (domain + model pipeline process information) knowledge  
-    VS
-     Domain knowledge + Essential Processing Information + Comparative scoring with score uncertainty coming from (a) Presence of all scores (b) Reasoning based on "prior" (domain + model pipeline process information) knowledge + Pipeline Stage specific and comparison specific information from each comparison made by model to generate scores.
-     
+1. Decision-making revolving scores
+2. Domain knowledge + Essential Processing Information + Comparative scoring with score uncertainty coming from (a) Presence of all scores (b) Reasoning based on "prior" (domain + model pipeline process information) knowledge  
+VS
+Domain knowledge + Essential Processing Information + Comparative scoring with score uncertainty coming from (a) Presence of all scores (b) Reasoning based on "prior" (domain + model pipeline process information) knowledge + Pipeline Stage specific and comparison specific information from each comparison made by model to generate scores.
+
 6. Pros of such an explanation setup
-   (a) Evaluation is purely about scores and the understanding gathered about the uncertainty around it
-   (b) Provides a good setup to minimize pre-existing biased/ unyielding concepts of trust in algorithmic scoring models - machine learning or not.
-   
+(a) Evaluation is purely about scores and the understanding gathered about the uncertainty around it
+(b) Provides a good setup to minimize pre-existing biased/ unyielding concepts of trust in algorithmic scoring models - machine learning or not.
+
 Instructions for participants:
- Vital instructions with goals of keeping post-experience inference being minimally affected by strong prior-beliefs about algorithmic pattern matching vs human pattern recognition:
-   (a) Heavy reliance on quality of definition of the system, and communication of the "score" based goals of the explanation system.
-   (b) Presentation of the system as solely a "score explanation system", and evaluation of inference drawn from "scores" in the presence of inter-pipeline explanations and in the absence of it.
-   
+Vital instructions with goals of keeping post-experience inference being minimally affected by strong prior-beliefs about algorithmic pattern matching vs human pattern recognition:
+(a) Heavy reliance on quality of definition of the system, and communication of the "score" based goals of the explanation system.
+(b) Presentation of the system as solely a "score explanation system", and evaluation of inference drawn from "scores" in the presence of inter-pipeline explanations and in the absence of it.
+
 #### Setup:
 Need multiple instances for conducting the survey - different cases for assessing different attributes
 Week of January 18th 
- 1. Setting up instances for multiple sessions for survey. Fixing errors in script for pre-processing, generating modules for cases.
- 2. Evaluating the qualtrics survey setup
- 3. Reviewing existing work
- 
+1. Setting up instances for multiple sessions for survey. Fixing errors in script for pre-processing, generating modules for cases.
+2. Evaluating the qualtrics survey setup
+3. Reviewing existing work
+
 Week of January 25th
- 1. Continuing work on setting up the visualizations and interactive interface instances.
- 2. Choosing and finalizing different cases as modules. (for testing different attributes in the survey) 
- 3. Mock setup for execution of the survey
- 
+1. Continuing work on setting up the visualizations and interactive interface instances.
+2. Choosing and finalizing different cases as modules. (for testing different attributes in the survey) 
+3. Mock setup for execution of the survey
+
 February Week 1  
 
- - Algorithmic/ AI Explainability, Trust, Fairness: Field is moving very fast  
- - Comparing in depth one recently published work in ACM FAccT by IBM Research, with my work on Explainability and trust in AI. Almost unbelievable!  
- - Mapping other very recently published work, implications/ similarity to my current work.  
+- Algorithmic/ AI Explainability, Trust, Fairness: Field is moving very fast  
+- Comparing in depth one recently published work in ACM FAccT by IBM Research, with my work on Explainability and trust in AI. Almost unbelievable!  
+- Mapping other very recently published work, implications/ similarity to my current work.  
 
 Feb wee
- - Identifying modifications, work needed and duration to completion/ submission of this work.
- - Completing case setups
- - Modifying paper to account for recent work
- - Finalize, test mock visual app interaction setup  and survey
- 
+- Identifying modifications, work needed and duration to completion/ submission of this work.
+- Completing case setups
+- Modifying paper to account for recent work
+- Finalize, test mock visual app interaction setup  and survey
+
 Feb week 3
 - Connecting recent literature in AI trust
 - Implications to Examiner-ML trust
@@ -4860,42 +5149,42 @@ April:
 #### American Academy of Forensic Sciences  
 
 - "Validation Study on Automated Groove Detection Methods in 3D Bullet Land Scans"
-    - February 2019  
-    - Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann
-    - Presentation given by Kiegan Rice
+- February 2019  
+- Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann
+- Presentation given by Kiegan Rice
 
 #### Association of Firearms and Toolmark Examiners Annual Training Seminar  
 
 - Heike's talk 
 - "Reproducibility of Automated Bullet Matching Scores Using High-Resolution 3D LEA Scans"
-    - May 2019
-    - Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann 
-    - Presentation given by Kiegan Rice  
-    
-    
+- May 2019
+- Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann 
+- Presentation given by Kiegan Rice  
+
+
 #### Joint Statistical Meetings  
 
 - "A non-parametric test for matching bullet striations: extending the chumbley score for bullet-to-bullet matching"
-    - July 2019 
-    - Authors:Ganesh Krishnan, Heike Hofmann
-    - Talk given by Ganesh Krishnan
+- July 2019 
+- Authors:Ganesh Krishnan, Heike Hofmann
+- Talk given by Ganesh Krishnan
 
 
 
 - "Repeatability and reproducibility of automated bullet comparisons using high-resolution 3D scans" 
-    - July 2019 
-    - Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann
-    - Poster presented by Kiegan Rice  
+- July 2019 
+- Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann
+- Poster presented by Kiegan Rice  
 
 #### Miscellaneous  
 
 - 10th International Workshop on Statistics and Simulation in Salzburg, Austria, September 2019
-    - "Reproducibility of High-Resolution 3D Bullet Scans and Automated Bullet Matching Scores"   
-         - Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann
-         - Poster presented by Kiegan Rice, won 2nd Springer Poster Award  
-    - "Case Study Validations of Automatic Bullet Matching"
-         - Authors: Heike Hofmann, Susan VanderPlas
-         - Presentation given by Alicia Carriquiry
+- "Reproducibility of High-Resolution 3D Bullet Scans and Automated Bullet Matching Scores"   
+- Authors: Kiegan Rice, Ulrike Genschel, Heike Hofmann
+- Poster presented by Kiegan Rice, won 2nd Springer Poster Award  
+- "Case Study Validations of Automatic Bullet Matching"
+- Authors: Heike Hofmann, Susan VanderPlas
+- Presentation given by Alicia Carriquiry
 
 
 

@@ -3274,7 +3274,9 @@ plt1 <- compData_match %>%
   facet_wrap(~ theta,nrow = 1,
              labeller = label_both) +
   theme_bw() +
-  labs(subtitle = "(x,y) values per rotation, Match example")
+  labs(subtitle = "(x,y) values per rotation, Match example") +
+  xlim(-75,75) +
+  ylim(-80,80)
 
 plt2 <- compData_nonmatch %>%
   filter(direction == "refToTarget") %>%
@@ -3286,7 +3288,9 @@ plt2 <- compData_nonmatch %>%
   facet_wrap(~ theta,nrow = 1,
              labeller = label_both) +
   theme_bw() +
-  labs(subtitle = "(x,y) values per rotation, Non-Match example")
+  labs(subtitle = "(x,y) values per rotation, Non-Match example") +
+  xlim(-75,75) +
+  ylim(-80,80)
 
 plt1 / plt2
 ```
@@ -3321,7 +3325,9 @@ plt1 <- compData_match %>%
   theme_bw() +
   guides(fill = guide_colorbar(title = "Density")) +
   theme(panel.grid = element_blank()) +
-  labs(subtitle = "(x,y) density at highest-density rotation,\nMatch example")
+  labs(subtitle = "(x,y) density at highest-density rotation,\nMatch example") +
+  xlim(-80,80) +
+  ylim(-80,80)
 
 kdeFit <- MASS::kde2d(x = compData_nonmatch %>%
                         filter(direction == "refToTarget") %>%
@@ -3350,7 +3356,9 @@ plt2 <- compData_nonmatch %>%
   theme_bw() +
   guides(fill = guide_colorbar(title = "Density")) +
   theme(panel.grid = element_blank()) +
-  labs(subtitle = "(x,y) density at highest-density rotation,\nNon-Match example")
+  labs(subtitle = "(x,y) density at highest-density rotation,\nNon-Match example") +
+  xlim(-80,80) +
+  ylim(-80,80)
 
 plt1 + plt2
 ```
@@ -3372,7 +3380,9 @@ plt1 <- compData_match %>%
   geom_point(aes(x = xmed,y = ymed),shape = 4,colour = "orange",size = 5) +
   geom_rect(aes(xmin = xmed - 20,xmax = xmed + 20,ymin = ymed - 20,max = ymed + 20),colour = "orange",fill = NA) +
   theme_bw() +
-  labs(subtitle = "Original CMC Method Classification,\nMatch example")
+  labs(subtitle = "Original CMC Method Classification,\nMatch example") +
+  xlim(-80,80) +
+  ylim(-80,80)
 
 plt2 <- compData_nonmatch %>%
   filter(direction == "refToTarget") %>%
@@ -3388,7 +3398,9 @@ plt2 <- compData_nonmatch %>%
   geom_point(aes(x = xmed,y = ymed),shape = 4,colour = "orange",size = 5) +
   geom_rect(aes(xmin = xmed - 20,xmax = xmed + 20,ymin = ymed - 20,max = ymed + 20),colour = "orange",fill = NA) +
   theme_bw() +
-  labs(subtitle = "Original CMC Method Classification,\nNon-Match example")
+  labs(subtitle = "Original CMC Method Classification,\nNon-Match example") +
+  xlim(-80,80) +
+  ylim(-80,80)
 
 plt1 + plt2
 ```
@@ -3417,7 +3429,9 @@ plt1 <- compData_match %>%
   coord_fixed() +
   guides(colour = guide_legend(title = NULL)) +
   scale_colour_manual(values = c("blue","red")) +
-  labs(subtitle = "DBSCAN Cluster Assignments,\nMatch example")
+  labs(subtitle = "DBSCAN Cluster Assignments,\nMatch example") +
+  xlim(-80,80) +
+  ylim(-80,80)
 
 plt2 <- compData_nonmatch %>%
   filter(direction == "refToTarget" & theta == 18) %>%
@@ -3430,7 +3444,9 @@ plt2 <- compData_nonmatch %>%
   coord_fixed() +
   guides(colour = guide_legend(title = NULL)) +
   scale_colour_manual(values = c("red")) +
-  labs(subtitle = "DBSCAN Cluster Assignments,\nNon-Match example")
+  labs(subtitle = "DBSCAN Cluster Assignments,\nNon-Match example") +
+  xlim(-80,80) +
+  ylim(-80,80)
 
 plt1 + plt2
 ```
@@ -3465,11 +3481,11 @@ The table below shows a comparison of the error, false positive, and false negat
 
 | Method | Error Rate (%) | False Pos. Rate (%) | False Neg. Rate (%) |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Song et al. (2014) |  3.7 | 0.06 | 53.3 |
-| Song et al. (2018) |  3.1 | 0.6 | 36.1 |
+| Parameters from Song et al. (2014) |  3.7 | 0.06 | 53.3 |
+| Parameters from Song et al. (2018) |  3.1 | 0.6 | 36.1 |
 | Optimized CMC | 2.9 | 0.8 | 30.3 |
 | Averaged Optimized CMC | 2.6 | 0.7 | 27.3 |
-| DBSCAN | 1.4 | 0.3 | 16.1 |
+| DBSCAN Method | 1.4 | 0.3 | 16.1 |
 
 **Random Effect Markov Random Field Model for CMC Counts**
 

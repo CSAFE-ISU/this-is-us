@@ -3533,6 +3533,43 @@ Finally, for the spatial term $\lambda_{[k,l]}$, define a "queen" neighborhood s
 
 </details>
 
+<details>
+<summary>
+Joe 2/11/22 Update: We have been investigating various diagnostics for cartridge case comparison algorithms.
+</summary>
+
+We have been developing diagnostic tools for our cartridge case comparison algorithms.
+One example of a diagnostic is a comparison plot used to visually compare two aligned patches.
+These "patches" are the cells that the reference scan is partitioned into (on the left in the plot below) and a matrix of the same size in the target scan that the algorithm has found to align best.
+Each cell you see in the reference scan has a corresponding aligned patch in the target scan, but a visualization like the plot below makes it difficult to compare two aligned patches directly.
+
+```{r,echo = FALSE}
+knitr::include_graphics("images/cartridge_cases/2-11-22_update/matchingPairCMCPlot.png")
+```
+
+The plot below shows a "zoomed-in" version of the 3, 1 aligned patches. 
+You can see some similarities between the markings on these patches.
+
+```{r,echo = FALSE}
+knitr::include_graphics("images/cartridge_cases/2-11-22_update/matchAlignedPatches.png")
+```
+
+However, it is still difficult to determine just how similar these two patches are using the above the zoomed-in plot.
+As such, we have devised a grid of plots that effectively partition the two patches into "similarities" and "differences."
+This grid can be seen below.
+The two plots in the top row are the exact same as the zoomed-in plot above.
+The second row shows the pixelwise averages between these two plots.
+Not that some observations have been filtered out based on whether 
+
+```{r,echo = FALSE}
+knitr::include_graphics("images/cartridge_cases/2-11-22_update/matchingPatchesComparisonPlot.png")
+```
+
+We are currently exploring the calculation of various features based on these comparison plots.
+
+</details>
+
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
 The moified Chumbley non-random algorithm is a statistical non-parametric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segment to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 

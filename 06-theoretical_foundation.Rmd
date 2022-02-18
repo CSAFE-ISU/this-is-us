@@ -1351,8 +1351,14 @@ read.csv("images/foundations/optimal_rule/Openset/ex6.csv") %>%
 
 
 
-## SRL behaviour and dependence
-Draft: August 2020
+## SRL behaviour and dependence.
+
+### Abstract and summary of the project.
+In forensic settings, likelihood ratios (LR) are used to provide a numerical assessment of the evidential strength but require knowing a complex probability model, particularly for pattern and impression evidence. A proposed alternative relies on using similarity scores to develop score-based likelihood ratios (SLR). We illustrate the use of simulations to evaluate feature-based LR and SLR already present in the literature focusing on a less-discussed aspect, dependence on the data used to estimate the ratios.We provide evidence that no clear winner outperforms all other methods through our simulation studies.  On average, distance-based methods of computing scores resulted in less discriminating power and a higher rate of misleading evidence for known non-matching data. Machine learning-based scores produce highly discriminating evidential values but require additional samples to train.  Our results also show that non-parametric estimation of score distributions can lead to non-monotonic behavior of the SLR and even counter-intuitive results. We also present evidence that the methods studied are susceptible to performance issues when the split into training, estimation and test sets is modified. The resulting SLRs could even lead examiners in different directions.
+**See [here](https://dr.lib.iastate.edu/entities/publication/38a3826f-b14a-48d2-a69c-8feede14523d) for the CC Version of the paper from this work.**
+
+
+
 
 ```{r , include=FALSE}
 library(kableExtra)
@@ -1599,7 +1605,7 @@ As in the previous comparison, we introduce the following collection of sets as 
 $$D=\{(-\infty,-10^4),...,(-10,0),(0,10),...,(10^4,\infty) \} $$
 
 
-## Evaluation metrics.
+### Evaluation metrics.
 Update march 7: Added new metrics 
 
 CCLR
@@ -1629,16 +1635,10 @@ D_p_{{KNM}} &=& \frac{\sum_t^{T} (1-y_t) \one_{\{SLR_t\leq C_{KNM}\}} }{\sum_t^{
 \end{eqnarray}
 
 
+## Ensemble of Score Likelihood ratios for forensic evidence project. 
 
-### Results
-See Poster Below
+### Intro
 
-
-## SRL behaviour and dependence: Extended simulation.
-
-
-## Small updates:
-04/05/2021 – For the last week I focus on writing CC document and preparing presentation. 
 
 ## Communication of Results  
 ### Poster

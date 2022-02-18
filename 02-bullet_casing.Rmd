@@ -3569,6 +3569,27 @@ We are currently exploring the calculation of various features based on these co
 
 </details>
 
+<details>
+<summary>
+Joe 2/18/22 Update: This week, we have been working on extracting features based on the diagnostic plots that I briefly discussed last week. 
+</summary>
+
+Last week I introduced some diagnostic plots that we developed to assess how well a cell from one scan found a registration in another scan.
+One of these diagnostics was visualizing the element-wise average between the two aligned "patches."
+To emphasize the similarities in this average plot, we filtered-out elements whose absolute difference was greater than one standard deviation of all absolute differences.
+For two well-aligned matching patches, it seems reasonable to assume that fewer elements will be filtered compared to non-matching patches.
+More specifically, we might assume that the neighborhoods of filtered elements will be smaller for matching patches than non-matching.
+An example of the filtered elements is shown below on the left.
+Next to this plot is a labeling of the individual neighborhoods of filtered pixels using a connected components algorithm.
+We can extract features from these labeled neighborhoods such as the size of each neighborhood.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/2-18-22_update/labeledBlobExample.pdf")
+```
+
+
+</details>
+
 
 ### Modified Chumbley non-random test
 #### Land-to-land scores

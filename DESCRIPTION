@@ -12,7 +12,8 @@ Imports:
     bookdown (>= 0.24),
     bulletcp,
     grooveFinder,
-    tidyverse,
+    dplyr,
+    ggplot2,
     x3ptools,
     kableExtra
 Suggests:

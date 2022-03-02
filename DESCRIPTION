@@ -2,8 +2,6 @@ Package: placeholder
 Type: Book
 Title: This is us @ CSAFE.
 Version: 0.1
-Imports: bookdown
-Remotes: rstudio/bookdown
 License: CC BY 4.0
 Authors@R: 
     person("All of us", "CSAFE", , "hofmann@iastate.edu", role = c("aut", "cre"))
@@ -18,6 +16,7 @@ Imports:
     x3ptools
 Suggests:
 Remotes: 
+    rstudio/bookdown, 
     heike/grooveFinder,
     heike/x3ptools
 Encoding: UTF-8

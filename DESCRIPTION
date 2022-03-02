@@ -13,7 +13,8 @@ Imports:
     bulletcp,
     grooveFinder,
     tidyverse,
-    x3ptools
+    x3ptools,
+    kableExtra
 Suggests:
 Remotes: 
     rstudio/bookdown, 

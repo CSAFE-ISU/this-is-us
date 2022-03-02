@@ -1,3 +1,7 @@
+<!-- badges: start -->
+  [![build-book](https://github.com/CSAFE-ISU/this-is-us/workflows/build-book/badge.svg)](https://github.com/CSAFE-ISU/this-is-us/actions)
+<!-- badges: end -->
+
 Hi everybody,
 
 in order to avoid the most egregious problems with the repository, we are going to need a couple of rules how to work with each other. We will add to these as we need more rules :)

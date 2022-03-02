@@ -1,7 +1,23 @@
 Package: placeholder
 Type: Book
-Title: Does not matter.
-Version: 0.0.1
+Title: This is us @ CSAFE.
+Version: 0.1
 Imports: bookdown
 Remotes: rstudio/bookdown
 License: CC BY 4.0
+Authors@R: 
+    person("All of us", "CSAFE", , "hofmann@iastate.edu", role = c("aut", "cre"))
+Description: This is not a package, but we just use this file to declare
+    the dependencies of the site.
+URL: https://csafe-isu.github.io/this-is-us/
+Imports:
+    bookdown (>= 0.24),
+    bulletcp,
+    grooveFinder,
+    tidyverse,
+    x3ptools
+Suggests:
+Remotes: 
+    heike/grooveFinder,
+    heike/x3ptools
+Encoding: UTF-8

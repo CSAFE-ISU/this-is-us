@@ -16,7 +16,8 @@ Imports:
     ggplot2,
     x3ptools,
     kableExtra,
-    readxl
+    readxl,
+    patchwork
 Suggests:
 Remotes: 
     rstudio/bookdown, 

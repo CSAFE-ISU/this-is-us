@@ -412,10 +412,12 @@ Now paste the text from the clipboard into the url:
 </ol>
 <p><img src="images/setup/04_create-project.png" /></p>
 <p>I am assuming that you have set up git in Rstudio. If not, read the start of Jenny Bryan’s chapter <a href="https://happygitwithr.com/connect-intro.html">Can you hear me now?</a> of her book “Happy Git with R.”</p>
-<p>Run the following two lines of R in the console:</p>
+<p>Run the following three lines of R in the console:</p>
 <pre><code>if (!require(usethis)) install.packages(usethis) # installs usethis package if needed
-usethis::git_vaccinate() # this command creates the file .gitignore</code></pre>
+usethis::git_vaccinate() # this command creates the file .gitignore
+usethis::use_git_ignore(ignores=c(&quot;.gitignore&quot;, &quot;docs-local&quot;, &quot;_bookdown_files/&quot;))</code></pre>
 <p>The <code>git_vaccinate()</code> command creates a (global) file called .gitignore that prevents you from accidentally sharing personal credentials stored in files <code>.DS</code>, <code>.Rproj.user</code>, and <code>.Rhistory</code>.</p>
+<p>Additionally, we set up your system to ignore any of your locally created files - this will minimize the number of conflicts between us :)</p>
 <p>Now you are ready to make some changes!</p>
 </div>
 <div id="contributions-to-the-repository" class="section level2 hasAnchor" number="1.2">

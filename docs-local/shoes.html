@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2022-03-01" />
+<meta name="date" content="2022-03-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -173,6 +173,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#guidelines-for-show-and-tell"><i class="fa fa-check"></i><b>2.1</b> Guidelines for show and tell<span></span></a></li>
 <li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#rmarkdown-how-to"><i class="fa fa-check"></i><b>2.2</b> Rmarkdown how-to<span></span></a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#literature-references"><i class="fa fa-check"></i><b>2.3</b> Literature references<span></span></a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="dummy-file.html"><a href="dummy-file.html"><i class="fa fa-check"></i><b>3</b> Dummy file<span></span></a></li>
 <li class="chapter" data-level="4" data-path="bullets.html"><a href="bullets.html"><i class="fa fa-check"></i><b>4</b> Project CC: Bullets and Cartridge Cases<span></span></a>
@@ -1621,20 +1622,20 @@ It is unclear how much ICP is changing after each iteration. For example, in our
 <ol start="5" style="list-style-type: decimal">
 <li>Compute maximum cross correlation function from a small square of a reference image and its corresponding small square of the moving image. Consequently, there are 36 maximum ccf and their (dx, dy) obtained from each matching/nonmatching pair. Summarize ccf, dx, and dy so that only a single set of features from them is made from each pair.</li>
 </ol>
-<pre><code>##   fft_ccf_mean fft_ccf_sd fft_ccf_range      x_mean       x_sd x_range      y_mean
-## 1    0.9828075 0.01881824     0.1086021  -1.0277778  0.1666667       1  -0.9444444
-## 2    0.6441020 0.31670677     0.9436405 -14.7500000 21.3426133      49 -14.5833333
-## 3    0.9227980 0.03798925     0.1634415  -4.6666667  3.5375536      10  -1.0277778
-## 4    0.9433072 0.04561463     0.1955301  -1.1388889  0.6825489       3  -0.4722222
-## 5    0.9209677 0.07129483     0.2674146  -0.9166667  0.6035609       2  -0.5277778
-## 6    0.9009049 0.06332662     0.2651907  -2.5277778  3.2025535      16  -2.9722222
-##         y_sd y_range moving.Img.no fixed.Img.no actual.matching
-## 1  0.2323107       1             1            1               1
-## 2 21.4933545      49             1            2               0
-## 3  0.7362496       5             1            3               0
-## 4  0.9996031       4             1            4               0
-## 5  0.8778581       4             1            5               0
-## 6  4.2794266      19             1            6               0</code></pre>
+<pre><code>##   fft_ccf_mean fft_ccf_sd fft_ccf_range      x_mean       x_sd x_range
+## 1    0.9828075 0.01881824     0.1086021  -1.0277778  0.1666667       1
+## 2    0.6441020 0.31670677     0.9436405 -14.7500000 21.3426133      49
+## 3    0.9227980 0.03798925     0.1634415  -4.6666667  3.5375536      10
+## 4    0.9433072 0.04561463     0.1955301  -1.1388889  0.6825489       3
+## 5    0.9209677 0.07129483     0.2674146  -0.9166667  0.6035609       2
+## 6    0.9009049 0.06332662     0.2651907  -2.5277778  3.2025535      16
+##        y_mean       y_sd y_range moving.Img.no fixed.Img.no actual.matching
+## 1  -0.9444444  0.2323107       1             1            1               1
+## 2 -14.5833333 21.4933545      49             1            2               0
+## 3  -1.0277778  0.7362496       5             1            3               0
+## 4  -0.4722222  0.9996031       4             1            4               0
+## 5  -0.5277778  0.8778581       4             1            5               0
+## 6  -2.9722222  4.2794266      19             1            6               0</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>Train randomforest based on the features of ccf, dx, and dy from the training set, and predict whether each pair in the test set is matching or non-matching.</li>
 </ol>

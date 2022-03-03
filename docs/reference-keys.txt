@@ -303,6 +303,7 @@ contributions-to-the-repository
 intro
 guidelines-for-show-and-tell
 rmarkdown-how-to
+literature-references
 dummy-file
 bullets
 data-collection

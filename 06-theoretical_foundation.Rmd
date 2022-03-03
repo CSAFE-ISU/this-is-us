@@ -1389,7 +1389,7 @@ Using Bayes Theorem, we can compute:
 \frac{P(H_p/E)}{P(H_d/E)}= \underbrace{\frac{P(E/H_p) }{P(E/H_d) }}_{\text{Likelihood ratio}}     \underbrace{\frac{P(H_p)}{P(H_d)}}_{\text{Prior odds}} 
 \end{equation}
 
-The first component is the **ratio of competing hypothesis**. Following cite{Stern2017} and cite{Cook1998}, it should be noted that decision regarding guilt or innocence is something that is up to the judge and potentially outside of the scope of expertise of the forensic expert.
+The first component is the **ratio of competing hypothesis**. Following cite{Stern2017}  and cite{Cook1998}, it should be noted that decision regarding guilt or innocence is something that is up to the judge and potentially outside of the scope of expertise of the forensic expert.
 
 In general, forensic testimony would concern lower level proposition, addressing, for instance, the common source hypothesis. Reframing under this tier of propositions, we will address the hypothesis that the trace found in the crime scene $(E_x)$ is a match with the suspect $(E_y)$ $(H_p)$ or that evidence came from a different source $(H_d)$.
 

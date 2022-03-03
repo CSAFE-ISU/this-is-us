@@ -298,11 +298,12 @@ fig:aligned-signature
 fig:toolmark-angle
 fig:rig
 prerequisites
-setting-up-the-repository
+setting-up-the-repository-on-your-machine
 contributions-to-the-repository
 intro
 guidelines-for-show-and-tell
 rmarkdown-how-to
+literature-references
 dummy-file
 bullets
 data-collection

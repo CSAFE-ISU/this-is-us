@@ -21,8 +21,8 @@ jobs:
         run: Rscript -e 'bookdown::render_book("index.Rmd")'
       - uses: actions/upload-artifact@v2
         with:
-          name: _site
-          path: _site/
+          name: docs
+          path: docs/
 
 # Need to first create an empty gh-pages branch
 # see https://pkgdown.r-lib.org/reference/deploy_site_github.html
@@ -38,15 +38,15 @@ jobs:
        uses: actions/download-artifact@v1.0.0
        with:
          # Artifact name
-         name: _site # optional
+         name: docs # optional
          # Destination path
-         path: _site # _book # optional
+         path: docs # _book # optional
      - name: Deploy to GitHub Pages
        uses: Cecilapp/GitHub-Pages-deploy@master
        env:
           EMAIL: ${{ secrets.EMAIL }}               # must be a verified email
           GITHUB_TOKEN: ${{ secrets.GH_PAT }} # https://github.com/settings/tokens
-          BUILD_DIR: _site                     # "_site/" by default
+          BUILD_DIR: docs                     # "_site/" by default
        with:
           jekyll: no
           commit_message: automatic-update

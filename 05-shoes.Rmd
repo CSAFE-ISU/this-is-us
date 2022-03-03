@@ -1284,6 +1284,7 @@ head(training.dat.ex)
 6. Train randomforest based on the features of ccf, dx, and dy from the training set, and predict whether each pair in the test set is matching or non-matching.
 
 ```{r echo = FALSE, message = FALSE}
+set.seed(98765432) # set your seed
 library(randomForest)
 # write.table(summary.by.paired.images,
 #             "~/Shoe/Footwear_2D_longitudinal/summary.by.paired.images.csv", sep = ",")

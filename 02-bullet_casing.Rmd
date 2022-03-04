@@ -3605,6 +3605,8 @@ We are still brainstorming different features that we can use to quantify these 
 knitr::include_graphics("images/cartridge_cases/3-4-22_update/complementCompPlot.png")
 ```
 
+The plot below shows a comparison between two aligned cells from a non-matching pair of cartridge cases.
+
 ```{r}
 knitr::include_graphics("images/cartridge_cases/3-4-22_update/complementCompPlot_nonMatch.png")
 ```
@@ -4987,7 +4989,7 @@ knitr::include_graphics(c("images/andy_temp/rework_plots/Para_Explain_2.png"))
 <br><br><br>
 
 ```{r echo=FALSE, fig.cap= "Predictions for every pixel", fig.keep="hold", fig.align='center', out.width="70%"}
-knitr::include_graphics(c("images/andy_temp/rework_plots/parallel.png"))
+knitr::include_graphics(c("images/andy_temp/rework_plots/parallel_xxx.PNG"))
 ```
 
 <br>

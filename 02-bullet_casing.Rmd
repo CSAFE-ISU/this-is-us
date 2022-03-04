@@ -3590,6 +3590,28 @@ knitr::include_graphics("images/cartridge_cases/2-18-22_update/labeledBlobExampl
 
 </details>
 
+<details>
+<summary>
+Joe 3/4/22 Update: This week, I have been working more on the cartridge case comparison visual diagnostics paper.
+</summary>
+
+Below is an example of two comparison plots.
+The first plot shows an aligned pair of patches from a matching pair of cartridge cases while the second is from a non-matching pair.
+There are clearly more similarities between the aligned cells in the first plot compared to the second.
+Our goal with this project is to develop features based on this observations - that matching patches should "look more similar" than non-matching patches.
+We are still brainstorming different features that we can use to quantify these similarities, so we are open if anyone has any input or thoughts!
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/3-4-22_update/complementCompPlot.png")
+```
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/3-4-22_update/complementCompPlot_nonMatch.png")
+```
+
+
+</details>
+
 
 ### Modified Chumbley non-random test
 #### Land-to-land scores

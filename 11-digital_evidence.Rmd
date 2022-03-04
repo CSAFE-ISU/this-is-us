@@ -1,3 +1,6 @@
 # Digital Evidence
 
 ## Score-Based Likelihood Ratios for Camera Device Identification
+
+### NIST New Project Proposal
+3/4/2022 - sent rough draft of proposal to Danica, Alicia, and Stacy

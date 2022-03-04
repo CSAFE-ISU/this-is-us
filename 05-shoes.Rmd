@@ -1,5 +1,72 @@
 # Shoes {#shoes}
 
+## Introduction to Footwear Evidence 
+
+### What is footwear evidence?
+
+Footwear evidence usually refers to imprints made by shoes in some medium. These imprints can either be 2D (e.g. a shoeprint made of dust or blood on a tile floor) or 3D (e.g. a shoeprint made in mud or snow). Less commonly, footwear evidence may also refer to shoes themselves. For example, a woman’s body was found with boots that had scuff marks on the side that prosecutors claimed to be evidence of her body being dragged across the length of her ex-husband’s driveway. However, we will focus on shoeprints rather than shoes themselves.
+
+### How footwear evidence is gathered
+
+#### Photography (2D and 3D)
+
+Photographs are usually the first step in the collection of footwear evidence because photography does not risk damaging the evidence. The photographer makes use of a DSLR camera with ideally a 50 mm prime lens (or a zoom lens where the lens is set between 35 and 50 mm), around f/8, and an ISO of around 400. (Keeping the focal length between 35 and 50 mm reduces the distortion.)
+
+In order to reduce shakiness and maintain a view parallel to the ground, it’s essential to use a tripod and some way of ensuring the lens of the camera is perpendicular to the ground. To properly light the shoeprint, an external flash placed at an oblique angle is used. Usually at least 4 pictures are taken (with the flash being placed above, to the right, below, and to the left of the camera, respectively for each of the 4 shots). A remote shutter release is not strictly essential but does reduce shakiness and speeds the process up. 
+
+Other than the shoeprint itself, an L scale should be placed at the same level as the bottom part of the impression. This scale will later be used to size and adjust the perspective of the shoeprint. This is easy for 2D impressions but may require additional work for 3D impressions. For example, if there’s a 1-inch deep impression made in mud, you must dig a 1-inch deep area around the impression to place the L scale. A direction indicator should also be placed near the impression. (Often, this indicates north, but it can also indicate the direction to the area the body was found, or in the case of a vertical footprint on a wall, it could indicate "up.") The L scale, footprint, and direction indicator should fill the photo as much as possible; leave as little empty space as possible so that as much detail of the shoeprint is captured as possible.
+
+#### Gel lifter & electrostatic dust print lifter (2D)
+
+Different crime labs prefer different collection methods. Again, photography is recommended first because the shoeprint may be damaged in the process of attempting to do the lift. 
+
+Dust or powder impressions can be found on various types of surface at a crime scene where they may be wet or dried. Such impressions can sometimes be detected with the naked eye, but they can be detected much more easily with oblique light. They can then be collected with a gel lifter or an electrostatic dust print lifter (EDPL). 
+
+Gelatin lifter is made of a black gel layer on a flexible woven surface. Once it is placed on the impression, the dust and powder particles forming the impression stick to the gel so that the impression is collected on the lifter. There has been some research on the method for placing and lifting the gel so as not to distort the evidence. 
+
+EDPL operates by creating static electricity on a plastic film placed on the impression, and attracting the fine particles onto the film. As a relatively small portion of dust is taken from the impression by EDPL, and the rest is preserved, it is regarded as to be “non-destructive,” so it is recommended to be applied before gel lifters are used. On the other hand, EDPL works well on loose dry particles, but not on wet substrates while gel lifters are generally applicable for both. 
+
+Both lifts are easily damaged, though the electrostatic lift seems to be moreso. Because of this, the lifts should be photographed as soon as possible after collection.
+
+Note that online sources (e.g. [Guide for Lifting Footwear and Tire Impression Evidence (03/2007)](https://www.nist.gov/system/files/documents/2016/10/26/swgtread_12_guide_for_lifting_footwear_and_tire_impression_evidence_200703.pdf)) also mention adhesive lifters, but 1) there isn’t much easily accessible information online about how they are used, and 2) the speaker of the Footwear and Tire Impression Collection Techniques workshop, Heather Connor, said that adhesive lifters are not recommended for evidence collection. 
+
+#### Casts (3D)
+
+Casting is used for 3D shoe impressions (e.g. in mud or snow). Different materials are used for different mediums and in different regions. For example, Alicia Wilcox remarked that while she uses dental stone in snow (in Maine), she knows someone in Alaska who uses sulfur due to the difference in the water content of the snow.
+
+The cast may need to be left about 30 minutes (time varying with the weather conditions and the cast mixture) before removing it from the shoeprint, and 24 hours before it hardens enough to clean the cast itself of dirt or other debris. In order to use the cast to compare, the cast may be used to create a 2D shoeprint like the known shoe techniques described below.
+
+#### Known shoe
+
+All the above techniques are used for the "questioned shoeprint," e.g. the shoeprint present at the crime scene. However, we are also interested in the "known shoe," e.g. the shoe of a person of interest and shoes collected for research purposes.
+
+Usually, the known shoes themselves as well as shoeprints made with the shoes are used. This can be done in a variety of ways. Of course, the methods listed above can be used as well.
+
+- Everspry Outsole Scanner (EverOS; 2D)
+
+- Everlast Shoeprint Scanner (EverLSS 360)
+
+- 3D scanners
+
+- Inkless technology (Sole Print from BVDA, Identicator LE-25 from Evident, Sole print inkless Shoe Print Kit from Arrowhead Forensics, EZID System from Sirchie) cf. A lecturer at 2021 IAI said Identicator LE-25 has been popularly used.
+
+- Fingerprint powder on white adhesive with cover sheet
+
+- Fingerprint powder and roller transport film (Kodak roller transport cleanup film #4955; Roller transport clean up film available from [Safco Dental Supply](www.Safcodental.com))
+
+- Powdered impression on gel lifts
+
+- Ink on clear wet media film (more of a method for tires)
+
+- Greasy mark, paper & fingerprint powder
+
+- Forensic photo table with lighting techniques
+
+- Shoe itself
+
+
+
+
 ## Longitudinal Shoe Study {#longitudinal}
 
 [Github repository](https://github.com/CSAFE-ISU/Longitudinal_Shoe_Study)

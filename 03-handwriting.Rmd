@@ -11,7 +11,7 @@ The handwriting project has four major focuses:
   3. statistical analysis
       a. glyph clustering
       b. closed set modeling for writer identification
-      c. Alexandra's project
+      c. (Arabio) point decomposition triangulation method 
       d. open set modeling for writer identification from distribution of glyphs in clusters
   4. communication of results
 
@@ -737,7 +737,11 @@ knitr::include_graphics(c("images/handwriting/amy/wolfgang_miss2.png"))
 ```
 </details>
 
-### Ali's project
+### Alexandra Arabio's project
+
+```{r}
+#add in color specific nodes, rules, and triangulation process to then upload to images folder...
+```
 
 :)
 

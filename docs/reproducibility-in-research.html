@@ -24,7 +24,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2022-02-04" />
+<meta name="date" content="2022-03-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -166,13 +166,14 @@ div.csl-indent {
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites<span></span></a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#setting-up-the-repository"><i class="fa fa-check"></i><b>1.1</b> Setting up the repository<span></span></a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#setting-up-the-repository-on-your-machine"><i class="fa fa-check"></i><b>1.1</b> Setting up the repository on your machine<span></span></a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#contributions-to-the-repository"><i class="fa fa-check"></i><b>1.2</b> Contributions to the repository<span></span></a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction<span></span></a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#guidelines-for-show-and-tell"><i class="fa fa-check"></i><b>2.1</b> Guidelines for show and tell<span></span></a></li>
 <li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#rmarkdown-how-to"><i class="fa fa-check"></i><b>2.2</b> Rmarkdown how-to<span></span></a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#literature-references"><i class="fa fa-check"></i><b>2.3</b> Literature references<span></span></a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="dummy-file.html"><a href="dummy-file.html"><i class="fa fa-check"></i><b>3</b> Dummy file<span></span></a></li>
 <li class="chapter" data-level="4" data-path="bullets.html"><a href="bullets.html"><i class="fa fa-check"></i><b>4</b> Project CC: Bullets and Cartridge Cases<span></span></a>
@@ -413,14 +414,14 @@ div.csl-indent {
 <p>We are working on improving CSAFE’s reproducibility in research.</p>
 <div id="computational-reproducibility" class="section level2 hasAnchor" number="10.1">
 <h2><span class="header-section-number">10.1</span> Computational Reproducibility<a href="reproducibility-in-research.html#computational-reproducibility" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>CSAFE’s work is driven by a goal of providing open-source research, including open-source data and open-source algorithms. We believe in transparency and honesty in research, and allowing others to see ``under the hood” of algorithms that may be used to analyze evidence.</p>
+<p>CSAFE’s work is driven by a goal of providing open-source research, including open-source data and open-source algorithms. We believe in transparency and honesty in research, and allowing others to see ``under the hood" of algorithms that may be used to analyze evidence.</p>
 <p>In the process of furthering that goal, many of our researchers implement methods and data analysis in R, an open-source scripting language often used in data science and statistics. R and python are both languages which encourage (and rely on) user-developed packages to enhance the language’s ability to perform specific data manipulation and modeling tasks.</p>
 <p>Many software packages are still under development; that is, functions and methods that exist in a package are subject to changes over time by the developers. This affects our work as statistics researchers in three major ways:<br />
 - Code to run data analyses and obtain quantitative results may be affected by package updates. This can lead to differing quantitative results and lack of reproducibility of a method.
 - Researchers’ own packages in development (e.g., bullet pipeline, shoe analysis pipeline) are vulnerable to changes in any package dependencies.<br />
 - Group collaboration efforts on a developing package can lead to miscommunications, including changes in code that affect others’ results (sorry again, Charlotte!)</p>
 <p>So, how does this practically affect CSAFE’s research teams, and how can we manage it?</p>
-<p>For example, consider the bullet analysis ``pipeline” and some of the R packages that are involved at different steps of the process (this is not exhaustive):</p>
+<p>For example, consider the bullet analysis ``pipeline" and some of the R packages that are involved at different steps of the process (this is not exhaustive):</p>
 <p><img src="images/reproducibility/pipeline_small_bullets_packages.png" width = "90%"/></p>
 <p>Just to go from a two raw x3p files to a quantitative result of a similarity score between the two bullet LEAs, we need a lot of R packages. When something in those packages change (e.g., default requirements for a <code>tidyverse</code> function), it can break our code! In addition, different people on the project may be running the same script to analyze bullets but be using different versions of packages.</p>
 <p>Because packages like <code>bulletxtrctr</code> and the methodology for different steps (e.g., groove ID, crosscut ID) are still changing and new approaches are being added, we need to be thoughtful and careful about reporting results and working to make sure our results are reproducible by other team members and outside users.</p>

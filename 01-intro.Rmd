@@ -74,5 +74,35 @@ knitr::kable(
 )
 ````
 
-You can write citations, too. For example, we are using the **bookdown** package [@R-bookdown] in this sample book, which was built on top of R Markdown and **knitr** [@xie2015].  
+
+## Literature references
+
+In order to refer to any papers you are using in your research (or have written yourself), we use the bibtex format. 
+All of our references are included in the file [book.bib](book.bib).
+For example, the bibtex entry for the paper on how the matching algorithm for bullets performs on degraded lands, is:
+
+```
+@article{icfis,
+author = {Hare, Eric and Hofmann, Heike and Carriquiry, Alicia},
+title = {Algorithmic approaches to match degraded land impressions},
+journal = {Law, Probability and Risk},
+volume = {Volume 16},
+issue = {4},
+year = {2017},
+pages = {203--221},
+doi = {10.1093/lpr/mgx018},
+URL = { + http://dx.doi.org/10.1093/lpr/mgx018},
+eprint = {/oup/backfile/content_public/journal/lpr/pap/10.1093_lpr_mgx018/2/mgx018.pdf}
+}
+```
+
+We can refer to this paper in the text here using the identifier `@icfis` (as set in the first line of the entry). Putting box brackets around the identifier `[@icfis]` will put the reference inside parenthesis. Several citations can be in the same parenthesis, then they need to be separated by a semi colon `[@icfis; @icfis]`: 
+
+and now we see this in action:
+
+- **direct reference**: ... as @icfis famously stated ...
+- **indirect reference**, single citation: ... similar to other contributions [@icfis] we ...
+- **indirect reference**, multiple citations: ... similar to other contributions [@icfis; @gkhh] we ...
+
+
 

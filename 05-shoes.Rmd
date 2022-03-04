@@ -1444,6 +1444,9 @@ pROC::ggroc(pROC::roc(test.dat$actual.matching,
 
 <img src="images/shoes/deformation_hana/Delaunay_triangulation.png" width = "80%"/>
 
+##### Hana's update on 3/4/2022
+
+I took a note about what to do next for the algorithm based on ICP and SURF, which are the ideas I got from AAFS and reading Lund's paper.
 
 
 ## A new algorithm using ICP method based on SURF to identify the source of shoe impression

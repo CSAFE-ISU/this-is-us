@@ -53,6 +53,12 @@ Additionally, we set up your system to ignore any of your locally created files 
 
 Now you are ready to make some changes!
 
+## Where should I make changes?
+
+ `bookdown` projects such as ours are organized by chapter: each chapter is in a separate Rmd file of the form `xx_csafe-project-name.Rmd`, where `xx` is a number (corresponding to the chapter number). Pick the Rmd file that best describes your project and make changes there.
+If you can't see your work in any of the projects, please let us know!
+
+
 ## Contributions to the repository
 
 Everybody is expected to add a summary of their work since the last show-and tell meeting. Think of this write-up as our joint lab book, that is organized by topic rather than chronologically.

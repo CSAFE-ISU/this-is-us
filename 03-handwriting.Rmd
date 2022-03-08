@@ -904,11 +904,73 @@ knitr::include_graphics(c("images/handwriting/mattie/hepler_plots_rocs.png"))
 knitr::include_graphics(c("images/handwriting/mattie/hepler_slrs.png"))
 ```
 
-### Relationship Between Rotation Angle and Demographic Features
-This part of the research looks specifically at rotation angles (the slant of handwriting). We are seeing if there is a relationship between slant of a writer and demographic features. We looked at demographic features such as the participant's handedness, age group, gender, and location of third-grade education.
+### 5.3.6 Regression Methods to Analyze Demographic Features with Respect to Handwriting Slant
+
+This part of the handwriting project looks specifically at rotation angles (the slant of handwriting). We are trying to see if there is a relationship between slant of a writer and demographic features. 
+
+ We include data from 140 adults with three data collection sessions, each at least three weeks apart.
+
+ At each session, participants provided information about the participant's handedness, age group, gender, and region of third-grade education.
+
+ Due to sample size, we did not include region in the models, and we combined age groups of 18-40 and all ages above 41+ for analysis. Later we 
+
+
+The slant of a writer is determined by calculating the direction of greatest variability in a graph using principal component decomposition (refer to Amy's section) and the angle of rotation corresponding to that direction. The
+principal components are calculated through an eigen-decomposition of the covariance matrix. We look at rotation angles within clusters, because there is evidence that it is more meaningful since graphs in the same cluster will have similar rotation angles. Rotation Angles are averages per person per cluster to account for the differing number of angles per person. Below are examples of possible rotatoin angles for an image and all of the rotation angles for writer 49 cluster 32 plotted on the unit circle. 
+
+```{r}
+knitr::include_graphics(c("images/handwriting/anyesha/rotangexample.png"))
+```
+
+
+```{r}
+knitr::include_graphics(c("images/handwriting/anyesha/w0049c32.png"))
+```
+
+First we look at boxplots of the demographic features plotted against the rotation angle averages. 
+
+```{r}
+knitr::include_graphics(c("images/handwriting/anyesha/ageboxplot.png"))
+```
+
+```{r}
+knitr::include_graphics(c("images/handwriting/anyesha/genderboxplot.png"))
+```
+
+```{r}
+knitr::include_graphics(c("images/handwriting/anyesha/handednessboxplot.png"))
+```
+
+Then we fit a model. We fit models using the bpnreg package in R. We fit multiple Bayesian Projected Normal Regression and Mixed Effect models using Age Group, Handedness, and Gender as the explanatory variables and Rotation Angle as the response. We only show results for the model that includes a random person effect. 
+
+Mixed Effects are useful where there are repeated measurements on the same statistical units. Here we have multiple rotation angles for writer, therefore, we fit a model with writer as the mixed effect to account for the correlation between samples from each person. 
+
+
+Some observed data summaries are shown to the for the 8 most populated clusters of graphs.
+
+
+```{r}
+knitr::include_graphics(c("images/handwriting/anyesha/boxplotpred.png"))
+```
+
+```{r}
+knitr::include_graphics(c("images/handwriting/anyeshameanval.png"))
+```
 
 
 
+No definite conclusions, but some interesting findings: 
+
+ Older writers exhibit significantly less slant than younger ones.
+
+ Within age group, women appear to show more slant.
+
+ Region of 3rd year education may be associated with slant (not enough data yet).
+
+ Strengths of these effects vary across characters.
+
+
+Next step will be to conduct a model comparison between the first 140 writers and a new batch of 100 writers. 
 
 ## Communication of Results  
 Presenting author is in bold.

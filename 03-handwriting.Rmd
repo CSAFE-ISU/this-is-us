@@ -904,7 +904,7 @@ knitr::include_graphics(c("images/handwriting/mattie/hepler_plots_rocs.png"))
 knitr::include_graphics(c("images/handwriting/mattie/hepler_slrs.png"))
 ```
 
-### 5.3.6 Regression Methods to Analyze Demographic Features with Respect to Handwriting Slant
+### Regression Methods to Analyze Demographic Features with Respect to Handwriting Slant
 
 This part of the handwriting project looks specifically at rotation angles (the slant of handwriting). We are trying to see if there is a relationship between slant of a writer and demographic features. 
 
@@ -954,7 +954,7 @@ knitr::include_graphics(c("images/handwriting/anyesha/boxplotpred.png"))
 ```
 
 ```{r}
-knitr::include_graphics(c("images/handwriting/anyeshameanval.png"))
+knitr::include_graphics(c("images/handwriting/anyesha/meanval.png"))
 ```
 
 

@@ -904,7 +904,7 @@ knitr::include_graphics(c("images/handwriting/mattie/hepler_plots_rocs.png"))
 knitr::include_graphics(c("images/handwriting/mattie/hepler_slrs.png"))
 ```
 
-### Regression Methods to Analyze Demographic Features with Respect to Handwriting Slant
+### Analyzing Demographic Features with Respect to Handwriting Slant
 
 This part of the handwriting project looks specifically at rotation angles (the slant of handwriting). We are trying to see if there is a relationship between slant of a writer and demographic features. 
 
@@ -912,7 +912,7 @@ This part of the handwriting project looks specifically at rotation angles (the 
 
  At each session, participants provided information about the participant's handedness, age group, gender, and region of third-grade education.
 
- Due to sample size, we did not include region in the models, and we combined age groups of 18-40 and all ages above 41+ for analysis. Later we 
+ Due to sample size, we did not include region in the models, and we combined age groups of 18-40 and all ages above 41+ for analysis. Later we group age into 3 categories (18-40, 41-60, and 61+). 
 
 
 The slant of a writer is determined by calculating the direction of greatest variability in a graph using principal component decomposition (refer to Amy's section) and the angle of rotation corresponding to that direction. The
@@ -941,14 +941,12 @@ knitr::include_graphics(c("images/handwriting/anyesha/genderboxplot.png"))
 knitr::include_graphics(c("images/handwriting/anyesha/handednessboxplot.png"))
 ```
 
-Then we fit a model. We fit models using the bpnreg package in R. We fit multiple Bayesian Projected Normal Regression and Mixed Effect models using Age Group, Handedness, and Gender as the explanatory variables and Rotation Angle as the response. We only show results for the model that includes a random person effect. 
+We then fit a model. We fit models using the bpnreg package in R. We fit multiple Bayesian Projected Normal Regression and Mixed Effect models using Age Group, Handedness, and Gender as the explanatory variables and Rotation Angle as the response. We only show results for the model that includes a random person effect. 
 
 Mixed Effects are useful where there are repeated measurements on the same statistical units. Here we have multiple rotation angles for writer, therefore, we fit a model with writer as the mixed effect to account for the correlation between samples from each person. 
 
 
-Some observed data summaries are shown to the for the 8 most populated clusters of graphs.
-
-
+These are the predicted rotation angles given gender, age, and handedness. 
 ```{r}
 knitr::include_graphics(c("images/handwriting/anyesha/boxplotpred.png"))
 ```
@@ -970,7 +968,7 @@ No definite conclusions, but some interesting findings:
  Strengths of these effects vary across characters.
 
 
-Next step will be to conduct a model comparison between the first 140 writers and a new batch of 100 writers. 
+Next step will be to conduct a model comparison between the first 140 writers and a new batch of 100 writers. We will also increase the number of demographic groups when we include an extra category for age.  
 
 ## Communication of Results  
 Presenting author is in bold.
@@ -981,7 +979,7 @@ Presenting author is in bold.
     - Submitted to The Annals of Applied Statistics in September 2019.
     
 - <strong>"A Database of Handwriting Samples for Applications in Forensic Statistics"</strong>
-    - Authors: Anyesha Rey, Amy Crawford, and Alicia Carriquiry
+    - Authors: Anyesha Ray, Amy Crawford, and Alicia Carriquiry
     - Submitted to Data in Brief in October 2019.
     
 - <strong>"Bayesian Hierarchical Modeling for Forensic Handwriting Analysis"</strong>
@@ -1055,6 +1053,7 @@ Presenting author is in bold.
     - American Academy of Forensic Sciences, Virtual
     - <details><summary>Click for Poster Image</summary>
     ![Poster given at AAFS 2021 Meeting](images/handwriting/mattie/Johnson_AAFS_2021.png)</details>
+
 - <strong>"Relationship Between Handwriting Slant and Demographic Features"</strong>
     - February 2021
     - Authors: Anyesha Ray and Alicia Carriquiry
@@ -1074,10 +1073,12 @@ Presenting author is in bold.
 ### Graduate Students
 
 - Amy Crawford
+- Mattie Johnson
+- Alexandra Arabio
+- Anyesha Ray
 
 ### Undergraduates
 
-- Anyesha Ray (data collection)
 - James Taylor (feature extraction)
 
 ## Deep Learning Methods

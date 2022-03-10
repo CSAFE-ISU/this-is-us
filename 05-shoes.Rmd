@@ -1515,6 +1515,9 @@ pROC::ggroc(pROC::roc(test.dat$actual.matching,
 
 I took a note about what to do next for the algorithm based on ICP and SURF, which are the ideas I got from AAFS and reading Lund's paper.
 
+##### Hana's update on 3/9/2022
+
+I wrote the introduction and method sections of the manuscript about the algorithm using SURF and ICP. There are things I didn't complete in the introduction part, but left footnotes to discuss with co-authors and to finish the first version of manuscript. Method section consists of three subsections--Alignment, Similarity measurements, and Prediction--, and the first two sections were complete.
 
 ## A new algorithm using ICP method based on SURF to identify the source of shoe impression
 

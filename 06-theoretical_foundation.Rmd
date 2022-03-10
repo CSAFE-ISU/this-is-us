@@ -784,19 +784,18 @@ Hence, we consider two differnt ways to average out, and the description and exa
 
 - Average of the values of TPRs and FPRs by threshold value
 
-```{r, echo = FALSE, fig.cap="", out.width="95%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/foundations/optimal_rule/avg-ROC-remedy1.PNG")
-```
+
+<img src="images/foundations/optimal_rule/avg-ROC-remedy1.png" width = "95%"/>
+
 
 - Average of cumulatively largest vause of TPR in each bin for FPR.
 
-```{r, echo = FALSE, fig.cap="", out.width="95%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/foundations/optimal_rule/avg-ROC-remedy2-1.PNG")
-```
 
-```{r, echo = FALSE, fig.cap="", out.width="47.5%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/foundations/optimal_rule/avg-ROC-remedy2-2.PNG")
-```
+<img src="images/foundations/optimal_rule/avg-ROC-remedy2-1.png" width = "95%"/>
+
+
+<img src="images/foundations/optimal_rule/avg-ROC-remedy2-2.png" width = "47%"/>
+
 
 Like above, two types of average ROC curves will be provided for comparing the performance of several methods.
 
@@ -889,7 +888,7 @@ out.multi("uni.Sg.2")
 ```
 
 ```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/foundations/optimal_rule/uni.Sg.2_simulation.PNG")
+knitr::include_graphics("images/foundations/optimal_rule/uni.Sg.2_simulation.png")
 ```
 
 
@@ -900,7 +899,7 @@ out.multi("uni.Sg.3")
 ```
 
 ```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/foundations/optimal_rule/uni.Sg.3_simulation.PNG")
+knitr::include_graphics("images/foundations/optimal_rule/uni.Sg.3_simulation.png")
 ```
 
 
@@ -911,7 +910,7 @@ out.multi("uni.Sg.5")
 ```
 
 ```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/foundations/optimal_rule/uni.Sg.5_simulation.PNG")
+knitr::include_graphics("images/foundations/optimal_rule/uni.Sg.5_simulation.png")
 ```
 
 
@@ -922,7 +921,7 @@ out.multi("uni.Sp.2")
 ```
 
 ```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/foundations/optimal_rule/uni.Sp.2_simulation.PNG")
+knitr::include_graphics("images/foundations/optimal_rule/uni.Sp.2_simulation.png")
 ```
 
 
@@ -933,7 +932,7 @@ out.multi("uni.Sp.3")
 ```
 
 ```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/foundations/optimal_rule/uni.Sp.3_simulation.PNG")
+knitr::include_graphics("images/foundations/optimal_rule/uni.Sp.3_simulation.png")
 ```
 
 
@@ -944,7 +943,7 @@ out.multi("uni.Sp.5")
 ```
 
 ```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/foundations/optimal_rule/uni.Sp.5_simulation.PNG")
+knitr::include_graphics("images/foundations/optimal_rule/uni.Sp.5_simulation.png")
 ```
 
 
@@ -955,7 +954,7 @@ out.multi("multi.Sg.2.d2")
 ```
 
 ```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/foundations/optimal_rule/multi.Sg.2.d2_simulation.PNG")
+knitr::include_graphics("images/foundations/optimal_rule/multi.Sg.2.d2_simulation.png")
 ```
 
 
@@ -966,7 +965,7 @@ out.multi("multi.Sg.3.d2")
 ```
 
 ```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/foundations/optimal_rule/multi.Sg.3.d2_simulation.PNG")
+knitr::include_graphics("images/foundations/optimal_rule/multi.Sg.3.d2_simulation.png")
 ```
 
 
@@ -977,7 +976,7 @@ out.multi("multi.Sg.5.d2")
 ```
 
 ```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/foundations/optimal_rule/multi.Sg.5.d2_simulation.PNG")
+knitr::include_graphics("images/foundations/optimal_rule/multi.Sg.5.d2_simulation.png")
 ```
 
 
@@ -988,7 +987,7 @@ out.multi("multi.Sg.3.d3")
 ```
 
 ```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/foundations/optimal_rule/multi.Sg.3.d3_simulation.PNG")
+knitr::include_graphics("images/foundations/optimal_rule/multi.Sg.3.d3_simulation.png")
 ```
 
 
@@ -999,7 +998,7 @@ out.multi("multi.Sg.3.d5")
 ```
 
 ```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/foundations/optimal_rule/multi.Sg.3.d5_simulation.PNG")
+knitr::include_graphics("images/foundations/optimal_rule/multi.Sg.3.d5_simulation.png")
 ```
 
 
@@ -1010,7 +1009,7 @@ out.multi("multi.Sp.2.d2")
 ```
 
 ```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/foundations/optimal_rule/multi.Sp.2.d2_simulation.PNG")
+knitr::include_graphics("images/foundations/optimal_rule/multi.Sp.2.d2_simulation.png")
 ```
 
 
@@ -1021,7 +1020,7 @@ out.multi("multi.Sp.3.d2")
 ```
 
 ```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/foundations/optimal_rule/multi.Sp.3.d2_simulation.PNG")
+knitr::include_graphics("images/foundations/optimal_rule/multi.Sp.3.d2_simulation.png")
 ```
 
 
@@ -1032,7 +1031,7 @@ out.multi("multi.Sp.5.d2")
 ```
 
 ```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/foundations/optimal_rule/multi.Sp.5.d2_simulation.PNG")
+knitr::include_graphics("images/foundations/optimal_rule/multi.Sp.5.d2_simulation.png")
 ```
 
 
@@ -1043,7 +1042,7 @@ out.multi("multi.Sp.3.d3")
 ```
 
 ```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/foundations/optimal_rule/multi.Sp.3.d3_simulation.PNG")
+knitr::include_graphics("images/foundations/optimal_rule/multi.Sp.3.d3_simulation.png")
 ```
 
 
@@ -1054,7 +1053,7 @@ out.multi("multi.Sp.3.d5")
 ```
 
 ```{r, echo = FALSE, fig.cap="", out.width="100%", fig.keep="hold", fig.align='center',fig.show='hold'}
-knitr::include_graphics("images/foundations/optimal_rule/multi.Sp.3.d5_simulation.PNG")
+knitr::include_graphics("images/foundations/optimal_rule/multi.Sp.3.d5_simulation.png")
 ```
 
 

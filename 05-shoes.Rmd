@@ -1,5 +1,139 @@
 # Shoes {#shoes}
 
+## Introduction to Footwear Evidence 
+
+### What is footwear evidence?
+
+Footwear evidence usually refers to imprints made by shoes in some medium. These imprints can either be 2D (e.g. a shoeprint made of dust or blood on a tile floor) or 3D (e.g. a shoeprint made in mud or snow). Less commonly, footwear evidence may also refer to shoes themselves. For example, a woman’s body was found with boots that had scuff marks on the side that prosecutors claimed to be evidence of her body being dragged across the length of her ex-husband’s driveway. However, we will focus on shoeprints rather than shoes themselves.
+
+### How footwear evidence is gathered
+
+#### Photography (2D and 3D)
+
+Photographs are usually the first step in the collection of footwear evidence because photography does not risk damaging the evidence. The photographer makes use of a DSLR camera with ideally a 50 mm prime lens (or a zoom lens where the lens is set between 35 and 50 mm), around f/8, and an ISO of around 400. (Keeping the focal length between 35 and 50 mm reduces the distortion.)
+
+In order to reduce shakiness and maintain a view parallel to the ground, it’s essential to use a tripod and some way of ensuring the lens of the camera is perpendicular to the ground. To properly light the shoeprint, an external flash placed at an oblique angle is used. Usually at least 4 pictures are taken (with the flash being placed above, to the right, below, and to the left of the camera, respectively for each of the 4 shots). A remote shutter release is not strictly essential but does reduce shakiness and speeds the process up. 
+
+Other than the shoeprint itself, an L scale should be placed at the same level as the bottom part of the impression. This scale will later be used to size and adjust the perspective of the shoeprint. This is easy for 2D impressions but may require additional work for 3D impressions. For example, if there’s a 1-inch deep impression made in mud, you must dig a 1-inch deep area around the impression to place the L scale. A direction indicator should also be placed near the impression. (Often, this indicates north, but it can also indicate the direction to the area the body was found, or in the case of a vertical footprint on a wall, it could indicate "up.") The L scale, footprint, and direction indicator should fill the photo as much as possible; leave as little empty space as possible so that as much detail of the shoeprint is captured as possible.
+
+#### Gel lifter & electrostatic dust print lifter (2D)
+
+Different crime labs prefer different collection methods. Again, photography is recommended first because the shoeprint may be damaged in the process of attempting to do the lift. 
+
+Dust or powder impressions can be found on various types of surface at a crime scene where they may be wet or dried. Such impressions can sometimes be detected with the naked eye, but they can be detected much more easily with oblique light. They can then be collected with a gel lifter or an electrostatic dust print lifter (EDPL). 
+
+Gelatin lifter is made of a black gel layer on a flexible woven surface. Once it is placed on the impression, the dust and powder particles forming the impression stick to the gel so that the impression is collected on the lifter. There has been some research on the method for placing and lifting the gel so as not to distort the evidence. 
+
+EDPL operates by creating static electricity on a plastic film placed on the impression, and attracting the fine particles onto the film. As a relatively small portion of dust is taken from the impression by EDPL, and the rest is preserved, it is regarded as to be “non-destructive,” so it is recommended to be applied before gel lifters are used. On the other hand, EDPL works well on loose dry particles, but not on wet substrates while gel lifters are generally applicable for both. 
+
+Both lifts are easily damaged, though the electrostatic lift seems to be moreso. Because of this, the lifts should be photographed as soon as possible after collection.
+
+Note that online sources (e.g. [Guide for Lifting Footwear and Tire Impression Evidence (03/2007)](https://www.nist.gov/system/files/documents/2016/10/26/swgtread_12_guide_for_lifting_footwear_and_tire_impression_evidence_200703.pdf)) also mention adhesive lifters, but 1) there isn’t much easily accessible information online about how they are used, and 2) the speaker of the Footwear and Tire Impression Collection Techniques workshop, Heather Connor, said that adhesive lifters are not recommended for evidence collection. 
+
+#### Casts (3D)
+
+Casting is used for 3D shoe impressions (e.g. in mud or snow). Different materials are used for different mediums and in different regions. For example, Alicia Wilcox remarked that while she uses dental stone in snow (in Maine), she knows someone in Alaska who uses sulfur due to the difference in the water content of the snow.
+
+The cast may need to be left about 30 minutes (time varying with the weather conditions and the cast mixture) before removing it from the shoeprint, and 24 hours before it hardens enough to clean the cast itself of dirt or other debris. In order to use the cast to compare, the cast may be used to create a 2D shoeprint like the known shoe techniques described below.
+
+#### Known shoe
+
+All the above techniques are used for the "questioned shoeprint," e.g. the shoeprint present at the crime scene. However, we are also interested in the "known shoe," e.g. the shoe of a person of interest and shoes collected for research purposes.
+
+Usually, the known shoes themselves as well as shoeprints made with the shoes are used. This can be done in a variety of ways. Of course, the methods listed above can be used as well.
+
+- Everspry Outsole Scanner (EverOS; 2D)
+
+- Everlast Shoeprint Scanner (EverLSS 360)
+
+- 3D scanners
+
+- Inkless technology (Sole Print from BVDA, Identicator LE-25 from Evident, Sole print inkless Shoe Print Kit from Arrowhead Forensics, EZID System from Sirchie) cf. A lecturer at 2021 IAI said Identicator LE-25 has been popularly used.
+
+- Fingerprint powder on white adhesive with cover sheet
+
+- Fingerprint powder and roller transport film (Kodak roller transport cleanup film #4955; Roller transport clean up film available from [Safco Dental Supply](www.Safcodental.com))
+
+- Powdered impression on gel lifts
+
+- Ink on clear wet media film (more of a method for tires)
+
+- Greasy mark, paper & fingerprint powder
+
+- Forensic photo table with lighting techniques
+
+- Shoe itself
+
+### How footwear examination is done now
+
+Footwear examination is done by footwear examiners, who are usually separate from the people who collect the evidence at the crime scene, i.e. crime scene investigators. They may work in a different department or even at a separate crime lab that receives evidence from many different police departments. 
+
+Other than side by side comparisons of the questioned shoeprint and the known shoe/shoeprint, examiners also use overlay with transparencies.
+
+Examiners use Photoshop to adjust the perspective of the object in photos, brightness, contrast and total range, and to calibrate the size using the L scale in the photo. Processed photos are then compared on screen by overlaying the questioned and known image and coloring the two images differently. The transparency of images can be adjusted in Photoshop, so one of the images can be converted to a relatively transparent image when it is overlaid over the other to see the similarity and differences. Printed images are likely to have lower resolution, and thus lose the detailed information.
+
+#### What do examiners look for?
+
+##### Class characteristics
+
+Class characteristics are size, physical shape (left vs. right), outsole design, and manufacturing variables. Some people also classify "general wear" under class characteristics as well. Most footwear comparisons are class comparisons. In fact, William Bodziak claimed that 90-95% of comparisons are class comparisons. 
+
+Size is more complicated than it might seem. The physical size of the outsole often differs from the labeled/marketed shoe size. This is because the same outsole can be used for more than one shoe size; for example, the same outsole could be used for sizes 6-8. Usually, only physical sizing may be determined, unless there is an imprint of the labeled shoe size. Footwear examiners and researchers should thus be wary of saying that a shoeprint is a certain size. 
+
+Design is more or less self-explanatory. A couple things that footwear examiners pay attention to is the number of a certain element (e.g. the number of circles lining the edge of the outsole) and where an element intersects with another element (e.g. what part of the zig zag pattern intersects with the edge of the shoe). Also note how size and design can be related: some elements of the shoe design could increase in size with the shoe while other elements only increase in number. 
+
+The way the shoe was manufactured can also give the examiner information. Some shoes, mostly flip-flops and sandals, are cut; the overall pattern is printed out and then the outsole is cut out from that sheet, leading to a more random distribution of the pattern. Other shoes are made from molds. (William Bodziak said 99% are made from molded outsoles, a few of which are then trimmed to their final dimensions.) Nowadays molds are usually created with Computer Aided Design - Computer Aided Manufacture (CAD-CAM), which result in identical molds. Hand-milled molds used to be more common, and each mold was different. Regardless, after the mold is created, texture is added to each mold. Texture is usually created either with hand-struck stippling or acid etching, both of which tend to result in some uniqueness in position/pattern, allowing the examiner to identify that two shoes were made from the same/different mold if there is enough texture detail present. Note, however, that Nike Air Force 1s and similar Nike models are an exception; a pre-molded insert is used for each shoe size for the star texture in the toe and heel, so, for those Nike designs only, same size molds will share identical texture in the toe and heel area. (The texture on the other parts of the outsoles will still differ mold to mold.)
+
+General wear refers to the wearing away of some elements of the shoe (e.g. the heel area). Examiners can compare the amount and location of wear between two shoes/shoeprints. Note, however, that wear changes over time, and thus the examiner must be aware of when the crime took place and when the shoe of the person of interest was collected.
+
+##### Randomly Acquired Characteristics (RACs)
+
+Unless a shoe design is incredibly rare, class characteristics do not allow an examiner to make an identification conclusion. That’s where randomly acquired characteristics (RACs) come in. RACs include cuts/scratches, tears, holes, abrasions, stone holds, additional debris, and extreme wear. Asymmetric RACs (e.g. scratch) are considered more unique than symmetric ones (e.g. circle) because a different position of the RAC is identifiable as different. Examiners use multiple RACs to make an identification conclusion. 
+
+The Schallamach pattern is a ridge-like design produced by the erosion of the outsole in contact with a surface. Footwear examiners compare the Schallamach pattern to a fingerprint. Because the pattern is so shallow, it can change in 6 hours of wear according to Alicia Wilcox. 
+
+### Common shoe designs
+
+According to Jon Byrd, the most common shoe design in crime scenes (and the most sold shoe in the U.S.) is the Nike Air Force 1. In contrast, Kent Timothy said he mostly sees Vans and Converse shoes. The prevalence of a given shoe design thus varies across the U.S. However, all three of these shoe designs are common enough that most, if not all, of the footwear workshops focused on distinguishing different designs/molds of each of these three designs. Also note that the most popular shoe designs often also have knockoff or counterfeit versions.
+
+### How often is footwear evidence used?
+
+Footwear evidence is very common at the scene of the crime. As one speaker at the conference noted, criminals can use gloves to cover their hands but often don’t take steps to cover their shoes (pun unintended). However, it seems that footwear evidence is not actually often used in the U.S. (though it may be used more often in other countries such as Great Britain). 
+
+How did I come to this conclusion? At the Footwear Comparisons for the Experienced Examiner workshop, Alicia Wilcox made the remark that there are few footwear examiners (and especially experienced footwear examiners) in the U.S. That advanced workshop only had ~12 participants in comparison to the Basic Footwear Comparisons which had many more (maybe ~30), the latter having participants who were inexperienced footwear examiners as well as prospective footwear examiners (some who may have been uncertain about becoming a footwear examiner). (These numbers are rough estimates as I didn’t think to record them at the time. However, I felt that the former workshop was less than a third full, and the latter was almost completely full.) Additionally, in all three footwear workshops I attended, the speakers made remarks about footwear rarely being collected. These two factors may be a chicken and egg story.
+
+There are three reasons for the low usage of footwear evidence that I can think of and/or have been referenced by the speakers at the workshops. 
+
+First is that collecting footwear evidence takes time. Crime scene investigators are often on a time crunch which varies with the severity of the crime. For example, they may be expected to finish collecting all evidence at a burglary in 30 minutes but given more leeway for a murder. 
+
+Second is that footwear examiners may need a long time (even weeks) to fully analyze a pair of shoeprints. 
+
+Third is that footwear examiners often don’t come to a decisive conclusion (i.e. exclusion or identification) and instead conclude something weaker (e.g. association of class characteristics). (See [SWGTREAD](https://www.nist.gov/system/files/documents/2016/10/26/swgtread_10_range_of_conclusions_standard_for_footwear_and_tire_impression_examinations_201303.pdf) for standards on footwear conclusions.) Investigators may become frustrated at what they view as non-answers. 
+
+
+### What questions are open/interesting?
+
+Note that footwear examination is currently purely qualitative. How could we apply a quantitative/statistical approach?
+
+One way is to find out how accurate current (or proposed) practices are. These are known as black box studies. Although we do not know exactly how examiners come up with their answers, we can measure false positive rates, false negative rates, etc. There are some issues that may arise from such studies. For example, these studies are often not done in a way that mimics casework, and examiners are aware it is a “test” rather than “real” and thus may change their behavior; however, it can be argued that such a study will still give an approximate accuracy which is better than nothing, and moreover it is much more difficult to conduct a “more realistic” study. Another issue is how to deal with “inconclusives.” In the case of footwear evidence, SWGTREAD’s proposed standards for footwear conclusions have two “conclusive” answers (i.e. exclusion and identification) and five “inconclusive” answers (i.e. lacks sufficient detail, indications of non-association, limited association of class characteristics, association of class characteristics, high degree of association). How do we treat these inconclusive answers in our calculations of accuracy?
+
+Other questions we can ask are lower-level. For instance, since we often can only identify class characteristics, we may want to ask how common a shoe of some size and design is. While we may be able to obtain sales data, how does that sales data correspond to the shoes people wear in real life? Does the frequency of a particular shoe change depending on the geographical region, time of year, day of the week, whether the area is urban vs rural, etc? Since thousands of new designs are released every year, this exact question of frequency of a particular size/design may be infeasible to answer. Instead, we may want to ask a more general question such as the frequency of a flower design. Vanderplas, Stack, UNL; Stone, Fales, ISU are currently working on a project to answer this question. They’ve built a scanner that can be walked across, and several scanners will be installed across Ames in high-traffic areas. The goal is to collect many images of shoe soles, identify different elements in the soles, and compute the frequency of different elements.
+
+RACs are also a key part of footwear evidence analysis. Since RACs are often used for identification, we’d like to know how common/rare different RACs and their locations are. Also, are footwear examiners good at identifying RACs? A small study was done by Stern, Katz, Kaplan-Damary, UCI. A member of the audience at Alicia Carriquiry’s talk at IAI made some suggestions for further studies: 1) ground truth could be determined by taking a scan of a new shoe and comparing it to the shoe after it’s worn; 2) the identification of RACs should be done by footwear examiners rather than students trained by footwear examiners; and 3) the examiners should also be provided with the actual shoe instead of just the shoeprint. 
+
+Finally, can we make a directly quantitative comparison between two pieces of footwear evidence? For example, can we create a similarity score that distinguishes between matches and non-matches? Park, Carriquiry, Lee, Han, ISU have worked and/or are working on quantifying the similarity between 2D shoeprint scans. 
+
+There are so many other interesting questions we are interested in. For example, in what way and how much do shoes deform when walking, running, etc in comparison to stepping straight on and off? How does weight and/or height affect a person’s shoeprint? How do jurors view/understand the SWGTREAD conclusions?
+
+Many of these questions are complicated by the variety of footwear evidence. Footwear evidence can be a whole shoeprint or a partial one, 2D or 3D, be made in different matrix/substrate conditions, made while running/walking/etc., the known shoe could be collected months later or immediately, etc. In any given study, we must make a choice about the type of footwear evidence we consider. 
+
+See the [OSAC Footwear and Tire Committee](https://www.nist.gov/osac/footwear-tire-subcommittee) for more research areas.
+
+### Current work
+
+[to be filled in by different project members]
+
+
 ## Longitudinal Shoe Study {#longitudinal}
 
 [Github repository](https://github.com/CSAFE-ISU/Longitudinal_Shoe_Study)
@@ -1444,7 +1578,13 @@ pROC::ggroc(pROC::roc(test.dat$actual.matching,
 
 <img src="images/shoes/deformation_hana/Delaunay_triangulation.png" width = "80%"/>
 
+##### Hana's update on 3/4/2022
 
+I took a note about what to do next for the algorithm based on ICP and SURF, which are the ideas I got from AAFS and reading Lund's paper.
+
+##### Hana's update on 3/9/2022
+
+I wrote the introduction and method sections of the manuscript about the algorithm using SURF and ICP. There are things I didn't complete in the introduction part, but left footnotes to discuss with co-authors and to finish the first version of manuscript. Method section consists of three subsections--Alignment, Similarity measurements, and Prediction--, and the first two sections were complete.
 
 ## A new algorithm using ICP method based on SURF to identify the source of shoe impression
 

@@ -3777,6 +3777,31 @@ I was hoping to hear from the group if they had any additional ideas about featu
 
 </details>
 
+<details>
+<summary>
+Joe 4/1/22 Update: We received additional, interesting comments from the reviewers for our cmcR paper.
+</summary>
+
+It seems that we have reached a philosophical impasse with one of the reviewers of our cmcR paper who does "not believe the creation of an open-source tool merits a peer-reviewed journal paper."
+Keep in-mind that we submitted this to the RJournal that publishes many peer-reviewed papers about open-source tools.
+We're still working on how to best approach the reviewers' comments.
+
+Additionally, we have been working more on the visual diagnostic tools that I discussed in my last spotlight. 
+Below is an example showing a set of features calculated on around 10,000 cartridge case pairs using the entire scans as opposed to the "normal" CMC procedure that involves calculating these features per cell pair.
+We can clearly see that there is some separation between matches and non-matches, indicating that our derived features are informative.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-1-22_update/wholeScanDiagnosticFeatures.png")
+```
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-1-22_update/wholeScanCMCFeatures.png")
+```
+
+
+
+</details>
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
 The moified Chumbley non-random algorithm is a statistical non-parametric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segment to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 

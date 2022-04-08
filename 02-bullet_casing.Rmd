@@ -3798,6 +3798,27 @@ knitr::include_graphics("images/cartridge_cases/4-1-22_update/wholeScanDiagnosti
 knitr::include_graphics("images/cartridge_cases/4-1-22_update/wholeScanCMCFeatures.png")
 ```
 
+</details>
+
+<details>
+<summary>
+Joe 4/1/22 Update: I have been working on edits to the R Journal submission and calculating more visual diagnostic features.
+</summary>
+
+The plots below are updates of the plots I shared last week. The previous plots showed the features based on around 10,000 comparisons while the plot below shows features from 21,945 comparisons.
+
+The first plot shows the distribution of the alignment-based features when comparing full scans. We can see that there is a difference between the matching and non-matching comparisons in the correlation values (both the FFT-based and pairwise-complete correlation) and in the variability of the x,y,theta values.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-8-22_update/alignmentFeatures_fullScans.png")
+```
+
+The plot below shows the visual diagnostic features that I discussed briefly in my last spotlight.
+I plan on going into greater detail in my next spotlight (in two weeks), but suffice to say that it looks like our features are "working" the way they should.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-8-22_update/visualDiagnosticFeatuers_fullScans.png")
+```
 
 
 </details>

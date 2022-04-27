@@ -1,3 +1,7 @@
+---
+bibliography: book.bib
+---
+
 # Reproducibility in Research  
 
 We are working on improving CSAFE's reproducibility in research.  
@@ -87,6 +91,56 @@ However, we have also quickly identified specific functions which differ across 
   - Symposium on Data Science and Statistics (SDSS)  
 4. Personal: Submit final dissertation, find a job  
 
+
+## State of Computational Reproducibility in Forensic Science
+
+```{r}
+library(tidyverse)
+```
+
+### Introduction
+
+Inspired by @stagge_assessing_2019 and @hall_hydrologists_2022, we want to understand the current state of computational reproducibility in forensic science research.
+
+The reproducibility of research can be inspected from different perspectives. @stagge_assessing_2019 conducted a survey and the survey questions are presented in the figure below.
+
+```{r surveyhydrology, echo=FALSE}
+knitr::include_graphics("images/reproducibility/accessibility_survey.jpeg")
+```
+
+What we get from these survey questions is that research can be reproducible to different extend, and we need to define "how reproducible" the research work is. Some preliminary ideas that definitely need to be refined are:
+
+- data available?
+  - online/public/open-source?
+  - not public and need to contact the authors?
+  - not accessible at all?
+- code available?
+  - platform/software
+  - version number
+  - instructions
+- able to reproduce the computational results?
+  - quantitatively?
+  - qualitatively?
+  - ...
+- ...
+
+And before we dive into the general area of reproducible research, we will firstly focus on papers from Journal of Forensic Sciences (JFS)  and Forensic Science International (FSI) in the past two or three years that are in the area related to pattern evidence, algorithms, or computational methods.
+
+Currently, we are able to web-scrape all the papers of JFS in year 2020 and 2021 (with `polite`, which is an R package worth being checked out if doing web-scraping).
+
+```{r, echo=FALSE}
+paper <- readRDS("images/reproducibility/data/JFS_2020-2021.rds")
+paper %>% unnest(data)
+```
+
+### Next step
+
+- 04.27.2022
+  - We will filter out papers that are not in our focused area and find related papers of the left ones
+  - the related papers are identified by the recommendation system of the JFS website. So we will try to scrape the recommendation section of the webpage.
+  - our hope is that the recommendation system forms a closed set of papers. Then we will be able to get finite number of papers related to the topic we are focusing.
+  - once we finish collecting the papers and have a good idea of how to measure reproducibility, we will start the process of evaluating the reproducibility of the collected papers (or a subset of the collection if it's too big).
+  
 
 
 

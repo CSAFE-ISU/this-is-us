@@ -118,7 +118,7 @@ commit and push often to avoid conflicts with your collaborators.
 5.  *build*: Make sure that your changes don't introduce any technical
     problems. Also spellcheck your work. The html is living online,
     openly visible. Documents with lots of typos don't show us at our
-    best.
+    best. 
 
 6.  *commit*: commits are git's way of saving things. Try to be as
     specific in your commit message as you can.

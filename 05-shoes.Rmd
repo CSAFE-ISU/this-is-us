@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Shoes {#shoes}
 
 ## Introduction to Footwear Evidence 
@@ -1740,7 +1745,7 @@ I finished creating data sets for Nike shoes. I created 6 dataframes, one for ea
 I am in the process of analyzing and writing up the datasets I have created for Nike. 
 
 
-### Methods to Address Dependence in Score-based Likelihood Ratios (SLRs)
+## Methods to Address Dependence in Score-based Likelihood Ratios (SLRs)
 
 The score-based likelihood ratio (SLR) and the likelihood ratio (LR) are two ways of quantifying the strength of evidence and have been used in many areas of forensics, including footwear analysis. In forensics, the SLR is distinguished from the LR in that the SLR uses ``scores" that are computed from pairs, instead of the features used by the LR. (The features used in the LR are from individuals.) For example, the LR may use the heights of individuals, while the SLR uses the difference in heights between pairs of individuals. Often, the SLR also only uses one score instead of the multiple features used in the LR, providing lower dimensionality when compared with the LR.
 

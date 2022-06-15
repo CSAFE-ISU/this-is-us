@@ -1739,3 +1739,34 @@ I finished creating data sets for Nike shoes. I created 6 dataframes, one for ea
 *February 15th 2020, Matias Ibarburu*
 I am in the process of analyzing and writing up the datasets I have created for Nike. 
 
+
+### Methods to Address Dependence in Score-based Likelihood Ratios (SLRs)
+
+The score-based likelihood ratio (SLR) and the likelihood ratio (LR) are two ways of quantifying the strength of evidence and have been used in many areas of forensics, including footwear analysis. In forensics, the SLR is distinguished from the LR in that the SLR uses ``scores" that are computed from pairs, instead of the features used by the LR. (The features used in the LR are from individuals.) For example, the LR may use the heights of individuals, while the SLR uses the difference in heights between pairs of individuals. Often, the SLR also only uses one score instead of the multiple features used in the LR, providing lower dimensionality when compared with the LR.
+
+
+Given scores $s_1,\dots, s_k$ where each $s_i$ is computed from a pair of shoeprints $A$ and $B$, the SLR is defined as 
+\begin{equation*}
+    \textrm{SLR} = \frac{f(s_1,\dots, s_k| A,B \textrm{ are from the same shoe})}{f(s_1,\dots, s_k| A,B \textrm{ are from different shoes})},
+\end{equation*}
+where $f(s_1,\dots, s_k| A,B \textrm{ are from the same shoe})$ and\\ $f(s_1,\dots, s_k| A,B \textrm{ are from different shoes})$ are densities for the scores $s_1,\dots, s_k$ under two different hypotheses.
+
+In order to estimate the SLR, each of these densities must be estimated using a background population. Scores are computed from pairs from the dataset and then the density of those scores is estimated. In general, the scores do not follow a known parametric form, especially when $k\geq 2$. Kernel density estimation (KDE) is a common nonparametric method of density estimation. However, as with most density estimation methods, the data are assumed to be independent. Scores computed from pairs are not independent when those individuals repeat in the pairs. Although we may naively take a small independent set of pairs to compute independent scores, this drastically reduces the size of our dataset. Our research centers on exploring how the dependence affects the accuracy of the SLR and on developing methods that address the dependence without discarding such a large part of the dataset. 
+
+
+This research focuses on footwear evidence, though the methods of dealing with dependence are more widely applicable. We use the CSAFE footwear dataset. Park and Carriquiry (2020) proposed a method based on the idea of a maximal clique to find the best alignment for a pair of shoeprint images. Once two images are aligned, variables can be measured that may help quantify the closeness between the aligned images. Three variables are considered: maximal clique size, percent of overlapping features in the two images, and median Euclidean distance between overlapping features. 
+
+Three proposed methods, two default methods
+
+
+Recently:
+
+- Obtained results for right/left dependence
+
+- Wrote more: mostly expanded methods and results section
+
+- Realized that KM data is missing a lot of right shoes for some reason
+
+
+
+

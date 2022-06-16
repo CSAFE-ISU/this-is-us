@@ -346,7 +346,7 @@ This allows to verify if the conclusion reached by the algorithms will change su
 
 Let $SLR_{ir}$ denote the case of the i-th observation in the validation set and the log10 output value for the r-th repetition.
 
-#### Results 
+#### Results  
 
 ##### Performance metric E1
 
@@ -356,7 +356,15 @@ Let $SLR_{ir}$ denote the case of the i-th observation in the validation set and
 
 ##### Gains metric E1
 
+Another way of looking at the previous result is considering:
+
+$$ESLR-SLR$$
+
+![Gains E1, selected iterations. ](images/foundations/Output%20CSAFE%20WRITERS/Gains.png)
+
 ##### Tile metric E1
+
+ESLR category vs SLR category.
 
 ![Tile metric](images/foundations/Output%20CSAFE%20WRITERS/FUSS_SLR.png)
 

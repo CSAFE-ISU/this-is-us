@@ -1761,8 +1761,21 @@ In order to estimate the SLR, each of these densities must be estimated using a 
 
 This research focuses on footwear evidence, though the methods of dealing with dependence are more widely applicable. We use the CSAFE footwear dataset. Park and Carriquiry (2020) proposed a method based on the idea of a maximal clique to find the best alignment for a pair of shoeprint images. Once two images are aligned, variables can be measured that may help quantify the closeness between the aligned images. Three variables are considered: maximal clique size, percent of overlapping features in the two images, and median Euclidean distance between overlapping features. 
 
-Three proposed methods, two default methods
 
+Two ``default" methods:
+
+1. Ignoring dependence
+
+2. Naive independent set
+
+Three proposed methods:
+
+1. Average each of the three variables over pairs of shoes
+
+2. Independent set for bandwidth selection
+
+3. Computing KDE for multiple independent sets and averaging
+the estimated densities
 
 Recently:
 

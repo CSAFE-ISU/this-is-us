@@ -2777,7 +2777,18 @@ that may help quantify the closeness between the aligned images. Three
 variables are considered: maximal clique size, percent of overlapping
 features in the two images, and median Euclidean distance between
 overlapping features.</p>
-<p>Three proposed methods, two default methods</p>
+<p>Two ``default" methods:</p>
+<ol style="list-style-type: decimal">
+<li><p>Ignoring dependence</p></li>
+<li><p>Naive independent set</p></li>
+</ol>
+<p>Three proposed methods:</p>
+<ol style="list-style-type: decimal">
+<li><p>Average each of the three variables over pairs of shoes</p></li>
+<li><p>Independent set for bandwidth selection</p></li>
+<li><p>Computing KDE for multiple independent sets and averaging
+the estimated densities</p></li>
+</ol>
 <p>Recently:</p>
 <ul>
 <li><p>Obtained results for right/left dependence</p></li>

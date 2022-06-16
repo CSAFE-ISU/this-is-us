@@ -411,6 +411,9 @@ hanas-update-on-411
 hanas-update-on-342022
 hanas-update-on-392022
 a-new-algorithm-using-icp-method-based-on-surf-to-identify-the-source-of-shoe-impression
+hanas-update-on-6162022
+shoe-comparisons-through-time
+nike
 methods-to-address-dependence-in-score-based-likelihood-ratios-slrs
 theoretical-foundations
 explaining-slr-behavior

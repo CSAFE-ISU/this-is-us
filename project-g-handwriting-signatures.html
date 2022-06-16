@@ -211,6 +211,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#interesting-documents"><i class="fa fa-check"></i><b>5.3.3</b> Interesting documents</a></li>
 <li class="chapter" data-level="5.3.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#alexandra-arabios-project"><i class="fa fa-check"></i><b>5.3.4</b> Alexandra Arabio’s project</a></li>
 <li class="chapter" data-level="5.3.5" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#open-set-modeling-for-writer-identification-from-distribution-of-glyphs-in-clusters"><i class="fa fa-check"></i><b>5.3.5</b> Open Set Modeling for Writer Identification from Distribution of Glyphs in Clusters</a></li>
+<li class="chapter" data-level="5.3.6" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#analysis-of-handwriting-slant-with-respect-to-demographic-features"><i class="fa fa-check"></i><b>5.3.6</b> Analysis of Handwriting Slant with Respect to Demographic Features</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#communication-of-results"><i class="fa fa-check"></i><b>5.4</b> Communication of Results</a><ul>
 <li class="chapter" data-level="5.4.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#papers"><i class="fa fa-check"></i><b>5.4.1</b> Papers</a></li>
@@ -1189,10 +1190,13 @@ Figure 5.55: A training sample from the other writer with off-diagonal assignmen
 <p>The discrimination of the three SLRs across the three selected writers within the CSAFE database can be visually compared across the three selected writers with ROC curves. There are two different random forests implemented to find the SLRs. The “pre-trained” random forest is the same random forest used with the common source SLRs, while the SLR specific trained SLRs are trained on a subset of the distance measures used to compute each of the three specific source SLRs.</p>
 <p><img src="images/handwriting/mattie/hepler_plots_rocs.png" width="1642" /></p>
 <p><img src="images/handwriting/mattie/hepler_slrs.png" width="484" /></p>
-<p>##Relationship Between Rotation Angle and Demographic Features
-So this part of the research looks specifically at rotation angles (the slant of handwriting). We are seeing if there is a relationship between slant of a writer and demographic features. We looked at demographic features such as the participant’s handedness, age group, gender, and location of third-grade education.We then fit a regression with the demographic information as explanatory variables and the average rotation angles as the response. Because rotation angles live on a circle, the regression model is based on a probability model appropriate for this type of data.</p>
+</div>
+<div id="analysis-of-handwriting-slant-with-respect-to-demographic-features" class="section level3 hasAnchor">
+<h3><span class="header-section-number">5.3.6</span> Analysis of Handwriting Slant with Respect to Demographic Features<a href="project-g-handwriting-signatures.html#analysis-of-handwriting-slant-with-respect-to-demographic-features" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>So this part of the research looks specifically at rotation angles (the slant of handwriting). We are seeing if there is a relationship between slant of a writer and demographic features. We looked at demographic features such as the participant’s handedness, age group, gender, and location of third-grade education.We then fit a regression with the demographic information as explanatory variables and the average rotation angles as the response. Because rotation angles live on a circle, the regression model is based on a probability model appropriate for this type of data.</p>
 <p>First we looked at ANOVAs using circular package in R.
 Here are circular package Results:</p>
+<p>test</p>
 </div>
 </div>
 <div id="communication-of-results" class="section level2 hasAnchor">

@@ -337,18 +337,34 @@ Our Final values consist of:
 
 3.  Optimized ESLR over: Cllr, RME KM/KNM, DP KM/KNM, Multi criteria and fusion.
 
-    For this SLR performance metrics are computed in each experiment.
+For this SLR performance metrics are computed in each experiment.
 
-    #### Experiment 2 
+#### Experiment 2 
 
-    Using the same data from experiment 1, the first set generated for validation is held fix across repetitions.
-    This allows to verify if the conclusion reached by the algorithms will change substantially when the data set is changed.
+Using the same data from experiment 1, the first set generated for validation is held fix across repetitions.
+This allows to verify if the conclusion reached by the algorithms will change substantially when the data set is changed.
 
-    ![Performance Experiment 1 A](images/foundations/Output%20CSAFE%20WRITERS/Raw_metric.png)
+Let $SLR_{ir}$ denote the case of the i-th observation in the validation set and the log10 output value for the r-th repetition.
 
-    ![Performance Experiment 1 B](images/foundations/Output%20CSAFE%20WRITERS/Delta_metric.png)
+#### Results 
 
-    ### Evaluation metrics.
+##### Performance metric E1
+
+![Performance Experiment 1 A](images/foundations/Output%20CSAFE%20WRITERS/Raw_metric.png)
+
+![Performance Experiment 1 B](images/foundations/Output%20CSAFE%20WRITERS/Delta_metric.png)
+
+##### Gains metric E1
+
+##### Tile metric E1
+
+![Tile metric](images/foundations/Output%20CSAFE%20WRITERS/FUSS_SLR.png)
+
+##### Distance metric E2
+
+![Distance for Experiment2](images/foundations/Output%20CSAFE%20WRITERS/Dist_metric.png)
+
+### Evaluation metrics.
 
 The following are metrics I have used in my work.
 Cut Of values of LR and SLR:
@@ -382,6 +398,4 @@ D_p_{{KM}} &=& \frac{\sum_t^{T} y_t \one_{\{SLR_t\geq C_{KM}\}} }{\sum_t^{T}y_t}
 D_p_{{KNM}} &=& \frac{\sum_t^{T} (1-y_t) \one_{\{SLR_t\leq C_{KNM}\}} }{\sum_t^{T} (1-y_t)} =\frac{\sum_t^{T} (1-y_t) \one_{\{SLR_t\leq C_{KNM}\}} }{n_{KNM}}   
 \end{eqnarray}
 ```
-## Ensemble of Score Likelihood ratios for forensic evidence project.
-
-### Intro
+## 

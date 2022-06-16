@@ -904,15 +904,119 @@ knitr::include_graphics(c("images/handwriting/mattie/hepler_plots_rocs.png"))
 knitr::include_graphics(c("images/handwriting/mattie/hepler_slrs.png"))
 ```
 
-### Analysis of Handwriting Slant with Respect to Demographic Features
-
-So this part of the research looks specifically at rotation angles (the slant of handwriting). We are seeing if there is a relationship between slant of a writer and demographic features. We looked at demographic features such as the participant's handedness, age group, gender, and location of third-grade education.We then fit a regression with the demographic information as explanatory variables and the average rotation angles as the response. Because rotation angles live on a circle, the regression model is based on a probability model appropriate for this type of data.
+### Statistical Analysis of Handwriting Slant with Respect to Demographic Features
 
 
-First we looked at ANOVAs using circular package in R.
-Here are circular package Results:
+##### Background 
+This part of the handwriting project looks specifically at rotation angles (the slant of handwriting). We are trying to see if there is a relationship between slant of a writer and demographic features. 
 
-test
+
+##### Methods and Data
+â¢ We include data from 140 adults with three data collection sessions, each at least three weeks apart.
+
+â¢ At each session, participants provided information about the participant's handedness, age group, gender, and region of third-grade education.
+
+â¢ Due to sample size, we did not include region in the models, and we combined age groups of 18-40 and all ages above 41+ for analysis.
+
+
+The slant of a writer is determined by calculating the direction of greatest variability in a graph using principal component decomposition (refer to Amy's section) and the angle of rotation corresponding to that direction. The
+principal components are calculated through an eigen-decomposition of the covariance matrix. We look at rotation angles within clusters, because there is evidence that it is more meaningful since graphs in the same cluster will have similar rotation angles. 
+
+
+
+<center>
+
+![Example Rotation Angles](~/CSAFEComputer/this-is-us/images/handwriting/anyesha/rotangexample.png){width=50%} 
+
+</center>
+
+
+<center>
+
+![ Rotation Angles within a cluster](~/CSAFEComputer/this-is-us/images/handwriting/anyesha/w0049c32.png){width=70%}
+
+
+
+
+
+
+##### Model 
+We fit models using the bpnreg package in R. We fit multiple Bayesian Projected Normal Regression and Mixed Effect models using Age Group, Handedness, and Gender as the explanatory variables and Rotation Angle as the response. We only show results for the model that includes a random person effect. 
+
+Mixed Effects are useful where there are repeated measurements on the same statistical units. Here we have multiple rotation angles for writer, therefore, we fit a model with writer as the mixed effect to account for the correlation between samples from each person. Some observed data summaries are shown to the left for angles in the 8 most populated clusters of graphs.
+
+<br>
+
+<center>
+
+![  ](~/CSAFEComputer/this-is-us/images/handwriting/anyesha/model_writeup1.png){width=30%}
+
+![  ](~/CSAFEComputer/this-is-us/images/handwriting/anyesha/model_writeup2.png){width=20%}
+
+</center>
+
+
+
+
+
+##### Boxplots 
+
+<center>
+
+
+<br>
+
+![Boxplot for Gender ](~/CSAFEComputer/this-is-us/images/handwriting/anyesha/genderboxplot.png) 
+
+
+<br>
+
+
+
+![Boxplot for Age](~/CSAFEComputer/this-is-us/images/handwriting/anyesha/ageboxplot.png)
+
+
+
+<br>
+
+
+![Boxplot for Handedness ](~/CSAFEComputer/this-is-us/images/handwriting/anyesha/handednessboxplot.png)
+ 
+ 
+ 
+ 
+ <br>
+ 
+![Boxplot of Predictions ](~/CSAFEComputer/this-is-us/images/handwriting/anyesha/boxplotpred.png)
+
+
+<br>
+
+
+![Predicted means ](~/CSAFEComputer/this-is-us/images/handwriting/anyesha/meanval.png){width=40%}
+
+
+
+</center>
+
+
+No definite conclusions, but some interesting
+findings: 
+
+• Older writers exhibit significantly less slant than younger ones.
+
+• Within age group, women appear to show more slant.
+
+• Region of 3rd year education may be associated with slant (not enough data yet).
+
+• Strengths of these effects vary across characters.
+
+Next steps do some model comparison using new batch of data. 
+
+
+##### Updated Results 
+
+
 
 ## Communication of Results  
 Presenting author is in bold.

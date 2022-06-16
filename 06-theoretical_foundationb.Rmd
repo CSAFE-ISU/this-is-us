@@ -8,7 +8,13 @@ editor_options:
 ---
 
 ## SRL behaviour and dependence
- 
+
+The following projects dealt with examining SLR behavior and performance.
+Project 1 examines the use of SLR for forensic glass.
+Besides performance metrics, the paper addresses the issue of the dependence on the training data selected.
+
+Project 2 examines the dependence structure generated when pairwise comparisons are used.
+
 ## Project 1. Evaluation of SLR for glass data
 
 In forensic settings, likelihood ratios (LR) are used to provide a numerical assessment of the evidential strength but require knowing a complex probability model, particularly for pattern and impression evidence.
@@ -20,9 +26,11 @@ Our results also show that non-parametric estimation of score distributions can 
 We also present evidence that the methods studied are susceptible to performance issues when the split into training, estimation and test sets is modified.
 The resulting SLRs could even lead examiners in different directions.
 
-**See [here](https://dr.lib.iastate.edu/entities/publication/38a3826f-b14a-48d2-a69c-8feede14523d) for the CC Version of the paper from this work.**
-
 ### Communication of Results
+
+**You can find the results of this project formatted as a creative component [here](https://dr.lib.iastate.edu/entities/publication/38a3826f-b14a-48d2-a69c-8feede14523d)**
+
+Previous stages were presented in poster sessions:
 
 -   <strong>"An evaluation of score-based likelihood ratios for glass data."</strong>
     -   February 2021
@@ -43,7 +51,158 @@ The resulting SLRs could even lead examiners in different directions.
 
         </details>
 
-## Evaluation metrics.
+## Project 2. Evaluation of SLR for glass data
+
+#### Abstract: 
+
+Machine learning-based Score Likelihood Ratios have been proposed as an alternative to traditional Likelihood Ratio and Bayes Factor to quantify the value of forensic evidence.
+Scores allow formulating comparisons using a lower-dimensional metric [1]., which becomes relevant for complex evidence where developing a statistical model becomes challenging
+
+Although SLR has been shown to provide an alternative way to present a numeric assessment of evidential strength, there are still concerns regarding their use in a forensic setting [2].
+Previous work addresses how introducing perturbation to the data can lead the forensic examiner to different conclusions [3].
+
+Under the SLR framework, a (dis)similarity score and its distribution under alternative propositions is estimated using pairwise comparison from a sample of the background population.
+These procedures often rely on the independence assumption, which is not met when the database consists of pairwise comparisons.
+
+To remedy this lack of independence, we introduce an ensembling approach that constructs training and estimation sets by sampling forensic sources, ensuring they are selected only once per set.
+Using these newly created datasets, we construct multiple base SLR systems and aggregate their information into a final score to quantify the value of evidence.
+
+### Introduction to the forensic problem.
+
+Score likelihood ratios (SLR) are an alternative way to provide a numerical assessment of evidential strength when contrasting two propositions.
+The SLR approach focuses on a lower-dimensional (dis)similarity metric and avoids distributional assumptions regarding the features (Cite)
+
+Consider the hypothetical case of a common source problem in forensics that could come up in different forensic domains.
+
+| Forensic glass problem                                                      | Forensic handwriting problem                                                             |
+|--------------------------------------|----------------------------------|
+| A glass was broken during a break in                                        | A stalking victim received two handwriting notes within a week                           |
+| Two individuals (PoI) arrested, and one glass fragment recovered from each. | Trying to determine if there are two potential stalker the forensic expert may be asked: |
+| Q: Do these two glass fragments come from the same window?                  | Q: Are we dealing with the same writer?                                                  |
+
+In both scenarios, we can state two propositions we can try to evaluate.
+
+-   Hp) The source associated with item 1 is the same as the source related to item 2.
+
+-   Hd) The sources from each item are different.
+
+In the forensic problems describe we would have the following data $E=\{e_{x}, e_{y},e_A\}$ where:
+
+-   $e_x$ the first item
+
+-   $e_y$ the second item
+
+-   $e_A$ abackground population sample.
+
+For each element some features are measured and recorder.
+Let's denote $u_x$, $u_y$ as the vector of measurements for $e_x$ and $e_y$ .
+And let $A_{ij}$ be the measurement taken in the background population where $i$ indexes a sources and $j$ indexes items within source.
+
+Under the prosecutor proposition, $e_x$ and $e_y$ have been generated from the same source while under the defense proposition they have been sampled from two independent sources.
+
+##### 
+
+![Propositions](images/foundations/Output%20CSAFE%20WRITERS/Prop.png)
+
+##### Common source in glass
+
+##### Common source in handwriting
+
+In the case of handwriting problem the data consist of two questioned documents (QD) $e_𝑥$, $e_𝑦$.
+We can re write the proposition as:
+
+-   $𝐻_𝑝$: $e_𝑥$ and $e_𝑦$ were written by the same unknown writer.
+
+-   $𝐻_d$: $e_𝑥$ and $e_𝑦$ were written by two different unknown writers.
+
+Traditional approach for questioned document comparison is based on visual inspection by trained expert who identify distinctive traits.
+CSAFE approach [5,6] decompose writing samples into graphs, roughly matching letter and assign each them into one of 40 cluster.
+Cluster frequency has been used as a feature to answer the common source problem [6] since documents writen by the same writer are expected to ashare similar cluster profiles.
+
+Let $𝑢_𝑥$ and $𝑢_𝑦$ be the cluster frequencies from $e_𝑥$ and $e_𝑦$ respectively.
+In this problem background measurement are taken from documents generated by known writers to construct the SLR system
+
+$$ A=\{A_{ij}:𝑖^{𝑡ℎ} 𝑤𝑟𝑖𝑡𝑒𝑟, 𝑗^{𝑡ℎ} 𝑑𝑜𝑐𝑢𝑚𝑒𝑛𝑡\}
+$$
+
+Pairwise comparisons are created from the set 𝑨 and classified as known match (KM) or known non match (KNM).
+
+### The dependence problem in SLR.
+
+The forensic proposition can be translated into sampling models that generated the data $𝑀_𝑝$ and $𝑀_𝑑$ respectively to define training and estimation set [3].
+
+In the case of data $𝑀_𝑝$ comparisons from the same known source or KM ($𝑪_{𝑪𝑺_𝑷}$) are used, while in the case of $𝑀_𝑑$ comparisons from different sources ($𝑪_{𝑪𝑺_D}$) or KNM are used.
+
+| Under $𝑀_𝑝$, KM are used:         | Under $𝑀_𝑑$, KNM are used:       |
+|-----------------------------------|----------------------------------|
+| $𝑪_{𝑪𝑺_𝑷}= \{𝑪(𝑨_𝒊𝒋,𝑨_𝒌𝒍): 𝒊=𝒌\}$ | $𝐶_{𝐂𝐒_𝑫}=\{𝐶(𝐴_𝑖𝑗,𝐴_𝑘𝑙): 𝑖≠𝑘\}$ |
+
+At a source level, sources are compared multiple times.
+In $𝑪_{𝒄𝒔_𝑷}$ : multiple within comparisons uses the same source, In $𝐶_{𝑐𝑠_𝐷}$ : multiple between comparison use the same sources and lastly same source appears in both comparisons sets.
+
+At an item level, same items are compared multiple times.
+e.g., $𝑪(𝑨_{𝟏𝟏},𝑨_{𝟐𝟏} ),𝑪(𝑨_{𝟏𝟏},𝑨_{𝟑𝟏} )$
+
+The isue is that machine learning-based comparison metrics and density estimation procedures rely on the independence assumption, but this assumption is not met.
+
+Practitioner oftens uses $(𝑪_{𝒄𝒔_𝑷},𝑪_{𝒄𝒔_D})$ directly while developing an SLR system.
+To illustrate how convoluted this comparison can be we present the following figure to illustrate the dependence structure of pairwise comparison and some solutions.
+
+![](images/foundations/Output%20CSAFE%20WRITERS/Network.png)
+
+### Methology. 
+
+\\begin{equation}
+
+LR= \\frac{f(Z_1,Z_2\|H_p)}{f(Z_1,Z_2\|H_d)}.
+
+\\end{equation}
+
+#### Traditional SLR.
+
+We define as traditional SLR the construction of a SLR system using a down sampling approach.
+First, the background data is split into training and estimation, within each set all pairwise comparisons are constructed and features are created.
+
+Since the number of known non matches outnumber known matches a down sample step is used have a balanced data set.
+
+However, this approach has several drawbacks.
+ML method and density estimation procedures assume that we have iid.
+That is not the case, since when comparisons are made, items enter comparison multiple times.
+In addition, in theory the sample used for estimating the SLR should consist of independently sampled sources for both KM and KNM.
+When we construct all the pairwise comparison, sources are compared multiple times, hence we are violating the independence assumption.
+
+To resolve this issue, we propose sampling sources restricting the possibility of a source beings used multiple times.
+This greatly reduced the sample size available but results in a situation closer to our theoretical results, in addition, during a second stage we propose using aggregations inspired in ensemble learning to improve the performance of the SLR.
+
+$\delta_{CS}\left(u_x,u_y\right)=gC(ux,uy)\mid Mp g(C(ux,uy)\mid MD)$
+
+$\delta_{CS}\left(u_x,u_y\right)=gC(ux,uy)|MpgC(ux,uy)|MD  if density estimators are usedrC(ux,uy)|MpC(ux,uy)|Md if density ratio estimators are used$
+
+#### Ensemble SLR.
+
+As in machine
+
+### Results
+
+#### Experiment 1
+
+To illustrate our approach, we simulate 500 repetition of the following experiment.
+
+In each experiment 100 BSLR are trained using SSSA using CSAFE London prompts.
+
+Optimization set are generated down sampling from CSAFE Wizard of Oz prompts
+
+Validation set are generated downs sampling VCL prompts.
+
+Our Final values consist of:
+
+Baseline SLR
+
+Naïve ESLR : Voting, mean and median
+
+Optimized ESLR over: Cllr, RME KM/KNM, DP KM/KNM, Multi criteria.
+
+### Evaluation metrics.
 
 The following are metrics I have used in my work.
 Cut Of values of LR and SLR:

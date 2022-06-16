@@ -904,14 +904,15 @@ knitr::include_graphics(c("images/handwriting/mattie/hepler_plots_rocs.png"))
 knitr::include_graphics(c("images/handwriting/mattie/hepler_slrs.png"))
 ```
 
-##Relationship Between Rotation Angle and Demographic Features
+### Analysis of Handwriting Slant with Respect to Demographic Features
+
 So this part of the research looks specifically at rotation angles (the slant of handwriting). We are seeing if there is a relationship between slant of a writer and demographic features. We looked at demographic features such as the participant's handedness, age group, gender, and location of third-grade education.We then fit a regression with the demographic information as explanatory variables and the average rotation angles as the response. Because rotation angles live on a circle, the regression model is based on a probability model appropriate for this type of data.
 
 
 First we looked at ANOVAs using circular package in R.
 Here are circular package Results:
 
-
+test
 
 ## Communication of Results  
 Presenting author is in bold.

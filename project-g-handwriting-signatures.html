@@ -211,7 +211,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#interesting-documents"><i class="fa fa-check"></i><b>5.3.3</b> Interesting documents</a></li>
 <li class="chapter" data-level="5.3.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#alexandra-arabios-project"><i class="fa fa-check"></i><b>5.3.4</b> Alexandra Arabio’s project</a></li>
 <li class="chapter" data-level="5.3.5" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#open-set-modeling-for-writer-identification-from-distribution-of-glyphs-in-clusters"><i class="fa fa-check"></i><b>5.3.5</b> Open Set Modeling for Writer Identification from Distribution of Glyphs in Clusters</a></li>
-<li class="chapter" data-level="5.3.6" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#analysis-of-handwriting-slant-with-respect-to-demographic-features"><i class="fa fa-check"></i><b>5.3.6</b> Analysis of Handwriting Slant with Respect to Demographic Features</a></li>
+<li class="chapter" data-level="5.3.6" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#statistical-analysis-of-handwriting-slant-with-respect-to-demographic-features"><i class="fa fa-check"></i><b>5.3.6</b> Statistical Analysis of Handwriting Slant with Respect to Demographic Features</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#communication-of-results"><i class="fa fa-check"></i><b>5.4</b> Communication of Results</a><ul>
 <li class="chapter" data-level="5.4.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#papers"><i class="fa fa-check"></i><b>5.4.1</b> Papers</a></li>
@@ -1191,12 +1191,81 @@ Figure 5.55: A training sample from the other writer with off-diagonal assignmen
 <p><img src="images/handwriting/mattie/hepler_plots_rocs.png" width="1642" /></p>
 <p><img src="images/handwriting/mattie/hepler_slrs.png" width="484" /></p>
 </div>
-<div id="analysis-of-handwriting-slant-with-respect-to-demographic-features" class="section level3 hasAnchor">
-<h3><span class="header-section-number">5.3.6</span> Analysis of Handwriting Slant with Respect to Demographic Features<a href="project-g-handwriting-signatures.html#analysis-of-handwriting-slant-with-respect-to-demographic-features" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>So this part of the research looks specifically at rotation angles (the slant of handwriting). We are seeing if there is a relationship between slant of a writer and demographic features. We looked at demographic features such as the participant’s handedness, age group, gender, and location of third-grade education.We then fit a regression with the demographic information as explanatory variables and the average rotation angles as the response. Because rotation angles live on a circle, the regression model is based on a probability model appropriate for this type of data.</p>
-<p>First we looked at ANOVAs using circular package in R.
-Here are circular package Results:</p>
-<p>test</p>
+<div id="statistical-analysis-of-handwriting-slant-with-respect-to-demographic-features" class="section level3 hasAnchor">
+<h3><span class="header-section-number">5.3.6</span> Statistical Analysis of Handwriting Slant with Respect to Demographic Features<a href="project-g-handwriting-signatures.html#statistical-analysis-of-handwriting-slant-with-respect-to-demographic-features" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="background" class="section level5 hasAnchor">
+<h5><span class="header-section-number">5.3.6.0.1</span> Background<a href="project-g-handwriting-signatures.html#background" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>This part of the handwriting project looks specifically at rotation angles (the slant of handwriting). We are trying to see if there is a relationship between slant of a writer and demographic features.</p>
+</div>
+<div id="methods-and-data" class="section level5 hasAnchor">
+<h5><span class="header-section-number">5.3.6.0.2</span> Methods and Data<a href="project-g-handwriting-signatures.html#methods-and-data" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>â¢ We include data from 140 adults with three data collection sessions, each at least three weeks apart.</p>
+<p>â¢ At each session, participants provided information about the participant’s handedness, age group, gender, and region of third-grade education.</p>
+<p>â¢ Due to sample size, we did not include region in the models, and we combined age groups of 18-40 and all ages above 41+ for analysis.</p>
+<p>The slant of a writer is determined by calculating the direction of greatest variability in a graph using principal component decomposition (refer to Amy’s section) and the angle of rotation corresponding to that direction. The
+principal components are calculated through an eigen-decomposition of the covariance matrix. We look at rotation angles within clusters, because there is evidence that it is more meaningful since graphs in the same cluster will have similar rotation angles.</p>
+<center>
+<div class="figure">
+<img src="~/CSAFEComputer/this-is-us/images/handwriting/anyesha/rotangexample.png" style="width:50.0%" alt="" />
+<p class="caption">Example Rotation Angles</p>
+</div>
+</center>
+<center>
+<div class="figure">
+<img src="~/CSAFEComputer/this-is-us/images/handwriting/anyesha/w0049c32.png" style="width:70.0%" alt="" />
+<p class="caption">Rotation Angles within a cluster</p>
+</div>
+</div>
+<div id="model" class="section level5 hasAnchor">
+<h5><span class="header-section-number">5.3.6.0.3</span> Model<a href="project-g-handwriting-signatures.html#model" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>We fit models using the bpnreg package in R. We fit multiple Bayesian Projected Normal Regression and Mixed Effect models using Age Group, Handedness, and Gender as the explanatory variables and Rotation Angle as the response. We only show results for the model that includes a random person effect.</p>
+<p>Mixed Effects are useful where there are repeated measurements on the same statistical units. Here we have multiple rotation angles for writer, therefore, we fit a model with writer as the mixed effect to account for the correlation between samples from each person. Some observed data summaries are shown to the left for angles in the 8 most populated clusters of graphs.</p>
+<p><br></p>
+<center>
+<p><img src="~/CSAFEComputer/this-is-us/images/handwriting/anyesha/model_writeup1.png" style="width:30.0%" /></p>
+<p><img src="~/CSAFEComputer/this-is-us/images/handwriting/anyesha/model_writeup2.png" style="width:20.0%" /></p>
+</center>
+</div>
+<div id="boxplots" class="section level5 hasAnchor">
+<h5><span class="header-section-number">5.3.6.0.4</span> Boxplots<a href="project-g-handwriting-signatures.html#boxplots" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<center>
+<p><br></p>
+<div class="figure">
+<img src="~/CSAFEComputer/this-is-us/images/handwriting/anyesha/genderboxplot.png" alt="" />
+<p class="caption">Boxplot for Gender</p>
+</div>
+<p><br></p>
+<div class="figure">
+<img src="~/CSAFEComputer/this-is-us/images/handwriting/anyesha/ageboxplot.png" alt="" />
+<p class="caption">Boxplot for Age</p>
+</div>
+<p><br></p>
+<div class="figure">
+<img src="~/CSAFEComputer/this-is-us/images/handwriting/anyesha/handednessboxplot.png" alt="" />
+<p class="caption">Boxplot for Handedness</p>
+</div>
+<p><br></p>
+<div class="figure">
+<img src="~/CSAFEComputer/this-is-us/images/handwriting/anyesha/boxplotpred.png" alt="" />
+<p class="caption">Boxplot of Predictions</p>
+</div>
+<p><br></p>
+<div class="figure">
+<img src="~/CSAFEComputer/this-is-us/images/handwriting/anyesha/meanval.png" style="width:40.0%" alt="" />
+<p class="caption">Predicted means</p>
+</div>
+</center>
+<p>No definite conclusions, but some interesting
+findings:</p>
+<p>• Older writers exhibit significantly less slant than younger ones.</p>
+<p>• Within age group, women appear to show more slant.</p>
+<p>• Region of 3rd year education may be associated with slant (not enough data yet).</p>
+<p>• Strengths of these effects vary across characters.</p>
+<p>Next steps do some model comparison using new batch of data.</p>
+</div>
+<div id="updated-results" class="section level5 hasAnchor">
+<h5><span class="header-section-number">5.3.6.0.5</span> Updated Results<a href="project-g-handwriting-signatures.html#updated-results" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+</div>
 </div>
 </div>
 <div id="communication-of-results" class="section level2 hasAnchor">

@@ -345,7 +345,12 @@ writer-4-data
 you-all
 alexandra-arabios-project
 open-set-modeling-for-writer-identification-from-distribution-of-glyphs-in-clusters
-analysis-of-handwriting-slant-with-respect-to-demographic-features
+statistical-analysis-of-handwriting-slant-with-respect-to-demographic-features
+background
+methods-and-data
+model
+boxplots
+updated-results
 communication-of-results
 papers
 talks

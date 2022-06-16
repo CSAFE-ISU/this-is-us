@@ -15,3 +15,6 @@ Stephanie's test
 Now edit in the visual mode.
 
 hi this is kat just checking i set things up right! :)
+
+emily test
+

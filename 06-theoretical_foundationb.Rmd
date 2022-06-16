@@ -8,7 +8,13 @@ editor_options:
 ---
 
 ## SRL behaviour and dependence
- 
+
+The following projects dealt with examining SLR behavior and performance.
+Project 1 examines the use of SLR for forensic glass.
+Besides performance metrics, the paper addresses the issue of the dependence on the training data selected.
+
+Project 2 examines the dependence structure generated when pairwise comparisons are used.
+
 ## Project 1. Evaluation of SLR for glass data
 
 In forensic settings, likelihood ratios (LR) are used to provide a numerical assessment of the evidential strength but require knowing a complex probability model, particularly for pattern and impression evidence.
@@ -20,9 +26,11 @@ Our results also show that non-parametric estimation of score distributions can 
 We also present evidence that the methods studied are susceptible to performance issues when the split into training, estimation and test sets is modified.
 The resulting SLRs could even lead examiners in different directions.
 
-**See [here](https://dr.lib.iastate.edu/entities/publication/38a3826f-b14a-48d2-a69c-8feede14523d) for the CC Version of the paper from this work.**
-
 ### Communication of Results
+
+**You can find the results of this project formatted as a creative component [here](https://dr.lib.iastate.edu/entities/publication/38a3826f-b14a-48d2-a69c-8feede14523d)**
+
+Previous stages were presented in poster sessions:
 
 -   <strong>"An evaluation of score-based likelihood ratios for glass data."</strong>
     -   February 2021
@@ -43,7 +51,328 @@ The resulting SLRs could even lead examiners in different directions.
 
         </details>
 
-## Evaluation metrics.
+## Project 2. Ensemble of SLR systems for forensic evidence.
+
+#### Abstract:
+
+Machine learning-based Score Likelihood Ratios have been proposed as an alternative to traditional Likelihood Ratio and Bayes Factor to quantify the value of forensic evidence.
+Scores allow formulating comparisons using a lower-dimensional metric [1]., which becomes relevant for complex evidence where developing a statistical model becomes challenging
+
+Although SLR has been shown to provide an alternative way to present a numeric assessment of evidential strength, there are still concerns regarding their use in a forensic setting [2].
+Previous work addresses how introducing perturbation to the data can lead the forensic examiner to different conclusions [3].
+
+Under the SLR framework, a (dis)similarity score and its distribution under alternative propositions is estimated using pairwise comparison from a sample of the background population.
+These procedures often rely on the independence assumption, which is not met when the database consists of pairwise comparisons.
+
+To remedy this lack of independence, we introduce an ensembling approach that constructs training and estimation sets by sampling forensic sources, ensuring they are selected only once per set.
+Using these newly created datasets, we construct multiple base SLR systems and aggregate their information into a final score to quantify the value of evidence.
+
+### Introduction to the forensic problem.
+
+Score likelihood ratios (SLR) are an alternative way to provide a numerical assessment of evidential strength when contrasting two propositions.
+The SLR approach focuses on a lower-dimensional (dis)similarity metric and avoids distributional assumptions regarding the features (Cite)
+
+Consider the hypothetical case of a common source problem in forensics that could come up in different forensic domains.
+
++-----------------------------------------------------------------------------+------------------------------------------------------------------------------------------+
+| Forensic glass problem                                                      | Forensic handwriting problem                                                             |
++=============================================================================+==========================================================================================+
+| A glass was broken during a break in                                        | A stalking victim received two handwriting notes within a week                           |
++-----------------------------------------------------------------------------+------------------------------------------------------------------------------------------+
+| Two individuals (PoI) arrested, and one glass fragment recovered from each. | Trying to determine if there are two potential stalker the forensic expert may be asked: |
++-----------------------------------------------------------------------------+------------------------------------------------------------------------------------------+
+| Q: Do these two glass fragments come from the same window?                  | Q: Are we dealing with the same writer?                                                  |
++-----------------------------------------------------------------------------+------------------------------------------------------------------------------------------+
+
+In both scenarios, we can state two propositions we can try to evaluate.
+
+-   Hp) The source associated with item 1 is the same as the source related to item 2.
+
+-   Hd) The sources from each item are different.
+
+In the forensic problems describe we would have the following data $E=\{e_{x}, e_{y},e_A\}$ where:
+
+-   $e_x$ the first item
+
+-   $e_y$ the second item
+
+-   $e_A$ background population sample.
+
+For each element some features are measured and recorder.
+Let's denote $u_x$, $u_y$ as the vector of measurements for $e_x$ and $e_y$ .
+And let $A_{ij}$ be the measurement taken in the background population where $i$ indexes a sources and $j$ indexes items within source.
+
+Under the prosecutor proposition, $e_x$ and $e_y$ have been generated from the same source while under the defense proposition they have been sampled from two independent sources.
+
+##### 
+
+![Propositions](images/foundations/Output%20CSAFE%20WRITERS/Prop.png)
+
+##### Common source in glass
+
+##### Common source in handwriting
+
+In the case of handwriting problem the data consist of two questioned documents (QD) $e_𝑥$, $e_𝑦$.
+We can re write the proposition as:
+
+-   $𝐻_𝑝$: $e_𝑥$ and $e_𝑦$ were written by the same unknown writer.
+
+-   $𝐻_d$: $e_𝑥$ and $e_𝑦$ were written by two different unknown writers.
+
+Traditional approach for questioned document comparison is based on visual inspection by trained expert who identify distinctive traits.
+CSAFE approach [5,6] decompose writing samples into graphs, roughly matching letter and assign each them into one of 40 cluster.
+Cluster frequency has been used as a feature to answer the common source problem [6] since documents written by the same writer are expected to share similar cluster profiles.
+
+Let $𝑢_𝑥$ and $𝑢_𝑦$ be the cluster frequencies from $e_𝑥$ and $e_𝑦$ respectively.
+In this problem background measurement are taken from documents generated by known writers to construct the SLR system
+
+$$ A=\{A_{ij}:𝑖^{𝑡ℎ} 𝑤𝑟𝑖𝑡𝑒𝑟, 𝑗^{𝑡ℎ} 𝑑𝑜𝑐𝑢𝑚𝑒𝑛𝑡\}
+$$
+
+Pairwise comparisons are created from the set 𝑨 and classified as known match (KM) or known non match (KNM).
+
+### The dependence problem in SLR.
+
+The forensic proposition can be translated into sampling models that generated the data $𝑀_𝑝$ and $𝑀_𝑑$ respectively to define training and estimation set [3].
+
+In the case of data $𝑀_𝑝$ comparisons from the same known source or KM ($𝑪_{𝑪𝑺_𝑷}$) are used, while in the case of $𝑀_𝑑$ comparisons from different sources ($𝑪_{𝑪𝑺_D}$) or KNM are used.
+
+| Under $𝑀_𝑝$, KM are used:         | Under $𝑀_𝑑$, KNM are used:       |
+|-----------------------------------|----------------------------------|
+| $𝑪_{𝑪𝑺_𝑷}= \{𝑪(𝑨_𝒊𝒋,𝑨_𝒌𝒍): 𝒊=𝒌\}$ | $𝐶_{𝐂𝐒_𝑫}=\{𝐶(𝐴_𝑖𝑗,𝐴_𝑘𝑙): 𝑖≠𝑘\}$ |
+
+At a source level, sources are compared multiple times.
+In $𝑪_{𝒄𝒔_𝑷}$ : multiple within comparisons uses the same source, In $𝐶_{𝑐𝑠_𝐷}$ : multiple between comparison use the same sources and lastly same source appears in both comparisons sets.
+
+At an item level, same items are compared multiple times.
+e.g., $𝑪(𝑨_{𝟏𝟏},𝑨_{𝟐𝟏} ),𝑪(𝑨_{𝟏𝟏},𝑨_{𝟑𝟏} )$
+
+The issue is that machine learning-based comparison metrics and density estimation procedures rely on the independence assumption, but this assumption is not met.
+
+Practitioner often uses $(𝑪_{𝒄𝒔_𝑷},𝑪_{𝒄𝒔_D})$ directly while developing an SLR system.
+To illustrate how convoluted this comparison can be we present the following figure to illustrate the dependence structure of pairwise comparison and some solutions.
+
+![](images/foundations/Output%20CSAFE%20WRITERS/Network.png)
+
+### Methology.
+
+```{=tex}
+\begin{equation}
+```
+LR= \\frac{f(Z_1,Z_2\|H_p)}{f(Z_1,Z_2\|H_d)}.
+
+```{=tex}
+\end{equation}
+```
+#### Traditional SLR.
+
+We define as traditional SLR the construction of a SLR system using a down sampling approach.
+First, the background data is split into training and estimation, within each set all pairwise comparisons are constructed and features are created.
+
+We consider as features...
+
+Since the number of known non matches outnumber known matches a down sample step is used have a balanced data set.
+For comparison metric we trained a Random forest (cite)
+
+However, this approach has several drawbacks.
+ML method and density estimation procedures assume that we have iid.
+That is not the case, since when comparisons are made, items enter comparison multiple times.
+In addition, in theory the sample used for estimating the SLR should consist of independently sampled sources for both KM and KNM.
+When we construct all the pairwise comparison, sources are compared multiple times, hence we are violating the independence assumption.
+
+To resolve this issue, we propose sampling sources restricting the possibility of a source beings used multiple times.
+This greatly reduced the sample size available but results in a situation closer to our theoretical results, in addition, during a second stage we propose using aggregations inspired in ensemble learning to improve the performance of the SLR.
+
+#### Ensemble SLR.
+
+As in ensemble learning the idea behind constructing base score likelihood ratio (BSLR) is training the model with a partition of the data and then combining them into a final score.
+
+##### Sampling Algorithms
+
+To generate independent set we introduce sampling algorithms that can construct set were assumptions are met.We denote the first version as the Strong Source Sampling Algorithm (SSSA) to generate independent training and testing data.
+
++---------------------------------------------------------------------------------------------------+
+| **Strong Source Sampling Algorithm (SSSA)**                                                       |
++===================================================================================================+
+| 1.  Construct all pairwise comparisons.                                                           |
+|                                                                                                   |
+| 2.  For KM pairs:                                                                                 |
+|                                                                                                   |
+|     1.  Sample randomly one pair to be used in the final database.                                |
+|                                                                                                   |
+|     2.  Remove all pairs in the dataset involving sources selected in the previous step.          |
+|                                                                                                   |
+| 3.  For KNM pairs:                                                                                |
+|                                                                                                   |
+|     1.  Sample randomly one pair to be used in the final database.                                |
+|                                                                                                   |
+|     2.  Remove all pairs in the dataset involving sources selected in the previous step.          |
+|                                                                                                   |
+| 4.  Repeat 2 and 3 until data is exhausted.                                                       |
++---------------------------------------------------------------------------------------------------+
+| [Result]{.underline}: A pairwise database where sources and items are not compared multiple times |
++---------------------------------------------------------------------------------------------------+
+
+A less strict algorithm we denote as Weak Source Sampling Algorithm (WSSA) were comparison are sampled such that items are compared only once.
+
++----------------------------------------------------------------------------------------+
+| **Weak Source Sampling Algorithm (SSSA)**                                              |
++========================================================================================+
+| 1.  Construct all pairwise comparisons.                                                |
+|                                                                                        |
+| 2.  For KM pairs:                                                                      |
+|                                                                                        |
+|     1.  Sample randomly one pair to be used in the final database.                     |
+|                                                                                        |
+|     2.  Remove all pairs in the dataset involving items selected in the previous step. |
+|                                                                                        |
+| 3.  For KNM pairs:                                                                     |
+|                                                                                        |
+|     1.  Sample randomly one pair to be used in the final database.                     |
+|                                                                                        |
+|     2.  Remove all pairs in the dataset involving items selected in the previous step. |
+|                                                                                        |
+| 4.  Repeat 2 and 3 until data is exhausted.                                            |
++----------------------------------------------------------------------------------------+
+| [Result]{.underline}: A pairwise database where items are not compared multiple times  |
++----------------------------------------------------------------------------------------+
+
+On our current implementation we use a Fast version of the sampling algorithms which in essence reproduce the results but avoids looping over the data.
+
+##### Base SLR (BSLR).
+
+The sampling algorithms can be used to construct set for constructing comparison metrics and their distribution as follows:
+
++---------------------------------------------------------------------------------------+
+| **Base Score Likelihood Ratio (BSLR)**                                                |
++=======================================================================================+
+| For 1:M                                                                               |
+|                                                                                       |
+| 1.  Use SSSA to generate a pseudo training set.                                       |
+|                                                                                       |
+| 2.  Train a machine learning comparison metric.                                       |
+|                                                                                       |
+| 3.  Use SSSA to generate a pseudo estimation set.                                     |
+|                                                                                       |
+| 4.  Predict a comparison score for all cases on the estimation set.                   |
+|                                                                                       |
+| 5.  Estimate the distribution of scores under both propositions (or ratio estimator). |
+|                                                                                       |
+| 6.  Store the comparison metrics and distributions                                    |
++---------------------------------------------------------------------------------------+
+| [Result]{.underline}: M- Base Score Likelihood Ratios (BSLR)                          |
++---------------------------------------------------------------------------------------+
+
+##### Ensemling BSLRs (ESLR)
+
+The previous process generated M-BSLRs that need to be combined into a final prediction.
+Let $SLR_{im}$ denote the case of the i-th observation in the validation set and the log10 output value for the m-th BSLR.
+
+We can organize our predictions into a matrix were each row represents an observation and there are $M$ columns each associated with a particular BSLR.
+
+We consider Naïve ways of combining the information.
+
+-   The mean ESLR: consist of taking the mean across predictions for the same ith observation
+
+-   The median ESLR: consist of taking the median
+
+-   Vote ESLR: consist of translating the prediction to categories and use majority voting.
+
+If an additional set is available, additional step can be done.
+
+We consider an optimization step, where our M-BSLRs are evaluated according to some performance metric.
+As metrics we considered
+
+-   Cost function ($CLLR$)
+
+-   Rate of misleading evidence for KM ($RME_{KM}$ )
+
+-   Rate of misleading evidence for KMN ($RME_{KNM}$)
+
+-   Discriminatory power for KM ($DP_{KM}$)
+
+-   Discriminatory power for KMN ($DP_{KNM}$)
+
+Note that the best SLR would minimize the CLLR, and both RME while maximizing the DP.
+We can compute weights that assign more importance to BSLRs that have a better performance for each metric.
+
+The previous approach is univariate, i.e. optimize one dimension.
+So we consider a combined weight for $RME$ and $DP$.
+
+Lastly we consider a logistic calibration approach or fusion.
+
+-   Fusion: Over the optimization set, a GLM is trained to combine the MBSLR into a final score.
+
+### Experimental set up
+
+#### Data
+
+We use CSAFE and VCL handwriting data to show case our approach.
+From the raw data, clustering templates are used to classify each graph into one of the 40 clusters then, the proportion of graphs in each cluster is computed for each writer and prompt.
+This process generates the relative cluster data.
+
+In the case of traditional SLR, we used the London letter prompt for training and estimation.
+While in the case of the Ensemble SLR, when they require and aditional optimization set a down sample version of the Wizard of Oz prompt was used.
+
+As validation set, we consider the VCL prompt.
+This database was collected in a different study and it is highly unlikely that CSAFE and VCL database contains the same writers.
+
+[Summary Stats 1]
+
+#### Experiment 1
+
+To illustrate our approach, we simulate 500 repetition of the following experiment.
+
+-   In each experiment 100 BSLR are trained using SSSA over CSAFE London prompts.
+
+-   Optimization set are generated down sampling from CSAFE Wizard of Oz prompts
+
+-   Validation set are generated downs sampling VCL prompts.
+
+Our Final values consist of:
+
+1.  Baseline SLR
+
+2.  Naïve ESLR : Voting, mean and median
+
+3.  Optimized ESLR over: Cllr, RME KM/KNM, DP KM/KNM, Multi criteria and fusion.
+
+For this SLR performance metrics are computed in each experiment.
+
+#### Experiment 2 
+
+Using the same data from experiment 1, the first set generated for validation is held fix across repetitions.
+This allows to verify if the conclusion reached by the algorithms will change substantially when the data set is changed.
+
+Let $SLR_{ir}$ denote the case of the i-th observation in the validation set and the log10 output value for the r-th repetition.
+
+#### Results  
+
+##### Performance metric E1
+
+![Performance Experiment 1 A](images/foundations/Output%20CSAFE%20WRITERS/Raw_metric.png)
+
+![Performance Experiment 1 B](images/foundations/Output%20CSAFE%20WRITERS/Delta_metric.png)
+
+##### Gains metric E1
+
+Another way of looking at the previous result is considering:
+
+$$ESLR-SLR$$
+
+![Gains E1, selected iterations. ](images/foundations/Output%20CSAFE%20WRITERS/Gains.png)
+
+##### Tile metric E1
+
+ESLR category vs SLR category.
+
+![Tile metric](images/foundations/Output%20CSAFE%20WRITERS/FUSS_SLR.png)
+
+##### Distance metric E2
+
+![Distance for Experiment2](images/foundations/Output%20CSAFE%20WRITERS/Dist_metric.png)
+
+### Evaluation metrics.
 
 The following are metrics I have used in my work.
 Cut Of values of LR and SLR:
@@ -77,6 +406,4 @@ D_p_{{KM}} &=& \frac{\sum_t^{T} y_t \one_{\{SLR_t\geq C_{KM}\}} }{\sum_t^{T}y_t}
 D_p_{{KNM}} &=& \frac{\sum_t^{T} (1-y_t) \one_{\{SLR_t\leq C_{KNM}\}} }{\sum_t^{T} (1-y_t)} =\frac{\sum_t^{T} (1-y_t) \one_{\{SLR_t\leq C_{KNM}\}} }{n_{KNM}}   
 \end{eqnarray}
 ```
-## Ensemble of Score Likelihood ratios for forensic evidence project.
-
-### Intro
+## 

@@ -7,7 +7,7 @@ editor_options:
     wrap: sentence
 ---
 
-## SRL behaviour and dependence
+## SRL behavior and dependence
 
 The following projects dealt with examining SLR behavior and performance.
 Project 1 examines the use of SLR for forensic glass.
@@ -47,11 +47,93 @@ Previous stages were presented in poster sessions:
 
         </summary>
 
-        ![Poster AAFS 2021](images/foundations/FV/Poster_Veneri_Ommen.jpg)
+        ![](images/foundations/Posters/Poster_Veneri_Ommen_AAFS2021.jpg)
+
+        </details>
+
+Previous stages were presented in poster sessions:
+
+-   <strong>"An evaluation of score-based likelihood ratios for glass data."</strong>
+    -   May 2022
+
+    -   Authors: Federico Veneri and Danica Ommen
+
+    -   CSAFE All Hands
+
+    -   <details>
+
+        <summary>
+
+        Click for Poster Image
+
+        </summary>
+
+        ![](images/foundations/Posters/Poster_Veneri_Ommen_Allhands2022.JPG)
 
         </details>
 
 ## Project 2. Ensemble of SLR systems for forensic evidence.
+
+Previous stages were presented in poster sessions and talks:
+
+-   <strong>"Machine Learning Methods for Dependent Data Resulting from Forensic Evidence Comparisons "</strong>
+    -   August 2021
+
+    -   Authors: Danica Ommen and Federico Veneri.
+
+    -   Joint Statistical Meeting
+
+    -   [Presentation](https://forensicstats.org/blog/portfolio/machine-learning-methods-for-dependent-data-resulting-from-forensic-evidence-comparisons/)
+
+<!-- -->
+
+-   <strong>"Ensemble of SLR systems for forensic evidence."</strong>
+    -   February 2022
+
+    -   Authors: Federico Veneri and Danica Ommen
+
+    -   American Academy of Forensic Sciences, Virtual
+
+    -   <details>
+
+        <summary>
+
+        Click for Poster Image
+
+        </summary>
+
+        ![](images/foundations/Posters/Poster_Veneri_Ommen_AAFS2022.jpg){alt="Poster AAFS 2021"}
+
+        </details>
+-   <strong>"Ensemble of SLR systems for forensic evidence."</strong>
+    -   May 2022
+
+    -   Authors: Federico Veneri and Danica Ommen
+
+    -   CSAFE All Hands
+
+    -   <details>
+
+        <summary>
+
+        Click for Poster Image
+
+        </summary>
+
+        ![](images/foundations/Posters/Poster_Veneri_Ommen_ESLR_Allhands2022.jpg){alt="Poster AAFS 2021"}
+
+        </details>
+
+<!-- -->
+
+-   <strong>"Ensemble of SLR systems for forensic evidence."</strong>
+    -   August 2022
+
+    -   Authors: Federico Veneri and Danica Ommen
+
+    -   Joint Statistical Meeting
+
+    -   Next!
 
 #### Abstract:
 
@@ -156,14 +238,6 @@ To illustrate how convoluted this comparison can be we present the following fig
 
 ### Methology.
 
-```{=tex}
-\begin{equation}
-```
-LR= \\frac{f(Z_1,Z_2\|H_p)}{f(Z_1,Z_2\|H_d)}.
-
-```{=tex}
-\end{equation}
-```
 #### Traditional SLR.
 
 We define as traditional SLR the construction of a SLR system using a down sampling approach.
@@ -301,7 +375,9 @@ So we consider a combined weight for $RME$ and $DP$.
 
 Lastly we consider a logistic calibration approach or fusion.
 
--   Fusion: Over the optimization set, a GLM is trained to combine the MBSLR into a final score.
+-   Fusion: Over the optimization set, a GLM is trained to combine the M-BSLR into a final score.
+
+### 
 
 ### Experimental set up
 
@@ -339,14 +415,73 @@ Our Final values consist of:
 
 For this SLR performance metrics are computed in each experiment.
 
-#### Experiment 2 
+#### Experiment 2
 
 Using the same data from experiment 1, the first set generated for validation is held fix across repetitions.
 This allows to verify if the conclusion reached by the algorithms will change substantially when the data set is changed.
 
-Let $SLR_{ir}$ denote the case of the i-th observation in the validation set and the log10 output value for the r-th repetition.
+### What we would like to evalaute? (and how we measure it).
 
-#### Results  
+Adapted from CC
+
+1.  Does the outcome lead the juror in the correct direction?
+
+    SLRs provide a numerical value that experts can interpret as evidence supporting the prosecutor or defense proposition.
+
+    |                               | KNM        | KM         |
+    |-------------------------------|------------|------------|
+    | SLR \<1 (Evidence towards Hd) | Correct    | Misleading |
+    | SLR \>1 (Evidence towards Hp) | Misleading | Correct    |
+
+    We consider misleading evidence results that would lead the juror in the incorrect direction and compute:
+
+    -   RME for KM: The percentage of KM that present a SLR\<1
+
+        -   $\sim$ False non matches/ false negatives
+
+    -   RME for KNM: The percentage of KNM that present a SLR\>1
+
+        -   $\sim$ False matches / false positives
+
+    A good SLR system would present low values of RME.
+
+2.  Are the methods capable of providing strong evidence in the correct direction?
+
+    We can translate numeric values into the vebral scale recommend to present forensic findings.
+    We would like our SLR system to be able to discriminate between propositions with 'enough' strength
+
+    ![](images/foundations/Output%20CSAFE%20WRITERS/Table.png)
+
+    We consider:
+
+    -   DP for KM: The percentage of KM that present a SLR\>100
+
+    -   DP for KNM: The percentage of KNM that present a SLR\<1/100
+
+    A good SLR system would present high values of discriminatory power.
+
+3.  What is the gain with respect to the baseline?
+
+    We consider the difference meaning $ESLR-SLR$.
+
+    -   In the case of KM we would expect to see a positive difference, meaning we provide stronger results for KM.
+
+    -   In the case of KNM we would expect to see a negative difference, meaning we provide stronger results for KNM.
+
+4.  How reliable are the methods.
+    If the training- estimation data is altered, would the conclusions change?
+
+From Experiment 2 we could consider distance metric or a consensus measurement between same observation in the validation set.
+
+-   We consider the Euclidean distance for log10 SLRs
+
+-   We consider a consensus measure.
+
+### Results
+
+##### SLRs and ESLRs
+
+![](images/foundations/Output%20CSAFE%20WRITERS/SLRS.png){alt="Performance Experiment 1 A"}
 
 ##### Performance metric E1
 
@@ -360,7 +495,13 @@ Another way of looking at the previous result is considering:
 
 $$ESLR-SLR$$
 
-![Gains E1, selected iterations. ](images/foundations/Output%20CSAFE%20WRITERS/Gains.png)
+![Gains E1, selected iterations.](images/foundations/Output%20CSAFE%20WRITERS/Gains.png)
+
+![](images/foundations/Output%20CSAFE%20WRITERS/SLR%20NET%20Gains%20BOXPLOT.png)
+
+![](images/foundations/Output%20CSAFE%20WRITERS/SLR%20NET%20Gains%20KM%20BOXPLOT.png)
+
+![](images/foundations/Output%20CSAFE%20WRITERS/SLR%20NET%20Gains%20KNM%20BOXPLOT.png)
 
 ##### Tile metric E1
 
@@ -372,38 +513,6 @@ ESLR category vs SLR category.
 
 ![Distance for Experiment2](images/foundations/Output%20CSAFE%20WRITERS/Dist_metric.png)
 
-### Evaluation metrics.
+##### Consensus metric E2
 
-The following are metrics I have used in my work.
-Cut Of values of LR and SLR:
-
-$$D=\{(-\infty,-10^4),...,(-10,0),(0,10),...,(10^4,\infty) \} $$
-
-CCLR
-
-```{=tex}
-\begin{eqnarray}
-C_{LLR_{KM}} &=&  \frac{1}{n_{KM}} \sum_{t=1}^{T} y_t  log_2(1+\frac{1}{SLR_t})    \\ 
-C_{LLR_{KNM}} &=& \frac{1}{n_{KNM}}  \sum_{t=1}^{T} (1-y_t)  log_2(1+SLR_t)   \\ 
-C_{LLR} &=&   \frac{1}{2}(C_{LLR_{KM}}+C_{LLR_{KNM}})  
-\end{eqnarray}
-```
-![Permutation order](images/foundations/FV/Original%20Cost.png){width="50%"}
-
-RME:
-
-```{=tex}
-\begin{eqnarray}
-RME_{KM} &=& \frac{\sum_t^{T} y_t \one_{\{SLR_t<1\}}}{\sum_t^{T}y_t} =  \frac{\sum_t^{T} y_t \one_{\{SLR_t<1\}}}{n_{KM}}  \\ 
-RME_{KNM} &=& \frac{\sum_t^{T} (1-y_t) \one_{\{SLR_t>1\}}}{\sum_t^{T} (1-y_t)} =\frac{\sum_t^{T} (1-y_t) \one_{\{SLR_t>1\}}}{n_{KNM}}   
-\end{eqnarray}
-```
-Discriminatory power:
-
-```{=tex}
-\begin{eqnarray}
-D_p_{{KM}} &=& \frac{\sum_t^{T} y_t \one_{\{SLR_t\geq C_{KM}\}} }{\sum_t^{T}y_t} =  \frac{\sum_t^{T} y_t \one_{\{SLR_t\geq C_{KM}\}}}{n_{KM}}  \\ 
-D_p_{{KNM}} &=& \frac{\sum_t^{T} (1-y_t) \one_{\{SLR_t\leq C_{KNM}\}} }{\sum_t^{T} (1-y_t)} =\frac{\sum_t^{T} (1-y_t) \one_{\{SLR_t\leq C_{KNM}\}} }{n_{KNM}}   
-\end{eqnarray}
-```
-## 
+![Consensus for Experiment2](images/foundations/Output%20CSAFE%20WRITERS/Consensus.png){alt="Distance for Experiment2"}

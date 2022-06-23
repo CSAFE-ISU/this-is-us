@@ -2,8 +2,7 @@
 
 This section will become the section for the administrative updates/organization once we have figured out how to use all of the bookdown features for our purposes.
 
-The github repo corresponding to these pages is located at https://github.com/CSAFE-ISU/this-is-us
-
+The github repo corresponding to these pages is located at <https://github.com/CSAFE-ISU/this-is-us>
 
 ## Guidelines for show and tell
 
@@ -11,23 +10,21 @@ A. What are the expectations from a spotlight presenter?
 
 Spotlight presentations allow you to go into a bit of detail when presenting your work. Aim for 8-10 mins. Spotlights do not have to be full fledged presentations, but should address:
 
-1. Background of the problem 
-2. What you have done
-3. Obstacles and/or next steps
+1.  Background of the problem
+2.  What you have done
+3.  Obstacles and/or next steps
 
-Make sure to include a lot of pictures! 
-Ideally a spotlight presentation sparks a bit of discussion. 
+Make sure to include a lot of pictures! Ideally a spotlight presentation sparks a bit of discussion.
 
 B. What about the time constraint when there is more than one spotlight?
 
-Usually we have 2-3 spotlight presenters scheduled for a show and tell session, so there should be plenty of time for all of you to present. The 8-10 mins are a guideline - sometimes you might need a bit more, sometimes less is fine as well. 
+Usually we have 2-3 spotlight presenters scheduled for a show and tell session, so there should be plenty of time for all of you to present. The 8-10 mins are a guideline - sometimes you might need a bit more, sometimes less is fine as well.
 
 Talk to the other spotlighters to figure out the order in which you go :)
 
 C. Group Updates
 
-After spotlighter presentations are done, we go around the group to quickly talk about every one's work/update. 
-While we are in on-line mode we are not going to require a group update from everyone, but if you have something to share, please do so!
+After spotlighter presentations are done, we go around the group to quickly talk about every one's work/update. While we are in on-line mode we are not going to require a group update from everyone, but if you have something to share, please do so!
 
 D. What if I have to discuss ideas and want to practice for an upcoming big event presentation like a conference, seminar, creative component, or PhD defense etc?
 
@@ -35,7 +32,7 @@ Please schedule a talk in the reading/working group which allows for deeper disc
 
 ## Rmarkdown how-to
 
-This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports, e.g., a math equation $a^2 + b^2 = c^2$.
+This is a *sample* book written in **Markdown**. You can use anything that Pandoc's Markdown supports, e.g., a math equation $a^2 + b^2 = c^2$.
 
 The **bookdown** package can be installed from CRAN or Github:
 
@@ -60,49 +57,41 @@ You can label chapter and section titles using `{#label}` after them, e.g., we c
 
 Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
 
-````{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center'}
+```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center'}
 par(mar = c(4, 4, .1, .1))
 plot(pressure, type = 'b', pch = 19)
-````
+```
 
 Reference a figure by its code chunk label with the `fig:` prefix, e.g., see Figure \@ref(fig:nice-fig). Similarly, you can reference tables generated from `knitr::kable()`, e.g., see Table \@ref(tab:nice-tab).
 
-````{r nice-tab, tidy=FALSE}
+```{r nice-tab, tidy=FALSE}
 knitr::kable(
   head(iris, 20), caption = 'Here is a nice table!',
   booktabs = TRUE
 )
-````
-
+```
 
 ## Literature references
 
-In order to refer to any papers you are using in your research (or have written yourself), we use the bibtex format. 
-All of our references are included in the file [book.bib](book.bib).
-For example, the bibtex entry for the paper on how the matching algorithm for bullets performs on degraded lands, is:
+In order to refer to any papers you are using in your research (or have written yourself), we use the bibtex format. All of our references are included in the file [book.bib](book.bib). For example, the bibtex entry for the paper on how the matching algorithm for bullets performs on degraded lands, is:
 
-```
-@article{icfis,
-author = {Hare, Eric and Hofmann, Heike and Carriquiry, Alicia},
-title = {Algorithmic approaches to match degraded land impressions},
-journal = {Law, Probability and Risk},
-volume = {Volume 16},
-issue = {4},
-year = {2017},
-pages = {203--221},
-doi = {10.1093/lpr/mgx018},
-URL = { + http://dx.doi.org/10.1093/lpr/mgx018},
-eprint = {/oup/backfile/content_public/journal/lpr/pap/10.1093_lpr_mgx018/2/mgx018.pdf}
-}
-```
+    @article{icfis,
+    author = {Hare, Eric and Hofmann, Heike and Carriquiry, Alicia},
+    title = {Algorithmic approaches to match degraded land impressions},
+    journal = {Law, Probability and Risk},
+    volume = {Volume 16},
+    issue = {4},
+    year = {2017},
+    pages = {203--221},
+    doi = {10.1093/lpr/mgx018},
+    URL = { + http://dx.doi.org/10.1093/lpr/mgx018},
+    eprint = {/oup/backfile/content_public/journal/lpr/pap/10.1093_lpr_mgx018/2/mgx018.pdf}
+    }
 
-We can refer to this paper in the text here using the identifier `@icfis` (as set in the first line of the entry). Putting box brackets around the identifier `[@icfis]` will put the reference inside parenthesis. Several citations can be in the same parenthesis, then they need to be separated by a semi colon `[@icfis; @icfis]`: 
+We can refer to this paper in the text here using the identifier `@icfis` (as set in the first line of the entry). Putting box brackets around the identifier `[@icfis]` will put the reference inside parenthesis. Several citations can be in the same parenthesis, then they need to be separated by a semi colon `[@icfis; @icfis]`:
 
 and now we see this in action:
 
-- **direct reference**: ... as @icfis famously stated ...
-- **indirect reference**, single citation: ... similar to other contributions [@icfis] we ...
-- **indirect reference**, multiple citations: ... similar to other contributions [@icfis; @gkhh] we ...
-
-
-
+-   **direct reference**: ... as @icfis famously stated ...
+-   **indirect reference**, single citation: ... similar to other contributions [@icfis] we ...
+-   **indirect reference**, multiple citations: ... similar to other contributions [@icfis; @gkhh] we ...

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Project G: Handwriting (&amp; Signatures) | This is us: making CSAFE stronger each week</title>
   <meta name="description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.28.2 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.29.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Project G: Handwriting (&amp; Signatures) | This is us: making CSAFE stronger each week" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2022-09-12" />
+<meta name="date" content="2022-09-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -213,6 +213,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#alexandra-arabios-project"><i class="fa fa-check"></i><b>5.3.4</b> Alexandra Arabio’s project</a></li>
 <li class="chapter" data-level="5.3.5" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#open-set-modeling-for-writer-identification-from-distribution-of-glyphs-in-clusters"><i class="fa fa-check"></i><b>5.3.5</b> Open Set Modeling for Writer Identification from Distribution of Glyphs in Clusters</a></li>
 <li class="chapter" data-level="5.3.6" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#statistical-analysis-of-handwriting-slant-with-respect-to-demographic-features"><i class="fa fa-check"></i><b>5.3.6</b> Statistical Analysis of Handwriting Slant with Respect to Demographic Features</a></li>
+<li class="chapter" data-level="5.3.7" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#quantifying-bayes-factors-for-forensic-handwriting-evidence"><i class="fa fa-check"></i><b>5.3.7</b> Quantifying Bayes Factors for Forensic Handwriting Evidence</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#communication-of-results"><i class="fa fa-check"></i><b>5.4</b> Communication of Results</a><ul>
 <li class="chapter" data-level="5.4.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#papers"><i class="fa fa-check"></i><b>5.4.1</b> Papers</a></li>
@@ -1493,103 +1494,47 @@ used to compute each of the three specific source SLRs.</p>
 <h3><span class="header-section-number">5.3.6</span> Statistical Analysis of Handwriting Slant with Respect to Demographic Features<a href="project-g-handwriting-signatures.html#statistical-analysis-of-handwriting-slant-with-respect-to-demographic-features" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="background" class="section level5 hasAnchor">
 <h5><span class="header-section-number">5.3.6.0.1</span> Background<a href="project-g-handwriting-signatures.html#background" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<p>This part of the handwriting project looks specifically at rotation
-angles (the slant of handwriting). We are trying to see if there is a
-relationship between slant of a writer and demographic features.</p>
+<p>This study aims to use statistical analysis to determine if there is a relationship between demographic features and slant. Generally, it is believed that there is a relationship between demographic features such as gender and age of a person and their handwriting.</p>
 </div>
 <div id="methods-and-data" class="section level5 hasAnchor">
 <h5><span class="header-section-number">5.3.6.0.2</span> Methods and Data<a href="project-g-handwriting-signatures.html#methods-and-data" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<p>â¢ We include data from 140 adults with three data collection sessions,
-each at least three weeks apart.</p>
-<p>â¢ At each session, participants provided information about the
-participant’s handedness, age group, gender, and region of third-grade
-education.</p>
-<p>â¢ Due to sample size, we did not include region in the models, and we
-combined age groups of 18-40 and all ages above 41+ for analysis.</p>
-<p>The slant of a writer is determined by calculating the direction of
-greatest variability in a graph using principal component decomposition
-(refer to Amy’s section) and the angle of rotation corresponding to that
-direction. The principal components are calculated through an
-eigen-decomposition of the covariance matrix. We look at rotation angles
-within clusters, because there is evidence that it is more meaningful
-since graphs in the same cluster will have similar rotation angles.</p>
-<center>
-<div class="figure">
-<img src="~/CSAFEComputer/this-is-us/images/handwriting/anyesha/rotangexample.png" style="width:50.0%" alt="" />
-<p class="caption">Example Rotation
-Angles</p>
+<p>Data Handwritten samples were collected by the Center for Statistics and Applications in Forensic Evidence (CSAFE). We include data from 235 adults. Each participant completed three data collection sessions at least three weeks apart. Participants wrote three different prompts that have three different lengths: the London Letter being the longest, followed by an excerpt chosen from the book The Wonderful Wizard of Oz, and the phrase “The early bird may get the worm, but the second mouse gets the cheese.” At each session, participants transcribed the three writing prompts three times resulting in nine pages of samples. In total, each writer wrote twenty-seven pages over the course of the study. Currently, we have about 6345 handwriting sample images as well as demographic-specific information collected from surveys for all participants.</p>
+<p>Participants also provided information about their handedness, age group, gender, and region of third-grade education. Due to sample size, we did not include region in the models, and we combined age groups to 18-40 and 41+.</p>
+<p>All handwriting images are broken into smaller segments of writing that we call “graphs” by the handwriter R package [2][3]. We extract information such as curvature of the glyph, lengths, and heights, as well as shapes of the loops. Following the methods described in Crawford [4], these graphs are then grouped according to their basic shape into 40 different clusters. For each glyph in a cluster, a quantitative measure of slant is computed. The slant of a writer is determined by calculating the direction of greatest variability in a letter using principal component decomposition and the angle of rotation corresponding to that direction. We call this the rotation angle of a glyph, which is a numerical value between 0 and 2π. The rotation angle is the measure of slant we use in our modeling. Since each graph has a measurement of slant, we have over 500,000 observations. To simplify this, we average all the rotation angles to get per person per cluster measurements. In other words, we take each writer and average the rotation angles that are in the same cluster. This gives us a data frame of approximately 10000 observations since each writer can only have, at most, 40 clusters. This also accounts for the issue of the different number of rotations angles a writer could have. Below is an image of all the rotation angles from writer 49 cluster 32 plotted on the unit circle, in radians.</p>
+<p><img src="images/handwriting/anyesha/w0049c32.png" width="312" /></p>
+<p>To get the data into a usable form, we did have to do some cleaning and manipulation. The data in its raw form is images with QR codes and information about the participant, like writer id and session information. We first crop out that information, and then extract all the features. Then, we are left with data files for each individual writer per session. The data files contain lists of 9 for each document in that session. Inside the list is information such as the name of the file, the image, and any data we could use for analysis sorted by letter. We extract the information relevant to my analysis and merge it with the file containing all the survey information.</p>
+<p>Since we have multiple options for the 4 categories of interest, we have many possible combinations of writers. However, we do not have enough participants to fill all the categories, especially region. Due to this we look at region separately, but do not include it in our final model. We collapse the age categories to be between 18-40 and 41+ instead of having 4 groups. We also have two writers that are ambidextrous but do not include their data in the model as we do not have enough information for those writers.</p>
+<p><img src="images/handwriting/anyesha/image.png" width="248" /></p>
 </div>
-</center>
-<center>
-<div class="figure">
-<img src="~/CSAFEComputer/this-is-us/images/handwriting/anyesha/w0049c32.png" style="width:70.0%" alt="" />
-<p class="caption">Rotation Angles within a
-cluster</p>
+<div id="model" class="section level4 hasAnchor">
+<h4><span class="header-section-number">5.3.6.1</span> Model<a href="project-g-handwriting-signatures.html#model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Our model is based on circular regression instead of linear regression. Circular data is information measured on the unit circle in radians or degrees. For example, linear data may consist of varying heights, while anything related to measurements of angles or something periodic in nature such as time would be considered circular data. For our purposes, we use circular regression instead of linear regression.</p>
+<p>Once we have established the use of circular regression, we must fit an appropriate model. We chose to use Bayesian circular regression. Models considered were Bayesian fixed effects models and mixed effects. As we have nested variables (multiple clusters and rotation angles within writers), we chose to fit a Bayesian mixed effects model. Mixed Effects are useful where there are repeated measurements on the same statistical units. Here we coded writer as the random effect to account for the correlation between samples from each person, since rotation angles from the same person are more likely to be similar than rotation angles from different people. Some observed data summaries are shown to the for angles in the 8 most populated clusters of graphs.</p>
+<p>We also averaged the rotation angels per writer per cluster. The original data is set up to have a rotation angle for each graph. Therefore, we have multiple rotation angles per document, and more when we factor in all 27 pages of documents. Since we have thousands of angle measurements, we average them per writer per cluster, where we take each person, organize by clusters and average the rotation angles that have the same cluster assignment. This way, each person has at most 40 observations since the number of clusters per person does not exceed 40. Some observed data summaries are shown for angles in the 8 most populated clusters of graphs.</p>
+<pre><code>## Error in knitr::include_graphics(c(&quot;images/handwriting/anyesha/rotangexample.png&quot;)): Cannot find the file(s): &quot;images/handwriting/anyesha/rotangexample.png&quot;</code></pre>
+<p><img src="images/handwriting/anyesha/genderboxplot.png" width="201" /></p>
+<p><img src="images/handwriting/anyesha/ageboxplot.png" width="201" /></p>
+<p><img src="images/handwriting/anyesha/handednessboxplot.png" width="350" /></p>
+<p>We fit the models using the bpnreg package in R. We fit multiple Bayesian Projected Normal Regression and Mixed Effect models using Age Group, Handedness, and Gender as the explanatory variables and the per writer per cluster mean Rotation Angles as the response. The MCMC algorithm has 5000 iterations with 2000 burn-in. We only show results for the model that includes a random effect for person.</p>
+<p><img src="images/handwriting/anyesha/boxplotpred.png" width="312" /></p>
+<p><img src="images/handwriting/anyesha/meanval.png" width="390" /></p>
+<div id="regression" class="section level5 hasAnchor">
+<h5><span class="header-section-number">5.3.6.1.1</span> Regression<a href="project-g-handwriting-signatures.html#regression" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<pre><code>## Error in knitr::include_graphics(c(&quot;images/handwriting/anyesha/model_writeup1.png&quot;)): Cannot find the file(s): &quot;images/handwriting/anyesha/model_writeup1.png&quot;</code></pre>
+<pre><code>## Error in knitr::include_graphics(c(&quot;images/handwriting/anyesha/model_writeup2.png&quot;)): Cannot find the file(s): &quot;images/handwriting/anyesha/model_writeup2.png&quot;</code></pre>
 </div>
 </div>
-<div id="model" class="section level5 hasAnchor">
-<h5><span class="header-section-number">5.3.6.0.3</span> Model<a href="project-g-handwriting-signatures.html#model" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<p>We fit models using the bpnreg package in R. We fit multiple Bayesian
-Projected Normal Regression and Mixed Effect models using Age Group,
-Handedness, and Gender as the explanatory variables and Rotation Angle
-as the response. We only show results for the model that includes a
-random person effect.</p>
-<p>Mixed Effects are useful where there are repeated measurements on the
-same statistical units. Here we have multiple rotation angles for
-writer, therefore, we fit a model with writer as the mixed effect to
-account for the correlation between samples from each person. Some
-observed data summaries are shown to the left for angles in the 8 most
-populated clusters of graphs.</p>
-<p><br></p>
-<center>
-<p><img src="~/CSAFEComputer/this-is-us/images/handwriting/anyesha/model_writeup1.png" style="width:30.0%" /></p>
-<p><img src="~/CSAFEComputer/this-is-us/images/handwriting/anyesha/model_writeup2.png" style="width:20.0%" /></p>
-</center>
+<div id="conclusion" class="section level4 hasAnchor">
+<h4><span class="header-section-number">5.3.6.2</span> Conclusion<a href="project-g-handwriting-signatures.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In the boxplot and from the above table, we can see the predicted means for each category. We can see that there is a difference in slant associated with demographic characteristics especially across ages. Older people have less of a slant than younger people . There also seems to be a difference
+in females who are younger and males who are older, as well as younger left-handed writers to older right-handed writers. While we would expect the most notable differences to be with gender or handedness, clearly slant varies most among different ages. However, it is important to keep in mind,
+we do not have a uniform distribution of writers per category, nor do we have a significant number of writers. We will continue to collect samples from additional participants and will update these results when more data becomes available.</p>
 </div>
-<div id="boxplots" class="section level5 hasAnchor">
-<h5><span class="header-section-number">5.3.6.0.4</span> Boxplots<a href="project-g-handwriting-signatures.html#boxplots" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<center>
-<p><br></p>
-<div class="figure">
-<img src="~/CSAFEComputer/this-is-us/images/handwriting/anyesha/genderboxplot.png" alt="" />
-<p class="caption">Boxplot for
-Gender</p>
 </div>
-<p><br></p>
-<div class="figure">
-<img src="~/CSAFEComputer/this-is-us/images/handwriting/anyesha/ageboxplot.png" alt="" />
-<p class="caption">Boxplot for
-Age</p>
-</div>
-<p><br></p>
-<div class="figure">
-<img src="~/CSAFEComputer/this-is-us/images/handwriting/anyesha/handednessboxplot.png" alt="" />
-<p class="caption">Boxplot for
-Handedness</p>
-</div>
-<p><br></p>
-<div class="figure">
-<img src="~/CSAFEComputer/this-is-us/images/handwriting/anyesha/boxplotpred.png" alt="" />
-<p class="caption">Boxplot of
-Predictions</p>
-</div>
-<p><br></p>
-<div class="figure">
-<img src="~/CSAFEComputer/this-is-us/images/handwriting/anyesha/meanval.png" style="width:40.0%" alt="" />
-<p class="caption">Predicted
-means</p>
-</div>
-</center>
-<p>No definite conclusions, but some interesting findings:</p>
-<p>• Older writers exhibit significantly less slant than younger ones.</p>
-<p>• Within age group, women appear to show more slant.</p>
-<p>• Region of 3rd year education may be associated with slant (not enough
-data yet).</p>
-<p>• Strengths of these effects vary across characters.</p>
-<p>Next steps do some model comparison using new batch of data.</p>
-</div>
+<div id="quantifying-bayes-factors-for-forensic-handwriting-evidence" class="section level3 hasAnchor">
+<h3><span class="header-section-number">5.3.7</span> Quantifying Bayes Factors for Forensic Handwriting Evidence<a href="project-g-handwriting-signatures.html#quantifying-bayes-factors-for-forensic-handwriting-evidence" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="updated-results" class="section level5 hasAnchor">
-<h5><span class="header-section-number">5.3.6.0.5</span> Updated Results<a href="project-g-handwriting-signatures.html#updated-results" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<h5><span class="header-section-number">5.3.7.0.1</span> Updated Results<a href="project-g-handwriting-signatures.html#updated-results" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 </div>
 </div>
 </div>

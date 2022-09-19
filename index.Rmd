@@ -105,7 +105,7 @@ commit and push often to avoid conflicts with your collaborators.
         commands](https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
     -   Rstudio's [tutorial](https://rmarkdown.rstudio.com/)
 
-4.  including figures: our work revolves around pattern evidence, so it
+4.  including photos: our work revolves around pattern evidence, so it
     is quite natural to include figures and graphs. There is a folder
     called `images` in the repo, within that each area has a subfolder.
     Pick the one that best describes your work. Create a folder with

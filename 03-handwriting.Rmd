@@ -1262,110 +1262,107 @@ knitr::include_graphics(c("images/handwriting/mattie/hepler_slrs.png"))
 
 ##### Background
 
-This part of the handwriting project looks specifically at rotation
-angles (the slant of handwriting). We are trying to see if there is a
-relationship between slant of a writer and demographic features.
+This study aims to use statistical analysis to determine if there is a relationship between demographic features and slant. Generally, it is believed that there is a relationship between demographic features such as gender and age of a person and their handwriting.
 
 ##### Methods and Data
+Data Handwritten samples were collected by the Center for Statistics and Applications in Forensic Evidence (CSAFE). We include data from 235 adults. Each participant completed three data collection sessions at least three weeks apart. Participants wrote three different prompts that have three different lengths: the London Letter being the longest, followed by an excerpt chosen from the book The Wonderful Wizard of Oz, and the phrase “The early bird may get the worm, but the second mouse gets the cheese.” At each session, participants transcribed the three writing prompts three times resulting in nine pages of samples. In total, each writer wrote twenty-seven pages over the course of the study. Currently, we have about 6345 handwriting sample images as well as demographic-specific information collected from surveys for all participants.
 
-â¢ We include data from 140 adults with three data collection sessions,
-each at least three weeks apart.
+Participants also provided information about their handedness, age group, gender, and region of third-grade education. Due to sample size, we did not include region in the models, and we combined age groups to 18-40 and 41+.
 
-â¢ At each session, participants provided information about the
-participant's handedness, age group, gender, and region of third-grade
-education.
+All handwriting images are broken into smaller segments of writing that we call “graphs” by the handwriter R package [2][3]. We extract information such as curvature of the glyph, lengths, and heights, as well as shapes of the loops. Following the methods described in Crawford [4], these graphs are then grouped according to their basic shape into 40 different clusters. For each glyph in a cluster, a quantitative measure of slant is computed. The slant of a writer is determined by calculating the direction of greatest variability in a letter using principal component decomposition and the angle of rotation corresponding to that direction. We call this the rotation angle of a glyph, which is a numerical value between 0 and 2π. The rotation angle is the measure of slant we use in our modeling. Since each graph has a measurement of slant, we have over 500,000 observations. To simplify this, we average all the rotation angles to get per person per cluster measurements. In other words, we take each writer and average the rotation angles that are in the same cluster. This gives us a data frame of approximately 10000 observations since each writer can only have, at most, 40 clusters.  This also accounts for the issue of the different number of rotations angles a writer could have. Below is an image of all the rotation angles from writer 49 cluster 32 plotted on the unit circle, in radians.
 
-â¢ Due to sample size, we did not include region in the models, and we
-combined age groups of 18-40 and all ages above 41+ for analysis.
+```{r}
 
-The slant of a writer is determined by calculating the direction of
-greatest variability in a graph using principal component decomposition
-(refer to Amy's section) and the angle of rotation corresponding to that
-direction. The principal components are calculated through an
-eigen-decomposition of the covariance matrix. We look at rotation angles
-within clusters, because there is evidence that it is more meaningful
-since graphs in the same cluster will have similar rotation angles.
+knitr::include_graphics(c("images/handwriting/anyesha/w0049c32.png"))
 
-<center>
+```
 
-![Example Rotation
-Angles](~/CSAFEComputer/this-is-us/images/handwriting/anyesha/rotangexample.png){width="50%"}
 
-</center>
+To get the data into a usable form, we did have to do some cleaning and manipulation. The data in its raw form is images with QR codes and information about the participant, like writer id and session information. We first crop out that information, and then  extract all the features. Then, we are left with data files for each individual writer per session. The data files contain lists of 9 for each document in that session. Inside the list is information such as the name of the file, the image, and any data we could use for analysis sorted by letter. We extract the information relevant to my analysis and merge it with the file containing all the survey information. 
 
-<center>
 
-![Rotation Angles within a
-cluster](~/CSAFEComputer/this-is-us/images/handwriting/anyesha/w0049c32.png){width="70%"}
+Since we have multiple options for the 4 categories of interest, we have many possible combinations of writers. However, we do not have enough participants to fill all the categories, especially region. Due to this we look at region separately, but do not include it in our final model. We collapse the age categories to be between 18-40 and 41+ instead of having 4 groups. We also have two writers that are ambidextrous but do not include their data in the model as we do not have enough information for those writers. 
 
-##### Model
+```{r}
 
-We fit models using the bpnreg package in R. We fit multiple Bayesian
-Projected Normal Regression and Mixed Effect models using Age Group,
-Handedness, and Gender as the explanatory variables and Rotation Angle
-as the response. We only show results for the model that includes a
-random person effect.
+knitr::include_graphics(c("images/handwriting/anyesha/image.png"))
 
-Mixed Effects are useful where there are repeated measurements on the
-same statistical units. Here we have multiple rotation angles for
-writer, therefore, we fit a model with writer as the mixed effect to
-account for the correlation between samples from each person. Some
-observed data summaries are shown to the left for angles in the 8 most
-populated clusters of graphs.
+```
 
-<br>
 
-<center>
+#### Model
+Our model is based on circular regression instead of linear regression. Circular data is information measured on the unit circle in radians or degrees. For example, linear data may consist of varying heights, while anything related to measurements of angles or something periodic in nature such as time would be considered circular data. For our purposes, we use circular regression instead of linear regression. 
 
-![](~/CSAFEComputer/this-is-us/images/handwriting/anyesha/model_writeup1.png){width="30%"}
+Once we have established the use of circular regression, we must fit an appropriate model. We chose to use Bayesian circular regression. Models considered were Bayesian fixed effects models and mixed effects. As we have nested variables (multiple clusters and rotation angles within writers), we chose to fit a Bayesian mixed effects model. Mixed Effects are useful where there are repeated measurements on the same statistical units. Here we coded writer as the random effect to account for the correlation between samples from each person, since rotation angles from the same person are more likely to be similar than rotation angles from different people. Some observed data summaries are shown to the for angles in the 8 most populated clusters of graphs.
 
-![](~/CSAFEComputer/this-is-us/images/handwriting/anyesha/model_writeup2.png){width="20%"}
+We also averaged the rotation angels per writer per cluster. The original data is set up to have a rotation angle for each graph. Therefore, we have multiple rotation angles per document, and more when we factor in all 27 pages of documents. Since we have thousands of angle measurements, we average them per writer per cluster, where we take each person, organize by clusters and average the rotation angles that have the same cluster assignment. This way, each person has at most 40 observations since the number of clusters per person does not exceed 40. Some observed data summaries are shown for angles in the 8 most populated clusters of graphs.
 
-</center>
 
-##### Boxplots
 
-<center>
+```{r}
 
-<br>
+knitr::include_graphics(c("images/handwriting/anyesha/rotangexample.png"))
 
-![Boxplot for
-Gender](~/CSAFEComputer/this-is-us/images/handwriting/anyesha/genderboxplot.png)
+```
 
-<br>
 
-![Boxplot for
-Age](~/CSAFEComputer/this-is-us/images/handwriting/anyesha/ageboxplot.png)
+```{r}
 
-<br>
+knitr::include_graphics(c("images/handwriting/anyesha/genderboxplot.png"))
 
-![Boxplot for
-Handedness](~/CSAFEComputer/this-is-us/images/handwriting/anyesha/handednessboxplot.png)
+```
 
-<br>
+```{r}
 
-![Boxplot of
-Predictions](~/CSAFEComputer/this-is-us/images/handwriting/anyesha/boxplotpred.png)
+knitr::include_graphics(c("images/handwriting/anyesha/ageboxplot.png"))
 
-<br>
+```
 
-![Predicted
-means](~/CSAFEComputer/this-is-us/images/handwriting/anyesha/meanval.png){width="40%"}
+```{r}
 
-</center>
+knitr::include_graphics(c("images/handwriting/anyesha/handednessboxplot.png"))
 
-No definite conclusions, but some interesting findings:
+```
 
-• Older writers exhibit significantly less slant than younger ones.
 
-• Within age group, women appear to show more slant.
+We fit the models using the bpnreg package in R. We fit multiple Bayesian Projected Normal Regression and Mixed Effect models using Age Group, Handedness, and Gender as the explanatory variables and the per writer per cluster mean Rotation Angles as the response. The MCMC algorithm has 5000 iterations with 2000 burn-in.  We only show results for the model that includes a random effect for person.  
 
-• Region of 3rd year education may be associated with slant (not enough
-data yet).
 
-• Strengths of these effects vary across characters.
+```{r}
 
-Next steps do some model comparison using new batch of data.
+knitr::include_graphics(c("images/handwriting/anyesha/boxplotpred.png"))
+
+```
+
+```{r}
+
+knitr::include_graphics(c("images/handwriting/anyesha/meanval.png"))
+
+```
+
+##### Regression
+```{r}
+
+knitr::include_graphics(c("images/handwriting/anyesha/model_writeup1.png"))
+
+```
+
+```{r}
+
+knitr::include_graphics(c("images/handwriting/anyesha/model_writeup2.png"))
+
+```
+
+#### Conclusion 
+In the boxplot and from the above table, we can see the predicted means for each category. We can see that there is a difference in slant associated with demographic characteristics especially across ages. Older people have less of a slant than younger people . There also seems to be a difference
+in females who are younger and males who are older, as well as younger left-handed writers to older right-handed writers. While we would expect the most notable differences to be with gender or handedness, clearly slant varies most among different ages. However, it is important to keep in mind,
+we do not have a uniform distribution of writers per category, nor do we have a significant number of writers. We will continue to collect samples from additional participants and will update these results when more data becomes available.
+
+
+
+### Quantifying Bayes Factors for Forensic Handwriting Evidence
+
+
 
 ##### Updated Results
 

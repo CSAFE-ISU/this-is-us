@@ -4020,6 +4020,7 @@ Joe 6/9/22 Update: I have been working on the Lit Review and presentation for my
 
 Joe 6/23/22 Update: I passed my Oral Prelim Exam last week and have since developed the interactive diagnostic tool `cartridgeInvestigatR`. I plan on discussing this tool in a future Spotlight.
 
+Joe 9/19/22 Update: I have been working on two new pieces of software to implement the methods described in my dissertation. One is the [`impressions`](https://jzemmels.github.io/impressions/) R package that allows one to diagnose and explain cartridge case impression algorithms. The [`scored`](https://jzemmels.github.io/scored/) R package uses new techniques to measure the similarity between two cartridge cases.
 
 ### Modified Chumbley non-random test
 #### Land-to-land scores

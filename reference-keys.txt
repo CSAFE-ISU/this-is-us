@@ -213,9 +213,9 @@ fig:unnamed-chunk-537
 fig:unnamed-chunk-538
 fig:unnamed-chunk-539
 fig:unnamed-chunk-540
-fig:unnamed-chunk-580
-fig:unnamed-chunk-585
-fig:unnamed-chunk-586
+fig:unnamed-chunk-582
+fig:unnamed-chunk-587
+fig:unnamed-chunk-588
 fig:toolmarks
 fig:screwdriver
 fig:tip-sensofar
@@ -350,7 +350,7 @@ model
 regression
 conclusion
 quantifying-bayes-factors-for-forensic-handwriting-evidence
-updated-results
+background-1
 communication-of-results
 papers
 talks

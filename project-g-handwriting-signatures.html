@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Project G: Handwriting (&amp; Signatures) | This is us: making CSAFE stronger each week</title>
   <meta name="description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.29.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.29.3 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Project G: Handwriting (&amp; Signatures) | This is us: making CSAFE stronger each week" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2022-09-19" />
+<meta name="date" content="2022-10-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1492,12 +1492,12 @@ used to compute each of the three specific source SLRs.</p>
 </div>
 <div id="statistical-analysis-of-handwriting-slant-with-respect-to-demographic-features" class="section level3 hasAnchor">
 <h3><span class="header-section-number">5.3.6</span> Statistical Analysis of Handwriting Slant with Respect to Demographic Features<a href="project-g-handwriting-signatures.html#statistical-analysis-of-handwriting-slant-with-respect-to-demographic-features" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="background" class="section level5 hasAnchor">
-<h5><span class="header-section-number">5.3.6.0.1</span> Background<a href="project-g-handwriting-signatures.html#background" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="background" class="section level4 hasAnchor">
+<h4><span class="header-section-number">5.3.6.1</span> Background<a href="project-g-handwriting-signatures.html#background" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>This study aims to use statistical analysis to determine if there is a relationship between demographic features and slant. Generally, it is believed that there is a relationship between demographic features such as gender and age of a person and their handwriting.</p>
 </div>
-<div id="methods-and-data" class="section level5 hasAnchor">
-<h5><span class="header-section-number">5.3.6.0.2</span> Methods and Data<a href="project-g-handwriting-signatures.html#methods-and-data" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="methods-and-data" class="section level4 hasAnchor">
+<h4><span class="header-section-number">5.3.6.2</span> Methods and Data<a href="project-g-handwriting-signatures.html#methods-and-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Data Handwritten samples were collected by the Center for Statistics and Applications in Forensic Evidence (CSAFE). We include data from 235 adults. Each participant completed three data collection sessions at least three weeks apart. Participants wrote three different prompts that have three different lengths: the London Letter being the longest, followed by an excerpt chosen from the book The Wonderful Wizard of Oz, and the phrase “The early bird may get the worm, but the second mouse gets the cheese.” At each session, participants transcribed the three writing prompts three times resulting in nine pages of samples. In total, each writer wrote twenty-seven pages over the course of the study. Currently, we have about 6345 handwriting sample images as well as demographic-specific information collected from surveys for all participants.</p>
 <p>Participants also provided information about their handedness, age group, gender, and region of third-grade education. Due to sample size, we did not include region in the models, and we combined age groups to 18-40 and 41+.</p>
 <p>All handwriting images are broken into smaller segments of writing that we call “graphs” by the handwriter R package [2][3]. We extract information such as curvature of the glyph, lengths, and heights, as well as shapes of the loops. Following the methods described in Crawford [4], these graphs are then grouped according to their basic shape into 40 different clusters. For each glyph in a cluster, a quantitative measure of slant is computed. The slant of a writer is determined by calculating the direction of greatest variability in a letter using principal component decomposition and the angle of rotation corresponding to that direction. We call this the rotation angle of a glyph, which is a numerical value between 0 and 2π. The rotation angle is the measure of slant we use in our modeling. Since each graph has a measurement of slant, we have over 500,000 observations. To simplify this, we average all the rotation angles to get per person per cluster measurements. In other words, we take each writer and average the rotation angles that are in the same cluster. This gives us a data frame of approximately 10000 observations since each writer can only have, at most, 40 clusters. This also accounts for the issue of the different number of rotations angles a writer could have. Below is an image of all the rotation angles from writer 49 cluster 32 plotted on the unit circle, in radians.</p>
@@ -1507,7 +1507,7 @@ used to compute each of the three specific source SLRs.</p>
 <p><img src="images/handwriting/anyesha/image.png" width="248" /></p>
 </div>
 <div id="model" class="section level4 hasAnchor">
-<h4><span class="header-section-number">5.3.6.1</span> Model<a href="project-g-handwriting-signatures.html#model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">5.3.6.3</span> Model<a href="project-g-handwriting-signatures.html#model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Our model is based on circular regression instead of linear regression. Circular data is information measured on the unit circle in radians or degrees. For example, linear data may consist of varying heights, while anything related to measurements of angles or something periodic in nature such as time would be considered circular data. For our purposes, we use circular regression instead of linear regression.</p>
 <p>Once we have established the use of circular regression, we must fit an appropriate model. We chose to use Bayesian circular regression. Models considered were Bayesian fixed effects models and mixed effects. As we have nested variables (multiple clusters and rotation angles within writers), we chose to fit a Bayesian mixed effects model. Mixed Effects are useful where there are repeated measurements on the same statistical units. Here we coded writer as the random effect to account for the correlation between samples from each person, since rotation angles from the same person are more likely to be similar than rotation angles from different people. Some observed data summaries are shown to the for angles in the 8 most populated clusters of graphs.</p>
 <p>We also averaged the rotation angels per writer per cluster. The original data is set up to have a rotation angle for each graph. Therefore, we have multiple rotation angles per document, and more when we factor in all 27 pages of documents. Since we have thousands of angle measurements, we average them per writer per cluster, where we take each person, organize by clusters and average the rotation angles that have the same cluster assignment. This way, each person has at most 40 observations since the number of clusters per person does not exceed 40. Some observed data summaries are shown for angles in the 8 most populated clusters of graphs.</p>
@@ -1519,13 +1519,13 @@ used to compute each of the three specific source SLRs.</p>
 <p><img src="images/handwriting/anyesha/boxplotpred.png" width="312" /></p>
 <p><img src="images/handwriting/anyesha/meanval.png" width="390" /></p>
 <div id="regression" class="section level5 hasAnchor">
-<h5><span class="header-section-number">5.3.6.1.1</span> Regression<a href="project-g-handwriting-signatures.html#regression" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<h5><span class="header-section-number">5.3.6.3.1</span> Regression<a href="project-g-handwriting-signatures.html#regression" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <pre><code>## Error in knitr::include_graphics(c(&quot;images/handwriting/anyesha/model_writeup1.png&quot;)): Cannot find the file(s): &quot;images/handwriting/anyesha/model_writeup1.png&quot;</code></pre>
 <pre><code>## Error in knitr::include_graphics(c(&quot;images/handwriting/anyesha/model_writeup2.png&quot;)): Cannot find the file(s): &quot;images/handwriting/anyesha/model_writeup2.png&quot;</code></pre>
 </div>
 </div>
 <div id="conclusion" class="section level4 hasAnchor">
-<h4><span class="header-section-number">5.3.6.2</span> Conclusion<a href="project-g-handwriting-signatures.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">5.3.6.4</span> Conclusion<a href="project-g-handwriting-signatures.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>In the boxplot and from the above table, we can see the predicted means for each category. We can see that there is a difference in slant associated with demographic characteristics especially across ages. Older people have less of a slant than younger people . There also seems to be a difference
 in females who are younger and males who are older, as well as younger left-handed writers to older right-handed writers. While we would expect the most notable differences to be with gender or handedness, clearly slant varies most among different ages. However, it is important to keep in mind,
 we do not have a uniform distribution of writers per category, nor do we have a significant number of writers. We will continue to collect samples from additional participants and will update these results when more data becomes available.</p>
@@ -1533,8 +1533,22 @@ we do not have a uniform distribution of writers per category, nor do we have a 
 </div>
 <div id="quantifying-bayes-factors-for-forensic-handwriting-evidence" class="section level3 hasAnchor">
 <h3><span class="header-section-number">5.3.7</span> Quantifying Bayes Factors for Forensic Handwriting Evidence<a href="project-g-handwriting-signatures.html#quantifying-bayes-factors-for-forensic-handwriting-evidence" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="updated-results" class="section level5 hasAnchor">
-<h5><span class="header-section-number">5.3.7.0.1</span> Updated Results<a href="project-g-handwriting-signatures.html#updated-results" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="background-1" class="section level4 hasAnchor">
+<h4><span class="header-section-number">5.3.7.1</span> Background<a href="project-g-handwriting-signatures.html#background-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Amys work developed a closed set model for handwriting identification. Closed set means we have a finite background population, and that the model can identify which writer wrote which sample given we know that each writer wrote a sample in the set. From here we want to move to identify handwriting samples in an open set. Here we do not know the background population and are simply looking to answer did the suspected writer write this sample or not. Mattie approached this issue using score-based likelihood ratios and Gab did it using Neyman-Pearson Likelihood Ratios and Bayes Factors. In the score based likelihood approach they combined features into a score metric and then compared those where as in the NP-LR method/BF method we compare the features directly. My work will continue what Gab did and run multiple simulations to support her proof-of-concept study.</p>
+<p>Diff b/w LR and BF:
+Gab calculated both the NP-LR and BF. Likelihood ratios are accepted in the forensic community which is why I’m guessing we use them. Law of Likelihood: “If Hypothesis A implies the probability that X = x is pA(x), while Hypothesis B implies the probability that X = x is pB(x), then the observation X = x is evidence supporting Hypothesis A over Hypothesis B if and only if pA(x) &gt; pB(x) and the Likelihood Ratio pA(x)/pB(x) measures the strength of that support.” In the forensic lens, this means probability of observing the evidence given prosecution (matches suspect) is true, divided by probability of observing the evidence given defense (match is from a randomly selected someone in the relevant population i.e., not the suspect). This is based on the MLE.
+A Bayes Factor is the Bayesian version of a LR. Probability of observing evidence under one hypothesis to probability of observing data under the other. They are interpreted in the same way. If the ratio is greater than 1 it supports the prosecutions and ratios below 1 support the defense.</p>
+<p>Note Gab used CSAFE data. The CSAFE data is broken down using handwriter. Writing samples are broken into glyphs, and each glyph is categorized into a cluster group based on their basic shapes (simplified example is that all things that look kind of like an e will go into the same cluster). We do 40 clusters because Amy said so. Then Gab created a dataset that has the cluster counts for each writer (writer 1 has 2 graphs in cluster 1, 16 in cluster 2, and so on to 3 graphs in cluster 40 then same for writer 2 and so on…).</p>
+<p><img src="images/handwriting/anyesha/writer1clustersums.png" width="622" /></p>
+<p><img src="images/handwriting/anyesha/writer313clustersums.png" width="622" /></p>
+<p>The idea is that the number of graphs that fall into each cluster is unique to an individual and is their “writer template”. Flash ID uses this feature as well.</p>
+<p>There are two groups when answering an open set question: the specific source and the alternative source. Say someone wrote a threatening letter and left it in a classroom. We also know the classroom had been cleaned that morning and the letter was not present, but it was after the students went to lunch. The specific source would be our suspect and the alternative source would be everyone else in the class present in those hours. We have three separate pieces of evidence then. u will denote unknown, s will denote specific source, and A will denote alternative source in general.</p>
+<p>u_j is the vector of graph counts from the unknown document will be a vector of length 40 because we have 40 clusters (evidence obtained from crime scene)</p>
+<p>s_j is the vector of graph counts from the control document will be a vector of length 40 because we have 40 clusters. Here we can have multiple documents . (material we gather from suspect)</p>
+<p>A_ij is vector of graph counts in each of the 40 clusters from document j and alternative writer i in the population where I is number of different writers in alternative and j is number of documents.</p>
+<p>Hp: The QD was written by the suspect.
+Hd: The QD was written by someone else in the alternative source population</p>
 </div>
 </div>
 </div>

@@ -213,9 +213,9 @@ fig:unnamed-chunk-537
 fig:unnamed-chunk-538
 fig:unnamed-chunk-539
 fig:unnamed-chunk-540
-fig:unnamed-chunk-582
-fig:unnamed-chunk-587
+fig:unnamed-chunk-583
 fig:unnamed-chunk-588
+fig:unnamed-chunk-589
 fig:toolmarks
 fig:screwdriver
 fig:tip-sensofar

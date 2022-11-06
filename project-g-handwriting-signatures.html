@@ -23,7 +23,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2022-10-27" />
+<meta name="date" content="2022-11-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1539,16 +1539,34 @@ we do not have a uniform distribution of writers per category, nor do we have a 
 <p>Diff b/w LR and BF:
 Gab calculated both the NP-LR and BF. Likelihood ratios are accepted in the forensic community which is why I’m guessing we use them. Law of Likelihood: “If Hypothesis A implies the probability that X = x is pA(x), while Hypothesis B implies the probability that X = x is pB(x), then the observation X = x is evidence supporting Hypothesis A over Hypothesis B if and only if pA(x) &gt; pB(x) and the Likelihood Ratio pA(x)/pB(x) measures the strength of that support.” In the forensic lens, this means probability of observing the evidence given prosecution (matches suspect) is true, divided by probability of observing the evidence given defense (match is from a randomly selected someone in the relevant population i.e., not the suspect). This is based on the MLE.
 A Bayes Factor is the Bayesian version of a LR. Probability of observing evidence under one hypothesis to probability of observing data under the other. They are interpreted in the same way. If the ratio is greater than 1 it supports the prosecutions and ratios below 1 support the defense.</p>
-<p>Note Gab used CSAFE data. The CSAFE data is broken down using handwriter. Writing samples are broken into glyphs, and each glyph is categorized into a cluster group based on their basic shapes (simplified example is that all things that look kind of like an e will go into the same cluster). We do 40 clusters because Amy said so. Then Gab created a dataset that has the cluster counts for each writer (writer 1 has 2 graphs in cluster 1, 16 in cluster 2, and so on to 3 graphs in cluster 40 then same for writer 2 and so on…).</p>
-<p><img src="images/handwriting/anyesha/writer1clustersums.png" width="622" /></p>
-<p><img src="images/handwriting/anyesha/writer313clustersums.png" width="622" /></p>
+<p>The CSAFE data is broken down using handwriter. Writing samples are broken into glyphs, and each glyph is categorized into a cluster group based on their basic shapes (simplified example is that all things that look kind of like an e will go into the same cluster). We do 40 clusters because Amy said so. Then Gab created a dataset that has the cluster counts for each writer (writer 1 has 2 graphs in cluster 1, 16 in cluster 2, and so on to 3 graphs in cluster 40 then same for writer 2 and so on…).</p>
+<p><img src="images/handwriting/anyesha/writer1clustersums.png" width="622" />
+Figure 1. Histogram of graph count sums across all pieces of writing from writer 1</p>
+<p><img src="images/handwriting/anyesha/writer313clustersums.png" width="622" />
+Figure 2. Histogram of graph count sums across all pieces of writing from writer 313</p>
 <p>The idea is that the number of graphs that fall into each cluster is unique to an individual and is their “writer template”. Flash ID uses this feature as well.</p>
 <p>There are two groups when answering an open set question: the specific source and the alternative source. Say someone wrote a threatening letter and left it in a classroom. We also know the classroom had been cleaned that morning and the letter was not present, but it was after the students went to lunch. The specific source would be our suspect and the alternative source would be everyone else in the class present in those hours. We have three separate pieces of evidence then. u will denote unknown, s will denote specific source, and A will denote alternative source in general.</p>
-<p>u_j is the vector of graph counts from the unknown document will be a vector of length 40 because we have 40 clusters (evidence obtained from crime scene)</p>
-<p>s_j is the vector of graph counts from the control document will be a vector of length 40 because we have 40 clusters. Here we can have multiple documents . (material we gather from suspect)</p>
-<p>A_ij is vector of graph counts in each of the 40 clusters from document j and alternative writer i in the population where I is number of different writers in alternative and j is number of documents.</p>
+<p><span class="math display">\[u_i\]</span> is the vector of graph counts from the unknown document will be a vector of length 40 because we have 40 clusters (evidence obtained from crime scene)</p>
+<p><span class="math display">\[s_j\]</span> is the vector of graph counts from the control document will be a vector of length 40 because we have 40 clusters. Here we can have multiple documents . (material we gather from suspect)</p>
+<p><span class="math display">\[A_{ij}\]</span> is vector of graph counts in each of the 40 clusters from document j and alternative writer i in the population where I is number of different writers in alternative and j is number of documents.</p>
 <p>Hp: The QD was written by the suspect.
 Hd: The QD was written by someone else in the alternative source population</p>
+<p>The specific source was modeled as a Dirichlet-Multinomial(<span class="math display">\[θ_s\]</span>) where <span class="math display">\[θ_s\]</span> is the rate of observing graphs in the clusters for the specific source. So each specific source will have 40 <span class="math display">\[θ_s\]</span>. For the alternative source population, we use a hierarchical model where <span class="math display">\[θ_a\]</span> is drawn from a Dirichlet and then a Multinomial. To make the model simpler, we sum all the documents from the specific source into one row s. If s has 26 documents in it we take all the clusters in cluster 1 and sum them together and do that for all the clusters. The result is a vector of 40. We do a similar thing for <span class="math display">\[A_{ij}\]</span> where we take all the documents from the same writer and sum them together by clusters. The result is a single vector of 40 for each document.</p>
+<p><span class="math display">\[M_s :  s ∼ Fs(·|θs) = Dirichlet-Multinomial(θ_s)\]</span> and</p>
+<p><span class="math display">\[ M_a : B_i ∼ G(·|θ_a) = Dirichlet(θ_a) \]</span>
+<span class="math display">\[ A_i|B_i = b_i ∼ Fa(·|b_i, θ_a) = Multinomial(b_i)\]</span>
+where marginally where marginally,<span class="math display">\[ A_i|θ_a ∼ Dirichlet-Multinomial(θ_a)\]</span></p>
+<p>Then we can make the same simplificantions for the questioned documents, u, and sum them together by cluster.</p>
+<p><span class="math display">\[M_p : u ∼ Dirichlet-Multinomial(θ_s) \]</span>
+<span class="math display">\[M_d : u ∼ Dirichlet-Multinomial(θ_a)   \]</span></p>
+<p>Gab simplified the model by adding the graph counts for each document into one overall vector for each source instead of having a model for each document.
+Mp : u ∼ Dirichlet-Multinomial(θs)</p>
+<p>Md : u ∼ Dirichlet-Multinomial(θa)</p>
+<p>Then we calculate the Bayes Factor using gamma priors (refer to Amy’s work).</p>
+<pre><code>## Error in knitr::include_graphics(c(&quot;images/handwriting/anyesha/bayesfactorformula.png&quot;)): Cannot find the file(s): &quot;images/handwriting/anyesha/bayesfactorformula.png&quot;</code></pre>
+<p>Where <span class="math display">\[n_p\]</span> and <span class="math display">\[n_d\]</span> are the number of posterior samples and <span class="math display">\[θ_s^{(i)}\]</span> and <span class="math display">\[θ_a^{(i)}\]</span> are samples from the posterior distributions.</p>
+<p>A Bayes Factor of 1 indicates that the prosecution proposition and the defense proposition are equally favored. A Bayes Factor greater than 1 indicates that the <span class="math display">\[H_p\]</span> is favored and a Bayes Factor less than 1 indicates that the <span class="math display">\[H_d\]</span> is favored.
+In Gabrielle Collins and Danica Ommen’s, paper they only ran one simulation, so I will be running multiple.</p>
 </div>
 </div>
 </div>
@@ -1567,7 +1585,7 @@ and Statistical Writership Analysis”</strong></p>
 <li><p><strong>“A Database of Handwriting Samples for Applications in
 Forensic Statistics”</strong></p>
 <ul>
-<li>Authors: Anyesha Rey, Amy Crawford, and Alicia Carriquiry</li>
+<li>Authors: Anyesha Ray, Amy Crawford, and Alicia Carriquiry</li>
 <li>Submitted to Data in Brief in October 2019.</li>
 </ul></li>
 <li><p><strong>“Bayesian Hierarchical Modeling for Forensic Handwriting

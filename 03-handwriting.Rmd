@@ -1527,6 +1527,15 @@ Where $n_p$ and $n_d$ are the number of posterior samples and $θ_s^{(i)}$ and $
 
 A Bayes Factor of 1 indicates that the prosecution proposition and the defense proposition are equally favored. A Bayes Factor greater than 1 indicates that the $H_p$ is favored and a Bayes Factor less than 1 indicates that the $H_d$ is favored. In Gabrielle Collins and Danica Ommen's, paper they only ran one simulation, so I will be running multiple.
 
+### FLASH ID and handwriter comparison
+
+The goal of the project is to compare the results of handwriter and FLASH ID on test documents of varying lengths. 
+
+
+
+
+
+
 ## Communication of Results
 
 Presenting author is in bold.

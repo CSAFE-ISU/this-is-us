@@ -353,6 +353,7 @@ regression
 conclusion
 quantifying-bayes-factors-for-forensic-handwriting-evidence
 background-1
+flash-id-and-handwriter-comparison
 communication-of-results
 papers
 talks
@@ -399,6 +400,7 @@ spatial-integration
 maxclique
 cocoa
 comparing-the-procedures
+pilot-procedure-testing
 d-shoe-recognition
 shoe-outsole-matching-using-image-descriptors
 method-1-edge-detection-and-mc-mc-comp

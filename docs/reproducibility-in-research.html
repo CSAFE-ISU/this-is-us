@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 10 Reproducibility in Research | This is us: making CSAFE stronger each week</title>
   <meta name="description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 10 Reproducibility in Research | This is us: making CSAFE stronger each week" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
   <meta name="github-repo" content="csafe-isu/this-is-us" />
@@ -24,7 +23,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2022-03-03" />
+<meta name="date" content="2023-02-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="outreach-activities.html"/>
 <link rel="next" href="toolmarks.html"/>
-<script src="libs/header-attrs-2.11.6/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -54,10 +52,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
-<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 
 
 <style type="text/css">
@@ -98,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -111,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -164,231 +158,249 @@ div.csl-indent {
 <li><a href="./">This is us</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites<span></span></a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#setting-up-the-repository-on-your-machine"><i class="fa fa-check"></i><b>1.1</b> Setting up the repository on your machine<span></span></a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#contributions-to-the-repository"><i class="fa fa-check"></i><b>1.2</b> Contributions to the repository<span></span></a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#setting-up-the-repository-on-your-machine"><i class="fa fa-check"></i><b>1.1</b> Setting up the repository on your machine</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#contributions-to-the-repository"><i class="fa fa-check"></i><b>1.2</b> Contributions to the repository</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction<span></span></a>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#guidelines-for-show-and-tell"><i class="fa fa-check"></i><b>2.1</b> Guidelines for show and tell<span></span></a></li>
-<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#rmarkdown-how-to"><i class="fa fa-check"></i><b>2.2</b> Rmarkdown how-to<span></span></a></li>
-<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#literature-references"><i class="fa fa-check"></i><b>2.3</b> Literature references<span></span></a></li>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#guidelines-for-show-and-tell"><i class="fa fa-check"></i><b>2.1</b> Guidelines for show and tell</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#rmarkdown-how-to"><i class="fa fa-check"></i><b>2.2</b> Rmarkdown how-to</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#literature-references"><i class="fa fa-check"></i><b>2.3</b> Literature references</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="dummy-file.html"><a href="dummy-file.html"><i class="fa fa-check"></i><b>3</b> Dummy file<span></span></a></li>
-<li class="chapter" data-level="4" data-path="bullets.html"><a href="bullets.html"><i class="fa fa-check"></i><b>4</b> Project CC: Bullets and Cartridge Cases<span></span></a>
+<li class="chapter" data-level="3" data-path="dummy-file.html"><a href="dummy-file.html"><i class="fa fa-check"></i><b>3</b> Dummy file</a></li>
+<li class="chapter" data-level="4" data-path="bullets.html"><a href="bullets.html"><i class="fa fa-check"></i><b>4</b> Project CC: Bullets and Cartridge Cases</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="bullets.html"><a href="bullets.html#data-collection"><i class="fa fa-check"></i><b>4.1</b> Data Collection<span></span></a>
+<li class="chapter" data-level="4.1" data-path="bullets.html"><a href="bullets.html#data-collection"><i class="fa fa-check"></i><b>4.1</b> Data Collection</a>
 <ul>
-<li class="chapter" data-level="4.1.1" data-path="bullets.html"><a href="bullets.html#breech-face-images"><i class="fa fa-check"></i><b>4.1.1</b> Breech face images<span></span></a></li>
-<li class="chapter" data-level="4.1.2" data-path="bullets.html"><a href="bullets.html#scans-from-land-engraved-areas-on-fired-bullets"><i class="fa fa-check"></i><b>4.1.2</b> Scans from land engraved areas on fired bullets<span></span></a></li>
-<li class="chapter" data-level="4.1.3" data-path="bullets.html"><a href="bullets.html#lapd"><i class="fa fa-check"></i><b>4.1.3</b> LAPD<span></span></a></li>
-<li class="chapter" data-level="4.1.4" data-path="bullets.html"><a href="bullets.html#hamby-sets"><i class="fa fa-check"></i><b>4.1.4</b> Hamby Sets<span></span></a></li>
-<li class="chapter" data-level="4.1.5" data-path="bullets.html"><a href="bullets.html#houston-tests"><i class="fa fa-check"></i><b>4.1.5</b> Houston Tests<span></span></a></li>
-<li class="chapter" data-level="4.1.6" data-path="bullets.html"><a href="bullets.html#houston-persistence"><i class="fa fa-check"></i><b>4.1.6</b> Houston Persistence<span></span></a></li>
-<li class="chapter" data-level="4.1.7" data-path="bullets.html"><a href="bullets.html#st-louis-persistence"><i class="fa fa-check"></i><b>4.1.7</b> St Louis persistence<span></span></a></li>
-<li class="chapter" data-level="4.1.8" data-path="bullets.html"><a href="bullets.html#dfsc-cartridge-cases"><i class="fa fa-check"></i><b>4.1.8</b> DFSC Cartridge cases<span></span></a></li>
-<li class="chapter" data-level="4.1.9" data-path="bullets.html"><a href="bullets.html#rotation-stage"><i class="fa fa-check"></i><b>4.1.9</b> Rotation stage<span></span></a></li>
+<li class="chapter" data-level="4.1.1" data-path="bullets.html"><a href="bullets.html#breech-face-images"><i class="fa fa-check"></i><b>4.1.1</b> Breech face images</a></li>
+<li class="chapter" data-level="4.1.2" data-path="bullets.html"><a href="bullets.html#scans-from-land-engraved-areas-on-fired-bullets"><i class="fa fa-check"></i><b>4.1.2</b> Scans from land engraved areas on fired bullets</a></li>
+<li class="chapter" data-level="4.1.3" data-path="bullets.html"><a href="bullets.html#lapd"><i class="fa fa-check"></i><b>4.1.3</b> LAPD</a></li>
+<li class="chapter" data-level="4.1.4" data-path="bullets.html"><a href="bullets.html#hamby-sets"><i class="fa fa-check"></i><b>4.1.4</b> Hamby Sets</a></li>
+<li class="chapter" data-level="4.1.5" data-path="bullets.html"><a href="bullets.html#houston-tests"><i class="fa fa-check"></i><b>4.1.5</b> Houston Tests</a></li>
+<li class="chapter" data-level="4.1.6" data-path="bullets.html"><a href="bullets.html#houston-persistence"><i class="fa fa-check"></i><b>4.1.6</b> Houston Persistence</a></li>
+<li class="chapter" data-level="4.1.7" data-path="bullets.html"><a href="bullets.html#st-louis-persistence"><i class="fa fa-check"></i><b>4.1.7</b> St Louis persistence</a></li>
+<li class="chapter" data-level="4.1.8" data-path="bullets.html"><a href="bullets.html#dfsc-cartridge-cases"><i class="fa fa-check"></i><b>4.1.8</b> DFSC Cartridge cases</a></li>
+<li class="chapter" data-level="4.1.9" data-path="bullets.html"><a href="bullets.html#rotation-stage"><i class="fa fa-check"></i><b>4.1.9</b> Rotation stage</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="bullets.html"><a href="bullets.html#computational-tools"><i class="fa fa-check"></i><b>4.2</b> Computational Tools<span></span></a>
+<li class="chapter" data-level="4.2" data-path="bullets.html"><a href="bullets.html#computational-tools"><i class="fa fa-check"></i><b>4.2</b> Computational Tools</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="bullets.html"><a href="bullets.html#x3ptools"><i class="fa fa-check"></i><b>4.2.1</b> x3ptools<span></span></a></li>
-<li class="chapter" data-level="4.2.2" data-path="bullets.html"><a href="bullets.html#bulletxtrctr"><i class="fa fa-check"></i><b>4.2.2</b> bulletxtrctr<span></span></a></li>
-<li class="chapter" data-level="4.2.3" data-path="bullets.html"><a href="bullets.html#groovefinder"><i class="fa fa-check"></i><b>4.2.3</b> grooveFinder<span></span></a></li>
+<li class="chapter" data-level="4.2.1" data-path="bullets.html"><a href="bullets.html#x3ptools"><i class="fa fa-check"></i><b>4.2.1</b> x3ptools</a></li>
+<li class="chapter" data-level="4.2.2" data-path="bullets.html"><a href="bullets.html#bulletxtrctr"><i class="fa fa-check"></i><b>4.2.2</b> bulletxtrctr</a></li>
+<li class="chapter" data-level="4.2.3" data-path="bullets.html"><a href="bullets.html#groovefinder"><i class="fa fa-check"></i><b>4.2.3</b> grooveFinder</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="bullets.html"><a href="bullets.html#similarity-scores"><i class="fa fa-check"></i><b>4.3</b> Similarity Scores<span></span></a>
+<li class="chapter" data-level="4.3" data-path="bullets.html"><a href="bullets.html#similarity-scores"><i class="fa fa-check"></i><b>4.3</b> Similarity Scores</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="bullets.html"><a href="bullets.html#bullet-lands"><i class="fa fa-check"></i><b>4.3.1</b> Bullet Lands<span></span></a></li>
-<li class="chapter" data-level="4.3.2" data-path="bullets.html"><a href="bullets.html#cartridge-cases"><i class="fa fa-check"></i><b>4.3.2</b> Cartridge Cases<span></span></a></li>
-<li class="chapter" data-level="4.3.3" data-path="bullets.html"><a href="bullets.html#modified-chumbley-non-random-test"><i class="fa fa-check"></i><b>4.3.3</b> Modified Chumbley non-random test<span></span></a></li>
-<li class="chapter" data-level="4.3.4" data-path="bullets.html"><a href="bullets.html#cmps-algorithm"><i class="fa fa-check"></i><b>4.3.4</b> CMPS Algorithm<span></span></a></li>
+<li class="chapter" data-level="4.3.1" data-path="bullets.html"><a href="bullets.html#bullet-lands"><i class="fa fa-check"></i><b>4.3.1</b> Bullet Lands</a></li>
+<li class="chapter" data-level="4.3.2" data-path="bullets.html"><a href="bullets.html#cartridge-cases"><i class="fa fa-check"></i><b>4.3.2</b> Cartridge Cases</a></li>
+<li class="chapter" data-level="4.3.3" data-path="bullets.html"><a href="bullets.html#modified-chumbley-non-random-test"><i class="fa fa-check"></i><b>4.3.3</b> Modified Chumbley non-random test</a></li>
+<li class="chapter" data-level="4.3.4" data-path="bullets.html"><a href="bullets.html#cmps-algorithm"><i class="fa fa-check"></i><b>4.3.4</b> CMPS Algorithm</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="bullets.html"><a href="bullets.html#assessing-quality-of-scans"><i class="fa fa-check"></i><b>4.4</b> Assessing Quality of Scans<span></span></a>
+<li class="chapter" data-level="4.4" data-path="bullets.html"><a href="bullets.html#assessing-quality-of-scans"><i class="fa fa-check"></i><b>4.4</b> Assessing Quality of Scans</a>
 <ul>
-<li class="chapter" data-level="4.4.1" data-path="bullets.html"><a href="bullets.html#goal"><i class="fa fa-check"></i><b>4.4.1</b> Goal<span></span></a></li>
-<li class="chapter" data-level="4.4.2" data-path="bullets.html"><a href="bullets.html#data-brief"><i class="fa fa-check"></i><b>4.4.2</b> Data Brief<span></span></a></li>
-<li class="chapter" data-level="4.4.3" data-path="bullets.html"><a href="bullets.html#data-labeling"><i class="fa fa-check"></i><b>4.4.3</b> Data Labeling<span></span></a></li>
-<li class="chapter" data-level="4.4.4" data-path="bullets.html"><a href="bullets.html#current-data-processing-procedures"><i class="fa fa-check"></i><b>4.4.4</b> Current Data Processing Procedures<span></span></a></li>
-<li class="chapter" data-level="4.4.5" data-path="bullets.html"><a href="bullets.html#convolutional-neural-networks"><i class="fa fa-check"></i><b>4.4.5</b> Convolutional Neural Networks<span></span></a></li>
-<li class="chapter" data-level="4.4.6" data-path="bullets.html"><a href="bullets.html#model-architectures"><i class="fa fa-check"></i><b>4.4.6</b> Model Architectures<span></span></a></li>
-<li class="chapter" data-level="4.4.7" data-path="bullets.html"><a href="bullets.html#results"><i class="fa fa-check"></i><b>4.4.7</b> Results<span></span></a></li>
-<li class="chapter" data-level="4.4.8" data-path="bullets.html"><a href="bullets.html#class-imbalance"><i class="fa fa-check"></i><b>4.4.8</b> Class Imbalance<span></span></a></li>
-<li class="chapter" data-level="4.4.9" data-path="bullets.html"><a href="bullets.html#labeling-consistency"><i class="fa fa-check"></i><b>4.4.9</b> Labeling Consistency<span></span></a></li>
-<li class="chapter" data-level="4.4.10" data-path="bullets.html"><a href="bullets.html#data-processing-improvements"><i class="fa fa-check"></i><b>4.4.10</b> Data Processing Improvements<span></span></a></li>
-<li class="chapter" data-level="4.4.11" data-path="bullets.html"><a href="bullets.html#shiny-app"><i class="fa fa-check"></i><b>4.4.11</b> Shiny App<span></span></a></li>
-<li class="chapter" data-level="4.4.12" data-path="bullets.html"><a href="bullets.html#whats-next"><i class="fa fa-check"></i><b>4.4.12</b> What’s Next?<span></span></a></li>
-<li class="chapter" data-level="4.4.13" data-path="bullets.html"><a href="bullets.html#past-worksection-may-be-removed-later"><i class="fa fa-check"></i><b>4.4.13</b> Past Work(Section May be Removed Later)<span></span></a></li>
+<li class="chapter" data-level="4.4.1" data-path="bullets.html"><a href="bullets.html#goal"><i class="fa fa-check"></i><b>4.4.1</b> Goal</a></li>
+<li class="chapter" data-level="4.4.2" data-path="bullets.html"><a href="bullets.html#data-brief"><i class="fa fa-check"></i><b>4.4.2</b> Data Brief</a></li>
+<li class="chapter" data-level="4.4.3" data-path="bullets.html"><a href="bullets.html#data-labeling"><i class="fa fa-check"></i><b>4.4.3</b> Data Labeling</a></li>
+<li class="chapter" data-level="4.4.4" data-path="bullets.html"><a href="bullets.html#current-data-processing-procedures"><i class="fa fa-check"></i><b>4.4.4</b> Current Data Processing Procedures</a></li>
+<li class="chapter" data-level="4.4.5" data-path="bullets.html"><a href="bullets.html#convolutional-neural-networks"><i class="fa fa-check"></i><b>4.4.5</b> Convolutional Neural Networks</a></li>
+<li class="chapter" data-level="4.4.6" data-path="bullets.html"><a href="bullets.html#model-architectures"><i class="fa fa-check"></i><b>4.4.6</b> Model Architectures</a></li>
+<li class="chapter" data-level="4.4.7" data-path="bullets.html"><a href="bullets.html#results"><i class="fa fa-check"></i><b>4.4.7</b> Results</a></li>
+<li class="chapter" data-level="4.4.8" data-path="bullets.html"><a href="bullets.html#class-imbalance"><i class="fa fa-check"></i><b>4.4.8</b> Class Imbalance</a></li>
+<li class="chapter" data-level="4.4.9" data-path="bullets.html"><a href="bullets.html#labeling-consistency"><i class="fa fa-check"></i><b>4.4.9</b> Labeling Consistency</a></li>
+<li class="chapter" data-level="4.4.10" data-path="bullets.html"><a href="bullets.html#data-processing-improvements"><i class="fa fa-check"></i><b>4.4.10</b> Data Processing Improvements</a></li>
+<li class="chapter" data-level="4.4.11" data-path="bullets.html"><a href="bullets.html#shiny-app"><i class="fa fa-check"></i><b>4.4.11</b> Shiny App</a></li>
+<li class="chapter" data-level="4.4.12" data-path="bullets.html"><a href="bullets.html#whats-next"><i class="fa fa-check"></i><b>4.4.12</b> What’s Next?</a></li>
+<li class="chapter" data-level="4.4.13" data-path="bullets.html"><a href="bullets.html#past-worksection-may-be-removed-later"><i class="fa fa-check"></i><b>4.4.13</b> Past Work(Section May be Removed Later)</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="bullets.html"><a href="bullets.html#analysis-of-results"><i class="fa fa-check"></i><b>4.5</b> Analysis of Results<span></span></a>
+<li class="chapter" data-level="4.5" data-path="bullets.html"><a href="bullets.html#analysis-of-results"><i class="fa fa-check"></i><b>4.5</b> Analysis of Results</a>
 <ul>
-<li class="chapter" data-level="4.5.1" data-path="bullets.html"><a href="bullets.html#stability-of-the-analysis-process"><i class="fa fa-check"></i><b>4.5.1</b> Stability of the Analysis Process<span></span></a></li>
+<li class="chapter" data-level="4.5.1" data-path="bullets.html"><a href="bullets.html#stability-of-the-analysis-process"><i class="fa fa-check"></i><b>4.5.1</b> Stability of the Analysis Process</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="bullets.html"><a href="bullets.html#communication-of-results-and-methods"><i class="fa fa-check"></i><b>4.6</b> Communication of Results and Methods<span></span></a></li>
-<li class="chapter" data-level="4.7" data-path="bullets.html"><a href="bullets.html#explainable-results-usability-and-trust-survey"><i class="fa fa-check"></i><b>4.7</b> Explainable results: Usability and Trust survey<span></span></a>
+<li class="chapter" data-level="4.6" data-path="bullets.html"><a href="bullets.html#communication-of-results-and-methods"><i class="fa fa-check"></i><b>4.6</b> Communication of Results and Methods</a></li>
+<li class="chapter" data-level="4.7" data-path="bullets.html"><a href="bullets.html#explainable-results-usability-and-trust-survey"><i class="fa fa-check"></i><b>4.7</b> Explainable results: Usability and Trust survey</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="bullets.html"><a href="bullets.html#measuring-trust-and-calibration"><i class="fa fa-check"></i><b>4.7.1</b> Measuring Trust and calibration<span></span></a></li>
-<li class="chapter" data-level="4.7.2" data-path="bullets.html"><a href="bullets.html#survey-methods-pre--vs-post"><i class="fa fa-check"></i><b>4.7.2</b> Survey Methods : Pre- vs Post<span></span></a></li>
-<li class="chapter" data-level="4.7.3" data-path="bullets.html"><a href="bullets.html#conference-presentations"><i class="fa fa-check"></i><b>4.7.3</b> Conference Presentations<span></span></a></li>
+<li class="chapter" data-level="4.7.1" data-path="bullets.html"><a href="bullets.html#measuring-trust-and-calibration"><i class="fa fa-check"></i><b>4.7.1</b> Measuring Trust and calibration</a></li>
+<li class="chapter" data-level="4.7.2" data-path="bullets.html"><a href="bullets.html#survey-methods-pre--vs-post"><i class="fa fa-check"></i><b>4.7.2</b> Survey Methods : Pre- vs Post</a></li>
+<li class="chapter" data-level="4.7.3" data-path="bullets.html"><a href="bullets.html#conference-presentations"><i class="fa fa-check"></i><b>4.7.3</b> Conference Presentations</a></li>
 </ul></li>
-<li class="chapter" data-level="4.8" data-path="bullets.html"><a href="bullets.html#people-involved"><i class="fa fa-check"></i><b>4.8</b> People involved<span></span></a>
+<li class="chapter" data-level="4.8" data-path="bullets.html"><a href="bullets.html#people-involved"><i class="fa fa-check"></i><b>4.8</b> People involved</a>
 <ul>
-<li class="chapter" data-level="4.8.1" data-path="bullets.html"><a href="bullets.html#faculty"><i class="fa fa-check"></i><b>4.8.1</b> Faculty<span></span></a></li>
-<li class="chapter" data-level="4.8.2" data-path="bullets.html"><a href="bullets.html#graduate-students"><i class="fa fa-check"></i><b>4.8.2</b> Graduate Students<span></span></a></li>
-<li class="chapter" data-level="4.8.3" data-path="bullets.html"><a href="bullets.html#undergraduates"><i class="fa fa-check"></i><b>4.8.3</b> Undergraduates<span></span></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html"><i class="fa fa-check"></i><b>5</b> Project G: Handwriting (&amp; Signatures)<span></span></a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#data-collection-1"><i class="fa fa-check"></i><b>5.1</b> Data Collection<span></span></a></li>
-<li class="chapter" data-level="5.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#computational-tools-1"><i class="fa fa-check"></i><b>5.2</b> Computational Tools<span></span></a>
-<ul>
-<li class="chapter" data-level="5.2.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#graph-measurements-extracted-in-rcpp-by-james"><i class="fa fa-check"></i><b>5.2.1</b> Graph measurements (extracted in RCpp by James)<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="5.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#statistical-analysis"><i class="fa fa-check"></i><b>5.3</b> Statistical Analysis<span></span></a>
-<ul>
-<li class="chapter" data-level="5.3.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#clustering"><i class="fa fa-check"></i><b>5.3.1</b> Clustering<span></span></a></li>
-<li class="chapter" data-level="5.3.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#statistical-modeling"><i class="fa fa-check"></i><b>5.3.2</b> Statistical Modeling<span></span></a></li>
-<li class="chapter" data-level="5.3.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#interesting-documents"><i class="fa fa-check"></i><b>5.3.3</b> Interesting documents<span></span></a></li>
-<li class="chapter" data-level="5.3.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#alis-project"><i class="fa fa-check"></i><b>5.3.4</b> Ali’s project<span></span></a></li>
-<li class="chapter" data-level="5.3.5" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#open-set-modeling-for-writer-identification-from-distribution-of-glyphs-in-clusters"><i class="fa fa-check"></i><b>5.3.5</b> Open Set Modeling for Writer Identification from Distribution of Glyphs in Clusters<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="5.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#communication-of-results"><i class="fa fa-check"></i><b>5.4</b> Communication of Results<span></span></a>
-<ul>
-<li class="chapter" data-level="5.4.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#papers"><i class="fa fa-check"></i><b>5.4.1</b> Papers<span></span></a></li>
-<li class="chapter" data-level="5.4.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#talks"><i class="fa fa-check"></i><b>5.4.2</b> Talks<span></span></a></li>
-<li class="chapter" data-level="5.4.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#posters"><i class="fa fa-check"></i><b>5.4.3</b> Posters<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="5.5" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#people-involved-1"><i class="fa fa-check"></i><b>5.5</b> People involved<span></span></a>
-<ul>
-<li class="chapter" data-level="5.5.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#faculty-1"><i class="fa fa-check"></i><b>5.5.1</b> Faculty<span></span></a></li>
-<li class="chapter" data-level="5.5.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#graduate-students-1"><i class="fa fa-check"></i><b>5.5.2</b> Graduate Students<span></span></a></li>
-<li class="chapter" data-level="5.5.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#undergraduates-1"><i class="fa fa-check"></i><b>5.5.3</b> Undergraduates<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="5.6" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#deep-learning-methods"><i class="fa fa-check"></i><b>5.6</b> Deep Learning Methods<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="glass.html"><a href="glass.html"><i class="fa fa-check"></i><b>6</b> Glass<span></span></a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="glass.html"><a href="glass.html#data-collection-2"><i class="fa fa-check"></i><b>6.1</b> Data collection<span></span></a></li>
-<li class="chapter" data-level="6.2" data-path="glass.html"><a href="glass.html#data-collection-2.0"><i class="fa fa-check"></i><b>6.2</b> Data collection 2.0<span></span></a></li>
-<li class="chapter" data-level="6.3" data-path="glass.html"><a href="glass.html#the-astm-standard-method"><i class="fa fa-check"></i><b>6.3</b> The ASTM standard method<span></span></a></li>
-<li class="chapter" data-level="6.4" data-path="glass.html"><a href="glass.html#learning-algorithms-to-evaluate-forensic-glass-evidence"><i class="fa fa-check"></i><b>6.4</b> Learning algorithms to evaluate forensic glass evidence<span></span></a></li>
-<li class="chapter" data-level="6.5" data-path="glass.html"><a href="glass.html#evaluation-and-comparison-of-methods-for-forensic-glass-source-conclusions"><i class="fa fa-check"></i><b>6.5</b> Evaluation and comparison of methods for forensic glass source conclusions<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="shoes.html"><a href="shoes.html"><i class="fa fa-check"></i><b>7</b> Shoes<span></span></a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="shoes.html"><a href="shoes.html#longitudinal"><i class="fa fa-check"></i><b>7.1</b> Longitudinal Shoe Study<span></span></a>
-<ul>
-<li class="chapter" data-level="7.1.1" data-path="shoes.html"><a href="shoes.html#paper-describing-the-database"><i class="fa fa-check"></i><b>7.1.1</b> Paper describing the database<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.2" data-path="shoes.html"><a href="shoes.html#shoescanner"><i class="fa fa-check"></i><b>7.2</b> Shoe Scanner - Passive Shoe Recognition<span></span></a>
-<ul>
-<li class="chapter" data-level="7.2.1" data-path="shoes.html"><a href="shoes.html#nij-grant"><i class="fa fa-check"></i><b>7.2.1</b> NIJ Grant<span></span></a></li>
-<li class="chapter" data-level="7.2.2" data-path="shoes.html"><a href="shoes.html#connor-convolutional-neural-network-for-outsole-recognition"><i class="fa fa-check"></i><b>7.2.2</b> CoNNOR: Convolutional Neural Network for Outsole Recognition<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.3" data-path="shoes.html"><a href="shoes.html#maxclique"><i class="fa fa-check"></i><b>7.3</b> Maximum Clique Matching<span></span></a></li>
-<li class="chapter" data-level="7.4" data-path="shoes.html"><a href="shoes.html#cocoa"><i class="fa fa-check"></i><b>7.4</b> Project Tread (formerly Cocoa Powder Citizen Science)<span></span></a>
-<ul>
-<li class="chapter" data-level="7.4.1" data-path="shoes.html"><a href="shoes.html#pilot-procedure-testing"><i class="fa fa-check"></i><b>7.4.1</b> Pilot procedure testing<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.5" data-path="shoes.html"><a href="shoes.html#d-shoe-recognition"><i class="fa fa-check"></i><b>7.5</b> 3d Shoe Recognition<span></span></a></li>
-<li class="chapter" data-level="7.6" data-path="shoes.html"><a href="shoes.html#shoe-outsole-matching-using-image-descriptors"><i class="fa fa-check"></i><b>7.6</b> Shoe outsole matching using image descriptors<span></span></a>
-<ul>
-<li class="chapter" data-level="7.6.1" data-path="shoes.html"><a href="shoes.html#method-1-edge-detection-and-mc-mc-comp"><i class="fa fa-check"></i><b>7.6.1</b> Method 1: Edge detection and MC (MC-COMP)<span></span></a></li>
-<li class="chapter" data-level="7.6.2" data-path="shoes.html"><a href="shoes.html#method-2-surf-detection-and-mc-on-degraded-impressions"><i class="fa fa-check"></i><b>7.6.2</b> Method 2: SURF detection and MC on degraded impressions<span></span></a></li>
-<li class="chapter" data-level="7.6.3" data-path="shoes.html"><a href="shoes.html#research-1-features"><i class="fa fa-check"></i><b>7.6.3</b> Research 1: Features<span></span></a></li>
-<li class="chapter" data-level="7.6.4" data-path="shoes.html"><a href="shoes.html#matching-on-clean-and-full-images-with-several-features"><i class="fa fa-check"></i><b>7.6.4</b> Matching on clean and full images with several features<span></span></a></li>
-<li class="chapter" data-level="7.6.5" data-path="shoes.html"><a href="shoes.html#matching-on-degraded-and-partial-images"><i class="fa fa-check"></i><b>7.6.5</b> Matching on degraded and partial images<span></span></a></li>
-<li class="chapter" data-level="7.6.6" data-path="shoes.html"><a href="shoes.html#research-2-impact-of-weight-to-outsole-scans-from-everos-2d-scanner"><i class="fa fa-check"></i><b>7.6.6</b> Research 2: Impact of weight to outsole scans from EverOS 2D scanner<span></span></a></li>
-<li class="chapter" data-level="7.6.7" data-path="shoes.html"><a href="shoes.html#research-3-mc-cnn"><i class="fa fa-check"></i><b>7.6.7</b> Research 3: MC + CNN<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7.7" data-path="shoes.html"><a href="shoes.html#matching-shoe-prints-with-ccf"><i class="fa fa-check"></i><b>7.7</b> Matching shoe prints with ccf<span></span></a></li>
-<li class="chapter" data-level="7.8" data-path="shoes.html"><a href="shoes.html#a-new-algorithm-using-icp-method-based-on-surf-to-identify-the-source-of-shoe-impression"><i class="fa fa-check"></i><b>7.8</b> A new algorithm using ICP method based on SURF to identify the source of shoe impression<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html"><i class="fa fa-check"></i><b>8</b> Theoretical foundations<span></span></a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#explaining-slr-behavior"><i class="fa fa-check"></i><b>8.1</b> Explaining SLR behavior<span></span></a></li>
-<li class="chapter" data-level="8.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#common-source-vs-specific-source-comparison-via-information-theory"><i class="fa fa-check"></i><b>8.2</b> Common Source vs Specific Source Comparison via Information Theory<span></span></a>
-<ul>
-<li class="chapter" data-level="8.2.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#introduction"><i class="fa fa-check"></i><b>8.2.1</b> Introduction<span></span></a></li>
-<li class="chapter" data-level="8.2.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#common-source-vs-specific-source-lr"><i class="fa fa-check"></i><b>8.2.2</b> Common Source vs Specific Source LR<span></span></a></li>
-<li class="chapter" data-level="8.2.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#other-notions-of-information"><i class="fa fa-check"></i><b>8.2.3</b> Other notions of information<span></span></a></li>
-<li class="chapter" data-level="8.2.4" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#information-theoretic-specific-source-score-sufficiency-metric"><i class="fa fa-check"></i><b>8.2.4</b> Information Theoretic Specific Source Score Sufficiency Metric<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#score-based-likelihood-ratios-are-not-fundamentally-incoherent"><i class="fa fa-check"></i><b>8.3</b> Score-based Likelihood Ratios are not Fundamentally “Incoherent”<span></span></a>
-<ul>
-<li class="chapter" data-level="8.3.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#coherence"><i class="fa fa-check"></i><b>8.3.1</b> Coherence<span></span></a></li>
-<li class="chapter" data-level="8.3.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#problems-with-arguments-showing-slrs-are-incoherent"><i class="fa fa-check"></i><b>8.3.2</b> Problems with arguments showing SLRs are incoherent<span></span></a></li>
-<li class="chapter" data-level="8.3.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#example-of-a-coherent-slr-in-the-two-source-problem"><i class="fa fa-check"></i><b>8.3.3</b> Example of a coherent SLR in the two source problem<span></span></a></li>
-<li class="chapter" data-level="8.3.4" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#possible-generalizations-of-coherent-slrs-to-the-multisource-case"><i class="fa fa-check"></i><b>8.3.4</b> Possible Generalizations of Coherent SLRs to the Multisource Case<span></span></a></li>
-<li class="chapter" data-level="8.3.5" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#multisource-example"><i class="fa fa-check"></i><b>8.3.5</b> Multisource example<span></span></a></li>
-<li class="chapter" data-level="8.3.6" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#other-possible-viewpoints"><i class="fa fa-check"></i><b>8.3.6</b> Other Possible Viewpoints?<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.4" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#copper-wire-synthetic-data"><i class="fa fa-check"></i><b>8.4</b> Copper Wire Synthetic Data<span></span></a></li>
-<li class="chapter" data-level="8.5" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#optimal-matching-problem"><i class="fa fa-check"></i><b>8.5</b> Optimal matching problem<span></span></a>
-<ul>
-<li class="chapter" data-level="8.5.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#two-groups-case."><i class="fa fa-check"></i><b>8.5.1</b> Two groups case.<span></span></a></li>
-<li class="chapter" data-level="8.5.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#topics-needs-exploration"><i class="fa fa-check"></i><b>8.5.2</b> Topics needs exploration<span></span></a></li>
-<li class="chapter" data-level="8.5.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#brief-introduction-to-optimal-rule"><i class="fa fa-check"></i><b>8.5.3</b> Brief introduction to optimal rule<span></span></a></li>
-<li class="chapter" data-level="8.5.4" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#optimal-rule-for-matching-problems"><i class="fa fa-check"></i><b>8.5.4</b> Optimal rule for matching problems<span></span></a></li>
-<li class="chapter" data-level="8.5.5" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#simulation-plan"><i class="fa fa-check"></i><b>8.5.5</b> Simulation plan<span></span></a></li>
-<li class="chapter" data-level="8.5.6" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#simulation-results"><i class="fa fa-check"></i><b>8.5.6</b> Simulation results<span></span></a></li>
-<li class="chapter" data-level="8.5.7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#real-data-for-simulations"><i class="fa fa-check"></i><b>8.5.7</b> Real data for simulations<span></span></a></li>
-<li class="chapter" data-level="8.5.8" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#simulation-results-using-glass-data"><i class="fa fa-check"></i><b>8.5.8</b> Simulation results using glass data<span></span></a></li>
-<li class="chapter" data-level="8.5.9" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#extension-to-openset-problems"><i class="fa fa-check"></i><b>8.5.9</b> Extension to openset problems<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.6" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#srl-behaviour-and-dependence"><i class="fa fa-check"></i><b>8.6</b> SRL behaviour and dependence<span></span></a>
-<ul>
-<li class="chapter" data-level="8.6.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#introduction."><i class="fa fa-check"></i><b>8.6.1</b> Introduction.<span></span></a></li>
-<li class="chapter" data-level="8.6.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#a-pipeline-for-testing-forensic-algorithm."><i class="fa fa-check"></i><b>8.6.2</b> A pipeline for testing forensic algorithm.<span></span></a></li>
-<li class="chapter" data-level="8.6.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#simulating-realistic-data."><i class="fa fa-check"></i><b>8.6.3</b> Simulating realistic data.<span></span></a></li>
-<li class="chapter" data-level="8.6.4" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#forensic-set-up"><i class="fa fa-check"></i><b>8.6.4</b> Forensic set up<span></span></a></li>
-<li class="chapter" data-level="8.6.5" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#model-set-up"><i class="fa fa-check"></i><b>8.6.5</b> Model set up<span></span></a></li>
-<li class="chapter" data-level="8.6.6" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#simulation-basics."><i class="fa fa-check"></i><b>8.6.6</b> Simulation basics.<span></span></a></li>
-<li class="chapter" data-level="8.6.7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#slr."><i class="fa fa-check"></i><b>8.6.7</b> SLR.<span></span></a></li>
-<li class="chapter" data-level="8.6.8" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#lr"><i class="fa fa-check"></i><b>8.6.8</b> LR<span></span></a></li>
-<li class="chapter" data-level="8.6.9" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#train--test---validation."><i class="fa fa-check"></i><b>8.6.9</b> Train- Test - Validation.<span></span></a></li>
-<li class="chapter" data-level="8.6.10" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#metrics-for-comparing-results"><i class="fa fa-check"></i><b>8.6.10</b> Metrics for comparing results<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#evaluation-metrics."><i class="fa fa-check"></i><b>8.7</b> Evaluation metrics.<span></span></a>
-<ul>
-<li class="chapter" data-level="8.7.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#results-1"><i class="fa fa-check"></i><b>8.7.1</b> Results<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="8.8" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#srl-behaviour-and-dependence-extended-simulation."><i class="fa fa-check"></i><b>8.8</b> SRL behaviour and dependence: Extended simulation.<span></span></a></li>
-<li class="chapter" data-level="8.9" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#small-updates"><i class="fa fa-check"></i><b>8.9</b> Small updates:<span></span></a></li>
-<li class="chapter" data-level="8.10" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#communication-of-results-1"><i class="fa fa-check"></i><b>8.10</b> Communication of Results<span></span></a>
-<ul>
-<li class="chapter" data-level="8.10.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#poster"><i class="fa fa-check"></i><b>8.10.1</b> Poster<span></span></a></li>
+<li class="chapter" data-level="4.8.1" data-path="bullets.html"><a href="bullets.html#faculty"><i class="fa fa-check"></i><b>4.8.1</b> Faculty</a></li>
+<li class="chapter" data-level="4.8.2" data-path="bullets.html"><a href="bullets.html#graduate-students"><i class="fa fa-check"></i><b>4.8.2</b> Graduate Students</a></li>
+<li class="chapter" data-level="4.8.3" data-path="bullets.html"><a href="bullets.html#undergraduates"><i class="fa fa-check"></i><b>4.8.3</b> Undergraduates</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="outreach-activities.html"><a href="outreach-activities.html"><i class="fa fa-check"></i><b>9</b> Outreach activities<span></span></a>
+<li class="chapter" data-level="5" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html"><i class="fa fa-check"></i><b>5</b> Project G: Handwriting (&amp; Signatures)</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="outreach-activities.html"><a href="outreach-activities.html#book-on-forensic-science-and-statistics"><i class="fa fa-check"></i><b>9.1</b> Book on Forensic Science and Statistics<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html"><i class="fa fa-check"></i><b>10</b> Reproducibility in Research<span></span></a>
+<li class="chapter" data-level="5.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#data-collection-1"><i class="fa fa-check"></i><b>5.1</b> Data Collection</a></li>
+<li class="chapter" data-level="5.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#software"><i class="fa fa-check"></i><b>5.2</b> Software</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html#computational-reproducibility"><i class="fa fa-check"></i><b>10.1</b> Computational Reproducibility<span></span></a>
+<li class="chapter" data-level="5.2.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#handwriter"><i class="fa fa-check"></i><b>5.2.1</b> <strong> handwriter </strong></a></li>
+<li class="chapter" data-level="5.2.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#shiny-app-1"><i class="fa fa-check"></i><b>5.2.2</b> Shiny app</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#statistical-analysis"><i class="fa fa-check"></i><b>5.3</b> Statistical Analysis</a>
 <ul>
-<li class="chapter" data-level="10.1.1" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html#computational-reproducibility-in-team-based-collaboration"><i class="fa fa-check"></i><b>10.1.1</b> Computational Reproducibility in Team-based Collaboration<span></span></a></li>
+<li class="chapter" data-level="5.3.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#clustering"><i class="fa fa-check"></i><b>5.3.1</b> Clustering</a></li>
+<li class="chapter" data-level="5.3.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#statistical-modeling"><i class="fa fa-check"></i><b>5.3.2</b> Statistical Modeling</a></li>
+<li class="chapter" data-level="5.3.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#interesting-documents"><i class="fa fa-check"></i><b>5.3.3</b> Interesting documents</a></li>
+<li class="chapter" data-level="5.3.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#alexandra-arabios-project"><i class="fa fa-check"></i><b>5.3.4</b> Alexandra Arabio’s project</a></li>
+<li class="chapter" data-level="5.3.5" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#open-set-modeling-for-writer-identification-from-distribution-of-glyphs-in-clusters"><i class="fa fa-check"></i><b>5.3.5</b> Open Set Modeling for Writer Identification from Distribution of Glyphs in Clusters</a></li>
+<li class="chapter" data-level="5.3.6" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#statistical-analysis-of-handwriting-slant-with-respect-to-demographic-features"><i class="fa fa-check"></i><b>5.3.6</b> Statistical Analysis of Handwriting Slant with Respect to Demographic Features</a></li>
+<li class="chapter" data-level="5.3.7" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#quantifying-bayes-factors-for-forensic-handwriting-evidence"><i class="fa fa-check"></i><b>5.3.7</b> Quantifying Bayes Factors for Forensic Handwriting Evidence</a></li>
+<li class="chapter" data-level="5.3.8" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#flash-id-and-handwriter-comparison"><i class="fa fa-check"></i><b>5.3.8</b> FLASH ID and handwriter comparison</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="toolmarks.html"><a href="toolmarks.html"><i class="fa fa-check"></i><b>11</b> Toolmarks<span></span></a>
+<li class="chapter" data-level="5.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#communication-of-results"><i class="fa fa-check"></i><b>5.4</b> Communication of Results</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="toolmarks.html"><a href="toolmarks.html#next-steps-experimental-setup"><i class="fa fa-check"></i><b>11.1</b> Next Steps: experimental setup<span></span></a></li>
+<li class="chapter" data-level="5.4.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#papers"><i class="fa fa-check"></i><b>5.4.1</b> Papers</a></li>
+<li class="chapter" data-level="5.4.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#talks"><i class="fa fa-check"></i><b>5.4.2</b> Talks</a></li>
+<li class="chapter" data-level="5.4.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#posters"><i class="fa fa-check"></i><b>5.4.3</b> Posters</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="impl.html"><a href="impl.html"><i class="fa fa-check"></i><b>12</b> Project IMPL: Implementation and Practice<span></span></a>
+<li class="chapter" data-level="5.5" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#deep-learning-methods"><i class="fa fa-check"></i><b>5.5</b> Deep Learning Methods</a></li>
+<li class="chapter" data-level="5.6" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#people-involved-1"><i class="fa fa-check"></i><b>5.6</b> People involved</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="impl.html"><a href="impl.html#demonstrative-evidence-and-firearms"><i class="fa fa-check"></i><b>12.1</b> Demonstrative Evidence and Firearms<span></span></a>
+<li class="chapter" data-level="5.6.1" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#faculty-1"><i class="fa fa-check"></i><b>5.6.1</b> Faculty</a></li>
+<li class="chapter" data-level="5.6.2" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#professional-and-scientific-staff"><i class="fa fa-check"></i><b>5.6.2</b> Professional and Scientific Staff</a></li>
+<li class="chapter" data-level="5.6.3" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#graduate-students-1"><i class="fa fa-check"></i><b>5.6.3</b> Graduate Students</a></li>
+<li class="chapter" data-level="5.6.4" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#undergraduates-1"><i class="fa fa-check"></i><b>5.6.4</b> Undergraduates</a></li>
+<li class="chapter" data-level="5.6.5" data-path="project-g-handwriting-signatures.html"><a href="project-g-handwriting-signatures.html#past-contributors"><i class="fa fa-check"></i><b>5.6.5</b> Past Contributors</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="glass.html"><a href="glass.html"><i class="fa fa-check"></i><b>6</b> Glass</a>
 <ul>
-<li class="chapter" data-level="12.1.1" data-path="impl.html"><a href="impl.html#previous-work"><i class="fa fa-check"></i><b>12.1.1</b> Previous work<span></span></a></li>
-<li class="chapter" data-level="12.1.2" data-path="impl.html"><a href="impl.html#study-design"><i class="fa fa-check"></i><b>12.1.2</b> Study Design<span></span></a></li>
-<li class="chapter" data-level="12.1.3" data-path="impl.html"><a href="impl.html#sample-testimony"><i class="fa fa-check"></i><b>12.1.3</b> Sample Testimony<span></span></a></li>
+<li class="chapter" data-level="6.1" data-path="glass.html"><a href="glass.html#data-collection-2"><i class="fa fa-check"></i><b>6.1</b> Data collection</a></li>
+<li class="chapter" data-level="6.2" data-path="glass.html"><a href="glass.html#data-collection-2.0"><i class="fa fa-check"></i><b>6.2</b> Data collection 2.0</a></li>
+<li class="chapter" data-level="6.3" data-path="glass.html"><a href="glass.html#the-astm-standard-method"><i class="fa fa-check"></i><b>6.3</b> The ASTM standard method</a></li>
+<li class="chapter" data-level="6.4" data-path="glass.html"><a href="glass.html#learning-algorithms-to-evaluate-forensic-glass-evidence"><i class="fa fa-check"></i><b>6.4</b> Learning algorithms to evaluate forensic glass evidence</a></li>
+<li class="chapter" data-level="6.5" data-path="glass.html"><a href="glass.html#evaluation-and-comparison-of-methods-for-forensic-glass-source-conclusions"><i class="fa fa-check"></i><b>6.5</b> Evaluation and comparison of methods for forensic glass source conclusions</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="digital-evidence.html"><a href="digital-evidence.html"><i class="fa fa-check"></i><b>13</b> Digital Evidence<span></span></a>
+<li class="chapter" data-level="7" data-path="shoes.html"><a href="shoes.html"><i class="fa fa-check"></i><b>7</b> Shoes</a>
 <ul>
-<li class="chapter" data-level="13.1" data-path="digital-evidence.html"><a href="digital-evidence.html#score-based-likelihood-ratios-for-camera-device-identification"><i class="fa fa-check"></i><b>13.1</b> Score-Based Likelihood Ratios for Camera Device Identification<span></span></a></li>
+<li class="chapter" data-level="7.1" data-path="shoes.html"><a href="shoes.html#introduction-to-footwear-evidence"><i class="fa fa-check"></i><b>7.1</b> Introduction to Footwear Evidence</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="shoes.html"><a href="shoes.html#what-is-footwear-evidence"><i class="fa fa-check"></i><b>7.1.1</b> What is footwear evidence?</a></li>
+<li class="chapter" data-level="7.1.2" data-path="shoes.html"><a href="shoes.html#how-footwear-evidence-is-gathered"><i class="fa fa-check"></i><b>7.1.2</b> How footwear evidence is gathered</a></li>
+<li class="chapter" data-level="7.1.3" data-path="shoes.html"><a href="shoes.html#how-footwear-examination-is-done-now"><i class="fa fa-check"></i><b>7.1.3</b> How footwear examination is done now</a></li>
+<li class="chapter" data-level="7.1.4" data-path="shoes.html"><a href="shoes.html#common-shoe-designs"><i class="fa fa-check"></i><b>7.1.4</b> Common shoe designs</a></li>
+<li class="chapter" data-level="7.1.5" data-path="shoes.html"><a href="shoes.html#how-often-is-footwear-evidence-used"><i class="fa fa-check"></i><b>7.1.5</b> How often is footwear evidence used?</a></li>
+<li class="chapter" data-level="7.1.6" data-path="shoes.html"><a href="shoes.html#what-questions-are-openinteresting"><i class="fa fa-check"></i><b>7.1.6</b> What questions are open/interesting?</a></li>
+<li class="chapter" data-level="7.1.7" data-path="shoes.html"><a href="shoes.html#current-work"><i class="fa fa-check"></i><b>7.1.7</b> Current work</a></li>
 </ul></li>
-<li><a href="references.html#references">References<span></span></a></li>
+<li class="chapter" data-level="7.2" data-path="shoes.html"><a href="shoes.html#longitudinal"><i class="fa fa-check"></i><b>7.2</b> Longitudinal Shoe Study</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="shoes.html"><a href="shoes.html#paper-describing-the-database"><i class="fa fa-check"></i><b>7.2.1</b> Paper describing the database</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="shoes.html"><a href="shoes.html#shoescanner"><i class="fa fa-check"></i><b>7.3</b> Shoe Scanner - Passive Shoe Recognition</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="shoes.html"><a href="shoes.html#nij-grant"><i class="fa fa-check"></i><b>7.3.1</b> NIJ Grant</a></li>
+<li class="chapter" data-level="7.3.2" data-path="shoes.html"><a href="shoes.html#connor-convolutional-neural-network-for-outsole-recognition"><i class="fa fa-check"></i><b>7.3.2</b> CoNNOR: Convolutional Neural Network for Outsole Recognition</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="shoes.html"><a href="shoes.html#maxclique"><i class="fa fa-check"></i><b>7.4</b> Maximum Clique Matching</a></li>
+<li class="chapter" data-level="7.5" data-path="shoes.html"><a href="shoes.html#cocoa"><i class="fa fa-check"></i><b>7.5</b> Project Tread (formerly Cocoa Powder Citizen Science)</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="shoes.html"><a href="shoes.html#pilot-procedure-testing"><i class="fa fa-check"></i><b>7.5.1</b> Pilot procedure testing</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="shoes.html"><a href="shoes.html#d-shoe-recognition"><i class="fa fa-check"></i><b>7.6</b> 3d Shoe Recognition</a></li>
+<li class="chapter" data-level="7.7" data-path="shoes.html"><a href="shoes.html#shoe-outsole-matching-using-image-descriptors"><i class="fa fa-check"></i><b>7.7</b> Shoe outsole matching using image descriptors</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="shoes.html"><a href="shoes.html#method-1-edge-detection-and-mc-mc-comp"><i class="fa fa-check"></i><b>7.7.1</b> Method 1: Edge detection and MC (MC-COMP)</a></li>
+<li class="chapter" data-level="7.7.2" data-path="shoes.html"><a href="shoes.html#method-2-surf-detection-and-mc-on-degraded-impressions"><i class="fa fa-check"></i><b>7.7.2</b> Method 2: SURF detection and MC on degraded impressions</a></li>
+<li class="chapter" data-level="7.7.3" data-path="shoes.html"><a href="shoes.html#research-1-features"><i class="fa fa-check"></i><b>7.7.3</b> Research 1: Features</a></li>
+<li class="chapter" data-level="7.7.4" data-path="shoes.html"><a href="shoes.html#matching-on-clean-and-full-images-with-several-features"><i class="fa fa-check"></i><b>7.7.4</b> Matching on clean and full images with several features</a></li>
+<li class="chapter" data-level="7.7.5" data-path="shoes.html"><a href="shoes.html#matching-on-degraded-and-partial-images"><i class="fa fa-check"></i><b>7.7.5</b> Matching on degraded and partial images</a></li>
+<li class="chapter" data-level="7.7.6" data-path="shoes.html"><a href="shoes.html#research-2-impact-of-weight-to-outsole-scans-from-everos-2d-scanner"><i class="fa fa-check"></i><b>7.7.6</b> Research 2: Impact of weight to outsole scans from EverOS 2D scanner</a></li>
+<li class="chapter" data-level="7.7.7" data-path="shoes.html"><a href="shoes.html#research-3-mc-cnn"><i class="fa fa-check"></i><b>7.7.7</b> Research 3: MC + CNN</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="shoes.html"><a href="shoes.html#matching-shoe-prints-with-ccf"><i class="fa fa-check"></i><b>7.8</b> Matching shoe prints with ccf</a></li>
+<li class="chapter" data-level="7.9" data-path="shoes.html"><a href="shoes.html#a-new-algorithm-using-icp-method-based-on-surf-to-identify-the-source-of-shoe-impression"><i class="fa fa-check"></i><b>7.9</b> A new algorithm using ICP method based on SURF to identify the source of shoe impression</a></li>
+<li class="chapter" data-level="7.10" data-path="shoes.html"><a href="shoes.html#shoe-comparisons-through-time"><i class="fa fa-check"></i><b>7.10</b> Shoe Comparisons through Time</a></li>
+<li class="chapter" data-level="7.11" data-path="shoes.html"><a href="shoes.html#methods-to-address-dependence-in-score-based-likelihood-ratios-slrs"><i class="fa fa-check"></i><b>7.11</b> Methods to Address Dependence in Score-based Likelihood Ratios (SLRs)</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html"><i class="fa fa-check"></i><b>8</b> Theoretical foundations</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#explaining-slr-behavior"><i class="fa fa-check"></i><b>8.1</b> Explaining SLR behavior</a></li>
+<li class="chapter" data-level="8.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#common-source-vs-specific-source-comparison-via-information-theory"><i class="fa fa-check"></i><b>8.2</b> Common Source vs Specific Source Comparison via Information Theory</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#introduction"><i class="fa fa-check"></i><b>8.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#common-source-vs-specific-source-lr"><i class="fa fa-check"></i><b>8.2.2</b> Common Source vs Specific Source LR</a></li>
+<li class="chapter" data-level="8.2.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#other-notions-of-information"><i class="fa fa-check"></i><b>8.2.3</b> Other notions of information</a></li>
+<li class="chapter" data-level="8.2.4" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#information-theoretic-specific-source-score-sufficiency-metric"><i class="fa fa-check"></i><b>8.2.4</b> Information Theoretic Specific Source Score Sufficiency Metric</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#score-based-likelihood-ratios-are-not-fundamentally-incoherent"><i class="fa fa-check"></i><b>8.3</b> Score-based Likelihood Ratios are not Fundamentally “Incoherent”</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#coherence"><i class="fa fa-check"></i><b>8.3.1</b> Coherence</a></li>
+<li class="chapter" data-level="8.3.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#problems-with-arguments-showing-slrs-are-incoherent"><i class="fa fa-check"></i><b>8.3.2</b> Problems with arguments showing SLRs are incoherent</a></li>
+<li class="chapter" data-level="8.3.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#example-of-a-coherent-slr-in-the-two-source-problem"><i class="fa fa-check"></i><b>8.3.3</b> Example of a coherent SLR in the two source problem</a></li>
+<li class="chapter" data-level="8.3.4" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#possible-generalizations-of-coherent-slrs-to-the-multisource-case"><i class="fa fa-check"></i><b>8.3.4</b> Possible Generalizations of Coherent SLRs to the Multisource Case</a></li>
+<li class="chapter" data-level="8.3.5" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#multisource-example"><i class="fa fa-check"></i><b>8.3.5</b> Multisource example</a></li>
+<li class="chapter" data-level="8.3.6" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#other-possible-viewpoints"><i class="fa fa-check"></i><b>8.3.6</b> Other Possible Viewpoints?</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#copper-wire-synthetic-data"><i class="fa fa-check"></i><b>8.4</b> Copper Wire Synthetic Data</a></li>
+<li class="chapter" data-level="8.5" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#optimal-matching-problem"><i class="fa fa-check"></i><b>8.5</b> Optimal matching problem</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#two-groups-case."><i class="fa fa-check"></i><b>8.5.1</b> Two groups case.</a></li>
+<li class="chapter" data-level="8.5.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#topics-needs-exploration"><i class="fa fa-check"></i><b>8.5.2</b> Topics needs exploration</a></li>
+<li class="chapter" data-level="8.5.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#brief-introduction-to-optimal-rule"><i class="fa fa-check"></i><b>8.5.3</b> Brief introduction to optimal rule</a></li>
+<li class="chapter" data-level="8.5.4" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#optimal-rule-for-matching-problems"><i class="fa fa-check"></i><b>8.5.4</b> Optimal rule for matching problems</a></li>
+<li class="chapter" data-level="8.5.5" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#simulation-plan"><i class="fa fa-check"></i><b>8.5.5</b> Simulation plan</a></li>
+<li class="chapter" data-level="8.5.6" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#simulation-results"><i class="fa fa-check"></i><b>8.5.6</b> Simulation results</a></li>
+<li class="chapter" data-level="8.5.7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#real-data-for-simulations"><i class="fa fa-check"></i><b>8.5.7</b> Real data for simulations</a></li>
+<li class="chapter" data-level="8.5.8" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#simulation-results-using-glass-data"><i class="fa fa-check"></i><b>8.5.8</b> Simulation results using glass data</a></li>
+<li class="chapter" data-level="8.5.9" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#extension-to-openset-problems"><i class="fa fa-check"></i><b>8.5.9</b> Extension to openset problems</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#srl-behavior-and-dependence"><i class="fa fa-check"></i><b>8.6</b> SRL behavior and dependence</a></li>
+<li class="chapter" data-level="8.7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#project-1.-evaluation-of-slr-for-glass-data"><i class="fa fa-check"></i><b>8.7</b> Project 1. Evaluation of SLR for glass data</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#communication-of-results-1"><i class="fa fa-check"></i><b>8.7.1</b> Communication of Results</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#project-2.-ensemble-of-slr-systems-for-forensic-evidence."><i class="fa fa-check"></i><b>8.8</b> Project 2. Ensemble of SLR systems for forensic evidence.</a>
+<ul>
+<li class="chapter" data-level="8.8.1" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#introduction-to-the-forensic-problem."><i class="fa fa-check"></i><b>8.8.1</b> Introduction to the forensic problem.</a></li>
+<li class="chapter" data-level="8.8.2" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#the-dependence-problem-in-slr."><i class="fa fa-check"></i><b>8.8.2</b> The dependence problem in SLR.</a></li>
+<li class="chapter" data-level="8.8.3" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#methology."><i class="fa fa-check"></i><b>8.8.3</b> Methology.</a></li>
+<li class="chapter" data-level="8.8.4" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#section-1"><i class="fa fa-check"></i><b>8.8.4</b> </a></li>
+<li class="chapter" data-level="8.8.5" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#experimental-set-up"><i class="fa fa-check"></i><b>8.8.5</b> Experimental set up</a></li>
+<li class="chapter" data-level="8.8.6" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#what-we-would-like-to-evalaute-and-how-we-measure-it."><i class="fa fa-check"></i><b>8.8.6</b> What we would like to evalaute? (and how we measure it).</a></li>
+<li class="chapter" data-level="8.8.7" data-path="theoretical-foundations.html"><a href="theoretical-foundations.html#results-1"><i class="fa fa-check"></i><b>8.8.7</b> Results</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="outreach-activities.html"><a href="outreach-activities.html"><i class="fa fa-check"></i><b>9</b> Outreach activities</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="outreach-activities.html"><a href="outreach-activities.html#book-on-forensic-science-and-statistics"><i class="fa fa-check"></i><b>9.1</b> Book on Forensic Science and Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html"><i class="fa fa-check"></i><b>10</b> Reproducibility in Research</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html#computational-reproducibility"><i class="fa fa-check"></i><b>10.1</b> Computational Reproducibility</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html#computational-reproducibility-in-team-based-collaboration"><i class="fa fa-check"></i><b>10.1.1</b> Computational Reproducibility in Team-based Collaboration</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html#state-of-computational-reproducibility-in-forensic-science"><i class="fa fa-check"></i><b>10.2</b> State of Computational Reproducibility in Forensic Science</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html#introduction-1"><i class="fa fa-check"></i><b>10.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2.2" data-path="reproducibility-in-research.html"><a href="reproducibility-in-research.html#next-step"><i class="fa fa-check"></i><b>10.2.2</b> Next step</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="toolmarks.html"><a href="toolmarks.html"><i class="fa fa-check"></i><b>11</b> Toolmarks</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="toolmarks.html"><a href="toolmarks.html#next-steps-experimental-setup"><i class="fa fa-check"></i><b>11.1</b> Next Steps: experimental setup</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="impl.html"><a href="impl.html"><i class="fa fa-check"></i><b>12</b> Project IMPL: Implementation and Practice</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="impl.html"><a href="impl.html#demonstrative-evidence-and-firearms"><i class="fa fa-check"></i><b>12.1</b> Demonstrative Evidence and Firearms</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="impl.html"><a href="impl.html#previous-work"><i class="fa fa-check"></i><b>12.1.1</b> Previous work</a></li>
+<li class="chapter" data-level="12.1.2" data-path="impl.html"><a href="impl.html#study-design"><i class="fa fa-check"></i><b>12.1.2</b> Study Design</a></li>
+<li class="chapter" data-level="12.1.3" data-path="impl.html"><a href="impl.html#sample-testimony"><i class="fa fa-check"></i><b>12.1.3</b> Sample Testimony</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="digital-evidence.html"><a href="digital-evidence.html"><i class="fa fa-check"></i><b>13</b> Digital Evidence</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="digital-evidence.html"><a href="digital-evidence.html#score-based-likelihood-ratios-for-camera-device-identification"><i class="fa fa-check"></i><b>13.1</b> Score-Based Likelihood Ratios for Camera Device Identification</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="digital-evidence.html"><a href="digital-evidence.html#nist-new-project-proposal"><i class="fa fa-check"></i><b>13.1.1</b> NIST New Project Proposal</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -414,14 +426,14 @@ div.csl-indent {
 <p>We are working on improving CSAFE’s reproducibility in research.</p>
 <div id="computational-reproducibility" class="section level2 hasAnchor" number="10.1">
 <h2><span class="header-section-number">10.1</span> Computational Reproducibility<a href="reproducibility-in-research.html#computational-reproducibility" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>CSAFE’s work is driven by a goal of providing open-source research, including open-source data and open-source algorithms. We believe in transparency and honesty in research, and allowing others to see ``under the hood" of algorithms that may be used to analyze evidence.</p>
+<p>CSAFE’s work is driven by a goal of providing open-source research, including open-source data and open-source algorithms. We believe in transparency and honesty in research, and allowing others to see ``under the hood” of algorithms that may be used to analyze evidence.</p>
 <p>In the process of furthering that goal, many of our researchers implement methods and data analysis in R, an open-source scripting language often used in data science and statistics. R and python are both languages which encourage (and rely on) user-developed packages to enhance the language’s ability to perform specific data manipulation and modeling tasks.</p>
 <p>Many software packages are still under development; that is, functions and methods that exist in a package are subject to changes over time by the developers. This affects our work as statistics researchers in three major ways:<br />
 - Code to run data analyses and obtain quantitative results may be affected by package updates. This can lead to differing quantitative results and lack of reproducibility of a method.
 - Researchers’ own packages in development (e.g., bullet pipeline, shoe analysis pipeline) are vulnerable to changes in any package dependencies.<br />
 - Group collaboration efforts on a developing package can lead to miscommunications, including changes in code that affect others’ results (sorry again, Charlotte!)</p>
 <p>So, how does this practically affect CSAFE’s research teams, and how can we manage it?</p>
-<p>For example, consider the bullet analysis ``pipeline" and some of the R packages that are involved at different steps of the process (this is not exhaustive):</p>
+<p>For example, consider the bullet analysis ``pipeline” and some of the R packages that are involved at different steps of the process (this is not exhaustive):</p>
 <p><img src="images/reproducibility/pipeline_small_bullets_packages.png" width = "90%"/></p>
 <p>Just to go from a two raw x3p files to a quantitative result of a similarity score between the two bullet LEAs, we need a lot of R packages. When something in those packages change (e.g., default requirements for a <code>tidyverse</code> function), it can break our code! In addition, different people on the project may be running the same script to analyze bullets but be using different versions of packages.</p>
 <p>Because packages like <code>bulletxtrctr</code> and the methodology for different steps (e.g., groove ID, crosscut ID) are still changing and new approaches are being added, we need to be thoughtful and careful about reporting results and working to make sure our results are reproducible by other team members and outside users.</p>
@@ -499,8 +511,76 @@ div.csl-indent {
 <ol start="4" style="list-style-type: decimal">
 <li>Personal: Submit final dissertation, find a job</li>
 </ol>
+</div>
+</div>
+<div id="state-of-computational-reproducibility-in-forensic-science" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> State of Computational Reproducibility in Forensic Science<a href="reproducibility-in-research.html#state-of-computational-reproducibility-in-forensic-science" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="introduction-1" class="section level3 hasAnchor" number="10.2.1">
+<h3><span class="header-section-number">10.2.1</span> Introduction<a href="reproducibility-in-research.html#introduction-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Inspired by <span class="citation">Stagge et al. (<a href="#ref-stagge_assessing_2019" role="doc-biblioref">2019</a>)</span> and <span class="citation">Hall et al. (<a href="#ref-hall_hydrologists_2022" role="doc-biblioref">2022</a>)</span>, we want to understand the current state of computational reproducibility in forensic science research.</p>
+<p>The reproducibility of research can be inspected from different perspectives. <span class="citation">Stagge et al. (<a href="#ref-stagge_assessing_2019" role="doc-biblioref">2019</a>)</span> conducted a survey and the survey questions are presented in the figure below.</p>
+<p><img src="images/reproducibility/accessibility_survey.jpeg" /><!-- --></p>
+<p>What we get from these survey questions is that research can be reproducible to different extend, and we need to define “how reproducible” the research work is. Some preliminary ideas that definitely need to be refined are:</p>
+<ul>
+<li>data available?
+<ul>
+<li>online/public/open-source?</li>
+<li>not public and need to contact the authors?</li>
+<li>not accessible at all?</li>
+</ul></li>
+<li>code available?
+<ul>
+<li>platform/software</li>
+<li>version number</li>
+<li>instructions</li>
+</ul></li>
+<li>able to reproduce the computational results?
+<ul>
+<li>quantitatively?</li>
+<li>qualitatively?</li>
+<li>…</li>
+</ul></li>
+<li>…</li>
+</ul>
+<p>And before we dive into the general area of reproducible research, we will firstly focus on papers from Journal of Forensic Sciences (JFS) and Forensic Science International (FSI) in the past two or three years that are in the area related to pattern evidence, algorithms, or computational methods.</p>
+<p>Currently, we are able to web-scrape all the papers of JFS in year 2020 and 2021 (with <code>polite</code>, which is an R package worth being checked out if doing web-scraping).</p>
+<pre><code>## # A tibble: 285 × 10
+##    url             paper…¹  year volumn issue paper author first…² section link 
+##    &lt;chr&gt;           &lt;list&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;
+##  1 https://online… &lt;int&gt;    2020     65     1 Eval… &quot;\n L… 04 Sep… Anthro… http…
+##  2 https://online… &lt;int&gt;    2020     65     1 Anal… &quot;\n R… 25 Jul… Anthro… http…
+##  3 https://online… &lt;int&gt;    2020     65     1 Dete… &quot;\n A… 21 Aug… Crimin… http…
+##  4 https://online… &lt;int&gt;    2020     65     1 An E… &quot;\n C… 16 Jul… Crimin… http…
+##  5 https://online… &lt;int&gt;    2020     65     1 Anal… &quot;\n A… 02 Aug… Crimin… http…
+##  6 https://online… &lt;int&gt;    2020     65     1 A No… &quot;\n T… 09 Aug… Crimin… http…
+##  7 https://online… &lt;int&gt;    2020     65     1 Chan… &quot;\n A… 27 Aug… Crimin… http…
+##  8 https://online… &lt;int&gt;    2020     65     1 The … &quot;\n O… 24 Jul… Crimin… http…
+##  9 https://online… &lt;int&gt;    2020     65     1 Tren… &quot;\n J… 06 Aug… General http…
+## 10 https://online… &lt;int&gt;    2020     65     1 Inte… &quot;\n L… 12 Aug… General http…
+## # … with 275 more rows, and abbreviated variable names ¹​paper_path, ²​first_pub</code></pre>
+</div>
+<div id="next-step" class="section level3 hasAnchor" number="10.2.2">
+<h3><span class="header-section-number">10.2.2</span> Next step<a href="reproducibility-in-research.html#next-step" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>04.27.2022
+<ul>
+<li>We will filter out papers that are not in our focused area and find related papers of the left ones</li>
+<li>the related papers are identified by the recommendation system of the JFS website. So we will try to scrape the recommendation section of the webpage.</li>
+<li>our hope is that the recommendation system forms a closed set of papers. Then we will be able to get finite number of papers related to the topic we are focusing.</li>
+<li>once we finish collecting the papers and have a good idea of how to measure reproducibility, we will start the process of evaluating the reproducibility of the collected papers (or a subset of the collection if it’s too big).</li>
+</ul></li>
+</ul>
 
 </div>
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-hall_hydrologists_2022" class="csl-entry">
+Hall, Caitlyn A., Sheila M. Saia, Andrea L. Popp, Nilay Dogulu, Stanislaus J. Schymanski, Niels Drost, Tim van Emmerik, and Rolf Hut. 2022. <span>“A Hydrologist’s Guide to Open Science.”</span> <em>Hydrology and Earth System Sciences</em> 26 (3): 647–64. <a href="https://doi.org/10.5194/hess-26-647-2022">https://doi.org/10.5194/hess-26-647-2022</a>.
+</div>
+<div id="ref-stagge_assessing_2019" class="csl-entry">
+Stagge, James H., David E. Rosenberg, Adel M. Abdallah, Hadia Akbar, Nour A. Attallah, and Ryan James. 2019. <span>“Assessing Data Availability and Research Reproducibility in Hydrology and Water Resources.”</span> <em>Scientific Data</em> 6 (1): 190030. <a href="https://doi.org/10.1038/sdata.2019.30">https://doi.org/10.1038/sdata.2019.30</a>.
 </div>
 </div>
             </section>
@@ -569,7 +649,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

@@ -3615,6 +3615,413 @@ knitr::include_graphics("images/cartridge_cases/3-4-22_update/complementCompPlot
 </details>
 
 
+<details>
+<summary>
+Joe 3/11/22 Spotlight: For this Spotlight, I will follow-up on the density-based clustering procedure that I discussed in my last Spotlight with new results. Then, I will discuss visual diagnostics-based features for cartridge case comparisons.
+</summary>
+
+**DBSCAN-based Classification**
+
+The following discussion assumes familiarity with the content of the 11/26/21 Spotlight (see above). Please refer to that content for additional information.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/3-11-22_Spotlight/cmcPlot.png")
+```
+
+
+For a particular cartridge case pair, the $(x,y,\theta,\text{CCF}_\max)$ features are calculated using the cell-based comparison procedure.
+Next, cells for which the $CCF_\max$ value is below a particular threshold (0.3 in this example) are filtered-out of the data set.
+In each comparison direction, a 3D KDE is then used to estimate the density in $(x,y,\theta)$ space.
+The $\theta$ value at which the largest value (i.e., the mode) is attained is determined.
+This is used as the estimated rotation, $\theta_{\text{ref}}$, in that direction.
+The DBSCAN algorithm is applied to the $(x,y)$ values associated with $\theta_{\text{ref}}$.
+This results in cluster/noise point assignments as explained in the previous spotlight content.
+
+There are some comparisons for which multiple clusters are assigned.
+An example of such a comparison is given below.
+Although there are 2 clusters assigned (since a classification of "0" corresponds to a noise point), it is clear to the reader's eye that these clusters are circling around a particular $(x,y)$ value that agrees between the two comparison directions.
+Such a distribution of $(x,y)$ values commonly occurs because we are using a fairly rough rotation grid from $-30$ to $30$ degrees with $3$ degree spacing.
+As such, there are many comparisons for which we're not comparing the matching pair at their "true" rotation.
+Two potential fixes to this problem are (1) using a finer grid of $\theta$ values -- perhaps a small grid around the rotation estimated using the rough grid or (2) tuning the DBSCAN parameters to ensure that all of these points are classified into one cluster.
+The former solution would likely lead to better results than the latter.
+Upon realizing that the comparisons for which multiple clusters were assigned "should" in fact be single cluster assignments, I decided to change the point classifications to a binary "noise point" or "non-noise point."
+
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/3-11-22_Spotlight/multiClusterExample.png")
+```
+
+**Non-noise point count classification**
+
+One of the strengths of the CMC method is that a cell being classified as a Congruent Matching Cell can be easily interpreted to mean that the region of the cartridge case that the cell encloses "matches" a region in the other scan.
+As such, the binary CMC/non-CMC classifications can be useful for explaining to examiners or lay-people.
+One could interpret all points that are classified as non-noise points by the DBSCAN algorithm in a similar manner - as perhaps an alternative definition of a "Congruent Matching Cell."
+Following this logic, a possible similarity metric between two scans is the total number of non-noise points.
+We would need to choose to consider cells that are classified as non-noise in both directions or at least one direction, but this is a similar choice that one must make when counting CMCs.
+The plot below shows the distribution of the Non-Noise Point Counts for matches and non-matches amongst the training data comparisons if we only count cells that are classified as non-noise in both comparison directions.
+We can see that there are a large number of comparisons, both matching and non-matching, where there are 0 non-noise points (under the restriction that a cell is considered non-noise if it is put into a cluster in both comparison directions).
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/3-11-22_Spotlight/nonNoiseCountDistributions.png")
+```
+
+Using the distribution above, it's hopefully clear that we could use a non-noise point count threshold of 1 as the match/non-match decision boundary.
+That is to say, we classify a cartridge case pair as non-matching only if there were 0 points classified into a cluster in both directions.
+This is similar to the decision rule used in Zhang et al. (2020) where the DBSCAN algorithm is used on features extracted from firing pin data.
+
+Using a non-noise point count threshold of 1, the following confusion matrix shows the classification results on the training data where the DBSCAN thresholds were $\epsilon = 5$ and $minPts = 5$. We can see that the false positive rate is quite low (0.3%) at the cost of a relatively high false negative rate (38.5%). The overall error rate is 4.2%.
+
+| | Predict Match | Predicted Non-Match |
+|-|---------------|---------------------|
+| **Actual Match** | 1352 | 847 |
+| **Actual Non-Match** | 64 | 19682 |
+
+The confusion matrix below shows the classification results using a non-noise point count threshold of 1 on the test data. Again, the false positive rate is quite low (0.02%) while the false negative rate is relative large (30.6%). The overall error rate is 2.1%.
+
+| | Predict Match | Predicted Non-Match |
+|-|---------------|---------------------|
+| **Actual Match** | 2163 | 952 |
+| **Actual Non-Match** | 11 | 41841 |
+
+**Non-noise point feature-based classification**
+
+Alternatively, rather than counting the number of non-noise points as the similarity score, we can calculate additional features from the points classified as non-noise points.
+The features I have calculated are as follows:
+
+1. The number of non-noise points per comparisons, averaged between the two comparison directions. More precisely, if $C_{i,j,[r,c],d}$ is the DBSCAN classification for the $[r,c]$th cell in the comparison between scan $i$ and scan $j$ in direction $d = 1,2$ (representing `refToTarget` and `targetToRef`, respectively), then we calculate $\frac{1}{2}\left(\sum_{r,c} C_{i,j,[r,c],1} + \sum_{r,c} C_{i,j,[r,c],2}\right)$.
+
+2. The difference in the estimated rotations (i.e., the rotation at which the highest estimated density occurs) between the two comparison directions. More precisely, if $\theta_{refToTarget}$ and $\theta_{targetToRef}$ are the estimated rotations in the two comparison directions, then we calculate $\theta_{dist} = \theta_{refToTarget} + \theta_{targetToRef}$ which should be close to 0 for matching comparisons.
+
+3. The distance between the estimated translations, defined to be the average $(x,y)$ value across all non-noise points for a particular direction, between both comparison directions. More precisely, if $(x_{refToTarget},y_{refToTarget})$ and $(x_{targetToRef},y_{targetToRef})$ are the estimate translations for the two comparison directions, calculate $transDist = \sqrt{(x_{refToTarget} + x_{targetToRef})^2 + (y_{refToTarget} + y_{targetToRef})^2}$. This feature should be close to 0 for truly matching comparisons.
+
+Using these 3 features, a Classification and Regression Tree (CART) model is fit on the training data using 10-fold cross-validation repeated thrice.
+The fitted CART is shown below.
+we can see that the splits occur on the first and second feature defined above, but not on the third.
+Each node shows:
+
+1. The classification of an observation that falls into that node.
+
+2. The estimated probability that an observation falling into the node is a non-match.
+
+3. The percentage of all observations that fall into that node.
+
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/3-11-22_Spotlight/dbscanFeaturesCART.png")
+```
+
+The training data confusion matrix based on this CART is shown below. The false positive rate is much higher in this case while the false negative rate is about half of the non-noise point count-based classifier. The overall training error rate is 2.56%.
+
+| | Predict Match | Predicted Non-Match |
+|-|---------------|---------------------|
+| **Actual Match** | 1786 | 413 |
+| **Actual Non-Match** | 148 | 19598 |
+
+Using the fitted CART to predict the test data classes, the following confusion matrix is produced. Relative to the non-noise point count classifier, the false positive rate is higher and the false negative rate is lower. The overall test error rate is 1.38%
+
+| | Predict Match | Predicted Non-Match |
+|-|---------------|---------------------|
+| **Actual Match** | 2609 | 472 |
+| **Actual Non-Match** | 149 | 41620 |
+
+**Features based on Visual Diagnostics**
+
+More recently, we have been exploring visual diagnostic tools for cartridge case comparisons.
+An example of one such visualization is shown below.
+This visualization shows the classifications for each cell when two matching cartridge cases are compared.
+There are 11 (of 39) cells classified as Congruent Matching Cells.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/3-11-22_Spotlight/cmcPlot.png")
+```
+
+This binary (CMC/non-CMC) classification is not as nuanced as we would like, so we have been developing additional tools for comparing individual aligned cells.
+In particular we want a tool that indicates areas of aligned cell pairs that are similar and different from each other.
+This is the motivation behind the *complementary comparison plots*.
+
+You can see an example of one such plot below.
+This visualization depicts the 1, 3 cell visible in the CMC results plot above.
+The left-hand side shows the cell in scan K013sA1 and its aligned cell in scan K013sA2.
+To visualize similarities, we calculate the element-wise average between the two cells.
+To measure differences, we consider the element-wise absolute difference between the two cells.
+We define a filter of the average plot depending on whether the absolute difference is less than 1 (standard deviation in this case since the values are normalized).
+To visualize differences, the right-hand side depicts the elements of the two cells for which the absolute difference is larger than 1.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/3-11-22_Spotlight/complementCompPlot.png")
+```
+
+The complementary comparison plot can be used to visually diagnose how well and individual cell found its "spot" in the other scan.
+For comparison to the above "matching" example, consider the example below showing a non-match pair of cells.
+The cell on the left comes again from scan K013sA1, but the cell on the right comes from a non-matching cartridge case K002eG1.
+While there are *some* similarities between these two cells, we can see that these two cells are less similar than the matching example above.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/3-11-22_Spotlight/complementCompPlot_nonMatch.png")
+```
+
+
+We are currently working on extracting features from these complementary comparison plots that *quantify* what our *visual* intuition tells us when a pair of cells are aligned or not.
+Almost by definition, such features will be intuitive and therefore can be easily-explained to an examiner or other lay-people.
+This is one of the main benefits of using these features.
+For example, we assume that fewer absolute differences will be larger than 1 for matching pairs of cells than non-matching.
+In the complementary comparison plots above, this amounts to fewer grayed-out patches in the matching pair of cells than the non-matching.
+Additionally, we assume that the filtered patches in a cell (see the plot below) will also be smaller for matching pairs.
+We can measure the size of filtered patches using a connected components labeling algorithm as shown below.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/3-11-22_Spotlight/binarizedBlobs.png")
+```
+
+I was hoping to hear from the group if they had any additional ideas about features we could extract from these cell pair comparisons.
+
+</details>
+
+<details>
+<summary>
+Joe 4/1/22 Update: We received additional, interesting comments from the reviewers for our cmcR paper.
+</summary>
+
+It seems that we have reached a philosophical impasse with one of the reviewers of our cmcR paper who does "not believe the creation of an open-source tool merits a peer-reviewed journal paper."
+Keep in-mind that we submitted this to the RJournal that publishes many peer-reviewed papers about open-source tools.
+We're still working on how to best approach the reviewers' comments.
+
+Additionally, we have been working more on the visual diagnostic tools that I discussed in my last spotlight. 
+Below is an example showing a set of features calculated on around 10,000 cartridge case pairs using the entire scans as opposed to the "normal" CMC procedure that involves calculating these features per cell pair.
+We can clearly see that there is some separation between matches and non-matches, indicating that our derived features are informative.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-1-22_update/wholeScanDiagnosticFeatures.png")
+```
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-1-22_update/wholeScanCMCFeatures.png")
+```
+
+</details>
+
+<details>
+<summary>
+Joe 4/1/22 Update: I have been working on edits to the R Journal submission and calculating more visual diagnostic features.
+</summary>
+
+The plots below are updates of the plots I shared last week. The previous plots showed the features based on around 10,000 comparisons while the plot below shows features from 21,945 comparisons.
+
+The first plot shows the distribution of the alignment-based features when comparing full scans. We can see that there is a difference between the matching and non-matching comparisons in the correlation values (both the FFT-based and pairwise-complete correlation) and in the variability of the x,y,theta values.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-8-22_update/alignmentFeatures_fullScans.png")
+```
+
+The plot below shows the visual diagnostic features that I discussed briefly in my last spotlight.
+I plan on going into greater detail in my next spotlight (in two weeks), but suffice to say that it looks like our features are "working" the way they should.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-8-22_update/visualDiagnosticFeatuers_fullScans.png")
+```
+
+
+</details>
+
+<details>
+<summary>
+Joe 4/22/22 Spotlight: I will provide an update on the status of the visual diagnostic tools/features that I discussed in my last spotlight.
+</summary>
+
+**Visual Diagnostic Features**
+
+- Estimate alignment using the entire scans
+
+  - For each rotation $\theta \in \{-30,-27,...,27,30\}$:
+  
+    - Rotate the target scan by $\theta$
+    
+    - Calculate the translation $(dx,dy)$ at which the CCF is maximized between the reference and rotated target scans
+    
+  - Determine the registration $(\theta,dx,dy)$ at which the CCF is maximized overall.
+
+- Calculate diagnostic features at estimated alignment
+
+The animation below shows the estimated registrations of the two scans for each rotation.
+For many rotations, there is very little overlap between the two scans.
+Even among rotations for which there is more overlap, many of the diagnostic plots show that there are large dissimilar regions between the two scans.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-22-22_spotlight/fullScanFivePlot.gif")
+```
+
+
+We would like to identify the rotation at which the scans are the most similar.
+Ideally, this would (and this case does) match up with the rotation that maximizes the CCF overall.
+This rotation happens to be 3 degrees.
+The plot below shows the diagnostic plot at the estimated registration at 3 degrees.
+We observe that only small regions are filtered-out of the element-wise average plot compared to the other rotations shown in the animation above.
+
+```{r}
+knitr::include_graphics("images/cartridge_cases/4-22-22_spotlight/fullScan_optimalAlignment.png")
+```
+  
+
+
+```{r, out.width="50%"}
+knitr::include_graphics(c("images/cartridge_cases/4-22-22_spotlight/fullScan_filteredElements.png",
+                          "images/cartridge_cases/4-22-22_spotlight/fullScan_labeledNeighborhoods.png"))
+```
+
+
+
+For each comparison, the calculated features are:
+
+- The average filtered neighborhood size
+
+- The standard deviation of the neighborhood sizes
+
+- The pairwise-complete correlation between the two absolute difference-filtered scans (the right column in the diagnostic plots above).
+
+The plot below shows boxplots for the 3 visual diagnostic features for 21,945 comparisons.
+We can see that both the average neighborhood size and the variability in the neighborhood sizes tend to be smaller for matching comparisons compared to non-matching.
+This reflects the fact that we expect the registration in a non-matching comparisons to yield large dissimilar regions.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-22-22_spotlight/fullScanVisualDiagnosticFeatures.png")
+```
+
+
+Additionally, we can consider the distribution of the registration features.
+For each scan pair, we determine the registration at which the CCF is maximized  between the two scans (fft_ccf).
+From this we obtain an estimated registration in the form of horizontal (x) and vertical (y) translations and a rotation (theta).
+Additionally, due to the large number of structurally missing values, we also calculate the pairwise-complete correlation between the scans after applying the registration (pairwiseCompCor).
+The distribution of these 5 features is shown below.
+As we might expect, the correlations tend to be larger for matching comparisons compared to non-matching.
+There isn't a ton of difference in the translation values between matching vs. non-matching comparisons, but, interestingly, the estimated rotations tend to be closer to 0 for matching comparisons compared to non-matching.
+This is likely due to the fact that standard operating procedure for taking these 3D scans says that one should align the firing pin ejector mark at 3 o'clock for each cartridge case.
+As such, we would expect matching cartridge cases to already be rotated to a similar position before performing any comparison.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-22-22_spotlight/fullScanRegistrationFeatures.png")
+```
+
+The distributions of these features indicate that we are indeed capturing some signal in both the visual diagnostic and registration features.
+
+**Cell-Based Features**
+
+To further improve our discriminatory ability, we can consider the distribution of features obtained from the cell-based comparison procedure.
+In particular, we can register the scans using the estimated registration from the global procedure outlined above.
+Then, we can perform the cell-based comparison procedure on a restricted translation and rotation grid.
+Ideally, for correctly-aligned scans, we wouldn't expect the individual cells to "wiggle" very much and could use excessive wiggling to indicate that the registration failed.
+
+We perform the following procedure:
+
+- Apply the estimated registration calculated using the full scans to the scan pair.
+
+- Perform the cell-based comparison procedure (using a grid size of 4x4 in this case) using a small rotation grid: $\{-2, -1, 0, 1, 2\}$
+
+- Then, for each aligned cell pair:
+
+  - Determine the registration that maximizes the CCF for each cell pair
+
+  - Calculate the diagnostic features at this registration for each cell pair
+
+What you get from this procedure are aligned cell pairs that look like the following. 
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-22-22_spotlight/alignedCellExample.png")
+```
+
+**Regular Grid Cells**
+
+It is important to note that not all cells will successfully find their registration.
+However, we want to consider cells that have actually found their registration in the other scan.
+How can we determine whether cells have found the "correct" registration?
+
+Because the reference scan is divided into a grid of cells, the aligned cells in the target scan should arrange into a similar grid.
+Can we determine which cells are arranged into a grid?
+
+Idea: compare pairwise distances and triowise angles between neighboring cells to what they are expected to be given the reference grid.
+Consider, for example the trio of cells (1, 2), (1, 3), and (2, 3).
+Given the cell indices, we would expect the aligned target cells to create an approximate right angle with cell 1, 3 as the vertex.
+We can clearly see that this is not the case as cells 1, 2 and 2, 3 do seem to have found their alignment.
+Instead, the angle is considerably more than 90 degrees and the cells are more diffuse than they should be.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-22-22_spotlight/alignedCellExample.png")
+```
+
+The examples below show cell trios that align and do not align, respectively, in a regular grid.
+We can repeat this procedure for every trio of neighboring cells.
+In particular, we classify trios as being part of the "regular grid" if the two pairwise distances between the two terminal cells and the vertex cell is within 10 units of what we would expect AND if the triowise angle is within 10 degrees of what we would expect it to be. 
+
+```{r,fig.align='center',out.width="45%"}
+knitr::include_graphics(c("images/cartridge_cases/4-22-22_spotlight/regularGridExample.png",
+                          "images/cartridge_cases/4-22-22_spotlight/irregularGridExample.png"))
+```
+
+The plot below shows the classifications of every cell pair as being part of the "regular grid" or not.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-22-22_spotlight/alignedCellExample_regularGrids.png")
+```
+
+We consider the visual diagnostic features for cells that are deemed part of and not part of a regular grid separately.
+The plot below shows the distribution of the visual diagnostic features by not only the comparison type but also by whether cells were "well-aligned," meaning part of the regular grid, or not.
+We can see that the well-aligned cells appear to have different neighborhood size-related features than the poorly-aligned cells, indicating that this is indeed a warranted choice.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-22-22_spotlight/cellVisualDiagnosticFeatures_alignedCells.png")
+```
+
+The behavior is similar for the alignment features by comparison type and alignment - the matching well-aligned cells exhibit different registration behavior than the other types of cells.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-22-22_spotlight/cellRegistrationFeatures_alignedCells.png")
+```
+
+
+As a final note, I do want to make two points.
+First, the current definition of what constitutes a "well-aligned" cells is crudely based on manually-defined cutoffs.
+In the future, I may want to build some sort of continuous weighting function that under-weights cells if they pairwise distances or triowise angles relative to neighboring cells is far from what it should be.
+Secondly, it is important to note that cells arranging into a regular grid is a necessary, yet not sufficient, condition for truly matching cartridge cases.
+In the future, I would like to think of additional necessary, or optimally sufficient, conditions for correct registration.
+
+**Classifications**
+
+To summarize the features:
+
+- Registration and diagnostic features from comparing entire scans
+
+- Registration and diagnostic features from the cell-based comparison procedure after pre-aligning the cells by the estimated registration
+
+  - We consider the features separately for well-aligned and poorly-aligned cells
+  
+We can compare/combine these features with the DBSCAN methodology that I discussed in my last spotlight.
+Using the same data set of 21945 comparisons, I combined the DBSCAN features I discussed in my last spotlight with the registration and diagnostic features discussed here and trained a CART model.
+The fitted model is shown below.
+We can see that, in this instance, the CART only makes 3 splits on 2 variables, although I optimized this on a fairly rough complexity parameter grid.
+
+```{r,fig.align='center'}
+knitr::include_graphics("images/cartridge_cases/4-22-22_spotlight/diagnosticRegistrationDBSCANFeatures_CART.png")
+```
+
+
+Using the same data set for comparison, the table below summarizes the error rates for the two DBSCAN approaches that I discussed in my last spotlight and the results of combining the DBSCAN Cluster-Based Features with the Diagnostic and Registration Features discussed here.
+We can see a fair improvement over the previously-proposed methods.
+
+| Method | Error Rate (%) | False Pos. Rate (%) | False Neg. Rate (%) |
+| ---- | - | - | - |
+| Any DBSCAN Cluster Binary Classifier | 4.2 | 0.3 | 38.5 |
+| DBSCAN Cluster-Based Features CART | 2.6 | 0.7 | 18.8 |
+| DBSCAN Cluster-Based Features + Diagnostic/Registration Features CART | 1.8 | 0.2 | 15.6 |
+
+
+
+</details>
+
+Joe 6/9/22 Update: I have been working on the Lit Review and presentation for my Oral Preliminary Exam (next Friday!).
+
+Joe 6/23/22 Update: I passed my Oral Prelim Exam last week and have since developed the interactive diagnostic tool `cartridgeInvestigatR`. I plan on discussing this tool in a future Spotlight.
+
+Joe 9/19/22 Update: I have been working on two new pieces of software to implement the methods described in my dissertation. One is the [`impressions`](https://jzemmels.github.io/impressions/) R package that allows one to diagnose and explain cartridge case impression algorithms. The [`scored`](https://jzemmels.github.io/scored/) R package uses new techniques to measure the similarity between two cartridge cases.
+
 ### Modified Chumbley non-random test
 #### Land-to-land scores
 The moified Chumbley non-random algorithm is a statistical non-parametric test that compares two signatures under consideration and gives a test statistic. The test statistic is used to make classifications and compute error rates based on different nominal type I levels. The basic principle behind the method is to first take two marking that have to be compared, choose a segment length which is a portion of the signature, and use this window segment to find which windows give the maximum correlation. The lag between these respective markings is computed based on the location of the two maximum correlation windows in the two markings. Now the algorithm works in two steps where first, lag congruent correlations between several smaller windows of the two markings are computed, this is called the same-shift. The second step serves the purpose of computing windows of correlation between the two signatures with window sized the same as the same-shift, but the with the purpose of finding correlations when the windows are not lag synchronized. The second step is called different shift step and has a specific order in which the pair of windows are chosen between which the correlations are to be computed. The different-shift serves as benchmark for comparison. It shows a set of bad correlations, against which the same-shift correlations are compared. A U-statistic is computed for the comparison based on the correlations in this procedure. 

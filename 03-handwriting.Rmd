@@ -1531,6 +1531,27 @@ Where $n_p$ and $n_d$ are the number of posterior samples and $θ_s^{(i)}$ and $
 
 A Bayes Factor of 1 indicates that the prosecution proposition and the defense proposition are equally favored. A Bayes Factor greater than 1 indicates that the $H_p$ is favored and a Bayes Factor less than 1 indicates that the $H_d$ is favored. In Gabrielle Collins and Danica Ommen's, paper they only ran one simulation, so I will be running multiple.
 
+
+
+
+We use writer 36 as our specific source. Every other writer in the data set is our alternative source, and we have two questioned documents, one from writer 36 and one from writer 71.
+
+
+```{r, echo=FALSE, out.width="50%", fig.align='center'}
+
+knitr::include_graphics(c("images/handwriting/anyesha/BF_first_results.png"))
+
+```
+
+A Bayes Factor of 1 indicates that the  prosecution proposition and the defense proposition are equally favored. A Bayes Factor greater than 1 indicates that the Hp is favored and a Bayes Factor less than 1 indicates that the Hd is favored. From the Bayes Factors shown in the Methods and Results section, we can  conclude that our first questioned document did come from our specific source because it is greater than 1. The Bayes Factor for the second questioned document signifies that the questioned document is from an alternative source as it is a very small number. Since we know the true source is writer 36, these numbers represent the correct conclusion.
+
+From here, I will be confirming these results and coding it to run on a loop to run multiple writers. 
+
+
+
+
+
+
 ### FLASH ID and handwriter comparison
 
 The goal of the project is to compare the results of handwriter and FLASH ID on test documents of varying lengths. 
@@ -1714,10 +1735,33 @@ Presenting author is in bold.
 
         </summary>
 
-        ![Poster given at AAFS 2021
-        Meeting](~/CSAFE/Handwriting/AAFS/A.Ray%20AAFS%20Poster.png)
+        ![Poster given at AAFS 2021 and IAI 2021
+        Meeting](images/handwriting/anyesha/Demographics_poster.png)
 
         </details>
+        
+        
+        
+-   <strong>"Quantifying Bayes Factors for Forensic Handwriting Evidence"</strong>
+
+    -   February 2023
+
+    -   Authors: Anyesha Ray, Danica Ommen
+
+    -   American Academy of Forensic Sciences
+
+    -   <details>
+
+        <summary>
+
+        Click for Poster Image
+
+        </summary>
+
+        ![Poster given at AAFS 2023
+        Meeting](images/handwriting/anyesha/BF_poster.png)
+
+        </details>        
 
 ## Deep Learning Methods
 

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Project G: Handwriting (&amp; Signatures) | This is us: making CSAFE stronger each week</title>
   <meta name="description" content="This is our new approach of showing our progress one week at a time. This book is based on the minimal example of using the bookdown package. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.32.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.33.3 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Project G: Handwriting (&amp; Signatures) | This is us: making CSAFE stronger each week" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2023-02-07" />
+<meta name="date" content="2023-04-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -119,6 +119,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -1724,11 +1728,17 @@ all the documents from the specific source into one row s. If s has 26 documents
 <pre><code>## Error in knitr::include_graphics(c(&quot;images/handwriting/anyesha/bayesfactorformula.png&quot;)): Cannot find the file(s): &quot;images/handwriting/anyesha/bayesfactorformula.png&quot;</code></pre>
 <p><br /></p>
 <p>Where <span class="math inline">\(n_p\)</span> and <span class="math inline">\(n_d\)</span> are the number of posterior samples and <span class="math inline">\(θ_s^{(i)}\)</span> and <span class="math inline">\(θ_a^{(i)}\)</span> are samples from the posterior distributions.</p>
+<p>Above is called MC integration.We first set up our hierarchical model as shown above and get our posterior samples. Then, we set up our bayes factor calculation by inputting the unknown as the data and the posteriors as the parameter in our Dirichlet multinomial likelihood. We should get an out put of 15000 for both the specific and alternative source. We then add the outputs together and divide by 15000. Then divide the specific source by the alternative source and that should give you your Bayes factor.</p>
+<p>From our hierarchical model, we get posterior samples that represent our cluster count data going through a prior and Dirichlet, multinomial. Then we input those thetas into the Dirichlet Multinomial distribution and divide by 15000. Originally, I had coded the pdf by hand as a function was difficult to find. In the end, we were able to find a function in the extraDistr package which drastically reduced computation times. We can directly do this because of math Danica did and this solves our integral.</p>
 <p>A Bayes Factor of 1 indicates that the prosecution proposition and the defense proposition are equally favored. A Bayes Factor greater than 1 indicates that the <span class="math inline">\(H_p\)</span> is favored and a Bayes Factor less than 1 indicates that the <span class="math inline">\(H_d\)</span> is favored. In Gabrielle Collins and Danica Ommen’s, paper they only ran one simulation, so I will be running multiple.</p>
 <p>We use writer 36 as our specific source. Every other writer in the data set is our alternative source, and we have two questioned documents, one from writer 36 and one from writer 71.</p>
 <p><img src="images/handwriting/anyesha/BF_first_results.png" width="50%" style="display: block; margin: auto;" /></p>
 <p>A Bayes Factor of 1 indicates that the prosecution proposition and the defense proposition are equally favored. A Bayes Factor greater than 1 indicates that the Hp is favored and a Bayes Factor less than 1 indicates that the Hd is favored. From the Bayes Factors shown in the Methods and Results section, we can conclude that our first questioned document did come from our specific source because it is greater than 1. The Bayes Factor for the second questioned document signifies that the questioned document is from an alternative source as it is a very small number. Since we know the true source is writer 36, these numbers represent the correct conclusion.</p>
 <p>From here, I will be confirming these results and coding it to run on a loop to run multiple writers.</p>
+</div>
+<div id="loop-for-writers" class="section level4 hasAnchor" number="5.3.7.2">
+<h4><span class="header-section-number">5.3.7.2</span> Loop for Writers<a href="project-g-handwriting-signatures.html#loop-for-writers" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Now to run multiple simulations using a loop. We randomly select n writers. Then randomly choose an unknow/qd. To select s, we rank the rest of the writers by their Euclidean distance of the proportion of graphs. The one that is most similar to u gets assigned to be s and the rest are a. Then run through bayes factor code. The idea is that we are randomly selecting writers and checking bayes factors for writers that are most similar to our unknown (kinda like a close non match). Do this for all writers in our selected n sample. We want to be checking more for unknowns where the specific source is not the same than when it is the same (qd=36, s=71 instead of qd=36 s=36). We also do this with euclidean distances that are far. The idea is that we will have two cases where Hd is true, one that is an easy difference and one pthat is difficult. We also run a loop for when Hp is true and u=s.</p>
 </div>
 </div>
 <div id="flash-id-and-handwriter-comparison" class="section level3 hasAnchor" number="5.3.8">

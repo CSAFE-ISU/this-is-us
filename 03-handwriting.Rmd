@@ -1492,6 +1492,11 @@ knitr::include_graphics(c("images/handwriting/anyesha/writer313clustersums.png")
 
 The idea is that the number of graphs that fall into each cluster is unique to an individual and is their "writer template". Flash ID uses this feature as well.
 
+
+
+
+#### Set Up
+
 There are two groups when answering an open set question: the specific source and the alternative source. Say someone wrote a threatening letter and left it in a classroom. We also know the classroom had been cleaned that morning and the letter was not present, but it was after the students went to lunch. The specific source would be our suspect and the alternative source would be everyone else in the class present in those hours. We have three separate pieces of evidence then. u will denote unknown, s will denote specific source, and A will denote alternative source in general.
 
 $u_i$ is the vector of graph counts from the unknown document will be a vector of length 40 because we have 40 clusters (evidence obtained from crime scene)
@@ -1506,6 +1511,9 @@ $H_d$: The QD was written by someone else in the alternative source population
 
 The specific source was modeled as a Dirichlet-Multinomial($θ_s$) where $θ_s$ is the rate of observing graphs in the clusters for the specific source. So each specific source will have 40 $θ_s$. For the alternative source population, we use a hierarchical model where $θ_a$ is drawn from a Dirichlet and then a Multinomial. To make the model simpler, we sum
 all the documents from the specific source into one row s. If s has 26 documents in it we take all the clusters in cluster 1 and sum them together and do that for all the clusters. The result is a vector of 40. We do a similar thing for $A_{ij}$ where we take all the documents from the same writer and sum them together by clusters. The result is a single vector of 40 for each document.
+
+
+#### The Model
 
 $$M_s :  s ∼ Fs(·|θs) = Dirichlet-Multinomial(θ_s)$$ and
 
@@ -1551,13 +1559,46 @@ A Bayes Factor of 1 indicates that the  prosecution proposition and the defense 
 
 From here, I will be confirming these results and coding it to run on a loop to run multiple writers. 
 
-#### Loop for Writers 
+#### Calculating Bayes Factors for All Writers (actually it's only 5 so far)
 
 
-Now to run multiple simulations using a loop. We randomly select n writers. Then randomly choose an unknow/qd. To select s, we rank the rest of the writers by their Euclidean distance of the proportion of graphs. The one that is most similar to u gets assigned to be s and the rest are a. Then run through bayes factor code. The idea is that we are randomly selecting writers and checking bayes factors for writers that are most similar to our unknown (kinda like a close non match). Do this for all writers in our selected n sample. We want to be checking more for unknowns where the specific source is not the same than when it is the same (qd=36, s=71 instead of qd=36 s=36).  We also do this with euclidean distances that are far. The idea is that we will have two cases where Hd is true, one that is an easy difference and one pthat is difficult. We also run a loop for when Hp is true and u=s. 
+Now, the goal is to calculate Bayes Factors for all the writers. Here is how we are setting it up. 
+
+1. We randomly select n writers. For testing purposes I chose n to be 5 (eventually we will do this with all the writers). 
+2. We randomly choose an unknown/questioned document. We want to compare this unknown in three scenarios. 
+    a. One where the Hp is true and the unknown/qd comes from our specific source. 
+    b. One where the Hd is true so the unknown/qd comes from our alternative source but where it is easy to distinguish the writers.The idea is that we are randomly selecting writers and checking Bayes Factors for writers that are most similar to our unknown (kinda like a close non match) 
+    c. One where the Hd is true so the unknown/qd comes from our alternative source but where it is difficult to distinguish the writers. 
+
+  To determine the easy and difficult case, we rank all of our writers by their Euclidean distance of the proportion of graphs (add each writers documents together then calculate proportion of graphs in each cluster). The one that is most similar to the unknown gets assigned to be our specific source and the rest of the writers get put in the alternative source for the hard case.The one that is least similar to the unknown gets assigned to be our specific source and the rest of the writers get put in the alternative source for the easy case.  
+  
+3. Then run through the Bayes Factor  choosing an unknown from a different writer each time. 
+
+Here are the results:
 
 
+```{r, echo=FALSE, out.width="50%", fig.align='center'}
 
+knitr::include_graphics(c("images/handwriting/anyesha/Hp_True.png"))
+
+```
+
+```{r, echo=FALSE, out.width="50%", fig.align='center'}
+
+knitr::include_graphics(c("images/handwriting/anyesha/Hd_True_EasyCase.png"))
+
+```
+
+```{r, echo=FALSE, out.width="50%", fig.align='center'}
+
+knitr::include_graphics(c("images/handwriting/anyesha/Hd_True_DifficultCase.png"))
+
+```
+
+
+#### Next Steps
+The next step is to check that everything is doing what it should do, put all three parts together, and try to make it faster. 
+Right now these are running separately, so the goal is to have them all run together. 
 
 
 ### FLASH ID and handwriter comparison

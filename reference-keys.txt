@@ -215,9 +215,9 @@ fig:unnamed-chunk-539
 fig:unnamed-chunk-540
 fig:unnamed-chunk-563
 fig:unnamed-chunk-564
-fig:unnamed-chunk-584
-fig:unnamed-chunk-589
-fig:unnamed-chunk-590
+fig:unnamed-chunk-587
+fig:unnamed-chunk-592
+fig:unnamed-chunk-593
 fig:toolmarks
 fig:screwdriver
 fig:tip-sensofar
@@ -353,7 +353,10 @@ regression
 conclusion
 quantifying-bayes-factors-for-forensic-handwriting-evidence
 background-1
-loop-for-writers
+set-up
+the-model
+calculating-bayes-factors-for-all-writers-actually-its-only-5-so-far
+next-steps
 flash-id-and-handwriter-comparison
 communication-of-results
 papers

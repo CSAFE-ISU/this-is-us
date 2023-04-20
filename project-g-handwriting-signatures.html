@@ -23,7 +23,7 @@
 <meta name="author" content="CSAFE" />
 
 
-<meta name="date" content="2023-04-18" />
+<meta name="date" content="2023-04-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1710,6 +1710,9 @@ Figure 5.54: Figure 2. Histogram of graph count sums across all pieces of writin
 </p>
 </div>
 <p>The idea is that the number of graphs that fall into each cluster is unique to an individual and is their “writer template”. Flash ID uses this feature as well.</p>
+</div>
+<div id="set-up" class="section level4 hasAnchor" number="5.3.7.2">
+<h4><span class="header-section-number">5.3.7.2</span> Set Up<a href="project-g-handwriting-signatures.html#set-up" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>There are two groups when answering an open set question: the specific source and the alternative source. Say someone wrote a threatening letter and left it in a classroom. We also know the classroom had been cleaned that morning and the letter was not present, but it was after the students went to lunch. The specific source would be our suspect and the alternative source would be everyone else in the class present in those hours. We have three separate pieces of evidence then. u will denote unknown, s will denote specific source, and A will denote alternative source in general.</p>
 <p><span class="math inline">\(u_i\)</span> is the vector of graph counts from the unknown document will be a vector of length 40 because we have 40 clusters (evidence obtained from crime scene)</p>
 <p><span class="math inline">\(s_j\)</span> is the vector of graph counts from the control document will be a vector of length 40 because we have 40 clusters. Here we can have multiple documents . (material we gather from suspect)</p>
@@ -1718,6 +1721,9 @@ Figure 5.54: Figure 2. Histogram of graph count sums across all pieces of writin
 <p><span class="math inline">\(H_d\)</span>: The QD was written by someone else in the alternative source population</p>
 <p>The specific source was modeled as a Dirichlet-Multinomial(<span class="math inline">\(θ_s\)</span>) where <span class="math inline">\(θ_s\)</span> is the rate of observing graphs in the clusters for the specific source. So each specific source will have 40 <span class="math inline">\(θ_s\)</span>. For the alternative source population, we use a hierarchical model where <span class="math inline">\(θ_a\)</span> is drawn from a Dirichlet and then a Multinomial. To make the model simpler, we sum
 all the documents from the specific source into one row s. If s has 26 documents in it we take all the clusters in cluster 1 and sum them together and do that for all the clusters. The result is a vector of 40. We do a similar thing for <span class="math inline">\(A_{ij}\)</span> where we take all the documents from the same writer and sum them together by clusters. The result is a single vector of 40 for each document.</p>
+</div>
+<div id="the-model" class="section level4 hasAnchor" number="5.3.7.3">
+<h4><span class="header-section-number">5.3.7.3</span> The Model<a href="project-g-handwriting-signatures.html#the-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><span class="math display">\[M_s :  s ∼ Fs(·|θs) = Dirichlet-Multinomial(θ_s)\]</span> and</p>
 <p><span class="math display">\[ M_a : B_i ∼ G(·|θ_a) = Dirichlet(θ_a) \]</span>
 <span class="math display">\[ A_i|B_i = b_i ∼ Fa(·|b_i, θ_a) = Multinomial(b_i)\]</span> where marginally <span class="math display">\[ A_i|θ_a ∼ Dirichlet-Multinomial(θ_a)\]</span></p>
@@ -1736,9 +1742,31 @@ all the documents from the specific source into one row s. If s has 26 documents
 <p>A Bayes Factor of 1 indicates that the prosecution proposition and the defense proposition are equally favored. A Bayes Factor greater than 1 indicates that the Hp is favored and a Bayes Factor less than 1 indicates that the Hd is favored. From the Bayes Factors shown in the Methods and Results section, we can conclude that our first questioned document did come from our specific source because it is greater than 1. The Bayes Factor for the second questioned document signifies that the questioned document is from an alternative source as it is a very small number. Since we know the true source is writer 36, these numbers represent the correct conclusion.</p>
 <p>From here, I will be confirming these results and coding it to run on a loop to run multiple writers.</p>
 </div>
-<div id="loop-for-writers" class="section level4 hasAnchor" number="5.3.7.2">
-<h4><span class="header-section-number">5.3.7.2</span> Loop for Writers<a href="project-g-handwriting-signatures.html#loop-for-writers" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Now to run multiple simulations using a loop. We randomly select n writers. Then randomly choose an unknow/qd. To select s, we rank the rest of the writers by their Euclidean distance of the proportion of graphs. The one that is most similar to u gets assigned to be s and the rest are a. Then run through bayes factor code. The idea is that we are randomly selecting writers and checking bayes factors for writers that are most similar to our unknown (kinda like a close non match). Do this for all writers in our selected n sample. We want to be checking more for unknowns where the specific source is not the same than when it is the same (qd=36, s=71 instead of qd=36 s=36). We also do this with euclidean distances that are far. The idea is that we will have two cases where Hd is true, one that is an easy difference and one pthat is difficult. We also run a loop for when Hp is true and u=s.</p>
+<div id="calculating-bayes-factors-for-all-writers-actually-its-only-5-so-far" class="section level4 hasAnchor" number="5.3.7.4">
+<h4><span class="header-section-number">5.3.7.4</span> Calculating Bayes Factors for All Writers (actually it’s only 5 so far)<a href="project-g-handwriting-signatures.html#calculating-bayes-factors-for-all-writers-actually-its-only-5-so-far" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Now, the goal is to calculate Bayes Factors for all the writers. Here is how we are setting it up.</p>
+<ol style="list-style-type: decimal">
+<li>We randomly select n writers. For testing purposes I chose n to be 5 (eventually we will do this with all the writers).</li>
+<li>We randomly choose an unknown/questioned document. We want to compare this unknown in three scenarios.
+<ol style="list-style-type: lower-alpha">
+<li>One where the Hp is true and the unknown/qd comes from our specific source.</li>
+<li>One where the Hd is true so the unknown/qd comes from our alternative source but where it is easy to distinguish the writers.The idea is that we are randomly selecting writers and checking Bayes Factors for writers that are most similar to our unknown (kinda like a close non match)</li>
+<li>One where the Hd is true so the unknown/qd comes from our alternative source but where it is difficult to distinguish the writers.</li>
+</ol></li>
+</ol>
+<p>To determine the easy and difficult case, we rank all of our writers by their Euclidean distance of the proportion of graphs (add each writers documents together then calculate proportion of graphs in each cluster). The one that is most similar to the unknown gets assigned to be our specific source and the rest of the writers get put in the alternative source for the hard case.The one that is least similar to the unknown gets assigned to be our specific source and the rest of the writers get put in the alternative source for the easy case.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Then run through the Bayes Factor choosing an unknown from a different writer each time.</li>
+</ol>
+<p>Here are the results:</p>
+<p><img src="images/handwriting/anyesha/Hp_True.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="images/handwriting/anyesha/Hd_True_EasyCase.png" width="50%" style="display: block; margin: auto;" /></p>
+<p><img src="images/handwriting/anyesha/Hd_True_DifficultCase.png" width="50%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="next-steps" class="section level4 hasAnchor" number="5.3.7.5">
+<h4><span class="header-section-number">5.3.7.5</span> Next Steps<a href="project-g-handwriting-signatures.html#next-steps" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The next step is to check that everything is doing what it should do, put all three parts together, and try to make it faster.
+Right now these are running separately, so the goal is to have them all run together.</p>
 </div>
 </div>
 <div id="flash-id-and-handwriter-comparison" class="section level3 hasAnchor" number="5.3.8">
